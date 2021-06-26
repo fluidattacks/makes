@@ -1,11 +1,12 @@
-{ config
+{ attrsFromPath
+, config
 , lib
 , path
 , ...
-}:
+} @ args:
 {
   options = {
-    apps = lib.mkOption {
+    drvs = lib.mkOption {
       type = lib.types.anything;
     };
     src = lib.mkOption {
@@ -14,6 +15,9 @@
     };
   };
   config = {
-    apps = config.src;
+    drvs = attrsFromPath {
+      args = args;
+      path = config.src;
+    };
   };
 }

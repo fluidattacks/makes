@@ -1,3 +1,3 @@
 {
-  src = ./makes-src;
+  src = ./makes;
 }
