@@ -20,7 +20,36 @@ rec {
       , ...
       }:
       let
-        args = {
+        args = rec {
+          # Load an attr set distributed across many files and directories
+          attrsFromPath =
+            { args ? { }
+            , path
+            , position ? [ ]
+            }:
+            builtins.foldl'
+              packages.nixpkgs.lib.attrsets.recursiveUpdate
+              { }
+              (packages.nixpkgs.lib.lists.flatten
+                (packages.nixpkgs.lib.attrsets.mapAttrsToList
+                  (name: type:
+                  if type == "directory"
+                  then
+                    attrsFromPath
+                      {
+                        inherit args;
+                        path = "${path}/${name}";
+                        position = position ++ [ name ];
+                      }
+                  else if name == "default.nix"
+                  then
+                    packages.nixpkgs.lib.attrsets.setAttrByPath
+                      position
+                      (import path args)
+                  else { })
+                  (builtins.readDir path)));
+
+          # Return an absolute path to the user's project as a nix-store path
           path = path: head + path;
         };
       in
