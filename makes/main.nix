@@ -1,5 +1,7 @@
-{ ...
+{ makeDerivation
+, ...
 }:
-{
-  a = "123";
+makeDerivation {
+  builder = "touch $out";
+  name = "test";
 }
