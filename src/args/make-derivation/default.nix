@@ -2,6 +2,7 @@
 , builtinLambdas
 , builtinShellCommands
 , builtinShellOptions
+, makeSearchPaths
 , path
 , ...
 }:
@@ -29,14 +30,19 @@ in
 builtins.derivation (arguments' // {
   __envBuiltinShellCommands = builtinShellCommands;
   __envBuiltinShellOptions = builtinShellOptions;
-  __envPath = __packages.nixpkgs.lib.strings.makeBinPath [
+  __envSearchPaths =
+    if searchPaths == { }
+    then "/dev/null"
+    else makeSearchPaths searchPaths;
+  __envSearchPathsBase = __packages.nixpkgs.lib.strings.makeBinPath [
     __packages.nixpkgs.coreutils
   ];
   args = [
     (builtins.toFile "make-derivation" ''
       source $__envBuiltinShellOptions
       source $__envBuiltinShellCommands
-      export PATH=$__envPath
+      export PATH=$__envSearchPathsBase
+      source $__envSearchPaths
 
       ${builtinLambdas.asContent builder}
     '')
