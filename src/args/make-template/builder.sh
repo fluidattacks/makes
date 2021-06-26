@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 export PATH="${__envPath}:${PATH:-}"
-echo $PATH
 
 function replace_var_in_file {
   local file="${1}"
