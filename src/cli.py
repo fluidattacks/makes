@@ -10,13 +10,11 @@ VERSION: str = "4.0"
 def cli(attr: str) -> None:
     with subprocess.Popen(
         args=[
-            os.environ["_NIX_INSTANTIATE"],
-            "--eval",
+            os.environ["_NIX_BUILD"],
             "--arg",
             "head",
             "./.",
-            "--strict",
-            "-A",
+            "--attr",
             f"makes.module.config.{attr}",
         ],
     ) as _:

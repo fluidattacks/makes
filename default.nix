@@ -5,6 +5,7 @@ rec {
     #   Install with: nix-env --install -A makes.m -f .
     #   Run with: m
     m = packages.nixpkgs.writeShellScriptBin "m" ''
+      _NIX_BUILD=${packages.nixpkgs.nix}/bin/nix-build \
       _NIX_INSTANTIATE=${packages.nixpkgs.nix}/bin/nix-instantiate \
       LD_LIBRARY_PATH=/not-set \
       PATH=/not-set \
