@@ -51,11 +51,16 @@ in
     };
   };
   config = {
-    outputs = attrsFromPath {
+    outputs = attrsFromPath rec {
       args = {
-        path = path: head + path;
+        __packages = packages;
+        builtinLambdas = import ../src/args/builtin/lambdas.nix args;
+        builtinShellCommands = ../src/args/builtin/shell-commands.sh;
+        builtinShellOptions = ../src/args/builtin/shell-options.sh;
         inputs = config.inputs;
         outputs = config.outputs;
+        path = path: head + path;
+        makeDerivation = import ../src/args/make-derivation args;
       };
       path = head + config.src;
     };
