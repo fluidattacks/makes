@@ -2,6 +2,8 @@ import click
 import os
 import subprocess
 
+VERSION: str = "4.0"
+
 
 @click.command(help="A SecDevOps Framework powered by Nix.")
 @click.argument("attr")
@@ -22,4 +24,4 @@ def cli(attr: str) -> None:
 
 
 if __name__ == "__main__":
-    cli(prog_name="Makes")  # noqa
+    cli(prog_name=f"Makes v{VERSION}")  # noqa
