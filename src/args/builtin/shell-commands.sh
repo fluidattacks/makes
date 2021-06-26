@@ -1,25 +1,29 @@
 # shellcheck shell=bash
 
+function echo_stderr {
+  echo "${@}" 1>&2
+}
+
 function debug {
-  echo "[DEBUG] ${*}"
+  echo_stderr "[DEBUG]" "${@}"
 }
 
 function info {
-  echo "[INFO] ${*}"
+  echo_stderr "[INFO]" "${@}"
 }
 
 function warn {
-  echo "[WARNING] ${*}"
+  echo_stderr "[WARNING]" "${@}"
 }
 
 function error {
-  echo "[ERROR] ${*}"
+  echo_stderr "[ERROR]" "${@}" \
+    && return 1
 }
 
 function critical {
-  echo "[CRITICAL] ${*}" \
-    && exit 1 \
-    || exit 1
+  echo_stderr "[CRITICAL]" "${@}" \
+    && exit 1
 }
 
 function copy {
