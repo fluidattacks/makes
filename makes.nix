@@ -1,6 +1,3 @@
-{ head
-, ...
-}:
 {
   src = ./makes-src;
 }
