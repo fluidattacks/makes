@@ -7,7 +7,8 @@
 , ...
 }:
 
-{ arguments ? { }
+{ actions ? [ ]
+, arguments ? { }
 , builder
 , local ? false
 , name
@@ -15,6 +16,11 @@
 , sha256 ? null
 }:
 let
+  actions' =
+    if actions == [ ]
+    then ""
+    else "echo '${builtins.toJSON actions}' > $out/makes-actions.json";
+
   # Validate arguments
   arguments' = builtins.mapAttrs
     (k: v: (
@@ -45,6 +51,7 @@ builtins.derivation (arguments' // {
       source $__envSearchPaths
 
       ${builtinLambdas.asContent builder}
+      ${actions'}
     '')
   ];
   builder = "${__packages.nixpkgs.bash}/bin/bash";

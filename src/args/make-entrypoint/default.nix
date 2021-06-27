@@ -14,6 +14,10 @@
 , searchPaths ? { }
 }:
 makeDerivation {
+  actions = [{
+    type = "exec";
+    location = location;
+  }];
   arguments = {
     envEntrypoint = makeTemplate {
       inherit arguments;
