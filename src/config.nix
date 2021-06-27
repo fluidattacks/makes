@@ -38,16 +38,12 @@ let
 in
 {
   options = {
-    outputs = lib.mkOption {
-      type = lib.types.anything;
-    };
     inputs = lib.mkOption {
       default = { };
       type = lib.types.attrs;
     };
-    src = lib.mkOption {
-      default = "/makes";
-      type = lib.types.str;
+    outputs = lib.mkOption {
+      type = lib.types.anything;
     };
   };
   config = {
@@ -65,7 +61,7 @@ in
         makeSearchPaths = import ./args/make-search-paths args;
         makeTemplate = import ./args/make-template args;
       };
-      path = head + config.src;
+      path = head + "/makes";
     };
   };
 }
