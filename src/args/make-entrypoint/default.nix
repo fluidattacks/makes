@@ -39,11 +39,11 @@ makeDerivation {
         envShell = "${__packages.nixpkgs.bash}/bin/bash";
       };
       name = "makes-src-args-make-entrypoint-for-${name}";
-      template = ../../../src/args/make-entrypoint/template.sh;
+      template = ./template.sh;
     };
     envLocation = location;
   };
-  builder = ../../../src/args/make-entrypoint/builder.sh;
+  builder = ./builder.sh;
   local = true;
   inherit name;
 }

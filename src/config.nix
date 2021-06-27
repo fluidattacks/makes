@@ -54,16 +54,16 @@ in
     outputs = attrsFromPath rec {
       args = {
         __packages = packages;
-        builtinLambdas = import ../src/args/builtin/lambdas.nix args;
-        builtinShellCommands = ../src/args/builtin/shell-commands.sh;
-        builtinShellOptions = ../src/args/builtin/shell-options.sh;
+        builtinLambdas = import ./args/builtin/lambdas.nix args;
+        builtinShellCommands = ./args/builtin/shell-commands.sh;
+        builtinShellOptions = ./args/builtin/shell-options.sh;
         inputs = config.inputs;
         outputs = config.outputs;
         path = path: head + path;
-        makeDerivation = import ../src/args/make-derivation args;
-        makeEntrypoint = import ../src/args/make-entrypoint args;
-        makeSearchPaths = import ../src/args/make-search-paths args;
-        makeTemplate = import ../src/args/make-template args;
+        makeDerivation = import ./args/make-derivation args;
+        makeEntrypoint = import ./args/make-entrypoint args;
+        makeSearchPaths = import ./args/make-search-paths args;
+        makeTemplate = import ./args/make-template args;
       };
       path = head + config.src;
     };

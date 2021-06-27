@@ -45,7 +45,7 @@ makeDerivation {
         ${builtinLambdas.asContent template}
       '';
   };
-  builder = ../../../src/args/make-template/builder.sh;
+  builder = ./builder.sh;
   local = true;
   inherit name;
 }
