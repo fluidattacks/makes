@@ -15,11 +15,13 @@ def cli(attr: str) -> None:
             "head",
             "./.",
             "--attr",
-            f"makes.module.config.{attr}",
+            f"config.outputs.{attr}",
+            "--show-trace",
+            os.environ["_EVALUATOR"],
         ],
     ) as _:
         pass
 
 
 if __name__ == "__main__":
-    cli(prog_name=f"Makes v{VERSION}")  # noqa
+    cli(prog_name="makes")  # noqa
