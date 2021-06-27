@@ -11,13 +11,13 @@ function replace_var_in_file {
   if grep --fixed-strings --quiet "${var_name_tpl}" "${file}"; then
     sed -i "s|${var_name_tpl}|${var_value}|g" "${file}"
   else
-    error "Argument is not being used: ${var_name_tpl}"
+    error Argument is not being used: "${var_name_tpl}"
   fi
 }
 
 function main {
   echo "${__envTemplate}" > "${out}" \
-    && info 'Replacing arguments' \
+    && info Replacing arguments \
     && while read -r 'var_name'; do
       replace_var_in_file "${out}" "${var_name}" "${!var_name}" \
         || return 1
@@ -26,9 +26,9 @@ function main {
       replace_var_in_file "${out}" "${var_name}" "$(echo -n "${!var_name}" | base64 --wrap=0)" \
         || return 1
     done < "${__envArgumentBase64NamesFile}" \
-    && info 'Validating unused arguments' \
+    && info Validating unused arguments \
     && if grep --perl-regexp '__env[a-zA-Z]*__' "${out}"; then
-      error 'Some arguments are not being used'
+      error Some arguments are not being used
     fi
 }
 

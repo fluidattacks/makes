@@ -3,7 +3,7 @@
 function main {
   local location="${out}${envLocation}"
 
-  echo '[INFO] Copying files' \
+  info Copying files \
     && mkdir -p "$(dirname "${location}")" \
     && {
       cat "${envEntrypointSetup}" \
