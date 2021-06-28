@@ -1,7 +1,8 @@
-{ __packages
-, builtinLambdas
+{ builtinLambdas
 , builtinShellCommands
+, inputs
 , builtinShellOptions
+, lib
 , makeSearchPaths
 , path
 , ...
@@ -25,8 +26,8 @@ let
   arguments' = builtins.mapAttrs
     (k: v: (
       if (
-        (__packages.nixpkgs.lib.strings.hasPrefix "__env" k) ||
-        (__packages.nixpkgs.lib.strings.hasPrefix "env" k)
+        (lib.strings.hasPrefix "__env" k) ||
+        (lib.strings.hasPrefix "env" k)
       )
       then v
       else abort "Invalid argument: ${k}, must start with: env or __env"
@@ -40,8 +41,8 @@ builtins.derivation (arguments' // {
     if searchPaths == { }
     then "/dev/null"
     else makeSearchPaths searchPaths;
-  __envSearchPathsBase = __packages.nixpkgs.lib.strings.makeBinPath [
-    __packages.nixpkgs.coreutils
+  __envSearchPathsBase = lib.strings.makeBinPath [
+    inputs.makesPackages.nixpkgs.coreutils
   ];
   args = [
     (builtins.toFile "make-derivation" ''
@@ -54,13 +55,13 @@ builtins.derivation (arguments' // {
       ${actions'}
     '')
   ];
-  builder = "${__packages.nixpkgs.bash}/bin/bash";
+  builder = "${inputs.makesPackages.nixpkgs.bash}/bin/bash";
   inherit name;
   system = builtins.currentSystem;
-} // __packages.nixpkgs.lib.optionalAttrs local {
+} // lib.optionalAttrs local {
   allowSubstitutes = false;
   preferLocalBuild = true;
-} // __packages.nixpkgs.lib.optionalAttrs (sha256 != null) {
+} // lib.optionalAttrs (sha256 != null) {
   outputHash = sha256;
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

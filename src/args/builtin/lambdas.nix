@@ -1,13 +1,13 @@
-{ __packages
+{ lib
 , ...
 }:
 
 let
-  toLower = __packages.nixpkgs.lib.strings.toLower;
+  toLower = lib.strings.toLower;
 in
 rec {
   # Return a bash array from a nix list
-  asBashArray = args: "( ${__packages.nixpkgs.lib.strings.escapeShellArgs args} )";
+  asBashArray = args: "( ${lib.strings.escapeShellArgs args} )";
 
   # Ensure the expression contents are read, paths are loaded, strings are left intact
   asContent = expr:
@@ -24,7 +24,7 @@ rec {
     else default;
 
   # Return true if string is a nix store path
-  isStorePath = string: "/nix/store" == __packages.nixpkgs.lib.strings.substring 0 10 string;
+  isStorePath = string: "/nix/store" == lib.strings.substring 0 10 string;
 
   # Write each item on the list to a line in the file, return the file
   listToFileWithTrailinNewLine = list: builtins.toFile "list" (

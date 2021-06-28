@@ -1,5 +1,4 @@
-{ __packages
-, builtinShellCommands
+{ builtinShellCommands
 , makeTemplate
 , ...
 }:
