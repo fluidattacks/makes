@@ -6,7 +6,7 @@ in
 }:
 packages.nixpkgs.lib.modules.evalModules {
   modules = [
-    (import ./config.nix {
+    (import ./modules {
       inherit head;
       inherit packages;
     })
