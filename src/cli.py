@@ -40,7 +40,7 @@ def cli(
             "head",
             "./.",
             "--attr",
-            f"config.outputs{attr}",
+            f'config.outputs."{attr}"',
             "--out-link",
             out,
             *_if(debug, "--show-trace"),
