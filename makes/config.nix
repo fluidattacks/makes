@@ -1,3 +1,6 @@
 {
-  inputs = import ../src/nix/packages.nix { };
+  helloWorld = {
+    enable = true;
+    name = "Jane Doe";
+  };
 }
