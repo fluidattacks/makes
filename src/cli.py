@@ -22,6 +22,10 @@ FROM: str = environ.get("MAKES_FROM", f"file://{getcwd()}")
 VERSION: str = "4.0"
 
 
+class Error(Exception):
+    pass
+
+
 def _if(condition: Any, value: str) -> List[str]:
     return [value] if condition else []
 
@@ -50,8 +54,7 @@ def _get_head() -> str:
     if FROM.startswith("file://"):
         return _get_head_from_file()
 
-    print(f"[ERROR] Unable to load Makes project from: {FROM}")
-    sys.exit(1)
+    raise Error(f"Unable to load Makes project from: {FROM}")
 
 
 def _get_attrs(head: str) -> List[str]:
@@ -64,7 +67,7 @@ def _get_attrs(head: str) -> List[str]:
         with open(out) as file:
             return [f".{attr}" for attr in json.load(file)]
 
-    sys.exit(1)
+    raise Error(f"Unable to list project outputs from: {FROM}")
 
 
 def _help_and_exit(attrs: Optional[List[str]] = None) -> None:
@@ -81,12 +84,18 @@ def _help_and_exit(attrs: Optional[List[str]] = None) -> None:
 
 def cli(args: List[str]) -> None:
     if not args[1:]:
-        _help_and_exit()
+        try:
+            head: str = _get_head()
+            attrs: List[str] = _get_attrs(head)
+        except Error:
+            _help_and_exit()
+        else:
+            _help_and_exit(attrs)
 
     attr: str = args[1]
     args = args[2:]
-    head: str = _get_head()
-    attrs: List[str] = _get_attrs(head)
+    head = _get_head()
+    attrs = _get_attrs(head)
     if attr not in attrs:
         _help_and_exit(attrs)
 
@@ -111,4 +120,8 @@ def cli(args: List[str]) -> None:
 
 
 if __name__ == "__main__":
-    cli(sys.argv)
+    try:
+        cli(sys.argv)
+    except Error as err:
+        print(f"[ERROR] {err}")
+        sys.exit(1)
