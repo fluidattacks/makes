@@ -32,6 +32,8 @@ We strive for:
 - [Getting started](#getting-started)
   * [Getting started as user](#getting-started-as-user)
   * [Getting started as developer](#getting-started-as-developer)
+- [Configuring CI/CD](#configuring-ci-cd)
+  - [Configuring CI/CD on Gitlab](#configuring-ci-cd-on-gitlab)
 - [Makes.nix format](#makesnix-format)
   * [deployContainerImage](#deploycontainerimage)
   * [formatBash](#formatbash)
@@ -123,6 +125,25 @@ Makes targets two kind of users:
       [INFO] Hello from Makes! Jane Doe.
       [INFO] You called us with CLI arguments: [ 1 2 3 ].
       ```
+
+# Configuring CI/CD
+
+## Configuring CI/CD on Gitlab
+
+[GitLab CI/CD][GITLAB_CI]
+is configured through a [.gitlab-ci.yaml][GITLAB_CI_REF] file
+located in the root of the project.
+
+The smallest possible [.gitlab-ci.yaml][GITLAB_CI_REF]
+would look like this:
+
+```yaml
+# /path/to/my/awesome/makes/project
+helloWorld:
+  image: registry.gitlab.com/fluidattacks/product/makes:foss
+  script:
+    - m .helloWorld 1 2 3
+```
 
 # Makes.nix format
 
@@ -241,6 +262,7 @@ Example invocation: `$ m .helloWorld 1 2 3`
 [DOCKER]: https://www.docker.com/
 [GITHUB_ACTIONS]: https://github.com/features/actions
 [GITLAB_CI]: https://docs.gitlab.com/ee/ci/
+[GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
 [NIX]: https://nixos.org
 [NIX_DOWNLOAD]: https://nixos.org/download
 [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
