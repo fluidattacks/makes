@@ -138,7 +138,7 @@ The smallest possible [.gitlab-ci.yaml][GITLAB_CI_REF]
 would look like this:
 
 ```yaml
-# /path/to/my/awesome/makes/project
+# /path/to/my/awesome/makes/project/.gitlab-ci.yaml
 helloWorld:
   image: registry.gitlab.com/fluidattacks/product/makes:foss
   script:
