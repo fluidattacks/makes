@@ -6,17 +6,17 @@
 }:
 
 { config ? null
-, contents ? [ ]
 , extraCommands ? ""
 , layered ? true
+, layers ? [ ]
 , runAsRoot ? null
 }:
 let
   sharedAttrs = {
     inherit config;
-    inherit contents;
+    contents = layers;
     created = "1970-01-01T00:00:01Z";
-    name = "oci";
+    name = "container-image";
     tag = "latest";
   };
 in

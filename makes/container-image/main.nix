@@ -19,7 +19,7 @@ makeContainerImage {
     User = "makes:makes";
     WorkingDir = "/makes";
   };
-  contents = [
+  layers = [
     (makeDerivation {
       arguments = {
         envEtcGroup = ''

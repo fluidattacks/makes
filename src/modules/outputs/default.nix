@@ -10,6 +10,7 @@ let args = {
   builtinShellCommands = ../../args/builtin/shell-commands.sh;
   builtinShellOptions = ../../args/builtin/shell-options.sh;
   config = config;
+  deployContainerImage = import ../../args/deploy-container-image args;
   inputs = config.inputs;
   outputs = config.outputs;
   lib = lib;
