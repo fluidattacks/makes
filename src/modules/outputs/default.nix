@@ -14,9 +14,9 @@ let args = {
   outputs = config.outputs;
   lib = lib;
   path = path: head + path;
+  makeContainerImage = import ../../args/make-container-image args;
   makeDerivation = import ../../args/make-derivation args;
   makeEntrypoint = import ../../args/make-entrypoint args;
-  makeOCI = import ../../../args/make-oci args;
   makeSearchPaths = import ../../args/make-search-paths args;
   makeTemplate = import ../../args/make-template args;
 };
