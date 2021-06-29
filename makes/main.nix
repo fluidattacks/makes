@@ -16,6 +16,8 @@ makeEntrypoint {
   '';
   searchPaths = {
     envPaths = [
+      inputs.makesPackages.nixpkgs.gnutar
+      inputs.makesPackages.nixpkgs.gzip
       inputs.makesPackages.nixpkgs.python38
     ];
     envPythonPaths = [
