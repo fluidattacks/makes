@@ -1,20 +1,20 @@
 # Makes
 
 A SecDevOps framework
-powered by [Nix](https://nixos.org).
+powered by [Nix][NIX].
 
 Our primary goal is to help you setup
-a powerful [CI/CD](https://en.wikipedia.org/wiki/CI/CD) system
+a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
 We strive for:
 - Simplicity: Easy setup with:
   a laptop, or
-  [Docker](https://www.docker.com/), or
-  [GitHub Actions](https://github.com/features/actions), or
-  [Gitlab CI](https://docs.gitlab.com/ee/ci/), or
-  [Travis CI](https://travis-ci.org/), or
-  [Circle CI](https://circleci.com/),
+  [Docker][DOCKER], or
+  [GitHub Actions][GITHUB_ACTIONS], or
+  [Gitlab CI][GITLAB_CI], or
+  [Travis CI][TRAVIS_CI], or
+  [Circle CI][CIRCLE_CI],
   and more!
 - Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
 - Reproducibility: **Any member** of your team,
@@ -28,7 +28,7 @@ We strive for:
 # Getting started
 
 1.  Install Nix as explained
-    in the [NixOS Download page](https://nixos.org/download).
+    in the [NixOS Download page][NIX_DOWNLOAD].
 
 1.  Install Makes:
 
@@ -45,7 +45,7 @@ We strive for:
 
         We will place in this folder
         all the source code
-        for the CI/CD system
+        for the [CI/CD][CI_CD] system
         (build, test, deploy, release, etc).
 
     1.  Create a configuration file named `makes.nix`
@@ -61,7 +61,7 @@ We strive for:
         }
         ```
 
-        We have tens of CI/CD actions
+        We have tens of [CI/CD][CI_CD] actions
         that you can include in jour project as simple as this.
 
     1.  Now run makes!
@@ -143,7 +143,7 @@ Example invocation: `$ m .deployContainerImage.makesGitlab`
 
 ## formatBash
 
-Ensure that bash code is formatted according to [shfmt](https://github.com/mvdan/sh).
+Ensure that bash code is formatted according to [shfmt][SHFMT].
 It helps your code be consistent, beautiful and more maintainable.
 
 Attributes:
@@ -195,6 +195,13 @@ Example invocation: `$ m .helloWorld 1 2 3`
 
 <!-- Links go here, so we can update them in this single place -->
 
-
-
+[CI_CD]: https://en.wikipedia.org/wiki/CI/CD
+[CIRCLE_CI]: https://circleci.com/
+[DOCKER]: https://www.docker.com/
+[GITHUB_ACTIONS]: https://github.com/features/actions
+[GITLAB_CI]: https://docs.gitlab.com/ee/ci/
+[NIX]: https://nixos.org
+[NIX_DOWNLOAD]: https://nixos.org/download
 [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
+[SHFMT]: https://github.com/mvdan/sh
+[TRAVIS_CI]: https://travis-ci.org/
