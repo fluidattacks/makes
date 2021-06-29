@@ -10,6 +10,5 @@ packages.nixpkgs.writeShellScriptBin "m" ''
   PATH=/not-set \
   PYTHONPATH=${src} \
   ${packages.nixpkgs.python3.withPackages (_: [
-    packages.nixpkgs.python3Packages.click
   ])}/bin/python -m cli "$@"
 ''
