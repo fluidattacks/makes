@@ -17,7 +17,7 @@ from typing import (
 )
 
 DEBUG: bool = "MAKES_DEBUG" in environ
-FROM: str = environ.get("MAKES_FROM", "./")
+FROM: str = environ.get("MAKES_FROM", f"file://{getcwd()}")
 VERSION: str = "4.0"
 
 
@@ -42,10 +42,11 @@ def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
 
 
 def _get_head() -> str:
-    if FROM == "./":
+    if FROM.startswith("file://"):
         return "./."
 
-    raise NotImplementedError()
+    print(f"[ERROR] Unable to load Makes project from: {FROM}")
+    sys.exit(1)
 
 
 def _get_attrs(head: str) -> List[str]:
