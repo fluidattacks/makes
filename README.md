@@ -25,6 +25,16 @@ We strive for:
 - Extendibility: You can add custom workflows, easily.
 - Modularity: You opt-in only for what you need.
 
+# Table of contents
+
+<!-- http://ecotrust-canada.github.io/markdown-toc -->
+
+- [Getting started](#getting-started)
+- [Makes.nix format](#makesnix-format)
+  * [deployContainerImage](#deploycontainerimage)
+  * [formatBash](#formatbash)
+  * [helloWorld](#helloworld)
+
 # Getting started
 
 1.  Install Nix as explained
@@ -87,7 +97,12 @@ We strive for:
           [INFO] You called us with CLI arguments: [ 1 2 3 ].
           ```
 
-# Makes configuration options (`makes.nix`)
+# Makes.nix format
+
+A Makes project is identified by a `makes.nix` file
+in the top level directory.
+
+Below we document all configuration options you can tweak with it.
 
 ## deployContainerImage
 
