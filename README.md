@@ -173,6 +173,10 @@ Custom Types:
   - tag (`str`):
     The tag under which the image will be stored in the registry.
 
+Required environment variables:
+- CI_REGISTRY_USER and CI_REGISTRY_PASSWORD, when deploying to GitLab.
+- DOCKER_HUB_USER and DOCKER_HUB_PASS, when deploying to Docker Hub.
+
 Example `makes.nix`:
 
 ```nix
@@ -187,7 +191,7 @@ Example `makes.nix`:
   deployContainerImage = {
     enable = true;
     images = {
-      nginxGitlab = {
+      nginxDockerHub = {
         src = config.inputs.nixpkgs.dockerTools.examples.nginx;
         registry = "docker.io";
         tag = "fluidattacks/nginx:latest";
@@ -201,7 +205,9 @@ Example `makes.nix`:
   };
 ```
 
-Example invocation: `$ m .deployContainerImage.makesGitlab`
+Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m .deployContainerImage.nginxDockerHub`
+
+Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m .deployContainerImage.makesGitlab`
 
 ## formatBash
 
