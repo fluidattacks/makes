@@ -3,6 +3,13 @@
 
 source __envBuiltinShellOptions__
 
+function is_local {
+  # Non-empty on Gitlab
+  export CI
+
+  test -n "${CI:-}"
+}
+
 function setup {
   export CLASSPATH='/not-set'
   export GEM_PATH='/not-set'

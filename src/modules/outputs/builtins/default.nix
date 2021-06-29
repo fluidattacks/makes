@@ -1,6 +1,7 @@
 args:
 {
   imports = [
-    (import ./hello-world.nix args)
+    (import ./format-bash args)
+    (import ./hello-world args)
   ];
 }

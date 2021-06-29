@@ -89,13 +89,44 @@ We strive for:
 
 # Makes configuration options (makes.nix)
 
+## formatBash
+
+Ensure that bash code is formatted according to [shfmt](https://github.com/mvdan/sh).
+It helps your code be consistent, beautiful and more maintainable.
+
+Attributes:
+- enable (boolean): Optional.
+  Defaults to false.
+- targets (listOf str): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatBash = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.sh" # A file
+      "/folder" # A folder within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m .formatBash`
+
 ## helloWorld
 
 Small command for demo purposes, it greets the specified user:
 
 Attributes:
-- enable (boolean): Optional, defaults to false.
-- name (string): Name of the user to greet.
+- enable (boolean): Optional.
+  Defaults to false.
+- name (string): Required.
+  Name of the user to greet.
 
 Example `makes.nix`:
 
