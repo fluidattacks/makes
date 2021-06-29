@@ -89,6 +89,58 @@ We strive for:
 
 # Makes configuration options (makes.nix)
 
+## deployContainerImage
+
+Deploy a set of container images in [OCI Format][OCI_FORMAT_REPO]
+to the specified container registries.
+
+Attributes:
+- enable (boolean): Optional.
+  Defaults to false.
+- images (attrsOf imageType): Optional.
+  Definitions of container images to deploy.
+  Defaults to `{ }`.
+
+Custom Types:
+- imageType (submodule):
+  - registry (enum ["docker.io" "registry.gitlab.com"]):
+    Registry in which the image will be copied to.
+  - src (package):
+    Derivation that contains the container image in [OCI Format][OCI_FORMAT_REPO].
+  - tag (str):
+    The tag under which the image will be stored in the registry.
+
+Example `makes.nix`:
+
+```nix
+{ config
+, ...
+}:
+{
+  inputs = {
+    nixpkgs = import <nixpkgs> { };
+  };
+
+  deployContainerImage = {
+    enable = true;
+    images = {
+      nginxGitlab = {
+        src = config.inputs.nixpkgs.dockerTools.examples.nginx;
+        registry = "docker.io";
+        tag = "fluidattacks/nginx:latest";
+      };
+
+      makesGitlab = {
+        src = config.outputs."container-image";
+        registry = "registry.gitlab.com";
+        tag = "fluidattacks/product/makes:foss";
+      };
+    };
+  };
+```
+
+Example invocation: `$ m .deployContainerImage.makesGitlab`
+
 ## formatBash
 
 Ensure that bash code is formatted according to [shfmt](https://github.com/mvdan/sh).
@@ -140,3 +192,9 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m .helloWorld 1 2 3`
+
+<!-- Links go here, so we can update them in this single place -->
+
+
+
+[OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
