@@ -1,8 +1,8 @@
-{ makeEntrypoint
+{ lib
+, makeEntrypoint
 , ...
 }:
 { config
-, lib
 , ...
 }:
 {
