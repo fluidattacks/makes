@@ -86,3 +86,26 @@ We strive for:
           [INFO] Hello from Makes! Jane Doe.
           [INFO] You called us with CLI arguments: [ 1 2 3 ].
           ```
+
+# Makes configuration options (makes.nix)
+
+## helloWorld
+
+Small command for demo purposes, it greets the specified user:
+
+Attributes:
+- enable (boolean): Optional, defaults to false.
+- name (string): Name of the user to greet.
+
+Example `makes.nix`:
+
+```nix
+{
+  helloWorld = {
+    enable = true;
+    name = "Jane Doe";
+  };
+}
+```
+
+Example invocation: `$ m .helloWorld 1 2 3`
