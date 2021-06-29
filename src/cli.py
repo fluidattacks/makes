@@ -4,6 +4,7 @@ from os import (
     getcwd,
 )
 from os.path import (
+    abspath,
     exists,
     join,
 )
@@ -41,9 +42,13 @@ def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
     ]
 
 
+def _get_head_from_file() -> str:
+    return abspath(FROM[7:])
+
+
 def _get_head() -> str:
     if FROM.startswith("file://"):
-        return "./."
+        return _get_head_from_file()
 
     print(f"[ERROR] Unable to load Makes project from: {FROM}")
     sys.exit(1)
