@@ -1,4 +1,5 @@
 { makeEntrypoint
+, inputs
 , ...
 }:
 { containerImage
@@ -16,7 +17,7 @@ makeEntrypoint {
   inherit name;
   searchPaths = {
     envPaths = [
-      pkgs.skopeo
+      inputs.makesPackages.nixpkgs.skopeo
     ];
   };
 }
