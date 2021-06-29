@@ -1,10 +1,10 @@
 # Makes
 
 A SecDevOps framework
-powered by Nix.
+powered by [Nix](https://nixos.org).
 
 Our primary goal is to help you setup
-a powerful CI/CD (Continuous Integration / Continuous Delivery) system
+a powerful [CI/CD](https://en.wikipedia.org/wiki/CI/CD) system
 in just a few steps, in any technology.
 
 We strive for:
@@ -16,14 +16,14 @@ We strive for:
   [Travis CI](https://travis-ci.org/), or
   [Circle CI](https://circleci.com/),
   and more!
-- Sensible defaults: Good for all projects of any size, **out-of-the-box**.
-- Modularity: You opt-in only for what you need.
-- Reproducibility: Any member of your team,
+- Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
+- Reproducibility: **Any member** of your team,
   day or night, yesterday and tomorrow, builds and get **exactly the same results**.
 - Dev environments: **Any member** of your team with a Linux machine and
   the required secrets **can execute the entire CI/CD pipeline**.
-- Performance: A highly granular caching system so you only have to **build things once**.
+- Performance: A highly granular **caching** system so you only have to **build things once**.
 - Extendibility: You can add custom workflows, easily.
+- Modularity: You opt-in only for what you need.
 
 # Getting started
 
