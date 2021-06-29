@@ -100,7 +100,7 @@ def cli(args: List[str]) -> None:
         _help_and_exit(attrs)
 
     cwd: str = getcwd()
-    out: str = join(cwd, f"result{attr.replace('.', '-')}")
+    out: str = join(cwd, f"result{attr}")
     actions_path: str = join(out, "makes-actions.json")
 
     process: subprocess.CompletedProcess = subprocess.run(
