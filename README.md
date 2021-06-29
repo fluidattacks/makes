@@ -32,7 +32,7 @@ We strive for:
 
 1.  Install Makes:
 
-    `$ nix-env -if https://github.com/fluidattacks/makes/archive/main.tar.gz`
+    `$ nix-env -if https://fluidattacks.com/makes/install`
 
 1.  Setup Makes in your project:
 
