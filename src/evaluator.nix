@@ -10,6 +10,6 @@ packages.nixpkgs.lib.modules.evalModules {
       inherit head;
       inherit packages;
     })
-    (head + "/makes/config.nix")
+    (head + "/makes.nix")
   ];
 }

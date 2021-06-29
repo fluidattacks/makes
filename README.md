@@ -48,10 +48,11 @@ We strive for:
         for the CI/CD system
         (build, test, deploy, release, etc).
 
-    1.  Create a configuration file at `makes/config.nix`
+    1.  Create a configuration file named `makes.nix`
         with the following contents:
 
         ```nix
+        # /path/to/my/awesome/project/makes.nix
         {
           helloWorld = {
             enable = true;
