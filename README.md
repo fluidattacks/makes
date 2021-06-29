@@ -45,8 +45,7 @@ We strive for:
 
         We will place in this folder
         all the source code
-        for the Continuous Integration (CI)
-        and Continuous Delivery (CD) system
+        for the CI/CD system
         (build, test, deploy, release, etc).
 
     1.  Create a configuration file at `makes/config.nix`
@@ -61,7 +60,7 @@ We strive for:
         }
         ```
 
-        We have tens of DevOPS (CI/CD) Actions
+        We have tens of CI/CD actions
         that you can include in jour project as simple as this.
 
     1.  Now run makes!
