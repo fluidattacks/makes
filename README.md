@@ -87,7 +87,7 @@ We strive for:
           [INFO] You called us with CLI arguments: [ 1 2 3 ].
           ```
 
-# Makes configuration options (makes.nix)
+# Makes configuration options (`makes.nix`)
 
 ## deployContainerImage
 
@@ -95,19 +95,19 @@ Deploy a set of container images in [OCI Format][OCI_FORMAT_REPO]
 to the specified container registries.
 
 Attributes:
-- enable (boolean): Optional.
+- enable (`boolean`): Optional.
   Defaults to false.
-- images (attrsOf imageType): Optional.
+- images (`attrsOf imageType`): Optional.
   Definitions of container images to deploy.
   Defaults to `{ }`.
 
 Custom Types:
-- imageType (submodule):
-  - registry (enum ["docker.io" "registry.gitlab.com"]):
+- imageType (`submodule`):
+  - registry (`enum ["docker.io" "registry.gitlab.com"]`):
     Registry in which the image will be copied to.
-  - src (package):
+  - src (`package`):
     Derivation that contains the container image in [OCI Format][OCI_FORMAT_REPO].
-  - tag (str):
+  - tag (`str`):
     The tag under which the image will be stored in the registry.
 
 Example `makes.nix`:
@@ -129,7 +129,6 @@ Example `makes.nix`:
         registry = "docker.io";
         tag = "fluidattacks/nginx:latest";
       };
-
       makesGitlab = {
         src = config.outputs."container-image";
         registry = "registry.gitlab.com";
@@ -147,9 +146,9 @@ Ensure that bash code is formatted according to [shfmt][SHFMT].
 It helps your code be consistent, beautiful and more maintainable.
 
 Attributes:
-- enable (boolean): Optional.
+- enable (`boolean`): Optional.
   Defaults to false.
-- targets (listOf str): Optional.
+- targets (`listOf str`): Optional.
   Files or directories (relative to the project) to format.
   Defaults to the entire project.
 
@@ -175,9 +174,9 @@ Example invocation: `$ m .formatBash`
 Small command for demo purposes, it greets the specified user:
 
 Attributes:
-- enable (boolean): Optional.
+- enable (`boolean`): Optional.
   Defaults to false.
-- name (string): Required.
+- name (`string`): Required.
   Name of the user to greet.
 
 Example `makes.nix`:
