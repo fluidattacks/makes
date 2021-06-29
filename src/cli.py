@@ -108,7 +108,7 @@ def cli(args: List[str]) -> None:
     actions_path: str = join(out, "makes-actions.json")
 
     process: subprocess.CompletedProcess = subprocess.run(
-        args=_nix_build(head, f"config.outputs{attr}", out),
+        args=_nix_build(head, f'config.outputs."{attr[1:]}"', out),
         check=False,
     )
 
