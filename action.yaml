@@ -1,0 +1,18 @@
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+author: Fluid Attacks
+branding:
+  icon: cloud
+  color: red
+description: Execute a command in a Makes project.
+inputs:
+  args:
+    default: ''
+    description: Arguments to pass to 'm'
+    required: false
+name: Makes
+runs:
+  args:
+    - bash -c
+    - set -x && m ${INPUT_ARGS}
+  image: docker://registry.gitlab.com/fluidattacks/product/makes:foss
+  using: docker
