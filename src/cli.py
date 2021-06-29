@@ -26,6 +26,10 @@ class Error(Exception):
     pass
 
 
+def _log(*args: str) -> None:
+    print(*args, file=sys.stderr)
+
+
 def _if(condition: Any, value: str) -> List[str]:
     return [value] if condition else []
 
@@ -71,14 +75,14 @@ def _get_attrs(head: str) -> List[str]:
 
 
 def _help_and_exit(attrs: Optional[List[str]] = None) -> None:
-    print("Usage: makes [OUTPUT] [ARGS]...")
-    print()
-    print("A SecDevOps Framework powered by Nix.")
+    _log("Usage: makes [OUTPUT] [ARGS]...")
+    _log()
+    _log("A SecDevOps Framework powered by Nix.")
     if attrs is not None:
-        print()
-        print(f"Outputs list for project: {FROM}")
+        _log()
+        _log(f"Outputs list for project: {FROM}")
         for attr in attrs:
-            print(f"  {attr}")
+            _log(f"  {attr}")
     sys.exit(1)
 
 
@@ -123,5 +127,5 @@ if __name__ == "__main__":
     try:
         cli(sys.argv)
     except Error as err:
-        print(f"[ERROR] {err}")
+        _log(f"[ERROR] {err}")
         sys.exit(1)
