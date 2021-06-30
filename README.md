@@ -33,7 +33,8 @@ We strive for:
   * [Getting started as user](#getting-started-as-user)
   * [Getting started as developer](#getting-started-as-developer)
 - [Configuring CI/CD](#configuring-ci-cd)
-  - [Configuring CI/CD on Gitlab](#configuring-ci-cd-on-gitlab)
+  * [Configuring on GitHub Actions](#configuring-on-github-actions)
+  * [Configuring on GitLab CI/cd](#configuring-on-gitlab-ci-cd)
 - [Makes.nix format](#makesnix-format)
   * [deployContainerImage](#deploycontainerimage)
   * [formatBash](#formatbash)
@@ -128,14 +129,37 @@ Makes targets two kind of users:
 
 # Configuring CI/CD
 
-## Configuring CI/CD on Gitlab
+## Configuring on GitHub Actions
+
+[GitHub Actions][GITHUB_ACTIONS]
+is configured through [workflow files][GITHUB_WORKFLOWS]
+located in a `.github/workflows` folder in the root of the project.
+
+The smallest possible [workflow file][GITHUB_WORKFLOWS]
+looks like this:
+
+```yaml
+# .github/workflows/main.yml
+name: Makes CI
+on: [push, pull_request]
+jobs:
+  makes:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: fluidattacks/makes@main
+      with:
+        args: .helloWorld 1 2 3
+```
+
+## Configuring on GitLab CI/cd
 
 [GitLab CI/CD][GITLAB_CI]
 is configured through a [.gitlab-ci.yaml][GITLAB_CI_REF] file
 located in the root of the project.
 
 The smallest possible [.gitlab-ci.yaml][GITLAB_CI_REF]
-would look like this:
+looks like this:
 
 ```yaml
 # /path/to/my/awesome/makes/project/.gitlab-ci.yaml
@@ -267,6 +291,7 @@ Example invocation: `$ m .helloWorld 1 2 3`
 [CIRCLE_CI]: https://circleci.com/
 [DOCKER]: https://www.docker.com/
 [GITHUB_ACTIONS]: https://github.com/features/actions
+[GITHUB_WORKFLOWS]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 [GITLAB_CI]: https://docs.gitlab.com/ee/ci/
 [GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
 [NIX]: https://nixos.org
