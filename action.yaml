@@ -9,7 +9,7 @@ inputs:
     default: ''
     description: Arguments to pass to 'm'
     required: false
-name: Makes
+name: Run Makes
 runs:
   args:
     - bash
