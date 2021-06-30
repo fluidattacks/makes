@@ -12,7 +12,8 @@ inputs:
 name: Makes
 runs:
   args:
-    - bash -c
+    - bash
+    - -c
     - set -x && m ${INPUT_ARGS}
   image: docker://registry.gitlab.com/fluidattacks/product/makes:foss
   using: docker
