@@ -1,11 +1,14 @@
 jobs:
-  formatBash:
+  makes:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
       with:
         args: .formatBash
+    - uses: fluidattacks/makes@main
+      with:
+        args: .helloWorld
 name: CI
 on:
   push:
