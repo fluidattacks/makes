@@ -152,7 +152,7 @@ jobs:
         args: .helloWorld 1 2 3
 ```
 
-## Configuring on GitLab CI/cd
+## Configuring on GitLab CI/CD
 
 [GitLab CI/CD][GITLAB_CI]
 is configured through a [.gitlab-ci.yaml][GITLAB_CI_REF] file
