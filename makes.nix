@@ -9,12 +9,22 @@
   deployContainerImage = {
     enable = true;
     images = {
-      makesGitlab = {
+      makesGitHub = {
+        src = config.outputs."container-image";
+        registry = "ghcr.io";
+        tag = "fluidattacks/makes:main";
+      };
+      makesGitHubMonthly = {
+        src = config.outputs."container-image";
+        registry = "ghcr.io";
+        tag = "fluidattacks/makes:$(date +%y.%m)";
+      };
+      makesGitLab = {
         src = config.outputs."container-image";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:main";
       };
-      makesGitlabMonthly = {
+      makesGitLabMonthly = {
         src = config.outputs."container-image";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:$(date +%y.%m)";

@@ -10,6 +10,8 @@ function main {
       credentials="${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}"
     elif test '__envRegistry__' = 'docker.io'; then
       credentials="${DOCKER_HUB_USER}:${DOCKER_HUB_PASS}"
+    elif test '__envRegistry__' = 'ghcr.io'; then
+      credentials="${GITHUB_ACTOR}:${GITHUB_TOKEN}"
     else
       error Ivalid registry
     fi \
