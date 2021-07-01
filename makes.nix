@@ -12,7 +12,12 @@
       makesGitlab = {
         src = config.outputs."container-image";
         registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/makes:foss";
+        tag = "fluidattacks/product/makes:main";
+      };
+      makesGitlabMonthly = {
+        src = config.outputs."container-image";
+        registry = "registry.gitlab.com";
+        tag = "fluidattacks/product/makes:$(date +%y.%m)";
       };
     };
   };
