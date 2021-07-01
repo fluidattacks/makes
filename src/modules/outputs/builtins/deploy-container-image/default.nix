@@ -19,6 +19,7 @@
             registry = lib.mkOption {
               type = lib.types.enum [
                 "docker.io"
+                "ghcr.io"
                 "registry.gitlab.com"
               ];
             };

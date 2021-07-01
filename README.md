@@ -190,7 +190,7 @@ Attributes:
 
 Custom Types:
 - imageType (`submodule`):
-  - registry (`enum ["docker.io" "registry.gitlab.com"]`):
+  - registry (`enum ["docker.io" "ghcr.io" "registry.gitlab.com"]`):
     Registry in which the image will be copied to.
   - src (`package`):
     Derivation that contains the container image in [OCI Format][OCI_FORMAT_REPO].
@@ -200,6 +200,7 @@ Custom Types:
 Required environment variables:
 - CI_REGISTRY_USER and CI_REGISTRY_PASSWORD, when deploying to GitLab.
 - DOCKER_HUB_USER and DOCKER_HUB_PASS, when deploying to Docker Hub.
+- GITHUB_ACTOR and GITHUB_TOKEN, when deploying to Github Container Registry.
 
 Example `makes.nix`:
 
@@ -220,10 +221,15 @@ Example `makes.nix`:
         registry = "docker.io";
         tag = "fluidattacks/nginx:latest";
       };
-      makesGitlab = {
+      redisGitHub = {
+        src = config.inputs.nixpkgs.dockerTools.examples.redis;
+        registry = "ghcr.io";
+        tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
+      };
+      makesGitLab = {
         src = config.outputs."container-image";
         registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/makes:foss";
+        tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var
       };
     };
   };
@@ -231,7 +237,9 @@ Example `makes.nix`:
 
 Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m .deployContainerImage.nginxDockerHub`
 
-Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m .deployContainerImage.makesGitlab`
+Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m .deployContainerImage.makesGitHub`
+
+Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m .deployContainerImage.makesGitLab`
 
 ## formatBash
 
