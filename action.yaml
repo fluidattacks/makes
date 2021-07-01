@@ -14,5 +14,5 @@ runs:
     - bash
     - -c
     - set -x && ${INPUT_ARGS}
-  image: docker://registry.gitlab.com/fluidattacks/product/makes:21.07
+  image: docker://ghcr.io/fluidattacks/makes:21.07
   using: docker
