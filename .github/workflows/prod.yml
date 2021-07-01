@@ -1,0 +1,39 @@
+jobs:
+  deployContainerImage_makesGitHub:
+    environment: prod
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: fluidattacks/makes@main
+      with:
+        args: >
+          GITHUB_ACTOR='{{ secrets.GH_USER }}'
+          GITHUB_TOKEN='{{ secrets.GH_TOKEN }}'
+          m .deployContainerImage.makesGitHub
+    - uses: fluidattacks/makes@main
+      with:
+        args: >
+          GITHUB_ACTOR='{{ secrets.GH_USER }}'
+          GITHUB_TOKEN='{{ secrets.GH_TOKEN }}'
+          m .deployContainerImage.makesGitHubMonthly
+  deployContainerImage_makesGitLab:
+    environment: prod
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: fluidattacks/makes@main
+      with:
+        args: >
+          CI_REGISTRY_USER='{{ secrets.GL_USER }}'
+          CI_REGISTRY_PASSWORD='{{ secrets.GL_TOKEN }}'
+          m .deployContainerImage.makesGitHub
+    - uses: fluidattacks/makes@main
+      with:
+        args: >
+          CI_REGISTRY_USER='{{ secrets.GL_USER }}'
+          CI_REGISTRY_PASSWORD='{{ secrets.GL_TOKEN }}'
+          m .deployContainerImage.makesGitHubMonthly
+name: CI
+on:
+  push:
+    branches: [ main ]

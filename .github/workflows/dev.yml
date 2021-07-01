@@ -1,17 +1,21 @@
 jobs:
-  makes:
+  formatBash:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
       with:
-        args: .formatBash
+        args: m .formatBash
+  helloWorld:
+    environment: dev
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
       with:
-        args: .helloWorld
+        args: m .helloWorld
 name: CI
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
