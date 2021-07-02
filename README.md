@@ -151,9 +151,11 @@ jobs:
     #   main: latest release (example: /makes@main)
     #   action-vYY.MM: monthly release (example: /makes@action-v21.06)
     - uses: fluidattacks/makes@main
+      # You can use any name you like here
+      name: helloWorld
       # You can pass secrets (if required) as environment variables like this:
-      # env:
-      #   SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
+      env:
+        SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
       with:
         args: .helloWorld 1 2 3
 ```
