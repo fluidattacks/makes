@@ -15,6 +15,7 @@ from typing import (
     Any,
     List,
     Optional,
+    Tuple,
 )
 
 DEBUG: bool = "MAKES_DEBUG" in environ
@@ -63,15 +64,31 @@ def _get_head() -> str:
 
 def _get_attrs(head: str) -> List[str]:
     out: str = tempfile.mktemp()
-    process: subprocess.CompletedProcess = subprocess.run(
+    code, _, _, = _run(
         args=_nix_build(head, "config.attrs", out),
-        check=False,
     )
-    if process.returncode == 0:
+    if code == 0:
         with open(out) as file:
             return [f".{attr}" for attr in json.load(file)]
 
     raise Error(f"Unable to list project outputs from: {FROM}")
+
+
+def _run(
+    args: List[str],
+    stdout: bool = False,
+    stderr: bool = False,
+) -> Tuple[int, bytes, bytes]:
+    with subprocess.Popen(
+        args=args,
+        stdout=subprocess.PIPE if stdout else None,
+        stderr=subprocess.PIPE if stderr else None,
+    ) as process:
+        process.wait()
+        out = process.stdout if process.stdout else bytes()
+        err = process.stderr if process.stderr else bytes()
+
+        return process.returncode, out, err
 
 
 def _help_and_exit(attrs: Optional[List[str]] = None) -> None:
@@ -107,20 +124,18 @@ def cli(args: List[str]) -> None:
     out: str = join(cwd, f"result{attr}")
     actions_path: str = join(out, "makes-actions.json")
 
-    process: subprocess.CompletedProcess = subprocess.run(
+    code, _, _ = _run(
         args=_nix_build(head, f'config.outputs."{attr[1:]}"', out),
-        check=False,
     )
 
-    if process.returncode == 0:
+    if code == 0:
         if exists(actions_path):
             with open(actions_path) as actions_file:
                 for action in json.load(actions_file):
                     if action["type"] == "exec":
-                        subprocess.run(
-                            args=[join(out, action["location"][1:]), *args],
-                            check=False,
-                        )
+                        action_target: str = join(out, action["location"][1:])
+                        code, _, _ = _run(args=[action_target, *args])
+                        sys.exit(code)
 
 
 if __name__ == "__main__":

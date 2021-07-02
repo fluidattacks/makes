@@ -15,7 +15,7 @@ jobs:
       name: helloWorld
       with:
         args: m .helloWorld
-name: CI
+name: Makes
 on:
   pull_request:
     branches: [ main ]
