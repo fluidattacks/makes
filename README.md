@@ -147,7 +147,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    # We offer this GitHub action in the following versions:
+    #   main: latest release (example: /makes@main)
+    #   action-vYY.MM: monthly release (example: /makes@action-v21.06)
     - uses: fluidattacks/makes@main
+      # You can pass secrets (if required) as environment variables like this:
+      # env:
+      #   SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
       with:
         args: .helloWorld 1 2 3
 ```
@@ -164,10 +170,17 @@ looks like this:
 ```yaml
 # /path/to/my/awesome/makes/project/.gitlab-ci.yaml
 helloWorld:
-  image: registry.gitlab.com/fluidattacks/product/makes:foss
+  # We offer this Container Image in the following tags:
+  #   head: latest release (example: /makes:head)
+  #   yy.mm: monthly release (example: /makes:21.07)
+  image: registry.gitlab.com/fluidattacks/product/makes:head
   script:
     - m .helloWorld 1 2 3
 ```
+
+Secrets can be propagated to Makes through [GitLab Variables][GITLAB_VARS],
+which are passed automatically to the running container
+as environment variables.
 
 # Makes.nix format
 
@@ -302,6 +315,7 @@ Example invocation: `$ m .helloWorld 1 2 3`
 [GITHUB_WORKFLOWS]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 [GITLAB_CI]: https://docs.gitlab.com/ee/ci/
 [GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
+[GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
 [NIX]: https://nixos.org
 [NIX_DOWNLOAD]: https://nixos.org/download
 [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
