@@ -20,17 +20,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
+      name: deployContainerImage_makesGitLab
       env:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
-        args: m .deployContainerImage.makesGitHub
+        args: m .deployContainerImage.makesGitLab
     - uses: fluidattacks/makes@main
+      name: deployContainerImage_makesGitLabMonthly
       env:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
-        args: m .deployContainerImage.makesGitHubMonthly
+        args: m .deployContainerImage.makesGitLabMonthly
 name: CI
 on:
   push:
