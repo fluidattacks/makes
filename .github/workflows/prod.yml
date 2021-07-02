@@ -1,36 +1,34 @@
 jobs:
   deployContainerImage_makesGitHub:
-    environment: prod
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
       env:
-        GITHUB_ACTOR: ${{ secrets.GH_USER }}
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
+        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
         args: m .deployContainerImage.makesGitHub
     - uses: fluidattacks/makes@main
       env:
-        GITHUB_ACTOR: ${{ secrets.GH_USER }}
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
+        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
         args: m .deployContainerImage.makesGitHubMonthly
   deployContainerImage_makesGitLab:
-    environment: prod
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
       env:
-        CI_REGISTRY_USER: ${{ secrets.GL_USER }}
-        CI_REGISTRY_PASSWORD: ${{ secrets.GL_TOKEN }}
+        CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
+        CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
         args: m .deployContainerImage.makesGitHub
     - uses: fluidattacks/makes@main
       env:
-        CI_REGISTRY_USER: ${{ secrets.GL_USER }}
-        CI_REGISTRY_PASSWORD: ${{ secrets.GL_TOKEN }}
+        CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
+        CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
         args: m .deployContainerImage.makesGitHubMonthly
 name: CI
