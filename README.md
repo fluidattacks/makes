@@ -34,7 +34,7 @@ We strive for:
   * [Getting started as developer](#getting-started-as-developer)
 - [Configuring CI/CD](#configuring-ci-cd)
   * [Configuring on GitHub Actions](#configuring-on-github-actions)
-  * [Configuring on GitLab CI/cd](#configuring-on-gitlab-ci-cd)
+  * [Configuring on GitLab CI/CD](#configuring-on-gitlab-ci-cd)
 - [Makes.nix format](#makesnix-format)
   * [deployContainerImage](#deploycontainerimage)
   * [formatBash](#formatbash)
