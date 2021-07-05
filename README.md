@@ -41,9 +41,9 @@ We strive for:
 - :beers: Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
 - :dancers: Reproducibility: **Any member** of your team,
   day or night, yesterday and tomorrow, builds and get **exactly the same results**.
-- :computer: Dev environments: **Any member** of your team with a Linux machine and
+- :woman_technologist: Dev environments: **Any member** of your team with a Linux machine and
   the required secrets **can execute the entire CI/CD pipeline**.
-- :racehorse: Performance: A highly granular **caching** system so you only have to **build things once**.
+- :horse_racing: Performance: A highly granular **caching** system so you only have to **build things once**.
 - :shipit: Extendibility: You can add custom workflows, easily.
 
 # Getting started
