@@ -57,7 +57,7 @@ on any of the [Nix's supported platforms][NIX_PLATFORMS].
 
 We have **thoroughly** tested it in
 [x86_64, AMD64 or Intel64][X86_64] Linux machines,
-which are the very easy to find on any cloud provider.
+which are very easy to find on any cloud provider.
 
 In order to use Makes you'll need to:
 
