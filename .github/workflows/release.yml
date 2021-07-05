@@ -1,4 +1,13 @@
 jobs:
+  releaseTableOfContents:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: technote-space/toc-generator@v4
+        with:
+          COMMIT_EMAIL: help@fluidattacks.com
+          COMMIT_MESSAGE: "feat(doc): update table of contents"
+          COMMIT_NAME: Fluid Attacks
+          TOC_TITLE: "# Contents"
   releaseGitHubAction:
     runs-on: ubuntu-latest
     steps:
