@@ -22,6 +22,7 @@ in just a few steps, in any technology.
 - [Makes.nix format](#makesnix-format)
   - [Formatters](#formatters)
     - [formatBash](#formatbash)
+    - [formatPython](#formatpython)
   - [Container Images](#container-images)
     - [deployContainerImage](#deploycontainerimage)
   - [Examples](#examples)
