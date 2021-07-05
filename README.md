@@ -9,23 +9,8 @@ in just a few steps, in any technology.
 
 # Contents
 
-<!-- http://ecotrust-canada.github.io/markdown-toc -->
-
-- [Philosophy](#philosophy)
-- [Getting started](#getting-started)
-  * [Getting started as user](#getting-started-as-user)
-  * [Getting started as developer](#getting-started-as-developer)
-- [Configuring CI/CD](#configuring-ci-cd)
-  * [Configuring on GitHub Actions](#configuring-on-github-actions)
-  * [Configuring on GitLab CI/CD](#configuring-on-gitlab-ci-cd)
-- [Makes.nix format](#makesnix-format)
-  * [Formatters](#formatters)
-    + [formatBash](#formatbash)
-  * [Container Images](#container-images)
-    + [deployContainerImage](#deploycontainerimage)
-  * [Examples](#examples)
-    + [helloWorld](#helloworld)
-- [References](#references)
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 # Philosophy
 
