@@ -171,7 +171,7 @@ jobs:
       env:
         SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
       with:
-        args: .helloWorld 1 2 3
+        args: m .helloWorld 1 2 3
 ```
 
 ## Configuring on GitLab CI/CD
