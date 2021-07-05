@@ -8,7 +8,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
         root: ./action.yaml
-        regex_pattern: "^# Version: (.*)$"
+        regex_pattern: "Version: (.*)"
 name: Release
 on:
   push:
