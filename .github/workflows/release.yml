@@ -4,11 +4,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: butlerlogic/action-autotag@1.1.1
+      id: tag
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
         root: ./action.yaml
         regex_pattern: "Version: (.*)"
+    - uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
+      with:
+        release_name: ${{ steps.tag.outputs.version }}
+        tag_name: ${{ steps.tag.outputs.version }}
 name: Release
 on:
   push:
