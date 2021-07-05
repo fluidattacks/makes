@@ -1,0 +1,14 @@
+jobs:
+  releaseGitHubAction:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: butlerlogic/action-autotag@1.1.1
+      with:
+        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
+        root: action.yaml
+        regex_pattern: "^# Version: (.*)$"
+name: Release
+on:
+  push:
+    branches: [ main ]

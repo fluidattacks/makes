@@ -1,4 +1,6 @@
-# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+# Below line will be used for tagging the release, bump if needed
+# Mark pre-releases as -pre$num
+# Version: action-v21.07-pre2
 author: Fluid Attacks
 branding:
   icon: check-circle

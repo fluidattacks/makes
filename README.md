@@ -7,7 +7,7 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
-# Table of contents
+# Contents
 
 <!-- http://ecotrust-canada.github.io/markdown-toc -->
 
