@@ -7,28 +7,11 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
-We strive for:
-- Simplicity: Easy setup with:
-  a laptop, or
-  [Docker][DOCKER], or
-  [GitHub Actions][GITHUB_ACTIONS], or
-  [Gitlab CI][GITLAB_CI], or
-  [Travis CI][TRAVIS_CI], or
-  [Circle CI][CIRCLE_CI],
-  and more!
-- Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
-- Reproducibility: **Any member** of your team,
-  day or night, yesterday and tomorrow, builds and get **exactly the same results**.
-- Dev environments: **Any member** of your team with a Linux machine and
-  the required secrets **can execute the entire CI/CD pipeline**.
-- Performance: A highly granular **caching** system so you only have to **build things once**.
-- Extendibility: You can add custom workflows, easily.
-- Modularity: You opt-in only for what you need.
-
 # Table of contents
 
 <!-- http://ecotrust-canada.github.io/markdown-toc -->
 
+- [Philosophy](#philosophy)
 - [Getting started](#getting-started)
   * [Getting started as user](#getting-started-as-user)
   * [Getting started as developer](#getting-started-as-developer)
@@ -36,15 +19,42 @@ We strive for:
   * [Configuring on GitHub Actions](#configuring-on-github-actions)
   * [Configuring on GitLab CI/CD](#configuring-on-gitlab-ci-cd)
 - [Makes.nix format](#makesnix-format)
-  * [deployContainerImage](#deploycontainerimage)
-  * [formatBash](#formatbash)
-  * [helloWorld](#helloworld)
+  * [Formatters](#formatters)
+    + [formatBash](#formatbash)
+  * [Container Images](#container-images)
+    + [deployContainerImage](#deploycontainerimage)
+  * [Examples](#examples)
+    + [helloWorld](#helloworld)
+- [References](#references)
+
+# Philosophy
+
+We strive for:
+- :star2: Simplicity: Easy setup with:
+  a laptop, or
+  [Docker][DOCKER], or
+  [GitHub Actions][GITHUB_ACTIONS], or
+  [Gitlab CI][GITLAB_CI], or
+  [Travis CI][TRAVIS_CI], or
+  [Circle CI][CIRCLE_CI],
+  and more!
+- :beers: Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
+- :dancers: Reproducibility: **Any member** of your team,
+  day or night, yesterday and tomorrow, builds and get **exactly the same results**.
+- :computer: Dev environments: **Any member** of your team with a Linux machine and
+  the required secrets **can execute the entire CI/CD pipeline**.
+- :racehorse: Performance: A highly granular **caching** system so you only have to **build things once**.
+- :shipit: Extendibility: You can add custom workflows, easily.
 
 # Getting started
 
 Makes is powered by [Nix][NIX].
-It's capable of running in any system as long as it supports Nix.
-We have thoroughly tested it in x86_64-linux machines.
+Which means that Makes is able to run
+on any of the [Nix's supported platforms][NIX_PLATFORMS].
+
+We have **thoroughly** tested it in
+[x86_64, AMD64 or Intel64][X86_64] Linux machines,
+which are the very easy to find on any cloud provider.
 
 In order to use Makes you'll need to:
 
@@ -191,7 +201,40 @@ in the top level directory.
 
 Below we document all configuration options you can tweak with it.
 
-## deployContainerImage
+## Formatters
+
+### formatBash
+
+Ensure that bash code is formatted according to [shfmt][SHFMT].
+It helps your code be consistent, beautiful and more maintainable.
+
+Attributes:
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatBash = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.sh" # A file
+      "/folder" # A folder within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m .formatBash`
+
+## Container Images
+
+### deployContainerImage
 
 Deploy a set of container images in [OCI Format][OCI_FORMAT_REPO]
 to the specified container registries.
@@ -256,36 +299,9 @@ Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m .deployContainerImag
 
 Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m .deployContainerImage.makesGitLab`
 
-## formatBash
+## Examples
 
-Ensure that bash code is formatted according to [shfmt][SHFMT].
-It helps your code be consistent, beautiful and more maintainable.
-
-Attributes:
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
-
-Example `makes.nix`:
-
-```nix
-{
-  formatBash = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.sh" # A file
-      "/folder" # A folder within the project
-    ];
-  };
-}
-```
-
-Example invocation: `$ m .formatBash`
-
-## helloWorld
+### helloWorld
 
 Small command for demo purposes, it greets the specified user:
 
@@ -308,18 +324,49 @@ Example `makes.nix`:
 
 Example invocation: `$ m .helloWorld 1 2 3`
 
-<!-- Links go here, so we can update them in this single place -->
+# References
 
-[CI_CD]: https://en.wikipedia.org/wiki/CI/CD
-[CIRCLE_CI]: https://circleci.com/
-[DOCKER]: https://www.docker.com/
-[GITHUB_ACTIONS]: https://github.com/features/actions
-[GITHUB_WORKFLOWS]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-[GITLAB_CI]: https://docs.gitlab.com/ee/ci/
-[GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
-[GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
-[NIX]: https://nixos.org
-[NIX_DOWNLOAD]: https://nixos.org/download
-[OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
-[SHFMT]: https://github.com/mvdan/sh
-[TRAVIS_CI]: https://travis-ci.org/
+- [CI_CD]: https://en.wikipedia.org/wiki/CI/CD
+  [CI/CD][CI_CD]
+
+- [CIRCLE_CI]: https://circleci.com/
+  [Circle CI][CIRCLE_CI]
+
+- [DOCKER]: https://www.docker.com/
+  [Docker][DOCKER]
+
+- [GITHUB_ACTIONS]: https://github.com/features/actions
+  [Github Actions][GITHUB_ACTIONS]
+
+- [GITHUB_WORKFLOWS]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+  [Github Workflows][GITHUB_WORKFLOWS]
+
+- [GITLAB_CI]: https://docs.gitlab.com/ee/ci/
+  [GitLab CI][GITLAB_CI]
+
+- [GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
+  [GitLab CI configuration syntax][GITLAB_CI_REF]
+
+- [GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
+  [GitLab Variables][GITLAB_VARS]
+
+- [NIX]: https://nixos.org
+  [Nix][NIX]
+
+- [NIX_DOWNLOAD]: https://nixos.org/download
+  [Nix Download Page][NIX_DOWNLOAD]
+
+- [NIX_PLATFORMS]: https://nixos.org/manual/nix/unstable/installation/supported-platforms.html
+  [Nix Supported Platforms][NIX_PLATFORMS]
+
+- [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
+  [Open Container Image specification][OCI_FORMAT_REPO]
+
+- [SHFMT]: https://github.com/mvdan/sh
+  [SHFMT][SHFMT]
+
+- [TRAVIS_CI]: https://travis-ci.org/
+  [Travis CI][TRAVIS_CI]
+
+- [X86_64]: https://en.wikipedia.org/wiki/X86-64
+  [x86-64][X86_64]
