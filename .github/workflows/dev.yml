@@ -7,6 +7,14 @@ jobs:
       name: formatBash
       with:
         args: m .formatBash
+  formatPython:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: fluidattacks/makes@main
+      name: formatPython
+      with:
+        args: m .formatPython
   helloWorld:
     runs-on: ubuntu-latest
     steps:

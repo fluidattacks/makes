@@ -31,6 +31,10 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatPython = {
+    enable = true;
+    targets = [ "/" ];
+  };
   helloWorld = {
     enable = true;
     name = "Jane Doe";
