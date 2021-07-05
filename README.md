@@ -9,8 +9,27 @@ in just a few steps, in any technology.
 
 # Contents
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+# Contents
+
+- [Philosophy](#philosophy)
+- [Getting started](#getting-started)
+  - [Getting started as user](#getting-started-as-user)
+  - [Getting started as developer](#getting-started-as-developer)
+- [Configuring CI/CD](#configuring-cicd)
+  - [Configuring on GitHub Actions](#configuring-on-github-actions)
+  - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
+- [Makes.nix format](#makesnix-format)
+  - [Formatters](#formatters)
+    - [formatBash](#formatbash)
+  - [Container Images](#container-images)
+    - [deployContainerImage](#deploycontainerimage)
+  - [Examples](#examples)
+    - [helloWorld](#helloworld)
+- [References](#references)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Philosophy
 
