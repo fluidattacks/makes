@@ -20,6 +20,7 @@ jobs:
         root: ./action.yaml
         regex_pattern: "Version: (.*)"
     - uses: actions/create-release@v1
+      if: ${{ steps.tag.outputs.tagcreated == 'yes' }}
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
