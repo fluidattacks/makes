@@ -24,6 +24,8 @@ let
 in
 {
   config = {
-    outputs = attrsFromPath (args.path "/makes") [ ];
+    outputs = lib.mkIf
+      (builtins.pathExists (args.path "/makes"))
+      (attrsFromPath (args.path "/makes") [ ]);
   };
 }

@@ -85,8 +85,8 @@ def _run(
         stderr=subprocess.PIPE if stderr else None,
     ) as process:
         process.wait()
-        out = process.stdout if process.stdout else bytes()
-        err = process.stderr if process.stderr else bytes()
+        out: Any = process.stdout if process.stdout else bytes()
+        err: Any = process.stderr if process.stderr else bytes()
 
         return process.returncode, out, err
 
@@ -138,9 +138,13 @@ def cli(args: List[str]) -> None:
                         sys.exit(code)
 
 
-if __name__ == "__main__":
+def main() -> None:
     try:
         cli(sys.argv)
     except Error as err:
         _log(f"[ERROR] {err}")
         sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

@@ -100,14 +100,6 @@ Makes targets two kind of users:
 1.  Locate in the root of your project:
 
     `$ cd /path/to/my/awesome/makes/project`
-2.  Create a `makes` folder.
-
-    `$ mkdir makes`
-
-    We will place in this folder
-    all the source code
-    for the [CI/CD][CI_CD] system
-    (build, test, deploy, release, etc).
 
 1.  Create a configuration file named `makes.nix`
     with the following contents:
