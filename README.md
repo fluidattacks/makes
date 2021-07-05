@@ -208,7 +208,7 @@ Below we document all configuration options you can tweak with it.
 
 ### formatBash
 
-Ensure that bash code is formatted according to [shfmt][SHFMT].
+Ensure that Bash code is formatted according to [shfmt][SHFMT].
 It helps your code be consistent, beautiful and more maintainable.
 
 Attributes:
@@ -234,6 +234,36 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m .formatBash`
+
+### formatPython
+
+Ensure that Python code is formatted according to [Black][BLACK]
+and [isort][ISORT].
+It helps your code be consistent, beautiful and more maintainable.
+
+Attributes:
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatPython = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.py" # A file
+      "/folder" # A folder within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m .formatPython`
 
 ## Container Images
 
@@ -329,6 +359,9 @@ Example invocation: `$ m .helloWorld 1 2 3`
 
 # References
 
+- [BLACK]: https://github.com/psf/black
+  [Black][BLACK]
+
 - [CI_CD]: https://en.wikipedia.org/wiki/CI/CD
   [CI/CD][CI_CD]
 
@@ -352,6 +385,9 @@ Example invocation: `$ m .helloWorld 1 2 3`
 
 - [GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
   [GitLab Variables][GITLAB_VARS]
+
+- [ISORT]: https://github.com/PyCQA/isort
+  [isort][ISORT]
 
 - [NIX]: https://nixos.org
   [Nix][NIX]

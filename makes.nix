@@ -2,10 +2,6 @@
 , ...
 }:
 {
-  inputs = {
-    nixpkgs = import <nixpkgs> { };
-  };
-
   deployContainerImage = {
     enable = true;
     images = {
@@ -33,9 +29,7 @@
   };
   formatBash = {
     enable = true;
-    targets = [
-      "/"
-    ];
+    targets = [ "/" ];
   };
   helloWorld = {
     enable = true;
