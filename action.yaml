@@ -1,6 +1,3 @@
-# Below line will be used for tagging the release, bump if needed
-# Mark pre-releases as -pre$num
-# Version: action-v21.08-pre1
 author: Fluid Attacks
 branding:
   icon: check-circle
@@ -16,5 +13,5 @@ runs:
     - bash
     - -c
     - set -x && ${INPUT_ARGS}
-  image: docker://ghcr.io/fluidattacks/makes:21.07
+  image: docker://ghcr.io/fluidattacks/makes:21.06
   using: docker
