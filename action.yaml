@@ -13,5 +13,5 @@ runs:
     - bash
     - -c
     - set -x && ${INPUT_ARGS}
-  image: docker://ghcr.io/fluidattacks/makes:21.06
+  image: docker://ghcr.io/fluidattacks/makes:21.07
   using: docker
