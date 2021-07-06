@@ -76,7 +76,7 @@ Makes targets two kind of users:
 
 1.  Download the Makes project of your choice.
 
-1.  `$ cd /path/to/an/awesome/makes/project`
+1.  `$ cd /path/to/a/project`
 
 1.  Now run makes!
 
@@ -99,13 +99,13 @@ Makes targets two kind of users:
 
 1.  Locate in the root of your project:
 
-    `$ cd /path/to/my/awesome/makes/project`
+    `$ cd /path/to/my/project`
 
 1.  Create a configuration file named `makes.nix`
     with the following contents:
 
     ```nix
-    # /path/to/my/awesome/project/makes.nix
+    # /path/to/my/project/makes.nix
     {
       helloWorld = {
         enable = true;
@@ -153,9 +153,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # We offer this GitHub action in the following versions:
-    #   main: latest release (example: /makes@main)
-    #   action-vYY.MM: monthly release (example: /makes@action-v21.06)
+      # We offer this GitHub action in the following versions:
+      #   main: latest release (example: /makes@main)
+      #   action-vYY.MM: monthly release (example: /makes@action-v21.06)
     - uses: fluidattacks/makes@main
       # You can use any name you like here
       name: helloWorld
@@ -176,7 +176,7 @@ The smallest possible [.gitlab-ci.yaml][GITLAB_CI_REF]
 looks like this:
 
 ```yaml
-# /path/to/my/awesome/makes/project/.gitlab-ci.yaml
+# /path/to/my/project/.gitlab-ci.yaml
 helloWorld:
   # We offer this Container Image in the following tags:
   #   head: latest release (example: /makes:head)
@@ -349,6 +349,81 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m .helloWorld 1 2 3`
+
+# Extending Makes
+
+You can create custom workflows
+not covered by the builtin `makes.nix` configuration options.
+
+In order to do this:
+
+1.  Locate in the root of your project:
+
+    `$ cd /path/to/my/project`
+
+1.  Create a directory structure. In this case: `makes/example`.
+
+    `$ mkdir -p makes/example`
+
+    We will place in this folder
+    all the source code
+    for the custom workflow called `example`.
+
+1.  Create a `main.nix` file inside `makes/example`.
+
+    Our goal is to create a bash script that prints `Hello from makes!`.
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    { makeEntrypoint
+    , ...
+    }:
+    makeEntrypoint {
+      entrypoint = "echo Hello from Makes!";
+      name = "hello-world";
+    }
+    ```
+
+1.  Now run makes!
+
+    - List all available commands: `$ m`
+
+      ```
+      Outputs list for project: ./
+        .example
+      ```
+
+    - Run the command: `$ m .example`
+
+      ```
+      Hello from Makes!
+      ```
+
+Makes will automatically recognize as outputs all `main.nix` files
+under the `makes/` folder in the root of the project.
+
+You can create any directory structure you want.
+Output names will me mapped in an intuitive way:
+
+| `main.nix` position                                | Output name       | Invocation command   |
+|----------------------------------------------------|-------------------|----------------------|
+| `/path/to/my/project/makes/main.nix`               | `""`              | `$ m .`              |
+| `/path/to/my/project/makes/example/main.nix`       | `"example"`       | `$ m .example`       |
+| `/path/to/my/project/makes/other/example/main.nix` | `"other.example"` | `$ m .other.example` |
+
+## Main.nix format
+
+Each `main.nix` file under the `makes/` folder
+should be a function that receives one or more arguments
+and returns a derivation:
+
+```nix
+{ argA
+, argB
+, ...
+}:
+doSomethingAndReturnADerivation
+```
 
 # References
 
