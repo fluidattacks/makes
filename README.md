@@ -17,6 +17,7 @@ in just a few steps, in any technology.
   - [Getting started as user](#getting-started-as-user)
   - [Getting started as developer](#getting-started-as-developer)
 - [Configuring CI/CD](#configuring-cicd)
+  - [Versioning scheme](#versioning-scheme)
   - [Configuring on GitHub Actions](#configuring-on-github-actions)
   - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
 - [Makes.nix format](#makesnix-format)
