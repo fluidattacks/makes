@@ -295,6 +295,26 @@ Example `makes.nix`:
 
 Example invocation: `$ m .formatPython`
 
+## Pinning
+
+### requiredMakesVersion
+
+Ensure that the Makes version people use in your project is the one you want.
+This increases reproducibility and prevents compatibility mismatches.
+People will use the Makes version you know your project works with.
+
+Type:
+- (`enum [ "21.08-pre1" ]`): Optional.
+  Defaults to the version installed in the system.
+
+Example `makes.nix`:
+
+```nix
+{
+  requiredMakesVersion = "21.08-pre1";
+}
+```
+
 ## Container Images
 
 ### deployContainerImage

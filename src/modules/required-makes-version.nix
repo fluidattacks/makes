@@ -16,7 +16,7 @@ in
       type = lib.types.enum versions;
     };
     requiredMakesVersion = lib.mkOption {
-      default = builtins.head versions;
+      default = makesVersion;
       type = lib.types.enum versions;
     };
   };
