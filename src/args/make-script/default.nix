@@ -1,4 +1,5 @@
-{ builtinShellCommands
+{ builtinLambdas
+, builtinShellCommands
 , builtinShellOptions
 , inputs
 , lib
@@ -8,18 +9,19 @@
 , ...
 }:
 
-{ arguments ? { }
+{ aliases ? [ ]
+, arguments ? { }
 , entrypoint
-, location ? "/bin/${name}"
 , name
 , searchPaths ? { }
 }:
 makeDerivation {
   actions = [{
     type = "exec";
-    location = location;
+    location = "/bin/${name}";
   }];
   arguments = {
+    envAliases = builtinLambdas.asBashArray (aliases ++ [ name ]);
     envEntrypoint = makeTemplate {
       inherit arguments;
       inherit name;
@@ -46,7 +48,6 @@ makeDerivation {
       name = "makes-src-args-make-script-for-${name}";
       template = ./template.sh;
     };
-    envLocation = location;
   };
   builder = ./builder.sh;
   local = true;

@@ -85,6 +85,8 @@ In order to use Makes you'll need to:
 
     `$ nix-env -if https://fluidattacks.com/makes/install/21.08-pre1`
 
+    We will install two commands in your system: `m`, and `m-v21.08-pre1`.
+
     The full list of releases can be found [here][MAKES_RELEASES].
 
 Makes targets two kind of users:
