@@ -147,6 +147,22 @@ Makes targets two kind of users:
 
 # Configuring CI/CD
 
+## Versioning scheme
+
+We use [calendar versioning][CALVER] in Makes,
+like this: `20.12` (at December 2020).
+
+You can assume that the current month release is stable,
+we won't add new features to it nor change it in backward-incompatible ways.
+The development or unstable releases are normally tagged with the next month
+[calendar version][CALVER], for instance `21.01` (at December 2020).
+The `main` release always points to the latest commit in this repository,
+it should be considered highly unstable.
+
+For maximum stability you should use the stable release,
+in other words: the current month in [calendar versioning][CALVER].
+For instance: `21.01` if the current date is January 2021.
+
 ## Configuring on GitHub Actions
 
 [GitHub Actions][GITHUB_ACTIONS]
@@ -191,9 +207,9 @@ looks like this:
 # /path/to/my/project/.gitlab-ci.yaml
 helloWorld:
   # We offer this Container Image in the following tags:
-  #   head: latest release (example: /makes:head)
+  #   main: latest release (example: /makes:main)
   #   yy.mm: monthly release (example: /makes:21.07)
-  image: registry.gitlab.com/fluidattacks/product/makes:head
+  image: registry.gitlab.com/fluidattacks/product/makes:main
   script:
     - m .helloWorld 1 2 3
 ```
@@ -453,6 +469,9 @@ doSomethingAndReturnADerivation
 
 - [BLACK]: https://github.com/psf/black
   [Black][BLACK]
+
+- [CALVER]: https://calver.org/
+  [Calendar Versioning][CALVER]
 
 - [CI_CD]: https://en.wikipedia.org/wiki/CI/CD
   [CI/CD][CI_CD]
