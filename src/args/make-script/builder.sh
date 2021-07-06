@@ -7,8 +7,8 @@ function main {
     && eval local aliases="${envAliases}" \
     && for location in "${aliases[@]}"; do
       cat "${envEntrypointSetup}" > "${location}" \
-        && echo > "${location}" \
-        && cat "${envEntrypoint}" > "${location}" \
+        && echo >> "${location}" \
+        && cat "${envEntrypoint}" >> "${location}" \
         && chmod +x "${location}"
     done
 }
