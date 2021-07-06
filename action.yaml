@@ -1,6 +1,6 @@
 # Below line will be used for tagging the release, bump if needed
 # Mark pre-releases as -pre$num
-# Version: action-v21.07-pre2
+# Version: action-v21.08-pre1
 author: Fluid Attacks
 branding:
   icon: check-circle
