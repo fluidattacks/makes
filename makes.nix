@@ -13,7 +13,7 @@
       makesGitHubMonthly = {
         src = config.outputs."container-image";
         registry = "ghcr.io";
-        tag = "fluidattacks/makes:$(date -d +1month +%y.%m)";
+        tag = "fluidattacks/makes:21.08-pre1";
       };
       makesGitLab = {
         src = config.outputs."container-image";
@@ -23,7 +23,7 @@
       makesGitLabMonthly = {
         src = config.outputs."container-image";
         registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/makes:$(date -d +1month +%y.%m)";
+        tag = "fluidattacks/product/makes:21.08-pre1";
       };
     };
   };
