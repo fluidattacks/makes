@@ -98,15 +98,6 @@ a sunday morning since then :wink:.
 - [Extending Makes](#extending-makes)
   - [Main.nix format](#mainnix-format)
     - [Main.nix function arguments](#mainnix-function-arguments)
-      - [config](#config)
-      - [lib](#lib)
-      - [makeContainerImage](#makecontainerimage)
-      - [makeDerivation](#makederivation)
-      - [makeScript](#makescript)
-      - [makeSearchPaths](#makesearchpaths)
-      - [makeTemplate](#maketemplate)
-      - [outputs](#outputs)
-      - [path](#path)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
