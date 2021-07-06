@@ -78,16 +78,16 @@ In order to use Makes you'll need to:
 1.  Install Nix as explained
     in the [NixOS Download page][NIX_DOWNLOAD].
 
-1.  Install Makes:
+1.  Install Makes.
+
+    Latest release:
     `$ nix-env -if https://fluidattacks.com/makes/install`
 
-    Alternatively you can install a specific release with:
-
+    [Other releases][MAKES_RELEASES]:
     `$ nix-env -if https://fluidattacks.com/makes/install/21.08-pre1`
 
-    We will install two commands in your system: `m`, and `m-v21.08-pre1`.
-
-    The full list of releases can be found [here][MAKES_RELEASES].
+    We will install two commands in your system:
+    `m`, and `m-v21.08-pre1` (depending on the version you installed).
 
 Makes targets two kind of users:
 - Final users: People that want to use projects built with Makes.
