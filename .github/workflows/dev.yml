@@ -23,6 +23,14 @@ jobs:
       name: helloWorld
       with:
         args: m .helloWorld
+  lintBash:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: fluidattacks/makes@main
+      name: lintBash
+      with:
+        args: m .lintBash
 name: Makes
 on:
   pull_request:

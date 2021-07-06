@@ -42,4 +42,8 @@
   inputs = {
     version = "21.08-pre1";
   };
+  lintBash = {
+    enable = true;
+    targets = [ "/" ];
+  };
 }
