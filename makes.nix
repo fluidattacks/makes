@@ -39,5 +39,9 @@
     enable = true;
     name = "Jane Doe";
   };
+  lintBash = {
+    enable = true;
+    targets = [ "/" ];
+  };
   requiredMakesVersion = "21.08-pre1";
 }
