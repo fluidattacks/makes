@@ -7,6 +7,71 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
+## Why?
+
+Designing a fast, reliable, reproducible, easy-to-use
+[CI/CD][CI_CD] system **is no easy task**.
+
+While there are free and paid tools in the market like:
+[Apache Ant][APACHE_ANT],
+[Docker][DOCKER],
+[Gradle][GRADLE],
+[Grunt][GRUNT],
+[Gulp][GULP],
+[Maven][APACHE_MAVEN],
+[GNU Make][GNU_MAKE]
+[Leiningen][LEININGEN],
+[Packer][PACKER],
+and
+[sbt][SBT].
+Most real world production systems:
+- Are composed of several programming languages,
+  and most tools in the market are just focused in 1.
+- Contain hundreds of thousands of dependencies:
+  - Compilers
+  - Shared-Object libraries (.so)
+  - Runtime interpreters
+  - Configuration files
+  - Vendor artifacts
+  - Accounts / Credentials / Secrets
+
+  That most tools in the market cannot fetch, configure, and setup
+  in an easy/automated/secure way,
+  and most of them do not even support a way of declaring them.
+- Have tens to hundreds of developers
+  working across the globe from different setups, stacks and operative systems.
+
+  And most tools cannot guarantee all of them
+  an **exact** developing environment.
+- Have tens to thousands of production servers
+  that need to be deployed to.
+
+  And most tools just cover the: How to build? and not the: How to deploy?.
+- Made of several micro-components that one need to orchestrate correctly,
+  or fix sunday morning, instead of sharing with family :parasol_on_ground:.
+- Need to be **reliable** and **100% available**.
+
+You can instead use [Nix][NIX] which features:
+- A single build-tool for everything
+- Easy, powerful, modular and expressive dependency declaration.
+  From compilers to vendor artifacts.
+- Guarantees each developer an **exact**,
+  [reproducible][REPRODUCIBLE_BUILDS] environment in which to build and run stuff.
+  Isolating as much as possible,
+  reducing a lot of bugs along the way.
+- Defines a way for you to deploy software **perfectly**.
+- And therefore helps you build **reliable** and **100% available** systems.
+
+So, if [Nix][NIX] is that powerful: Why [Makes][MAKES], then?
+
+[Makes][MAKES] wraps [Nix][NIX]
+in a opinionated way
+that allows users and developers
+to get things done.
+We've been using it for 2 years now at [Fluid Attacks][FLUID_ATTACKS]
+and we have forgotten what's fixing production
+a sunday morning since then :wink:.
+
 <!-- This is updated automatically by a GitHub action, don't worry about it -->
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -486,17 +551,14 @@ doSomethingAndReturnADerivation
 
 ### Main.nix function arguments
 
-#### config
-#### lib
-#### makeContainerImage
-#### makeDerivation
-#### makeScript
-#### makeSearchPaths
-#### makeTemplate
-#### outputs
-#### path
 
 # References
+
+- [APACHE_ANT]: https://ant.apache.org/
+  [Apache Ant][APACHE_ANT]
+
+- [APACHE_MAVEN]: https://maven.apache.org/
+  [Apache Maven][APACHE_MAVEN]
 
 - [BLACK]: https://github.com/psf/black
   [Black][BLACK]
@@ -513,6 +575,9 @@ doSomethingAndReturnADerivation
 - [DOCKER]: https://www.docker.com/
   [Docker][DOCKER]
 
+- [FLUID_ATTACKS]: https://fluidattacks.com
+  [Fluid Attacks][FLUID_ATTACKS]
+
 - [GITHUB_ACTIONS]: https://github.com/features/actions
   [Github Actions][GITHUB_ACTIONS]
 
@@ -528,11 +593,29 @@ doSomethingAndReturnADerivation
 - [GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
   [GitLab Variables][GITLAB_VARS]
 
+- [GNU_MAKE]: https://www.gnu.org/software/make/
+  [GNU Make][GNU_MAKE]
+
+- [GRADLE]: https://gradle.org/
+  [Gradle][GRADLE]
+
+- [GRUNT]: https://gruntjs.com/
+  [Grunt][GRUNT]
+
+- [GULP]: https://gulpjs.com/
+  [Gulp][GULP]
+
 - [ISORT]: https://github.com/PyCQA/isort
   [isort][ISORT]
 
+- [LEININGEN]: https://leiningen.org/
+  [Leiningen][LEININGEN]
+
 - [LINUX]: https://en.wikipedia.org/wiki/Linux
   [Linux][LINUX]
+
+- [MAKES]: https://github.com/fluidattacks/makes
+  [Makes][MAKES]
 
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
@@ -546,11 +629,23 @@ doSomethingAndReturnADerivation
 - [NIX_DOWNLOAD]: https://nixos.org/download
   [Nix Download Page][NIX_DOWNLOAD]
 
+- [NIX_FLAKES]: https://www.tweag.io/blog/2020-05-25-flakes/
+  [Nix Flakes][NIX_FLAKES]
+
 - [NIX_PLATFORMS]: https://nixos.org/manual/nix/unstable/installation/supported-platforms.html
   [Nix Supported Platforms][NIX_PLATFORMS]
 
 - [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
   [Open Container Image specification][OCI_FORMAT_REPO]
+
+- [PACKER]: https://www.packer.io/
+  [Packer][PACKER]
+
+- [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
+  [Reproducible Builds][REPRODUCIBLE_BUILDS]
+
+- [SBT]: https://www.scala-sbt.org/
+  [sbt][SBT]
 
 - [SHFMT]: https://github.com/mvdan/sh
   [SHFMT][SHFMT]
