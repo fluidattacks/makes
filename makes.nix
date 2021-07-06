@@ -39,5 +39,5 @@
     enable = true;
     name = "Jane Doe";
   };
-  requiredMakesVersion = "21.08-pre1";
+  requiredMakesVersion = "21.08-pre2";
 }
