@@ -1,4 +1,4 @@
-# Makes
+# Makes v21.06
 
 A SecDevOps framework
 powered by [Nix][NIX].
@@ -184,7 +184,7 @@ jobs:
     - uses: actions/checkout@v2
       # We offer this GitHub action in the following versions:
       #   main: latest release (example: /makes@main)
-      #   action-vYY.MM: monthly release (example: /makes@action-v21.06)
+      #   yy.mm: monthly release (example: /makes@21.07)
     - uses: fluidattacks/makes@main
       # You can use any name you like here
       name: helloWorld
@@ -501,8 +501,14 @@ doSomethingAndReturnADerivation
 - [ISORT]: https://github.com/PyCQA/isort
   [isort][ISORT]
 
+- [LINUX]: https://en.wikipedia.org/wiki/Linux
+  [Linux][LINUX]
+
 - [NIX]: https://nixos.org
   [Nix][NIX]
+
+- [NIX_DERIVATION]: https://nixos.org/manual/nix/unstable/expressions/derivations.html
+  [Nix Derivation][NIX_DERIVATION]
 
 - [NIX_DOWNLOAD]: https://nixos.org/download
   [Nix Download Page][NIX_DOWNLOAD]

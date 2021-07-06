@@ -8,7 +8,7 @@ jobs:
           COMMIT_MESSAGE: "feat(doc): update table of contents"
           COMMIT_NAME: Fluid Attacks
           TOC_TITLE: "# Contents"
-  releaseGitHubAction:
+  releaseGitHub:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -17,8 +17,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
-        root: ./action.yaml
-        regex_pattern: "Version: (.*)"
+        root: ./README.md
+        regex_pattern: "# Makes v(.*)"
     - uses: actions/create-release@v1
       if: ${{ steps.tag.outputs.tagcreated == 'yes' }}
       env:
