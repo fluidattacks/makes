@@ -27,6 +27,8 @@ in just a few steps, in any technology.
     - [deployContainerImage](#deploycontainerimage)
   - [Examples](#examples)
     - [helloWorld](#helloworld)
+- [Extending Makes](#extending-makes)
+  - [Main.nix format](#mainnix-format)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
