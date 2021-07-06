@@ -24,6 +24,8 @@ in just a few steps, in any technology.
   - [Formatters](#formatters)
     - [formatBash](#formatbash)
     - [formatPython](#formatpython)
+  - [Pinning](#pinning)
+    - [requiredMakesVersion](#requiredmakesversion)
   - [Container Images](#container-images)
     - [deployContainerImage](#deploycontainerimage)
   - [Examples](#examples)
