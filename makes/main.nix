@@ -1,9 +1,9 @@
-{ makeEntrypoint
+{ makeScript
 , inputs
 , path
 , ...
 }:
-makeEntrypoint {
+makeScript {
   arguments = {
     envNix = inputs.makesPackages.nixpkgs.nix;
     envSrc = path "/src";

@@ -43,7 +43,7 @@ makeDerivation {
         };
         envShell = "${inputs.makesPackages.nixpkgs.bash}/bin/bash";
       };
-      name = "makes-src-args-make-entrypoint-for-${name}";
+      name = "makes-src-args-make-script-for-${name}";
       template = ./template.sh;
     };
     envLocation = location;

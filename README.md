@@ -377,10 +377,10 @@ In order to do this:
 
     ```nix
     # /path/to/my/project/makes/example/main.nix
-    { makeEntrypoint
+    { makeScript
     , ...
     }:
-    makeEntrypoint {
+    makeScript {
       entrypoint = "echo Hello from Makes!";
       name = "hello-world";
     }
@@ -426,6 +426,18 @@ and returns a derivation:
 }:
 doSomethingAndReturnADerivation
 ```
+
+### Main.nix function arguments
+
+#### config
+#### lib
+#### makeContainerImage
+#### makeDerivation
+#### makeScript
+#### makeSearchPaths
+#### makeTemplate
+#### outputs
+#### path
 
 # References
 
