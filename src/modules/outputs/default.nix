@@ -35,7 +35,7 @@ in
       type = lib.types.attrsOf lib.types.package;
     };
   };
-  config = {
+  config = lib.mkIf (config.assertionsPassed) {
     attrs = config.inputs.makesPackages.nixpkgs.stdenv.mkDerivation {
       envList = builtins.toJSON (builtins.attrNames config.outputs);
       builder = builtins.toFile "builder" ''

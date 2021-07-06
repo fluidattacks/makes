@@ -13,7 +13,7 @@
       makesGitHubMonthly = {
         src = config.outputs."container-image";
         registry = "ghcr.io";
-        tag = "fluidattacks/makes:${config.inputs.version}";
+        tag = "fluidattacks/makes:${config.requiredMakesVersion}";
       };
       makesGitLab = {
         src = config.outputs."container-image";
@@ -23,7 +23,7 @@
       makesGitLabMonthly = {
         src = config.outputs."container-image";
         registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/makes:${config.inputs.version}";
+        tag = "fluidattacks/product/makes:${config.requiredMakesVersion}";
       };
     };
   };
@@ -39,7 +39,5 @@
     enable = true;
     name = "Jane Doe";
   };
-  inputs = {
-    version = "21.08-pre1";
-  };
+  requiredMakesVersion = "21.08-pre1";
 }
