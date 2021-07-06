@@ -1,4 +1,4 @@
-# Makes v21.07
+# Makes v21.08-pre1
 
 A SecDevOps framework
 powered by [Nix][NIX].
