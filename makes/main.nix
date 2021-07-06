@@ -1,16 +1,14 @@
-{ makeScript
+{ config
+, makeScript
 , inputs
 , path
 , ...
 }:
-let
-  version = inputs.version;
-in
 makeScript {
   aliases = [
-    "m-v${version}"
+    "m-v${config.requiredMakesVersion}"
     "makes"
-    "makes-v${version}"
+    "makes-v${config.requiredMakesVersion}"
   ];
   arguments = {
     envNix = inputs.makesPackages.nixpkgs.nix;
@@ -18,7 +16,7 @@ makeScript {
   };
   entrypoint = ''
     _EVALUATOR=__envSrc__/evaluator.nix \
-    _MAKES_VERSION=${version} \
+    _MAKES_VERSION=${config.requiredMakesVersion} \
     _NIX_BUILD=__envNix__/bin/nix-build \
     _NIX_INSTANTIATE=__envNix__/bin/nix-instantiate \
     python __envSrc__/cli.py "$@"

@@ -5,12 +5,19 @@
 , lib
 , ...
 }:
+let
+  versions = [
+    "21.08-pre1"
+  ];
+in
 {
   options = {
+    makesVersion = lib.mkOption {
+      type = lib.types.enum versions;
+    };
     requiredMakesVersion = lib.mkOption {
-      type = lib.types.enum [
-        "21.08-pre1"
-      ];
+      default = builtins.head versions;
+      type = lib.types.enum versions;
     };
   };
   config = {
@@ -18,5 +25,6 @@
       assertion = config.requiredMakesVersion == makesVersion;
       message = "Project requires Makes v${config.requiredMakesVersion}. You are using v${makesVersion} instead.";
     }];
+    makesVersion = makesVersion;
   };
 }
