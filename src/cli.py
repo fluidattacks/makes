@@ -20,7 +20,7 @@ from typing import (
 
 DEBUG: bool = "MAKES_DEBUG" in environ
 FROM: str = environ.get("MAKES_FROM", f"file://{getcwd()}")
-VERSION: str = "4.0"
+VERSION: str = environ["_MAKES_VERSION"]
 
 
 class Error(Exception):
@@ -92,9 +92,9 @@ def _run(
 
 
 def _help_and_exit(attrs: Optional[List[str]] = None) -> None:
-    _log("Usage: makes [OUTPUT] [ARGS]...")
+    _log(f"Makes v{VERSION}")
     _log()
-    _log("A SecDevOps Framework powered by Nix.")
+    _log("Usage: m [OUTPUT] [ARGS]...")
     if attrs is not None:
         _log()
         _log(f"Outputs list for project: {FROM}")

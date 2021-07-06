@@ -10,6 +10,7 @@ makeScript {
   };
   entrypoint = ''
     _EVALUATOR=__envSrc__/evaluator.nix \
+    _MAKES_VERSION=21.08-pre1 \
     _NIX_BUILD=__envNix__/bin/nix-build \
     _NIX_INSTANTIATE=__envNix__/bin/nix-instantiate \
     python -m cli "$@"
