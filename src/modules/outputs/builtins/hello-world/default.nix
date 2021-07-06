@@ -1,5 +1,5 @@
 { lib
-, makeEntrypoint
+, makeScript
 , ...
 }:
 { config
@@ -19,7 +19,7 @@
   };
   config = {
     outputs = {
-      helloWorld = lib.mkIf config.helloWorld.enable (makeEntrypoint {
+      helloWorld = lib.mkIf config.helloWorld.enable (makeScript {
         name = "hello-world";
         entrypoint = ''
           info Hello from Makes! ${config.helloWorld.name}.

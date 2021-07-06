@@ -1,7 +1,7 @@
 { builtinLambdas
 , inputs
 , lib
-, makeEntrypoint
+, makeScript
 , ...
 }:
 { config
@@ -22,7 +22,7 @@
   };
   config = {
     outputs = {
-      formatBash = lib.mkIf config.formatBash.enable (makeEntrypoint {
+      formatBash = lib.mkIf config.formatBash.enable (makeScript {
         arguments = {
           envTargets = builtinLambdas.asBashArray
             (builtins.map

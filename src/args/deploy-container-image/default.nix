@@ -1,4 +1,4 @@
-{ makeEntrypoint
+{ makeScript
 , inputs
 , ...
 }:
@@ -7,7 +7,7 @@
 , registry
 , tag
 }:
-makeEntrypoint {
+makeScript {
   arguments = {
     envContainerImage = containerImage;
     envRegistry = registry;
