@@ -410,6 +410,48 @@ Example `makes.nix`:
 
 Example invocation: `$ m /lintNix`
 
+### lintPython
+
+Lints Python code with [mypy][MYPY] and [Prospector][PROSPECTOR].
+
+Attributes:
+- enable (`boolean`): Optional.
+  Defaults to false.
+- packages (`attrsOf packageType`): Optional.
+  Definitions of python packages/modules to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+- packageType (`submodule`):
+  - python (`enum [ "3.7" "3.8" "3.9" ]`):
+    Python interpreter version that your package/module is designed for.
+  - src (`str`):
+    Path to the package/module.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintPython = {
+    enable = true;
+    packages = {
+      backend = {
+        python = "3.7";
+        src = "/src/backend";
+      };
+      cli = {
+        python = "3.8";
+        src = "/src/cli";
+      };
+    };
+  };
+}
+```
+
+Example invocation: `$ m /lintPython/backend`
+
+Example invocation: `$ m /lintPython/cli`
+
 ## Formatters
 
 Formatters help your code be consistent, beautiful and more maintainable.
@@ -757,6 +799,9 @@ doSomethingAndReturnADerivation
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
 
+- [MYPY]: https://mypy.readthedocs.io/en/stable/
+  [mypy][MYPY]
+
 - [NIX]: https://nixos.org
   [Nix][NIX]
 
@@ -783,6 +828,9 @@ doSomethingAndReturnADerivation
 
 - [PACKER]: https://www.packer.io/
   [Packer][PACKER]
+
+- [PROSPECTOR]: http://prospector.landscape.io/en/master/
+  [Prospector][PROSPECTOR]
 
 - [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
   [Reproducible Builds][REPRODUCIBLE_BUILDS]
