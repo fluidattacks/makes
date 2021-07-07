@@ -23,6 +23,7 @@ makeScript {
   '';
   searchPaths = {
     envPaths = [
+      inputs.makesPackages.nixpkgs.git
       inputs.makesPackages.nixpkgs.gnutar
       inputs.makesPackages.nixpkgs.gzip
       inputs.makesPackages.nixpkgs.python38
