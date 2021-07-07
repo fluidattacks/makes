@@ -9,6 +9,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
         args: m .deployContainerImage.makesGitHub
+  deployContainerImage_makesGitHubMonthly:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
       env:
         GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
@@ -26,6 +30,10 @@ jobs:
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
         args: m .deployContainerImage.makesGitLab
+  deployContainerImage_makesGitLabMonthly:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     - uses: fluidattacks/makes@main
       name: deployContainerImage_makesGitLabMonthly
       env:
