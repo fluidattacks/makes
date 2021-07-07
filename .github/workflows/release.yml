@@ -1,5 +1,6 @@
 jobs:
   releaseTableOfContents:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
       - uses: technote-space/toc-generator@v4
@@ -9,6 +10,7 @@ jobs:
           COMMIT_NAME: Fluid Attacks
           TOC_TITLE: "# Contents"
   releaseGitHub:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
