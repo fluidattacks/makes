@@ -47,6 +47,12 @@
     enable = true;
     targets = [ "/" ];
   };
+  lintCommitMsg = {
+    enable = true;
+    node = "10";
+    ci = "CI";
+    branch = "main";
+  };
   lintNix = {
     enable = true;
     targets = [ "/" ];

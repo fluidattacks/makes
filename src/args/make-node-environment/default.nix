@@ -68,7 +68,7 @@ let
   };
 in
 makeSearchPaths {
-  envPaths = [ nodeEnvironment ];
+  envPaths = [ nodeInterpreter ];
   envNodeBinaries = [ nodeEnvironment ];
   envNodeLibraries = [ nodeEnvironment ];
 }
