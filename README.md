@@ -84,6 +84,9 @@ and we have all come to the opinion that it's an awesome tool to work with.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Contents
 
+- [Makes v21.08](#makes-v2108)
+  - [Why?](#why)
+- [Contents](#contents)
 - [Philosophy](#philosophy)
 - [Getting started](#getting-started)
   - [Getting started as user](#getting-started-as-user)
@@ -96,8 +99,10 @@ and we have all come to the opinion that it's an awesome tool to work with.
 - [Makes.nix format](#makesnix-format)
   - [Linters](#linters)
     - [lintBash](#lintbash)
+    - [lintNix](#lintnix)
   - [Formatters](#formatters)
     - [formatBash](#formatbash)
+    - [formatNix](#formatnix)
     - [formatPython](#formatpython)
   - [Pinning](#pinning)
     - [requiredMakesVersion](#requiredmakesversion)
@@ -354,7 +359,7 @@ best practices.
 
 ### lintBash
 
-Lints bash code with [ShellCheck][SHELLCHECK].
+Lints Bash code with [ShellCheck][SHELLCHECK].
 
 Attributes:
 - enable (`boolean`): Optional.
@@ -362,6 +367,8 @@ Attributes:
 - targets (`listOf str`): Optional.
   Files or directories (relative to the project) to lint.
   Defaults to the entire project.
+
+Example `makes.nix`:
 
 ```nix
 {
@@ -377,6 +384,34 @@ Attributes:
 ```
 
 Example invocation: `$ m /lintBash`
+
+### lintNix
+
+Lints Nix code with [nix-linter][NIX_LINTER].
+
+Attributes:
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to lint.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintNix = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.nix" # A file
+      "/folder" # A folder within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m /lintNix`
 
 ## Formatters
 
@@ -409,6 +444,34 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m /formatBash`
+
+### formatNix
+
+Ensure that Nix code is formatted according to [nixpkgs-fmt][NIX_PKGS_FMT].
+
+Attributes:
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatNix = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.nix" # A file
+      "/folder" # A folder within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m /formatNix`
 
 ### formatPython
 
@@ -711,6 +774,12 @@ doSomethingAndReturnADerivation
 
 - [NIX_PLATFORMS]: https://nixos.org/manual/nix/unstable/installation/supported-platforms.html
   [Nix Supported Platforms][NIX_PLATFORMS]
+
+- [NIX_LINTER]: https://github.com/Synthetica9/nix-linter'
+  [nix-linter][NIX_LINTER]
+
+- [NIX_PKGS_FMT]: https://github.com/nix-community/nixpkgs-fmt
+  [nixpkgs-fmt][NIX_PKGS_FMT]
 
 - [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
   [Open Container Image specification][OCI_FORMAT_REPO]
