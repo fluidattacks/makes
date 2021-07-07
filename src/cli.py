@@ -72,7 +72,7 @@ def _get_attrs(head: str) -> List[str]:
     )
     if code == 0:
         with open(out) as file:
-            return [f".{attr}" for attr in json.load(file)]
+            return json.load(file)
 
     raise Error(f"Unable to list project outputs from: {FROM}")
 
@@ -124,11 +124,11 @@ def cli(args: List[str]) -> None:
         _help_and_exit(attrs)
 
     cwd: str = getcwd()
-    out: str = join(cwd, f"result{attr}")
+    out: str = join(cwd, f"result{attr.replace('/', '-')}")
     actions_path: str = join(out, "makes-actions.json")
 
     code, _, _ = _run(
-        args=_nix_build(head, f'config.outputs."{attr[1:]}"', out),
+        args=_nix_build(head, f'config.outputs."{attr}"', out),
     )
 
     if code == 0:

@@ -6,22 +6,22 @@
     enable = true;
     images = {
       makesGitHub = {
-        src = config.outputs."container-image";
+        src = config.outputs."/container-image";
         registry = "ghcr.io";
         tag = "fluidattacks/makes:main";
       };
       makesGitHubMonthly = {
-        src = config.outputs."container-image";
+        src = config.outputs."/container-image";
         registry = "ghcr.io";
         tag = "fluidattacks/makes:${config.requiredMakesVersion}";
       };
       makesGitLab = {
-        src = config.outputs."container-image";
+        src = config.outputs."/container-image";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:main";
       };
       makesGitLabMonthly = {
-        src = config.outputs."container-image";
+        src = config.outputs."/container-image";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:${config.requiredMakesVersion}";
       };

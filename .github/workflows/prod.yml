@@ -8,7 +8,7 @@ jobs:
         GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
-        args: m .deployContainerImage.makesGitHub
+        args: m /deployContainerImage/makesGitHub
   deployContainerImage_makesGitHubMonthly:
     runs-on: ubuntu-latest
     steps:
@@ -18,7 +18,7 @@ jobs:
         GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
-        args: m .deployContainerImage.makesGitHubMonthly
+        args: m /deployContainerImage/makesGitHubMonthly
   deployContainerImage_makesGitLab:
     runs-on: ubuntu-latest
     steps:
@@ -29,7 +29,7 @@ jobs:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
-        args: m .deployContainerImage.makesGitLab
+        args: m /deployContainerImage/makesGitLab
   deployContainerImage_makesGitLabMonthly:
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +40,7 @@ jobs:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
-        args: m .deployContainerImage.makesGitLabMonthly
+        args: m /deployContainerImage/makesGitLabMonthly
 name: Makes
 on:
   push:

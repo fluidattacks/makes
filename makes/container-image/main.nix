@@ -57,6 +57,6 @@ makeContainerImage {
     inputs.makesPackages.nixpkgs.gzip
     inputs.makesPackages.nixpkgs.nix
 
-    outputs.""
+    outputs."/"
   ];
 }

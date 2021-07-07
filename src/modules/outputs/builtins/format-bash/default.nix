@@ -22,7 +22,7 @@
   };
   config = {
     outputs = {
-      formatBash = lib.mkIf config.formatBash.enable (makeScript {
+      "/formatBash" = lib.mkIf config.formatBash.enable (makeScript {
         arguments = {
           envTargets = builtinLambdas.asBashArray
             (builtins.map

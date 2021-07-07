@@ -38,7 +38,7 @@
     outputs = lib.mkIf config.deployContainerImage.enable
       (lib.attrsets.mapAttrs'
         (name: { src, registry, tag }: {
-          name = "deployContainerImage.${name}";
+          name = "/deployContainerImage/${name}";
           value = deployContainerImage {
             containerImage = src;
             inherit name;

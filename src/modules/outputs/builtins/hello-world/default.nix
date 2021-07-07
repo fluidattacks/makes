@@ -19,7 +19,7 @@
   };
   config = {
     outputs = {
-      helloWorld = lib.mkIf config.helloWorld.enable (makeScript {
+      "/helloWorld" = lib.mkIf config.helloWorld.enable (makeScript {
         name = "hello-world";
         entrypoint = ''
           info Hello from Makes! ${config.helloWorld.name}.

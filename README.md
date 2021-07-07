@@ -163,10 +163,10 @@ Makes targets two kind of users:
 
       ```
       Outputs list for project: ./
-        .helloWorld
+        /helloWorld
       ```
 
-    - Run a command: `$ m .helloWorld 1 2 3`
+    - Run a command: `$ m /helloWorld 1 2 3`
 
       ```
       [INFO] Hello from Makes! Jane Doe.
@@ -202,10 +202,10 @@ Makes targets two kind of users:
 
       ```
       Outputs list for project: ./
-        .helloWorld
+        /helloWorld
       ```
 
-    - Run a command: `$ m .helloWorld 1 2 3`
+    - Run a command: `$ m /helloWorld 1 2 3`
 
       ```
       [INFO] Hello from Makes! Jane Doe.
@@ -261,7 +261,7 @@ jobs:
       env:
         SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
       with:
-        args: m .helloWorld 1 2 3
+        args: m /helloWorld 1 2 3
 ```
 
 ## Configuring on GitLab CI/CD
@@ -281,7 +281,7 @@ helloWorld:
   #   yy.mm: monthly release (example: /makes:21.07)
   image: registry.gitlab.com/fluidattacks/product/makes:main
   script:
-    - m .helloWorld 1 2 3
+    - m /helloWorld 1 2 3
 ```
 
 Secrets can be propagated to Makes through [GitLab Variables][GITLAB_VARS],
@@ -324,7 +324,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m .formatBash`
+Example invocation: `$ m /formatBash`
 
 ### formatPython
 
@@ -354,7 +354,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m .formatPython`
+Example invocation: `$ m /formatPython`
 
 ## Pinning
 
@@ -429,7 +429,7 @@ Example `makes.nix`:
         tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
       };
       makesGitLab = {
-        src = config.outputs."container-image";
+        src = config.outputs."/containerImage";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var
       };
@@ -437,11 +437,11 @@ Example `makes.nix`:
   };
 ```
 
-Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m .deployContainerImage.nginxDockerHub`
+Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m /deployContainerImage/nginxDockerHub`
 
-Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m .deployContainerImage.makesGitHub`
+Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m /deployContainerImage/makesGitHub`
 
-Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m .deployContainerImage.makesGitLab`
+Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m /deployContainerImage/makesGitLab`
 
 ## Examples
 
@@ -466,7 +466,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m .helloWorld 1 2 3`
+Example invocation: `$ m /helloWorld 1 2 3`
 
 # Extending Makes
 
@@ -508,10 +508,10 @@ In order to do this:
 
       ```
       Outputs list for project: ./
-        .example
+        /example
       ```
 
-    - Run the command: `$ m .example`
+    - Run the command: `$ m /example`
 
       ```
       Hello from Makes!
@@ -525,9 +525,9 @@ Output names will me mapped in an intuitive way:
 
 | `main.nix` position                                | Output name       | Invocation command   |
 |----------------------------------------------------|-------------------|----------------------|
-| `/path/to/my/project/makes/main.nix`               | `""`              | `$ m .`              |
-| `/path/to/my/project/makes/example/main.nix`       | `"example"`       | `$ m .example`       |
-| `/path/to/my/project/makes/other/example/main.nix` | `"other.example"` | `$ m .other.example` |
+| `/path/to/my/project/makes/main.nix`               | `"/"`              | `$ m /`              |
+| `/path/to/my/project/makes/example/main.nix`       | `"/example"`       | `$ m /example`       |
+| `/path/to/my/project/makes/other/example/main.nix` | `"/other/example"` | `$ m /other/example` |
 
 ## Main.nix format
 
