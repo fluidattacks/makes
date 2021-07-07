@@ -84,9 +84,6 @@ and we have all come to the opinion that it's an awesome tool to work with.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Contents
 
-- [Makes v21.08](#makes-v2108)
-  - [Why?](#why)
-- [Contents](#contents)
 - [Philosophy](#philosophy)
 - [Getting started](#getting-started)
   - [Getting started as user](#getting-started-as-user)
