@@ -20,7 +20,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
-        files: []
+        files: ""
         release: 21.08-pre3
         prerelease: true
         tag: 21.08-pre3
