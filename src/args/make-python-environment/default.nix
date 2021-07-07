@@ -1,6 +1,7 @@
 { builtinLambdas
 , inputs
 , makeDerivation
+, makeSearchPaths
 , ...
 }:
 { name
@@ -9,7 +10,6 @@
 , dependencies
 , subDependencies ? [ ]
 }:
-
 let
   # Unpack arguments and sort them
   dependenciesSorted = builtinLambdas.sortCaseless dependencies;
@@ -29,19 +29,35 @@ let
     dependencies' ++
     subDependencies'
   );
+
+  pythonInterpreter =
+    if python == "3.7"
+    then inputs.makesPackages.nixpkgs.python37
+    else if python == "3.8"
+    then inputs.makesPackages.nixpkgs.python38
+    else if python == "3.9"
+    then inputs.makesPackages.nixpkgs.python39
+    else abort "Supported python versions are: 3.7 and 3.8";
+
+  pythonEnvironment = makeDerivation {
+    arguments = {
+      envRequirementsFile = builtinLambdas.listToFileWithTrailinNewLine requirementsList;
+    };
+    builder = ./builder.sh;
+    name = "make-python-environment-for-${name}";
+    searchPaths = searchPaths // {
+      envPaths = (builtinLambdas.getAttr searchPaths "envPaths" [ ]) ++ [
+        inputs.makesPackages.nixpkgs.gcc
+        inputs.makesPackages.nixpkgs.git
+        inputs.makesPackages.nixpkgs.gnused
+        pythonInterpreter
+      ];
+    };
+  };
 in
-makeDerivation {
-  arguments = {
-    envRequirementsFile = builtinLambdas.listToFileWithTrailinNewLine requirementsList;
-  };
-  builder = ./builder.sh;
-  name = "make-python-environment-for-${name}";
-  searchPaths = searchPaths // {
-    envPaths = (builtinLambdas.getAttr searchPaths "envPaths" [ ]) ++ [
-      inputs.makesPackages.nixpkgs.gcc
-      inputs.makesPackages.nixpkgs.git
-      inputs.makesPackages.nixpkgs.gnused
-      python
-    ];
-  };
+makeSearchPaths {
+  envPaths = [ pythonEnvironment ];
+  envPython37Paths = if (python == "3.7") then [ pythonEnvironment ] else [ ];
+  envPython38Paths = if (python == "3.8") then [ pythonEnvironment ] else [ ];
+  envPython39Paths = if (python == "3.9") then [ pythonEnvironment ] else [ ];
 }
