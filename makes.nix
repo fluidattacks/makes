@@ -51,5 +51,14 @@
     enable = true;
     targets = [ "/" ];
   };
+  lintPython = {
+    enable = true;
+    packages = {
+      cli = {
+        python = "3.8";
+        src = "/src/cli";
+      };
+    };
+  };
   requiredMakesVersion = "21.08";
 }
