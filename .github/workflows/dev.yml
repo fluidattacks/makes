@@ -23,6 +23,14 @@ jobs:
       name: helloWorld
       with:
         args: sh -c "nix-env -if . && m /helloWorld"
+  lintBash:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: lintBash
+      with:
+        args: sh -c "nix-env -if . && m /lintBash"
 name: dev
 on:
   pull_request:

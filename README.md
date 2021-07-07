@@ -84,6 +84,9 @@ and we have all come to the opinion that it's an awesome tool to work with.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Contents
 
+- [Makes v21.08](#makes-v2108)
+  - [Why?](#why)
+- [Contents](#contents)
 - [Philosophy](#philosophy)
 - [Getting started](#getting-started)
   - [Getting started as user](#getting-started-as-user)
@@ -94,6 +97,8 @@ and we have all come to the opinion that it's an awesome tool to work with.
   - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
   - [Configuring on Travis CI](#configuring-on-travis-ci)
 - [Makes.nix format](#makesnix-format)
+  - [Linters](#linters)
+    - [lintBash](#lintbash)
   - [Formatters](#formatters)
     - [formatBash](#formatbash)
     - [formatPython](#formatpython)
@@ -345,12 +350,44 @@ in the top level directory.
 
 Below we document all configuration options you can tweak with it.
 
+## Linters
+
+Linters ensure source code follows
+best practices.
+
+### lintBash
+
+Lints bash code with [ShellCheck][SHELLCHECK].
+
+Attributes:
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to lint.
+  Defaults to the entire project.
+
+```nix
+{
+  lintBash = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.sh" # A file
+      "/folder" # A folder within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m /lintBash`
+
 ## Formatters
+
+Formatters help your code be consistent, beautiful and more maintainable.
 
 ### formatBash
 
 Ensure that Bash code is formatted according to [shfmt][SHFMT].
-It helps your code be consistent, beautiful and more maintainable.
 
 Attributes:
 - enable (`boolean`): Optional.
@@ -380,7 +417,6 @@ Example invocation: `$ m /formatBash`
 
 Ensure that Python code is formatted according to [Black][BLACK]
 and [isort][ISORT].
-It helps your code be consistent, beautiful and more maintainable.
 
 Attributes:
 - enable (`boolean`): Optional.
@@ -690,6 +726,9 @@ doSomethingAndReturnADerivation
 
 - [SBT]: https://www.scala-sbt.org/
   [sbt][SBT]
+
+- [SHELLCHECK]: https://github.com/koalaman/shellcheck
+  [ShellCheck][SHELLCHECK]
 
 - [SHFMT]: https://github.com/mvdan/sh
   [SHFMT][SHFMT]
