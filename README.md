@@ -92,6 +92,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
   - [Versioning scheme](#versioning-scheme)
   - [Configuring on GitHub Actions](#configuring-on-github-actions)
   - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
+  - [Configuring on Travis CI](#configuring-on-travis-ci)
 - [Makes.nix format](#makesnix-format)
   - [Formatters](#formatters)
     - [formatBash](#formatbash)
