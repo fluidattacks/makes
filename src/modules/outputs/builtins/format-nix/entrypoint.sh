@@ -7,12 +7,12 @@ function main {
     && for path in "${paths[@]}"; do
       info Formatting "${path}" \
         && if ! nixpkgs-fmt --check "${path}" > /dev/null; then
-          error "Source code is not formated" \
-            && error "We will format it for you, but the job will fail" \
+          info Source code is not formated \
+            && info We will format it for you, but the job will fail \
             && nixpkgs-fmt "${path}" \
-            && return 1 \
-            || return 1
-        fi
+            && error Failing as promised...
+        fi \
+        || return 1
     done
 }
 
