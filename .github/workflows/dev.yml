@@ -23,7 +23,7 @@ jobs:
       name: helloWorld
       with:
         args: sh -c "nix-env -if . && m /helloWorld"
-name: Makes
+name: dev
 on:
   pull_request:
     branches: [ main ]
