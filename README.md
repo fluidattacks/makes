@@ -1,4 +1,4 @@
-# Makes v21.08-pre2
+# Makes v21.08-pre3
 
 A SecDevOps framework
 powered by [Nix][NIX].
@@ -142,10 +142,10 @@ In order to use Makes you'll need to:
     `$ nix-env -if https://fluidattacks.com/makes/install`
 
     [Other releases][MAKES_RELEASES]:
-    `$ nix-env -if https://fluidattacks.com/makes/install/21.08-pre2`
+    `$ nix-env -if https://fluidattacks.com/makes/install/21.08-pre3`
 
     We will install two commands in your system:
-    `m`, and `m-v21.08-pre2` (depending on the version you installed).
+    `m`, and `m-v21.08-pre3` (depending on the version you installed).
 
 Makes targets two kind of users:
 - Final users: People that want to use projects built with Makes.
@@ -364,15 +364,15 @@ Ensure that the Makes version people use in your project is the one you want.
 This increases reproducibility and prevents compatibility mismatches.
 People will use the Makes version you know your project works with.
 
-Type:
-- (`enum [ "21.08-pre2" ]`): Optional.
+Attributes:
+- self (`enum [ "21.08-pre3" ]`): Optional.
   Defaults to the version installed in the system.
 
 Example `makes.nix`:
 
 ```nix
 {
-  requiredMakesVersion = "21.08-pre2";
+  requiredMakesVersion = "21.08-pre3";
 }
 ```
 
