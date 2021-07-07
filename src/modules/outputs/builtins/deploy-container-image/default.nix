@@ -14,7 +14,7 @@
       };
       images = lib.mkOption {
         default = { };
-        type = lib.types.attrsOf (lib.types.submodule ({ ... }: {
+        type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             registry = lib.mkOption {
               type = lib.types.enum [

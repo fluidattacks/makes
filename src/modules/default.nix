@@ -10,7 +10,6 @@
     })
     (import ./outputs {
       inherit head;
-      inherit packages;
     })
     (import ./required-makes-version.nix {
       inherit makesVersion;

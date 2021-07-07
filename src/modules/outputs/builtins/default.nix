@@ -6,5 +6,6 @@ args:
     (import ./format-python args)
     (import ./hello-world args)
     (import ./lint-bash args)
+    (import ./lint-nix args)
   ];
 }

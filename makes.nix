@@ -6,23 +6,23 @@
     enable = true;
     images = {
       makesGitHub = {
-        src = config.outputs."/container-image";
         registry = "ghcr.io";
+        src = config.outputs."/container-image";
         tag = "fluidattacks/makes:main";
       };
       makesGitHubMonthly = {
-        src = config.outputs."/container-image";
         registry = "ghcr.io";
+        src = config.outputs."/container-image";
         tag = "fluidattacks/makes:${config.requiredMakesVersion}";
       };
       makesGitLab = {
-        src = config.outputs."/container-image";
         registry = "registry.gitlab.com";
+        src = config.outputs."/container-image";
         tag = "fluidattacks/product/makes:main";
       };
       makesGitLabMonthly = {
-        src = config.outputs."/container-image";
         registry = "registry.gitlab.com";
+        src = config.outputs."/container-image";
         tag = "fluidattacks/product/makes:${config.requiredMakesVersion}";
       };
     };
@@ -40,6 +40,10 @@
     name = "Jane Doe";
   };
   lintBash = {
+    enable = true;
+    targets = [ "/" ];
+  };
+  lintNix = {
     enable = true;
     targets = [ "/" ];
   };
