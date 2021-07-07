@@ -14,15 +14,15 @@ jobs:
     - uses: actions/checkout@v2
     - uses: richardsimko/update-tag@v1
       with:
-        tag_name: 21.08-pre3
+        tag_name: 21.08
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
     - uses: johnwbyrd/update-release@v1.0.0
       with:
         files: README.md
-        release: 21.08-pre3
+        release: 21.08
         prerelease: true
-        tag: 21.08-pre3
+        tag: 21.08
         token: ${{ secrets._GITHUB_TOKEN }}
 name: release
 on:

@@ -1,4 +1,4 @@
 (import ./src/evaluator.nix {
   head = ./.;
-  makesVersion = "21.08-pre3";
+  makesVersion = "21.08";
 }).config.outputs."/"
