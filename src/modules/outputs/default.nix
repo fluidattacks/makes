@@ -1,20 +1,18 @@
-{ head
-, packages
-}:
+{ head }:
 { config
 , lib
 , ...
 }:
 let args = {
+  inherit config;
+  inherit lib;
   builtinLambdas = import ../../args/builtin/lambdas.nix args;
   builtinShellCommands = ../../args/builtin/shell-commands.sh;
   builtinShellOptions = ../../args/builtin/shell-options.sh;
-  config = config;
   deployContainerImage = import ../../args/deploy-container-image args;
   fakeSha256 = lib.fakeSha256;
   fakeSha512 = lib.fakeSha512;
   inputs = config.inputs;
-  lib = lib;
   makeContainerImage = import ../../args/make-container-image args;
   makeDerivation = import ../../args/make-derivation args;
   makePythonEnvironment = import ../../args/make-python-environment args;

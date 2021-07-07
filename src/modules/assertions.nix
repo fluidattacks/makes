@@ -8,7 +8,7 @@
       type = lib.types.bool;
     };
     assertions = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule ({ ... }: {
+      type = lib.types.listOf (lib.types.submodule (_: {
         options = {
           assertion = lib.mkOption {
             type = lib.types.bool;

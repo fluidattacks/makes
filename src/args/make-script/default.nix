@@ -2,7 +2,6 @@
 , builtinShellCommands
 , builtinShellOptions
 , inputs
-, lib
 , makeDerivation
 , makeSearchPaths
 , makeTemplate

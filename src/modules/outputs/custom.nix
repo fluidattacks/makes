@@ -1,6 +1,5 @@
 args:
-{ config
-, lib
+{ lib
 , ...
 }:
 let

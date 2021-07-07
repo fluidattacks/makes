@@ -4,7 +4,6 @@
 , builtinShellOptions
 , lib
 , makeSearchPaths
-, path
 , ...
 }:
 

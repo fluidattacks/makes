@@ -108,7 +108,7 @@ let
   # a Nix version of mapAttrs if the built-in doesn't exist
   mapAttrs = builtins.mapAttrs or (
     f: set: with builtins;
-    listToAttrs (map (attr: { name = attr; value = f attr set.${attr}; }) (attrNames set))
+    listToAttrs (map (name: { inherit name; value = f name set.${name}; }) (attrNames set))
   );
 
   # https://github.com/NixOS/nixpkgs/blob/0258808f5744ca980b9a1f24fe0b1e6f0fecee9c/lib/lists.nix#L295
@@ -165,7 +165,7 @@ let
     , sources ? if isNull sourcesFile then { } else builtins.fromJSON (builtins.readFile sourcesFile)
     , system ? builtins.currentSystem
     , pkgs ? mkPkgs sources system
-    }: rec {
+    }:{
       # The sources, i.e. the attribute set of spec name to spec
       inherit sources;
 
