@@ -17,6 +17,7 @@ let args = {
   lib = lib;
   makeContainerImage = import ../../args/make-container-image args;
   makeDerivation = import ../../args/make-derivation args;
+  makePythonEnvironment = import ../../args/make-python-environment args;
   makeScript = import ../../args/make-script args;
   makeSearchPaths = import ../../args/make-search-paths args;
   makeTemplate = import ../../args/make-template args;
