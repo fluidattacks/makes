@@ -47,6 +47,14 @@ jobs:
       name: lintNix
       with:
         args: sh -c "nix-env -if . && m /lintNix"
+  lintPython_cli:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: lintPython/cli
+      with:
+        args: sh -c "nix-env -if . && m /lintPython/cli"
 name: dev
 on:
   pull_request:
