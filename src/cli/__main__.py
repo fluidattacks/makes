@@ -32,7 +32,7 @@ def _log(*args: str) -> None:
 
 
 def _if(condition: Any, *value: Any) -> List[Any]:
-    return value if condition else []
+    return list(value) if condition else []
 
 
 def _nix_build(head: str, attr: str, out: str = "") -> List[str]:

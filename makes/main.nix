@@ -19,13 +19,16 @@ makeScript {
     _MAKES_VERSION=${config.requiredMakesVersion} \
     _NIX_BUILD=__envNix__/bin/nix-build \
     _NIX_INSTANTIATE=__envNix__/bin/nix-instantiate \
-    python __envSrc__/cli.py "$@"
+    python -m cli "$@"
   '';
   searchPaths = {
     envPaths = [
       inputs.makesPackages.nixpkgs.gnutar
       inputs.makesPackages.nixpkgs.gzip
       inputs.makesPackages.nixpkgs.python38
+    ];
+    envPythonPaths = [
+      (path "/src")
     ];
   };
   name = "m";
