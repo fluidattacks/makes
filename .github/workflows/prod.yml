@@ -1,5 +1,6 @@
 jobs:
   deployContainerImage_makesGitHub:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -10,6 +11,7 @@ jobs:
       with:
         args: sh -c "nix-env -if . && m /deployContainerImage/makesGitHub"
   deployContainerImage_makesGitHubMonthly:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
     needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +23,7 @@ jobs:
       with:
         args: m /deployContainerImage/makesGitHubMonthly
   deployContainerImage_makesGitLab:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
     needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +36,7 @@ jobs:
       with:
         args: m /deployContainerImage/makesGitLab
   deployContainerImage_makesGitLabMonthly:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
     needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
     steps:
