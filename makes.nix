@@ -31,6 +31,10 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatNix = {
+    enable = true;
+    targets = [ "/" ];
+  };
   formatPython = {
     enable = true;
     targets = [ "/" ];
