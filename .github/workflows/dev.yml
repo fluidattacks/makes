@@ -3,7 +3,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: fluidattacks/makes@main
+    - uses: ./
       name: formatBash
       with:
         args: m /formatBash
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: fluidattacks/makes@main
+    - uses: ./
       name: formatPython
       with:
         args: m /formatPython
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: fluidattacks/makes@main
+    - uses: ./
       name: helloWorld
       with:
         args: m /helloWorld
