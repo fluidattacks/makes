@@ -65,12 +65,19 @@ You can instead use [Nix][NIX] which features:
 So, if [Nix][NIX] is that powerful: Why [Makes][MAKES], then?
 
 [Makes][MAKES] wraps [Nix][NIX]
-in a opinionated way
+in an opinionated way
 that allows users and developers
-to get things done.
-We've been using it for 2 years now at [Fluid Attacks][FLUID_ATTACKS]
-and we have forgotten what's fixing production
-a sunday morning since then :wink:.
+to get things done, fast.
+It incorporates common workflows
+for formatting, linting, building, testing, managing infrastructure as code
+with terraform, deploying to Kubernetes clusters,
+creating development environments, etc.
+With as little code as possible.
+[Makes][MAKES] tries to hide all the unnecessary complexity
+so you can focus on the business logic.
+
+We've been using [Makes][MAKES] at [Fluid Attacks][FLUID_ATTACKS] since 2019
+and we have all come to the opinion that it's an awesome tool to work with.
 
 <!-- This is updated automatically by a GitHub action, don't worry about it -->
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
