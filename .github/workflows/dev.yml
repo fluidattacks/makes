@@ -7,6 +7,14 @@ jobs:
       name: formatBash
       with:
         args: sh -c "nix-env -if . && m /formatBash"
+  formatNix:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: formatNix
+      with:
+        args: sh -c "nix-env -if . && m /formatNix"
   formatPython:
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +39,14 @@ jobs:
       name: lintBash
       with:
         args: sh -c "nix-env -if . && m /lintBash"
+  lintNix:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: lintNix
+      with:
+        args: sh -c "nix-env -if . && m /lintNix"
 name: dev
 on:
   pull_request:
