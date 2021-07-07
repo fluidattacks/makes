@@ -6,19 +6,21 @@ let
   # The fetchers. fetch_<type> fetches specs of type <type>.
   #
 
-  fetch_file = pkgs: name: spec:
+  fetch_file = pkgs: name:
     let
       name' = sanitizeName name + "-src";
     in
+    spec:
     if spec.builtin or true then
       builtins_fetchurl { inherit (spec) url sha256; name = name'; }
     else
       pkgs.fetchurl { inherit (spec) url sha256; name = name'; };
 
-  fetch_tarball = pkgs: name: spec:
+  fetch_tarball = pkgs: name:
     let
       name' = sanitizeName name + "-src";
     in
+    spec:
     if spec.builtin or true then
       builtins_fetchTarball { name = name'; inherit (spec) url sha256; }
     else
@@ -93,11 +95,12 @@ let
 
   # If the environment variable NIV_OVERRIDE_${name} is set, then use
   # the path directly as opposed to the fetched source.
-  replace = name: drv:
+  replace = name:
     let
       saneName = stringAsChars (c: if isNull (builtins.match "[a-zA-Z0-9]" c) then "_" else c) name;
       ersatz = builtins.getEnv "NIV_OVERRIDE_${saneName}";
     in
+    drv:
     if ersatz == "" then drv else
       # this turns the string into an actual Nix path (for both absolute and
       # relative paths)
