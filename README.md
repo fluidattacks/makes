@@ -372,7 +372,7 @@ This increases reproducibility and prevents compatibility mismatches.
 People will use the Makes version you know your project works with.
 
 Attributes:
-- self (`enum [ "21.08" ]`): Optional.
+- self (`str`): Optional.
   Defaults to the version installed in the system.
 
 Example `makes.nix`:
