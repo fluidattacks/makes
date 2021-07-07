@@ -254,7 +254,7 @@ looks like this:
 name: Makes CI
 on: [push, pull_request]
 jobs:
-  makes:
+  helloWorld:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -269,6 +269,8 @@ jobs:
         SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
       with:
         args: m /helloWorld 1 2 3
+
+  # Add more jobs here, you can copy paste jobs.helloWorld and modify the `args`
 ```
 
 ## Configuring on GitLab CI/CD
@@ -282,18 +284,58 @@ looks like this:
 
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
-helloWorld:
+/helloWorld:
   # We offer this Container Image in the following tags:
   #   main: latest release (example: /makes:main)
   #   yy.mm: monthly release (example: /makes:21.07)
   image: registry.gitlab.com/fluidattacks/product/makes:main
   script:
     - m /helloWorld 1 2 3
+
+# Add more jobs here, you can copy paste /helloWorld and modify the `script`
 ```
 
 Secrets can be propagated to Makes through [GitLab Variables][GITLAB_VARS],
 which are passed automatically to the running container
 as environment variables.
+
+## Configuring on Travis CI
+
+[Travis CI][TRAVIS_CI]
+is configured through a [.travis.yml][TRAVIS_CI_REF] file
+located in the root of the project.
+
+The smallest possible [.travis.yml][TRAVIS_CI_REF]
+looks like this:
+
+```yaml
+# /path/to/my/project/.travis.yml
+os: linux
+language: nix
+nix: 2.3.12
+# We offer this installation step in the following versions:
+#   main: latest release (example: /install/main)
+#   yy.mm: monthly release (example: /install/21.07)
+install: nix-env -if https://fluidattacks.com/makes/install/21.07
+env:
+  global:
+    # Encrypted environment variable
+    secure: cipher-text-goes-here...
+    # Publicly visible environment variable
+    NAME: value
+jobs:
+  include:
+  - script: m /helloWorld 1 2 3
+  # You can add more jobs like this:
+  # - script: m /formatBash
+```
+
+Secrets can be propagated to Makes through
+[Travis Environment Variables][TRAVIS_ENV_VARS],
+which are passed automatically to the running container
+as environment variables.
+We highly recommend you to use encrypted environment variables as
+explained in the [Travis Environment Variables Reference][TRAVIS_ENV_VARS].
 
 # Makes.nix format
 
@@ -653,6 +695,12 @@ doSomethingAndReturnADerivation
 
 - [TRAVIS_CI]: https://travis-ci.org/
   [Travis CI][TRAVIS_CI]
+
+- [TRAVIS_CI_REF]: https://config.travis-ci.com/
+  [Travis CI reference][TRAVIS_CI_REF]
+
+- [TRAVIS_ENV_VARS]: https://docs.travis-ci.com/user/environment-variables
+  [Travis Environment Variables][TRAVIS_ENV_VARS]
 
 - [X86_64]: https://en.wikipedia.org/wiki/X86-64
   [x86-64][X86_64]
