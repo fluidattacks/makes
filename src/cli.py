@@ -31,23 +31,21 @@ def _log(*args: str) -> None:
     print(*args, file=sys.stderr)
 
 
-def _if(condition: Any, value: str) -> List[str]:
-    return [value] if condition else []
+def _if(condition: Any, *value: Any) -> List[Any]:
+    return value if condition else []
 
 
 def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
     return [
         environ["_NIX_BUILD"],
-        "--arg",
-        "head",
-        head,
-        "--argstr",
-        "makesVersion",
-        VERSION,
-        "--attr",
-        attr,
-        *_if(out, "--out-link"),
-        *_if(out, out),
+        *["--arg", "head", head],
+        *["--argstr", "makesVersion", VERSION],
+        *["--attr", attr],
+        *["--option", "narinfo-cache-negative-ttl", "1"],
+        *["--option", "narinfo-cache-positive-ttl", "1"],
+        *["--option", "restrict-eval", "false"],
+        *["--option", "sandbox", "false"],
+        *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
         *_if(DEBUG, "--show-trace"),
         environ["_EVALUATOR"],
