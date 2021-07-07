@@ -230,6 +230,9 @@ For maximum stability you should use the stable release,
 in other words: the current month in [calendar versioning][CALVER].
 For instance: `21.01` if the current date is January 2021.
 
+At the same time, please consider keeping your [Makes][MAKES] updated.
+New features are added constantly.
+
 ## Configuring on GitHub Actions
 
 [GitHub Actions][GITHUB_ACTIONS]
