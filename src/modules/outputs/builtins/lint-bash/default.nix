@@ -22,7 +22,7 @@
   };
   config = {
     outputs = {
-      lintBash = lib.mkIf config.lintBash.enable (makeScript {
+      "/lintBash" = lib.mkIf config.lintBash.enable (makeScript {
         arguments = {
           envTargets = builtinLambdas.asBashArray
             (builtins.map

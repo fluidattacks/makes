@@ -22,7 +22,7 @@
   };
   config = {
     outputs = {
-      formatPython = lib.mkIf config.formatPython.enable (makeScript {
+      "/formatPython" = lib.mkIf config.formatPython.enable (makeScript {
         arguments = {
           envSettingsBlack = ./settings-black.toml;
           envSettingsIsort = ./settings-isort.toml;

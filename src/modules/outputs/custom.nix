@@ -16,7 +16,7 @@ let
             then attrsFromPath "${path}/${name}" (position ++ [ name ])
             else if name == "main.nix"
             then {
-              "${builtins.concatStringsSep "." position}" =
+              "/${builtins.concatStringsSep "/" position}" =
                 (import "${path}/main.nix" args);
             }
             else { })
