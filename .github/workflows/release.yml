@@ -17,7 +17,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
     - uses: johnwbyrd/update-release@v1
-      with:
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
