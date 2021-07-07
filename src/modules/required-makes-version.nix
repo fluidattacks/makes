@@ -7,7 +7,7 @@
 }:
 let
   versions = [
-    "21.08-pre2"
+    "21.08-pre3"
   ];
 in
 {
