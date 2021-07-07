@@ -17,13 +17,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
     - uses: johnwbyrd/update-release@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
         files: ""
         release: 21.08-pre3
         prerelease: true
         tag: 21.08-pre3
+        token: ${{ secrets._GITHUB_TOKEN }}
 name: release
 on:
   push:
