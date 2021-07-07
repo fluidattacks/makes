@@ -44,7 +44,7 @@ jobs:
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
         args: m /deployContainerImage/makesGitLabMonthly
-name: Makes
+name: prod
 on:
   push:
     branches: [ main ]
