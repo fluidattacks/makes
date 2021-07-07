@@ -18,7 +18,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
     - uses: johnwbyrd/update-release@v1.0.0
       with:
-        files: ""
+        files: README.md
         release: 21.08-pre3
         prerelease: true
         tag: 21.08-pre3
