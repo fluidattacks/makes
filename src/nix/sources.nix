@@ -54,7 +54,7 @@ let
       concatMapStrings (s: if builtins.isList s then "-" else s)
         (
           builtins.split "[^[:alnum:]+._?=-]+"
-            ((x: builtins.elemAt (builtins.match "\\.*(.*)" x) 0) name)
+            (builtins.elemAt (builtins.match "\\.*(.*)" name) 0)
         )
     );
 
@@ -126,7 +126,7 @@ let
   optionalAttrs = cond: as: if cond then as else { };
 
   # fetchTarball version that is compatible between all the versions of Nix
-  builtins_fetchTarball = { url, name ? null, sha256 }@attrs:
+  builtins_fetchTarball = { url, name ? null, ... }@attrs:
     let
       inherit (builtins) lessThan nixVersion fetchTarball;
     in
@@ -136,7 +136,7 @@ let
       fetchTarball attrs;
 
   # fetchurl version that is compatible between all the versions of Nix
-  builtins_fetchurl = { url, name ? null, sha256 }@attrs:
+  builtins_fetchurl = { url, name ? null, ... }@attrs:
     let
       inherit (builtins) lessThan nixVersion fetchurl;
     in
@@ -165,7 +165,7 @@ let
     , sources ? if isNull sourcesFile then { } else builtins.fromJSON (builtins.readFile sourcesFile)
     , system ? builtins.currentSystem
     , pkgs ? mkPkgs sources system
-    }:{
+    }: {
       # The sources, i.e. the attribute set of spec name to spec
       inherit sources;
 
