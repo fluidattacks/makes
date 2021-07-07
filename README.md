@@ -97,6 +97,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
   - [Linters](#linters)
     - [lintBash](#lintbash)
     - [lintNix](#lintnix)
+    - [lintPython](#lintpython)
   - [Formatters](#formatters)
     - [formatBash](#formatbash)
     - [formatNix](#formatnix)
