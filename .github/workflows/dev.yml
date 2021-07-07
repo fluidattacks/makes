@@ -3,26 +3,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./
+    - uses: docker://docker.io/nixos/nix:2.3.12
       name: formatBash
       with:
-        args: m /formatBash
+        args: sh -c "nix-env -if . && m /formatBash"
   formatPython:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./
+    - uses: docker://docker.io/nixos/nix:2.3.12
       name: formatPython
       with:
-        args: m /formatPython
+        args: sh -c "nix-env -if . && m /formatPython"
   helloWorld:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ./
+    - uses: docker://docker.io/nixos/nix:2.3.12
       name: helloWorld
       with:
-        args: m /helloWorld
+        args: sh -c "nix-env -if . && m /helloWorld"
 name: Makes
 on:
   pull_request:

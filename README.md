@@ -259,9 +259,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       # We offer this GitHub action in the following versions:
-      #   main: latest release (example: /makes@main)
-      #   yy.mm: monthly release (example: /makes@21.07)
-    - uses: fluidattacks/makes@main
+      #   main: latest release (example: /makes:main)
+      #   yy.mm: monthly release (example: /makes:21.07)
+    - uses: docker://ghcr.io/fluidattacks/makes:main
       # You can use any name you like here
       name: helloWorld
       # You can pass secrets (if required) as environment variables like this:

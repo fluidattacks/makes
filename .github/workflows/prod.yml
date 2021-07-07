@@ -3,27 +3,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: fluidattacks/makes@main
+    - uses: docker://docker.io/nixos/nix:2.3.12
       env:
         GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
-        args: m /deployContainerImage/makesGitHub
+        args: sh -c "nix-env -if . && m /deployContainerImage/makesGitHub"
   deployContainerImage_makesGitHubMonthly:
+    needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: fluidattacks/makes@main
+    - uses: docker://ghcr.io/fluidattacks/makes:main
       env:
         GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
         args: m /deployContainerImage/makesGitHubMonthly
   deployContainerImage_makesGitLab:
+    needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: fluidattacks/makes@main
+    - uses: docker://ghcr.io/fluidattacks/makes:main
       name: deployContainerImage_makesGitLab
       env:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
@@ -31,10 +33,11 @@ jobs:
       with:
         args: m /deployContainerImage/makesGitLab
   deployContainerImage_makesGitLabMonthly:
+    needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: fluidattacks/makes@main
+    - uses: docker://ghcr.io/fluidattacks/makes:main
       name: deployContainerImage_makesGitLabMonthly
       env:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
