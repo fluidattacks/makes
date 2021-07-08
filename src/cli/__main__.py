@@ -1,26 +1,28 @@
 import json
+import os
 from os import (
     environ,
     getcwd,
 )
 from os.path import (
-    abspath,
     exists,
     join,
 )
+import shutil
 import subprocess
 import sys
 import tempfile
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Tuple,
 )
 
-DEBUG: bool = "MAKES_DEBUG" in environ
-FROM: str = environ.get("MAKES_FROM", f"file://{getcwd()}")
-VERSION: str = environ["_MAKES_VERSION"]
+DEBUG: bool = "M_DEBUG" in environ
+FROM: str = environ.get("M_FROM", f"file://{getcwd()}")
+VERSION: str = environ["_M_VERSION"]
 
 
 class Error(Exception):
@@ -52,65 +54,81 @@ def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
     ]
 
 
-def _get_head_from_file() -> str:
-    return abspath(FROM[7:])
-
-
 def _get_head() -> str:
-    if FROM.startswith("file://"):
-        return _get_head_from_file()
+    # Checkout repository HEAD into a temporary directory
+    # This is nice for reproducibility and security,
+    # files not in the HEAD commit are left out of the build inputs
+    head = tempfile.TemporaryDirectory(prefix="makes-").name
+    out, stdout, stderr = _run(
+        args=["git", "clone", "--depth", "1", FROM, head],
+    )
+    if out == 0:
+        shutil.rmtree(os.path.join(head, ".git"))
+        return head
 
-    raise Error(f"Unable to load Makes project from: {FROM}")
+    raise Error(f"Unable to clone: {FROM}", stdout, stderr)
 
 
 def _get_attrs(head: str) -> List[str]:
     out: str = tempfile.mktemp()
-    code, _, _, = _run(
+    code, stdout, stderr, = _run(
         args=_nix_build(head, "config.attrs", out),
     )
     if code == 0:
         with open(out) as file:
             return json.load(file)
 
-    raise Error(f"Unable to list project outputs from: {FROM}")
+    raise Error(f"Unable to list project outputs from: {FROM}", stdout, stderr)
 
 
 def _run(
     args: List[str],
-    stdout: bool = False,
-    stderr: bool = False,
+    cwd: Optional[str] = None,
+    env: Optional[Dict[str, str]] = None,
+    capture_io: bool = True,
 ) -> Tuple[int, bytes, bytes]:
     with subprocess.Popen(
         args=args,
-        stdout=subprocess.PIPE if stdout else None,
-        stderr=subprocess.PIPE if stderr else None,
+        cwd=cwd,
+        env=env,
+        stdout=subprocess.PIPE if capture_io else None,
+        stderr=subprocess.PIPE if capture_io else None,
     ) as process:
+        out, err = bytes(), bytes()
+        if capture_io:
+            out, err = process.communicate()
+
         process.wait()
-        out: Any = process.stdout if process.stdout else bytes()
-        err: Any = process.stderr if process.stderr else bytes()
 
         return process.returncode, out, err
 
 
-def _help_and_exit(attrs: Optional[List[str]] = None) -> None:
-    _log(f"Makes v{VERSION}")
-    _log()
+def _help_and_exit(
+    attrs: Optional[List[str]] = None,
+    exc: Optional[Exception] = None,
+) -> None:
     _log("Usage: m [OUTPUT] [ARGS]...")
     if attrs is not None:
         _log()
         _log(f"Outputs list for project: {FROM}")
         for attr in attrs:
             _log(f"  {attr}")
-    sys.exit(1)
+    if exc is not None:
+        _log()
+        raise exc
+
+    raise SystemExit(1)
 
 
 def cli(args: List[str]) -> None:
+    _log(f"Makes v{VERSION}")
+    _log()
     if not args[1:]:
         try:
             head: str = _get_head()
             attrs: List[str] = _get_attrs(head)
-        except Error:
-            _help_and_exit()
+        except Error as exc:
+            _help_and_exit(exc=exc)
         else:
             _help_and_exit(attrs)
 
@@ -127,6 +145,7 @@ def cli(args: List[str]) -> None:
 
     code, _, _ = _run(
         args=_nix_build(head, f'config.outputs."{attr}"', out),
+        capture_io=False,
     )
 
     if code == 0:
@@ -135,16 +154,25 @@ def cli(args: List[str]) -> None:
                 for action in json.load(actions_file):
                     if action["type"] == "exec":
                         action_target: str = join(out, action["location"][1:])
-                        code, _, _ = _run(args=[action_target, *args])
-                        sys.exit(code)
+                        code, _, _ = _run(
+                            args=[action_target, *args],
+                            capture_io=False,
+                        )
+                        raise SystemExit(code)
 
 
 def main() -> None:
     try:
         cli(sys.argv)
     except Error as err:
-        _log(f"[ERROR] {err}")
+        _log(f"[ERROR] {err.args[0]}")
+        if err.args[1:]:
+            _log(f"[ERROR] Stdout: {err.args[1].decode(errors='replace')}")
+        if err.args[2:]:
+            _log(f"[ERROR] Stderr: {err.args[2].decode(errors='replace')}")
         sys.exit(1)
+    except SystemExit as err:
+        sys.exit(err.code)
 
 
 if __name__ == "__main__":
