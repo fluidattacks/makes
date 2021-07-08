@@ -3,19 +3,17 @@
 function main {
   local commit_diff
   local commit_hashes
-  local current_branch
   local main_branch=__envBranch__
+  local args=(
+    --parser-preset __envParser__
+    --config __envConfig__
+  )
 
-  current_branch="$(git rev-parse --abbrev-ref HEAD)" \
-    && git fetch --prune > /dev/null \
-    && if running_in_ci_cd_provider; then
-      commit_diff="origin/${main_branch}..origin/${current_branch}"
-    else
-      commit_diff="origin/${main_branch}..${current_branch}"
-    fi \
-    && commit_hashes="$(git log --pretty=%h "${commit_diff}")" \
+  commit_diff="origin/${main_branch}..HEAD" \
+    && commit_hashes="$(git --no-pager log --pretty=%h "${commit_diff}")" \
     && for commit_hash in ${commit_hashes}; do
-      git log -1 --pretty=%B "${commit_hash}" | commitlint \
+      info "Linting ${commit_hash}" \
+        && git log -1 --pretty=%B "${commit_hash}" | commitlint "${args[@]}" \
         || return 1
     done
 }
