@@ -3,8 +3,8 @@
 
 source __envBuiltinShellOptions__
 
-function is_local {
-  # Non-empty on Gitlab
+function running_in_ci_cd_provider {
+  # Non-empty on Gitlab, Github, Travis
   export CI
 
   test -n "${CI:-}"

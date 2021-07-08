@@ -14,14 +14,6 @@
         default = false;
         type = lib.types.bool;
       };
-      node = lib.mkOption {
-        default = "10";
-        type = lib.types.enum [ "10" "11" "12" "13" "14" "15" ];
-      };
-      ci = lib.mkOption {
-        default = "CI";
-        type = lib.types.str;
-      };
       branch = lib.mkOption {
         default = "main";
         type = lib.types.str;
@@ -33,7 +25,6 @@
       "/lintCommitMsg" = lib.mkIf config.lintCommitMsg.enable (makeScript {
         name = "lint-commit-msg";
         arguments = {
-          envCI = config.lintCommitMsg.ci;
           envBranch = config.lintCommitMsg.branch;
         };
         searchPaths = {
@@ -44,7 +35,7 @@
             (makeNodeEnvironment {
               dependencies = [ "@commitlint/cli@11.0.0" ];
               name = "lint-node-for-lint-commit-msg";
-              node = config.lintCommitMsg.node;
+              node = "10";
               subDependencies = [
                 "@babel/code-frame@7.12.13"
                 "@babel/helper-validator-identifier@7.12.11"
