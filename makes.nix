@@ -60,13 +60,13 @@
     dirsOfModules = {
       makes = {
         python = "3.8";
-        src = "/src";
+        src = "/src/cli";
       };
     };
     modules = {
-      cli = {
+      cliMain = {
         python = "3.8";
-        src = "/src/cli";
+        src = "/src/cli/main";
       };
     };
   };

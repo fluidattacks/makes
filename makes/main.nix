@@ -19,7 +19,7 @@ makeScript {
     _M_VERSION=${config.requiredMakesVersion} \
     _NIX_BUILD=__envNix__/bin/nix-build \
     _NIX_INSTANTIATE=__envNix__/bin/nix-instantiate \
-    python -m cli "$@"
+    python -m cli.main "$@"
   '';
   searchPaths = {
     envPaths = [
