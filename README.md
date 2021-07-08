@@ -111,7 +111,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
     - [helloWorld](#helloworld)
 - [Extending Makes](#extending-makes)
   - [Main.nix format](#mainnix-format)
-    - [Main.nix function arguments](#mainnix-function-arguments)
+  - [makeSearchPaths](#makesearchpaths)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
