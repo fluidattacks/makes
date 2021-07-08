@@ -786,8 +786,37 @@ and returns a derivation:
 doSomethingAndReturnADerivation
 ```
 
-### Main.nix function arguments
+## makeSearchPaths
 
+On [Linux][LINUX]
+software dependencies
+can be located anywhere in the file system.
+Command shells like [Bash][BASH] honor some environment variables
+in order to search for locations of programs and libraries.
+In general, search paths are in the form:
+`/path/to/somewhere:/path/to/somewhere/else`.
+They are looked-up from left to right.
+
+On [Nix][NIX]
+everything is a
+[derivation][NIX_DERIVATION].
+Derivations are the result of building something with [Nix],
+they take zero or more inputs, and produce an output
+(as a function in a programming language).
+Derivation outputs are stored and located in `/nix/store`.
+In order for command shells like [Bash][BASH]
+to find programs and libraries in the `/nix/store`
+we use the following **search paths**, declared as environment variables:
+
+- CLASSPATH
+- LD_LIBRARY_PATH
+- MYPYPATH
+- PATH
+- NODE_PATH
+- PYTHONPATH
+
+
+:construction: This section is Work in progress
 
 # References
 
