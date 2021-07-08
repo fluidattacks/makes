@@ -84,6 +84,9 @@ and we have all come to the opinion that it's an awesome tool to work with.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Contents
 
+- [Makes v21.08](#makes-v2108)
+  - [Why?](#why)
+- [Contents](#contents)
 - [Philosophy](#philosophy)
 - [Getting started](#getting-started)
   - [Getting started as user](#getting-started-as-user)
@@ -96,6 +99,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
 - [Makes.nix format](#makesnix-format)
   - [Linters](#linters)
     - [lintBash](#lintbash)
+    - [lintCommitMsg](#lintcommitmsg)
     - [lintNix](#lintnix)
     - [lintPython](#lintpython)
   - [Formatters](#formatters)
@@ -391,6 +395,34 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m /lintBash`
+
+### lintCommitMsg
+
+It creates a commit diff
+between you current branch
+and the main branch of the repository.
+All commits included in the diff
+are linted using [commitlint][COMMITLINT].
+
+Attributes:
+- enable (`boolean`): Optional.
+  Defaults to false.
+- branch (`str`): Optional.
+  Name of the main branch.
+  Defaults to `main`.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintCommitMsg = {
+    enable = true;
+    branch = "my-branch-name";
+  };
+}
+```
+
+Example invocation: `$ m /lintCommitMsg`
 
 ### lintNix
 
@@ -760,6 +792,9 @@ doSomethingAndReturnADerivation
 
 - [CIRCLE_CI]: https://circleci.com/
   [Circle CI][CIRCLE_CI]
+
+- [COMMITLINT]: https://commitlint.js.org/#/
+  [commitlint][COMMITLINT]
 
 - [DOCKER]: https://www.docker.com/
   [Docker][DOCKER]
