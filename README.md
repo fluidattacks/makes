@@ -456,12 +456,20 @@ Lints Python code with [mypy][MYPY] and [Prospector][PROSPECTOR].
 Attributes:
 - enable (`boolean`): Optional.
   Defaults to false.
-- packages (`attrsOf packageType`): Optional.
+- dirsOfModules (`attrsOf dirOfModulesType`): Optional.
+  Definitions of directories of python packages/modules to lint.
+  Defaults to `{ }`.
+- modules (`attrsOf moduleType`): Optional.
   Definitions of python packages/modules to lint.
   Defaults to `{ }`.
 
 Custom Types:
-- packageType (`submodule`):
+- dirOfModulesType (`submodule`):
+  - python (`enum [ "3.7" "3.8" "3.9" ]`):
+    Python interpreter version that your package/module is designed for.
+  - src (`str`):
+    Path to the folder that contains inside many packages/modules.
+- moduleType (`submodule`):
   - python (`enum [ "3.7" "3.8" "3.9" ]`):
     Python interpreter version that your package/module is designed for.
   - src (`str`):
@@ -473,23 +481,27 @@ Example `makes.nix`:
 {
   lintPython = {
     enable = true;
-    packages = {
-      backend = {
-        python = "3.7";
-        src = "/src/backend";
-      };
-      cli = {
+    dirsOfModules = {
+      makes = {
         python = "3.8";
         src = "/src/cli";
+      };
+    };
+    modules = {
+      cliMain = {
+        python = "3.8";
+        src = "/src/cli/main";
       };
     };
   };
 }
 ```
 
-Example invocation: `$ m /lintPython/backend`
+Example invocation: `$ m /lintPython/dirOfModules/makes`
 
-Example invocation: `$ m /lintPython/cli`
+Example invocation: `$ m /lintPython/dirOfModules/makes/main`
+
+Example invocation: `$ m /lintPython/module/cliMain`
 
 ## Formatters
 
