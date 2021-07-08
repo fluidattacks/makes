@@ -31,33 +31,7 @@ let
             ];
             name = "lint-python";
             inherit python;
-            subDependencies = [
-              "astroid==2.4.1"
-              "dodgy==0.2.1"
-              "flake8-polyfill==1.0.2"
-              "flake8==3.9.2"
-              "isort==4.3.21"
-              "lazy-object-proxy==1.4.3"
-              "mccabe==0.6.1"
-              "mypy-extensions==0.4.3"
-              "pep8-naming==0.10.0"
-              "pycodestyle==2.6.0"
-              "pydocstyle==6.1.1"
-              "pyflakes==2.2.0"
-              "pylint-celery==0.3"
-              "pylint-django==2.1.0"
-              "pylint-flask==0.6"
-              "pylint-plugin-utils==0.6"
-              "pylint==2.5.3"
-              "PyYAML==5.4.1"
-              "requirements-detector==0.7"
-              "setoptconf==0.2.0"
-              "six==1.16.0"
-              "snowballstemmer==2.1.0"
-              "toml==0.10.2"
-              "typing-extensions==3.10.0.0"
-              "wrapt==1.12.1"
-            ];
+            subDependencies = pythonEnvironmentSubdependencies.${python};
           })
         ];
       };
@@ -88,6 +62,93 @@ let
         name = "lint-python-dir-of-modules-for-${name}";
       };
     }]);
+
+  pythonEnvironmentSubdependencies = {
+    "3.7" = [
+      "astroid==2.4.1"
+      "dodgy==0.2.1"
+      "flake8-polyfill==1.0.2"
+      "flake8==3.9.2"
+      "importlib-metadata==4.6.1"
+      "isort==4.3.21"
+      "lazy-object-proxy==1.4.3"
+      "mccabe==0.6.1"
+      "mypy-extensions==0.4.3"
+      "pep8-naming==0.10.0"
+      "pycodestyle==2.6.0"
+      "pydocstyle==6.1.1"
+      "pyflakes==2.2.0"
+      "pylint-celery==0.3"
+      "pylint-django==2.1.0"
+      "pylint-flask==0.6"
+      "pylint-plugin-utils==0.6"
+      "pylint==2.5.3"
+      "PyYAML==5.4.1"
+      "requirements-detector==0.7"
+      "setoptconf==0.2.0"
+      "six==1.16.0"
+      "snowballstemmer==2.1.0"
+      "toml==0.10.2"
+      "typed-ast==1.4.3"
+      "typing-extensions==3.10.0.0"
+      "wrapt==1.12.1"
+      "zipp==3.5.0"
+    ];
+    "3.8" = [
+      "astroid==2.4.1"
+      "dodgy==0.2.1"
+      "flake8-polyfill==1.0.2"
+      "flake8==3.9.2"
+      "isort==4.3.21"
+      "lazy-object-proxy==1.4.3"
+      "mccabe==0.6.1"
+      "mypy-extensions==0.4.3"
+      "pep8-naming==0.10.0"
+      "pycodestyle==2.6.0"
+      "pydocstyle==6.1.1"
+      "pyflakes==2.2.0"
+      "pylint-celery==0.3"
+      "pylint-django==2.1.0"
+      "pylint-flask==0.6"
+      "pylint-plugin-utils==0.6"
+      "pylint==2.5.3"
+      "PyYAML==5.4.1"
+      "requirements-detector==0.7"
+      "setoptconf==0.2.0"
+      "six==1.16.0"
+      "snowballstemmer==2.1.0"
+      "toml==0.10.2"
+      "typing-extensions==3.10.0.0"
+      "wrapt==1.12.1"
+    ];
+    "3.9" = [
+      "astroid==2.4.1"
+      "dodgy==0.2.1"
+      "flake8-polyfill==1.0.2"
+      "flake8==3.9.2"
+      "isort==4.3.21"
+      "lazy-object-proxy==1.4.3"
+      "mccabe==0.6.1"
+      "mypy-extensions==0.4.3"
+      "pep8-naming==0.10.0"
+      "pycodestyle==2.6.0"
+      "pydocstyle==6.1.1"
+      "pyflakes==2.2.0"
+      "pylint-celery==0.3"
+      "pylint-django==2.1.0"
+      "pylint-flask==0.6"
+      "pylint-plugin-utils==0.6"
+      "pylint==2.5.3"
+      "PyYAML==5.4.1"
+      "requirements-detector==0.7"
+      "setoptconf==0.2.0"
+      "six==1.16.0"
+      "snowballstemmer==2.1.0"
+      "toml==0.10.2"
+      "typing-extensions==3.10.0.0"
+      "wrapt==1.12.1"
+    ];
+  };
 in
 {
   options = {
