@@ -9,7 +9,7 @@
 , ...
 }:
 let
-  makeModule = name: { python, src }: {
+  makeModule = name: { extraSources, python, src }: {
     name = "/lintPython/module/${name}";
     value = makeDerivation {
       arguments = {
@@ -22,7 +22,7 @@ let
         envPaths = [
           inputs.makesPackages.nixpkgs.findutils
         ];
-        envSources = [
+        envSources = extraSources ++ [
           (makePythonEnvironment {
             dependencies = [
               "mypy==0.910"
@@ -64,13 +64,14 @@ let
       builder = ./builder-module.sh;
     };
   };
-  makeDirOfModules = name: { python, src }:
+  makeDirOfModules = name: { extraSources, python, src }:
     let
       moduleNames = builtins.attrNames (builtins.readDir (path src));
       modules = builtins.map
         (moduleName: {
           name = "/lintPython/dirOfModules/${name}/${moduleName}";
           value = (makeModule moduleName {
+            inherit extraSources;
             inherit python;
             src = "${src}/${moduleName}";
           }).value;
@@ -99,6 +100,10 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            extraSources = lib.mkOption {
+              default = [ ];
+              type = lib.types.listOf lib.types.package;
+            };
             python = lib.mkOption {
               type = lib.types.enum [ "3.7" "3.8" "3.9" ];
             };
@@ -112,6 +117,10 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            extraSources = lib.mkOption {
+              default = [ ];
+              type = lib.types.listOf lib.types.package;
+            };
             python = lib.mkOption {
               type = lib.types.enum [ "3.7" "3.8" "3.9" ];
             };
