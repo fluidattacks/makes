@@ -51,6 +51,10 @@
     enable = true;
     branch = "main";
   };
+  lintMarkdown = {
+    enable = true;
+    targets = [ "/" ];
+  };
   lintNix = {
     enable = true;
     targets = [ "/" ];
