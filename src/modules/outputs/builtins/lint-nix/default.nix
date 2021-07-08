@@ -1,7 +1,8 @@
 { builtinLambdas
 , inputs
 , lib
-, makeScript
+, makeDerivation
+, path
 , ...
 }:
 { config
@@ -22,11 +23,11 @@
   };
   config = {
     outputs = {
-      "/lintNix" = lib.mkIf config.lintNix.enable (makeScript {
+      "/lintNix" = lib.mkIf config.lintNix.enable (makeDerivation {
         arguments = {
           envTargets = builtinLambdas.asBashArray
             (builtins.map
-              (target: "./${target}")
+              path
               config.lintNix.targets);
         };
         name = "lint-nix";
@@ -35,7 +36,7 @@
             inputs.makesPackages.nixpkgs.nix-linter
           ];
         };
-        entrypoint = ./entrypoint.sh;
+        builder = ./builder.sh;
       });
     };
   };

@@ -2,7 +2,7 @@
 
 function main {
   export LANG=C.UTF-8
-  local paths=__envTargets__
+  local paths
   local args=(
     --recursive
     --check=BetaReduction
@@ -14,11 +14,13 @@ function main {
   #   AlphabeticalBindings
 
   info Linting Nix code \
+    && eval paths="${envTargets}" \
     && for path in "${paths[@]}"; do
       info Linting "${path}" \
         && nix-linter "${args[@]}" "${path}" \
         || return 1
-    done
+    done \
+    && touch "${out}"
 }
 
 main "${@}"
