@@ -57,7 +57,13 @@
   };
   lintPython = {
     enable = true;
-    packages = {
+    dirsOfModules = {
+      makes = {
+        python = "3.8";
+        src = "/src";
+      };
+    };
+    modules = {
       cli = {
         python = "3.8";
         src = "/src/cli";
