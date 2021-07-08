@@ -4,7 +4,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: formatBash
+      name: /formatBash
       with:
         args: sh -c "nix-env -if . && m /formatBash"
   formatNix:
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: formatNix
+      name: /formatNix
       with:
         args: sh -c "nix-env -if . && m /formatNix"
   formatPython:
@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: formatPython
+      name: /formatPython
       with:
         args: sh -c "nix-env -if . && m /formatPython"
   helloWorld:
@@ -28,7 +28,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: helloWorld
+      name: /helloWorld
       with:
         args: sh -c "nix-env -if . && m /helloWorld"
   lintBash:
@@ -36,7 +36,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: lintBash
+      name: /lintBash
       with:
         args: sh -c "nix-env -if . && m /lintBash"
   lintNix:
@@ -44,17 +44,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: lintNix
+      name: /lintNix
       with:
         args: sh -c "nix-env -if . && m /lintNix"
-  lintPython_cli:
+  lintPython_module_cli:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: lintPython/cli
+      name: /lintPython/module/cli
       with:
-        args: sh -c "nix-env -if . && m /lintPython/cli"
+        args: sh -c "nix-env -if . && m /lintPython/module/cli"
 name: dev
 on:
   pull_request:
