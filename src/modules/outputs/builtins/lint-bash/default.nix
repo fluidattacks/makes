@@ -1,7 +1,8 @@
 { builtinLambdas
 , inputs
 , lib
-, makeScript
+, makeDerivation
+, path
 , ...
 }:
 { config
@@ -22,11 +23,11 @@
   };
   config = {
     outputs = {
-      "/lintBash" = lib.mkIf config.lintBash.enable (makeScript {
+      "/lintBash" = lib.mkIf config.lintBash.enable (makeDerivation {
         arguments = {
           envTargets = builtinLambdas.asBashArray
             (builtins.map
-              (target: "./${target}")
+              path
               config.lintBash.targets);
         };
         name = "lint-bash";
@@ -36,7 +37,7 @@
             inputs.makesPackages.nixpkgs.shellcheck
           ];
         };
-        entrypoint = ./entrypoint.sh;
+        builder = ./builder.sh;
       });
     };
   };
