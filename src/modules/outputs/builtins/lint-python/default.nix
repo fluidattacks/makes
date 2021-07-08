@@ -64,22 +64,29 @@ let
       builder = ./builder-module.sh;
     };
   };
-  makeDirOfModules = name: { src, ... }:
+  makeDirOfModules = name: { python, src }:
     let
       moduleNames = builtins.attrNames (builtins.readDir (path src));
-      moduleSrcs = builtins.map (name: path "${src}/${name}") moduleNames;
+      modules = builtins.map
+        (moduleName: {
+          name = "/lintPython/dirOfModules/${name}/${moduleName}";
+          value = (makeModule moduleName {
+            inherit python;
+            src = "${src}/${moduleName}";
+          }).value;
+        })
+        moduleNames;
     in
-    {
+    (modules ++ [{
       name = "/lintPython/dirOfModules/${name}";
       value = makeDerivation {
         arguments = {
-          envModules = moduleSrcs;
+          envModules = lib.attrsets.catAttrs "value" modules;
         };
+        builder = "echo $envModules > $out";
         name = "lint-python-dir-of-modules-for-${name}";
-        searchPaths = { };
-        builder = ./builder-dir-of-modules.sh;
       };
-    };
+    }]);
 in
 {
   options = {
@@ -118,11 +125,16 @@ in
   };
   config = {
     outputs = lib.mkIf config.lintPython.enable
-      ((lib.attrsets.mapAttrs'
-        makeModule
-        config.lintPython.modules) //
-      (lib.attrsets.mapAttrs'
-        makeDirOfModules
-        config.lintPython.dirsOfModules));
+      (builtins.foldl'
+        (all: one: all // { "${one.name}" = one.value; })
+        { }
+        (lib.lists.flatten [
+          (lib.attrsets.mapAttrsToList
+            makeModule
+            config.lintPython.modules)
+          (lib.attrsets.mapAttrsToList
+            makeDirOfModules
+            config.lintPython.dirsOfModules)
+        ]));
   };
 }

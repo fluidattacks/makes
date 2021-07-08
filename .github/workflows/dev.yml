@@ -46,7 +46,7 @@ jobs:
       with:
         fetch-depth: 0
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: lintCommitMsg
+      name: /lintCommitMsg
       with:
         args: sh -c "nix-env -if . && m /lintCommitMsg"
   lintNix:
@@ -57,14 +57,30 @@ jobs:
       name: /lintNix
       with:
         args: sh -c "nix-env -if . && m /lintNix"
-  lintPython_module_cli:
+  lintPython_dirOfModules_makes:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: /lintPython/module/cli
+      name: /lintPython/dirOfModules/makes
       with:
-        args: sh -c "nix-env -if . && m /lintPython/module/cli"
+        args: sh -c "nix-env -if . && m /lintPython/dirOfModules/makes"
+  lintPython_dirOfModules_makes_main:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /lintPython/dirOfModules/makes/main
+      with:
+        args: sh -c "nix-env -if . && m /lintPython/dirOfModules/makes/main"
+  lintPython_module_cliMain:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /lintPython/module/cliMain
+      with:
+        args: sh -c "nix-env -if . && m /lintPython/module/cliMain"
 name: dev
 on:
   pull_request:
