@@ -166,16 +166,25 @@ Makes targets two kind of users:
 
 ## Getting started as user
 
-1.  Download the Makes project of your choice.
+1.  For local [Makes][MAKES] projects:
 
-1.  `$ cd /path/to/a/project`
+    1.  `$ cd /path/to/a/makes/project`
+
+    For remote [Makes][MAKES] projects:
+
+    1.  Export `M_FROM` to the git-clone URL of the project:
+
+        For example:
+
+        - http: `$ export M_FROM=https://github.com/fluidattacks/makes`
+        - ssh: `$ export M_FROM=git@github.com:fluidattacks/makes`
 
 1.  Now run makes!
 
     - List all available commands: `$ m`
 
       ```
-      Outputs list for project: ./
+      Outputs list for project: https://github.com/fluidattacks/makes
         /helloWorld
       ```
 
@@ -214,7 +223,7 @@ Makes targets two kind of users:
     - List all available commands: `$ m`
 
       ```
-      Outputs list for project: ./
+      Outputs list for project: /path/to/my/project
         /helloWorld
       ```
 
@@ -693,7 +702,7 @@ In order to do this:
     - List all available commands: `$ m`
 
       ```
-      Outputs list for project: ./
+      Outputs list for project: /path/to/my/project
         /example
       ```
 
