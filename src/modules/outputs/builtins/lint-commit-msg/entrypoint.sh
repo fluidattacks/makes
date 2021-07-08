@@ -5,11 +5,10 @@ function main {
   local commit_hashes
   local current_branch
   local main_branch=__envBranch__
-  local ci="${!__envCI__:-}"
 
   current_branch="$(git rev-parse --abbrev-ref HEAD)" \
     && git fetch --prune > /dev/null \
-    && if test -n "${ci:-}"; then
+    && if running_in_ci_cd_provider; then
       commit_diff="origin/${main_branch}..origin/${current_branch}"
     else
       commit_diff="origin/${main_branch}..${current_branch}"

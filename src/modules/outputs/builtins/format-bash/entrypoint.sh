@@ -12,7 +12,7 @@ function main {
   local paths=__envTargets__
 
   info Formatting bash code \
-    && if test -n "${CI:-}"; then
+    && if running_in_ci_cd_provider; then
       args+=(-d)
     fi \
     && for path in "${paths[@]}"; do

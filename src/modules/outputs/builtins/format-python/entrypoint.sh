@@ -9,7 +9,7 @@ function main {
   )
   local paths=__envTargets__
 
-  if test -n "${CI:-}"; then
+  if running_in_ci_cd_provider; then
     args_black+=(--diff --check --color) \
       && args_isort+=(--diff --check --color)
   fi \
