@@ -465,11 +465,18 @@ Attributes:
 
 Custom Types:
 - dirOfModulesType (`submodule`):
+  - extraSources (`listOf package`): Optional.
+    List of scripts that will be sourced before performing the linting process.
+    Can be used to setup dependencies of the project in the environment.
+    Defaults to `[ ]`
   - python (`enum [ "3.7" "3.8" "3.9" ]`):
     Python interpreter version that your package/module is designed for.
   - src (`str`):
     Path to the folder that contains inside many packages/modules.
 - moduleType (`submodule`):
+  - extraSources (`listOf package`): Optional.
+    List of scripts that will be sourced before performing the linting process.
+    Can be used to setup dependencies of the project in the environment.
   - python (`enum [ "3.7" "3.8" "3.9" ]`):
     Python interpreter version that your package/module is designed for.
   - src (`str`):
