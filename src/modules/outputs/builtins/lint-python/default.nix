@@ -29,7 +29,7 @@ let
               "prospector==1.3.1"
               "returns==0.16.0"
             ];
-            name = "lint-python-for-${name}";
+            name = "lint-python";
             inherit python;
             subDependencies = [
               "astroid==2.4.1"
