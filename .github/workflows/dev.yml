@@ -49,6 +49,14 @@ jobs:
       name: /lintCommitMsg
       with:
         args: sh -c "nix-env -if . && m /lintCommitMsg"
+  lintMarkdown:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /lintMarkdown
+      with:
+        args: sh -c "nix-env -if . && m /lintMarkdown"
   lintNix:
     runs-on: ubuntu-latest
     steps:

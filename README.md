@@ -99,6 +99,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
     - [Linters](#linters)
         - [lintBash](#lintbash)
         - [lintCommitMsg](#lintcommitmsg)
+        - [lintMarkdown](#lintmarkdown)
         - [lintNix](#lintnix)
         - [lintPython](#lintpython)
     - [Formatters](#formatters)
@@ -425,6 +426,35 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m /lintCommitMsg`
+
+#### lintMarkdown
+
+Lints Markdown code with [Markdown lint tool][MARKDOWN_LINT].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to lint.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintMarkdown = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.md" # A file
+      "/folder" # A folder within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m /lintMarkdown`
 
 #### lintNix
 
@@ -902,6 +932,9 @@ we use the following **search paths**, declared as environment variables:
 
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
+
+- [MARKDOWN_LINT]: https://github.com/markdownlint/markdownlint
+  [Markdown lint tool][MARKDOWN_LINT]
 
 - [MYPY]: https://mypy.readthedocs.io/en/stable/
   [mypy][MYPY]
