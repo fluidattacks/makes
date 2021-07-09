@@ -17,11 +17,13 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
 )
 
 DEBUG: bool = "M_DEBUG" in environ
-FROM: str = environ.get("M_FROM", f"file://{getcwd()}")
+FROM_LOCAL = f"file://{getcwd()}"
+FROM: str = environ.get("M_FROM", FROM_LOCAL)
 VERSION: str = environ["_M_VERSION"]
 
 
@@ -62,11 +64,31 @@ def _get_head() -> str:
     out, stdout, stderr = _run(
         args=["git", "clone", "--depth", "1", FROM, head],
     )
-    if out == 0:
-        shutil.rmtree(os.path.join(head, ".git"))
-        return head
+    if out != 0:
+        raise Error(f"Unable to clone: {FROM}", stdout, stderr)
 
-    raise Error(f"Unable to clone: {FROM}", stdout, stderr)
+    # Applies only to local repositories
+    if FROM == FROM_LOCAL:
+        paths: Set[str] = set()
+
+        # Propagated `git add`ed files
+        out, stdout, stderr = _run(["git", "diff", "--cached", "--name-only"])
+        if out != 0:
+            raise Error(f"Unable to list files: {FROM}", stdout, stderr)
+        paths.update(stdout.decode().splitlines())
+
+        # Propagated modified files
+        out, stdout, stderr = _run(["git", "ls-files", "--modified"])
+        if out != 0:
+            raise Error(f"Unable to list files: {FROM}", stdout, stderr)
+        paths.update(stdout.decode().splitlines())
+
+        # Copy paths to head
+        for path in paths:
+            shutil.copy(path, os.path.join(head, path))
+
+    shutil.rmtree(os.path.join(head, ".git"))
+    return head
 
 
 def _get_attrs(head: str) -> List[str]:
