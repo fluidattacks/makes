@@ -853,12 +853,71 @@ In order for command shells like [Bash][BASH]
 to find programs and libraries in the `/nix/store`
 we use the following **search paths**, declared as environment variables:
 
-- CLASSPATH
-- LD_LIBRARY_PATH
-- MYPYPATH
-- PATH
-- NODE_PATH
-- PYTHONPATH
+- `CLASSPATH`
+- `LD_LIBRARY_PATH`
+- `MYPYPATH`
+- `PATH`
+- `NODE_PATH`
+- `PYTHONPATH`
+
+Inputs:
+
+- Base:
+  - `envClassPaths` (`listOf package`):
+    The root path (`/`) of provided packages
+    is appended to `CLASSPATH`.
+  - `envLibraries` (`listOf package`):
+    `/lib` and `/lib64`
+    paths of provided packages
+    are appended to `LD_LIBRARY_PATH`.
+  - `envPaths` (`listOf package`):
+    `/bin` paths of provided packages
+    are appended to `PATH`.
+  - `envSources` (`listOf package`):
+    Provided paths are sourced by [Bash][BASH].
+- Python:
+  - `envMypyPaths` (`listOf package`):
+    The root path (`/`) of provided packages
+    is appended to `MYPYPATH`.
+  - `envMypy38Paths` (`listOf package`):
+    `/lib/python3.8/site-packages` paths of provided packages
+    are appended to `MYPYPATH`.
+  - `envPythonPaths` (`listOf package`):
+    The root path (`/`) of provided packages
+    are appended to `PYTHONPATH`.
+  - `envPython37Paths` (`listOf package`):
+    `/lib/python3.7/site-packages` paths of provided packages
+    are appended to `PYTHONPATH`.
+  - `envPython38Paths` (`listOf package`):
+    `/lib/python3.8/site-packages` paths of provided packages
+    are appended to `PYTHONPATH`.
+  - `envPython39Paths` (`listOf package`):
+    `/lib/python3.9/site-packages` paths of provided packages
+    are appended to `PYTHONPATH`.
+- Node:
+  - `envNodeBinaries` (`listOf package`):
+    `/node_modules/.bin` paths of provided packages
+    are appended to `PATH`.
+  - `envNodeLibraries` (`listOf package`):
+    `/node_modules` paths of provided packages
+    are appended to `NODE_PATH`.
+
+Example:
+
+```nix
+makeScript {
+  name = "test-search-paths";
+  searchPaths = {
+    envPaths = [
+      inputs.makesPackages.nixpkgs.git
+    ];
+  };
+  entrypoint = ./entrypoint.sh;
+}
+```
+Both `makeDerivation` and `makeScript`
+support `makeSearchPaths`
+via the `searchPaths` argument.
 
 :construction: This section is Work in progress
 
@@ -869,6 +928,9 @@ we use the following **search paths**, declared as environment variables:
 
 - [APACHE_MAVEN]: https://maven.apache.org/
   [Apache Maven][APACHE_MAVEN]
+
+- [BASH]: https://www.gnu.org/software/bash/
+  [Bash][BASH]
 
 - [BLACK]: https://github.com/psf/black
   [Black][BLACK]
