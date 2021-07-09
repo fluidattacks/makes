@@ -2,7 +2,7 @@
 # https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md
 
 rule 'MD001'
-rule 'MD002', :level => 2
+rule 'MD002'
 rule 'MD003'
 rule 'MD004'
 rule 'MD005'
