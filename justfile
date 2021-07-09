@@ -6,3 +6,6 @@ _:
 
 m *ARGS:
   $(nix-build --show-trace)/bin/m {{ARGS}}
+
+update:
+  cd src && niv update
