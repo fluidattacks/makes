@@ -40,6 +40,11 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatMarkdown = {
+    enable = true;
+    doctocArgs = [ "--title" "# Contents" ];
+    targets = [ "/README.md" ];
+  };
   formatNix = {
     enable = true;
     targets = [ "/" ];
