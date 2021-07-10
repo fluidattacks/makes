@@ -1,19 +1,18 @@
-{ config
-, head
-, lib
+{ head
+, inputs
+, outputs
+, requiredMakesVersion
 }:
 let args = {
   builtinLambdas = import ./builtin/lambdas.nix args;
   builtinShellCommands = ./builtin/shell-commands.sh;
   builtinShellOptions = ./builtin/shell-options.sh;
   deployContainerImage = import ./deploy-container-image args;
-  fakeSha256 = lib.fakeSha256;
-  fakeSha512 = lib.fakeSha512;
+  fakeSha256 = inputs.makesPackages.nixpkgs.lib.fakeSha256;
   fetchNixpkgs = import ./fetchers/nixpkgs.nix args;
   fetchUrl = import ./fetchers/url.nix args;
   fetchZip = import ./fetchers/zip.nix args;
-  inputs = config.inputs;
-  inherit lib;
+  inherit inputs;
   makeContainerImage = import ./make-container-image args;
   makeDerivation = import ./make-derivation args;
   makeNodeEnvironment = import ./make-node-environment args;
@@ -22,8 +21,8 @@ let args = {
   makeScript = import ./make-script args;
   makeSearchPaths = import ./make-search-paths args;
   makeTemplate = import ./make-template args;
-  outputs = config.outputs;
+  inherit outputs;
   path = path: head + path;
-  requiredMakesVersion = config.requiredMakesVersion;
+  inherit requiredMakesVersion;
 };
 in args

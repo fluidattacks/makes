@@ -1,11 +1,11 @@
 { builtinLambdas
 , inputs
-, lib
 , makeDerivation
 , path
 , ...
 }:
 { config
+, lib
 , ...
 }:
 {

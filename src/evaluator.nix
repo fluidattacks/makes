@@ -15,7 +15,9 @@ let
       })
       (head + "/makes.nix")
     ];
-    specialArgs = {
+    specialArgs = import ./args {
+      inherit head;
+      inputs = result.config.inputs;
       outputs = result.config.outputs;
       requiredMakesVersion = result.config.requiredMakesVersion;
     };

@@ -1,8 +1,8 @@
 { deployContainerImage
-, lib
 , ...
 }:
 { config
+, lib
 , ...
 }:
 {

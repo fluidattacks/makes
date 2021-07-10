@@ -1,11 +1,11 @@
 { inputs
-, lib
 , makeDerivation
 , makePythonEnvironment
 , path
 , ...
 }:
 { config
+, lib
 , ...
 }:
 let

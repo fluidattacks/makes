@@ -1,11 +1,11 @@
 { inputs
-, lib
 , makeNodeEnvironment
 , makeScript
 , path
 , ...
 }:
 { config
+, lib
 , ...
 }:
 {
