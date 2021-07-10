@@ -134,7 +134,8 @@ def _help_and_exit(
         _log()
         _log(f"Outputs list for project: {FROM}")
         for attr in attrs:
-            _log(f"  {attr}")
+            if attr not in {"__all__"}:
+                _log(f"  {attr}")
     if exc is not None:
         _log()
         raise exc
