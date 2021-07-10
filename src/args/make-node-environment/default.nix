@@ -37,17 +37,13 @@ let
   nodeInterpreter =
     if node == "10"
     then __nixpkgs__.nodejs-10_x
-    else if node == "11"
-    then __nixpkgs__.nodejs-11_x
     else if node == "12"
     then __nixpkgs__.nodejs-12_x
-    else if node == "13"
-    then __nixpkgs__.nodejs-13_x
     else if node == "14"
     then __nixpkgs__.nodejs-14_x
-    else if node == "15"
-    then __nixpkgs__.nodejs-15_x
-    else abort "Supported node versions are: 10, 11, 12, 13, 14 and 15";
+    else if node == "16"
+    then __nixpkgs__.nodejs-16_x
+    else abort "Supported node versions are: 10, 12, 14 and 16";
 
   nodeEnvironment = makeDerivation {
     arguments = {

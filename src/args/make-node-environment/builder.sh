@@ -20,10 +20,11 @@ function main {
     && if test "$(cat "${out}/requirements")" = "$(cat "${envRequirementsFile}")"; then
       info Integrity check passed
     else
-      error Integrity check failed \
+      info Integrity check failed \
         && info You need to specify all dependencies: \
-        && git diff --no-index "${envRequirementsFile}" "${out}/requirements" \
-        && return 1
+        && git --no-pager diff --no-index \
+          "${envRequirementsFile}" "${out}/requirements" \
+        && error Stopping due to failed integrity check
     fi \
     || return 1
 }
