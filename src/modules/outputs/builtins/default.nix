@@ -1,16 +1,12 @@
+let src = ./.;
+in
 args:
 {
-  imports = [
-    (import ./__all__ args)
-    (import ./deploy-container-image args)
-    (import ./format-bash args)
-    (import ./format-nix args)
-    (import ./format-python args)
-    (import ./hello-world args)
-    (import ./lint-bash args)
-    (import ./lint-commit-msg args)
-    (import ./lint-markdown args)
-    (import ./lint-nix args)
-    (import ./lint-python args)
-  ];
+  # Import all folders in this directory except ourselves
+  imports = builtins.map
+    (name:
+      if name == "default.nix"
+      then { }
+      else import "${src}/${name}" args)
+    (builtins.attrNames (builtins.readDir src));
 }
