@@ -1,12 +1,15 @@
 import json
-import os
 from os import (
     environ,
     getcwd,
+    makedirs,
 )
 from os.path import (
     exists,
     join,
+)
+from posixpath import (
+    dirname,
 )
 import shutil
 import subprocess
@@ -21,8 +24,9 @@ from typing import (
     Tuple,
 )
 
+CWD: str = getcwd()
 DEBUG: bool = "M_DEBUG" in environ
-FROM_LOCAL = f"file://{getcwd()}"
+FROM_LOCAL = f"file://{CWD}"
 FROM: str = environ.get("M_FROM", FROM_LOCAL)
 VERSION: str = environ["_M_VERSION"]
 
@@ -43,6 +47,7 @@ def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
     head = f'builtins.path {{ name = "head"; path = {head}; }}'
     return [
         environ["_NIX_BUILD"],
+        *_if(FROM == FROM_LOCAL, "--argstr", "headImpure", CWD),
         *["--arg", "head", head],
         *["--argstr", "makesVersion", VERSION],
         *["--attr", attr],
@@ -86,9 +91,12 @@ def _get_head() -> str:
 
         # Copy paths to head
         for path in sorted(paths):
-            shutil.copy(path, os.path.join(head, path))
+            dest = join(head, path)
+            if not exists(dirname(dest)):
+                makedirs(dirname(dest))
+            shutil.copy(path, dest)
 
-    shutil.rmtree(os.path.join(head, ".git"))
+    shutil.rmtree(join(head, ".git"))
     return head
 
 
