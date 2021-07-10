@@ -15,6 +15,14 @@ jobs:
       name: /formatBash
       with:
         args: sh -c "nix-env -if . && m /formatBash"
+  formatMarkdown:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /formatMarkdown
+      with:
+        args: sh -c "nix-env -if . && m /formatMarkdown"
   formatNix:
     runs-on: ubuntu-latest
     steps:
