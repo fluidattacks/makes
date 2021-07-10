@@ -863,44 +863,44 @@ we use the following **search paths**, declared as environment variables:
 Inputs:
 
 - Base:
-  - `envClassPaths` (`listOf package`):
-    The root path (`/`) of provided packages
-    is appended to `CLASSPATH`.
-  - `envLibraries` (`listOf package`):
-    `/lib` and `/lib64`
-    paths of provided packages
-    are appended to `LD_LIBRARY_PATH`.
-  - `envPaths` (`listOf package`):
-    `/bin` paths of provided packages
-    are appended to `PATH`.
-  - `envSources` (`listOf package`):
-    Provided paths are sourced by [Bash][BASH].
+    - `envClassPaths` (`listOf package`):
+      The root path (`/`) of provided packages
+      is appended to `CLASSPATH`.
+    - `envLibraries` (`listOf package`):
+      `/lib` and `/lib64`
+      paths of provided packages
+      are appended to `LD_LIBRARY_PATH`.
+    - `envPaths` (`listOf package`):
+      `/bin` paths of provided packages
+      are appended to `PATH`.
+    - `envSources` (`listOf package`):
+      Provided paths are sourced by [Bash][BASH].
 - Python:
-  - `envMypyPaths` (`listOf package`):
-    The root path (`/`) of provided packages
-    is appended to `MYPYPATH`.
-  - `envMypy38Paths` (`listOf package`):
-    `/lib/python3.8/site-packages` paths of provided packages
-    are appended to `MYPYPATH`.
-  - `envPythonPaths` (`listOf package`):
-    The root path (`/`) of provided packages
-    are appended to `PYTHONPATH`.
-  - `envPython37Paths` (`listOf package`):
-    `/lib/python3.7/site-packages` paths of provided packages
-    are appended to `PYTHONPATH`.
-  - `envPython38Paths` (`listOf package`):
-    `/lib/python3.8/site-packages` paths of provided packages
-    are appended to `PYTHONPATH`.
-  - `envPython39Paths` (`listOf package`):
-    `/lib/python3.9/site-packages` paths of provided packages
-    are appended to `PYTHONPATH`.
+    - `envMypyPaths` (`listOf package`):
+      The root path (`/`) of provided packages
+      is appended to `MYPYPATH`.
+    - `envMypy38Paths` (`listOf package`):
+      `/lib/python3.8/site-packages` paths of provided packages
+      are appended to `MYPYPATH`.
+    - `envPythonPaths` (`listOf package`):
+      The root path (`/`) of provided packages
+      are appended to `PYTHONPATH`.
+    - `envPython37Paths` (`listOf package`):
+      `/lib/python3.7/site-packages` paths of provided packages
+      are appended to `PYTHONPATH`.
+    - `envPython38Paths` (`listOf package`):
+      `/lib/python3.8/site-packages` paths of provided packages
+      are appended to `PYTHONPATH`.
+    - `envPython39Paths` (`listOf package`):
+      `/lib/python3.9/site-packages` paths of provided packages
+      are appended to `PYTHONPATH`.
 - Node:
-  - `envNodeBinaries` (`listOf package`):
-    `/node_modules/.bin` paths of provided packages
-    are appended to `PATH`.
-  - `envNodeLibraries` (`listOf package`):
-    `/node_modules` paths of provided packages
-    are appended to `NODE_PATH`.
+    - `envNodeBinaries` (`listOf package`):
+      `/node_modules/.bin` paths of provided packages
+      are appended to `PATH`.
+    - `envNodeLibraries` (`listOf package`):
+      `/node_modules` paths of provided packages
+      are appended to `NODE_PATH`.
 
 Example:
 
@@ -915,6 +915,7 @@ makeScript {
   entrypoint = ./entrypoint.sh;
 }
 ```
+
 Both `makeDerivation` and `makeScript`
 support `makeSearchPaths`
 via the `searchPaths` argument.
