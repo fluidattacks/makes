@@ -1,4 +1,4 @@
-{ head
+{ args
 , makesVersion
 , packages
 }:
@@ -9,7 +9,7 @@
       inherit packages;
     })
     (import ./outputs {
-      inherit head;
+      inherit args;
     })
     (import ./required-makes-version.nix {
       inherit makesVersion;
