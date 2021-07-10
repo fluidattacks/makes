@@ -695,7 +695,8 @@ Required environment variables:
 Example `makes.nix`:
 
 ```nix
-{ config
+{ inputs
+, outputs
 , ...
 }:
 {
@@ -707,17 +708,17 @@ Example `makes.nix`:
     enable = true;
     images = {
       nginxDockerHub = {
-        src = config.inputs.nixpkgs.dockerTools.examples.nginx;
+        src = inputs.nixpkgs.dockerTools.examples.nginx;
         registry = "docker.io";
         tag = "fluidattacks/nginx:latest";
       };
       redisGitHub = {
-        src = config.inputs.nixpkgs.dockerTools.examples.redis;
+        src = inputs.nixpkgs.dockerTools.examples.redis;
         registry = "ghcr.io";
         tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
       };
       makesGitLab = {
-        src = config.outputs."/containerImage";
+        src = outputs."/containerImage";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var
       };
