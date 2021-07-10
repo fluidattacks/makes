@@ -86,7 +86,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
 # Contents
 
 - [Philosophy](#philosophy)
-    - [Getting started](#getting-started)
+- [Getting started](#getting-started)
     - [Getting started as user](#getting-started-as-user)
     - [Getting started as developer](#getting-started-as-developer)
 - [Configuring CI/CD](#configuring-cicd)
