@@ -1,16 +1,8 @@
-{ head }:
+{ args }:
 { config
 , lib
 , ...
 }:
-let
-  args = import ../../args {
-    inherit head;
-    inputs = config.inputs;
-    outputs = config.outputs;
-    requiredMakesVersion = config.requiredMakesVersion;
-  };
-in
 {
   imports = [
     (import ./builtins args)

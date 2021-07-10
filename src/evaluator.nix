@@ -6,21 +6,22 @@ in
 , ...
 }:
 let
+  args = import ./args {
+    inherit head;
+    inputs = result.config.inputs;
+    outputs = result.config.outputs;
+    requiredMakesVersion = result.config.requiredMakesVersion;
+  };
   result = packages.nixpkgs.lib.modules.evalModules {
     modules = [
       (import ./modules {
-        inherit head;
+        inherit args;
         inherit makesVersion;
         inherit packages;
       })
       (head + "/makes.nix")
     ];
-    specialArgs = import ./args {
-      inherit head;
-      inputs = result.config.inputs;
-      outputs = result.config.outputs;
-      requiredMakesVersion = result.config.requiredMakesVersion;
-    };
+    specialArgs = args;
   };
 in
 result
