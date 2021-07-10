@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeScript
 , ...
 }:
@@ -32,7 +32,7 @@
         name = "format-nix";
         searchPaths = {
           envPaths = [
-            inputs.makesPackages.nixpkgs.nixpkgs-fmt
+            __nixpkgs__.nixpkgs-fmt
           ];
         };
         entrypoint = ./entrypoint.sh;

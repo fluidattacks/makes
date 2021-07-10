@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeDerivation
 , path
 , ...
@@ -34,7 +34,7 @@
         name = "lint-markdown";
         searchPaths = {
           envPaths = [
-            inputs.makesPackages.nixpkgs.mdl
+            __nixpkgs__.mdl
           ];
         };
         builder = ./builder.sh;

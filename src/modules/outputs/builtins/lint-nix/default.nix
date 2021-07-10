@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeDerivation
 , path
 , ...
@@ -33,7 +33,7 @@
         name = "lint-nix";
         searchPaths = {
           envPaths = [
-            inputs.makesPackages.nixpkgs.nix-linter
+            __nixpkgs__.nix-linter
           ];
         };
         builder = ./builder.sh;

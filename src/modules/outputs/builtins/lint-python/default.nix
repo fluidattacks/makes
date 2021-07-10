@@ -1,4 +1,4 @@
-{ inputs
+{ __nixpkgs__
 , makeDerivation
 , makePythonEnvironment
 , path
@@ -20,7 +20,7 @@ let
       name = "lint-python-module-for-${name}";
       searchPaths = {
         envPaths = [
-          inputs.makesPackages.nixpkgs.findutils
+          __nixpkgs__.findutils
         ];
         envSources = extraSources ++ [
           (makePythonEnvironment {

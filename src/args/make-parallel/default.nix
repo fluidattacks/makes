@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeScript
 , ...
 }:
@@ -16,7 +16,7 @@ makeScript {
   name = "make-parallel-for-${name}";
   searchPaths = {
     envPaths = [
-      inputs.makesPackages.nixpkgs.parallel
+      __nixpkgs__.parallel
     ];
   };
 }

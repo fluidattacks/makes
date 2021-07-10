@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeScript
 , ...
 }:
@@ -32,7 +32,7 @@
         name = "format-bash";
         searchPaths = {
           envPaths = [
-            inputs.makesPackages.nixpkgs.shfmt
+            __nixpkgs__.shfmt
           ];
         };
         entrypoint = ./entrypoint.sh;

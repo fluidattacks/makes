@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeDerivation
 , makeSearchPaths
 , ...
@@ -36,17 +36,17 @@ let
 
   nodeInterpreter =
     if node == "10"
-    then inputs.makesPackages.nixpkgs.nodejs-10_x
+    then __nixpkgs__.nodejs-10_x
     else if node == "11"
-    then inputs.makesPackages.nixpkgs.nodejs-11_x
+    then __nixpkgs__.nodejs-11_x
     else if node == "12"
-    then inputs.makesPackages.nixpkgs.nodejs-12_x
+    then __nixpkgs__.nodejs-12_x
     else if node == "13"
-    then inputs.makesPackages.nixpkgs.nodejs-13_x
+    then __nixpkgs__.nodejs-13_x
     else if node == "14"
-    then inputs.makesPackages.nixpkgs.nodejs-14_x
+    then __nixpkgs__.nodejs-14_x
     else if node == "15"
-    then inputs.makesPackages.nixpkgs.nodejs-15_x
+    then __nixpkgs__.nodejs-15_x
     else abort "Supported node versions are: 10, 11, 12, 13, 14 and 15";
 
   nodeEnvironment = makeDerivation {
@@ -58,10 +58,10 @@ let
     name = "make-node-environment-for-${name}";
     searchPaths = searchPaths // {
       envPaths = (builtinLambdas.getAttr searchPaths "envPaths" [ ]) ++ [
-        inputs.makesPackages.nixpkgs.git
-        inputs.makesPackages.nixpkgs.gnugrep
-        inputs.makesPackages.nixpkgs.gnused
-        inputs.makesPackages.nixpkgs.jq
+        __nixpkgs__.git
+        __nixpkgs__.gnugrep
+        __nixpkgs__.gnused
+        __nixpkgs__.jq
         nodeInterpreter
       ];
     };

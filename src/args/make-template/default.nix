@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeDerivation
 , makeSearchPaths
 , ...
@@ -15,7 +15,7 @@ let
   # Validate arguments
   validateArguments = builtins.mapAttrs
     (k: v: (
-      if inputs.makesPackages.nixpkgs.lib.strings.hasPrefix "env" k
+      if __nixpkgs__.lib.strings.hasPrefix "env" k
       then v
       else abort "Ivalid argument: ${k}, arguments must start with `env`"
     ));
@@ -29,9 +29,9 @@ makeDerivation {
       (builtins.attrNames arguments);
     __envArgumentBase64NamesFile = builtinLambdas.listToFileWithTrailinNewLine
       (builtins.attrNames argumentsBase64);
-    __envPath = inputs.makesPackages.nixpkgs.lib.strings.makeBinPath [
-      inputs.makesPackages.nixpkgs.gnugrep
-      inputs.makesPackages.nixpkgs.gnused
+    __envPath = __nixpkgs__.lib.strings.makeBinPath [
+      __nixpkgs__.gnugrep
+      __nixpkgs__.gnused
     ];
     __envTemplate =
       if searchPaths == { }

@@ -37,7 +37,7 @@ makeContainerImage {
           session required pam_unix.so
         '';
         envEtcPasswd = ''
-          makes:x:0:0::/home/makes:${inputs.makesPackages.nixpkgs.bash}/bin/bash
+          makes:x:0:0::/home/makes:${inputs.nixpkgs.bash}/bin/bash
           nobody:x:65534:65534:nobody:/homeless:/bin/false
         '';
         envEtcShadow = ''
@@ -49,13 +49,13 @@ makeContainerImage {
       name = "makes-container-images-customization";
     })
 
-    inputs.makesPackages.nixpkgs.bash
-    inputs.makesPackages.nixpkgs.cacert
-    inputs.makesPackages.nixpkgs.coreutils
-    inputs.makesPackages.nixpkgs.git
-    inputs.makesPackages.nixpkgs.gnutar
-    inputs.makesPackages.nixpkgs.gzip
-    inputs.makesPackages.nixpkgs.nix
+    inputs.nixpkgs.bash
+    inputs.nixpkgs.cacert
+    inputs.nixpkgs.coreutils
+    inputs.nixpkgs.git
+    inputs.nixpkgs.gnutar
+    inputs.nixpkgs.gzip
+    inputs.nixpkgs.nix
 
     outputs."/"
   ];

@@ -1,14 +1,9 @@
-{ inputs
+{ __nixpkgs__
 , ...
 }:
-
-let
-  lib = inputs.makesPackages.nixpkgs.lib;
-  toLower = lib.strings.toLower;
-in
-rec {
+{
   # Return a bash array from a nix list
-  asBashArray = args: "( ${lib.strings.escapeShellArgs args} )";
+  asBashArray = args: "( ${__nixpkgs__.lib.strings.escapeShellArgs args} )";
 
   # Ensure the expression contents are read, paths are loaded, strings are left intact
   asContent = expr:
@@ -25,7 +20,8 @@ rec {
     else default;
 
   # Return true if string is a nix store path
-  isStorePath = string: "/nix/store" == lib.strings.substring 0 10 string;
+  isStorePath = string:
+    "/nix/store" == __nixpkgs__.lib.strings.substring 0 10 string;
 
   # Write each item on the list to a line in the file, return the file
   listToFileWithTrailinNewLine = list: builtins.toFile "list" (
@@ -36,7 +32,8 @@ rec {
   sort = builtins.sort (a: b: a < b);
 
   # Sort a list based on ascii code point ignoring case
-  sortCaseless = builtins.sort (a: b: toLower a < toLower b);
+  sortCaseless = builtins.sort
+    (a: b: with __nixpkgs__.lib.strings; toLower a < toLower b);
 
   # Small snippet to pull a value from an env var if null
   valueOrEnv = value: envVar:

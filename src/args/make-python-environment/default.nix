@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeDerivation
 , makeSearchPaths
 , ...
@@ -32,11 +32,11 @@ let
 
   pythonInterpreter =
     if python == "3.7"
-    then inputs.makesPackages.nixpkgs.python37
+    then __nixpkgs__.python37
     else if python == "3.8"
-    then inputs.makesPackages.nixpkgs.python38
+    then __nixpkgs__.python38
     else if python == "3.9"
-    then inputs.makesPackages.nixpkgs.python39
+    then __nixpkgs__.python39
     else abort "Supported python versions are: 3.7 and 3.8";
 
   pythonEnvironment = makeDerivation {
@@ -47,9 +47,9 @@ let
     name = "make-python-environment-for-${name}";
     searchPaths = searchPaths // {
       envPaths = (builtinLambdas.getAttr searchPaths "envPaths" [ ]) ++ [
-        inputs.makesPackages.nixpkgs.gcc
-        inputs.makesPackages.nixpkgs.git
-        inputs.makesPackages.nixpkgs.gnused
+        __nixpkgs__.gcc
+        __nixpkgs__.git
+        __nixpkgs__.gnused
         pythonInterpreter
       ];
     };
