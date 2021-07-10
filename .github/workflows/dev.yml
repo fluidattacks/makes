@@ -1,4 +1,12 @@
 jobs:
+  all:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: __all__
+      with:
+        args: sh -c "nix-env -if . && m __all__"
   formatBash:
     runs-on: ubuntu-latest
     steps:

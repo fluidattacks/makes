@@ -1,6 +1,7 @@
 args:
 {
   imports = [
+    (import ./__all__ args)
     (import ./deploy-container-image args)
     (import ./format-bash args)
     (import ./format-nix args)
