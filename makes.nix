@@ -1,4 +1,5 @@
-{ config
+{ outputs
+, requiredMakesVersion
 , ...
 }:
 {
@@ -7,23 +8,23 @@
     images = {
       makesGitHub = {
         registry = "ghcr.io";
-        src = config.outputs."/container-image";
+        src = outputs."/container-image";
         tag = "fluidattacks/makes:main";
       };
       makesGitHubMonthly = {
         registry = "ghcr.io";
-        src = config.outputs."/container-image";
-        tag = "fluidattacks/makes:${config.requiredMakesVersion}";
+        src = outputs."/container-image";
+        tag = "fluidattacks/makes:${requiredMakesVersion}";
       };
       makesGitLab = {
         registry = "registry.gitlab.com";
-        src = config.outputs."/container-image";
+        src = outputs."/container-image";
         tag = "fluidattacks/product/makes:main";
       };
       makesGitLabMonthly = {
         registry = "registry.gitlab.com";
-        src = config.outputs."/container-image";
-        tag = "fluidattacks/product/makes:${config.requiredMakesVersion}";
+        src = outputs."/container-image";
+        tag = "fluidattacks/product/makes:${requiredMakesVersion}";
       };
     };
   };

@@ -3,7 +3,6 @@
 , lib
 }:
 let args = {
-  inherit config;
   builtinLambdas = import ./builtin/lambdas.nix args;
   builtinShellCommands = ./builtin/shell-commands.sh;
   builtinShellOptions = ./builtin/shell-options.sh;
@@ -25,5 +24,6 @@ let args = {
   makeTemplate = import ./make-template args;
   outputs = config.outputs;
   path = path: head + path;
+  requiredMakesVersion = config.requiredMakesVersion;
 };
 in args
