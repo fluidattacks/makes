@@ -1,5 +1,5 @@
-{ makeScript
-, inputs
+{ __nixpkgs__
+, makeScript
 , ...
 }:
 { containerImage
@@ -17,7 +17,7 @@ makeScript {
   inherit name;
   searchPaths = {
     envPaths = [
-      inputs.makesPackages.nixpkgs.skopeo
+      __nixpkgs__.skopeo
     ];
   };
 }

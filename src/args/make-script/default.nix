@@ -1,7 +1,7 @@
-{ builtinLambdas
+{ __nixpkgs__
+, builtinLambdas
 , builtinShellCommands
 , builtinShellOptions
-, inputs
 , makeDerivation
 , makeSearchPaths
 , makeTemplate
@@ -30,7 +30,7 @@ makeDerivation {
       arguments = {
         envBuiltinShellCommands = builtinShellCommands;
         envBuiltinShellOptions = builtinShellOptions;
-        envCaCert = inputs.makesPackages.nixpkgs.cacert;
+        envCaCert = __nixpkgs__.cacert;
         envName = name;
         envSearchPaths = makeSearchPaths searchPaths;
         envSearchPathsBase = makeSearchPaths {
@@ -38,11 +38,11 @@ makeDerivation {
           # Let's try to keep it as lightweight as possible because this
           # propagates to all built apps and packages
           envPaths = [
-            inputs.makesPackages.nixpkgs.bash
-            inputs.makesPackages.nixpkgs.coreutils
+            __nixpkgs__.bash
+            __nixpkgs__.coreutils
           ];
         };
-        envShell = "${inputs.makesPackages.nixpkgs.bash}/bin/bash";
+        envShell = "${__nixpkgs__.bash}/bin/bash";
       };
       name = "makes-src-args-make-script-for-${name}";
       template = ./template.sh;

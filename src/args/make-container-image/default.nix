@@ -1,7 +1,7 @@
 # https://grahamc.com/blog/nix-and-layered-docker-images
 # https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions
 
-{ inputs
+{ __nixpkgs__
 , ...
 }:
 
@@ -22,13 +22,13 @@ let
 in
 if layered
 then
-  inputs.makesPackages.nixpkgs.dockerTools.buildLayeredImage
+  __nixpkgs__.dockerTools.buildLayeredImage
     (sharedAttrs // {
       inherit extraCommands;
       maxLayers = 125;
     })
 else
-  inputs.makesPackages.nixpkgs.dockerTools.buildImage
+  __nixpkgs__.dockerTools.buildImage
     (sharedAttrs // {
       inherit runAsRoot;
     })

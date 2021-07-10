@@ -1,18 +1,9 @@
-{ args
-, makesVersion
-, packages
-}:
+args:
 {
   imports = [
     (import ./assertions.nix)
-    (import ./inputs.nix {
-      inherit packages;
-    })
-    (import ./outputs {
-      inherit args;
-    })
-    (import ./required-makes-version.nix {
-      inherit makesVersion;
-    })
+    (import ./inputs.nix)
+    (import ./outputs args)
+    (import ./required-makes-version.nix args)
   ];
 }

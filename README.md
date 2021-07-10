@@ -910,7 +910,7 @@ makeScript {
   name = "test-search-paths";
   searchPaths = {
     envPaths = [
-      inputs.makesPackages.nixpkgs.git
+      inputs.nixpkgs.git
     ];
   };
   entrypoint = ./entrypoint.sh;

@@ -1,4 +1,4 @@
-{ inputs
+{ __nixpkgs__
 , makeNodeEnvironment
 , makeScript
 , path
@@ -32,7 +32,7 @@
         };
         searchPaths = {
           envPaths = [
-            inputs.makesPackages.nixpkgs.git
+            __nixpkgs__.git
           ];
           envSources = [
             (makeNodeEnvironment {

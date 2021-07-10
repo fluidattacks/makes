@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeDerivation
 , path
 , ...
@@ -33,8 +33,8 @@
         name = "lint-bash";
         searchPaths = {
           envPaths = [
-            inputs.makesPackages.nixpkgs.findutils
-            inputs.makesPackages.nixpkgs.shellcheck
+            __nixpkgs__.findutils
+            __nixpkgs__.shellcheck
           ];
         };
         builder = ./builder.sh;

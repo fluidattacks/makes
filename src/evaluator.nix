@@ -7,18 +7,16 @@ in
 }:
 let
   args = import ./args {
+    __nixpkgs__ = packages.nixpkgs;
     inherit head;
     inputs = result.config.inputs;
+    inherit makesVersion;
     outputs = result.config.outputs;
     requiredMakesVersion = result.config.requiredMakesVersion;
   };
   result = packages.nixpkgs.lib.modules.evalModules {
     modules = [
-      (import ./modules {
-        inherit args;
-        inherit makesVersion;
-        inherit packages;
-      })
+      (import ./modules args)
       (head + "/makes.nix")
     ];
     specialArgs = args;

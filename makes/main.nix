@@ -11,7 +11,7 @@ makeScript {
     "makes-v${requiredMakesVersion}"
   ];
   arguments = {
-    envNix = inputs.makesPackages.nixpkgs.nix;
+    envNix = inputs.nixpkgs.nix;
     envSrc = path "/src";
   };
   entrypoint = ''
@@ -23,10 +23,10 @@ makeScript {
   '';
   searchPaths = {
     envPaths = [
-      inputs.makesPackages.nixpkgs.git
-      inputs.makesPackages.nixpkgs.gnutar
-      inputs.makesPackages.nixpkgs.gzip
-      inputs.makesPackages.nixpkgs.python38
+      inputs.nixpkgs.git
+      inputs.nixpkgs.gnutar
+      inputs.nixpkgs.gzip
+      inputs.nixpkgs.python38
     ];
     envPythonPaths = [
       (path "/src")

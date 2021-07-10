@@ -1,4 +1,5 @@
-{ fetchUrl
+{ fakeSha256
+, fetchZip
 , ...
 }:
 { rev
@@ -7,9 +8,9 @@
 , overlays ? [ ]
 }:
 let
-  src = fetchUrl {
+  src = fetchZip {
     inherit sha256;
-    url = "https://github.com/NixOS/nixpkgs/archive/${rev}.zip";
+    url = "https://github.com/nixos/nixpkgs/archive/${rev}.tar.gz";
   };
 in
 import src {

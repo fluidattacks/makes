@@ -1,5 +1,5 @@
-{ builtinLambdas
-, inputs
+{ __nixpkgs__
+, builtinLambdas
 , makeScript
 , ...
 }:
@@ -34,12 +34,12 @@
         name = "format-python";
         searchPaths = {
           envPaths = [
-            inputs.makesPackages.nixpkgs.black
-            inputs.makesPackages.nixpkgs.git
-            inputs.makesPackages.nixpkgs.python38Packages.isort
+            __nixpkgs__.black
+            __nixpkgs__.git
+            __nixpkgs__.python38Packages.isort
           ];
           envPython38Paths = [
-            inputs.makesPackages.nixpkgs.python38Packages.colorama
+            __nixpkgs__.python38Packages.colorama
           ];
         };
         entrypoint = ./entrypoint.sh;
