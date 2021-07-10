@@ -1,7 +1,6 @@
 { __nixpkgs__
 , makeNodeEnvironment
 , makeScript
-, path
 , ...
 }:
 { config
@@ -27,8 +26,8 @@
         name = "lint-commit-msg";
         arguments = {
           envBranch = config.lintCommitMsg.branch;
-          envParser = path /src/modules/outputs/builtins/lint-commit-msg/parser.js;
-          envConfig = path /src/modules/outputs/builtins/lint-commit-msg/config.js;
+          envParser = ./parser.js;
+          envConfig = ./config.js;
         };
         searchPaths = {
           envPaths = [
