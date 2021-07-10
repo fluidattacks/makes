@@ -1,6 +1,7 @@
 { __nixpkgs__
 , builtinLambdas
 , makeScript
+, pathImpure
 , ...
 }:
 { config
@@ -27,9 +28,7 @@
           envSettingsBlack = ./settings-black.toml;
           envSettingsIsort = ./settings-isort.toml;
           envTargets = builtinLambdas.asBashArray
-            (builtins.map
-              (target: "./${target}")
-              config.formatPython.targets);
+            (builtins.map pathImpure config.formatPython.targets);
         };
         name = "format-python";
         searchPaths = {

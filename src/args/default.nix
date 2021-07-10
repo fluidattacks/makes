@@ -1,5 +1,6 @@
 { __nixpkgs__
 , head
+, headImpure
 , inputs
 , makesVersion
 , outputs
@@ -27,6 +28,7 @@ let args = {
   makeTemplate = import ./make-template args;
   inherit outputs;
   path = path: head + path;
+  pathImpure = path: headImpure + path;
   inherit requiredMakesVersion;
 };
 in args

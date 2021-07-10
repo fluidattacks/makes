@@ -1,6 +1,7 @@
 { __nixpkgs__
 , builtinLambdas
 , makeScript
+, pathImpure
 , ...
 }:
 { config
@@ -25,9 +26,7 @@
       "/formatNix" = lib.mkIf config.formatNix.enable (makeScript {
         arguments = {
           envTargets = builtinLambdas.asBashArray
-            (builtins.map
-              (target: "./${target}")
-              config.formatNix.targets);
+            (builtins.map pathImpure config.formatNix.targets);
         };
         name = "format-nix";
         searchPaths = {
