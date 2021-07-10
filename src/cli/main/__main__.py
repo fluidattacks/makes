@@ -40,6 +40,7 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 
 
 def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
+    head = f'builtins.path {{ name = "head"; path = {head}; }}'
     return [
         environ["_NIX_BUILD"],
         *["--arg", "head", head],
@@ -84,7 +85,7 @@ def _get_head() -> str:
         paths.update(stdout.decode().splitlines())
 
         # Copy paths to head
-        for path in paths:
+        for path in sorted(paths):
             shutil.copy(path, os.path.join(head, path))
 
     shutil.rmtree(os.path.join(head, ".git"))
