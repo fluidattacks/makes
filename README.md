@@ -81,13 +81,12 @@ so you can focus on the business logic.
 We've been using [Makes][MAKES] at [Fluid Attacks][FLUID_ATTACKS] since 2019
 and we have all come to the opinion that it's an awesome tool to work with.
 
-<!-- This is updated automatically by a GitHub action, don't worry about it -->
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Contents
+# Contents
 
 - [Philosophy](#philosophy)
-- [Getting started](#getting-started)
+    - [Getting started](#getting-started)
     - [Getting started as user](#getting-started-as-user)
     - [Getting started as developer](#getting-started-as-developer)
 - [Configuring CI/CD](#configuring-cicd)
@@ -107,6 +106,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
         - [formatNix](#formatnix)
         - [formatPython](#formatpython)
     - [Pinning](#pinning)
+        - [inputs](#inputs)
         - [requiredMakesVersion](#requiredmakesversion)
     - [Container Images](#container-images)
         - [deployContainerImage](#deploycontainerimage)
@@ -119,7 +119,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Philosophy
+# Philosophy
 
 We strive for:
 
@@ -143,7 +143,7 @@ We strive for:
   so you only have to **build things once**.
 - :shipit: Extendibility: You can add custom workflows, easily.
 
-### Getting started
+# Getting started
 
 Makes is powered by [Nix][NIX].
 Which means that Makes is able to run
@@ -173,7 +173,7 @@ In order to use Makes you'll need to:
     - Final users: People that want to use projects built with Makes.
     - Developers: People who develop projects with Makes.
 
-### Getting started as user
+## Getting started as user
 
 1. For local [Makes][MAKES] projects:
 
@@ -202,7 +202,7 @@ In order to use Makes you'll need to:
         [INFO] You called us with CLI arguments: [ 1 2 3 ].
         ```
 
-### Getting started as developer
+## Getting started as developer
 
 1. Locate in the root of your project:
 
@@ -239,9 +239,9 @@ In order to use Makes you'll need to:
         [INFO] You called us with CLI arguments: [ 1 2 3 ].
         ```
 
-## Configuring CI/CD
+# Configuring CI/CD
 
-### Versioning scheme
+## Versioning scheme
 
 We use [calendar versioning][CALVER] in Makes,
 like this: `20.12` (at December 2020).
@@ -260,7 +260,7 @@ For instance: `21.01` if the current date is January 2021.
 At the same time, please consider keeping your [Makes][MAKES] updated.
 New features are added constantly.
 
-### Configuring on GitHub Actions
+## Configuring on GitHub Actions
 
 [GitHub Actions][GITHUB_ACTIONS]
 is configured through [workflow files][GITHUB_WORKFLOWS]
@@ -293,7 +293,7 @@ jobs:
   # Add more jobs here, you can copy paste jobs.helloWorld and modify the `args`
 ```
 
-### Configuring on GitLab CI/CD
+## Configuring on GitLab CI/CD
 
 [GitLab CI/CD][GITLAB_CI]
 is configured through a [.gitlab-ci.yaml][GITLAB_CI_REF] file
@@ -319,7 +319,7 @@ Secrets can be propagated to Makes through [GitLab Variables][GITLAB_VARS],
 which are passed automatically to the running container
 as environment variables.
 
-### Configuring on Travis CI
+## Configuring on Travis CI
 
 [Travis CI][TRAVIS_CI]
 is configured through a [.travis.yml][TRAVIS_CI_REF] file
@@ -357,19 +357,19 @@ as environment variables.
 We highly recommend you to use encrypted environment variables as
 explained in the [Travis Environment Variables Reference][TRAVIS_ENV_VARS].
 
-## Makes.nix format
+# Makes.nix format
 
 A Makes project is identified by a `makes.nix` file
 in the top level directory.
 
 Below we document all configuration options you can tweak with it.
 
-### Linters
+## Linters
 
 Linters ensure source code follows
 best practices.
 
-#### lintBash
+### lintBash
 
 Lints Bash code with [ShellCheck][SHELLCHECK].
 
@@ -398,7 +398,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m /lintBash`
 
-#### lintCommitMsg
+### lintCommitMsg
 
 It creates a commit diff
 between you current branch
@@ -427,7 +427,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m /lintCommitMsg`
 
-#### lintMarkdown
+### lintMarkdown
 
 Lints Markdown code with [Markdown lint tool][MARKDOWN_LINT].
 
@@ -456,7 +456,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m /lintMarkdown`
 
-#### lintNix
+### lintNix
 
 Lints Nix code with [nix-linter][NIX_LINTER].
 
@@ -485,7 +485,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m /lintNix`
 
-#### lintPython
+### lintPython
 
 Lints Python code with [mypy][MYPY] and [Prospector][PROSPECTOR].
 
@@ -548,11 +548,11 @@ Example invocation: `$ m /lintPython/dirOfModules/makes/main`
 
 Example invocation: `$ m /lintPython/module/cliMain`
 
-### Formatters
+## Formatters
 
 Formatters help your code be consistent, beautiful and more maintainable.
 
-#### formatBash
+### formatBash
 
 Ensure that Bash code is formatted according to [shfmt][SHFMT].
 
@@ -581,7 +581,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m /formatBash`
 
-#### formatNix
+### formatNix
 
 Ensure that Nix code is formatted according to [nixpkgs-fmt][NIX_PKGS_FMT].
 
@@ -610,7 +610,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m /formatNix`
 
-#### formatPython
+### formatPython
 
 Ensure that Python code is formatted according to [Black][BLACK]
 and [isort][ISORT].
@@ -640,9 +640,9 @@ Example `makes.nix`:
 
 Example invocation: `$ m /formatPython`
 
-### Pinning
+## Pinning
 
-#### inputs
+### inputs
 
 Explicitly declare the inputs and sources for your project.
 Inputs can be anything.
@@ -673,7 +673,7 @@ Example `makes.nix`:
 }
 ```
 
-#### requiredMakesVersion
+### requiredMakesVersion
 
 Ensure that the Makes version people use in your project is the one you want.
 This increases reproducibility and prevents compatibility mismatches.
@@ -692,9 +692,9 @@ Example `makes.nix`:
 }
 ```
 
-### Container Images
+## Container Images
 
-#### deployContainerImage
+### deployContainerImage
 
 Deploy a set of container images in [OCI Format][OCI_FORMAT_REPO]
 to the specified container registries.
@@ -766,9 +766,9 @@ Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m /deployContainerImag
 
 Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m /deployContainerImage/makesGitLab`
 
-### Examples
+## Examples
 
-#### helloWorld
+### helloWorld
 
 Small command for demo purposes, it greets the specified user:
 
@@ -791,7 +791,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m /helloWorld 1 2 3`
 
-## Extending Makes
+# Extending Makes
 
 You can create custom workflows
 not covered by the builtin `makes.nix` configuration options.
@@ -852,7 +852,7 @@ Output names will me mapped in an intuitive way:
 |`/path/to/my/project/makes/example/main.nix`      | `"/example"`     |`$ m /example`      |
 |`/path/to/my/project/makes/other/example/main.nix`|`"/other/example"`|`$ m /other/example`|
 
-### Main.nix format
+## Main.nix format
 
 Each `main.nix` file under the `makes/` folder
 should be a function that receives one or more arguments
@@ -866,7 +866,7 @@ and returns a derivation:
 doSomethingAndReturnADerivation
 ```
 
-### makeSearchPaths
+## makeSearchPaths
 
 On [Linux][LINUX]
 software dependencies
@@ -957,7 +957,7 @@ via the `searchPaths` argument.
 
 :construction: This section is Work in progress
 
-## References
+# References
 
 - [APACHE_ANT]: https://ant.apache.org/
   [Apache Ant][APACHE_ANT]
@@ -1026,7 +1026,7 @@ via the `searchPaths` argument.
   [Linux][LINUX]
 
 - [MAKES]: https://github.com/fluidattacks/makes
-  [Makes][MAKES]
+    [Makes][MAKES]
 
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
