@@ -642,6 +642,37 @@ Example invocation: `$ m /formatPython`
 
 ### Pinning
 
+#### inputs
+
+Explicitly declare the inputs and sources for your project.
+Inputs can be anything.
+
+Attributes:
+
+- self (`attrs`): Optional.
+  Defaults to `{ }`.
+
+Example `makes.nix`:
+
+```nix
+{ fetchNixpkgs
+, fetchUrl
+, ...
+}:
+{
+  inputs = {
+    license = fetchUrl {
+      rev = "https://raw.githubusercontent.com/fluidattacks/makes/1a595d8642ba98252cff7de3909fb879c54f8e59/LICENSE";
+      sha256 = "11311l1apb1xvx2j033zlvbyb3gsqblyxq415qwdsd0db1hlwd52";
+    };
+    nixpkgs = fetchNixpkgs {
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+    };
+  };
+}
+```
+
 #### requiredMakesVersion
 
 Ensure that the Makes version people use in your project is the one you want.
@@ -701,7 +732,10 @@ Example `makes.nix`:
 }:
 {
   inputs = {
-    nixpkgs = import <nixpkgs> { };
+    nixpkgs = fetchNixpkgs {
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+    };
   };
 
   deployContainerImage = {
