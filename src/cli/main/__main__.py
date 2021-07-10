@@ -183,6 +183,8 @@ def cli(args: List[str]) -> None:
                         )
                         raise SystemExit(code)
 
+    raise SystemExit(code)
+
 
 def main() -> None:
     try:

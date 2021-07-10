@@ -6,7 +6,7 @@ function main {
   info Linting Markdown code \
     && eval paths="${envTargets}" \
     && for path in "${paths[@]}"; do
-      info "Linting ${path}" \
+      info Linting "${path}" \
         && mdl --style "${envStyle}" "${path}" \
         || return 1
     done \
