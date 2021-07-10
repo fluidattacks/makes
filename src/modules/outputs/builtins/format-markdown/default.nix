@@ -37,6 +37,8 @@
         name = "format-markdown";
         searchPaths = {
           envPaths = [
+            __nixpkgs__.git
+            __nixpkgs__.gnugrep
             __nixpkgs__.gnused
           ];
           envSources = [
