@@ -1,8 +1,9 @@
-{ lib
+{ inputs
 , ...
 }:
 
 let
+  lib = inputs.makesPackages.nixpkgs.lib;
   toLower = lib.strings.toLower;
 in
 rec {

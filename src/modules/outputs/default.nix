@@ -4,7 +4,12 @@
 , ...
 }:
 let
-  args = import ../../args { inherit head config lib; };
+  args = import ../../args {
+    inherit head;
+    inputs = config.inputs;
+    outputs = config.outputs;
+    requiredMakesVersion = config.requiredMakesVersion;
+  };
 in
 {
   imports = [

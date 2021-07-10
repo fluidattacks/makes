@@ -1,8 +1,8 @@
-{ lib
-, makeScript
+{ makeScript
 , ...
 }:
 { config
+, lib
 , ...
 }:
 {

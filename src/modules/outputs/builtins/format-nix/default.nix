@@ -1,10 +1,10 @@
 { builtinLambdas
 , inputs
-, lib
 , makeScript
 , ...
 }:
 { config
+, lib
 , ...
 }:
 {
