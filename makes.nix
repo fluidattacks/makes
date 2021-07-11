@@ -1,6 +1,5 @@
 { fetchNixpkgs
 , outputs
-, requiredMakesVersion
 , ...
 }:
 {
@@ -22,7 +21,7 @@
       makesGitHubMonthly = {
         registry = "ghcr.io";
         src = outputs."/container-image";
-        tag = "fluidattacks/makes:${requiredMakesVersion}";
+        tag = "fluidattacks/makes:21.08";
       };
       makesGitLab = {
         registry = "registry.gitlab.com";
@@ -32,7 +31,7 @@
       makesGitLabMonthly = {
         registry = "registry.gitlab.com";
         src = outputs."/container-image";
-        tag = "fluidattacks/product/makes:${requiredMakesVersion}";
+        tag = "fluidattacks/product/makes:21.08";
       };
     };
   };

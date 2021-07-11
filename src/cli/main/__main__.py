@@ -28,7 +28,7 @@ CWD: str = getcwd()
 DEBUG: bool = "M_DEBUG" in environ
 FROM_LOCAL = f"file://{CWD}"
 FROM: str = environ.get("M_FROM", FROM_LOCAL)
-VERSION: str = environ["_M_VERSION"]
+VERSION: str = "21.08"
 
 
 class Error(Exception):
@@ -46,7 +46,7 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
     head = f'builtins.path {{ name = "head"; path = {head}; }}'
     return [
-        environ["_NIX_BUILD"],
+        "nix-build",
         *_if(FROM == FROM_LOCAL, "--argstr", "headImpure", CWD),
         *["--arg", "head", head],
         *["--argstr", "makesVersion", VERSION],

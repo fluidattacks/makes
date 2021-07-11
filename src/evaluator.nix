@@ -1,6 +1,3 @@
-let
-  packages = import ./nix/packages.nix;
-in
 {
   # Path to the user's project, inside a sandbox.
   # The sandbox excludes files not-tracked by git.
@@ -20,12 +17,12 @@ let
     inputs = result.config.inputs;
     inherit makesVersion;
     outputs = result.config.outputs;
-    requiredMakesVersion = result.config.requiredMakesVersion;
   };
+  packages = import ./nix/packages.nix;
   result = packages.nixpkgs.lib.modules.evalModules {
     modules = [
       (import ./modules args)
-      (head + "/makes.nix")
+      (args.path "/makes.nix")
     ];
     specialArgs = args;
   };
