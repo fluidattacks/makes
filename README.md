@@ -943,7 +943,8 @@ programs find other programs,
 dependencies, libraries, etc,
 through special environment variables.
 
-Below we describe shortly the purpose of the environment variables we currently support.
+Below we describe shortly the purpose
+of the environment variables we currently support.
 
 - [CLASSPATH][CLASSPATH]:
   Location of user-defined classes and packages.
@@ -962,6 +963,20 @@ Below we describe shortly the purpose of the environment variables we currently 
 
 - [PYTHONPATH][PYTHONPATH]:
   Location of [Python][PYTHON] modules and site-packages.
+
+`makeSearchPaths` helps you write code like this:
+
+```nix
+makeSearchPaths {
+  bin = [ inputs.nixpkgs.git ];
+}
+```
+
+Instead of this:
+
+```bash
+export PATH="/nix/store/m5kp2jhiga25ynk3iq61f4psaqixg7ib-git-2.32.0/bin${PATH:+:}${PATH:-}"
+```
 
 Inputs:
 

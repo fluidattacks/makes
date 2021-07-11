@@ -5,7 +5,7 @@
 
 let
   export = envVar: envPath: envDrv:
-    "export ${envVar}=\"${envDrv}${envPath}:\${${envVar}:-}\"";
+    "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\"";
   sourceDrv = envDrv:
     "source ${envDrv}";
 in
