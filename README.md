@@ -937,25 +937,24 @@ Let's start from the basics.
 On [Linux][LINUX]
 software dependencies
 can be located anywhere in the file system.
-Command shells like [Bash][BASH] honor some environment variables
-in order to search for locations of programs and libraries.
-In general, search paths are in the form:
-`/path/to/somewhere:/path/to/somewhere/else`.
-They are looked-up from left to right.
 
-On [Nix][NIX]
-everything is a
-[derivation][NIX_DERIVATION].
-Derivations are the result of building something with [Nix],
-they take zero or more inputs, and produce an output
-(as a function in a programming language).
-Derivation outputs are stored and located in `/nix/store`.
-In order for command shells like [Bash][BASH]
-to find programs and libraries in the `/nix/store`
-we use the following **search paths**, declared as environment variables:
+We can control where
+programs find other programs,
+dependencies, libraries, etc,
+through special environment variables.
 
-- `CLASSPATH`
-- `LD_LIBRARY_PATH`
+Below we describe shortly the purpose of the environment variables we currently support.
+
+- [CLASSPATH][CLASSPATH]:
+  Parameter in the Java Virtual Machine
+  or the Java compiler that specifies the location
+  of user-defined classes and packages.
+
+- [LD_LIBRARY_PATH][RPATH]:
+  Dynamic linking loaders use this
+  to find required libraries,
+  for example `libstdc++.so.6`.
+
 - `MYPYPATH`
 - `PATH`
 - `NODE_PATH`
@@ -1046,6 +1045,9 @@ via the `searchPaths` argument.
 - [CIRCLE_CI]: https://circleci.com/
   [Circle CI][CIRCLE_CI]
 
+- [CLASSPATH]: https://en.wikipedia.org/wiki/Classpath
+  [CLASSPATH][CLASSPATH]
+
 - [COMMITLINT]: https://commitlint.js.org/#/
   [commitlint][COMMITLINT]
 
@@ -1084,6 +1086,9 @@ via the `searchPaths` argument.
 
 - [GULP]: https://gulpjs.com/
   [Gulp][GULP]
+
+- [HASH]: https://en.wikipedia.org/wiki/Hash_function
+  [Hash Function][HASH]
 
 - [ISORT]: https://github.com/PyCQA/isort
   [isort][ISORT]
@@ -1138,6 +1143,9 @@ via the `searchPaths` argument.
 
 - [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
   [Reproducible Builds][REPRODUCIBLE_BUILDS]
+
+- [RPATH]: https://en.wikipedia.org/wiki/Rpath
+  [RPath][RPATH]
 
 - [SBT]: https://www.scala-sbt.org/
   [sbt][SBT]
