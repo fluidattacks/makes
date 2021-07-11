@@ -10,7 +10,6 @@ makeScript {
     "makes-v21.08"
   ];
   arguments = {
-    envNix = inputs.nixpkgs.nix;
     envSrc = path "/src";
   };
   entrypoint = ''

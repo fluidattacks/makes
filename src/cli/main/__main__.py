@@ -94,7 +94,8 @@ def _get_head() -> str:
             dest = join(head, path)
             if not exists(dirname(dest)):
                 makedirs(dirname(dest))
-            shutil.copy(path, dest)
+            if exists(path):
+                shutil.copy(path, dest)
 
     shutil.rmtree(join(head, ".git"))
     return head
