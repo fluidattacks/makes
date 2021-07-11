@@ -4,7 +4,6 @@
 , inputs
 , makesVersion
 , outputs
-, requiredMakesVersion
 }:
 let args = {
   inherit __nixpkgs__;
@@ -29,6 +28,5 @@ let args = {
   inherit outputs;
   path = path: head + path;
   pathImpure = path: headImpure + path;
-  inherit requiredMakesVersion;
 };
 in args

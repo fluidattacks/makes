@@ -1,14 +1,13 @@
 { makeScript
 , inputs
 , path
-, requiredMakesVersion
 , ...
 }:
 makeScript {
   aliases = [
-    "m-v${requiredMakesVersion}"
+    "m-v21.08"
     "makes"
-    "makes-v${requiredMakesVersion}"
+    "makes-v21.08"
   ];
   arguments = {
     envNix = inputs.nixpkgs.nix;
@@ -16,9 +15,6 @@ makeScript {
   };
   entrypoint = ''
     _EVALUATOR=__envSrc__/evaluator.nix \
-    _M_VERSION=${requiredMakesVersion} \
-    _NIX_BUILD=__envNix__/bin/nix-build \
-    _NIX_INSTANTIATE=__envNix__/bin/nix-instantiate \
     python -m cli.main "$@"
   '';
   searchPaths = {
@@ -26,6 +22,7 @@ makeScript {
       inputs.nixpkgs.git
       inputs.nixpkgs.gnutar
       inputs.nixpkgs.gzip
+      inputs.nixpkgs.nix
       inputs.nixpkgs.python38
     ];
     envPythonPaths = [
