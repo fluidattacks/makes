@@ -17,10 +17,10 @@
         type = lib.types.bool;
       };
       doctocArgs = lib.mkOption {
+        default = [ ];
         type = lib.types.listOf lib.types.str;
       };
       targets = lib.mkOption {
-        default = [ "/" ];
         type = lib.types.listOf lib.types.str;
       };
     };

@@ -103,6 +103,7 @@ and we have all come to the opinion that it's an awesome tool to work with.
         - [lintPython](#lintpython)
     - [Formatters](#formatters)
         - [formatBash](#formatbash)
+        - [formatMarkdown](#formatmarkdown)
         - [formatNix](#formatnix)
         - [formatPython](#formatpython)
     - [Pinning](#pinning)
@@ -581,6 +582,34 @@ Example `makes.nix`:
 
 Example invocation: `$ m /formatBash`
 
+### formatMarkdown
+
+Ensure that Markdown code is formatted according to [doctoc][DOCTOC].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- doctocArgs (`listOf str`): Optional.
+  Extra CLI flags to propagate to [doctoc][DOCTOC].
+  Defaults to `[ ]`.
+- targets (`listOf str`):
+  Files (relative to the project) to format.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatMarkdown = {
+    enable = true;
+    doctocArgs = [ "--title" "# Contents" ];
+    targets = [ "/README.md" ];
+  };
+}
+```
+
+Example invocation: `$ m /formatMarkdown`
+
 ### formatNix
 
 Ensure that Nix code is formatted according to [nixpkgs-fmt][NIX_PKGS_FMT].
@@ -985,6 +1014,9 @@ via the `searchPaths` argument.
 
 - [DOCKER]: https://www.docker.com/
   [Docker][DOCKER]
+
+- [DOCTOC]: https://github.com/thlorenz/doctoc
+  [DocToc][DOCTOC]
 
 - [FLUID_ATTACKS]: https://fluidattacks.com
   [Fluid Attacks][FLUID_ATTACKS]
