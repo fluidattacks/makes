@@ -841,7 +841,8 @@ In order to do this:
 
 1. Create a `main.nix` file inside `makes/example`.
 
-    Our goal is to create a bash script that prints `Hello from makes!`.
+    Our goal is to create a bash script that prints `Hello from makes!`,
+    so we are going to write the following function:
 
     ```nix
     # /path/to/my/project/makes/example/main.nix
@@ -877,9 +878,9 @@ Output names will me mapped in an intuitive way:
 
 |`main.nix` position                               |Output name       | Invocation command |
 |--------------------------------------------------|------------------|--------------------|
-|`/path/to/my/project/makes/main.nix`              |`"/"`             |`$ m /`             |
-|`/path/to/my/project/makes/example/main.nix`      | `"/example"`     |`$ m /example`      |
-|`/path/to/my/project/makes/other/example/main.nix`|`"/other/example"`|`$ m /other/example`|
+|`/path/to/my/project/makes/main.nix`              |`outputs."/"`             |`$ m /`             |
+|`/path/to/my/project/makes/example/main.nix`      |`outputs."/example"`      |`$ m /example`      |
+|`/path/to/my/project/makes/other/example/main.nix`|`outputs."/other/example"`|`$ m /other/example`|
 
 ## Main.nix format
 
@@ -895,7 +896,43 @@ and returns a derivation:
 doSomethingAndReturnADerivation
 ```
 
-## makeSearchPaths
+### Derivations
+
+On [Nix][NIX]
+a [derivation][NIX_DERIVATION]
+is the process of:
+
+- taking zero or more inputs
+
+- transforming them as we see fit
+
+- placing the results in the output directory
+
+Derivation outputs live in the `/nix/store`.
+Their locations in the filesystem are always in the form:
+`/nix/store/hash123-name` where
+`hash123` is computed by [hashing][HASH] the derivation's inputs.
+
+Derivation outputs are regular directories that contain arbitrary contents.
+For instance the derivation output for [Bash][BASH] is:
+`/nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23`
+which contains, among other files:
+
+```tree
+/nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23
+├── bin
+│   ├── bash
+│   └── sh
+```
+
+## Main.nix function arguments
+
+Makes offers you a few building blocks
+for you to reuse.
+
+Let's start from the basics.
+
+### makeSearchPaths
 
 On [Linux][LINUX]
 software dependencies
