@@ -53,7 +53,7 @@ let
     builder = ./builder.sh;
     name = "make-node-environment-for-${name}";
     searchPaths = searchPaths // {
-      envPaths = (builtinLambdas.getAttr searchPaths "envPaths" [ ]) ++ [
+      bin = (builtinLambdas.getAttr searchPaths "bin" [ ]) ++ [
         __nixpkgs__.git
         __nixpkgs__.gnugrep
         __nixpkgs__.gnused
@@ -64,7 +64,7 @@ let
   };
 in
 makeSearchPaths {
-  envPaths = [ nodeInterpreter ];
-  envNodeBinaries = [ nodeEnvironment ];
-  envNodeLibraries = [ nodeEnvironment ];
+  bin = [ nodeInterpreter ];
+  nodeBin = [ nodeEnvironment ];
+  nodeModule = [ nodeEnvironment ];
 }

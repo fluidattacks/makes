@@ -16,7 +16,7 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   inherit name;
   searchPaths = {
-    envPaths = [
+    bin = [
       __nixpkgs__.skopeo
     ];
   };

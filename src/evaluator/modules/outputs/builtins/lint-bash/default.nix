@@ -32,7 +32,7 @@
         };
         name = "lint-bash";
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.findutils
             __nixpkgs__.shellcheck
           ];

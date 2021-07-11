@@ -37,7 +37,7 @@ makeDerivation {
           # Minimalistic shell environment
           # Let's try to keep it as lightweight as possible because this
           # propagates to all built apps and packages
-          envPaths = [
+          bin = [
             __nixpkgs__.bash
             __nixpkgs__.coreutils
           ];

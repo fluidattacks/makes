@@ -32,7 +32,7 @@
         };
         name = "lint-nix";
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.nix-linter
           ];
         };

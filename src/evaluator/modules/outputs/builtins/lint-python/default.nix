@@ -19,10 +19,10 @@ let
       };
       name = "lint-python-module-for-${name}";
       searchPaths = {
-        envPaths = [
+        bin = [
           __nixpkgs__.findutils
         ];
-        envSources = extraSources ++ [
+        source = extraSources ++ [
           (makePythonEnvironment {
             dependencies = [
               "mypy==0.910"

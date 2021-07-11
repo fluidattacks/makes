@@ -17,14 +17,14 @@ makeScript {
     python -m cli.main "$@"
   '';
   searchPaths = {
-    envPaths = [
+    bin = [
       inputs.nixpkgs.git
       inputs.nixpkgs.gnutar
       inputs.nixpkgs.gzip
       inputs.nixpkgs.nix
       inputs.nixpkgs.python38
     ];
-    envPythonPaths = [
+    pythonPackage = [
       (path "/src")
     ];
   };

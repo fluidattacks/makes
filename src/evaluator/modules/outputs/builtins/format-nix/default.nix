@@ -30,7 +30,7 @@
         };
         name = "format-nix";
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.nixpkgs-fmt
           ];
         };

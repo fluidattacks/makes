@@ -32,12 +32,12 @@
         };
         name = "format-python";
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.black
             __nixpkgs__.git
             __nixpkgs__.python38Packages.isort
           ];
-          envPython38Paths = [
+          pythonPackage38 = [
             __nixpkgs__.python38Packages.colorama
           ];
         };

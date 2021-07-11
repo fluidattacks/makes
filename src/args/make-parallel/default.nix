@@ -15,7 +15,7 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   name = "make-parallel-for-${name}";
   searchPaths = {
-    envPaths = [
+    bin = [
       __nixpkgs__.parallel
     ];
   };

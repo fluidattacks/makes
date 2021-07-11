@@ -46,7 +46,7 @@ let
     builder = ./builder.sh;
     name = "make-python-environment-for-${name}";
     searchPaths = searchPaths // {
-      envPaths = (builtinLambdas.getAttr searchPaths "envPaths" [ ]) ++ [
+      bin = (builtinLambdas.getAttr searchPaths "bin" [ ]) ++ [
         __nixpkgs__.gcc
         __nixpkgs__.git
         __nixpkgs__.gnused
@@ -56,8 +56,8 @@ let
   };
 in
 makeSearchPaths {
-  envPaths = [ pythonEnvironment ];
-  envPython37Paths = if (python == "3.7") then [ pythonEnvironment ] else [ ];
-  envPython38Paths = if (python == "3.8") then [ pythonEnvironment ] else [ ];
-  envPython39Paths = if (python == "3.9") then [ pythonEnvironment ] else [ ];
+  bin = [ pythonEnvironment ];
+  pythonPackage37 = if (python == "3.7") then [ pythonEnvironment ] else [ ];
+  pythonPackage38 = if (python == "3.8") then [ pythonEnvironment ] else [ ];
+  pythonPackage39 = if (python == "3.9") then [ pythonEnvironment ] else [ ];
 }

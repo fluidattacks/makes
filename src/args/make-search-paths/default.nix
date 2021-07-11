@@ -6,21 +6,21 @@
 let
   export = envVar: envPath: envDrv:
     "export ${envVar}=\"${envDrv}${envPath}:\${${envVar}:-}\"";
-  source = envDrv:
+  sourceDrv = envDrv:
     "source ${envDrv}";
 in
-{ envClassPaths ? [ ]
-, envLibraries ? [ ]
-, envMypyPaths ? [ ]
-, envMypy38Paths ? [ ]
-, envNodeBinaries ? [ ]
-, envNodeLibraries ? [ ]
-, envPaths ? [ ]
-, envPythonPaths ? [ ]
-, envPython37Paths ? [ ]
-, envPython38Paths ? [ ]
-, envPython39Paths ? [ ]
-, envSources ? [ ]
+{ bin ? [ ]
+, javaClass ? [ ]
+, ldLib ? [ ]
+, nodeBin ? [ ]
+, nodeModule ? [ ]
+, pythonMypy ? [ ]
+, pythonMypy38 ? [ ]
+, pythonPackage ? [ ]
+, pythonPackage37 ? [ ]
+, pythonPackage38 ? [ ]
+, pythonPackage39 ? [ ]
+, source ? [ ]
 }:
 makeTemplate {
   name = "makes-src-args-make-search-paths";
@@ -33,60 +33,60 @@ makeTemplate {
     [ ]
     [
       {
-        derivations = envClassPaths;
-        generator = export "CLASSPATH" "";
-      }
-      {
-        derivations = envLibraries;
-        generator = export "LD_LIBRARY_PATH" "/lib";
-      }
-      {
-        derivations = envLibraries;
-        generator = export "LD_LIBRARY_PATH" "/lib64";
-      }
-      {
-        derivations = envMypyPaths;
-        generator = export "MYPYPATH" "";
-      }
-      {
-        derivations = envMypy38Paths;
-        generator = export "MYPYPATH" "/lib/python3.8/site-packages";
-      }
-      {
-        derivations = envNodeBinaries;
-        generator = export "PATH" "/node_modules/.bin";
-      }
-      {
-        derivations = envNodeLibraries;
-        generator = export "NODE_PATH" "/node_modules";
-      }
-      {
-        derivations = envPaths;
+        derivations = bin;
         generator = export "PATH" "/bin";
       }
       {
-        derivations = envPythonPaths;
+        derivations = javaClass;
+        generator = export "CLASSPATH" "";
+      }
+      {
+        derivations = ldLib;
+        generator = export "LD_LIBRARY_PATH" "/lib";
+      }
+      {
+        derivations = ldLib;
+        generator = export "LD_LIBRARY_PATH" "/lib64";
+      }
+      {
+        derivations = nodeBin;
+        generator = export "PATH" "/node_modules/.bin";
+      }
+      {
+        derivations = nodeModule;
+        generator = export "NODE_PATH" "/node_modules";
+      }
+      {
+        derivations = pythonMypy;
+        generator = export "MYPYPATH" "";
+      }
+      {
+        derivations = pythonMypy38;
+        generator = export "MYPYPATH" "/lib/python3.8/site-packages";
+      }
+      {
+        derivations = pythonPackage;
         generator = export "PYTHONPATH" "";
       }
       {
-        derivations = envPython37Paths;
+        derivations = pythonPackage37;
         generator = export "PYTHONPATH" "/lib/python3.7/site-packages";
       }
       {
-        derivations = envPython38Paths;
+        derivations = pythonPackage38;
         generator = export "PYTHONPATH" "/lib/python3.8/site-packages";
       }
       {
-        derivations = envPython39Paths;
+        derivations = pythonPackage39;
         generator = export "PYTHONPATH" "/lib/python3.9/site-packages";
       }
       {
         derivations = [ builtinShellCommands ];
-        generator = source;
+        generator = sourceDrv;
       }
       {
-        derivations = envSources;
-        generator = source;
+        derivations = source;
+        generator = sourceDrv;
       }
     ]);
 }

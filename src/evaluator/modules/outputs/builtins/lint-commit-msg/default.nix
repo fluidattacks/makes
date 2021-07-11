@@ -30,10 +30,10 @@
           envConfig = ./config.js;
         };
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.git
           ];
-          envSources = [
+          source = [
             (makeNodeEnvironment {
               dependencies = [ "@commitlint/cli@11.0.0" ];
               name = "lint-node-for-lint-commit-msg";
