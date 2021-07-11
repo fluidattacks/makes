@@ -1,10 +1,9 @@
-{ makeTemplate
+{ inputs
+, makeSearchPaths
 , ...
 }:
-makeTemplate {
-  arguments = {
-    envVar = "123";
-  };
-  name = "test";
-  template = "__envVar__";
+makeSearchPaths {
+  bin = [
+    inputs.nixpkgs.git
+  ];
 }
