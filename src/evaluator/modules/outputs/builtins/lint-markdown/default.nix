@@ -33,7 +33,7 @@
         };
         name = "lint-markdown";
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.mdl
           ];
         };

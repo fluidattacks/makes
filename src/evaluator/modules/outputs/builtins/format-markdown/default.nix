@@ -36,12 +36,12 @@
         };
         name = "format-markdown";
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.git
             __nixpkgs__.gnugrep
             __nixpkgs__.gnused
           ];
-          envSources = [
+          source = [
             (makeNodeEnvironment {
               name = "doctoc";
               node = "16";

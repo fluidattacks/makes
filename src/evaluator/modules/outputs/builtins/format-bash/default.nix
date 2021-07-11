@@ -30,7 +30,7 @@
         };
         name = "format-bash";
         searchPaths = {
-          envPaths = [
+          bin = [
             __nixpkgs__.shfmt
           ];
         };

@@ -927,42 +927,42 @@ we use the following **search paths**, declared as environment variables:
 Inputs:
 
 - Base:
-    - `envClassPaths` (`listOf package`):
+    - `javaClass` (`listOf package`):
       The root path (`/`) of provided packages
       is appended to `CLASSPATH`.
-    - `envLibraries` (`listOf package`):
+    - `ldLib` (`listOf package`):
       `/lib` and `/lib64`
       paths of provided packages
       are appended to `LD_LIBRARY_PATH`.
-    - `envPaths` (`listOf package`):
+    - `bin` (`listOf package`):
       `/bin` paths of provided packages
       are appended to `PATH`.
-    - `envSources` (`listOf package`):
+    - `source` (`listOf package`):
       Provided paths are sourced by [Bash][BASH].
 - Python:
-    - `envMypyPaths` (`listOf package`):
+    - `pythonMypy` (`listOf package`):
       The root path (`/`) of provided packages
       is appended to `MYPYPATH`.
-    - `envMypy38Paths` (`listOf package`):
+    - `pythonMypy38` (`listOf package`):
       `/lib/python3.8/site-packages` paths of provided packages
       are appended to `MYPYPATH`.
-    - `envPythonPaths` (`listOf package`):
+    - `pythonPackage` (`listOf package`):
       The root path (`/`) of provided packages
       are appended to `PYTHONPATH`.
-    - `envPython37Paths` (`listOf package`):
+    - `pythonPackage37` (`listOf package`):
       `/lib/python3.7/site-packages` paths of provided packages
       are appended to `PYTHONPATH`.
-    - `envPython38Paths` (`listOf package`):
+    - `pythonPackage38` (`listOf package`):
       `/lib/python3.8/site-packages` paths of provided packages
       are appended to `PYTHONPATH`.
-    - `envPython39Paths` (`listOf package`):
+    - `pythonPackage39` (`listOf package`):
       `/lib/python3.9/site-packages` paths of provided packages
       are appended to `PYTHONPATH`.
 - Node:
-    - `envNodeBinaries` (`listOf package`):
+    - `nodeBin` (`listOf package`):
       `/node_modules/.bin` paths of provided packages
       are appended to `PATH`.
-    - `envNodeLibraries` (`listOf package`):
+    - `nodeModule` (`listOf package`):
       `/node_modules` paths of provided packages
       are appended to `NODE_PATH`.
 
@@ -972,7 +972,7 @@ Example:
 makeScript {
   name = "test-search-paths";
   searchPaths = {
-    envPaths = [
+    bin = [
       inputs.nixpkgs.git
     ];
   };
