@@ -946,19 +946,22 @@ through special environment variables.
 Below we describe shortly the purpose of the environment variables we currently support.
 
 - [CLASSPATH][CLASSPATH]:
-  Parameter in the Java Virtual Machine
-  or the Java compiler that specifies the location
-  of user-defined classes and packages.
+  Location of user-defined classes and packages.
 
 - [LD_LIBRARY_PATH][RPATH]:
-  Dynamic linking loaders use this
-  to find required libraries,
-  for example `libstdc++.so.6`.
+  Location of libraries for Dynamic Linking Loaders.
 
-- `MYPYPATH`
-- `PATH`
-- `NODE_PATH`
-- `PYTHONPATH`
+- [MYPYPATH][MYPYPATH]:
+  Location of library stubs and static types for [MyPy][MYPY].
+
+- [PATH][PATH]:
+  Location of directories where executable programs are located.
+
+- [NODE_PATH][NODE_PATH]:
+  Location of [Node.js][NODE_JS] modules.
+
+- [PYTHONPATH][PYTHONPATH]:
+  Location of [Python][PYTHON] modules and site-packages.
 
 Inputs:
 
@@ -1046,7 +1049,7 @@ via the `searchPaths` argument.
   [Circle CI][CIRCLE_CI]
 
 - [CLASSPATH]: https://en.wikipedia.org/wiki/Classpath
-  [CLASSPATH][CLASSPATH]
+  [CLASSPATH Environment Variable][CLASSPATH]
 
 - [COMMITLINT]: https://commitlint.js.org/#/
   [commitlint][COMMITLINT]
@@ -1100,7 +1103,7 @@ via the `searchPaths` argument.
   [Linux][LINUX]
 
 - [MAKES]: https://github.com/fluidattacks/makes
-    [Makes][MAKES]
+  [Makes][MAKES]
 
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
@@ -1109,7 +1112,10 @@ via the `searchPaths` argument.
   [Markdown lint tool][MARKDOWN_LINT]
 
 - [MYPY]: https://mypy.readthedocs.io/en/stable/
-  [mypy][MYPY]
+  [MyPy][MYPY]
+
+- [MYPYPATH]: https://mypy.readthedocs.io/en/stable/running_mypy.html
+  [MYPYPATH Environment Variable][MYPYPATH]
 
 - [NIX]: https://nixos.org
   [Nix][NIX]
@@ -1132,14 +1138,29 @@ via the `searchPaths` argument.
 - [NIX_PKGS_FMT]: https://github.com/nix-community/nixpkgs-fmt
   [nixpkgs-fmt][NIX_PKGS_FMT]
 
+- [NODE_JS]: https://nodejs.org/en/
+  [NODE_JS][NODE_JS]
+
+- [NODE_PATH]: https://nodejs.org/api/modules.html
+  [NODE_PATH][NODE_PATH]
+
 - [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
   [Open Container Image specification][OCI_FORMAT_REPO]
 
 - [PACKER]: https://www.packer.io/
   [Packer][PACKER]
 
+- [PATH]: https://en.wikipedia.org/wiki/PATH_(variable)
+  [PATH Environment Variable][PATH]
+
 - [PROSPECTOR]: http://prospector.landscape.io/en/master/
   [Prospector][PROSPECTOR]
+
+- [PYTHON]: https://www.python.org/
+  [Python][PYTHON]
+
+- [PYTHONPATH]: https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
+  [PYTHONPATH Environment Variable][PYTHONPATH]
 
 - [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
   [Reproducible Builds][REPRODUCIBLE_BUILDS]
