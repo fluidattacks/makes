@@ -10,7 +10,7 @@
 , ...
 }:
 let
-  args = import ./args {
+  args = import ../args {
     __nixpkgs__ = packages.nixpkgs;
     inherit head;
     inherit headImpure;
@@ -18,7 +18,7 @@ let
     inherit makesVersion;
     outputs = result.config.outputs;
   };
-  packages = import ./nix/packages.nix;
+  packages = import ../nix/packages.nix;
   result = packages.nixpkgs.lib.modules.evalModules {
     modules = [
       (import ./modules args)

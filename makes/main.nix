@@ -13,7 +13,7 @@ makeScript {
     envSrc = path "/src";
   };
   entrypoint = ''
-    _EVALUATOR=__envSrc__/evaluator.nix \
+    _EVALUATOR=__envSrc__/evaluator \
     python -m cli.main "$@"
   '';
   searchPaths = {
