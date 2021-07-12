@@ -19,6 +19,7 @@ let
   # Let's try to keep it as lightweight as possible because this
   # propagates to all built apps and packages
   searchPathsBase = makeSearchPaths {
+    append = false;
     bin = [ __nixpkgs__.coreutils ];
   };
   # Clean Search Paths before starting
@@ -26,7 +27,9 @@ let
   searchPathsEmpty = makeSearchPaths
     (builtins.mapAttrs
       (name: _:
-        if name == "source"
+        if name == "append"
+        then false
+        else if name == "source"
         then [ ]
         else [ "/not-set" ])
       (builtins.functionArgs makeSearchPaths));
