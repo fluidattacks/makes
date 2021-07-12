@@ -3,13 +3,8 @@
 , ...
 }:
 
-let
-  export = envVar: envPath: envDrv:
-    "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\"";
-  sourceDrv = envDrv:
-    "source ${envDrv}";
-in
-{ bin ? [ ]
+{ append ? true
+, bin ? [ ]
 , javaClass ? [ ]
 , nodeBin ? [ ]
 , nodeModule ? [ ]
@@ -22,6 +17,14 @@ in
 , rpath ? [ ]
 , source ? [ ]
 }:
+let
+  export = envVar: envPath: envDrv:
+    if append
+    then "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\""
+    else "export ${envVar}=\"${envDrv}${envPath}\"";
+  sourceDrv = envDrv:
+    "source ${envDrv}";
+in
 makeTemplate {
   name = "make-search-paths";
   template = builtins.concatStringsSep "\n" (builtins.foldl'
@@ -73,10 +76,6 @@ makeTemplate {
         generator = export "PYTHONPATH" "/lib/python3.9/site-packages";
       }
       {
-        derivations = [ builtinShellCommands ];
-        generator = sourceDrv;
-      }
-      {
         derivations = rpath;
         generator = export "LD_LIBRARY_PATH" "/lib";
       }
@@ -85,8 +84,13 @@ makeTemplate {
         generator = export "LD_LIBRARY_PATH" "/lib64";
       }
       {
+        derivations = [ builtinShellCommands ];
+        generator = sourceDrv;
+      }
+      {
         derivations = source;
         generator = sourceDrv;
       }
-    ]);
+    ]
+  );
 }

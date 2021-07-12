@@ -286,7 +286,7 @@ New features are added constantly.
 
 [GitHub Actions][GITHUB_ACTIONS]
 is configured through [workflow files][GITHUB_WORKFLOWS]
-located in a `.github/workflows` folder in the root of the project.
+located in a `.github/workflows` directory in the root of the project.
 
 The smallest possible [workflow file][GITHUB_WORKFLOWS]
 looks like this:
@@ -412,7 +412,7 @@ Example `makes.nix`:
     targets = [
       "/" # Entire project
       "/file.sh" # A file
-      "/folder" # A folder within the project
+      "/directory" # A directory within the project
     ];
   };
 }
@@ -470,7 +470,7 @@ Example `makes.nix`:
     targets = [
       "/" # Entire project
       "/file.md" # A file
-      "/folder" # A folder within the project
+      "/directory" # A directory within the project
     ];
   };
 }
@@ -499,7 +499,7 @@ Example `makes.nix`:
     targets = [
       "/" # Entire project
       "/file.nix" # A file
-      "/folder" # A folder within the project
+      "/directory" # A directory within the project
     ];
   };
 }
@@ -532,7 +532,7 @@ Custom Types:
     - python (`enum [ "3.7" "3.8" "3.9" ]`):
       Python interpreter version that your package/module is designed for.
     - src (`str`):
-      Path to the folder that contains inside many packages/modules.
+      Path to the directory that contains inside many packages/modules.
 - moduleType (`submodule`):
     - extraSources (`listOf package`): Optional.
       List of scripts that will be sourced before performing the linting process.
@@ -595,7 +595,7 @@ Example `makes.nix`:
     targets = [
       "/" # Entire project
       "/file.sh" # A file
-      "/folder" # A folder within the project
+      "/directory" # A directory within the project
     ];
   };
 }
@@ -652,7 +652,7 @@ Example `makes.nix`:
     targets = [
       "/" # Entire project
       "/file.nix" # A file
-      "/folder" # A folder within the project
+      "/directory" # A directory within the project
     ];
   };
 }
@@ -682,7 +682,7 @@ Example `makes.nix`:
     targets = [
       "/" # Entire project
       "/file.py" # A file
-      "/folder" # A folder within the project
+      "/directory" # A directory within the project
     ];
   };
 }
@@ -856,7 +856,7 @@ In order to do this:
 
     `$ mkdir -p makes/example`
 
-    We will place in this folder
+    We will place in this directory
     all the source code
     for the custom workflow called `example`.
 
@@ -892,7 +892,7 @@ In order to do this:
         ```
 
 Makes will automatically recognize as outputs all `main.nix` files
-under the `makes/` folder in the root of the project.
+under the `makes/` directory in the root of the project.
 
 You can create any directory structure you want.
 Output names will me mapped in an intuitive way:
@@ -905,7 +905,7 @@ Output names will me mapped in an intuitive way:
 
 ## Main.nix format
 
-Each `main.nix` file under the `makes/` folder
+Each `main.nix` file under the `makes/` directory
 should be a function that receives one or more arguments
 and returns a derivation:
 
@@ -1168,6 +1168,77 @@ $ cat /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
 ```
 
 ### makeScript
+
+Wrap a [Bash][BASH] script
+that runs in a **quasi-isolated** environment.
+
+- The file system is **not** isolated, the script runs in user-space.
+- External environment variables are visible by the script.
+  You can use this to propagate secrets.
+- Search Paths as in `makeSearchPaths` are completely empty.
+- The `HOME_IMPURE` environment variable is set to the user's home directory.
+- The `HOME` environment variable is set to a temporary directory.
+- Only [GNU coreutils][GNU_COREUTILS] commands (cat, echo, ls, ...)
+  are present by default.
+- An environment variable called `STATE` points to a directory
+  that can be used to store the script's state (if any).
+- After the build, the script is executed.
+
+Inputs:
+
+- entrypoint (`either str package`):
+  A [Bash][BASH] script that performs the build step.
+- name (`str`):
+  Custom name to assign to the build step, be creative, it helps in debugging.
+- replace (`attrsOf str`): Optional.
+  Placeholders will be replaced in the script with their respective value.
+  Variable names must start with `__arg`, end with `__`
+  and have at least 6 characters long.
+  Defaults to `{ }`.
+- searchPaths (`asIn makeSearchPaths`): Optional.
+  Arguments here will be passed as-is to `makeSearchPaths`.
+  Defaults to `makeSearchPaths`'s defaults.
+
+Example:
+
+```nix
+
+# /path/to/my/project/makes/example/main.nix
+{ inputs
+, makeScript
+, ...
+}:
+makeScript {
+  replace = {
+    __argVersion__ = "1.0";
+  };
+  builder = ''
+    debug Version is __argVersion__
+    info pwd is $PWD
+    info Running tree command on $STATE
+    mkdir $STATE/dir
+    touch $STATE/dir/file
+    tree $STATE
+  '';
+  name = "example";
+  searchPaths = {
+    bin = [ inputs.nixpkgs.tree ];
+  };
+}
+```
+
+```bash
+$ m /example
+
+    [DEBUG] Version is 1.0
+    [INFO] pwd is /data/github/fluidattacks/makes
+    [INFO] Running tree command on /home/user/.makes/state/example
+    /home/user/.makes/state/example
+    └── dir
+        └── file
+
+    1 directory, 1 file
+```
 
 :construction: This section is Work in progress
 
