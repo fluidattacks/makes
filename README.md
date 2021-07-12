@@ -38,12 +38,12 @@ Most real world production systems:
 
   That most tools in the market cannot fetch, configure, and setup
   in an easy/automated/secure way,
-  and most of them do not even support a way of declaring them.
+  and most of them do not even support a way of declaring such dependencies.
 - Have tens to hundreds of developers
   working across the globe from different setups, stacks and operative systems.
 
   And most tools cannot guarantee all of them
-  an **exact** developing environment.
+  an **exactly equal** developing environment.
 - Have tens to thousands of production servers
   that need to be deployed to.
 
@@ -77,9 +77,6 @@ creating development environments, etc.
 With as little code as possible.
 [Makes][MAKES] tries to hide all the unnecessary complexity
 so you can focus on the business logic.
-
-We've been using [Makes][MAKES] at [Fluid Attacks][FLUID_ATTACKS] since 2019
-and we have all come to the opinion that it's an awesome tool to work with.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -122,23 +119,21 @@ and we have all come to the opinion that it's an awesome tool to work with.
 
 # Philosophy
 
-We strive for:
-
 - :star2: Simplicity: Easy setup with:
   a laptop, or
   [Docker][DOCKER], or
   [GitHub Actions][GITHUB_ACTIONS], or
-  [Gitlab CI][GITLAB_CI], or
+  [GitLab CI][GITLAB_CI], or
   [Travis CI][TRAVIS_CI], or
   [Circle CI][CIRCLE_CI],
   and more!
 - :beers: Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
-- :dancers: Reproducibility: **Any member** of your team,
-  day or night, yesterday and tomorrow,
+- :dancers: Reproducibility: **Any member** of your team
   builds and get **exactly the same results**.
 - :woman_technologist: Dev environments:
-  **Any member** of your team with a Linux machine and
-  the required secrets **can execute the entire CI/CD pipeline**.
+  **Any member** of your team
+  with the required secrets
+  **can execute the entire CI/CD pipeline**.
 - :horse_racing: Performance:
   A highly granular **caching** system
   so you only have to **build things once**.
@@ -241,6 +236,26 @@ In order to use Makes you'll need to:
         ```
 
 # Configuring CI/CD
+
+## Providers comparison
+
+We've thoroughly tested these providers throughout the years,
+below is a small table that clearly expresses their trade-offs.
+
+| Provider                         | Easy   | Config | Scale  | SaaS   | Security |
+|----------------------------------|--------|--------|--------|--------|----------|
+| [GitHub Actions][GITHUB_ACTIONS] | :star: | :star: | :star: | :star: |          |
+| [GitLab CI/CD][GITLAB_CI]        | :star: | :star: |        | :star: | :star:   |
+| [Travis CI][TRAVIS_CI]           |        |        | :star: | :star: | :star:   |
+
+If you are getting started in the world of CI/CD
+it's a good idea to try [GitHub Actions][GITHUB_ACTIONS].
+
+If you want serious security try [GitLab CI/CD][GITLAB_CI].
+
+We didn't like [Travis CI][TRAVIS_CI]
+because its way of managing encrypted secrets is uncomfortable
+and the fact it does not support running custom container images.
 
 ## Versioning scheme
 
