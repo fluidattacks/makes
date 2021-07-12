@@ -21,7 +21,7 @@ makeContainerImage {
   };
   layers = [
     (makeDerivation {
-      arguments = {
+      env = {
         envEtcGroup = ''
           makes:x:0:
           nobody:x:65534:

@@ -24,7 +24,7 @@
   config = {
     outputs = {
       "/lintBash" = lib.mkIf config.lintBash.enable (makeDerivation {
-        arguments = {
+        env = {
           envTargets = builtinLambdas.asBashArray
             (builtins.map
               path

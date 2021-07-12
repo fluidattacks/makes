@@ -19,7 +19,7 @@ makeDerivation {
     type = "exec";
     location = "/bin/${name}";
   }];
-  arguments = {
+  env = {
     envAliases = builtinLambdas.asBashArray (aliases ++ [ name ]);
     envEntrypoint = makeTemplate {
       inherit arguments;

@@ -8,7 +8,7 @@
   config = {
     outputs = {
       "__all__" = makeDerivation {
-        arguments = {
+        env = {
           envAll = builtins.toJSON
             (builtins.removeAttrs config.outputs [ "__all__" ]);
         };

@@ -40,7 +40,7 @@ let
     else abort "Supported python versions are: 3.7 and 3.8";
 
   pythonEnvironment = makeDerivation {
-    arguments = {
+    env = {
       envRequirementsFile = builtinLambdas.listToFileWithTrailinNewLine requirementsList;
     };
     builder = ./builder.sh;

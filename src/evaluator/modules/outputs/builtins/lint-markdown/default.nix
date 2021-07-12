@@ -24,7 +24,7 @@
   config = {
     outputs = {
       "/lintMarkdown" = lib.mkIf config.lintMarkdown.enable (makeDerivation {
-        arguments = {
+        env = {
           envStyle = ./style.rb;
           envTargets = builtinLambdas.asBashArray
             (builtins.map
