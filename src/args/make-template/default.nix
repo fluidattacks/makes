@@ -44,5 +44,5 @@ makeDerivation {
   };
   builder = ./builder.sh;
   local = true;
-  inherit name;
+  name = "make-template-for-${name}";
 }

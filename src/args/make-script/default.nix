@@ -44,7 +44,7 @@ makeDerivation {
         };
         envShell = "${__nixpkgs__.bash}/bin/bash";
       };
-      name = "makes-src-args-make-script-for-${name}";
+      name = "make-script-for-${name}";
       template = ./template.sh;
     };
   };
