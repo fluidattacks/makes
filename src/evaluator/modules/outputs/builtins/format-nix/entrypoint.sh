@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local paths=__envTargets__
+  local paths=__argTargets__
 
   info Formatting Nix code \
     && for path in "${paths[@]}"; do

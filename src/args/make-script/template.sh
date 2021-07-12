@@ -1,7 +1,7 @@
-#! __envShell__
+#! __argShell__
 # shellcheck shell=bash
 
-source __envBuiltinShellOptions__
+source __argBuiltinShellOptions__
 
 function running_in_ci_cd_provider {
   # Non-empty on Gitlab, Github, Travis
@@ -11,27 +11,21 @@ function running_in_ci_cd_provider {
 }
 
 function setup {
-  export CLASSPATH='/not-set'
-  export GEM_PATH='/not-set'
   export HOME
   export HOME_IMPURE
-  export LD_LIBRARY_PATH='/not-set'
-  export MYPYPATH='/not-set'
-  export NODE_PATH='/not-set'
-  export PATH='/not-set'
-  export PYTHONPATH='/not-set'
-  export SSL_CERT_FILE='__envCaCert__/etc/ssl/certs/ca-bundle.crt'
-  export STATE=~/.makes/state/'__envName__'
+  export SSL_CERT_FILE='__argCaCert__/etc/ssl/certs/ca-bundle.crt'
+  export STATE=~/.makes/state/'__argName__'
 
-  source __envSearchPathsBase__ \
+  source __argSearchPathsEmpty__ \
+    && source __argSearchPathsBase__ \
     && rm -rf "${STATE}" \
     && mkdir -p "${STATE}" \
     && if test -z "${HOME_IMPURE:-}"; then
       HOME_IMPURE="${HOME:-}" \
         && HOME="$(mktemp -d)"
     fi \
-    && source __envBuiltinShellCommands__ \
-    && source __envSearchPaths__
+    && source __argBuiltinShellCommands__ \
+    && source __argSearchPaths__
 }
 
 setup

@@ -24,8 +24,8 @@
   config = {
     outputs = {
       "/formatNix" = lib.mkIf config.formatNix.enable (makeScript {
-        arguments = {
-          envTargets = builtinLambdas.asBashArray
+        replace = {
+          __argTargets__ = builtinLambdas.asBashArray
             (builtins.map pathImpure config.formatNix.targets);
         };
         name = "format-nix";

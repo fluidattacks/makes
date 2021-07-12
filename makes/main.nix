@@ -9,11 +9,11 @@ makeScript {
     "makes"
     "makes-v21.08"
   ];
-  arguments = {
-    envSrc = path "/src";
+  replace = {
+    __argSrc__ = path "/src";
   };
   entrypoint = ''
-    _EVALUATOR=__envSrc__/evaluator \
+    _EVALUATOR=__argSrc__/evaluator \
     python -m cli.main "$@"
   '';
   searchPaths = {

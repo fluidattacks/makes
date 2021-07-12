@@ -2,12 +2,12 @@
 
 function main {
   local args_black=(
-    --config '__envSettingsBlack__'
+    --config '__argSettingsBlack__'
   )
   local args_isort=(
-    --settings-path '__envSettingsIsort__'
+    --settings-path '__argSettingsIsort__'
   )
-  local paths=__envTargets__
+  local paths=__argTargets__
 
   if running_in_ci_cd_provider; then
     args_black+=(--diff --check --color) \

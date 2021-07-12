@@ -9,7 +9,7 @@ function main {
     -sr  # Space after redirect operators
     -w   # Format in-place
   )
-  local paths=__envTargets__
+  local paths=__argTargets__
 
   info Formatting bash code \
     && if running_in_ci_cd_provider; then

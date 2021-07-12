@@ -24,8 +24,8 @@
   config = {
     outputs = {
       "/formatBash" = lib.mkIf config.formatBash.enable (makeScript {
-        arguments = {
-          envTargets = builtinLambdas.asBashArray
+        replace = {
+          __argTargets__ = builtinLambdas.asBashArray
             (builtins.map pathImpure config.formatBash.targets);
         };
         name = "format-bash";

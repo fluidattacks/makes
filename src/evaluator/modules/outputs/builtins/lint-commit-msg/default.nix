@@ -24,10 +24,10 @@
     outputs = {
       "/lintCommitMsg" = lib.mkIf config.lintCommitMsg.enable (makeScript {
         name = "lint-commit-msg";
-        arguments = {
-          envBranch = config.lintCommitMsg.branch;
-          envParser = ./parser.js;
-          envConfig = ./config.js;
+        replace = {
+          __argBranch__ = config.lintCommitMsg.branch;
+          __argParser__ = ./parser.js;
+          __argConfig__ = ./config.js;
         };
         searchPaths = {
           bin = [

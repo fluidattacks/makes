@@ -8,10 +8,10 @@
 , tag
 }:
 makeScript {
-  arguments = {
-    envContainerImage = containerImage;
-    envRegistry = registry;
-    envTag = "${registry}/${tag}";
+  replace = {
+    __argContainerImage__ = containerImage;
+    __argRegistry__ = registry;
+    __argTag__ = "${registry}/${tag}";
   };
   entrypoint = ./entrypoint.sh;
   inherit name;
