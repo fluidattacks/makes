@@ -11,7 +11,6 @@ let
 in
 { bin ? [ ]
 , javaClass ? [ ]
-, ldLib ? [ ]
 , nodeBin ? [ ]
 , nodeModule ? [ ]
 , pythonMypy ? [ ]
@@ -20,6 +19,7 @@ in
 , pythonPackage37 ? [ ]
 , pythonPackage38 ? [ ]
 , pythonPackage39 ? [ ]
+, rpath ? [ ]
 , source ? [ ]
 }:
 makeTemplate {
@@ -39,14 +39,6 @@ makeTemplate {
       {
         derivations = javaClass;
         generator = export "CLASSPATH" "";
-      }
-      {
-        derivations = ldLib;
-        generator = export "LD_LIBRARY_PATH" "/lib";
-      }
-      {
-        derivations = ldLib;
-        generator = export "LD_LIBRARY_PATH" "/lib64";
       }
       {
         derivations = nodeBin;
@@ -83,6 +75,14 @@ makeTemplate {
       {
         derivations = [ builtinShellCommands ];
         generator = sourceDrv;
+      }
+      {
+        derivations = rpath;
+        generator = export "LD_LIBRARY_PATH" "/lib";
+      }
+      {
+        derivations = rpath;
+        generator = export "LD_LIBRARY_PATH" "/lib64";
       }
       {
         derivations = source;

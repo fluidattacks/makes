@@ -87,6 +87,7 @@ so you can focus on the business logic.
     - [Getting started as user](#getting-started-as-user)
     - [Getting started as developer](#getting-started-as-developer)
 - [Configuring CI/CD](#configuring-cicd)
+    - [Providers comparison](#providers-comparison)
     - [Versioning scheme](#versioning-scheme)
     - [Configuring on GitHub Actions](#configuring-on-github-actions)
     - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
@@ -112,7 +113,9 @@ so you can focus on the business logic.
         - [helloWorld](#helloworld)
 - [Extending Makes](#extending-makes)
     - [Main.nix format](#mainnix-format)
-    - [makeSearchPaths](#makesearchpaths)
+        - [Derivations](#derivations)
+    - [Main.nix function arguments](#mainnix-function-arguments)
+        - [makeSearchPaths](#makesearchpaths)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1000,12 +1003,12 @@ Inputs:
   of every element in the list
   to [PATH][PATH].
 
-- `ldLib` (`listOf package`):
+- `rpath` (`listOf package`):
   Append `/lib` and `/lib64`
   of every element in the list
   to [LD_LIBRARY_PATH][RPATH].
 
-- `ldLib` (`listOf package`):
+- `rpath` (`listOf package`):
   Append `/lib` and `/lib64`
   of every element in the list
   to [LD_LIBRARY_PATH][RPATH].
@@ -1068,20 +1071,10 @@ Inputs specific to [Node.js][NODE_JS]:
 Example:
 
 ```nix
-makeScript {
-  name = "test-search-paths";
-  searchPaths = {
-    bin = [
-      inputs.nixpkgs.git
-    ];
-  };
-  entrypoint = ./entrypoint.sh;
+makeSearchPaths {
+  bin = [ inputs.nixpkgs.git ];
 }
 ```
-
-Both `makeDerivation` and `makeScript`
-support `makeSearchPaths`
-via the `searchPaths` argument.
 
 :construction: This section is Work in progress
 
