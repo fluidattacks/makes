@@ -1,4 +1,4 @@
-# Makes v21.08
+# Makes v21.09
 
 A SecDevOps framework
 powered by [Nix][NIX].
@@ -190,14 +190,14 @@ In order to use Makes you'll need to:
         - ssh: `$ export M_FROM=git@github.com:fluidattacks/makes`
 
 1. Now run makes!
-    - List all available commands: `$ m`
+    - List all available commands within your current repository: `$ m .`
 
         ```
         Outputs list for project: https://github.com/fluidattacks/makes
           /helloWorld
         ```
 
-    - Run a command: `$ m /helloWorld 1 2 3`
+    - Run a command: `$ m . /helloWorld 1 2 3`
 
         ```
         [INFO] Hello from Makes! Jane Doe.
@@ -234,7 +234,7 @@ In order to use Makes you'll need to:
           /helloWorld
         ```
 
-    - Run a command: `$ m /helloWorld 1 2 3`
+    - Run a command: `$ m . /helloWorld 1 2 3`
 
         ```
         [INFO] Hello from Makes! Jane Doe.
@@ -310,7 +310,7 @@ jobs:
       env:
         SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
       with:
-        args: m /helloWorld 1 2 3
+        args: m . /helloWorld 1 2 3
 
   # Add more jobs here, you can copy paste jobs.helloWorld and modify the `args`
 ```
@@ -332,7 +332,7 @@ looks like this:
   #   yy.mm: monthly release (example: /makes:21.07)
   image: registry.gitlab.com/fluidattacks/product/makes:main
   script:
-    - m /helloWorld 1 2 3
+    - m . /helloWorld 1 2 3
 
 # Add more jobs here, you can copy paste /helloWorld and modify the `script`
 ```
@@ -367,9 +367,9 @@ env:
     NAME: value
 jobs:
   include:
-  - script: m /helloWorld 1 2 3
+  - script: m . /helloWorld 1 2 3
   # You can add more jobs like this:
-  # - script: m /formatBash
+  # - script: m . /formatBash
 ```
 
 Secrets can be propagated to Makes through
@@ -418,7 +418,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /lintBash`
+Example invocation: `$ m . /lintBash`
 
 ### lintCommitMsg
 
@@ -447,7 +447,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /lintCommitMsg`
+Example invocation: `$ m . /lintCommitMsg`
 
 ### lintMarkdown
 
@@ -476,7 +476,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /lintMarkdown`
+Example invocation: `$ m . /lintMarkdown`
 
 ### lintNix
 
@@ -505,7 +505,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /lintNix`
+Example invocation: `$ m . /lintNix`
 
 ### lintPython
 
@@ -564,11 +564,11 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /lintPython/dirOfModules/makes`
+Example invocation: `$ m . /lintPython/dirOfModules/makes`
 
-Example invocation: `$ m /lintPython/dirOfModules/makes/main`
+Example invocation: `$ m . /lintPython/dirOfModules/makes/main`
 
-Example invocation: `$ m /lintPython/module/cliMain`
+Example invocation: `$ m . /lintPython/module/cliMain`
 
 ## Formatters
 
@@ -601,7 +601,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /formatBash`
+Example invocation: `$ m . /formatBash`
 
 ### formatMarkdown
 
@@ -629,7 +629,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /formatMarkdown`
+Example invocation: `$ m . /formatMarkdown`
 
 ### formatNix
 
@@ -658,7 +658,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /formatNix`
+Example invocation: `$ m . /formatNix`
 
 ### formatPython
 
@@ -688,7 +688,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /formatPython`
+Example invocation: `$ m . /formatPython`
 
 ## Pinning
 
@@ -738,7 +738,7 @@ Example `makes.nix`:
 
 ```nix
 {
-  requiredMakesVersion = "21.08";
+  requiredMakesVersion = "21.09";
 }
 ```
 
@@ -810,11 +810,11 @@ Example `makes.nix`:
   };
 ```
 
-Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m /deployContainerImage/nginxDockerHub`
+Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainerImage/nginxDockerHub`
 
-Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m /deployContainerImage/makesGitHub`
+Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerImage/makesGitHub`
 
-Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m /deployContainerImage/makesGitLab`
+Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainerImage/makesGitLab`
 
 ## Examples
 
@@ -839,7 +839,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m /helloWorld 1 2 3`
+Example invocation: `$ m . /helloWorld 1 2 3`
 
 # Extending Makes
 
@@ -885,7 +885,7 @@ In order to do this:
           /example
         ```
 
-    - Run the command: `$ m /example`
+    - Run the command: `$ m . /example`
 
         ```
         Hello from Makes!
@@ -899,9 +899,9 @@ Output names will me mapped in an intuitive way:
 
 |`main.nix` position                               |Output name       | Invocation command |
 |--------------------------------------------------|------------------|--------------------|
-|`/path/to/my/project/makes/main.nix`              |`outputs."/"`             |`$ m /`             |
-|`/path/to/my/project/makes/example/main.nix`      |`outputs."/example"`      |`$ m /example`      |
-|`/path/to/my/project/makes/other/example/main.nix`|`outputs."/other/example"`|`$ m /other/example`|
+|`/path/to/my/project/makes/main.nix`              |`outputs."/"`             |`$ m . /`             |
+|`/path/to/my/project/makes/example/main.nix`      |`outputs."/example"`      |`$ m . /example`      |
+|`/path/to/my/project/makes/other/example/main.nix`|`outputs."/other/example"`|`$ m . /other/example`|
 
 ## Main.nix format
 
@@ -1154,7 +1154,7 @@ makeDerivation {
 ```
 
 ```bash
-$ m /example
+$ m . /example
 
     [DEBUG] Version is 1.0
     [INFO] Running tree command on /tmp/nix-build-example.drv-0
@@ -1228,7 +1228,7 @@ makeScript {
 ```
 
 ```bash
-$ m /example
+$ m . /example
 
     [DEBUG] Version is 1.0
     [INFO] pwd is /data/github/fluidattacks/makes

@@ -9,7 +9,7 @@ jobs:
         GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
-        args: sh -c "nix-env -if . && m /deployContainerImage/makesGitHub"
+        args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
   deployContainerImage_makesGitHubMonthly:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     needs: deployContainerImage_makesGitHub
@@ -21,7 +21,7 @@ jobs:
         GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
         GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
       with:
-        args: m /deployContainerImage/makesGitHubMonthly
+        args: m . /deployContainerImage/makesGitHubMonthly
   deployContainerImage_makesGitLab:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     needs: deployContainerImage_makesGitHub
@@ -34,7 +34,7 @@ jobs:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
-        args: m /deployContainerImage/makesGitLab
+        args: m . /deployContainerImage/makesGitLab
   deployContainerImage_makesGitLabMonthly:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     needs: deployContainerImage_makesGitHub
@@ -47,7 +47,7 @@ jobs:
         CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
         CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
       with:
-        args: m /deployContainerImage/makesGitLabMonthly
+        args: m . /deployContainerImage/makesGitLabMonthly
 name: prod
 on:
   push:

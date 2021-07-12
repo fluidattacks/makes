@@ -5,9 +5,9 @@
 }:
 makeScript {
   aliases = [
-    "m-v21.08"
+    "m-v21.09"
     "makes"
-    "makes-v21.08"
+    "makes-v21.09"
   ];
   replace = {
     __argSrc__ = path "/src";

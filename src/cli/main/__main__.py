@@ -3,6 +3,7 @@ from os import (
     environ,
     getcwd,
     makedirs,
+    path as os_path,
 )
 from os.path import (
     exists,
@@ -26,9 +27,7 @@ from typing import (
 
 CWD: str = getcwd()
 DEBUG: bool = "M_DEBUG" in environ
-FROM_LOCAL = f"file://{CWD}"
-FROM: str = environ.get("M_FROM", FROM_LOCAL)
-VERSION: str = "21.08"
+VERSION: str = "21.09"
 
 
 class Error(Exception):
@@ -43,11 +42,15 @@ def _if(condition: Any, *value: Any) -> List[Any]:
     return list(value) if condition else []
 
 
-def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
+def is_src_local(src: str) -> bool:
+    return os_path.isdir(src)
+
+
+def _nix_build(src: str, head: str, attr: str, out: str = "") -> List[str]:
     head = f'builtins.path {{ name = "head"; path = {head}; }}'
     return [
         "nix-build",
-        *_if(FROM == FROM_LOCAL, "--argstr", "headImpure", CWD),
+        *_if(is_src_local(src), "--argstr", "headImpure", CWD),
         *["--arg", "head", head],
         *["--argstr", "makesVersion", VERSION],
         *["--attr", attr],
@@ -62,31 +65,35 @@ def _nix_build(head: str, attr: str, out: str = "") -> List[str]:
     ]
 
 
-def _get_head() -> str:
+def _get_head(src: str) -> str:
     # Checkout repository HEAD into a temporary directory
     # This is nice for reproducibility and security,
     # files not in the HEAD commit are left out of the build inputs
     head = tempfile.TemporaryDirectory(prefix="makes-").name
     out, stdout, stderr = _run(
-        args=["git", "clone", "--depth", "1", FROM, head],
+        args=["git", "clone", "--depth", "1", src, head],
     )
     if out != 0:
-        raise Error(f"Unable to clone: {FROM}", stdout, stderr)
+        raise Error(f"Unable to clone: {src}", stdout, stderr)
 
     # Applies only to local repositories
-    if FROM == FROM_LOCAL:
+    if is_src_local(src):
         paths: Set[str] = set()
 
         # Propagated `git add`ed files
-        out, stdout, stderr = _run(["git", "diff", "--cached", "--name-only"])
+        out, stdout, stderr = _run(
+            ["git", "-C", src, "diff", "--cached", "--name-only"]
+        )
         if out != 0:
-            raise Error(f"Unable to list files: {FROM}", stdout, stderr)
+            raise Error(f"Unable to list files: {src}", stdout, stderr)
         paths.update(stdout.decode().splitlines())
 
         # Propagated modified files
-        out, stdout, stderr = _run(["git", "ls-files", "--modified"])
+        out, stdout, stderr = _run(
+            ["git", "-C", src, "ls-files", "--modified"]
+        )
         if out != 0:
-            raise Error(f"Unable to list files: {FROM}", stdout, stderr)
+            raise Error(f"Unable to list files: {src}", stdout, stderr)
         paths.update(stdout.decode().splitlines())
 
         # Copy paths to head
@@ -101,16 +108,16 @@ def _get_head() -> str:
     return head
 
 
-def _get_attrs(head: str) -> List[str]:
+def _get_attrs(src: str, head: str) -> List[str]:
     out: str = tempfile.mktemp()
     code, stdout, stderr, = _run(
-        args=_nix_build(head, "config.attrs", out),
+        args=_nix_build(src, head, "config.attrs", out),
     )
     if code == 0:
         with open(out) as file:
             return json.load(file)
 
-    raise Error(f"Unable to list project outputs from: {FROM}", stdout, stderr)
+    raise Error(f"Unable to list project outputs from: {src}", stdout, stderr)
 
 
 def _run(
@@ -135,14 +142,22 @@ def _run(
         return process.returncode, out, err
 
 
+def _help_no_src() -> None:
+    _log("[SRC] not provided.")
+    _log("Usage: m [SRC] [OUTPUT] [ARGS]...")
+
+    raise SystemExit(1)
+
+
 def _help_and_exit(
+    src: str = "",
     attrs: Optional[List[str]] = None,
     exc: Optional[Exception] = None,
 ) -> None:
-    _log("Usage: m [OUTPUT] [ARGS]...")
+    _log("Usage: m [SRC] [OUTPUT] [ARGS]...")
     if attrs is not None:
         _log()
-        _log(f"Outputs list for project: {FROM}")
+        _log(f"Outputs list for project: {src}")
         for attr in attrs:
             if attr not in {"__all__"}:
                 _log(f"  {attr}")
@@ -157,27 +172,30 @@ def cli(args: List[str]) -> None:
     _log(f"Makes v{VERSION}")
     _log()
     if not args[1:]:
+        _help_no_src()
+
+    src: str = args[1]
+    if not args[2:]:
         try:
-            head: str = _get_head()
-            attrs: List[str] = _get_attrs(head)
+            head: str = _get_head(src)
+            attrs: List[str] = _get_attrs(src, head)
         except Error as exc:
-            _help_and_exit(exc=exc)
+            _help_and_exit(src, exc=exc)
         else:
-            _help_and_exit(attrs)
+            _help_and_exit(src, attrs)
 
-    attr: str = args[1]
-    args = args[2:]
-    head = _get_head()
-    attrs = _get_attrs(head)
+    attr: str = args[2]
+    args = args[3:]
+    head = _get_head(src)
+    attrs = _get_attrs(src, head)
     if attr not in attrs:
-        _help_and_exit(attrs)
+        _help_and_exit(src, attrs)
 
-    cwd: str = getcwd()
-    out: str = join(cwd, f"result{attr.replace('/', '-')}")
+    out: str = join(CWD, f"result{attr.replace('/', '-')}")
     actions_path: str = join(out, "makes-actions.json")
 
     code, _, _ = _run(
-        args=_nix_build(head, f'config.outputs."{attr}"', out),
+        args=_nix_build(src, head, f'config.outputs."{attr}"', out),
         capture_io=False,
     )
 

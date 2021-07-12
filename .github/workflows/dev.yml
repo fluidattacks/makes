@@ -6,7 +6,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: __all__
       with:
-        args: sh -c "nix-env -if . && m __all__"
+        args: sh -c "nix-env -if . && m . __all__"
   formatBash:
     runs-on: ubuntu-latest
     steps:
@@ -14,7 +14,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /formatBash
       with:
-        args: sh -c "nix-env -if . && m /formatBash"
+        args: sh -c "nix-env -if . && m . /formatBash"
   formatMarkdown:
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +22,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /formatMarkdown
       with:
-        args: sh -c "nix-env -if . && m /formatMarkdown"
+        args: sh -c "nix-env -if . && m . /formatMarkdown"
   formatNix:
     runs-on: ubuntu-latest
     steps:
@@ -30,7 +30,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /formatNix
       with:
-        args: sh -c "nix-env -if . && m /formatNix"
+        args: sh -c "nix-env -if . && m . /formatNix"
   formatPython:
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +38,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /formatPython
       with:
-        args: sh -c "nix-env -if . && m /formatPython"
+        args: sh -c "nix-env -if . && m . /formatPython"
   helloWorld:
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +46,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /helloWorld
       with:
-        args: sh -c "nix-env -if . && m /helloWorld"
+        args: sh -c "nix-env -if . && m . /helloWorld"
   lintBash:
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +54,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintBash
       with:
-        args: sh -c "nix-env -if . && m /lintBash"
+        args: sh -c "nix-env -if . && m . /lintBash"
   lintCommitMsg:
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +64,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintCommitMsg
       with:
-        args: sh -c "nix-env -if . && m /lintCommitMsg"
+        args: sh -c "nix-env -if . && m . /lintCommitMsg"
   lintMarkdown:
     runs-on: ubuntu-latest
     steps:
@@ -72,7 +72,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintMarkdown
       with:
-        args: sh -c "nix-env -if . && m /lintMarkdown"
+        args: sh -c "nix-env -if . && m . /lintMarkdown"
   lintNix:
     runs-on: ubuntu-latest
     steps:
@@ -80,7 +80,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintNix
       with:
-        args: sh -c "nix-env -if . && m /lintNix"
+        args: sh -c "nix-env -if . && m . /lintNix"
   lintPython_dirOfModules_makes:
     runs-on: ubuntu-latest
     steps:
@@ -88,7 +88,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintPython/dirOfModules/makes
       with:
-        args: sh -c "nix-env -if . && m /lintPython/dirOfModules/makes"
+        args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes"
   lintPython_dirOfModules_makes_main:
     runs-on: ubuntu-latest
     steps:
@@ -96,7 +96,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintPython/dirOfModules/makes/main
       with:
-        args: sh -c "nix-env -if . && m /lintPython/dirOfModules/makes/main"
+        args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes/main"
   lintPython_module_cliMain:
     runs-on: ubuntu-latest
     steps:
@@ -104,7 +104,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintPython/module/cliMain
       with:
-        args: sh -c "nix-env -if . && m /lintPython/module/cliMain"
+        args: sh -c "nix-env -if . && m . /lintPython/module/cliMain"
 name: dev
 on:
   pull_request:
