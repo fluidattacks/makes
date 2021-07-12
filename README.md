@@ -47,6 +47,7 @@ in just a few steps, in any technology.
     - [Main.nix function arguments](#mainnix-function-arguments)
         - [makeSearchPaths](#makesearchpaths)
         - [makeDerivation](#makederivation)
+        - [makeScript](#makescript)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1086,6 +1087,9 @@ Inputs specific to [Node.js][NODE_JS]:
 Example:
 
 ```nix
+{ makeSearchPaths
+, ...
+}:
 makeSearchPaths {
   bin = [ inputs.nixpkgs.git ];
 }
@@ -1097,15 +1101,73 @@ Perform a build step in an **isolated** environment:
 
 - External environment variables are not visible by the builder script.
   This means you **can't** use secrets here.
-- Search Paths as in `makeSearchPaths` are completely empty
-- `HOME` environment variable is set to `/homeless-shelter`
+- Search Paths as in `makeSearchPaths` are completely empty.
+- The `HOME` environment variable is set to `/homeless-shelter`.
+- Only [GNU coreutils][GNU_COREUTILS] commands (cat, echo, ls, ...)
+  are present by default.
 - An environment variable called `out` is present
-  and represent the derivation's outputs.
-  The derivation **must** produce outputs
-  (may be a file, or a directory).
+  and represents the derivation's output.
+  The derivation **must** produce an output,
+  may be a file, or a directory.
 - After the build, for all paths in `$out`:
-    - User and group ownership is removed
+    - User and group ownership are removed
     - Last-modified timestamps are reset to `1970-01-01T00:00:00+00:00`.
+
+Inputs:
+
+- builder (`either str package`):
+  A [Bash][BASH] script that performs the build step.
+- env (`attrsOf str`): Optional.
+  Environment variables that will be propagated to the `builder`.
+  Variable names must start with `env`.
+  Defaults to `{ }`.
+- name (`str`):
+  Custom name to assign to the build step, be creative, it helps in debugging.
+- searchPaths (`asIn makeSearchPaths`): Optional.
+  Arguments here will be passed as-is to `makeSearchPaths`.
+  Defaults to `makeSearchPaths`'s defaults.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ inputs
+, makeDerivation
+, ...
+}:
+makeDerivation {
+  env = {
+    envVersion = "1.0";
+  };
+  builder = ''
+    debug Version is $envVersion
+    info Running tree command on $PWD
+    mkdir dir
+    touch dir/file
+    tree dir > $out
+  '';
+  name = "example";
+  searchPaths = {
+    bin = [ inputs.nixpkgs.tree ];
+  };
+}
+```
+
+```bash
+$ m /example
+
+    [DEBUG] Version is 1.0
+    [INFO] Running tree command on /tmp/nix-build-example.drv-0
+    /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
+
+$ cat /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
+    dir
+    `-- file
+
+    0 directories, 1 file
+```
+
+### makeScript
 
 :construction: This section is Work in progress
 
@@ -1164,6 +1226,9 @@ Perform a build step in an **isolated** environment:
 
 - [GNU_MAKE]: https://www.gnu.org/software/make/
   [GNU Make][GNU_MAKE]
+
+- [GNU_COREUTILS]: https://www.gnu.org/software/coreutils/
+  [GNU Coreutils][GNU_COREUTILS]
 
 - [GRADLE]: https://gradle.org/
   [Gradle][GRADLE]
