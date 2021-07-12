@@ -7,8 +7,8 @@
 }:
 
 { actions ? [ ]
-, arguments ? { }
 , builder
+, env ? { }
 , local ? false
 , name
 , searchPaths ? { }
@@ -20,8 +20,8 @@ let
     then ""
     else "echo '${builtins.toJSON actions}' > $out/makes-actions.json";
 
-  # Validate arguments
-  arguments' = builtins.mapAttrs
+  # Validate env
+  env' = builtins.mapAttrs
     (k: v: (
       if (
         (__nixpkgs__.lib.strings.hasPrefix "__env" k) ||
@@ -30,9 +30,9 @@ let
       then v
       else abort "Invalid argument: ${k}, must start with: env or __env"
     ))
-    arguments;
+    env;
 in
-builtins.derivation (arguments' // {
+builtins.derivation (env' // {
   __envBuiltinShellCommands = builtinShellCommands;
   __envBuiltinShellOptions = builtinShellOptions;
   __envSearchPaths =

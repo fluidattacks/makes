@@ -46,7 +46,7 @@ let
     else abort "Supported node versions are: 10, 12, 14 and 16";
 
   nodeEnvironment = makeDerivation {
-    arguments = {
+    env = {
       envRequirementsFile = builtinLambdas.listToFileWithTrailinNewLine requirementsList;
       envPackageJsonFile = builtins.toFile "package.json" packageJson;
     };

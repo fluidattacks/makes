@@ -18,7 +18,7 @@ args:
   };
   config = lib.mkIf (config.assertionsPassed) {
     attrs = args.makeDerivation {
-      arguments = {
+      env = {
         envList = builtins.toJSON (builtins.attrNames config.outputs);
       };
       builder = ''

@@ -24,7 +24,7 @@ let
   argumentsBase64' = validateArguments argumentsBase64;
 in
 makeDerivation {
-  arguments = arguments' // argumentsBase64' // {
+  env = arguments' // argumentsBase64' // {
     __envArgumentNamesFile = builtinLambdas.listToFileWithTrailinNewLine
       (builtins.attrNames arguments);
     __envArgumentBase64NamesFile = builtinLambdas.listToFileWithTrailinNewLine

@@ -24,7 +24,7 @@
   config = {
     outputs = {
       "/lintNix" = lib.mkIf config.lintNix.enable (makeDerivation {
-        arguments = {
+        env = {
           envTargets = builtinLambdas.asBashArray
             (builtins.map
               path

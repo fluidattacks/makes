@@ -12,7 +12,7 @@ let
   makeModule = name: { extraSources, python, src }: {
     name = "/lintPython/module/${name}";
     value = makeDerivation {
-      arguments = {
+      env = {
         envSettingsMypy = ./settings-mypy.cfg;
         envSettingsProspector = ./settings-prospector.yaml;
         envSrc = path src;
@@ -35,7 +35,7 @@ let
           })
         ];
       };
-      builder = ./builder-module.sh;
+      builder = ./builder.sh;
     };
   };
   makeDirOfModules = name: { extraSources, python, src }:
@@ -55,7 +55,7 @@ let
     (modules ++ [{
       name = "/lintPython/dirOfModules/${name}";
       value = makeDerivation {
-        arguments = {
+        env = {
           envModules = lib.attrsets.catAttrs "value" modules;
         };
         builder = "echo $envModules > $out";
