@@ -3,10 +3,10 @@
 function main {
   local commit_diff
   local commit_hashes
-  local main_branch=__envBranch__
+  local main_branch=__argBranch__
   local args=(
-    --parser-preset __envParser__
-    --config __envConfig__
+    --parser-preset __argParser__
+    --config __argConfig__
   )
 
   commit_diff="origin/${main_branch}..HEAD" \

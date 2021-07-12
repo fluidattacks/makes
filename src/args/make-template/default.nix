@@ -5,33 +5,42 @@
 , ...
 }:
 
-{ arguments ? { }
-, argumentsBase64 ? { }
-, name
+{ name
+, replace ? { }
+, replaceBase64 ? { }
 , searchPaths ? { }
 , template ? ""
 }:
 let
-  # Validate arguments
+  # Validate arguments to replace
+  argumentRegex = "__arg[A-Z][a-zA-Z]{2,}__";
   validateArguments = builtins.mapAttrs
     (k: v: (
-      if __nixpkgs__.lib.strings.hasPrefix "env" k
-      then v
-      else abort "Ivalid argument: ${k}, arguments must start with `env`"
+      if builtins.match argumentRegex k == null
+      then
+        abort ''
+
+          Ivalid placeholder: ${k}
+          Placeholders must match: ${argumentRegex}
+          For example: __argExample__
+
+        ''
+      else v
     ));
 
-  arguments' = validateArguments arguments;
-  argumentsBase64' = validateArguments argumentsBase64;
+  replace' = validateArguments replace;
+  replaceBase64' = validateArguments replaceBase64;
 in
 makeDerivation {
-  env = arguments' // argumentsBase64' // {
+  env = replace' // replaceBase64' // {
+    __envArgumentsRegex = argumentRegex;
     __envArgumentNamesFile = builtinLambdas.listToFileWithTrailinNewLine
-      (builtins.attrNames arguments);
+      (builtins.attrNames replace);
     __envArgumentBase64NamesFile = builtinLambdas.listToFileWithTrailinNewLine
-      (builtins.attrNames argumentsBase64);
+      (builtins.attrNames replaceBase64);
     __envPath = __nixpkgs__.lib.strings.makeBinPath [
       __nixpkgs__.gnugrep
-      __nixpkgs__.gnused
+      __nixpkgs__.rpl
     ];
     __envTemplate =
       if searchPaths == { }

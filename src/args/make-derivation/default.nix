@@ -24,11 +24,16 @@ let
   env' = builtins.mapAttrs
     (k: v: (
       if (
-        (__nixpkgs__.lib.strings.hasPrefix "__env" k) ||
+        (__nixpkgs__.lib.strings.hasPrefix "__" k) ||
         (__nixpkgs__.lib.strings.hasPrefix "env" k)
       )
       then v
-      else abort "Invalid argument: ${k}, must start with: env or __env"
+      else
+        abort ''
+
+          Invalid argument: ${k}, must start with: env
+
+        ''
     ))
     env;
 in

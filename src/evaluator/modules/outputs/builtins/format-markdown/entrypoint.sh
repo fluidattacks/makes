@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  local paths=__envTargets__
-  local doctocArgs=__envDoctocArgs__
+  local paths=__argTargets__
+  local doctocArgs=__argDoctocArgs__
   local tmp
 
   info Formatting Markdown code \

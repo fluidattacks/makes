@@ -8,9 +8,9 @@
 , name
 }:
 makeScript {
-  arguments = {
-    envCommands = builtinLambdas.asBashArray commands;
-    envParallelArgs = builtinLambdas.asBashArray extraArgs;
+  replace = {
+    __argCommands__ = builtinLambdas.asBashArray commands;
+    __argParallelArgs__ = builtinLambdas.asBashArray extraArgs;
   };
   entrypoint = ./entrypoint.sh;
   name = "make-parallel-for-${name}";

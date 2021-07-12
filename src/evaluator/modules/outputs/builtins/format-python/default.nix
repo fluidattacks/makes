@@ -24,10 +24,10 @@
   config = {
     outputs = {
       "/formatPython" = lib.mkIf config.formatPython.enable (makeScript {
-        arguments = {
-          envSettingsBlack = ./settings-black.toml;
-          envSettingsIsort = ./settings-isort.toml;
-          envTargets = builtinLambdas.asBashArray
+        replace = {
+          __argSettingsBlack__ = ./settings-black.toml;
+          __argSettingsIsort__ = ./settings-isort.toml;
+          __argTargets__ = builtinLambdas.asBashArray
             (builtins.map pathImpure config.formatPython.targets);
         };
         name = "format-python";

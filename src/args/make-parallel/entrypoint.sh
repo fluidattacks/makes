@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  local commands=__envCommands__
-  local parallel_args=__envParallelArgs__
+  local commands=__argCommands__
+  local parallel_args=__argParallelArgs__
   local commands_file
 
   commands_file="$(mktemp)" \

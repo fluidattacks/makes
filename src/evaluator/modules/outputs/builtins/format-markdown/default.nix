@@ -28,10 +28,10 @@
   config = {
     outputs = {
       "/formatMarkdown" = lib.mkIf config.formatMarkdown.enable (makeScript {
-        arguments = {
-          envDoctocArgs = builtinLambdas.asBashArray
+        replace = {
+          __argDoctocArgs__ = builtinLambdas.asBashArray
             config.formatMarkdown.doctocArgs;
-          envTargets = builtinLambdas.asBashArray
+          __argTargets__ = builtinLambdas.asBashArray
             (builtins.map pathImpure config.formatMarkdown.targets);
         };
         name = "format-markdown";

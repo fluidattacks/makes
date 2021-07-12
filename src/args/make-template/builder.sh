@@ -2,30 +2,29 @@
 
 export PATH="${__envPath}:${PATH:-}"
 
-function replace_var_in_file {
+function replace_arg_in_file {
   local file="${1}"
-  local var_name="${2}"
-  local var_value="${3}"
-  local var_name_tpl="__${var_name}__"
+  local arg_name="${2}"
+  local arg_value="${3}"
 
-  if grep --fixed-strings --quiet "${var_name_tpl}" "${file}"; then
-    sed -i "s|${var_name_tpl}|${var_value}|g" "${file}"
+  if grep --fixed-strings --quiet "${arg_name}" "${file}"; then
+    rpl "${arg_name}" "${arg_value}" "${file}" 2> /dev/null
   else
-    error Argument is not being used: "${var_name_tpl}"
+    error Argument is not being used: "${arg_name}", please remove it
   fi
 }
 
 function main {
   echo "${__envTemplate}" > "${out}" \
     && while read -r 'var_name'; do
-      replace_var_in_file "${out}" "${var_name}" "${!var_name}" \
+      replace_arg_in_file "${out}" "${var_name}" "${!var_name}" \
         || return 1
     done < "${__envArgumentNamesFile}" \
     && while read -r 'var_name'; do
-      replace_var_in_file "${out}" "${var_name}" "$(echo -n "${!var_name}" | base64 --wrap=0)" \
+      replace_arg_in_file "${out}" "${var_name}" "$(echo -n "${!var_name}" | base64 --wrap=0)" \
         || return 1
     done < "${__envArgumentBase64NamesFile}" \
-    && if grep --perl-regexp '__env[a-zA-Z]*__' "${out}"; then
+    && if grep --perl-regexp "${__envArgumentsRegex}" "${out}"; then
       error Some arguments are not being used
     fi
 }
