@@ -177,27 +177,19 @@ In order to use Makes you'll need to:
 
 ## Getting started as user
 
-1. For local [Makes][MAKES] projects:
+1. For local [Makes][MAKES] projects, run:
 
-    1. `$ cd /path/to/a/makes/project`
+    1. `$ m /path/to/local/repository`
 
-    For remote [Makes][MAKES] projects:
+    For remote [Makes][MAKES] projects, run:
 
-    1. Export `M_FROM` to the git-clone URL of the project:
+    1. `$ m /path/to/remote/repository`:
 
         For example:
-        - http: `$ export M_FROM=https://github.com/fluidattacks/makes`
-        - ssh: `$ export M_FROM=git@github.com:fluidattacks/makes`
+        - http: `$ m https://github.com/fluidattacks/makes`
+        - ssh: `$ m git@github.com:fluidattacks/makes`
 
-1. Now run makes!
-    - List all available commands within your current repository: `$ m .`
-
-        ```
-        Outputs list for project: https://github.com/fluidattacks/makes
-          /helloWorld
-        ```
-
-    - Run a command: `$ m . /helloWorld 1 2 3`
+1. Run a command: `$ m . /helloWorld 1 2 3`
 
         ```
         [INFO] Hello from Makes! Jane Doe.
@@ -227,7 +219,7 @@ In order to use Makes you'll need to:
     that you can include in jour project as simple as this.
 
 1. Now run makes!
-    - List all available commands: `$ m`
+    - List all available commands: `$ m .`
 
         ```
         Outputs list for project: /path/to/my/project
@@ -878,7 +870,7 @@ In order to do this:
 
 1. Now run makes!
 
-    - List all available commands: `$ m`
+    - List all available commands: `$ m .`
 
         ```
         Outputs list for project: /path/to/my/project
