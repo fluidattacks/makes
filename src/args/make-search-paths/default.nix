@@ -23,7 +23,7 @@ in
 , source ? [ ]
 }:
 makeTemplate {
-  name = "makes-src-args-make-search-paths";
+  name = "make-search-paths";
   template = builtins.concatStringsSep "\n" (builtins.foldl'
     (sources: { generator, derivations }:
       if (derivations == [ ])

@@ -7,7 +7,51 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
-## Why?
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+# Contents
+
+- [Why](#why)
+- [Goal](#goal)
+- [Getting started](#getting-started)
+    - [Getting started as user](#getting-started-as-user)
+    - [Getting started as developer](#getting-started-as-developer)
+- [Configuring CI/CD](#configuring-cicd)
+    - [Providers comparison](#providers-comparison)
+    - [Versioning scheme](#versioning-scheme)
+    - [Configuring on GitHub Actions](#configuring-on-github-actions)
+    - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
+    - [Configuring on Travis CI](#configuring-on-travis-ci)
+- [Makes.nix format](#makesnix-format)
+    - [Linters](#linters)
+        - [lintBash](#lintbash)
+        - [lintCommitMsg](#lintcommitmsg)
+        - [lintMarkdown](#lintmarkdown)
+        - [lintNix](#lintnix)
+        - [lintPython](#lintpython)
+    - [Formatters](#formatters)
+        - [formatBash](#formatbash)
+        - [formatMarkdown](#formatmarkdown)
+        - [formatNix](#formatnix)
+        - [formatPython](#formatpython)
+    - [Pinning](#pinning)
+        - [inputs](#inputs)
+        - [requiredMakesVersion](#requiredmakesversion)
+    - [Container Images](#container-images)
+        - [deployContainerImage](#deploycontainerimage)
+    - [Examples](#examples)
+        - [helloWorld](#helloworld)
+- [Extending Makes](#extending-makes)
+    - [Main.nix format](#mainnix-format)
+        - [Derivations](#derivations)
+    - [Main.nix function arguments](#mainnix-function-arguments)
+        - [makeSearchPaths](#makesearchpaths)
+        - [makeDerivation](#makederivation)
+- [References](#references)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Why
 
 Designing a fast, reliable, reproducible, easy-to-use
 [CI/CD][CI_CD] system **is no easy task**.
@@ -78,49 +122,7 @@ With as little code as possible.
 [Makes][MAKES] tries to hide all the unnecessary complexity
 so you can focus on the business logic.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-# Contents
-
-- [Philosophy](#philosophy)
-- [Getting started](#getting-started)
-    - [Getting started as user](#getting-started-as-user)
-    - [Getting started as developer](#getting-started-as-developer)
-- [Configuring CI/CD](#configuring-cicd)
-    - [Providers comparison](#providers-comparison)
-    - [Versioning scheme](#versioning-scheme)
-    - [Configuring on GitHub Actions](#configuring-on-github-actions)
-    - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
-    - [Configuring on Travis CI](#configuring-on-travis-ci)
-- [Makes.nix format](#makesnix-format)
-    - [Linters](#linters)
-        - [lintBash](#lintbash)
-        - [lintCommitMsg](#lintcommitmsg)
-        - [lintMarkdown](#lintmarkdown)
-        - [lintNix](#lintnix)
-        - [lintPython](#lintpython)
-    - [Formatters](#formatters)
-        - [formatBash](#formatbash)
-        - [formatMarkdown](#formatmarkdown)
-        - [formatNix](#formatnix)
-        - [formatPython](#formatpython)
-    - [Pinning](#pinning)
-        - [inputs](#inputs)
-        - [requiredMakesVersion](#requiredmakesversion)
-    - [Container Images](#container-images)
-        - [deployContainerImage](#deploycontainerimage)
-    - [Examples](#examples)
-        - [helloWorld](#helloworld)
-- [Extending Makes](#extending-makes)
-    - [Main.nix format](#mainnix-format)
-        - [Derivations](#derivations)
-    - [Main.nix function arguments](#mainnix-function-arguments)
-        - [makeSearchPaths](#makesearchpaths)
-- [References](#references)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Philosophy
+# Goal
 
 - :star2: Simplicity: Easy setup with:
   a laptop, or
@@ -998,75 +1000,88 @@ export PATH="/nix/store/m5kp2jhiga25ynk3iq61f4psaqixg7ib-git-2.32.0/bin${PATH:+:
 
 Inputs:
 
-- `bin` (`listOf package`):
+- `bin` (`listOf package`): Optional.
   Append `/`
   of every element in the list
   to [PATH][PATH].
+  Defaults to `[ ]`.
 
-- `rpath` (`listOf package`):
+- `rpath` (`listOf package`): Optional.
   Append `/lib` and `/lib64`
   of every element in the list
   to [LD_LIBRARY_PATH][RPATH].
+  Defaults to `[ ]`.
 
-- `rpath` (`listOf package`):
+- `rpath` (`listOf package`): Optional.
   Append `/lib` and `/lib64`
   of every element in the list
   to [LD_LIBRARY_PATH][RPATH].
+  Defaults to `[ ]`.
 
-- `source` (`listOf package`):
+- `source` (`listOf package`): Optional.
   Source (as in [Bash][BASH]'s `source` command)
   every element in the list.
+  Defaults to `[ ]`.
 
 Inputs specific to Java:
 
-- `javaClass` (`listOf package`):
+- `javaClass` (`listOf package`): Optional.
   Append `/`
   of each element in the list
   to [CLASSPATH][CLASSPATH].
+  Defaults to `[ ]`.
 
 Inputs specific to [Python][PYTHON]:
 
-- `pythonMypy` (`listOf package`):
+- `pythonMypy` (`listOf package`): Optional.
   Append `/`
   of each element in the list
   to [MYPYPATH][MYPYPATH].
+  Defaults to `[ ]`.
 
-- `pythonMypy38` (`listOf package`):
+- `pythonMypy38` (`listOf package`): Optional.
   Append `/lib/python3.8/site-packages`
   of each element in the list
   to [MYPYPATH][MYPYPATH].
+  Defaults to `[ ]`.
 
-- `pythonPackage` (`listOf package`):
+- `pythonPackage` (`listOf package`): Optional.
   Append `/`
   of each element in the list
   to [PYTHONPATH][PYTHONPATH].
+  Defaults to `[ ]`.
 
-- `pythonPackage37` (`listOf package`):
+- `pythonPackage37` (`listOf package`): Optional.
   Append `/lib/python3.7/site-packages`
   of each element in the list
   to [PYTHONPATH][PYTHONPATH].
+  Defaults to `[ ]`.
 
-- `pythonPackage38` (`listOf package`):
+- `pythonPackage38` (`listOf package`): Optional.
   Append `/lib/python3.8/site-packages`
   of each element in the list
   to [PYTHONPATH][PYTHONPATH].
+  Defaults to `[ ]`.
 
-- `pythonPackage39` (`listOf package`):
+- `pythonPackage39` (`listOf package`): Optional.
   Append `/lib/python3.9/site-packages`
   of each element in the list
   to [PYTHONPATH][PYTHONPATH].
+  Defaults to `[ ]`.
 
 Inputs specific to [Node.js][NODE_JS]:
 
-- `nodeBin` (`listOf package`):
+- `nodeBin` (`listOf package`): Optional.
   Append `/node_modules/.bin`
   of each element in the list
   to [PATH][PATH].
+  Defaults to `[ ]`.
 
-- `nodeModule` (`listOf package`):
+- `nodeModule` (`listOf package`): Optional.
   Append `/node_modules`
   of each element in the list
   to [NODE_PATH][NODE_PATH].
+  Defaults to `[ ]`.
 
 Example:
 
@@ -1075,6 +1090,22 @@ makeSearchPaths {
   bin = [ inputs.nixpkgs.git ];
 }
 ```
+
+### makeDerivation
+
+Perform a build step in an **isolated** environment:
+
+- External environment variables are not visible by the builder script.
+  This means you **can't** use secrets here.
+- Search Paths as in `makeSearchPaths` are completely empty
+- `HOME` environment variable is set to `/homeless-shelter`
+- An environment variable called `out` is present
+  and represent the derivation's outputs.
+  The derivation **must** produce outputs
+  (may be a file, or a directory).
+- After the build, for all paths in `$out`:
+    - User and group ownership is removed
+    - Last-modified timestamps are reset to `1970-01-01T00:00:00+00:00`.
 
 :construction: This section is Work in progress
 
