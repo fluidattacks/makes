@@ -995,45 +995,75 @@ export PATH="/nix/store/m5kp2jhiga25ynk3iq61f4psaqixg7ib-git-2.32.0/bin${PATH:+:
 
 Inputs:
 
-- Base:
-    - `javaClass` (`listOf package`):
-      The root path (`/`) of provided packages
-      is appended to `CLASSPATH`.
-    - `ldLib` (`listOf package`):
-      `/lib` and `/lib64`
-      paths of provided packages
-      are appended to `LD_LIBRARY_PATH`.
-    - `bin` (`listOf package`):
-      `/bin` paths of provided packages
-      are appended to `PATH`.
-    - `source` (`listOf package`):
-      Provided paths are sourced by [Bash][BASH].
-- Python:
-    - `pythonMypy` (`listOf package`):
-      The root path (`/`) of provided packages
-      is appended to `MYPYPATH`.
-    - `pythonMypy38` (`listOf package`):
-      `/lib/python3.8/site-packages` paths of provided packages
-      are appended to `MYPYPATH`.
-    - `pythonPackage` (`listOf package`):
-      The root path (`/`) of provided packages
-      are appended to `PYTHONPATH`.
-    - `pythonPackage37` (`listOf package`):
-      `/lib/python3.7/site-packages` paths of provided packages
-      are appended to `PYTHONPATH`.
-    - `pythonPackage38` (`listOf package`):
-      `/lib/python3.8/site-packages` paths of provided packages
-      are appended to `PYTHONPATH`.
-    - `pythonPackage39` (`listOf package`):
-      `/lib/python3.9/site-packages` paths of provided packages
-      are appended to `PYTHONPATH`.
-- Node:
-    - `nodeBin` (`listOf package`):
-      `/node_modules/.bin` paths of provided packages
-      are appended to `PATH`.
-    - `nodeModule` (`listOf package`):
-      `/node_modules` paths of provided packages
-      are appended to `NODE_PATH`.
+- `bin` (`listOf package`):
+  Append `/`
+  of every element in the list
+  to [PATH][PATH].
+
+- `ldLib` (`listOf package`):
+  Append `/lib` and `/lib64`
+  of every element in the list
+  to [LD_LIBRARY_PATH][RPATH].
+
+- `ldLib` (`listOf package`):
+  Append `/lib` and `/lib64`
+  of every element in the list
+  to [LD_LIBRARY_PATH][RPATH].
+
+- `source` (`listOf package`):
+  Source (as in [Bash][BASH]'s `source` command)
+  every element in the list.
+
+Inputs specific to Java:
+
+- `javaClass` (`listOf package`):
+  Append `/`
+  of each element in the list
+  to [CLASSPATH][CLASSPATH].
+
+Inputs specific to [Python][PYTHON]:
+
+- `pythonMypy` (`listOf package`):
+  Append `/`
+  of each element in the list
+  to [MYPYPATH][MYPYPATH].
+
+- `pythonMypy38` (`listOf package`):
+  Append `/lib/python3.8/site-packages`
+  of each element in the list
+  to [MYPYPATH][MYPYPATH].
+
+- `pythonPackage` (`listOf package`):
+  Append `/`
+  of each element in the list
+  to [PYTHONPATH][PYTHONPATH].
+
+- `pythonPackage37` (`listOf package`):
+  Append `/lib/python3.7/site-packages`
+  of each element in the list
+  to [PYTHONPATH][PYTHONPATH].
+
+- `pythonPackage38` (`listOf package`):
+  Append `/lib/python3.8/site-packages`
+  of each element in the list
+  to [PYTHONPATH][PYTHONPATH].
+
+- `pythonPackage39` (`listOf package`):
+  Append `/lib/python3.9/site-packages`
+  of each element in the list
+  to [PYTHONPATH][PYTHONPATH].
+
+Inputs specific to [Node.js][NODE_JS]:
+
+- `nodeBin` (`listOf package`):
+  Append `/node_modules/.bin`
+  of each element in the list
+  to [PATH][PATH].
+
+- `nodeModule` (`listOf package`):
+  Append `/node_modules`
+  of each element in the list
+  to [NODE_PATH][NODE_PATH].
 
 Example:
 
