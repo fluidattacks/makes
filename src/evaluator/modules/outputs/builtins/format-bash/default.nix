@@ -1,5 +1,5 @@
 { __nixpkgs__
-, builtinLambdas
+, asBashArray
 , makeScript
 , pathImpure
 , ...
@@ -25,7 +25,7 @@
     outputs = {
       "/formatBash" = lib.mkIf config.formatBash.enable (makeScript {
         replace = {
-          __argTargets__ = builtinLambdas.asBashArray
+          __argTargets__ = asBashArray
             (builtins.map pathImpure config.formatBash.targets);
         };
         name = "format-bash";

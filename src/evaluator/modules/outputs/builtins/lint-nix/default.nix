@@ -1,5 +1,5 @@
 { __nixpkgs__
-, builtinLambdas
+, asBashArray
 , makeDerivation
 , path
 , ...
@@ -25,7 +25,7 @@
     outputs = {
       "/lintNix" = lib.mkIf config.lintNix.enable (makeDerivation {
         env = {
-          envTargets = builtinLambdas.asBashArray
+          envTargets = asBashArray
             (builtins.map
               path
               config.lintNix.targets);

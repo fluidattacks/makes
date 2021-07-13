@@ -1,7 +1,9 @@
 { __nixpkgs__
-, builtinLambdas
+, getAttr
+, listToFileWithTrailinNewLine
 , makeDerivation
 , makeSearchPaths
+, sortCaseless
 , ...
 }:
 { name
@@ -12,8 +14,8 @@
 }:
 let
   # Unpack arguments and sort them
-  dependenciesSorted = builtinLambdas.sortCaseless dependencies;
-  subDependenciesSorted = builtinLambdas.sortCaseless subDependencies;
+  dependenciesSorted = sortCaseless dependencies;
+  subDependenciesSorted = sortCaseless subDependencies;
 
   # Ensure the developer wrote them sorted
   # This helps with code clarity and maintainability
@@ -25,7 +27,7 @@ let
     if (subDependenciesSorted == subDependencies)
     then subDependenciesSorted
     else abort "Sub-dependencies must be sorted in this order: ${builtins.toJSON subDependenciesSorted}";
-  requirementsList = builtinLambdas.sortCaseless (
+  requirementsList = sortCaseless (
     dependencies' ++
     subDependencies'
   );
@@ -41,12 +43,12 @@ let
 
   pythonEnvironment = makeDerivation {
     env = {
-      envRequirementsFile = builtinLambdas.listToFileWithTrailinNewLine requirementsList;
+      envRequirementsFile = listToFileWithTrailinNewLine requirementsList;
     };
     builder = ./builder.sh;
     name = "make-python-environment-for-${name}";
     searchPaths = searchPaths // {
-      bin = (builtinLambdas.getAttr searchPaths "bin" [ ]) ++ [
+      bin = (getAttr searchPaths "bin" [ ]) ++ [
         __nixpkgs__.gcc
         __nixpkgs__.git
         __nixpkgs__.gnused

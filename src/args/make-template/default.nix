@@ -1,5 +1,6 @@
 { __nixpkgs__
-, builtinLambdas
+, asContent
+, listToFileWithTrailinNewLine
 , makeDerivation
 , makeSearchPaths
 , ...
@@ -38,9 +39,9 @@ makeDerivation {
   }];
   env = replace' // replaceBase64' // {
     __envArgumentsRegex = argumentRegex;
-    __envArgumentNamesFile = builtinLambdas.listToFileWithTrailinNewLine
+    __envArgumentNamesFile = listToFileWithTrailinNewLine
       (builtins.attrNames replace);
-    __envArgumentBase64NamesFile = builtinLambdas.listToFileWithTrailinNewLine
+    __envArgumentBase64NamesFile = listToFileWithTrailinNewLine
       (builtins.attrNames replaceBase64);
     __envPath = __nixpkgs__.lib.strings.makeBinPath [
       __nixpkgs__.gnugrep
@@ -48,11 +49,11 @@ makeDerivation {
     ];
     __envTemplate =
       if searchPaths == { }
-      then builtinLambdas.asContent template
+      then asContent template
       else ''
         source "${makeSearchPaths searchPaths}/makes-setup.sh"
 
-        ${builtinLambdas.asContent template}
+        ${asContent template}
       '';
   };
   builder = ./builder.sh;
