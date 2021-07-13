@@ -67,7 +67,7 @@ def _clone_src(src: str) -> str:
         owner = url_quote(match.group("owner"))
         repo = url_quote(match.group("repo"))
         rev = url_quote(match.group("rev"))
-        args = [f"https://github.com/{owner}/{repo}", "--branch", rev]
+        args = [f"https://gitlab.com/{owner}/{repo}", "--branch", rev]
 
     else:
         raise Error(f"Unable to parse [SOURCE]: {src}")
