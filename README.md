@@ -1,4 +1,4 @@
-# Makes v21.09
+# Makes v21.08
 
 A SecDevOps framework
 powered by [Nix][NIX].
@@ -737,7 +737,7 @@ Example `makes.nix`:
 
 ```nix
 {
-  requiredMakesVersion = "21.09";
+  requiredMakesVersion = "21.08";
 }
 ```
 
