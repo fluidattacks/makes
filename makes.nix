@@ -21,7 +21,7 @@
       makesGitHubMonthly = {
         registry = "ghcr.io";
         src = outputs."/container-image";
-        tag = "fluidattacks/makes:21.09";
+        tag = "fluidattacks/makes:21.08";
       };
       makesGitLab = {
         registry = "registry.gitlab.com";
@@ -31,7 +31,7 @@
       makesGitLabMonthly = {
         registry = "registry.gitlab.com";
         src = outputs."/container-image";
-        tag = "fluidattacks/product/makes:21.09";
+        tag = "fluidattacks/product/makes:21.08";
       };
     };
   };
@@ -87,5 +87,5 @@
       };
     };
   };
-  requiredMakesVersion = "21.09";
+  requiredMakesVersion = "21.08";
 }

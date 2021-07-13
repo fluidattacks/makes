@@ -39,7 +39,7 @@ from urllib.parse import (
 
 CWD: str = getcwd()
 ON_EXIT: List[Callable[[], None]] = []
-VERSION: str = "21.09"
+VERSION: str = "21.08"
 
 
 class Error(Exception):
