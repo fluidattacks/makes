@@ -96,7 +96,7 @@ def _nix_build(src: str, head: str, attr: str, out: str = "") -> List[str]:
     head = f'builtins.path {{ name = "head"; path = {head}; }}'
     return [
         "nix-build",
-        *_if(is_src_local(src), "--argstr", "headImpure", CWD),
+        *_if(is_src_local(src), "--argstr", "headImpure", src),
         *["--arg", "head", head],
         *["--argstr", "makesVersion", VERSION],
         *["--attr", attr],
@@ -143,7 +143,7 @@ def _get_head(src: str) -> str:
             if not exists(dirname(dest)):
                 makedirs(dirname(dest))
             if exists(path):
-                shutil.copy(path, dest)
+                shutil.copy(join(src, path), dest)
 
     shutil.rmtree(join(head, ".git"))
     return head
