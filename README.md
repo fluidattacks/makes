@@ -48,6 +48,7 @@ in just a few steps, in any technology.
         - [makeSearchPaths](#makesearchpaths)
         - [makeDerivation](#makederivation)
         - [makeScript](#makescript)
+        - [path](#path)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1240,6 +1241,55 @@ $ m . /example
         └── file
 
     1 directory, 1 file
+```
+
+### path
+
+Store a path in the [Nix][NIX] store
+and use it as an input
+for higher level builtins.
+It can be used for including paths in
+[makeScript](#makescript)
+and [makeDerivation](#makederivation)
+via `replace` and `env`
+parameters respectively.
+
+Inputs:
+
+- path (`str`):
+  path to store.
+  It must be absolute
+  within the repository.
+
+Example:
+
+```nix
+# Consider the following path within the repository: /src/nix
+
+# /path/to/my/project/makes/example/main.nix
+{ inputs
+, makeScript
+, ...
+}:
+makeScript {
+  replace = {
+    __argPath__ = path "/src/nix";
+  };
+  builder = ''
+    info Path is: __argPath__
+    info Path contents are:
+    ls __argPath__
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    [INFO] Path is: <nix-store-path>
+    [INFO] Path contents are:
+    packages.nix  sources.json  sources.nix
 ```
 
 :construction: This section is Work in progress
