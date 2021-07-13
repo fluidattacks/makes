@@ -1,3 +1,9 @@
+from contextlib import (
+    suppress,
+)
+from functools import (
+    partial,
+)
 import json
 from os import (
     environ,
@@ -20,6 +26,7 @@ import sys
 import tempfile
 from typing import (
     Any,
+    Callable,
     Dict,
     List,
     Optional,
@@ -31,6 +38,7 @@ from urllib.parse import (
 )
 
 CWD: str = getcwd()
+ON_EXIT: List[Callable[[], None]] = []
 VERSION: str = "21.09"
 
 
@@ -49,6 +57,7 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 def _clone_src(src: str) -> str:
     args: List[str]
     head = tempfile.TemporaryDirectory(prefix="makes-").name
+    ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
     if is_src_local(src):
         args = [abspath(src)]
@@ -281,5 +290,14 @@ def main() -> None:
         sys.exit(err.code)
 
 
+def cleanup() -> None:
+    for action in ON_EXIT:
+        with suppress(BaseException):
+            action()
+
+
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    finally:
+        cleanup()
