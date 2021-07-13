@@ -1,5 +1,5 @@
 { __nixpkgs__
-, builtinLambdas
+, asBashArray
 , makeDerivation
 , path
 , ...
@@ -26,7 +26,7 @@
       "/lintMarkdown" = lib.mkIf config.lintMarkdown.enable (makeDerivation {
         env = {
           envStyle = ./style.rb;
-          envTargets = builtinLambdas.asBashArray
+          envTargets = asBashArray
             (builtins.map
               path
               config.lintMarkdown.targets);

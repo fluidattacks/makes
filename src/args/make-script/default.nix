@@ -1,5 +1,5 @@
 { __nixpkgs__
-, builtinLambdas
+, asBashArray
 , builtinShellCommands
 , builtinShellOptions
 , makeDerivation
@@ -40,7 +40,7 @@ makeDerivation {
     location = "/bin/${name}";
   }];
   env = {
-    envAliases = builtinLambdas.asBashArray (aliases ++ [ name ]);
+    envAliases = asBashArray (aliases ++ [ name ]);
     envEntrypoint = makeTemplate {
       inherit replace;
       inherit name;

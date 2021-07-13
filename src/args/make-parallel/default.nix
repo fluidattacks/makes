@@ -1,5 +1,5 @@
 { __nixpkgs__
-, builtinLambdas
+, asBashArray
 , makeScript
 , ...
 }:
@@ -9,8 +9,8 @@
 }:
 makeScript {
   replace = {
-    __argCommands__ = builtinLambdas.asBashArray commands;
-    __argParallelArgs__ = builtinLambdas.asBashArray extraArgs;
+    __argCommands__ = asBashArray commands;
+    __argParallelArgs__ = asBashArray extraArgs;
   };
   entrypoint = ./entrypoint.sh;
   name = "make-parallel-for-${name}";

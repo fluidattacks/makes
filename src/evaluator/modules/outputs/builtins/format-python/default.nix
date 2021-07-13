@@ -1,5 +1,5 @@
 { __nixpkgs__
-, builtinLambdas
+, asBashArray
 , makeScript
 , pathImpure
 , ...
@@ -27,7 +27,7 @@
         replace = {
           __argSettingsBlack__ = ./settings-black.toml;
           __argSettingsIsort__ = ./settings-isort.toml;
-          __argTargets__ = builtinLambdas.asBashArray
+          __argTargets__ = asBashArray
             (builtins.map pathImpure config.formatPython.targets);
         };
         name = "format-python";

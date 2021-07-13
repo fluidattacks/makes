@@ -1,5 +1,5 @@
 { __nixpkgs__
-, builtinLambdas
+, asContent
 , builtinShellCommands
 , builtinShellOptions
 , makeSearchPaths
@@ -54,7 +54,7 @@ builtins.derivation (env' // {
       export PATH=$__envSearchPathsBase
       source $__envSearchPaths
 
-      ${builtinLambdas.asContent builder}
+      ${asContent builder}
       ${actions'}
     '')
   ];
