@@ -140,10 +140,11 @@ def _get_head(src: str) -> str:
         # Copy paths to head
         for path in sorted(paths):
             dest = join(head, path)
+            path = join(src, path)
             if not exists(dirname(dest)):
                 makedirs(dirname(dest))
             if exists(path):
-                shutil.copy(join(src, path), dest)
+                shutil.copy(path, dest)
 
     shutil.rmtree(join(head, ".git"))
     return head

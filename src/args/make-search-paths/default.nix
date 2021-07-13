@@ -9,7 +9,9 @@
 , nodeBin ? [ ]
 , nodeModule ? [ ]
 , pythonMypy ? [ ]
+, pythonMypy37 ? [ ]
 , pythonMypy38 ? [ ]
+, pythonMypy39 ? [ ]
 , pythonPackage ? [ ]
 , pythonPackage37 ? [ ]
 , pythonPackage38 ? [ ]
@@ -62,8 +64,16 @@ makeTemplate {
         generator = export "MYPYPATH" "";
       }
       {
+        derivations = pythonMypy37;
+        generator = export "MYPYPATH" "/lib/python3.7/site-packages";
+      }
+      {
         derivations = pythonMypy38;
         generator = export "MYPYPATH" "/lib/python3.8/site-packages";
+      }
+      {
+        derivations = pythonMypy39;
+        generator = export "MYPYPATH" "/lib/python3.9/site-packages";
       }
       {
         derivations = pythonPackage;

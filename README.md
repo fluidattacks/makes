@@ -1043,8 +1043,20 @@ Inputs specific to [Python][PYTHON]:
   to [MYPYPATH][MYPYPATH].
   Defaults to `[ ]`.
 
+- `pythonMypy37` (`listOf package`): Optional.
+  Append `/lib/python3.7/site-packages`
+  of each element in the list
+  to [MYPYPATH][MYPYPATH].
+  Defaults to `[ ]`.
+
 - `pythonMypy38` (`listOf package`): Optional.
   Append `/lib/python3.8/site-packages`
+  of each element in the list
+  to [MYPYPATH][MYPYPATH].
+  Defaults to `[ ]`.
+
+- `pythonMypy39` (`listOf package`): Optional.
+  Append `/lib/python3.9/site-packages`
   of each element in the list
   to [MYPYPATH][MYPYPATH].
   Defaults to `[ ]`.
