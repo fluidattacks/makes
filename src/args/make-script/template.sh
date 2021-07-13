@@ -16,8 +16,8 @@ function setup {
   export SSL_CERT_FILE='__argCaCert__/etc/ssl/certs/ca-bundle.crt'
   export STATE
 
-  source __argSearchPathsEmpty__ \
-    && source __argSearchPathsBase__ \
+  source __argSearchPathsEmpty__/makes-setup.sh \
+    && source __argSearchPathsBase__/makes-setup.sh \
     && if test -z "${HOME_IMPURE:-}"; then
       HOME_IMPURE="${HOME:-}" \
         && HOME="$(mktemp -d)"
@@ -26,7 +26,7 @@ function setup {
     && rm -rf "${STATE}" \
     && mkdir -p "${STATE}" \
     && source __argBuiltinShellCommands__ \
-    && source __argSearchPaths__
+    && source __argSearchPaths__/makes-setup.sh
 }
 
 setup

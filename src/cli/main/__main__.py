@@ -3,15 +3,17 @@ from os import (
     environ,
     getcwd,
     makedirs,
-    path as os_path,
 )
 from os.path import (
     exists,
+    isdir,
     join,
 )
 from posixpath import (
+    abspath,
     dirname,
 )
+import re
 import shutil
 import subprocess
 import sys
@@ -24,9 +26,11 @@ from typing import (
     Set,
     Tuple,
 )
+from urllib.parse import (
+    quote_plus as url_quote,
+)
 
 CWD: str = getcwd()
-DEBUG: bool = "M_DEBUG" in environ
 VERSION: str = "21.09"
 
 
@@ -42,8 +46,41 @@ def _if(condition: Any, *value: Any) -> List[Any]:
     return list(value) if condition else []
 
 
+def _clone_src(src: str) -> str:
+    args: List[str]
+    head = tempfile.TemporaryDirectory(prefix="makes-").name
+
+    if is_src_local(src):
+        args = [abspath(src)]
+
+    elif match := re.match(
+        r"^github:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$", src
+    ):
+        owner = url_quote(match.group("owner"))
+        repo = url_quote(match.group("repo"))
+        rev = url_quote(match.group("rev"))
+        args = [f"https://github.com/{owner}/{repo}", "--branch", rev]
+
+    elif match := re.match(
+        r"^gitlab:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$", src
+    ):
+        owner = url_quote(match.group("owner"))
+        repo = url_quote(match.group("repo"))
+        rev = url_quote(match.group("rev"))
+        args = [f"https://github.com/{owner}/{repo}", "--branch", rev]
+
+    else:
+        raise Error(f"Unable to parse [SOURCE]: {src}")
+
+    out, stdout, stderr = _run(["git", "clone", "--depth", "1", *args, head])
+    if out != 0:
+        raise Error(f"Unable to clone: {src}", stdout, stderr)
+
+    return head
+
+
 def is_src_local(src: str) -> bool:
-    return os_path.isdir(src)
+    return isdir(src)
 
 
 def _nix_build(src: str, head: str, attr: str, out: str = "") -> List[str]:
@@ -60,7 +97,7 @@ def _nix_build(src: str, head: str, attr: str, out: str = "") -> List[str]:
         *["--option", "sandbox", "false"],
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
-        *_if(DEBUG, "--show-trace"),
+        *["--show-trace"],
         environ["_EVALUATOR"],
     ]
 
@@ -69,12 +106,7 @@ def _get_head(src: str) -> str:
     # Checkout repository HEAD into a temporary directory
     # This is nice for reproducibility and security,
     # files not in the HEAD commit are left out of the build inputs
-    head = tempfile.TemporaryDirectory(prefix="makes-").name
-    out, stdout, stderr = _run(
-        args=["git", "clone", "--depth", "1", src, head],
-    )
-    if out != 0:
-        raise Error(f"Unable to clone: {src}", stdout, stderr)
+    head: str = _clone_src(src)
 
     # Applies only to local repositories
     if is_src_local(src):
@@ -142,28 +174,38 @@ def _run(
         return process.returncode, out, err
 
 
-def _help_no_src() -> None:
-    _log("[SRC] not provided.")
-    _log("Usage: m [SRC] [OUTPUT] [ARGS]...")
-
-    raise SystemExit(1)
-
-
 def _help_and_exit(
-    src: str = "",
+    src: Optional[str] = None,
     attrs: Optional[List[str]] = None,
     exc: Optional[Exception] = None,
 ) -> None:
-    _log("Usage: m [SRC] [OUTPUT] [ARGS]...")
+    _log("Usage: m [SOURCE] [OUTPUT] [ARGS]...")
+    if not src:
+        _log()
+        _log("[SOURCE] can be:")
+        _log()
+        _log("  A local Git repository:")
+        _log("    /path/to/local/repository")
+        _log("    ./relative/path")
+        _log("    .")
+        _log()
+        _log("  A GitHub repository, rev (branch or tag):")
+        _log("    github:owner/repo@rev")
+        _log()
+        _log("  A GitLab repository, rev (branch or tag):")
+        _log("    gitlab:owner/repo@rev")
     if attrs is not None:
         _log()
-        _log(f"Outputs list for project: {src}")
+        _log("[OUTPUT] can be:")
         for attr in attrs:
             if attr not in {"__all__"}:
                 _log(f"  {attr}")
     if exc is not None:
         _log()
         raise exc
+
+    _log()
+    _log("[ARGS] are passed to the output (if supported).")
 
     raise SystemExit(1)
 
@@ -172,7 +214,7 @@ def cli(args: List[str]) -> None:
     _log(f"Makes v{VERSION}")
     _log()
     if not args[1:]:
-        _help_no_src()
+        _help_and_exit()
 
     src: str = args[1]
     if not args[2:]:
@@ -192,7 +234,6 @@ def cli(args: List[str]) -> None:
         _help_and_exit(src, attrs)
 
     out: str = join(CWD, f"result{attr.replace('/', '-')}")
-    actions_path: str = join(out, "makes-actions.json")
 
     code, _, _ = _run(
         args=_nix_build(src, head, f'config.outputs."{attr}"', out),
@@ -200,18 +241,30 @@ def cli(args: List[str]) -> None:
     )
 
     if code == 0:
-        if exists(actions_path):
-            with open(actions_path) as actions_file:
-                for action in json.load(actions_file):
-                    if action["type"] == "exec":
-                        action_target: str = join(out, action["location"][1:])
-                        code, _, _ = _run(
-                            args=[action_target, *args],
-                            capture_io=False,
-                        )
-                        raise SystemExit(code)
+        execute_actions(args, out)
 
     raise SystemExit(code)
+
+
+def execute_actions(args: List[str], out: str) -> None:
+    actions_path: str = join(out, "makes-actions.json")
+
+    if exists(actions_path):
+        with open(actions_path) as actions_file:
+            for action in json.load(actions_file):
+                if action["type"] == "exec":
+                    action_target: str = join(out, action["location"][1:])
+                    code, _, _ = _run(
+                        args=[action_target, *args],
+                        capture_io=False,
+                    )
+                    raise SystemExit(code)
+                if action["type"] == "cat":
+                    _log()
+                    action_target = join(out, action["location"][1:])
+                    with open(action_target) as file:
+                        print(file.read())
+                    raise SystemExit(0)
 
 
 def main() -> None:
