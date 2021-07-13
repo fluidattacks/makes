@@ -177,24 +177,30 @@ In order to use Makes you'll need to:
 
 ## Getting started as user
 
-1. For local [Makes][MAKES] projects, run:
+1. List outputs of a [Makes] project:
 
-    1. `$ m /path/to/local/repository`
+    - For local [Makes][MAKES] projects, run:
 
-    For remote [Makes][MAKES] projects, run:
+      `$ m /path/to/local/repository`
 
-    1. `$ m /path/to/remote/repository`:
+      or if the project is in the current working directory, run:
 
-        For example:
-        - http: `$ m https://github.com/fluidattacks/makes`
-        - ssh: `$ m git@github.com:fluidattacks/makes`
+      `$ m .`
 
-1. Run a command: `$ m . /helloWorld 1 2 3`
+    - For GitHub [Makes][MAKES] projects, run:
 
-        ```
-        [INFO] Hello from Makes! Jane Doe.
-        [INFO] You called us with CLI arguments: [ 1 2 3 ].
-        ```
+      `$ m github:owner/repo@rev`
+
+    - For GitHub [Makes][MAKES] projects, run:
+
+      `$ m gitlab:owner/repo@rev`
+
+1. Build and run an output: `$ m github:fluidattacks/makes@main /helloWorld 1 2 3`
+
+    ```
+    [INFO] Hello from Makes! Jane Doe.
+    [INFO] You called us with CLI arguments: [ 1 2 3 ].
+    ```
 
 ## Getting started as developer
 
@@ -226,7 +232,7 @@ In order to use Makes you'll need to:
           /helloWorld
         ```
 
-    - Run a command: `$ m . /helloWorld 1 2 3`
+    - Build and run an output: `$ m . /helloWorld 1 2 3`
 
         ```
         [INFO] Hello from Makes! Jane Doe.
@@ -889,8 +895,8 @@ under the `makes/` directory in the root of the project.
 You can create any directory structure you want.
 Output names will me mapped in an intuitive way:
 
-|`main.nix` position                               |Output name       | Invocation command |
-|--------------------------------------------------|------------------|--------------------|
+|`main.nix` position                               |Output name               | Invocation command   |
+|--------------------------------------------------|--------------------------|----------------------|
 |`/path/to/my/project/makes/main.nix`              |`outputs."/"`             |`$ m . /`             |
 |`/path/to/my/project/makes/example/main.nix`      |`outputs."/example"`      |`$ m . /example`      |
 |`/path/to/my/project/makes/other/example/main.nix`|`outputs."/other/example"`|`$ m . /other/example`|
@@ -919,14 +925,18 @@ is the process of:
 
 - transforming them as we see fit
 
-- placing the results in the output directory
+- placing the results in the output path
 
 Derivation outputs live in the `/nix/store`.
 Their locations in the filesystem are always in the form:
 `/nix/store/hash123-name` where
 `hash123` is computed by [hashing][HASH] the derivation's inputs.
 
-Derivation outputs are regular directories that contain arbitrary contents.
+Derivation outputs are:
+
+- a regular file
+- a regular directory that contains arbitrary contents
+
 For instance the derivation output for [Bash][BASH] is:
 `/nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23`
 which contains, among other files:

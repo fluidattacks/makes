@@ -32,6 +32,10 @@ let
   replaceBase64' = validateArguments replaceBase64;
 in
 makeDerivation {
+  actions = [{
+    type = "cat";
+    location = "/makes-setup.sh";
+  }];
   env = replace' // replaceBase64' // {
     __envArgumentsRegex = argumentRegex;
     __envArgumentNamesFile = builtinLambdas.listToFileWithTrailinNewLine
@@ -46,7 +50,7 @@ makeDerivation {
       if searchPaths == { }
       then builtinLambdas.asContent template
       else ''
-        source "${makeSearchPaths searchPaths}"
+        source "${makeSearchPaths searchPaths}/makes-setup.sh"
 
         ${builtinLambdas.asContent template}
       '';

@@ -23,7 +23,13 @@ let
     then "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\""
     else "export ${envVar}=\"${envDrv}${envPath}\"";
   sourceDrv = envDrv:
-    "source ${envDrv}";
+    ''
+      if test -e "${envDrv}/makes-setup.sh"; then
+        source "${envDrv}/makes-setup.sh"
+      else
+        source "${envDrv}"
+      fi
+    '';
 in
 makeTemplate {
   name = "make-search-paths";
