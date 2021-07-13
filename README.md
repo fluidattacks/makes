@@ -1248,11 +1248,22 @@ $ m . /example
 Store a path in the [Nix][NIX] store
 and use it as an input
 for higher level builtins.
-It can be used for including paths in
-[makeScript](#makescript)
-and [makeDerivation](#makederivation)
-via `replace` and `env`
-parameters respectively.
+
+- It can be used for including paths in
+  [makeScript](#makescript)
+  and [makeDerivation](#makederivation)
+  via `replace` and `env`
+  parameters respectively.
+- Derivations are rebuilt
+  every time
+  provided paths change,
+  thus increasing reproducibility.
+- It removes spurious files and directories
+  created while developing,
+  thus increasing reproducibility.
+- It is fast, as it only loads
+  the repository HEAD once
+  and then reuses it.
 
 Inputs:
 
@@ -1267,8 +1278,7 @@ Example:
 # Consider the following path within the repository: /src/nix
 
 # /path/to/my/project/makes/example/main.nix
-{ inputs
-, makeScript
+{ makeScript
 , ...
 }:
 makeScript {
