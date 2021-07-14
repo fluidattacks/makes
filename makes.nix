@@ -28,16 +28,6 @@
         src = outputs."/container-image";
         tag = "fluidattacks/makes:21.08";
       };
-      makesGitLab = {
-        registry = "registry.gitlab.com";
-        src = outputs."/container-image";
-        tag = "fluidattacks/product/makes:main";
-      };
-      makesGitLabMonthly = {
-        registry = "registry.gitlab.com";
-        src = outputs."/container-image";
-        tag = "fluidattacks/product/makes:21.08";
-      };
     };
   };
   formatBash = {
