@@ -1,4 +1,6 @@
-args:
+{ toJSONFile
+, ...
+} @ args:
 { config
 , lib
 , ...
@@ -17,14 +19,6 @@ args:
     };
   };
   config = lib.mkIf (config.assertionsPassed) {
-    attrs = args.makeDerivation {
-      env = {
-        envList = builtins.toJSON (builtins.attrNames config.outputs);
-      };
-      builder = ''
-        echo "$envList" > "$out"
-      '';
-      name = "attrs";
-    };
+    attrs = toJSONFile "attrs.json" (builtins.attrNames config.outputs);
   };
 }
