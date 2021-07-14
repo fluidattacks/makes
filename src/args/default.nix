@@ -62,6 +62,13 @@ let
     sortCaseless = builtins.sort
       (a: b: with __nixpkgs__.lib.strings; toLower a < toLower b);
 
+    # Dumps an expression to a file in JSON format
+    toJSONFile = name: expr: args.makeDerivation {
+      env.envAll = builtins.toJSON expr;
+      builder = ''echo "$envAll" > $out'';
+      inherit name;
+    };
+
     # Small snippet to pull a value from an env var if null
     valueOrEnv = value: envVar:
       if value == null
