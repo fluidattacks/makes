@@ -5,7 +5,8 @@ _:
   @just --list
 
 m *ARGS:
-  M_DEBUG=true $(nix-build --show-trace)/bin/m {{ARGS}}
+  nix-build --show-trace
+  ./result/bin/m {{ARGS}}
 
 ma:
   just m . __all__
