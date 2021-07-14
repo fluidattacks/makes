@@ -18,6 +18,7 @@ makeScript {
   '';
   searchPaths = {
     bin = [
+      inputs.nixpkgs.cachix
       inputs.nixpkgs.git
       inputs.nixpkgs.gnutar
       inputs.nixpkgs.gzip

@@ -11,7 +11,8 @@
   };
 
   caches = {
-    "https://fluidattacks.cachix.org" = {
+    fluidattacks = {
+      url = "https://fluidattacks.cachix.org";
       pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
       writeSecret = "CACHIX_FLUIDATTACKS_TOKEN";
     };
