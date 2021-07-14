@@ -288,7 +288,6 @@ def cli(args: List[str]) -> None:
     out: str = join(CWD, f"result{attr.replace('/', '-')}")
 
     cache: Dict[str, str] = _get_cache(src, head)
-    cache_auth(cache)
     code, _, _ = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"',
@@ -326,16 +325,6 @@ def execute_actions(args: List[str], out: str) -> None:
                     with open(action_target) as file:
                         print(file.read())
                     raise SystemExit(0)
-
-
-def cache_auth(cache: Dict[str, str]) -> None:
-    if cache:
-        if token := environ.get("CACHIX_AUTH_TOKEN"):
-            _log("Authenticating to cache")
-            _run(
-                args=["cachix", "authtoken", token],
-                capture_io=False,
-            )
 
 
 def cache_push(cache: Dict[str, str], out: str) -> None:
