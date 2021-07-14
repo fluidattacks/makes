@@ -5,9 +5,6 @@ from functools import (
     partial,
 )
 import json
-from operator import (
-    itemgetter,
-)
 from os import (
     environ,
     getcwd,
@@ -98,14 +95,17 @@ def is_src_local(src: str) -> bool:
 def _nix_build(
     *,
     attr: str,
-    caches: Dict[str, Dict[str, str]],
+    cache: Dict[str, str],
     head: str,
     out: str = "",
     src: str,
 ) -> List[str]:
     head = f'builtins.path {{ name = "head"; path = {head}; }}'
-    substituters = " ".join(map(itemgetter("url"), caches.values()))
-    trusted_public_keys = " ".join(map(itemgetter("pubKey"), caches.values()))
+    substituters = "https://cache.nixos.org " + cache.get("url", "")
+    trusted_public_keys = (
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= "
+        + cache.get("pubKey", "")
+    )
 
     return [
         "nix-build",
@@ -172,7 +172,7 @@ def _get_attrs(src: str, head: str) -> List[str]:
     code, stdout, stderr, = _run(
         args=_nix_build(
             attr="config.attrs",
-            caches={},
+            cache={},
             head=head,
             out=out,
             src=src,
@@ -185,12 +185,12 @@ def _get_attrs(src: str, head: str) -> List[str]:
     raise Error(f"Unable to list project outputs from: {src}", stdout, stderr)
 
 
-def _get_caches(src: str, head: str) -> Dict[str, Dict[str, str]]:
+def _get_cache(src: str, head: str) -> Dict[str, str]:
     out: str = tempfile.mktemp()
     code, stdout, stderr, = _run(
         args=_nix_build(
-            attr="config.cachesAsJson",
-            caches={},
+            attr="config.cacheAsJson",
+            cache={},
             head=head,
             out=out,
             src=src,
@@ -201,7 +201,7 @@ def _get_caches(src: str, head: str) -> Dict[str, Dict[str, str]]:
         with open(out) as file:
             return json.load(file)
 
-    raise Error(f"Unable to get caches config from: {src}", stdout, stderr)
+    raise Error(f"Unable to get cache config from: {src}", stdout, stderr)
 
 
 def _run(
@@ -287,11 +287,12 @@ def cli(args: List[str]) -> None:
 
     out: str = join(CWD, f"result{attr.replace('/', '-')}")
 
-    caches: Dict[str, Dict[str, str]] = _get_caches(src, head)
+    cache: Dict[str, str] = _get_cache(src, head)
+    cache_auth(cache)
     code, _, _ = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"',
-            caches=caches,
+            cache=cache,
             head=head,
             out=out,
             src=src,
@@ -300,8 +301,8 @@ def cli(args: List[str]) -> None:
     )
 
     if code == 0:
+        cache_push(cache, out)
         execute_actions(args, out)
-        cache_push(caches, out)
 
     raise SystemExit(code)
 
@@ -327,22 +328,24 @@ def execute_actions(args: List[str], out: str) -> None:
                     raise SystemExit(0)
 
 
-def cache_push(caches: Dict[str, Dict[str, str]], out: str) -> None:
-    for cache, cache_data in caches.items():
-        if secret_name := cache_data.get("writeSecret"):
-            if secret_value := environ.get(secret_name):
-                _log(f"Authenticating to cache: {cache}")
-                code, _, _ = _run(
-                    args=["cachix", "authtoken", secret_value],
-                    capture_io=False,
-                )
+def cache_auth(cache: Dict[str, str]) -> None:
+    if cache:
+        if token := environ.get("CACHIX_AUTH_TOKEN"):
+            _log("Authenticating to cache")
+            _run(
+                args=["cachix", "authtoken", token],
+                capture_io=False,
+            )
 
-                _log(f"Pushing to cache: {cache}")
-                if code == 0:
-                    _run(
-                        args=["cachix", "push", "-c", "0", cache, out],
-                        capture_io=False,
-                    )
+
+def cache_push(cache: Dict[str, str], out: str) -> None:
+    if cache:
+        if "CACHIX_AUTH_TOKEN" in environ:
+            _log("Pushing to cache")
+            _run(
+                args=["cachix", "push", "-c", "0", cache["name"], out],
+                capture_io=False,
+            )
 
 
 def main() -> None:

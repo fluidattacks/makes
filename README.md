@@ -16,13 +16,15 @@ in just a few steps, in any technology.
 - [Getting started](#getting-started)
     - [Getting started as user](#getting-started-as-user)
     - [Getting started as developer](#getting-started-as-developer)
+    - [Versioning scheme](#versioning-scheme)
 - [Configuring CI/CD](#configuring-cicd)
     - [Providers comparison](#providers-comparison)
-    - [Versioning scheme](#versioning-scheme)
-    - [Configuring on GitHub Actions](#configuring-on-github-actions)
-    - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
-    - [Configuring on Travis CI](#configuring-on-travis-ci)
+        - [Configuring on GitHub Actions](#configuring-on-github-actions)
+        - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
+        - [Configuring on Travis CI](#configuring-on-travis-ci)
+    - [Configuring the cache](#configuring-the-cache)
 - [Makes.nix format](#makesnix-format)
+    - [Caching](#caching)
     - [Linters](#linters)
         - [lintBash](#lintbash)
         - [lintCommitMsg](#lintcommitmsg)
@@ -240,6 +242,25 @@ In order to use Makes you'll need to:
         [INFO] You called us with CLI arguments: [ 1 2 3 ].
         ```
 
+## Versioning scheme
+
+We use [calendar versioning][CALVER] in Makes,
+like this: `20.12` (at December 2020).
+
+You can assume that the current month release is stable,
+we won't add new features to it nor change it in backward-incompatible ways.
+The development or unstable releases are normally tagged with the next month
+[calendar version][CALVER], for instance `21.01` (at December 2020).
+The `main` release always points to the latest commit in this repository,
+it should be considered highly unstable.
+
+For maximum stability you should use the stable release,
+in other words: the current month in [calendar versioning][CALVER].
+For instance: `21.01` if the current date is January 2021.
+
+At the same time, please consider keeping your [Makes][MAKES] updated.
+New features are added constantly.
+
 # Configuring CI/CD
 
 ## Providers comparison
@@ -262,26 +283,7 @@ We didn't like [Travis CI][TRAVIS_CI]
 because its way of managing encrypted secrets is uncomfortable
 and the fact it does not support running custom container images.
 
-## Versioning scheme
-
-We use [calendar versioning][CALVER] in Makes,
-like this: `20.12` (at December 2020).
-
-You can assume that the current month release is stable,
-we won't add new features to it nor change it in backward-incompatible ways.
-The development or unstable releases are normally tagged with the next month
-[calendar version][CALVER], for instance `21.01` (at December 2020).
-The `main` release always points to the latest commit in this repository,
-it should be considered highly unstable.
-
-For maximum stability you should use the stable release,
-in other words: the current month in [calendar versioning][CALVER].
-For instance: `21.01` if the current date is January 2021.
-
-At the same time, please consider keeping your [Makes][MAKES] updated.
-New features are added constantly.
-
-## Configuring on GitHub Actions
+### Configuring on GitHub Actions
 
 [GitHub Actions][GITHUB_ACTIONS]
 is configured through [workflow files][GITHUB_WORKFLOWS]
@@ -314,7 +316,7 @@ jobs:
   # Add more jobs here, you can copy paste jobs.helloWorld and modify the `args`
 ```
 
-## Configuring on GitLab CI/CD
+### Configuring on GitLab CI/CD
 
 [GitLab CI/CD][GITLAB_CI]
 is configured through a [.gitlab-ci.yaml][GITLAB_CI_REF] file
@@ -340,7 +342,7 @@ Secrets can be propagated to Makes through [GitLab Variables][GITLAB_VARS],
 which are passed automatically to the running container
 as environment variables.
 
-## Configuring on Travis CI
+### Configuring on Travis CI
 
 [Travis CI][TRAVIS_CI]
 is configured through a [.travis.yml][TRAVIS_CI_REF] file
@@ -378,12 +380,56 @@ as environment variables.
 We highly recommend you to use encrypted environment variables as
 explained in the [Travis Environment Variables Reference][TRAVIS_ENV_VARS].
 
+## Configuring the cache
+
+If your CI/CD will run on different machines
+then it's a good idea
+to setup a distributed cache system with [Cachix][CACHIX].
+
+In order to do this:
+
+1. Create or sign-up to your [Cachix][CACHIX] account.
+1. Create a new cache with:
+    - Write access: `API token`.
+    - Read access: `Public` or `Private`.
+1. Configure `makes.nix` as explained in the following sections
+
 # Makes.nix format
 
 A Makes project is identified by a `makes.nix` file
 in the top level directory.
 
 Below we document all configuration options you can tweak with it.
+
+## Caching
+
+Cache build results on a [Cachix][CACHIX] cache.
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- name (`str`):
+  Name of the [Cachix][CACHIX] cache.
+- pubKey (`str`):
+  Public key of the [Cachix][CACHIX] cache.
+
+Example `makes.nix`:
+
+```nix
+{
+  cache = {
+    enable = true;
+    name = "fluidattacks";
+    pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+  };
+}
+```
+
+Required environment variables:
+
+- `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
+  If not set the cache will only be read, but not written to.
 
 ## Linters
 
@@ -1329,6 +1375,9 @@ $ m . /example
 
 - [BLACK]: https://github.com/psf/black
   [Black][BLACK]
+
+- [CACHIX]: https://cachix.org/
+  [Cachix][CACHIX]
 
 - [CALVER]: https://calver.org/
   [Calendar Versioning][CALVER]
