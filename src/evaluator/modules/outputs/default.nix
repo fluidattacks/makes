@@ -7,8 +7,8 @@
 }:
 {
   imports = [
-    (import ./builtins args)
-    (import ./extended args)
+    (import ./builtins/default.nix args)
+    (import ./extended/default.nix args)
   ];
   options = {
     attrs = lib.mkOption {

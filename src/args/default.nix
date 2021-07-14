@@ -9,18 +9,18 @@ let
   derivations = {
     builtinShellCommands = ./builtin/shell-commands.sh;
     builtinShellOptions = ./builtin/shell-options.sh;
-    deployContainerImage = import ./deploy-container-image args;
+    deployContainerImage = import ./deploy-container-image/default.nix args;
     fetchNixpkgs = import ./fetchers/nixpkgs.nix args;
     fetchUrl = import ./fetchers/url.nix args;
     fetchZip = import ./fetchers/zip.nix args;
-    makeContainerImage = import ./make-container-image args;
-    makeDerivation = import ./make-derivation args;
-    makeNodeEnvironment = import ./make-node-environment args;
-    makeParallel = import ./make-parallel args;
-    makePythonEnvironment = import ./make-python-environment args;
-    makeScript = import ./make-script args;
-    makeSearchPaths = import ./make-search-paths args;
-    makeTemplate = import ./make-template args;
+    makeContainerImage = import ./make-container-image/default.nix args;
+    makeDerivation = import ./make-derivation/default.nix args;
+    makeNodeEnvironment = import ./make-node-environment/default.nix args;
+    makeParallel = import ./make-parallel/default.nix args;
+    makePythonEnvironment = import ./make-python-environment/default.nix args;
+    makeScript = import ./make-script/default.nix args;
+    makeSearchPaths = import ./make-search-paths/default.nix args;
+    makeTemplate = import ./make-template/default.nix args;
   };
   functions = {
     # Return a bash array from a nix list

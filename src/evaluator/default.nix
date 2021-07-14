@@ -10,7 +10,7 @@
 , ...
 }:
 let
-  args = import ../args {
+  args = import ../args/default.nix {
     __nixpkgs__ = packages.nixpkgs;
     inherit head;
     inherit headImpure;
@@ -21,7 +21,7 @@ let
   packages = import ../nix/packages.nix;
   result = packages.nixpkgs.lib.modules.evalModules {
     modules = [
-      (import ./modules args)
+      (import ./modules/default.nix args)
       (args.path "/makes.nix")
     ];
     specialArgs = args;
