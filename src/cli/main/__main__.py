@@ -104,7 +104,7 @@ def _nix_build(
     src: str,
 ) -> List[str]:
     head = f'builtins.path {{ name = "head"; path = {head}; }}'
-    substituters = " ".join(caches)
+    substituters = " ".join(map(itemgetter("url"), caches.values()))
     trusted_public_keys = " ".join(map(itemgetter("pubKey"), caches.values()))
 
     return [
@@ -287,10 +287,11 @@ def cli(args: List[str]) -> None:
 
     out: str = join(CWD, f"result{attr.replace('/', '-')}")
 
+    caches: Dict[str, Dict[str, str]] = _get_caches(src, head)
     code, _, _ = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"',
-            caches=_get_caches(src, head),
+            caches=caches,
             head=head,
             out=out,
             src=src,
@@ -300,6 +301,7 @@ def cli(args: List[str]) -> None:
 
     if code == 0:
         execute_actions(args, out)
+        cache_push(caches, out)
 
     raise SystemExit(code)
 
@@ -323,6 +325,24 @@ def execute_actions(args: List[str], out: str) -> None:
                     with open(action_target) as file:
                         print(file.read())
                     raise SystemExit(0)
+
+
+def cache_push(caches: Dict[str, Dict[str, str]], out: str) -> None:
+    for cache, cache_data in caches.items():
+        if secret_name := cache_data.get("writeSecret"):
+            if secret_value := environ.get(secret_name):
+                _log(f"Authenticating to cache: {cache}")
+                code, _, _ = _run(
+                    args=["cachix", "authtoken", secret_value],
+                    capture_io=False,
+                )
+
+                _log(f"Pushing to cache: {cache}")
+                if code == 0:
+                    _run(
+                        args=["cachix", "push", "-c", "0", cache, out],
+                        capture_io=False,
+                    )
 
 
 def main() -> None:
