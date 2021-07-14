@@ -5,6 +5,9 @@ from functools import (
     partial,
 )
 import json
+from operator import (
+    itemgetter,
+)
 from os import (
     environ,
     getcwd,
@@ -92,8 +95,18 @@ def is_src_local(src: str) -> bool:
     return isdir(src)
 
 
-def _nix_build(src: str, head: str, attr: str, out: str = "") -> List[str]:
+def _nix_build(
+    *,
+    attr: str,
+    caches: Dict[str, Dict[str, str]],
+    head: str,
+    out: str = "",
+    src: str,
+) -> List[str]:
     head = f'builtins.path {{ name = "head"; path = {head}; }}'
+    substituters = " ".join(caches)
+    trusted_public_keys = " ".join(map(itemgetter("pubKey"), caches.values()))
+
     return [
         "nix-build",
         *_if(is_src_local(src), "--argstr", "headImpure", src),
@@ -105,6 +118,8 @@ def _nix_build(src: str, head: str, attr: str, out: str = "") -> List[str]:
         *["--option", "narinfo-cache-positive-ttl", "1"],
         *["--option", "restrict-eval", "false"],
         *["--option", "max-jobs", "auto"],
+        *["--option", "substituters", substituters],
+        *["--option", "trusted-public-keys", trusted_public_keys],
         *["--option", "sandbox", "false"],
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
@@ -155,13 +170,38 @@ def _get_head(src: str) -> str:
 def _get_attrs(src: str, head: str) -> List[str]:
     out: str = tempfile.mktemp()
     code, stdout, stderr, = _run(
-        args=_nix_build(src, head, "config.attrs", out),
+        args=_nix_build(
+            attr="config.attrs",
+            caches={},
+            head=head,
+            out=out,
+            src=src,
+        ),
     )
     if code == 0:
         with open(out) as file:
             return json.load(file)
 
     raise Error(f"Unable to list project outputs from: {src}", stdout, stderr)
+
+
+def _get_caches(src: str, head: str) -> Dict[str, Dict[str, str]]:
+    out: str = tempfile.mktemp()
+    code, stdout, stderr, = _run(
+        args=_nix_build(
+            attr="config.cachesAsJson",
+            caches={},
+            head=head,
+            out=out,
+            src=src,
+        ),
+    )
+
+    if code == 0:
+        with open(out) as file:
+            return json.load(file)
+
+    raise Error(f"Unable to get caches config from: {src}", stdout, stderr)
 
 
 def _run(
@@ -248,7 +288,13 @@ def cli(args: List[str]) -> None:
     out: str = join(CWD, f"result{attr.replace('/', '-')}")
 
     code, _, _ = _run(
-        args=_nix_build(src, head, f'config.outputs."{attr}"', out),
+        args=_nix_build(
+            attr=f'config.outputs."{attr}"',
+            caches=_get_caches(src, head),
+            head=head,
+            out=out,
+            src=src,
+        ),
         capture_io=False,
     )
 
