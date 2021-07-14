@@ -26,17 +26,17 @@ in just a few steps, in any technology.
 - [Makes.nix format](#makesnix-format)
     - [Caching](#caching)
         - [cache](#cache)
+    - [Formatters](#formatters)
+        - [formatBash](#formatbash)
+        - [formatMarkdown](#formatmarkdown)
+        - [formatNix](#formatnix)
+        - [formatPython](#formatpython)
     - [Linters](#linters)
         - [lintBash](#lintbash)
         - [lintCommitMsg](#lintcommitmsg)
         - [lintMarkdown](#lintmarkdown)
         - [lintNix](#lintnix)
         - [lintPython](#lintpython)
-    - [Formatters](#formatters)
-        - [formatBash](#formatbash)
-        - [formatMarkdown](#formatmarkdown)
-        - [formatNix](#formatnix)
-        - [formatPython](#formatpython)
     - [Pinning](#pinning)
         - [inputs](#inputs)
         - [requiredMakesVersion](#requiredmakesversion)
@@ -434,6 +434,126 @@ Required environment variables:
 - `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
   If not set the cache will only be read, but not written to.
 
+## Formatters
+
+Formatters help your code be consistent, beautiful and more maintainable.
+
+### formatBash
+
+Ensure that Bash code is formatted according to [shfmt][SHFMT].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatBash = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.sh" # A file
+      "/directory" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /formatBash`
+
+### formatMarkdown
+
+Ensure that Markdown code is formatted according to [doctoc][DOCTOC].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- doctocArgs (`listOf str`): Optional.
+  Extra CLI flags to propagate to [doctoc][DOCTOC].
+  Defaults to `[ ]`.
+- targets (`listOf str`):
+  Files (relative to the project) to format.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatMarkdown = {
+    enable = true;
+    doctocArgs = [ "--title" "# Contents" ];
+    targets = [ "/README.md" ];
+  };
+}
+```
+
+Example invocation: `$ m . /formatMarkdown`
+
+### formatNix
+
+Ensure that Nix code is formatted according to [nixpkgs-fmt][NIX_PKGS_FMT].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatNix = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.nix" # A file
+      "/directory" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /formatNix`
+
+### formatPython
+
+Ensure that Python code is formatted according to [Black][BLACK]
+and [isort][ISORT].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatPython = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.py" # A file
+      "/directory" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /formatPython`
+
 ## Linters
 
 Linters ensure source code follows
@@ -617,126 +737,6 @@ Example invocation: `$ m . /lintPython/dirOfModules/makes`
 Example invocation: `$ m . /lintPython/dirOfModules/makes/main`
 
 Example invocation: `$ m . /lintPython/module/cliMain`
-
-## Formatters
-
-Formatters help your code be consistent, beautiful and more maintainable.
-
-### formatBash
-
-Ensure that Bash code is formatted according to [shfmt][SHFMT].
-
-Attributes:
-
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
-
-Example `makes.nix`:
-
-```nix
-{
-  formatBash = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.sh" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
-
-Example invocation: `$ m . /formatBash`
-
-### formatMarkdown
-
-Ensure that Markdown code is formatted according to [doctoc][DOCTOC].
-
-Attributes:
-
-- enable (`boolean`): Optional.
-  Defaults to false.
-- doctocArgs (`listOf str`): Optional.
-  Extra CLI flags to propagate to [doctoc][DOCTOC].
-  Defaults to `[ ]`.
-- targets (`listOf str`):
-  Files (relative to the project) to format.
-
-Example `makes.nix`:
-
-```nix
-{
-  formatMarkdown = {
-    enable = true;
-    doctocArgs = [ "--title" "# Contents" ];
-    targets = [ "/README.md" ];
-  };
-}
-```
-
-Example invocation: `$ m . /formatMarkdown`
-
-### formatNix
-
-Ensure that Nix code is formatted according to [nixpkgs-fmt][NIX_PKGS_FMT].
-
-Attributes:
-
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
-
-Example `makes.nix`:
-
-```nix
-{
-  formatNix = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.nix" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
-
-Example invocation: `$ m . /formatNix`
-
-### formatPython
-
-Ensure that Python code is formatted according to [Black][BLACK]
-and [isort][ISORT].
-
-Attributes:
-
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
-
-Example `makes.nix`:
-
-```nix
-{
-  formatPython = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.py" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
-
-Example invocation: `$ m . /formatPython`
 
 ## Pinning
 
