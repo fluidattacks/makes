@@ -6,8 +6,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
       env:
-        GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
-        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
   deployContainerImage_makesGitHubMonthly:
@@ -18,36 +18,10 @@ jobs:
     - uses: actions/checkout@v2
     - uses: docker://ghcr.io/fluidattacks/makes:main
       env:
-        GITHUB_ACTOR: ${{ secrets._GITHUB_USER }}
-        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         args: m . /deployContainerImage/makesGitHubMonthly
-  deployContainerImage_makesGitLab:
-    if: ${{ github.repository == 'fluidattacks/makes' }}
-    needs: deployContainerImage_makesGitHub
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: docker://ghcr.io/fluidattacks/makes:main
-      name: deployContainerImage_makesGitLab
-      env:
-        CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
-        CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
-      with:
-        args: m . /deployContainerImage/makesGitLab
-  deployContainerImage_makesGitLabMonthly:
-    if: ${{ github.repository == 'fluidattacks/makes' }}
-    needs: deployContainerImage_makesGitHub
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: docker://ghcr.io/fluidattacks/makes:main
-      name: deployContainerImage_makesGitLabMonthly
-      env:
-        CI_REGISTRY_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
-        CI_REGISTRY_USER: ${{ secrets.GITLAB_USER }}
-      with:
-        args: m . /deployContainerImage/makesGitLabMonthly
 name: prod
 on:
   push:

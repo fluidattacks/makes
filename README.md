@@ -304,7 +304,7 @@ jobs:
     - uses: actions/checkout@v2
       # We offer this GitHub action in the following versions:
       #   main: latest release (example: /makes:main)
-      #   yy.mm: monthly release (example: /makes:21.07)
+      #   yy.mm: monthly release (example: /makes:21.08)
     - uses: docker://ghcr.io/fluidattacks/makes:main
       # You can use any name you like here
       name: helloWorld
@@ -331,8 +331,8 @@ looks like this:
 /helloWorld:
   # We offer this Container Image in the following tags:
   #   main: latest release (example: /makes:main)
-  #   yy.mm: monthly release (example: /makes:21.07)
-  image: registry.gitlab.com/fluidattacks/product/makes:main
+  #   yy.mm: monthly release (example: /makes:21.08)
+  image: ghcr.io/fluidattacks/makes:main
   script:
     - m . /helloWorld 1 2 3
 
@@ -359,8 +359,8 @@ language: nix
 nix: 2.3.12
 # We offer this installation step in the following versions:
 #   main: latest release (example: /install/main)
-#   yy.mm: monthly release (example: /install/21.07)
-install: nix-env -if https://fluidattacks.com/makes/install/21.07
+#   yy.mm: monthly release (example: /install/21.08)
+install: nix-env -if https://fluidattacks.com/makes/install/21.08
 env:
   global:
     # Encrypted environment variable
