@@ -25,6 +25,7 @@ in just a few steps, in any technology.
     - [Configuring the cache](#configuring-the-cache)
 - [Makes.nix format](#makesnix-format)
     - [Caching](#caching)
+        - [cache](#cache)
     - [Linters](#linters)
         - [lintBash](#lintbash)
         - [lintCommitMsg](#lintcommitmsg)
@@ -402,6 +403,8 @@ in the top level directory.
 Below we document all configuration options you can tweak with it.
 
 ## Caching
+
+### cache
 
 Cache build results on a [Cachix][CACHIX] cache.
 
