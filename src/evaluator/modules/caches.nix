@@ -14,8 +14,9 @@
           pubKey = lib.mkOption {
             type = lib.types.str;
           };
-          secretName = lib.mkOption {
-            type = lib.types.str;
+          writeSecret = lib.mkOption {
+            default = null;
+            type = lib.types.nullOr lib.types.str;
           };
         };
       }));
@@ -25,6 +26,10 @@
     };
   };
   config = {
-    cachesAsJson = toJSONFile "caches.json" config.caches;
+    cachesAsJson = toJSONFile "caches.json" (config.caches // {
+      "https://cache.nixos.org" = {
+        pubKey = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
+      };
+    });
   };
 }
