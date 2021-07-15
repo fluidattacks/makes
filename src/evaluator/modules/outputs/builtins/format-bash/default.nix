@@ -1,7 +1,4 @@
-{ __nixpkgs__
-, asBashArray
-, makeScript
-, pathImpure
+{ formatBash
 , ...
 }:
 { config
@@ -23,18 +20,9 @@
   };
   config = {
     outputs = {
-      "/formatBash" = lib.mkIf config.formatBash.enable (makeScript {
-        replace = {
-          __argTargets__ = asBashArray
-            (builtins.map pathImpure config.formatBash.targets);
-        };
-        name = "format-bash";
-        searchPaths = {
-          bin = [
-            __nixpkgs__.shfmt
-          ];
-        };
-        entrypoint = ./entrypoint.sh;
+      "/formatBash" = lib.mkIf config.formatBash.enable (formatBash {
+        name = "builtin";
+        targets = config.formatBash.targets;
       });
     };
   };

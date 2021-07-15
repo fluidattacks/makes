@@ -17,6 +17,7 @@ let
     fetchNixpkgs = import ./fetchers/nixpkgs.nix args;
     fetchUrl = import ./fetchers/url.nix args;
     fetchZip = import ./fetchers/zip.nix args;
+    formatBash = import ./format-bash args;
     formatTerraform = import ./format-terraform args;
     getAttr = import ./get-attr/default.nix;
     inherit inputs;
