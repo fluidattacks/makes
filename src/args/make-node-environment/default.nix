@@ -1,9 +1,9 @@
 { __nixpkgs__
 , getAttr
-, listToFileWithTrailinNewLine
+, toFileLst
 , makeDerivation
 , makeSearchPaths
-, sort
+, sortAscii
 , ...
 }:
 { name
@@ -14,8 +14,8 @@
 }:
 let
   # Unpack arguments and sort them
-  dependenciesSorted = sort dependencies;
-  subDependenciesSorted = sort subDependencies;
+  dependenciesSorted = sortAscii dependencies;
+  subDependenciesSorted = sortAscii subDependencies;
 
   # Ensure the developer wrote them sorted
   # This helps with code clarity and maintainability
@@ -27,7 +27,7 @@ let
     if (subDependenciesSorted == subDependencies)
     then subDependenciesSorted
     else abort "Sub-dependencies must be sorted in this order: ${builtins.toJSON subDependenciesSorted}";
-  requirementsList = sort (
+  requirementsList = sortAscii (
     dependencies' ++
     subDependencies'
   );
@@ -49,7 +49,7 @@ let
 
   nodeEnvironment = makeDerivation {
     env = {
-      envRequirementsFile = listToFileWithTrailinNewLine requirementsList;
+      envRequirementsFile = toFileLst "reqs.lst" requirementsList;
       envPackageJsonFile = builtins.toFile "package.json" packageJson;
     };
     builder = ./builder.sh;

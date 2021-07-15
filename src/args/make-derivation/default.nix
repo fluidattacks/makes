@@ -1,7 +1,7 @@
 { __nixpkgs__
 , asContent
-, builtinShellCommands
-, builtinShellOptions
+, __shellCommands__
+, __shellOptions__
 , makeSearchPaths
 , ...
 }:
@@ -38,8 +38,8 @@ let
     env;
 in
 builtins.derivation (env' // {
-  __envBuiltinShellCommands = builtinShellCommands;
-  __envBuiltinShellOptions = builtinShellOptions;
+  __envShellCommands = __shellCommands__;
+  __envShellOptions = __shellOptions__;
   __envSearchPaths =
     if searchPaths == { }
     then "/dev/null"
@@ -49,8 +49,8 @@ builtins.derivation (env' // {
   ];
   args = [
     (builtins.toFile "make-derivation" ''
-      source $__envBuiltinShellOptions
-      source $__envBuiltinShellCommands
+      source $__envShellCommands
+      source $__envShellOptions
       export PATH=$__envSearchPathsBase
       source $__envSearchPaths
 

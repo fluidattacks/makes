@@ -1,9 +1,9 @@
 { __nixpkgs__
 , getAttr
-, listToFileWithTrailinNewLine
+, toFileLst
 , makeDerivation
 , makeSearchPaths
-, sortCaseless
+, sortAsciiCaseless
 , ...
 }:
 { name
@@ -14,8 +14,8 @@
 }:
 let
   # Unpack arguments and sort them
-  dependenciesSorted = sortCaseless dependencies;
-  subDependenciesSorted = sortCaseless subDependencies;
+  dependenciesSorted = sortAsciiCaseless dependencies;
+  subDependenciesSorted = sortAsciiCaseless subDependencies;
 
   # Ensure the developer wrote them sorted
   # This helps with code clarity and maintainability
@@ -27,7 +27,7 @@ let
     if (subDependenciesSorted == subDependencies)
     then subDependenciesSorted
     else abort "Sub-dependencies must be sorted in this order: ${builtins.toJSON subDependenciesSorted}";
-  requirementsList = sortCaseless (
+  requirementsList = sortAsciiCaseless (
     dependencies' ++
     subDependencies'
   );
@@ -43,7 +43,7 @@ let
 
   pythonEnvironment = makeDerivation {
     env = {
-      envRequirementsFile = listToFileWithTrailinNewLine requirementsList;
+      envRequirementsFile = toFileLst "reqs.lst" requirementsList;
     };
     builder = ./builder.sh;
     name = "make-python-environment-for-${name}";

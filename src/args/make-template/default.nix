@@ -1,6 +1,6 @@
 { __nixpkgs__
 , asContent
-, listToFileWithTrailinNewLine
+, toFileLst
 , makeDerivation
 , makeSearchPaths
 , ...
@@ -39,9 +39,9 @@ makeDerivation {
   }];
   env = replace' // replaceBase64' // {
     __envArgumentsRegex = argumentRegex;
-    __envArgumentNamesFile = listToFileWithTrailinNewLine
+    __envArgumentNamesFile = toFileLst "replace.lst"
       (builtins.attrNames replace);
-    __envArgumentBase64NamesFile = listToFileWithTrailinNewLine
+    __envArgumentBase64NamesFile = toFileLst "replaceBase64.lst"
       (builtins.attrNames replaceBase64);
     __envPath = __nixpkgs__.lib.strings.makeBinPath [
       __nixpkgs__.gnugrep

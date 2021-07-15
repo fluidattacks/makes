@@ -1,7 +1,7 @@
 #! __argShell__
 # shellcheck shell=bash
 
-source __argBuiltinShellOptions__
+source __argShellOptions__
 
 function running_in_ci_cd_provider {
   # Non-empty on Gitlab, Github, Travis
@@ -25,7 +25,7 @@ function setup {
     && STATE="${HOME_IMPURE}/.makes/state/__argName__" \
     && rm -rf "${STATE}" \
     && mkdir -p "${STATE}" \
-    && source __argBuiltinShellCommands__ \
+    && source __argShellCommands__ \
     && source __argSearchPaths__/makes-setup.sh
 }
 
