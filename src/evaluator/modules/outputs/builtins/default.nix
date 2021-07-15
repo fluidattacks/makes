@@ -13,5 +13,6 @@ args:
     (import ./lint-markdown/default.nix args)
     (import ./lint-nix/default.nix args)
     (import ./lint-python/default.nix args)
+    (import ./lint-with-lizard/default.nix args)
   ];
 }
