@@ -1,4 +1,4 @@
-{ toJSONFile
+{ toFileJson
 , ...
 } @ args:
 { config
@@ -19,6 +19,6 @@
     };
   };
   config = lib.mkIf (config.assertionsPassed) {
-    attrs = toJSONFile "attrs.json" (builtins.attrNames config.outputs);
+    attrs = toFileJson "attrs.json" (builtins.attrNames config.outputs);
   };
 }

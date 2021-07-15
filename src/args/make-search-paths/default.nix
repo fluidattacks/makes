@@ -1,4 +1,4 @@
-{ builtinShellCommands
+{ __shellCommands__
 , makeTemplate
 , ...
 }:
@@ -100,7 +100,7 @@ makeTemplate {
         generator = export "LD_LIBRARY_PATH" "/lib64";
       }
       {
-        derivations = [ builtinShellCommands ];
+        derivations = [ __shellCommands__ ];
         generator = sourceDrv;
       }
       {

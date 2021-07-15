@@ -1,7 +1,7 @@
 { __nixpkgs__
 , asBashArray
-, builtinShellCommands
-, builtinShellOptions
+, __shellCommands__
+, __shellOptions__
 , makeDerivation
 , makeSearchPaths
 , makeTemplate
@@ -48,8 +48,8 @@ makeDerivation {
     };
     envEntrypointSetup = makeTemplate {
       replace = {
-        __argBuiltinShellCommands__ = builtinShellCommands;
-        __argBuiltinShellOptions__ = builtinShellOptions;
+        __argShellCommands__ = __shellCommands__;
+        __argShellOptions__ = __shellOptions__;
         __argCaCert__ = __nixpkgs__.cacert;
         __argName__ = name;
         __argSearchPaths__ = makeSearchPaths searchPaths;
