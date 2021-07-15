@@ -8,7 +8,7 @@ jobs:
       with:
         tag_name: 21.08
       env:
-        GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
     - uses: johnwbyrd/update-release@v1.0.0
       with:
         files: README.md
