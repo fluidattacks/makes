@@ -772,9 +772,9 @@ Example invocation: `$ m . /lintPython/module/cliMain`
 
 ### lintWithLizard
 
-Using [Lizard](https://github.com/terryyin/lizard)
-to check Ciclomatic Complexity and functions length
-in all supported languages by [Lizard](https://github.com/terryyin/lizard)
+Using [Lizard][LIZARD] to check
+Ciclomatic Complexity and functions length
+in all supported languages by [Lizard][LIZARD]
 
 Attributes:
 
@@ -1510,6 +1510,9 @@ $ m . /example
 
 - [LINUX]: https://en.wikipedia.org/wiki/Linux
   [Linux][LINUX]
+
+- [LIZARD]: https://github.com/terryyin/lizard
+  [Lizard][LIZARD]
 
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]
