@@ -7,6 +7,7 @@ args:
     (import ./format-markdown/default.nix args)
     (import ./format-nix/default.nix args)
     (import ./format-python/default.nix args)
+    (import ./format-terraform/default.nix args)
     (import ./hello-world/default.nix args)
     (import ./lint-bash/default.nix args)
     (import ./lint-commit-msg/default.nix args)

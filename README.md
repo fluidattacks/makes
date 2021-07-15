@@ -31,6 +31,7 @@ in just a few steps, in any technology.
         - [formatMarkdown](#formatmarkdown)
         - [formatNix](#formatnix)
         - [formatPython](#formatpython)
+        - [formatTerraform](#formatterraform)
     - [Linters](#linters)
         - [lintBash](#lintbash)
         - [lintCommitMsg](#lintcommitmsg)
@@ -553,6 +554,36 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /formatPython`
+
+### formatTerraform
+
+Ensure that [Terraform][TERRAFORM] code
+is formatted according to [Terraform FMT][TERRAFORM_FMT].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to format.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatTerraform = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/main.tf" # A file
+      "/terraform/module" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /formatTerraform`
 
 ## Linters
 
@@ -1522,6 +1553,12 @@ $ m . /example
 
 - [SHFMT]: https://github.com/mvdan/sh
   [SHFMT][SHFMT]
+
+- [TERRAFORM]: https://www.terraform.io/
+  [Terraform][TERRAFORM]
+
+- [TERRAFORM_FMT]: https://www.terraform.io/docs/cli/commands/fmt.html
+  [Terraform FMT][TERRAFORM_FMT]
 
 - [TRAVIS_CI]: https://travis-ci.org/
   [Travis CI][TRAVIS_CI]

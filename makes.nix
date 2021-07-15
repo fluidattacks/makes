@@ -47,6 +47,10 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatTerraform = {
+    enable = true;
+    targets = [ "/" ];
+  };
   helloWorld = {
     enable = true;
     name = "Jane Doe";
