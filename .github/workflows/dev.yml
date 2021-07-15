@@ -39,6 +39,14 @@ jobs:
       name: /formatPython
       with:
         args: sh -c "nix-env -if . && m . /formatPython"
+  formatTerraform:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /formatTerraform
+      with:
+        args: sh -c "nix-env -if . && m . /formatTerraform"
   helloWorld:
     runs-on: ubuntu-latest
     steps:
