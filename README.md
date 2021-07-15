@@ -38,6 +38,7 @@ in just a few steps, in any technology.
         - [lintMarkdown](#lintmarkdown)
         - [lintNix](#lintnix)
         - [lintPython](#lintpython)
+        - [lintWithLizard](#lintwithlizard)
     - [Pinning](#pinning)
         - [inputs](#inputs)
         - [requiredMakesVersion](#requiredmakesversion)
@@ -768,6 +769,37 @@ Example invocation: `$ m . /lintPython/dirOfModules/makes`
 Example invocation: `$ m . /lintPython/dirOfModules/makes/main`
 
 Example invocation: `$ m . /lintPython/module/cliMain`
+
+### lintWithLizard
+
+Using [Lizard](https://github.com/terryyin/lizard)
+to check Ciclomatic Complexity and functions length
+in all supported languages by [Lizard](https://github.com/terryyin/lizard)
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- targets (`listOf str`): Optional.
+  Files or directories (relative to the project) to lint.
+  Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintWithLizard = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.py" # A file
+      "/directory" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /lintWithLizard`
 
 ## Pinning
 
