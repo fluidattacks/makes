@@ -812,8 +812,8 @@ Required environment variables:
 
 - If your [Terraform][TERRAFORM] module uses the AWS provider:
     - `AWS_ACCESS_KEY_ID`
-    - `AWS_SECRET_ACCESS_KEY`
     - `AWS_DEFAULT_REGION`
+    - `AWS_SECRET_ACCESS_KEY`
     - `AWS_SESSION_TOKEN`: Required only if the AWS credentials are temporary.
 
 Example `makes.nix`:
@@ -836,7 +836,9 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m . /lintTerraform`
+Example invocation: `$ AWS_ACCESS_KEY_ID=123 AWS_DEFAULT_REGION=us-east-1 AWS_SECRET_ACCESS_KEY=123 m . /lintTerraform`
+
+Example invocation: `$ AWS_ACCESS_KEY_ID=123 AWS_DEFAULT_REGION=us-east-1 AWS_SECRET_ACCESS_KEY=123 AWS_SESSION_TOKEN=123 m . /lintTerraform`
 
 ### lintWithLizard
 
