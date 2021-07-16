@@ -1,5 +1,6 @@
 { __nixpkgs__
 , makeDerivation
+, makeDerivationParallel
 , makePythonEnvironment
 , path
 , ...
@@ -57,11 +58,8 @@ let
     in
     (modules ++ [{
       name = "/lintPython/dirOfModules/${name}";
-      value = makeDerivation {
-        env = {
-          envModules = lib.attrsets.catAttrs "value" modules;
-        };
-        builder = "echo $envModules > $out";
+      value = makeDerivationParallel {
+        dependencies = lib.attrsets.catAttrs "value" modules;
         name = "lint-python-dir-of-modules-for-${name}";
       };
     }]);

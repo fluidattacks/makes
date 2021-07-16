@@ -23,10 +23,11 @@ let
     inherit inputs;
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;
+    makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
     makeNodeEnvironment = import ./make-node-environment/default.nix args;
-    makeParallel = import ./make-parallel/default.nix args;
     makePythonEnvironment = import ./make-python-environment/default.nix args;
     makeScript = import ./make-script/default.nix args;
+    makeScriptParallel = import ./make-script-parallel/default.nix args;
     makeSearchPaths = import ./make-search-paths/default.nix args;
     inherit makesVersion;
     makeTemplate = import ./make-template/default.nix args;
