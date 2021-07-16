@@ -54,6 +54,7 @@ in just a few steps, in any technology.
         - [makeDerivation](#makederivation)
         - [makeScript](#makescript)
         - [path](#path)
+        - [asBashArray](#asbasharray)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1342,7 +1343,7 @@ makeScript {
   replace = {
     __argVersion__ = "1.0";
   };
-  builder = ''
+  entrypoint = ''
     debug Version is __argVersion__
     info pwd is $PWD
     info Running tree command on $STATE
@@ -1412,7 +1413,7 @@ makeScript {
   replace = {
     __argPath__ = path "/src/nix";
   };
-  builder = ''
+  entrypoint = ''
     info Path is: __argPath__
     info Path contents are:
     ls __argPath__
@@ -1427,6 +1428,77 @@ $ m . /example
     [INFO] Path is: <nix-store-path>
     [INFO] Path contents are:
     packages.nix  sources.json  sources.nix
+```
+
+### asBashArray
+
+Transforms a list of arguments
+to a [Bash][BASH] array.
+It can be used for passings
+several arguments from [Nix][NIX]
+to [Bash][BASH].
+
+Inputs:
+
+- args (`listOf str`):
+  list of arguments
+  to transform.
+
+Examples:
+
+1. Using it with [makeScript](#makescript):
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    { makeScript
+    , ...
+    }:
+    makeScript {
+      replace = {
+        __argTargets__ = asBashArray [ "first" "second" "third" ];
+      };
+      entrypoint = ''
+        export targets=__argTargets__
+        for target in "''${targets[@]}"; do
+          info "''${target}"
+          info ---
+        done
+      '';
+      name = "example";
+    }
+    ```
+
+1. Using it with [makeDerivation](#makederivation):
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    { makeDerivation
+    , ...
+    }:
+    makeDerivation {
+      env = {
+        envTargets = asBashArray [ "first" "second" "third" ];
+      };
+      builder = ''
+        eval export targets="''${envTargets}"
+        for target in "''${targets[@]}"; do
+          info "''${target}"
+          info ---
+        done
+      '';
+      name = "example";
+    }
+    ```
+
+```bash
+$ m . /example
+
+    [INFO] first
+    [INFO] ---
+    [INFO] second
+    [INFO] ---
+    [INFO] third
+    [INFO] ----
 ```
 
 :construction: This section is Work in progress
