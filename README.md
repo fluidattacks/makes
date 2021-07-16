@@ -38,6 +38,7 @@ in just a few steps, in any technology.
         - [lintMarkdown](#lintmarkdown)
         - [lintNix](#lintnix)
         - [lintPython](#lintpython)
+        - [lintTerraform](#lintterraform)
         - [lintWithLizard](#lintwithlizard)
     - [Pinning](#pinning)
         - [inputs](#inputs)
@@ -419,6 +420,14 @@ Attributes:
 - pubKey (`str`):
   Public key of the [Cachix][CACHIX] cache.
 
+Required environment variables:
+
+- `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
+    - For Public caches:
+      If not set the cache will only be read, but not written to.
+    - For private caches:
+      If not set the cache won't be read, nor written to.
+
 Example `makes.nix`:
 
 ```nix
@@ -430,14 +439,6 @@ Example `makes.nix`:
   };
 }
 ```
-
-Required environment variables:
-
-- `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
-    - For Public caches:
-      If not set the cache will only be read, but not written to.
-    - For private caches:
-      If not set the cache won't be read, nor written to.
 
 ## Formatters
 
@@ -773,6 +774,70 @@ Example invocation: `$ m . /lintPython/dirOfModules/makes/main`
 
 Example invocation: `$ m . /lintPython/module/cliMain`
 
+### lintTerraform
+
+Lint [Terraform][TERRAFORM] code
+with [TFLint][TFLINT].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- config (`lines`): Optional.
+  Defaults to:
+
+  ```hcl
+  config {
+    module = true
+  }
+
+  plugin "aws" {
+    enabled = true
+  }
+  ```
+
+- modules (`attrsOf moduleType`): Optional.
+  Path to [Terraform][TERRAFORM] modules to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- moduleType (`submodule`):
+    - src (`str`):
+      Path to the [Terraform][TERRAFORM] module.
+    - version (`str`):
+      [Terraform][TERRAFORM] version your module is built with.
+
+Required environment variables:
+
+- If your [Terraform][TERRAFORM] module uses the AWS provider:
+    - `AWS_ACCESS_KEY_ID`
+    - `AWS_SECRET_ACCESS_KEY`
+    - `AWS_DEFAULT_REGION`
+    - `AWS_SESSION_TOKEN`: Required only if the AWS credentials are temporary.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintTerraform = {
+    enable = true;
+    modules = {
+      module1 = {
+        src = "/my/module1";
+        version = "0.12";
+      };
+      module2 = {
+        src = "/my/module2";
+        version = "0.16";
+      };
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /lintTerraform`
+
 ### lintWithLizard
 
 Using [Lizard][LIZARD] to check
@@ -883,9 +948,9 @@ Custom Types:
 
 Required environment variables:
 
-- CI_REGISTRY_USER and CI_REGISTRY_PASSWORD, when deploying to GitLab.
-- DOCKER_HUB_USER and DOCKER_HUB_PASS, when deploying to Docker Hub.
-- GITHUB_ACTOR and GITHUB_TOKEN, when deploying to Github Container Registry.
+- `CI_REGISTRY_USER` and `CI_REGISTRY_PASSWORD`, when deploying to GitLab.
+- `DOCKER_HUB_USER` and `DOCKER_HUB_PASS`, when deploying to Docker Hub.
+- `GITHUB_ACTOR` and `GITHUB_TOKEN`, when deploying to Github Container Registry.
 
 Example `makes.nix`:
 
@@ -1597,6 +1662,9 @@ $ m . /example
 
 - [TERRAFORM_FMT]: https://www.terraform.io/docs/cli/commands/fmt.html
   [Terraform FMT][TERRAFORM_FMT]
+
+- [TFLINT]: https://github.com/terraform-linters/tflint
+  [TFLint][TFLINT]
 
 - [TRAVIS_CI]: https://travis-ci.org/
   [Travis CI][TRAVIS_CI]
