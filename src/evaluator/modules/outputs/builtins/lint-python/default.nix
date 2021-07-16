@@ -40,7 +40,10 @@ let
   };
   makeDirOfModules = name: { extraSources, python, src }:
     let
-      moduleNames = builtins.attrNames (builtins.readDir (path src));
+      moduleNames = builtins.attrNames
+        (lib.filterAttrs
+          (_: value: value == "directory")
+          (builtins.readDir (path src)));
       modules = builtins.map
         (moduleName: {
           name = "/lintPython/dirOfModules/${name}/${moduleName}";
