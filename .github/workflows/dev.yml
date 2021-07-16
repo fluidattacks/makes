@@ -113,6 +113,14 @@ jobs:
       name: /lintPython/module/cliMain
       with:
         args: sh -c "nix-env -if . && m . /lintPython/module/cliMain"
+  lintTerraform_module:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /lintTerraform/module
+      with:
+        args: sh -c "nix-env -if . && m . /lintTerraform/module"
   lintWithLizard:
     runs-on: ubuntu-latest
     steps:

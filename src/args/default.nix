@@ -21,6 +21,7 @@ let
     formatTerraform = import ./format-terraform args;
     getAttr = import ./get-attr/default.nix;
     inherit inputs;
+    lintTerraform = import ./lint-terraform/default.nix args;
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;
     makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
@@ -29,6 +30,7 @@ let
     makeScript = import ./make-script/default.nix args;
     makeScriptParallel = import ./make-script-parallel/default.nix args;
     makeSearchPaths = import ./make-search-paths/default.nix args;
+    makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     inherit makesVersion;
     makeTemplate = import ./make-template/default.nix args;
     inherit outputs;
@@ -36,6 +38,7 @@ let
     pathImpure = path: headImpure + path;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
+    toDerivationName = lib.strings.sanitizeDerivationName;
     toFileJson = import ./to-file-json/default.nix args;
     toFileLst = import ./to-file-lst/default.nix;
   };

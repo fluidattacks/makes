@@ -86,6 +86,15 @@
       };
     };
   };
+  lintTerraform = {
+    enable = true;
+    modules = {
+      module = {
+        src = "/test/lintTerraform/module";
+        version = "0.13";
+      };
+    };
+  };
   lintWithLizard = {
     enable = true;
     targets = [ "/" ];
