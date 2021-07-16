@@ -434,7 +434,10 @@ Example `makes.nix`:
 Required environment variables:
 
 - `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
-  If not set the cache will only be read, but not written to.
+    - For Public caches:
+      If not set the cache will only be read, but not written to.
+    - For private caches:
+      If not set the cache won't be read, nor written to.
 
 ## Formatters
 

@@ -15,7 +15,7 @@ jobs:
         release: 21.08
         prerelease: true
         tag: 21.08
-        token: ${{ secrets._GITHUB_TOKEN }}
+        token: ${{ github.token }}
 name: release
 on:
   push:
