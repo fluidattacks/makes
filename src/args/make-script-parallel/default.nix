@@ -13,7 +13,7 @@ makeScript {
     __argParallelArgs__ = asBashArray extraArgs;
   };
   entrypoint = ./entrypoint.sh;
-  name = "make-parallel-for-${name}";
+  name = "make-script-parallel-for-${name}";
   searchPaths = {
     bin = [
       __nixpkgs__.parallel
