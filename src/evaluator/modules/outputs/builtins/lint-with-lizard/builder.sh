@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 function main {
-
   local paths
   local lizard_max_warns='0'
   local lizard_max_func_length='50'
