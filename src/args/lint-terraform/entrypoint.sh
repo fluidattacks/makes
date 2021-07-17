@@ -6,7 +6,7 @@ function main {
     && info Initializing '__argSrc__' \
     && terraform init \
     && info Linting '__argSrc__' \
-    && tflint -c '__argConfig__' .
+    && tflint -c '__argConfig__'
 }
 
 main "${@}"
