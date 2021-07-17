@@ -15,6 +15,7 @@ let
     asContent = import ./as-content/default.nix;
     deployContainerImage = import ./deploy-container-image/default.nix args;
     fakeSha256 = lib.fakeSha256;
+    fetchGithub = import ./fetchers/github.nix args;
     fetchNixpkgs = import ./fetchers/nixpkgs.nix args;
     fetchUrl = import ./fetchers/url.nix args;
     fetchZip = import ./fetchers/zip.nix args;
@@ -22,6 +23,7 @@ let
     formatTerraform = import ./format-terraform args;
     getAttr = import ./get-attr/default.nix;
     inherit inputs;
+    lintGitMailMap = import ./lint-git-mailmap/default.nix args;
     lintTerraform = import ./lint-terraform/default.nix args;
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;

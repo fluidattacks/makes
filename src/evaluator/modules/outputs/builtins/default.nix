@@ -11,6 +11,7 @@ args:
     (import ./hello-world/default.nix args)
     (import ./lint-bash/default.nix args)
     (import ./lint-commit-msg/default.nix args)
+    (import ./lint-git-mailmap/default.nix args)
     (import ./lint-markdown/default.nix args)
     (import ./lint-nix/default.nix args)
     (import ./lint-python/default.nix args)
