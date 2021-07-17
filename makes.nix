@@ -16,7 +16,6 @@
     pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
   };
   deployContainerImage = {
-    enable = true;
     images = {
       makesGitHub = {
         registry = "ghcr.io";
