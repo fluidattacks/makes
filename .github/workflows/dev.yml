@@ -73,6 +73,16 @@ jobs:
       name: /lintCommitMsg
       with:
         args: sh -c "nix-env -if . && m . /lintCommitMsg"
+  lintGitMailMap:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /lintGitMailMap
+      with:
+        args: sh -c "nix-env -if . && m . /lintGitMailMap"
   lintMarkdown:
     runs-on: ubuntu-latest
     steps:

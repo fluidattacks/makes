@@ -41,6 +41,7 @@ in just a few steps, in any technology.
     - [Linters](#linters)
         - [lintBash](#lintbash)
         - [lintCommitMsg](#lintcommitmsg)
+        - [lintGitMailMap](#lintgitmailmap)
         - [lintMarkdown](#lintmarkdown)
         - [lintNix](#lintnix)
         - [lintPython](#lintpython)
@@ -747,6 +748,28 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /lintCommitMsg`
+
+### lintGitMailMap
+
+Lint the [Git][GIT] [MailMap][GIT_MAILMAP] of the project
+with [MailMap Linter][MAILMAP_LINTER].
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintGitMailMap = {
+    enable = true;
+  };
+}
+```
+
+Example invocation: `$ m . /lintGitMailMap`
 
 ### lintMarkdown
 
@@ -1695,6 +1718,12 @@ $ m . /example
 - [FLUID_ATTACKS]: https://fluidattacks.com
   [Fluid Attacks][FLUID_ATTACKS]
 
+- [GIT]: https://git-scm.com/
+  [Git][GIT]
+
+- [GIT_MAILMAP]: https://git-scm.com/docs/gitmailmap
+  [Git Mailmap][GIT_MAILMAP]
+
 - [GITHUB_ACTIONS]: https://github.com/features/actions
   [Github Actions][GITHUB_ACTIONS]
 
@@ -1739,6 +1768,9 @@ $ m . /example
 
 - [LIZARD]: https://github.com/terryyin/lizard
   [Lizard][LIZARD]
+
+- [MAILMAP_LINTER]: https://github.com/kamadorueda/mailmap-linter
+  [Mailmap Linter][MAILMAP_LINTER]
 
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]

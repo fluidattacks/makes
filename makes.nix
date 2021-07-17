@@ -62,6 +62,9 @@
     enable = true;
     branch = "main";
   };
+  lintGitMailMap = {
+    enable = true;
+  };
   lintMarkdown = {
     enable = true;
     targets = [ "/" ];
