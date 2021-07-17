@@ -7,6 +7,10 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
+## Demo
+
+[![Makes Demo](https://asciinema.org/a/425886.svg)](https://asciinema.org/a/425886)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Contents
@@ -837,9 +841,15 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ AWS_ACCESS_KEY_ID=123 AWS_DEFAULT_REGION=us-east-1 AWS_SECRET_ACCESS_KEY=123 m . /lintTerraform`
+Example invocation:
 
-Example invocation: `$ AWS_ACCESS_KEY_ID=123 AWS_DEFAULT_REGION=us-east-1 AWS_SECRET_ACCESS_KEY=123 AWS_SESSION_TOKEN=123 m . /lintTerraform`
+```bash
+$ AWS_ACCESS_KEY_ID=123 \
+  AWS_DEFAULT_REGION=us-east-1 \
+  AWS_SECRET_ACCESS_KEY=123 \
+  AWS_SESSION_TOKEN=123 \
+  m . /lintTerraform
+```
 
 ### lintWithLizard
 
