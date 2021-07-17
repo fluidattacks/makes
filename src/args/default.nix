@@ -31,6 +31,7 @@ let
     makeScript = import ./make-script/default.nix args;
     makeScriptParallel = import ./make-script-parallel/default.nix args;
     makeSearchPaths = import ./make-search-paths/default.nix args;
+    makeSecretAwsFromEnv = import ./make-secret-aws-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     inherit makesVersion;
     makeTemplate = import ./make-template/default.nix args;
