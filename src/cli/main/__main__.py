@@ -252,7 +252,7 @@ def _help_and_exit(
         for attr in attrs:
             if attr not in {
                 "__all__",
-                "/secrets/aws/fromEnv/__default__",
+                "/secretsForAwsFromEnv/__default__",
             }:
                 _log(f"  {attr}")
     if exc is not None:

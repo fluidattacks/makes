@@ -1,5 +1,5 @@
 { __toModuleOutputs__
-, makeSecretAwsFromEnv
+, makeSecretForAwsFromEnv
 , ...
 }:
 { config
@@ -33,8 +33,8 @@ let
     , secretAccessKey
     , sessionToken
     }: {
-      name = "/secrets/aws/fromEnv/${name}";
-      value = makeSecretAwsFromEnv {
+      name = "/secretsForAwsFromEnv/${name}";
+      value = makeSecretForAwsFromEnv {
         inherit accessKeyId;
         inherit defaultRegion;
         inherit name;
@@ -45,18 +45,14 @@ let
 in
 {
   options = {
-    secrets = {
-      aws = {
-        fromEnv = lib.mkOption {
-          default = { };
-          type = lib.types.attrsOf awsFromEnvType;
-        };
-      };
+    secretsForAwsFromEnv = lib.mkOption {
+      default = { };
+      type = lib.types.attrsOf awsFromEnvType;
     };
   };
   config = {
     outputs =
-      (__toModuleOutputs__ makeAwsFromEnvOutput config.secrets.aws.fromEnv) //
+      (__toModuleOutputs__ makeAwsFromEnvOutput config.secretsForAwsFromEnv) //
       (__toModuleOutputs__ makeAwsFromEnvOutput {
         __default__ = {
           accessKeyId = "AWS_ACCESS_KEY_ID";
