@@ -1,4 +1,5 @@
 { __nixpkgs__
+, __toModuleOutputs__
 , lintTerraform
 , path
 , ...
@@ -8,7 +9,7 @@
 , ...
 }:
 let
-  makeModule = name: { src, version }: {
+  makeOutput = name: { src, version }: {
     name = "/lintTerraform/${name}";
     value = lintTerraform {
       config = builtins.toFile "tflint.hcl" config.lintTerraform.config;
@@ -21,10 +22,6 @@ in
 {
   options = {
     lintTerraform = {
-      enable = lib.mkOption {
-        default = false;
-        type = lib.types.bool;
-      };
       config = lib.mkOption {
         default = ''
           config {
@@ -58,12 +55,6 @@ in
     };
   };
   config = {
-    outputs = lib.mkIf config.lintTerraform.enable
-      (builtins.foldl'
-        (all: one: all // { "${one.name}" = one.value; })
-        { }
-        (lib.attrsets.mapAttrsToList
-          makeModule
-          config.lintTerraform.modules));
+    outputs = __toModuleOutputs__ makeOutput config.lintTerraform.modules;
   };
 }

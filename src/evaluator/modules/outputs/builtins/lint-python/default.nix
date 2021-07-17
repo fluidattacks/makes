@@ -1,4 +1,5 @@
 { __nixpkgs__
+, __toModuleOutputs__
 , makeDerivation
 , makeDerivationParallel
 , makePythonEnvironment
@@ -154,10 +155,6 @@ in
 {
   options = {
     lintPython = {
-      enable = lib.mkOption {
-        default = false;
-        type = lib.types.bool;
-      };
       dirsOfModules = lib.mkOption {
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
@@ -195,17 +192,8 @@ in
     };
   };
   config = {
-    outputs = lib.mkIf config.lintPython.enable
-      (builtins.foldl'
-        (all: one: all // { "${one.name}" = one.value; })
-        { }
-        (lib.lists.flatten [
-          (lib.attrsets.mapAttrsToList
-            makeModule
-            config.lintPython.modules)
-          (lib.attrsets.mapAttrsToList
-            makeDirOfModules
-            config.lintPython.dirsOfModules)
-        ]));
+    outputs =
+      (__toModuleOutputs__ makeModule config.lintPython.modules) //
+      (__toModuleOutputs__ makeDirOfModules config.lintPython.dirsOfModules);
   };
 }

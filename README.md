@@ -722,8 +722,6 @@ Lints Python code with [mypy][MYPY] and [Prospector][PROSPECTOR].
 
 Attributes:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
 - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
   Definitions of directories of python packages/modules to lint.
   Defaults to `{ }`.
@@ -756,7 +754,6 @@ Example `makes.nix`:
 ```nix
 {
   lintPython = {
-    enable = true;
     dirsOfModules = {
       makes = {
         python = "3.8";
@@ -786,8 +783,6 @@ with [TFLint][TFLINT].
 
 Attributes:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
 - config (`lines`): Optional.
   Defaults to:
 
@@ -826,7 +821,6 @@ Example `makes.nix`:
 ```nix
 {
   lintTerraform = {
-    enable = true;
     modules = {
       module1 = {
         src = "/my/module1";
