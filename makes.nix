@@ -72,7 +72,6 @@
     targets = [ "/" ];
   };
   lintPython = {
-    enable = true;
     dirsOfModules = {
       makes = {
         python = "3.8";
@@ -87,7 +86,6 @@
     };
   };
   lintTerraform = {
-    enable = true;
     modules = {
       module = {
         src = "/test/lintTerraform/module";

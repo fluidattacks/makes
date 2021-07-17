@@ -10,6 +10,7 @@ let
     inherit __nixpkgs__;
     __shellCommands__ = ./shell-commands/makes-setup.sh;
     __shellOptions__ = ./shell-options/makes-setup.sh;
+    __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
     asBashArray = args: "( ${lib.strings.escapeShellArgs args} )";
     asContent = import ./as-content/default.nix;
     deployContainerImage = import ./deploy-container-image/default.nix args;
