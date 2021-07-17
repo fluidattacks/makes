@@ -477,7 +477,7 @@ Custom Types:
     - defaultRegion (`str`): Optional.
       Name of the [environment variable][ENV_VAR]
       that stores the value of the [AWS][AWS] Default Region.
-      Defaults to `"us-east-1"`.
+      Defaults to `"AWS_DEFAULT_REGION"` (Which defaults to `"us-east-1"`).
 
     - secretAccessKey (`str`): Optional.
       Name of the [environment variable][ENV_VAR]
@@ -487,13 +487,13 @@ Custom Types:
     - sessionToken (`str`): Optional.
       Name of the [environment variable][ENV_VAR]
       that stores the value of the [AWS][AWS] Session Token.
-      Defaults to `"AWS_SESSION_TOKEN"`.
+      Defaults to `"AWS_SESSION_TOKEN"` (Which defaults to `""`).
 
 Always available outputs:
 
 - `/secretsForAwsFromEnv/__default__`:
     - accessKeyId: "AWS_ACCESS_KEY_ID";
-    - defaultRegion: "us-east-1";
+    - defaultRegion: "AWS_DEFAULT_REGION";
     - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
     - sessionToken: "AWS_SESSION_TOKEN";
 
