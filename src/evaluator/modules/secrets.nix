@@ -14,7 +14,7 @@ let
         type = lib.types.str;
       };
       defaultRegion = lib.mkOption {
-        default = "us-east-1";
+        default = "AWS_DEFAULT_REGION";
         type = lib.types.str;
       };
       secretAccessKey = lib.mkOption {
@@ -56,7 +56,7 @@ in
       (__toModuleOutputs__ makeAwsFromEnvOutput {
         __default__ = {
           accessKeyId = "AWS_ACCESS_KEY_ID";
-          defaultRegion = "us-east-1";
+          defaultRegion = "AWS_DEFAULT_REGION";
           secretAccessKey = "AWS_SECRET_ACCESS_KEY";
           sessionToken = "AWS_SESSION_TOKEN";
         };
