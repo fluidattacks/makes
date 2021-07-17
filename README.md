@@ -1,6 +1,6 @@
 # Makes v21.08
 
-A SecDevOps framework
+A DevSecOps framework
 powered by [Nix][NIX].
 
 Our primary goal is to help you setup
