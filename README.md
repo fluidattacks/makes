@@ -937,8 +937,6 @@ to the specified container registries.
 
 Attributes:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
 - images (`attrsOf imageType`): Optional.
   Definitions of container images to deploy.
   Defaults to `{ }`.
@@ -975,7 +973,6 @@ Example `makes.nix`:
   };
 
   deployContainerImage = {
-    enable = true;
     images = {
       nginxDockerHub = {
         src = inputs.nixpkgs.dockerTools.examples.nginx;

@@ -1,17 +1,25 @@
-{ deployContainerImage
+{ __toModuleOutputs__
+, deployContainerImage
 , ...
 }:
 { config
 , lib
 , ...
 }:
+let
+  makeOutput = name: { src, registry, tag }: {
+    name = "/deployContainerImage/${name}";
+    value = deployContainerImage {
+      containerImage = src;
+      inherit name;
+      inherit registry;
+      inherit tag;
+    };
+  };
+in
 {
   options = {
     deployContainerImage = {
-      enable = lib.mkOption {
-        default = false;
-        type = lib.types.bool;
-      };
       images = lib.mkOption {
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
@@ -35,17 +43,6 @@
     };
   };
   config = {
-    outputs = lib.mkIf config.deployContainerImage.enable
-      (lib.attrsets.mapAttrs'
-        (name: { src, registry, tag }: {
-          name = "/deployContainerImage/${name}";
-          value = deployContainerImage {
-            containerImage = src;
-            inherit name;
-            inherit registry;
-            inherit tag;
-          };
-        })
-        config.deployContainerImage.images);
+    outputs = __toModuleOutputs__ makeOutput config.deployContainerImage.images;
   };
 }
