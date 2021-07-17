@@ -31,9 +31,7 @@ in just a few steps, in any technology.
     - [Caching](#caching)
         - [cache](#cache)
     - [Secrets](#secrets)
-        - [secrets](#secrets)
-            - [aws](#aws)
-                - [fromEnv](#fromenv)
+        - [secretsForAwsFromEnv](#secretsforawsfromenv)
     - [Formatters](#formatters)
         - [formatBash](#formatbash)
         - [formatMarkdown](#formatmarkdown)
@@ -457,15 +455,10 @@ The following functions are secure
 and allow you to re-use secrets
 across different [Makes][MAKES] components.
 
-### secrets
+### secretsForAwsFromEnv
 
-#### aws
-
-Secrets for authenticating into [Amazon Web Services (AWS)][AWS].
-
-##### fromEnv
-
-Load [AWS][AWS] secrets from [Environment Variables][ENV_VAR].
+Load [Amazon Web Services (AWS)][AWS] secrets
+from [Environment Variables][ENV_VAR].
 
 Attributes:
 
@@ -498,7 +491,7 @@ Custom Types:
 
 Always available outputs:
 
-- `/secrets/aws/fromEnv/__default__`:
+- `/secretsForAwsFromEnv/__default__`:
     - accessKeyId: "AWS_ACCESS_KEY_ID";
     - defaultRegion: "us-east-1";
     - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
@@ -511,32 +504,28 @@ Example `makes.nix`:
 , ...
 }:
 {
-  secrets = {
-    aws = {
-      fromEnv = {
-        makesDev = {
-          accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
-          secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
-        };
-        makesProd = {
-          accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
-          secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
-        };
-      };
+  secretsForAwsFromEnv = {
+    makesDev = {
+      accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
+    };
+    makesProd = {
+      accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
   lintTerraform = {
     modules = {
       moduleDev = {
         authentication = [
-          outputs."/secrets/aws/fromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/my/module1";
         version = "0.12";
       };
       moduleProd = {
         authentication = [
-          outputs."/secrets/aws/fromEnv/makesProd"
+          outputs."/secretsForAwsFromEnv/makesProd"
         ];
         src = "/my/module2";
         version = "0.12";

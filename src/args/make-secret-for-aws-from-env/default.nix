@@ -14,6 +14,6 @@ makeTemplate {
     __argSecretAcessKey__ = secretAccessKey;
     __argSessionToken__ = sessionToken;
   };
-  name = "make-secret-aws-from-env-for-${name}";
+  name = "make-secret-for-aws-from-env-for-${name}";
   template = ./template.sh;
 }
