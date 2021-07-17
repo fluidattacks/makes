@@ -30,6 +30,10 @@ in just a few steps, in any technology.
 - [Makes.nix format](#makesnix-format)
     - [Caching](#caching)
         - [cache](#cache)
+    - [Secrets](#secrets)
+        - [secrets](#secrets)
+            - [aws](#aws)
+                - [fromEnv](#fromenv)
     - [Formatters](#formatters)
         - [formatBash](#formatbash)
         - [formatMarkdown](#formatmarkdown)
@@ -445,6 +449,103 @@ Example `makes.nix`:
 }
 ```
 
+## Secrets
+
+Managing secrets is critical for application security.
+
+The following functions are secure
+and allow you to re-use secrets
+across different [Makes][MAKES] components.
+
+### secrets
+
+#### aws
+
+Secrets for authenticating into [Amazon Web Services (AWS)][AWS].
+
+##### fromEnv
+
+Load [AWS][AWS] secrets from [Environment Variables][ENV_VAR].
+
+Attributes:
+
+- self (`attrsOf awsFromEnvType`): Optional.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- awsFromEnvType (`submodule`):
+
+    - accessKeyId (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Access Key Id.
+      Defaults to `"AWS_ACCESS_KEY_ID"`.
+
+    - defaultRegion (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Default Region.
+      Defaults to `"us-east-1"`.
+
+    - secretAccessKey (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Secret Access Key.
+      Defaults to `"AWS_SECRET_ACCESS_KEY"`.
+
+    - sessionToken (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Session Token.
+      Defaults to `"AWS_SESSION_TOKEN"`.
+
+Always available outputs:
+
+- `/secrets/aws/fromEnv/__default__`:
+    - accessKeyId: "AWS_ACCESS_KEY_ID";
+    - defaultRegion: "us-east-1";
+    - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
+    - sessionToken: "AWS_SESSION_TOKEN";
+
+Example `makes.nix`:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  secrets = {
+    aws = {
+      fromEnv = {
+        makesDev = {
+          accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
+          secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
+        };
+        makesProd = {
+          accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
+          secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
+        };
+      };
+    };
+  };
+  lintTerraform = {
+    modules = {
+      moduleDev = {
+        authentication = [
+          outputs."/secrets/aws/fromEnv/makesDev"
+        ];
+        src = "/my/module1";
+        version = "0.12";
+      };
+      moduleProd = {
+        authentication = [
+          outputs."/secrets/aws/fromEnv/makesProd"
+        ];
+        src = "/my/module2";
+        version = "0.12";
+      };
+    };
+  };
+}
+```
+
 ## Formatters
 
 Formatters help your code be consistent, beautiful and more maintainable.
@@ -803,18 +904,13 @@ Attributes:
 Custom Types:
 
 - moduleType (`submodule`):
+    - authentication (`listOf package`): Optional.
+      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
+      Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
     - version (`str`):
       [Terraform][TERRAFORM] version your module is built with.
-
-Required environment variables:
-
-- If your [Terraform][TERRAFORM] module uses the AWS provider:
-    - `AWS_ACCESS_KEY_ID`
-    - `AWS_DEFAULT_REGION`
-    - `AWS_SECRET_ACCESS_KEY`
-    - `AWS_SESSION_TOKEN`: Required only if the AWS credentials are temporary.
 
 Example `makes.nix`:
 
@@ -835,15 +931,7 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation:
-
-```bash
-$ AWS_ACCESS_KEY_ID=123 \
-  AWS_DEFAULT_REGION=us-east-1 \
-  AWS_SECRET_ACCESS_KEY=123 \
-  AWS_SESSION_TOKEN=123 \
-  m . /lintTerraform
-```
+Example invocation: `$ m . /lintTerraform`
 
 ### lintWithLizard
 
@@ -1579,6 +1667,9 @@ $ m . /example
 - [APACHE_MAVEN]: https://maven.apache.org/
   [Apache Maven][APACHE_MAVEN]
 
+- [AWS]: https://aws.amazon.com/
+  [Amazon Web Services (AWS)][AWS]
+
 - [BASH]: https://www.gnu.org/software/bash/
   [Bash][BASH]
 
@@ -1608,6 +1699,9 @@ $ m . /example
 
 - [DOCTOC]: https://github.com/thlorenz/doctoc
   [DocToc][DOCTOC]
+
+- [ENV_VAR]: https://en.wikipedia.org/wiki/Environment_variable
+  [Environment Variable][ENV_VAR]
 
 - [FLUID_ATTACKS]: https://fluidattacks.com
   [Fluid Attacks][FLUID_ATTACKS]
@@ -1662,6 +1756,9 @@ $ m . /example
 
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
+
+- [MAKES_SECRETS]: #secrets
+  [Makes Secrets][MAKES_SECRETS]
 
 - [MARKDOWN_LINT]: https://github.com/markdownlint/markdownlint
   [Markdown lint tool][MARKDOWN_LINT]

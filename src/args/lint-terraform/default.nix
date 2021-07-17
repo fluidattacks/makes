@@ -3,7 +3,8 @@
 , makeTerraformEnvironment
 , ...
 }:
-{ config
+{ authentication
+, config
 , name
 , version
 , src
@@ -24,6 +25,6 @@ makeScript {
       (makeTerraformEnvironment {
         inherit version;
       })
-    ];
+    ] ++ authentication;
   };
 }

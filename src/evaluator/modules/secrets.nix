@@ -1,0 +1,69 @@
+{ __toModuleOutputs__
+, makeSecretAwsFromEnv
+, ...
+}:
+{ config
+, lib
+, ...
+}:
+let
+  awsFromEnvType = lib.types.submodule (_: {
+    options = {
+      accessKeyId = lib.mkOption {
+        default = "AWS_ACCESS_KEY_ID";
+        type = lib.types.str;
+      };
+      defaultRegion = lib.mkOption {
+        default = "us-east-1";
+        type = lib.types.str;
+      };
+      secretAccessKey = lib.mkOption {
+        default = "AWS_SECRET_ACCESS_KEY";
+        type = lib.types.str;
+      };
+      sessionToken = lib.mkOption {
+        default = "AWS_SESSION_TOKEN";
+        type = lib.types.str;
+      };
+    };
+  });
+  makeAwsFromEnvOutput = name:
+    { accessKeyId
+    , defaultRegion
+    , secretAccessKey
+    , sessionToken
+    }: {
+      name = "/secrets/aws/fromEnv/${name}";
+      value = makeSecretAwsFromEnv {
+        inherit accessKeyId;
+        inherit defaultRegion;
+        inherit name;
+        inherit secretAccessKey;
+        inherit sessionToken;
+      };
+    };
+in
+{
+  options = {
+    secrets = {
+      aws = {
+        fromEnv = lib.mkOption {
+          default = { };
+          type = lib.types.attrsOf awsFromEnvType;
+        };
+      };
+    };
+  };
+  config = {
+    outputs =
+      (__toModuleOutputs__ makeAwsFromEnvOutput config.secrets.aws.fromEnv) //
+      (__toModuleOutputs__ makeAwsFromEnvOutput {
+        __default__ = {
+          accessKeyId = "AWS_ACCESS_KEY_ID";
+          defaultRegion = "us-east-1";
+          secretAccessKey = "AWS_SECRET_ACCESS_KEY";
+          sessionToken = "AWS_SESSION_TOKEN";
+        };
+      });
+  };
+}
