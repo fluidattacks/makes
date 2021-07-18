@@ -232,7 +232,10 @@ def _help_and_exit(
     exc: Optional[Exception] = None,
 ) -> None:
     _log("Usage: m [SOURCE] [OUTPUT] [ARGS]...")
-    if not src:
+    if src:
+        _log()
+        _log(f"[SOURCE] is currently: {src}")
+    else:
         _log()
         _log("[SOURCE] can be:")
         _log()
@@ -246,7 +249,10 @@ def _help_and_exit(
         _log()
         _log("  A GitLab repository, rev (branch or tag):")
         _log("    gitlab:owner/repo@rev")
-    if attrs is not None:
+    if attrs is None:
+        _log()
+        _log("[OUTPUT] options will be listed when you provide a [SOURCE]")
+    else:
         _log()
         _log("[OUTPUT] can be:")
         for attr in attrs:
