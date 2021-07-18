@@ -63,6 +63,8 @@ in just a few steps, in any technology.
         - [makeScript](#makescript)
         - [path](#path)
         - [asBashArray](#asbasharray)
+- [Contact an expert](#contact-an-expert)
+- [Contributing to Makes](#contributing-to-makes)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1671,6 +1673,27 @@ $ m . /example
 
 :construction: This section is Work in progress
 
+# Contact an expert
+
+- [Makes][MAKES] support: help@fluidattacks.com
+- Cyber**security**: [Fluid Attacks][FLUID_ATTACKS]
+
+# Contributing to Makes
+
+- Bug reports: [here][MAKES_ISSUES]
+- Feature requests: [here][MAKES_ISSUES]
+- Give us a :star:: [here][MAKES]
+- Feedback: [here][MAKES_ISSUES]
+
+Code contributions:
+
+1. Write your idea: [here][MAKES_ISSUES]
+1. Fork [Makes on GitHub][MAKES]
+1. [Git][GIT]-clone your fork
+1. Hack as much as you like!
+1. [Git][GIT]-push changes to your fork
+1. Create a **Pull Request** from your fork to [Makes][MAKES]
+
 # References
 
 - [APACHE_ANT]: https://ant.apache.org/
@@ -1774,6 +1797,9 @@ $ m . /example
 
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]
+
+- [MAKES_ISSUES]: https://github.com/fluidattacks/makes/issues
+  [Makes issues][MAKES_ISSUES]
 
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
