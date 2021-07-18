@@ -3,6 +3,7 @@ args:
   imports = [
     (import ./__all__/default.nix args)
     (import ./deploy-container-image/default.nix args)
+    (import ./deploy-terraform/default.nix args)
     (import ./format-bash/default.nix args)
     (import ./format-markdown/default.nix args)
     (import ./format-nix/default.nix args)

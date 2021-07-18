@@ -49,6 +49,8 @@ in just a few steps, in any technology.
         - [lintWithLizard](#lintwithlizard)
     - [Testing](#testing)
         - [testTerraform](#testterraform)
+    - [Deployment](#deployment)
+        - [deployTerraform](#deployterraform)
     - [Pinning](#pinning)
         - [inputs](#inputs)
         - [requiredMakesVersion](#requiredmakesversion)
@@ -949,7 +951,9 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m . /lintTerraform`
+Example invocation: `$ m . /lintTerraform/module1`
+
+Example invocation: `$ m . /lintTerraform/module2`
 
 ### lintWithLizard
 
@@ -1026,7 +1030,57 @@ Example `makes.nix`:
 }
 ```
 
-Example invocation: `$ m . /testTerraform`
+Example invocation: `$ m . /testTerraform/module1`
+
+Example invocation: `$ m . /testTerraform/module2`
+
+## Deployment
+
+### deployTerraform
+
+Deploy [Terraform][TERRAFORM] code
+by performing a `terraform apply`
+over the specified [Terraform][TERRAFORM] modules.
+
+Attributes:
+
+- modules (`attrsOf moduleType`): Optional.
+  Path to [Terraform][TERRAFORM] modules to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- moduleType (`submodule`):
+    - authentication (`listOf package`): Optional.
+      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
+      Defaults to `[ ]`.
+    - src (`str`):
+      Path to the [Terraform][TERRAFORM] module.
+    - version (`enum [ "0.12" "0.13" "0.14" "0.15" "0.16" ]`):
+      [Terraform][TERRAFORM] version your module is built with.
+
+Example `makes.nix`:
+
+```nix
+{
+  deployTerraform = {
+    modules = {
+      module1 = {
+        src = "/my/module1";
+        version = "0.12";
+      };
+      module2 = {
+        src = "/my/module2";
+        version = "0.16";
+      };
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /deployTerraform/module1`
+
+Example invocation: `$ m . /deployTerraform/module2`
 
 ## Pinning
 
@@ -1766,6 +1820,8 @@ Examples:
   https://github.com/fluidattacks/makes/commit/01fcd5790dd54b117da63bcc2480437135da8bb3)
 - [feat(build): #232 lint terraform](
   https://github.com/fluidattacks/makes/commit/081835b563c712b7650dbc5bf1e306d4aff159cf)
+- [feat(build): #232 test terraform](
+  https://github.com/fluidattacks/makes/commit/571cf059b521cb97396210f9fe4659ee74f675b4)
 - [feat(build): #252 aws secrets from env](
   https://github.com/fluidattacks/makes/commit/1c9f06a809bd92d56939d5809ce46058856fdf0a)
 - [feat(build): #232 make parallel utils](

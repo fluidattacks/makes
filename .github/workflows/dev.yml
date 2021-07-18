@@ -7,6 +7,14 @@ jobs:
       name: __all__
       with:
         args: sh -c "nix-env -if . && m . __all__"
+  deployTerraform_module:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /deployTerraform/module
+      with:
+        args: sh -c "nix-env -if . && m . /deployTerraform/module"
   formatBash:
     runs-on: ubuntu-latest
     steps:

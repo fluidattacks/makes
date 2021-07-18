@@ -14,6 +14,7 @@ let
     asBashArray = args: "( ${lib.strings.escapeShellArgs args} )";
     asContent = import ./as-content/default.nix;
     deployContainerImage = import ./deploy-container-image/default.nix args;
+    deployTerraform = import ./deploy-terraform/default.nix args;
     fakeSha256 = lib.fakeSha256;
     fetchGithub = import ./fetchers/github.nix args;
     fetchNixpkgs = import ./fetchers/nixpkgs.nix args;
