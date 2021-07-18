@@ -90,7 +90,7 @@
   lintTerraform = {
     modules = {
       module = {
-        src = "/test/lintTerraform/module";
+        src = "/test/terraform/module";
         version = "0.13";
       };
     };
@@ -100,4 +100,12 @@
     targets = [ "/" ];
   };
   requiredMakesVersion = "21.08";
+  testTerraform = {
+    modules = {
+      module = {
+        src = "/test/terraform/module";
+        version = "0.13";
+      };
+    };
+  };
 }

@@ -42,6 +42,7 @@ let
     pathImpure = path: headImpure + path;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
+    testTerraform = import ./test-terraform/default.nix args;
     toDerivationName = lib.strings.sanitizeDerivationName;
     toFileJson = import ./to-file-json/default.nix args;
     toFileLst = import ./to-file-lst/default.nix;
