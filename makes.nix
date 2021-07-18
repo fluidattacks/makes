@@ -29,6 +29,14 @@
       };
     };
   };
+  deployTerraform = {
+    modules = {
+      module = {
+        src = "/test/terraform/module";
+        version = "0.13";
+      };
+    };
+  };
   formatBash = {
     enable = true;
     targets = [ "/" ];
