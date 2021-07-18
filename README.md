@@ -47,6 +47,8 @@ in just a few steps, in any technology.
         - [lintPython](#lintpython)
         - [lintTerraform](#lintterraform)
         - [lintWithLizard](#lintwithlizard)
+    - [Testing](#testing)
+        - [testTerraform](#testterraform)
     - [Pinning](#pinning)
         - [inputs](#inputs)
         - [requiredMakesVersion](#requiredmakesversion)
@@ -925,7 +927,7 @@ Custom Types:
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
-    - version (`str`):
+    - version (`enum [ "0.12" "0.13" "0.14" "0.15" "0.16" ]`):
       [Terraform][TERRAFORM] version your module is built with.
 
 Example `makes.nix`:
@@ -979,6 +981,52 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /lintWithLizard`
+
+## Testing
+
+### testTerraform
+
+Test [Terraform][TERRAFORM] code
+by performing a `terraform plan`
+over the specified [Terraform][TERRAFORM] modules.
+
+Attributes:
+
+- modules (`attrsOf moduleType`): Optional.
+  Path to [Terraform][TERRAFORM] modules to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- moduleType (`submodule`):
+    - authentication (`listOf package`): Optional.
+      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
+      Defaults to `[ ]`.
+    - src (`str`):
+      Path to the [Terraform][TERRAFORM] module.
+    - version (`enum [ "0.12" "0.13" "0.14" "0.15" "0.16" ]`):
+      [Terraform][TERRAFORM] version your module is built with.
+
+Example `makes.nix`:
+
+```nix
+{
+  testTerraform = {
+    modules = {
+      module1 = {
+        src = "/my/module1";
+        version = "0.12";
+      };
+      module2 = {
+        src = "/my/module2";
+        version = "0.16";
+      };
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /testTerraform`
 
 ## Pinning
 
@@ -1709,6 +1757,8 @@ Guidelines:
 - Write an argument: `/src/args`
 - Write a module (if applies): `/src/evaluator/modules`
 - Write docs: `/README.md`
+- Write a test: `/makes.nix` or `/makes/**/main.nix`
+- Write a test [GitHub workflow][GITHUB_WORKFLOWS]: `/.github/workflows/dev.yml`
 
 Examples:
 
