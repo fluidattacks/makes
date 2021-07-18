@@ -81,22 +81,34 @@ Designing a fast, reliable, reproducible, easy-to-use
 [CI/CD][CI_CD] system **is no easy task**.
 
 While there are free and paid tools in the market like:
+[Ansible][ANSIBLE],
+[APT][APT],
 [Apache Ant][APACHE_ANT],
+[Apache Maven][APACHE_MAVEN],
+[Buck][BUCK],
+[Chef][CHEF],
 [Docker][DOCKER],
 [Gradle][GRADLE],
 [Grunt][GRUNT],
 [Gulp][GULP],
 [Maven][APACHE_MAVEN],
-[GNU Make][GNU_MAKE]
+[GNU Make][GNU_MAKE],
 [Leiningen][LEININGEN],
+[NPM][NPM],
+[pip][PIP],
 [Packer][PACKER],
+[Rake][Rake],
+[RPM][RPM],
+[sbt][SBT],
+[SCons][SCONS],
 and
-[sbt][SBT].
-Most real world production systems:
+[yum][YUM]:
 
-- Are composed of several programming languages,
-  and most tools in the market are just focused in 1.
-- Contain hundreds of thousands of dependencies:
+1. Real world production systems are composed of several programming languages.
+
+    Tools normally focus only 1.
+
+1. Real world production systems contain hundreds of thousands of dependencies:
     - Compilers
     - Shared-Object libraries (.so)
     - Runtime interpreters
@@ -104,47 +116,68 @@ Most real world production systems:
     - Vendor artifacts
     - Accounts / Credentials / Secrets
 
-  That most tools in the market cannot fetch, configure, and setup
-  in an easy/automated/secure way,
-  and most of them do not even support a way of declaring such dependencies.
-- Have tens to hundreds of developers
-  working across the globe from different setups, stacks and operative systems.
+    Tools normally cannot fetch, configure, or setup such dependencies
+    in an easy, automated, secure way.
+    They just build or install.
 
-  And most tools cannot guarantee all of them
-  an **exactly equal** developing environment.
-- Have tens to thousands of production servers
-  that need to be deployed to.
+1. Real world production systems have tens to hundreds of developers.
+    They work across the globe from different machines,
+    stacks and operative systems.
 
-  And most tools just cover the: How to build? and not the: How to deploy?.
-- Made of several micro-components that one need to orchestrate correctly,
-  or fix sunday morning, instead of sharing with family :parasol_on_ground:.
-- Need to be **reliable** and **100% available**.
+    Tools normally cannot guarantee all of them
+    an exactly equal, comfortable developing environment.
 
-You can instead use [Nix][NIX] which features:
+1. Real world production systems
+    have tens to thousands of production servers
+    that need to be deployed to.
 
-- A single build-tool for everything
-- Easy, powerful, modular and expressive dependency declaration.
-  From compilers to vendor artifacts.
-- Guarantees each developer an **exact**,
-  [reproducible][REPRODUCIBLE_BUILDS] environment in which to build and run stuff.
-  Isolating as much as possible,
-  reducing a lot of bugs along the way.
-- Defines a way for you to deploy software **perfectly**.
-- And therefore helps you build **reliable** and **100% available** systems.
+    Tools normally  cover the: How to build? and not the: How to deploy?
+    (or the other way around).
+
+1. Real world production systems
+    are made of several micro-components
+    that one need to orchestrate correctly,
+    or fix sunday morning, instead of sharing with family :parasol_on_ground:.
+
+1. Real world production systems
+    need to be **reliable** and **100% available**.
+
+    But how with so much friction?
+
+You can use [Nix][NIX] instead, which features:
+
+1. A single build-tool for everything
+
+1. Easy, powerful, modular and expressive dependency declaration.
+    From compilers to vendor artifacts.
+
+1. Guarantees each developer an **exact**,
+    [reproducible][REPRODUCIBLE_BUILDS],
+    comfortable environment in which to build and run stuff.
+    Isolating as much as possible,
+    reducing a lot of bugs along the way.
+1. Defines a way for you to deploy software **perfectly**.
+
+1. And therefore helps you build **reliable** and **100% available** systems.
 
 So, if [Nix][NIX] is that powerful: Why [Makes][MAKES], then?
 
-[Makes][MAKES] wraps [Nix][NIX]
-in an opinionated way
-that allows users and developers
-to get things done, fast.
-It incorporates common workflows
-for formatting, linting, building, testing, managing infrastructure as code
-with terraform, deploying to Kubernetes clusters,
-creating development environments, etc.
-With as little code as possible.
-[Makes][MAKES] tries to hide all the unnecessary complexity
-so you can focus on the business logic.
+1. [Makes][MAKES] stands on the shoulders of [Nix][NIX].
+
+1. [Makes][MAKES] is **specialized** on creating [CI/CD][CI_CD] systems
+    that deliver **reliable** software to your end-users.
+
+1. [Makes][MAKES] incorporates common workflows
+    for formatting, linting, building, testing, managing infrastructure as code
+    with [Terraform][TERRAFORM],
+    deploying to [Kubernetes][KUBERNETES] clusters,
+    creating development environments, etc.
+    You can enable such workflows in a few clicks,
+    with as little code as possible, in many providers.
+
+1. [Makes][MAKES] hides unnecessary boilerplate and complexity
+    so you can focus on what matters:
+    **Adding value** to your **customers**, daily!
 
 # Goal
 
@@ -171,7 +204,7 @@ so you can focus on the business logic.
 # Getting started
 
 Makes is powered by [Nix][NIX].
-Which means that Makes is able to run
+This means that Makes is able to run
 on any of the [Nix's supported platforms][NIX_PLATFORMS].
 
 We have **thoroughly** tested it in
@@ -214,7 +247,7 @@ In order to use Makes you'll need to:
 
       `$ m github:owner/repo@rev`
 
-    - For GitHub [Makes][MAKES] projects, run:
+    - For GitLab [Makes][MAKES] projects, run:
 
       `$ m gitlab:owner/repo@rev`
 
@@ -294,14 +327,14 @@ below is a small table that clearly expresses their trade-offs.
 | [GitLab CI/CD][GITLAB_CI]        | :star: | :star: |        | :star: | :star:   |
 | [Travis CI][TRAVIS_CI]           |        |        | :star: | :star: | :star:   |
 
-If you are getting started in the world of CI/CD
+If you are getting started in the world of [CI/CD][CI_CD]
 it's a good idea to try [GitHub Actions][GITHUB_ACTIONS].
 
-If you want serious security try [GitLab CI/CD][GITLAB_CI].
+If you want **serious** security try [GitLab CI/CD][GITLAB_CI].
 
 We didn't like [Travis CI][TRAVIS_CI]
-because its way of managing encrypted secrets is uncomfortable
-and the fact it does not support running custom container images.
+because managing encrypted secrets is just ugly.
+It also does not support running custom container images.
 
 ### Configuring on GitHub Actions
 
@@ -313,7 +346,7 @@ The smallest possible [workflow file][GITHUB_WORKFLOWS]
 looks like this:
 
 ```yaml
-# .github/workflows/main.yml
+# .github/workflows/dev.yml
 name: Makes CI
 on: [push, pull_request]
 jobs:
@@ -1822,6 +1855,8 @@ Examples:
   https://github.com/fluidattacks/makes/commit/081835b563c712b7650dbc5bf1e306d4aff159cf)
 - [feat(build): #232 test terraform](
   https://github.com/fluidattacks/makes/commit/571cf059b521cb97396210f9fe4659ee74f675b4)
+- [feat(build): #232 deploy terraform](
+  https://github.com/fluidattacks/makes/commit/f827da16b685b07d7f987c668c0fe089aefa7931)
 - [feat(build): #252 aws secrets from env](
   https://github.com/fluidattacks/makes/commit/1c9f06a809bd92d56939d5809ce46058856fdf0a)
 - [feat(build): #232 make parallel utils](
@@ -1829,14 +1864,20 @@ Examples:
 
 # References
 
+- [Ansible]: https://www.ansible.com/
+  [Ansible][ANSIBLE]
+
+- [AWS]: https://aws.amazon.com/
+  [Amazon Web Services (AWS)][AWS]
+
 - [APACHE_ANT]: https://ant.apache.org/
   [Apache Ant][APACHE_ANT]
 
 - [APACHE_MAVEN]: https://maven.apache.org/
   [Apache Maven][APACHE_MAVEN]
 
-- [AWS]: https://aws.amazon.com/
-  [Amazon Web Services (AWS)][AWS]
+- [APT]: https://en.wikipedia.org/wiki/APT_(software)
+  [Advanced Package Tool][APT]
 
 - [BASH]: https://www.gnu.org/software/bash/
   [Bash][BASH]
@@ -1844,11 +1885,17 @@ Examples:
 - [BLACK]: https://github.com/psf/black
   [Black][BLACK]
 
+- [BUCK]: https://buck.build/
+  [Buck][BUCK]
+
 - [CACHIX]: https://cachix.org/
   [Cachix][CACHIX]
 
 - [CALVER]: https://calver.org/
   [Calendar Versioning][CALVER]
+
+- [CHEF]: https://www.chef.io/
+  [Chef][CHEF]
 
 - [CI_CD]: https://en.wikipedia.org/wiki/CI/CD
   [CI/CD][CI_CD]
@@ -1916,6 +1963,9 @@ Examples:
 - [ISORT]: https://github.com/PyCQA/isort
   [isort][ISORT]
 
+- [KUBERNETES]: https://kubernetes.io/
+  [Kubernetes][KUBERNETES]
+
 - [LEININGEN]: https://leiningen.org/
   [Leiningen][LEININGEN]
 
@@ -1976,6 +2026,9 @@ Examples:
 - [NODE_PATH]: https://nodejs.org/api/modules.html
   [NODE_PATH][NODE_PATH]
 
+- [NPM]: https://www.npmjs.com/
+  [Node Package Manager (NPM)][NPM]
+
 - [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
   [Open Container Image specification][OCI_FORMAT_REPO]
 
@@ -1984,6 +2037,9 @@ Examples:
 
 - [PATH]: https://en.wikipedia.org/wiki/PATH_(variable)
   [PATH Environment Variable][PATH]
+
+- [PIP]: https://pypi.org/project/pip/
+  [Package Installer for Python (pip)][PIP]
 
 - [PROSPECTOR]: http://prospector.landscape.io/en/master/
   [Prospector][PROSPECTOR]
@@ -1994,14 +2050,23 @@ Examples:
 - [PYTHONPATH]: https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
   [PYTHONPATH Environment Variable][PYTHONPATH]
 
+- [RAKE]: https://github.com/ruby/rake
+  [Rake][RAKE]
+
 - [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
   [Reproducible Builds][REPRODUCIBLE_BUILDS]
 
 - [RPATH]: https://en.wikipedia.org/wiki/Rpath
   [RPath][RPATH]
 
+- [RPM]: https://rpm.org/
+  [RPM Package Manager][RPM]
+
 - [SBT]: https://www.scala-sbt.org/
   [sbt][SBT]
+
+- [SCONS]: https://scons.org/
+  [SCons][SCONS]
 
 - [SHELLCHECK]: https://github.com/koalaman/shellcheck
   [ShellCheck][SHELLCHECK]
@@ -2029,3 +2094,6 @@ Examples:
 
 - [X86_64]: https://en.wikipedia.org/wiki/X86-64
   [x86-64][X86_64]
+
+- [YUM]: http://yum.baseurl.org/
+  [Yellowdog Updated Modified (yum)][YUM]
