@@ -27,18 +27,14 @@ in just a few steps, in any technology.
         - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
         - [Configuring on Travis CI](#configuring-on-travis-ci)
     - [Configuring the cache](#configuring-the-cache)
-- [Makes.nix format](#makesnix-format)
-    - [Caching](#caching)
-        - [cache](#cache)
-    - [Secrets](#secrets)
-        - [secretsForAwsFromEnv](#secretsforawsfromenv)
-    - [Formatters](#formatters)
+- [Makes.nix](#makesnix)
+    - [Format](#format)
         - [formatBash](#formatbash)
         - [formatMarkdown](#formatmarkdown)
         - [formatNix](#formatnix)
         - [formatPython](#formatpython)
         - [formatTerraform](#formatterraform)
-    - [Linters](#linters)
+    - [Lint](#lint)
         - [lintBash](#lintbash)
         - [lintCommitMsg](#lintcommitmsg)
         - [lintGitMailMap](#lintgitmailmap)
@@ -47,15 +43,18 @@ in just a few steps, in any technology.
         - [lintPython](#lintpython)
         - [lintTerraform](#lintterraform)
         - [lintWithLizard](#lintwithlizard)
-    - [Testing](#testing)
+    - [Test](#test)
         - [testTerraform](#testterraform)
-    - [Deployment](#deployment)
+    - [Deploy](#deploy)
+        - [deployContainerImage](#deploycontainerimage)
         - [deployTerraform](#deployterraform)
-    - [Pinning](#pinning)
+    - [Performance](#performance)
+        - [cache](#cache)
+    - [Secrets](#secrets)
+        - [secretsForAwsFromEnv](#secretsforawsfromenv)
+    - [Stability](#stability)
         - [inputs](#inputs)
         - [requiredMakesVersion](#requiredmakesversion)
-    - [Container Images](#container-images)
-        - [deployContainerImage](#deploycontainerimage)
     - [Examples](#examples)
         - [helloWorld](#helloworld)
 - [Extending Makes](#extending-makes)
@@ -447,137 +446,47 @@ In order to do this:
     - Read access: `Public` or `Private`.
 1. Configure `makes.nix` as explained in the following sections
 
-# Makes.nix format
+# Makes.nix
 
 A Makes project is identified by a `makes.nix` file
 in the top level directory.
 
-Below we document all configuration options you can tweak with it.
+A `makes.nix` file should be:
 
-## Caching
+- An attribute set of configuration options:
 
-### cache
-
-Cache build results on a [Cachix][CACHIX] cache.
-
-Attributes:
-
-- enable (`boolean`): Optional.
-  Defaults to false.
-- name (`str`):
-  Name of the [Cachix][CACHIX] cache.
-- pubKey (`str`):
-  Public key of the [Cachix][CACHIX] cache.
-
-Required environment variables:
-
-- `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
-    - For Public caches:
-      If not set the cache will only be read, but not written to.
-    - For private caches:
-      If not set the cache won't be read, nor written to.
-
-Example `makes.nix`:
-
-```nix
-{
-  cache = {
-    enable = true;
-    name = "fluidattacks";
-    pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
-  };
-}
-```
-
-## Secrets
-
-Managing secrets is critical for application security.
-
-The following functions are secure
-and allow you to re-use secrets
-across different [Makes][MAKES] components.
-
-### secretsForAwsFromEnv
-
-Load [Amazon Web Services (AWS)][AWS] secrets
-from [Environment Variables][ENV_VAR].
-
-Attributes:
-
-- self (`attrsOf awsFromEnvType`): Optional.
-  Defaults to `{ }`.
-
-Custom Types:
-
-- awsFromEnvType (`submodule`):
-
-    - accessKeyId (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Access Key Id.
-      Defaults to `"AWS_ACCESS_KEY_ID"`.
-
-    - defaultRegion (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Default Region.
-      Defaults to `"AWS_DEFAULT_REGION"` (Which defaults to `"us-east-1"`).
-
-    - secretAccessKey (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Secret Access Key.
-      Defaults to `"AWS_SECRET_ACCESS_KEY"`.
-
-    - sessionToken (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Session Token.
-      Defaults to `"AWS_SESSION_TOKEN"` (Which defaults to `""`).
-
-Always available outputs:
-
-- `/secretsForAwsFromEnv/__default__`:
-    - accessKeyId: "AWS_ACCESS_KEY_ID";
-    - defaultRegion: "AWS_DEFAULT_REGION";
-    - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
-    - sessionToken: "AWS_SESSION_TOKEN";
-
-Example `makes.nix`:
-
-```nix
-{ outputs
-, ...
-}:
-{
-  secretsForAwsFromEnv = {
-    makesDev = {
-      accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
+  ```nix
+  {
+    configOption1 = {
+      # ...
     };
-    makesProd = {
-      accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
+    configOption2 = {
+      # ...
     };
-  };
-  lintTerraform = {
-    modules = {
-      moduleDev = {
-        authentication = [
-          outputs."/secretsForAwsFromEnv/makesDev"
-        ];
-        src = "/my/module1";
-        version = "0.12";
-      };
-      moduleProd = {
-        authentication = [
-          outputs."/secretsForAwsFromEnv/makesProd"
-        ];
-        src = "/my/module2";
-        version = "0.12";
-      };
-    };
-  };
-}
-```
+  }
+  ```
 
-## Formatters
+- A function that receives one or more arguments
+  and returns an attribute set of configuration options:
+
+  ```nix
+  { argA
+  , argB
+  , ...
+  }:
+  {
+    configOption1 = {
+      # ...
+    };
+    configOption2 = {
+      # ...
+    };
+  }
+  ```
+
+Below we document all configuration options you can tweak in a `makes.nix`.
+
+## Format
 
 Formatters help your code be consistent, beautiful and more maintainable.
 
@@ -727,7 +636,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m . /formatTerraform`
 
-## Linters
+## Lint
 
 Linters ensure source code follows
 best practices.
@@ -1019,7 +928,7 @@ Example `makes.nix`:
 
 Example invocation: `$ m . /lintWithLizard`
 
-## Testing
+## Test
 
 ### testTerraform
 
@@ -1067,107 +976,7 @@ Example invocation: `$ m . /testTerraform/module1`
 
 Example invocation: `$ m . /testTerraform/module2`
 
-## Deployment
-
-### deployTerraform
-
-Deploy [Terraform][TERRAFORM] code
-by performing a `terraform apply`
-over the specified [Terraform][TERRAFORM] modules.
-
-Attributes:
-
-- modules (`attrsOf moduleType`): Optional.
-  Path to [Terraform][TERRAFORM] modules to lint.
-  Defaults to `{ }`.
-
-Custom Types:
-
-- moduleType (`submodule`):
-    - authentication (`listOf package`): Optional.
-      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
-      Defaults to `[ ]`.
-    - src (`str`):
-      Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.12" "0.13" "0.14" "0.15" "0.16" ]`):
-      [Terraform][TERRAFORM] version your module is built with.
-
-Example `makes.nix`:
-
-```nix
-{
-  deployTerraform = {
-    modules = {
-      module1 = {
-        src = "/my/module1";
-        version = "0.12";
-      };
-      module2 = {
-        src = "/my/module2";
-        version = "0.16";
-      };
-    };
-  };
-}
-```
-
-Example invocation: `$ m . /deployTerraform/module1`
-
-Example invocation: `$ m . /deployTerraform/module2`
-
-## Pinning
-
-### inputs
-
-Explicitly declare the inputs and sources for your project.
-Inputs can be anything.
-
-Attributes:
-
-- self (`attrs`): Optional.
-  Defaults to `{ }`.
-
-Example `makes.nix`:
-
-```nix
-{ fetchNixpkgs
-, fetchUrl
-, ...
-}:
-{
-  inputs = {
-    license = fetchUrl {
-      rev = "https://raw.githubusercontent.com/fluidattacks/makes/1a595d8642ba98252cff7de3909fb879c54f8e59/LICENSE";
-      sha256 = "11311l1apb1xvx2j033zlvbyb3gsqblyxq415qwdsd0db1hlwd52";
-    };
-    nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
-    };
-  };
-}
-```
-
-### requiredMakesVersion
-
-Ensure that the Makes version people use in your project is the one you want.
-This increases reproducibility and prevents compatibility mismatches.
-People will use the Makes version you know your project works with.
-
-Attributes:
-
-- self (`str`): Optional.
-  Defaults to the version installed in the system.
-
-Example `makes.nix`:
-
-```nix
-{
-  requiredMakesVersion = "21.08";
-}
-```
-
-## Container Images
+## Deploy
 
 ### deployContainerImage
 
@@ -1238,6 +1047,227 @@ Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerIm
 
 Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainerImage/makesGitLab`
 
+### deployTerraform
+
+Deploy [Terraform][TERRAFORM] code
+by performing a `terraform apply`
+over the specified [Terraform][TERRAFORM] modules.
+
+Attributes:
+
+- modules (`attrsOf moduleType`): Optional.
+  Path to [Terraform][TERRAFORM] modules to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- moduleType (`submodule`):
+    - authentication (`listOf package`): Optional.
+      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
+      Defaults to `[ ]`.
+    - src (`str`):
+      Path to the [Terraform][TERRAFORM] module.
+    - version (`enum [ "0.12" "0.13" "0.14" "0.15" "0.16" ]`):
+      [Terraform][TERRAFORM] version your module is built with.
+
+Example `makes.nix`:
+
+```nix
+{
+  deployTerraform = {
+    modules = {
+      module1 = {
+        src = "/my/module1";
+        version = "0.12";
+      };
+      module2 = {
+        src = "/my/module2";
+        version = "0.16";
+      };
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /deployTerraform/module1`
+
+Example invocation: `$ m . /deployTerraform/module2`
+
+## Performance
+
+### cache
+
+Cache build results on a [Cachix][CACHIX] cache.
+
+Attributes:
+
+- enable (`boolean`): Optional.
+  Defaults to false.
+- name (`str`):
+  Name of the [Cachix][CACHIX] cache.
+- pubKey (`str`):
+  Public key of the [Cachix][CACHIX] cache.
+
+Required environment variables:
+
+- `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
+    - For Public caches:
+      If not set the cache will only be read, but not written to.
+    - For private caches:
+      If not set the cache won't be read, nor written to.
+
+Example `makes.nix`:
+
+```nix
+{
+  cache = {
+    enable = true;
+    name = "fluidattacks";
+    pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+  };
+}
+```
+
+## Secrets
+
+Managing secrets is critical for application security.
+
+The following functions are secure
+and allow you to re-use secrets
+across different [Makes][MAKES] components.
+
+### secretsForAwsFromEnv
+
+Load [Amazon Web Services (AWS)][AWS] secrets
+from [Environment Variables][ENV_VAR].
+
+Attributes:
+
+- self (`attrsOf awsFromEnvType`): Optional.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- awsFromEnvType (`submodule`):
+
+    - accessKeyId (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Access Key Id.
+      Defaults to `"AWS_ACCESS_KEY_ID"`.
+
+    - defaultRegion (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Default Region.
+      Defaults to `"AWS_DEFAULT_REGION"` (Which defaults to `"us-east-1"`).
+
+    - secretAccessKey (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Secret Access Key.
+      Defaults to `"AWS_SECRET_ACCESS_KEY"`.
+
+    - sessionToken (`str`): Optional.
+      Name of the [environment variable][ENV_VAR]
+      that stores the value of the [AWS][AWS] Session Token.
+      Defaults to `"AWS_SESSION_TOKEN"` (Which defaults to `""`).
+
+Always available outputs:
+
+- `/secretsForAwsFromEnv/__default__`:
+    - accessKeyId: "AWS_ACCESS_KEY_ID";
+    - defaultRegion: "AWS_DEFAULT_REGION";
+    - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
+    - sessionToken: "AWS_SESSION_TOKEN";
+
+Example `makes.nix`:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  secretsForAwsFromEnv = {
+    makesDev = {
+      accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
+    };
+    makesProd = {
+      accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
+    };
+  };
+  lintTerraform = {
+    modules = {
+      moduleDev = {
+        authentication = [
+          outputs."/secretsForAwsFromEnv/makesDev"
+        ];
+        src = "/my/module1";
+        version = "0.12";
+      };
+      moduleProd = {
+        authentication = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+        ];
+        src = "/my/module2";
+        version = "0.12";
+      };
+    };
+  };
+}
+```
+
+## Stability
+
+### inputs
+
+Explicitly declare the inputs and sources for your project.
+Inputs can be anything.
+
+Attributes:
+
+- self (`attrs`): Optional.
+  Defaults to `{ }`.
+
+Example `makes.nix`:
+
+```nix
+{ fetchNixpkgs
+, fetchUrl
+, ...
+}:
+{
+  inputs = {
+    license = fetchUrl {
+      rev = "https://raw.githubusercontent.com/fluidattacks/makes/1a595d8642ba98252cff7de3909fb879c54f8e59/LICENSE";
+      sha256 = "11311l1apb1xvx2j033zlvbyb3gsqblyxq415qwdsd0db1hlwd52";
+    };
+    nixpkgs = fetchNixpkgs {
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+    };
+  };
+}
+```
+
+### requiredMakesVersion
+
+Ensure that the Makes version people use in your project is the one you want.
+This increases reproducibility and prevents compatibility mismatches.
+People will use the Makes version you know your project works with.
+
+Attributes:
+
+- self (`str`): Optional.
+  Defaults to the version installed in the system.
+
+Example `makes.nix`:
+
+```nix
+{
+  requiredMakesVersion = "21.08";
+}
+```
+
 ## Examples
 
 ### helloWorld
@@ -1307,7 +1337,7 @@ In order to do this:
           /example
         ```
 
-    - Run the command: `$ m . /example`
+    - Build and run the output: `$ m . /example`
 
         ```
         Hello from Makes!
