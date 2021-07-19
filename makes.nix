@@ -104,7 +104,6 @@
     };
   };
   lintWithLizard = {
-    enable = true;
     targets = [ "/" ];
   };
   requiredMakesVersion = "21.08";
