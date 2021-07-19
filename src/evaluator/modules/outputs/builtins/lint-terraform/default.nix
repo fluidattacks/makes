@@ -9,10 +9,10 @@
 , ...
 }:
 let
-  makeOutput = name: { authentication, src, version }: {
+  makeOutput = name: { setup, src, version }: {
     name = "/lintTerraform/${name}";
     value = lintTerraform {
-      inherit authentication;
+      inherit setup;
       config = builtins.toFile "tflint.hcl" config.lintTerraform.config;
       inherit name;
       src = path src;
@@ -38,7 +38,7 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
-            authentication = lib.mkOption {
+            setup = lib.mkOption {
               default = [ ];
               type = lib.types.listOf lib.types.package;
             };

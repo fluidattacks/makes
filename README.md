@@ -867,8 +867,11 @@ Attributes:
 Custom Types:
 
 - moduleType (`submodule`):
-    - authentication (`listOf package`): Optional.
-      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
+    - setup (`listOf package`): Optional.
+      [Makes Environment][MAKES_ENVIRONMENT]
+      or [Makes Secrets][MAKES_SECRETS]
+      to `source` (as in Bash's `source`)
+      before anything else.
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
@@ -949,8 +952,11 @@ Attributes:
 Custom Types:
 
 - moduleType (`submodule`):
-    - authentication (`listOf package`): Optional.
-      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
+    - setup (`listOf package`): Optional.
+      [Makes Environment][MAKES_ENVIRONMENT]
+      or [Makes Secrets][MAKES_SECRETS]
+      to `source` (as in Bash's `source`)
+      before anything else.
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
@@ -1066,8 +1072,11 @@ Attributes:
 Custom Types:
 
 - moduleType (`submodule`):
-    - authentication (`listOf package`): Optional.
-      [Makes Secrets][MAKES_SECRETS] to use (if required by your module).
+    - setup (`listOf package`): Optional.
+      [Makes Environment][MAKES_ENVIRONMENT]
+      or [Makes Secrets][MAKES_SECRETS]
+      to `source` (as in Bash's `source`)
+      before anything else.
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
@@ -1204,14 +1213,14 @@ Example `makes.nix`:
   lintTerraform = {
     modules = {
       moduleDev = {
-        authentication = [
+        setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/my/module1";
         version = "0.12";
       };
       moduleProd = {
-        authentication = [
+        setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
         ];
         src = "/my/module2";
@@ -1988,6 +1997,9 @@ Examples:
 
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]
+
+- [MAKES_ENVIRONMENT]: #environment
+  [Makes Environment][MAKES_ENVIRONMENT]
 
 - [MAKES_ISSUES]: https://github.com/fluidattacks/makes/issues
   [Makes issues][MAKES_ISSUES]
