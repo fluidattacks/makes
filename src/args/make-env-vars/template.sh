@@ -3,7 +3,7 @@
 function main {
   source __argMap__/makes-setup.sh map
   for var in "${!map[@]}"; do
-    export "TF_VAR_${var}=${map[${var}]}" \
+    export "${var}=${map[${var}]}" \
       || return 1
   done
 }

@@ -3,6 +3,8 @@ args:
   imports = [
     (import ./assertions.nix)
     (import ./cache.nix args)
+    (import ./env-vars.nix args)
+    (import ./env-vars-for-terraform.nix args)
     (import ./inputs.nix)
     (import ./outputs/default.nix args)
     (import ./required-makes-version.nix args)

@@ -50,6 +50,7 @@ in just a few steps, in any technology.
         - [deployTerraform](#deployterraform)
     - [Performance](#performance)
         - [cache](#cache)
+    - [Environment](#environment)
     - [Secrets](#secrets)
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
     - [Stability](#stability)
