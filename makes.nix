@@ -127,7 +127,7 @@
   testTerraform = {
     modules = {
       module = {
-        authentication = [
+        setup = [
           outputs."/envVars/example"
           outputs."/secretsForTerraformFromEnv/example"
         ];

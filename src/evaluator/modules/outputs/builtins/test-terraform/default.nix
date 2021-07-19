@@ -9,10 +9,10 @@
 , ...
 }:
 let
-  makeOutput = name: { authentication, src, version }: {
+  makeOutput = name: { setup, src, version }: {
     name = "/testTerraform/${name}";
     value = testTerraform {
-      inherit authentication;
+      inherit setup;
       inherit name;
       src = path src;
       inherit version;
@@ -26,7 +26,7 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
-            authentication = lib.mkOption {
+            setup = lib.mkOption {
               default = [ ];
               type = lib.types.listOf lib.types.package;
             };
