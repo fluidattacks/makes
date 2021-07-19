@@ -10,11 +10,12 @@ makeScript {
     "makes-v21.08"
   ];
   replace = {
+    __argCliEntrypoint__ = path "/src/cli/main/__main__.py";
     __argSrc__ = path "/src";
   };
   entrypoint = ''
-    _EVALUATOR=__argSrc__/evaluator \
-    python -m cli.main "$@"
+    _EVALUATOR=__argSrc__/evaluator/default.nix \
+    python __argCliEntrypoint__ "$@"
   '';
   searchPaths = {
     bin = [
@@ -24,9 +25,6 @@ makeScript {
       inputs.nixpkgs.gzip
       inputs.nixpkgs.nix
       inputs.nixpkgs.python38
-    ];
-    pythonPackage = [
-      (path "/src")
     ];
   };
   name = "m";

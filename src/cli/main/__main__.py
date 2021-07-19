@@ -100,7 +100,6 @@ def _nix_build(
     out: str = "",
     src: str,
 ) -> List[str]:
-    head = f'builtins.path {{ name = "head"; path = {head}; }}'
     substituters = "https://cache.nixos.org " + cache.get("url", "")
     trusted_public_keys = (
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= "
@@ -110,7 +109,7 @@ def _nix_build(
     return [
         "nix-build",
         *_if(is_src_local(src), "--argstr", "headImpure", src),
-        *["--arg", "head", head],
+        *["--argstr", "head", head],
         *["--argstr", "makesVersion", VERSION],
         *["--attr", attr],
         *["--option", "cores", "0"],

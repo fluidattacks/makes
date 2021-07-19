@@ -3,6 +3,7 @@
 , __shellCommands__
 , __shellOptions__
 , makeSearchPaths
+, toDerivationName
 , ...
 }:
 
@@ -59,7 +60,7 @@ builtins.derivation (env' // {
     '')
   ];
   builder = "${__nixpkgs__.bash}/bin/bash";
-  inherit name;
+  name = toDerivationName name;
   system = builtins.currentSystem;
 } // __nixpkgs__.lib.optionalAttrs local {
   allowSubstitutes = false;
