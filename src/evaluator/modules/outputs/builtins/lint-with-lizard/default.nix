@@ -1,9 +1,6 @@
-{ asBashArray
-, makeDerivation
-, path
-, makePythonEnvironment
+{ __toModuleOutputs__
 , lintWithLizard
-, __toModuleOutputs__
+, path
 , ...
 }:
 { config
@@ -11,11 +8,11 @@
 , ...
 }:
 let
-  makeOutput = target: {
-    name = "/lintWithLizard${target}";
+  makeOutput = name: targets: {
+    name = "/lintWithLizard/${name}";
     value = lintWithLizard {
-      name = target;
-      inherit target;
+      inherit name;
+      targets = builtins.map path targets;
     };
   };
 in
@@ -23,8 +20,8 @@ in
   options = {
     lintWithLizard = {
       targets = lib.mkOption {
-        default = [ ];
-        type = lib.types.listOf lib.types.str;
+        default = { };
+        type = lib.types.attrsOf (lib.types.listOf lib.types.str);
       };
     };
   };

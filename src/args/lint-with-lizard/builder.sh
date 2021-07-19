@@ -10,8 +10,9 @@ function main {
     --CCN "${lizard_max_ccn}"
   )
 
-  info Linting with Lizard "${envTarget}" \
-    && lizard "${args[@]}" "${envTarget}" \
+  info Linting with Lizard \
+    && eval paths="${envTargets}" \
+    && lizard "${args[@]}" "${paths[@]}" \
     && touch "${out}"
 }
 

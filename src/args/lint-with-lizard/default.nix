@@ -1,13 +1,14 @@
-{ makeDerivation
+{ asBashArray
+, makeDerivation
 , makePythonEnvironment
 , ...
 }:
-{ target
-, name
+{ name
+, targets
 }:
 makeDerivation {
   env = {
-    envTarget = target;
+    envTargets = asBashArray targets;
   };
   name = "lint-with-lizard-for-${name}";
   searchPaths = {
