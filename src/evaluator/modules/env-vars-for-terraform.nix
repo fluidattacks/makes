@@ -24,8 +24,8 @@ in
   };
   config = {
     outputs =
-      (__toModuleOutputs__
+      __toModuleOutputs__
         makeEnvVarsForTerraformOutput
-        config.envVarsForTerraform);
+        config.envVarsForTerraform;
   };
 }

@@ -36,6 +36,8 @@ let
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;
     makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
+    makeEnvVars = import ./make-env-vars/default.nix args;
+    makeEnvVarsForTerraform = import ./make-env-vars-for-terraform/default.nix args;
     makeNodeEnvironment = import ./make-node-environment/default.nix args;
     makePythonEnvironment = import ./make-python-environment/default.nix args;
     makeScript = import ./make-script/default.nix args;

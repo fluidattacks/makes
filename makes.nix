@@ -37,6 +37,11 @@
       };
     };
   };
+  envVars = {
+    example = {
+      VAR_NAME = "test";
+    };
+  };
   envVarsForTerraform = {
     example = {
       VAR_NAME = "test";
@@ -123,7 +128,7 @@
     modules = {
       module = {
         authentication = [
-          outputs."/envVarsForTerraform/example"
+          outputs."/envVars/example"
           outputs."/secretsForTerraformFromEnv/example"
         ];
         src = "/test/terraform/module";
