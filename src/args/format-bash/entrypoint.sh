@@ -9,14 +9,14 @@ function main {
     -sr  # Space after redirect operators
     -w   # Format in-place
   )
-  local paths=__argTargets__
+  source __argTargets__ local targets
 
   info Formatting bash code \
     && if running_in_ci_cd_provider; then
       args+=(-d)
     fi \
-    && for path in "${paths[@]}"; do
-      shfmt "${args[@]}" "${path}"
+    && for target in "${targets[@]}"; do
+      shfmt "${args[@]}" "${target}"
     done
 }
 

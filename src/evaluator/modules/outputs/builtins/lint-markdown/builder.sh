@@ -1,13 +1,12 @@
 # shellcheck shell=bash
 
 function main {
-  local paths
+  source "${envTargets}" local targets
 
   info Linting Markdown code \
-    && eval paths="${envTargets}" \
-    && for path in "${paths[@]}"; do
-      info Linting "${path}" \
-        && mdl --style "${envStyle}" "${path}" \
+    && for target in "${targets[@]}"; do
+      info Linting "${target}" \
+        && mdl --style "${envStyle}" "${target}" \
         || return 1
     done \
     && touch "${out}"

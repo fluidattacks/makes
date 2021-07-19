@@ -5,14 +5,14 @@ function main {
     -list=false
     -recursive
   )
-  local paths=__argTargets__
+  source __argTargets__ local targets
 
   info Formatting terraform code \
     && if running_in_ci_cd_provider; then
       args+=(-check)
     fi \
-    && for path in "${paths[@]}"; do
-      terraform fmt "${args[@]}" "${path}"
+    && for target in "${targets[@]}"; do
+      terraform fmt "${args[@]}" "${target}"
     done
 }
 

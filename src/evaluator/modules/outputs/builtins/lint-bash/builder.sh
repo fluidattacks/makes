@@ -2,7 +2,7 @@
 
 function main {
   local tmp
-  local paths
+  source "${envTargets}" local targets
   local args=(
     "--exclude=SC1090,SC1091,SC2016,SC2153,SC2154"
     "--external-sources"
@@ -14,13 +14,12 @@ function main {
   # SC2154: x is referenced but not assigned.
 
   info Linting bash code \
-    && eval paths="${envTargets}" \
     && tmp="$(mktemp)" \
-    && for path in "${paths[@]}"; do
-      find "${path}" -wholename '*.sh' -type f | sort --ignore-case > "${tmp}" \
-        && while read -r path; do
-          info Linting "${path}" \
-            && shellcheck "${args[@]}" "${path}" \
+    && for target in "${targets[@]}"; do
+      find "${target}" -wholename '*.sh' -type f | sort --ignore-case > "${tmp}" \
+        && while read -r target; do
+          info Linting "${target}" \
+            && shellcheck "${args[@]}" "${target}" \
             || return 1
         done < "${tmp}" \
         || return 1
