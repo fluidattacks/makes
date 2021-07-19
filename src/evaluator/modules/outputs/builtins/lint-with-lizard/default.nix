@@ -2,48 +2,33 @@
 , makeDerivation
 , path
 , makePythonEnvironment
+, lintWithLizard
+, __toModuleOutputs__
 , ...
 }:
 { config
 , lib
 , ...
 }:
+let
+  makeOutput = target: {
+    name = "/lintWithLizard${target}";
+    value = lintWithLizard {
+      name = target;
+      inherit target;
+    };
+  };
+in
 {
   options = {
     lintWithLizard = {
-      enable = lib.mkOption {
-        default = false;
-        type = lib.types.bool;
-      };
       targets = lib.mkOption {
-        default = [ "/" ];
+        default = [ ];
         type = lib.types.listOf lib.types.str;
       };
     };
   };
   config = {
-    outputs = {
-      "/lintWithLizard" = lib.mkIf config.lintWithLizard.enable (makeDerivation {
-        env = {
-          envTargets = asBashArray
-            (builtins.map
-              path
-              config.lintWithLizard.targets);
-        };
-        name = "lint-with-lizard";
-        searchPaths = {
-          source = [
-            (makePythonEnvironment {
-              dependencies = [
-                "lizard==1.17.9"
-              ];
-              name = "lizard";
-              python = "3.8";
-            })
-          ];
-        };
-        builder = ./builder.sh;
-      });
-    };
+    outputs = __toModuleOutputs__ makeOutput config.lintWithLizard.targets;
   };
 }

@@ -146,7 +146,7 @@ jobs:
     - uses: docker://docker.io/nixos/nix:2.3.12
       name: /lintWithLizard
       with:
-        args: sh -c "nix-env -if . && m . /lintWithLizard"
+        args: sh -c "nix-env -if . && m . /lintWithLizard/"
   testTerraform_module:
     runs-on: ubuntu-latest
     steps:
