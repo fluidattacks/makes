@@ -139,14 +139,14 @@ jobs:
       name: /lintTerraform/module
       with:
         args: sh -c "nix-env -if . && m . /lintTerraform/module"
-  lintWithLizard:
+  lintWithLizard_all:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: /lintWithLizard
+      name: /lintWithLizard/all
       with:
-        args: sh -c "nix-env -if . && m . /lintWithLizard/"
+        args: sh -c "nix-env -if . && m . /lintWithLizard/all"
   testTerraform_module:
     runs-on: ubuntu-latest
     steps:

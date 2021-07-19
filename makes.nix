@@ -104,7 +104,9 @@
     };
   };
   lintWithLizard = {
-    targets = [ "/" ];
+    targets = {
+      all = [ "/" ];
+    };
   };
   requiredMakesVersion = "21.08";
   testTerraform = {

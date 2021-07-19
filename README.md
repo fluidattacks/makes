@@ -905,28 +905,31 @@ in all supported languages by [Lizard][LIZARD]
 
 Attributes:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to lint.
-  Defaults to the entire project.
+- targets (`attrsOf (listOf str)`): Optional.
+  Mapping of custom names to lists of paths (relative to the project) to lint.
+  Defaults to `{ }`.
 
 Example `makes.nix`:
 
 ```nix
 {
   lintWithLizard = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.py" # A file
-      "/directory" # A directory within the project
-    ];
+    targets = {
+      example1 = [
+        "/" # Entire project
+        "/file.py" # A file
+      ];
+      example2 = [
+        "/directory" # A directory within the project
+      ];
+    };
   };
 }
 ```
 
-Example invocation: `$ m . /lintWithLizard`
+Example invocation: `$ m . /lintWithLizard/example1`
+
+Example invocation: `$ m . /lintWithLizard/example2`
 
 ## Test
 
@@ -1388,8 +1391,8 @@ Their locations in the filesystem are always in the form:
 
 Derivation outputs are:
 
-- a regular file
-- a regular directory that contains arbitrary contents
+- A regular file
+- A regular directory that contains arbitrary contents
 
 For instance the derivation output for [Bash][BASH] is:
 `/nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23`
@@ -1461,12 +1464,6 @@ Inputs:
   Append `/`
   of every element in the list
   to [PATH][PATH].
-  Defaults to `[ ]`.
-
-- `rpath` (`listOf package`): Optional.
-  Append `/lib` and `/lib64`
-  of every element in the list
-  to [LD_LIBRARY_PATH][RPATH].
   Defaults to `[ ]`.
 
 - `rpath` (`listOf package`): Optional.
