@@ -47,6 +47,7 @@ let
     makeTemplate = import ./make-template/default.nix args;
     inherit outputs;
     path = path: head' + path;
+    pathsMatching = import ./paths-matching/default.nix args;
     pathImpure = path: headImpure + path;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
