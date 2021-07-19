@@ -152,8 +152,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      env:
-        VAR_NAME: test
       name: /testTerraform/module
       with:
         args: sh -c "nix-env -if . && m . /testTerraform/module"

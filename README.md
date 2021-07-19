@@ -1131,6 +1131,8 @@ Example `makes.nix`:
 }
 ```
 
+## Environment
+
 ## Secrets
 
 Managing secrets is critical for application security.
