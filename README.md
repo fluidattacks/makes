@@ -1741,6 +1741,7 @@ Example:
 
 # /path/to/my/project/makes/example/main.nix
 { makeScript
+, path
 , ...
 }:
 makeScript {
@@ -1767,8 +1768,8 @@ $ m . /example
 ### asBashArray
 
 Transforms a list of arguments
-to a [Bash][BASH] array.
-It can be used for passings
+into a [Bash][BASH] array.
+It can be used for passing
 several arguments from [Nix][NIX]
 to [Bash][BASH].
 
@@ -1782,7 +1783,8 @@ Examples:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeDerivation
+{ asBashArray
+, makeDerivation
 , ...
 }:
 makeDerivation {
