@@ -1,7 +1,7 @@
 { __nixpkgs__
 , ...
 }:
-list:
+args:
 builtins.toFile
   "asBashArray"
   ''
@@ -11,5 +11,5 @@ builtins.toFile
       *) critical "First argument must be one of: local, export" ;;
     esac
 
-    eval "''${@}"="( ${__nixpkgs__.lib.strings.escapeShellArgs list} )"
+    eval "''${@}"="( ${__nixpkgs__.lib.strings.escapeShellArgs args} )"
   ''

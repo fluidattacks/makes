@@ -1780,49 +1780,25 @@ Inputs:
 
 Examples:
 
-1. Using it with [makeScript](#makescript):
-
-    ```nix
-    # /path/to/my/project/makes/example/main.nix
-    { makeScript
-    , ...
-    }:
-    makeScript {
-      replace = {
-        __argTargets__ = asBashArray [ "first" "second" "third" ];
-      };
-      entrypoint = ''
-        export targets=__argTargets__
-        for target in "''${targets[@]}"; do
-          info "''${target}"
-          info ---
-        done
-      '';
-      name = "example";
-    }
-    ```
-
-1. Using it with [makeDerivation](#makederivation):
-
-    ```nix
-    # /path/to/my/project/makes/example/main.nix
-    { makeDerivation
-    , ...
-    }:
-    makeDerivation {
-      env = {
-        envTargets = asBashArray [ "first" "second" "third" ];
-      };
-      builder = ''
-        eval export targets="''${envTargets}"
-        for target in "''${targets[@]}"; do
-          info "''${target}"
-          info ---
-        done
-      '';
-      name = "example";
-    }
-    ```
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeDerivation
+, ...
+}:
+makeDerivation {
+  env = {
+    envTargets = asBashArray [ "first" "second" "third" ];
+  };
+  builder = ''
+    source "''${envTargets}" export targets
+    for target in "''${targets[@]}"; do
+      info "''${target}"
+      info ---
+    done
+  '';
+  name = "example";
+}
+```
 
 ```bash
 $ m . /example
