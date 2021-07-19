@@ -7,15 +7,15 @@ function main {
   local args_isort=(
     --settings-path '__argSettingsIsort__'
   )
-  local paths=__argTargets__
+  source __argTargets__ local targets
 
   if running_in_ci_cd_provider; then
     args_black+=(--diff --check --color) \
       && args_isort+=(--diff --check --color)
   fi \
-    && for path in "${paths[@]}"; do
-      black "${args_black[@]}" "${path}" \
-        && isort "${args_isort[@]}" "${path}"
+    && for target in "${targets[@]}"; do
+      black "${args_black[@]}" "${target}" \
+        && isort "${args_isort[@]}" "${target}"
     done
 }
 

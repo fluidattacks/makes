@@ -1,16 +1,16 @@
 # shellcheck shell=bash
 
 function main {
-  local paths=__argTargets__
-  local doctocArgs=__argDoctocArgs__
+  source __argTargets__ local targets
+  source __argDoctocArgs__ local doctoc_args
   local tmp
 
   info Formatting Markdown code \
     && tmp=$(mktemp) \
-    && for path in "${paths[@]}"; do
+    && for path in "${targets[@]}"; do
       info Formatting "${path}" \
         && copy "${path}" "${tmp}" \
-        && doctoc "${doctocArgs[@]}" "${path}" \
+        && doctoc "${doctoc_args[@]}" "${path}" \
         && sed -ri '/<!-- START doctoc/,/<!-- END doctoc/s/^( *)/\1\1/' "${path}" \
         && info Checking differences \
         && if git --no-pager diff --no-index "${tmp}" "${path}"; then
