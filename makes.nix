@@ -109,9 +109,17 @@
     };
   };
   requiredMakesVersion = "21.08";
+  secretsForTerraformFromEnv = {
+    example = {
+      test = "VAR_NAME";
+    };
+  };
   testTerraform = {
     modules = {
       module = {
+        authentication = [
+          outputs."/secretsForTerraformFromEnv/example"
+        ];
         src = "/test/terraform/module";
         version = "0.13";
       };

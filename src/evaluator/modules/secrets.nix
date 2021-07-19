@@ -1,5 +1,6 @@
 { __toModuleOutputs__
 , makeSecretForAwsFromEnv
+, makeSecretForTerraformFromEnv
 , ...
 }:
 { config
@@ -7,7 +8,7 @@
 , ...
 }:
 let
-  awsFromEnvType = lib.types.submodule (_: {
+  secretForAwsFromEnvType = lib.types.submodule (_: {
     options = {
       accessKeyId = lib.mkOption {
         default = "AWS_ACCESS_KEY_ID";
@@ -27,7 +28,7 @@ let
       };
     };
   });
-  makeAwsFromEnvOutput = name:
+  makeSecretForAwsFromEnvOutput = name:
     { accessKeyId
     , defaultRegion
     , secretAccessKey
@@ -42,24 +43,43 @@ let
         inherit sessionToken;
       };
     };
+
+  makeSecretForTerraformFromEnvOutput = name: mapping: {
+    name = "/secretsForTerraformFromEnv/${name}";
+    value = makeSecretForTerraformFromEnv {
+      inherit name;
+      inherit mapping;
+    };
+  };
 in
 {
   options = {
     secretsForAwsFromEnv = lib.mkOption {
       default = { };
-      type = lib.types.attrsOf awsFromEnvType;
+      type = lib.types.attrsOf secretForAwsFromEnvType;
+    };
+    secretsForTerraformFromEnv = lib.mkOption {
+      default = { };
+      type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
     };
   };
   config = {
     outputs =
-      (__toModuleOutputs__ makeAwsFromEnvOutput config.secretsForAwsFromEnv) //
-      (__toModuleOutputs__ makeAwsFromEnvOutput {
-        __default__ = {
-          accessKeyId = "AWS_ACCESS_KEY_ID";
-          defaultRegion = "AWS_DEFAULT_REGION";
-          secretAccessKey = "AWS_SECRET_ACCESS_KEY";
-          sessionToken = "AWS_SESSION_TOKEN";
-        };
-      });
+      (__toModuleOutputs__
+        makeSecretForAwsFromEnvOutput
+        config.secretsForAwsFromEnv) //
+      (__toModuleOutputs__
+        makeSecretForAwsFromEnvOutput
+        {
+          __default__ = {
+            accessKeyId = "AWS_ACCESS_KEY_ID";
+            defaultRegion = "AWS_DEFAULT_REGION";
+            secretAccessKey = "AWS_SECRET_ACCESS_KEY";
+            sessionToken = "AWS_SESSION_TOKEN";
+          };
+        }) //
+      (__toModuleOutputs__
+        makeSecretForTerraformFromEnvOutput
+        config.secretsForTerraformFromEnv);
   };
 }
