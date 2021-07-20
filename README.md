@@ -7,7 +7,75 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
-## Demo
+## At a glance
+
+This is how creating a [CI/CD][CI_CD] pipeline
+for deploying infrastructure with [Terraform][TERRAFORM]
+and [Makes][MAKES] looks like:
+
+```nix
+# /path/to/my/project/makes.nix
+{ outputs
+, ...
+}:
+{
+  # Authenticate securely 🛡 through environment variables
+  secretsForTerraformFromEnv = {
+    myAwesomeMicroService = {
+      githubToken = "GITHUB_API_TOKEN";
+      salesforceApiToken = "SALESFORCE_API_TOKEN";
+    };
+  };
+
+  # Authenticate securely 🛡 to AWS with environment variables
+  secretsForAwsFromEnv = {
+    myAwesomeMicroService = {
+      accessKeyId = "MY_APP_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "MY_APP_AWS_SECRET_ACCESS_KEY";
+    };
+  };
+
+  # Deploy to production 🚀 !!
+  deployTerraform = {
+    modules = {
+      myAwesomeMicroService = {
+        setup = [
+          outputs."/secretsForTerraformFromEnv/myAwesomeMicroService"
+          outputs."/secretsForAwsFromEnv/myAwesomeMicroService"
+        ];
+        src = "/infra/microServices/myAwesomeMicroService";
+        version = "0.13";
+      };
+    };
+  };
+}
+```
+
+Easy, isn't it?
+
+Now 🔥 it up with: ` $ m . /deployTerraform/myAwesomeMicroService`
+
+[![asciicast](https://asciinema.org/a/426280.svg)](https://asciinema.org/a/426280)
+
+## Production ready
+
+Yes, [Makes][MAKES] is production ready.
+
+Real life projects that run entirely on [Makes][MAKES]:
+
+- [Fluid Attacks][FLUID_ATTACKS] monorepo:
+  https://gitlab.com/fluidattacks/product
+
+## On GitHub Actions
+
+![Makes on GitHub Actions!](
+  /static/makes_on_github_actions.png "Makes on GitHub Actions")
+
+## On GitLab
+
+![Makes on GitLab!](/static/makes_on_gitlab.png "Makes on GitLab")
+
+## CLI Showcase
 
 [![Makes Demo](https://asciinema.org/a/425886.svg)](https://asciinema.org/a/425886)
 
