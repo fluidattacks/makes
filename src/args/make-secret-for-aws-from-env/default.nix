@@ -1,4 +1,5 @@
 { makeTemplate
+, toDerivationName
 , ...
 }:
 { accessKeyId
@@ -9,6 +10,7 @@
 }:
 makeTemplate {
   replace = {
+    __argName__ = toDerivationName name;
     __argAccessKeyId__ = accessKeyId;
     __argDefaultRegion__ = defaultRegion;
     __argSecretAcessKey__ = secretAccessKey;
