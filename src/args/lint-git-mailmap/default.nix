@@ -1,4 +1,5 @@
-{ fetchGithub
+{ __nixpkgs__
+, fetchGithub
 , makeScript
 , ...
 }:
@@ -10,8 +11,8 @@ let
   mailmapLinter = fetchGithub {
     owner = "kamadorueda";
     repo = "mailmap-linter";
-    rev = "5ae9d2654375afb76dfb3087b1e9b200257331a2";
-    sha256 = "124pka1mf25mwlzip3fa66l73zc3x0zmba5vkd7p7c521hz9xphi";
+    rev = "e0799aa47ac5ce6776ca8581ba50ace362e5d0ce";
+    sha256 = "02nr39rn4hicfam1rccbqhn6w6pl25xq7fl2kw0s0ahxzvfk24mh";
   };
 in
 makeScript {
@@ -22,7 +23,9 @@ makeScript {
   name = "lint-git-mailmap-for-${name}";
   searchPaths = {
     bin = [
-      (import mailmapLinter)
+      (import mailmapLinter {
+        nixpkgs = __nixpkgs__;
+      })
     ];
   };
 }
