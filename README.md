@@ -110,6 +110,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [lintNix](#lintnix)
         - [lintPython](#lintpython)
         - [lintTerraform](#lintterraform)
+        - [lintWithAjv](#lintwithajv)
         - [lintWithLizard](#lintwithlizard)
     - [Test](#test)
         - [testTerraform](#testterraform)
@@ -977,6 +978,54 @@ Example `makes.nix`:
 Example invocation: `$ m . /lintTerraform/module1`
 
 Example invocation: `$ m . /lintTerraform/module2`
+
+### lintWithAjv
+
+Lints [JSON][JSON] and [YAML][YAML] data files
+with [JSON Schemas][JSON_SCHEMA].
+It uses [ajv-cli][AJV_CLI].
+
+Attributes:
+
+- self (`attrsOf schemaType`): Optional.
+  Definitions of schema and associated data to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- schemaType (`submodule`):
+    - schema (`str`):
+      Path to the [JSON Schema][JSON_SCHEMA].
+    - targets (`listOf str`):
+      [YAML][YAML] or [JSON][JSON]
+      data files to lint with `schema`.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintWithAjv = {
+    users = {
+      schema = "/users/schema.json";
+      targets = [
+        "/users/data1.json"
+        "/users/data.yaml"
+      ];
+    };
+    colors = {
+      schema = "/colors/schema.json";
+      targets = [
+        "/colors/data1.json"
+        "/colors/data2.yaml"
+      ];
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /lintWithAjv/users`
+
+Example invocation: `$ m . /lintWithAjv/colors`
 
 ### lintWithLizard
 
@@ -1993,6 +2042,9 @@ Examples:
 
 # References
 
+- [AJV_CLI]: https://github.com/ajv-validator/ajv-cli
+  [ajv-cli][AJV_CLI]
+
 - [Ansible]: https://www.ansible.com/
   [Ansible][ANSIBLE]
 
@@ -2094,6 +2146,12 @@ Examples:
 
 - [ISORT]: https://github.com/PyCQA/isort
   [isort][ISORT]
+
+- [JSON]: https://www.json.org/json-en.html
+  [JSON][JSON]
+
+- [JSON_SCHEMA]: https://json-schema.org/
+  [JSON Schema][JSON_SCHEMA]
 
 - [KUBERNETES]: https://kubernetes.io/
   [Kubernetes][KUBERNETES]
@@ -2229,6 +2287,9 @@ Examples:
 
 - [X86_64]: https://en.wikipedia.org/wiki/X86-64
   [x86-64][X86_64]
+
+- [YAML]: https://yaml.org/
+  [YAML][YAML]
 
 - [YUM]: http://yum.baseurl.org/
   [Yellowdog Updated Modified (yum)][YUM]
