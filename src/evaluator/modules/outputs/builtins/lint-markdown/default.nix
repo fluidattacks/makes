@@ -1,44 +1,40 @@
-{ __nixpkgs__
-, asBashArray
-, makeDerivation
-, path
+{ __toModuleOutputs__
+, lintMarkdown
+, pathCopy
 , ...
 }:
 { config
 , lib
 , ...
 }:
+let
+  makeOutput = name: { config, targets }: {
+    name = "/lintMarkdown/${name}";
+    value = lintMarkdown {
+      inherit name;
+      inherit config;
+      targets = builtins.map pathCopy targets;
+    };
+  };
+in
 {
   options = {
-    lintMarkdown = {
-      enable = lib.mkOption {
-        default = false;
-        type = lib.types.bool;
-      };
-      targets = lib.mkOption {
-        default = [ "/" ];
-        type = lib.types.listOf lib.types.str;
-      };
+    lintMarkdown = lib.mkOption {
+      default = { };
+      type = lib.types.attrsOf (lib.types.submodule (_: {
+        options = {
+          config = lib.mkOption {
+            type = lib.types.path;
+            default = ./config.rb;
+          };
+          targets = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+          };
+        };
+      }));
     };
   };
   config = {
-    outputs = {
-      "/lintMarkdown" = lib.mkIf config.lintMarkdown.enable (makeDerivation {
-        env = {
-          envStyle = ./style.rb;
-          envTargets = asBashArray
-            (builtins.map
-              path
-              config.lintMarkdown.targets);
-        };
-        name = "lint-markdown";
-        searchPaths = {
-          bin = [
-            __nixpkgs__.mdl
-          ];
-        };
-        builder = ./builder.sh;
-      });
-    };
+    outputs = __toModuleOutputs__ makeOutput config.lintMarkdown;
   };
 }
