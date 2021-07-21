@@ -1,6 +1,6 @@
 { makeScript
 , inputs
-, path
+, pathCopy
 , ...
 }:
 makeScript {
@@ -10,8 +10,8 @@ makeScript {
     "makes-v21.08"
   ];
   replace = {
-    __argCliEntrypoint__ = path "/src/cli/main/__main__.py";
-    __argSrc__ = path "/src";
+    __argCliEntrypoint__ = pathCopy "/src/cli/main/__main__.py";
+    __argSrc__ = pathCopy "/src";
   };
   entrypoint = ''
     _EVALUATOR=__argSrc__/evaluator/default.nix \

@@ -220,9 +220,7 @@ def _run(
         if capture_io:
             out, err = process.communicate()
 
-        process.wait()
-
-        return process.returncode, out, err
+    return process.returncode, out, err
 
 
 def _help_and_exit(

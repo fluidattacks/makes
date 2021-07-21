@@ -3,7 +3,8 @@
 , makeDerivation
 , makeDerivationParallel
 , makePythonEnvironment
-, path
+, pathCopy
+, pathDirs
 , ...
 }:
 { config
@@ -17,7 +18,7 @@ let
       env = {
         envSettingsMypy = ./settings-mypy.cfg;
         envSettingsProspector = ./settings-prospector.yaml;
-        envSrc = path src;
+        envSrc = pathCopy src;
       };
       name = "lint-python-module-for-${name}";
       searchPaths = {
@@ -42,10 +43,6 @@ let
   };
   makeDirOfModules = name: { extraSources, python, src }:
     let
-      moduleNames = builtins.attrNames
-        (lib.filterAttrs
-          (_: value: value == "directory")
-          (builtins.readDir (path src)));
       modules = builtins.map
         (moduleName: {
           name = "/lintPython/dirOfModules/${name}/${moduleName}";
@@ -55,7 +52,7 @@ let
             src = "${src}/${moduleName}";
           }).value;
         })
-        moduleNames;
+        (pathDirs src);
     in
     (modules ++ [{
       name = "/lintPython/dirOfModules/${name}";

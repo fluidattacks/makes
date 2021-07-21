@@ -51,6 +51,7 @@ let
     inherit outputs;
     path = rel: headInStore + rel;
     pathCopy = rel: builtins.path { name = "src"; path = head + rel; };
+    pathDirs = import ./path-dirs/default.nix args;
     pathMutable = rel: headMutable + rel;
     pathsMatching = import ./paths-matching/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);
