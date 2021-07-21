@@ -1,26 +1,33 @@
-{ asBashArray
-, makeDerivation
+{ makeDerivation
+, makeDerivationParallel
 , makePythonEnvironment
 , ...
 }:
-{ name
-, targets
+{ targets
+, name
+, ...
 }:
-makeDerivation {
-  env = {
-    envTargets = asBashArray targets;
+let
+  makeTarget = src: makeDerivation {
+    env = {
+      envTarget = src;
+    };
+    name = "build-lint-with-lizard-for-${name}-${src}";
+    searchPaths = {
+      source = [
+        (makePythonEnvironment {
+          dependencies = [
+            "lizard==1.17.3"
+          ];
+          name = "lizard";
+          python = "3.7";
+        })
+      ];
+    };
+    builder = ./builder.sh;
   };
+in
+makeDerivationParallel {
+  dependencies = builtins.map makeTarget targets;
   name = "lint-with-lizard-for-${name}";
-  searchPaths = {
-    source = [
-      (makePythonEnvironment {
-        dependencies = [
-          "lizard==1.17.9"
-        ];
-        name = "lizard";
-        python = "3.8";
-      })
-    ];
-  };
-  builder = ./builder.sh;
 }
