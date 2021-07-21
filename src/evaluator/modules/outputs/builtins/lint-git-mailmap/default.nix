@@ -1,5 +1,5 @@
 { lintGitMailMap
-, pathImpure
+, pathMutable
 , ...
 }:
 { lib
@@ -18,7 +18,7 @@
     outputs = {
       "/lintGitMailMap" = lintGitMailMap {
         name = "lint-git-mailmap";
-        src = pathImpure "/";
+        src = pathMutable "/";
       };
     };
   };

@@ -1,7 +1,7 @@
 { __nixpkgs__
 , asBashArray
 , makeScript
-, pathImpure
+, pathMutable
 , ...
 }:
 { config
@@ -28,7 +28,7 @@
           __argSettingsBlack__ = ./settings-black.toml;
           __argSettingsIsort__ = ./settings-isort.toml;
           __argTargets__ = asBashArray
-            (builtins.map pathImpure config.formatPython.targets);
+            (builtins.map pathMutable config.formatPython.targets);
         };
         name = "format-python";
         searchPaths = {

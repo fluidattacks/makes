@@ -1,7 +1,7 @@
 { __nixpkgs__
 , asBashArray
 , makeScript
-, pathImpure
+, pathMutable
 , ...
 }:
 { name
@@ -11,7 +11,7 @@
 makeScript {
   replace = {
     __argTargets__ = asBashArray
-      (builtins.map pathImpure targets);
+      (builtins.map pathMutable targets);
   };
   name = "format-bash-for-${name}";
   searchPaths = {

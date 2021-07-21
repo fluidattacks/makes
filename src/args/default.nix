@@ -1,12 +1,12 @@
 { __nixpkgs__
 , head
-, headImpure
+, headMutable
 , inputs
 , makesVersion
 , outputs
 }:
 let
-  head' = builtins.path {
+  headInStore = builtins.path {
     name = "head";
     path = head;
   };
@@ -49,9 +49,10 @@ let
     inherit makesVersion;
     makeTemplate = import ./make-template/default.nix args;
     inherit outputs;
-    path = path: head' + path;
+    path = rel: headInStore + rel;
+    pathCopy = rel: builtins.path { name = "src"; path = head + rel; };
+    pathMutable = rel: headMutable + rel;
     pathsMatching = import ./paths-matching/default.nix args;
-    pathImpure = path: headImpure + path;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
     testTerraform = import ./test-terraform/default.nix args;
