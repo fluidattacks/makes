@@ -44,13 +44,14 @@ let
     makeScriptParallel = import ./make-script-parallel/default.nix args;
     makeSearchPaths = import ./make-search-paths/default.nix args;
     makeSecretForAwsFromEnv = import ./make-secret-for-aws-from-env/default.nix args;
+    makeSecretForEnvFromSops = import ./make-secret-for-env-from-sops/default.nix args;
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     inherit makesVersion;
     makeTemplate = import ./make-template/default.nix args;
     inherit outputs;
     path = rel: headInStore + rel;
-    pathCopy = rel: builtins.path { name = "src"; path = head + rel; };
+    pathCopy = import ./path-copy/default.nix args head;
     pathDirs = import ./path-dirs/default.nix args;
     pathMutable = rel: headMutable + rel;
     pathsMatching = import ./paths-matching/default.nix args;
