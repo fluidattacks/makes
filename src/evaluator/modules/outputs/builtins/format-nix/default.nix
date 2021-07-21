@@ -1,7 +1,7 @@
 { __nixpkgs__
 , asBashArray
 , makeScript
-, pathImpure
+, pathMutable
 , ...
 }:
 { config
@@ -26,7 +26,7 @@
       "/formatNix" = lib.mkIf config.formatNix.enable (makeScript {
         replace = {
           __argTargets__ = asBashArray
-            (builtins.map pathImpure config.formatNix.targets);
+            (builtins.map pathMutable config.formatNix.targets);
         };
         name = "format-nix";
         searchPaths = {

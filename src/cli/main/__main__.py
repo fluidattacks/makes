@@ -108,7 +108,7 @@ def _nix_build(
 
     return [
         "nix-build",
-        *_if(is_src_local(src), "--argstr", "headImpure", src),
+        *_if(is_src_local(src), "--argstr", "headMutable", src),
         *["--argstr", "head", head],
         *["--argstr", "makesVersion", VERSION],
         *["--attr", attr],

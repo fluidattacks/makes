@@ -4,7 +4,7 @@
   head
   # Path to the user's project, outside the sandbox.
   # Only available when running local Makes projects.
-, headImpure ? head
+, headMutable ? head
   # Makes version that is invoking the project
 , makesVersion
 , ...
@@ -13,7 +13,7 @@ let
   args = import ../args/default.nix {
     __nixpkgs__ = packages.nixpkgs;
     inherit head;
-    inherit headImpure;
+    inherit headMutable;
     inputs = result.config.inputs;
     inherit makesVersion;
     outputs = result.config.outputs;
