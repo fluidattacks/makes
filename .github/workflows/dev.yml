@@ -147,6 +147,14 @@ jobs:
       name: /lintWithLizard/all
       with:
         args: sh -c "nix-env -if . && m . /lintWithLizard/all"
+  securePythonWithBandit_cli:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /securePythonWithBandit/cli
+      with:
+        args: sh -c "nix-env -if . && m . /securePythonWithBandit/cli"
   testTerraform_module:
     runs-on: ubuntu-latest
     steps:

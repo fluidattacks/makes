@@ -113,6 +113,8 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [lintWithLizard](#lintwithlizard)
     - [Test](#test)
         - [testTerraform](#testterraform)
+    - [Security](#security)
+        - [securePythonWithBandit](#securepythonwithbandit)
     - [Deploy](#deploy)
         - [deployContainerImage](#deploycontainerimage)
         - [deployTerraform](#deployterraform)
@@ -1054,6 +1056,41 @@ Example invocation: `$ m . /testTerraform/module1`
 
 Example invocation: `$ m . /testTerraform/module2`
 
+## Security
+
+### securePythonWithBandit
+
+Secure Python code with [Bandit][BANDIT].
+
+Attributes:
+
+- self (`attrsOf projectType`): Optional.
+  Definitions of directories of python packages/modules to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- projectType (`submodule`):
+    - python (`enum [ "3.7" "3.8" "3.9" ]`):
+      Python interpreter version that your package/module is designed for.
+    - target (`str`):
+      Relative path to the package/module.
+
+Example `makes.nix`:
+
+```nix
+{
+  securePythonWithBandit = {
+    cli = {
+      python = "3.8";
+      target = "/src/cli";
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /securePythonWithBandit/cli`
+
 ## Deploy
 
 ### deployContainerImage
@@ -1963,6 +2000,9 @@ Examples:
 
 - [APT]: https://en.wikipedia.org/wiki/APT_(software)
   [Advanced Package Tool][APT]
+
+- [BANDIT]: https://github.com/PyCQA/bandit
+  [Bandit][BANDIT]
 
 - [BASH]: https://www.gnu.org/software/bash/
   [Bash][BASH]

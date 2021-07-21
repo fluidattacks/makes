@@ -55,6 +55,7 @@ let
     pathDirs = import ./path-dirs/default.nix args;
     pathMutable = rel: headMutable + rel;
     pathsMatching = import ./paths-matching/default.nix args;
+    securePythonWithBandit = import ./secure-python-with-bandit/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
     testTerraform = import ./test-terraform/default.nix args;
