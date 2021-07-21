@@ -18,11 +18,12 @@ let
     inherit makesVersion;
     outputs = result.config.outputs;
   };
+  makesNix = args.path "/makes.nix";
   packages = import ../nix/packages.nix;
   result = packages.nixpkgs.lib.modules.evalModules {
     modules = [
       (import ./modules/default.nix args)
-      (args.path "/makes.nix")
+      (if builtins.pathExists makesNix then makesNix else { })
     ];
     specialArgs = args;
   };

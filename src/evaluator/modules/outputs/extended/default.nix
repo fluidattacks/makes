@@ -20,11 +20,13 @@ let
             }
             else { })
           (builtins.readDir path)));
+
+  makes = args.path "/makes";
 in
 {
   config = {
     outputs = lib.mkIf
-      (builtins.pathExists (args.path "/makes"))
-      (attrsFromPath (args.path "/makes") [ ]);
+      (builtins.pathExists makes)
+      (attrsFromPath makes [ ]);
   };
 }

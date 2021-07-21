@@ -1,6 +1,6 @@
 { __toModuleOutputs__
 , lintWithLizard
-, path
+, pathCopy
 , ...
 }:
 { config
@@ -12,7 +12,7 @@ let
     name = "/lintWithLizard/${name}";
     value = lintWithLizard {
       inherit name;
-      targets = builtins.map path targets;
+      targets = builtins.map pathCopy targets;
     };
   };
 in
