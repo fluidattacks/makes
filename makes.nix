@@ -84,8 +84,10 @@
     enable = true;
   };
   lintMarkdown = {
-    enable = true;
-    targets = [ "/" ];
+    all = {
+      config = ./config/markdown.rb;
+      targets = [ "/" ];
+    };
   };
   lintNix = {
     enable = true;

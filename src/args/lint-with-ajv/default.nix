@@ -1,5 +1,4 @@
-{ __nixpkgs__
-, asBashArray
+{ asBashArray
 , makeDerivation
 , makeNodeEnvironment
 , ...

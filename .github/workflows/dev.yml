@@ -92,6 +92,7 @@ jobs:
       with:
         args: sh -c "nix-env -if . && m . /lintGitMailMap"
   lintMarkdown:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
