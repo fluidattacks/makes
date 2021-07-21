@@ -76,7 +76,7 @@
     enable = true;
     targets = [ "/" ];
   };
-  lintCommitMsg = {
+  lintGitCommitMsg = {
     enable = true;
     branch = "main";
   };

@@ -5,7 +5,6 @@
 }:
 { name
 , src
-, ...
 }:
 let
   mailmapLinter = fetchGithub {

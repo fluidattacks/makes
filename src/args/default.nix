@@ -30,6 +30,7 @@ let
     formatTerraform = import ./format-terraform args;
     getAttr = import ./get-attr/default.nix;
     inherit inputs;
+    lintGitCommitMsg = import ./lint-git-commit-msg/default.nix args;
     lintGitMailMap = import ./lint-git-mailmap/default.nix args;
     lintTerraform = import ./lint-terraform/default.nix args;
     lintWithLizard = import ./lint-with-lizard/default.nix args;

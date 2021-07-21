@@ -9,7 +9,8 @@ function main {
     --config __argConfig__
   )
 
-  commit_diff="origin/${main_branch}..HEAD" \
+  cd __argSrc__ \
+    && commit_diff="origin/${main_branch}..HEAD" \
     && commit_hashes="$(git --no-pager log --pretty=%h "${commit_diff}")" \
     && for commit_hash in ${commit_hashes}; do
       info "Linting ${commit_hash}" \

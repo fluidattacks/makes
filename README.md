@@ -104,7 +104,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [formatTerraform](#formatterraform)
     - [Lint](#lint)
         - [lintBash](#lintbash)
-        - [lintCommitMsg](#lintcommitmsg)
+        - [lintGitCommitMsg](#lintgitcommitmsg)
         - [lintGitMailMap](#lintgitmailmap)
         - [lintMarkdown](#lintmarkdown)
         - [lintNix](#lintnix)
@@ -741,13 +741,13 @@ Example `makes.nix`:
 
 Example invocation: `$ m . /lintBash`
 
-### lintCommitMsg
+### lintGitCommitMsg
 
 It creates a commit diff
 between you current branch
 and the main branch of the repository.
 All commits included in the diff
-are linted using [commitlint][COMMITLINT].
+are linted using [Commitlint][COMMITLINT].
 
 Attributes:
 
@@ -756,19 +756,26 @@ Attributes:
 - branch (`str`): Optional.
   Name of the main branch.
   Defaults to `main`.
-
+- config (`path`): Optional.
+  Configuration file for [Commitlint][COMMITLINT].
+  Defaults to
+  [config.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/config.js).
+- parser (`path`): Optional.
+  [Commitlint][COMMITLINT] parser definitions.
+  Defaults to
+  [parser.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/parser.js).
 Example `makes.nix`:
 
 ```nix
 {
-  lintCommitMsg = {
+  lintGitCommitMsg = {
     enable = true;
     branch = "my-branch-name";
   };
 }
 ```
 
-Example invocation: `$ m . /lintCommitMsg`
+Example invocation: `$ m . /lintGitCommitMsg`
 
 ### lintGitMailMap
 
