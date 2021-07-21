@@ -18,6 +18,7 @@ args:
     (import ./lint-python/default.nix args)
     (import ./lint-terraform/default.nix args)
     (import ./lint-with-lizard/default.nix args)
+    (import ./secure-python-with-bandit/default.nix args)
     (import ./test-terraform/default.nix args)
   ];
 }

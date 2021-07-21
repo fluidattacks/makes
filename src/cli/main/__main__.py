@@ -21,7 +21,7 @@ from posixpath import (
 )
 import re
 import shutil
-import subprocess
+import subprocess  # nosec
 import sys
 import tempfile
 from typing import (
@@ -167,7 +167,7 @@ def _get_head(src: str) -> str:
 
 
 def _get_attrs(src: str, head: str) -> List[str]:
-    out: str = tempfile.mktemp()
+    out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
             attr="config.attrs",
@@ -185,7 +185,7 @@ def _get_attrs(src: str, head: str) -> List[str]:
 
 
 def _get_cache(src: str, head: str) -> Dict[str, str]:
-    out: str = tempfile.mktemp()
+    out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
             attr="config.cacheAsJson",
@@ -213,6 +213,7 @@ def _run(
         args=args,
         cwd=cwd,
         env=env,
+        shell=False,  # nosec
         stdout=subprocess.PIPE if capture_io else None,
         stderr=subprocess.PIPE if capture_io else None,
     ) as process:

@@ -124,6 +124,12 @@
       test = "VAR_NAME";
     };
   };
+  securePythonWithBandit = {
+    cli = {
+      python = "3.8";
+      target = "/src/cli";
+    };
+  };
   testTerraform = {
     modules = {
       module = {
