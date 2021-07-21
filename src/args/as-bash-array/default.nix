@@ -3,7 +3,7 @@
 }:
 args:
 builtins.toFile
-  "asBashArray"
+  "as-bash-array"
   ''
     case "''${1}" in
       local) true ;;

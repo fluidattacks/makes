@@ -33,6 +33,7 @@ let
     lintGitCommitMsg = import ./lint-git-commit-msg/default.nix args;
     lintGitMailMap = import ./lint-git-mailmap/default.nix args;
     lintTerraform = import ./lint-terraform/default.nix args;
+    lintWithAjv = import ./lint-with-ajv/default.nix args;
     lintWithLizard = import ./lint-with-lizard/default.nix args;
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;
