@@ -88,7 +88,9 @@ Real life projects that run entirely on [Makes][MAKES]:
 - [Getting started](#getting-started)
     - [Getting started as user](#getting-started-as-user)
     - [Getting started as developer](#getting-started-as-developer)
-    - [Versioning scheme](#versioning-scheme)
+    - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
+    - [Versioning scheme for the CLI](#versioning-scheme-for-the-cli)
+    - [Compatibility information](#compatibility-information)
 - [Configuring CI/CD](#configuring-cicd)
     - [Providers comparison](#providers-comparison)
         - [Configuring on GitHub Actions](#configuring-on-github-actions)
@@ -366,24 +368,36 @@ In order to use Makes you'll need to:
         [INFO] You called us with CLI arguments: [ 1 2 3 ].
         ```
 
-## Versioning scheme
+## Versioning scheme for the framework
 
-We use [calendar versioning][CALVER] in Makes,
-like this: `20.12` (at December 2020).
+We use [Git][GIT] commits for versioning the [Makes][MAKES] Framework.
+If means you are in full control on how your project evolves over time.
+Git commits are mathematically stable.
+
+You can find the commits list [here][MAKES_COMMITS].
+
+Please read the [makesCommit Reference][MAKES_COMMIT_REF] for more information.
+
+## Versioning scheme for the CLI
+
+We use [calendar versioning][CALVER] for the Makes CLI (a.k.a. `$ m`),
+like this: `year.month`.
 
 You can assume that the current month release is stable,
-we won't add new features to it nor change it in backward-incompatible ways.
-The development or unstable releases are normally tagged with the next month
-[calendar version][CALVER], for instance `21.01` (at December 2020).
-The `main` release always points to the latest commit in this repository,
-it should be considered highly unstable.
+for instance: `20.01` (at January 2021).
+We won't add new features to it nor change it in backward-incompatible ways.
 
-For maximum stability you should use the stable release,
-in other words: the current month in [calendar versioning][CALVER].
-For instance: `21.01` if the current date is January 2021.
+Development/unstable releases are tagged with the next month
+[calendar version][CALVER], for instance `21.02` (at January 2021).
+Please don't use unstable releases in production.
 
-At the same time, please consider keeping your [Makes][MAKES] updated.
-New features are added constantly.
+You can find the releases list [here][MAKES_RELEASES].
+
+## Compatibility information
+
+For the whole ecosystem to work
+you need to use versions (of Makes CLI and Framework)
+created in the same month.
 
 # Configuring CI/CD
 
@@ -2179,6 +2193,12 @@ Examples:
 
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]
+
+- [MAKES_COMMIT_REF]: #makescommit
+  [makesCommit Reference][MAKES_COMMIT_REF]
+
+- [MAKES_COMMITS]: https://github.com/fluidattacks/makes/commits/main
+  [Makes Commits][MAKES_COMMITS]
 
 - [MAKES_ENVIRONMENT]: #environment
   [Makes Environment][MAKES_ENVIRONMENT]
