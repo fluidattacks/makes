@@ -1,9 +1,9 @@
 { toDerivationName
 , ...
 }:
-head:
+projectSrc:
 rel:
 builtins.path {
   name = toDerivationName (builtins.baseNameOf rel);
-  path = head + rel;
+  path = projectSrc + rel;
 }

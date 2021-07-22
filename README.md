@@ -126,7 +126,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
     - [Stability](#stability)
         - [inputs](#inputs)
-        - [requiredMakesVersion](#requiredmakesversion)
+        - [makesCommit](#makescommit)
     - [Examples](#examples)
         - [helloWorld](#helloworld)
 - [Extending Makes](#extending-makes)
@@ -1436,22 +1436,20 @@ Example `makes.nix`:
 }
 ```
 
-### requiredMakesVersion
+### makesCommit
 
-Ensure that the Makes version people use in your project is the one you want.
-This increases reproducibility and prevents compatibility mismatches.
-People will use the Makes version you know your project works with.
+Commit of the [Makes][MAKES] source code used to evaluate your Project.
 
 Attributes:
 
 - self (`str`): Optional.
-  Defaults to the version installed in the system.
+  Defaults to the version bundled with the [Makes][MAKES] CLI.
 
 Example `makes.nix`:
 
 ```nix
 {
-  requiredMakesVersion = "21.08";
+  makesCommit = "3c2be9cc5793317c323ac3c2f139b19f412db0b2"
 }
 ```
 

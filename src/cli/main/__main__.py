@@ -108,9 +108,9 @@ def _nix_build(
 
     return [
         "nix-build",
-        *_if(is_src_local(src), "--argstr", "headMutable", src),
-        *["--argstr", "head", head],
-        *["--argstr", "makesVersion", VERSION],
+        *["--argstr", "makesSrc", environ["__MAKES_SRC__"]],
+        *["--argstr", "projectSrc", head],
+        *_if(is_src_local(src), "--argstr", "projectSrcMutable", src),
         *["--attr", attr],
         *["--option", "cores", "0"],
         *["--option", "narinfo-cache-negative-ttl", "1"],
@@ -123,7 +123,7 @@ def _nix_build(
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
         *["--show-trace"],
-        environ["_EVALUATOR"],
+        f"{environ['__MAKES_SRC__']}/src/evaluator/default.nix",
     ]
 
 
