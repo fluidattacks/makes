@@ -2,7 +2,7 @@
 , ...
 }:
 name: expr: makeDerivation {
-  env.envAll = builtins.toJSON expr;
-  builder = ''echo "$envAll" > $out'';
+  envFiles.envAll = builtins.toJSON expr;
+  builder = "cp $envAllPath $out";
   inherit name;
 }
