@@ -18,7 +18,7 @@
       type = lib.types.attrsOf lib.types.package;
     };
   };
-  config = lib.mkIf (config.assertionsPassed) {
+  config = {
     attrs = toFileJson "attrs.json" (builtins.attrNames config.outputs);
   };
 }

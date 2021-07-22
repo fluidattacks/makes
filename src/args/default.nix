@@ -1,14 +1,13 @@
 { __nixpkgs__
-, head
-, headMutable
+, projectSrc
+, projectSrcMutable
 , inputs
-, makesVersion
 , outputs
 }:
 let
-  headInStore = builtins.path {
+  projectSrcInStore = builtins.path {
     name = "head";
-    path = head;
+    path = projectSrc;
   };
 
   args = {
@@ -50,13 +49,12 @@ let
     makeSecretForEnvFromSops = import ./make-secret-for-env-from-sops/default.nix args;
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
-    inherit makesVersion;
     makeTemplate = import ./make-template/default.nix args;
     inherit outputs;
-    path = rel: headInStore + rel;
-    pathCopy = import ./path-copy/default.nix args head;
+    path = rel: projectSrcInStore + rel;
+    pathCopy = import ./path-copy/default.nix args projectSrc;
     pathDirs = import ./path-dirs/default.nix args;
-    pathMutable = rel: headMutable + rel;
+    pathMutable = rel: projectSrcMutable + rel;
     pathsMatching = import ./paths-matching/default.nix args;
     securePythonWithBandit = import ./secure-python-with-bandit/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);

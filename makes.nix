@@ -120,7 +120,6 @@
       all = [ "/" ];
     };
   };
-  requiredMakesVersion = "21.08";
   secretsForTerraformFromEnv = {
     example = {
       test = "VAR_NAME";

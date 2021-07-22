@@ -10,12 +10,11 @@ makeScript {
     "makes-v21.08"
   ];
   replace = {
-    __argCliEntrypoint__ = pathCopy "/src/cli/main/__main__.py";
-    __argSrc__ = pathCopy "/src";
+    __argMakesSrc__ = pathCopy "/";
   };
   entrypoint = ''
-    _EVALUATOR=__argSrc__/evaluator/default.nix \
-    python __argCliEntrypoint__ "$@"
+    __MAKES_SRC__=__argMakesSrc__ \
+    python __argMakesSrc__/src/cli/main/__main__.py "$@"
   '';
   searchPaths = {
     bin = [
