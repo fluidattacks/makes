@@ -91,15 +91,14 @@ jobs:
       name: /lintGitMailMap
       with:
         args: sh -c "nix-env -if . && m . /lintGitMailMap"
-  lintMarkdown:
-    if: ${{ false }}
+  lintMarkdown_all:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      name: /lintMarkdown
+      name: /lintMarkdown/all
       with:
-        args: sh -c "nix-env -if . && m . /lintMarkdown"
+        args: sh -c "nix-env -if . && m . /lintMarkdown/all"
   lintNix:
     runs-on: ubuntu-latest
     steps:
