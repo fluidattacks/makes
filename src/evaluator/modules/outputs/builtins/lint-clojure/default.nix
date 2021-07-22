@@ -1,5 +1,5 @@
 { __toModuleOutputs__
-, lintWithLizard
+, lintClojure
 , pathCopy
 , ...
 }:
@@ -9,8 +9,8 @@
 }:
 let
   makeOutput = name: targets: {
-    name = "/lintWithLizard/${name}";
-    value = lintWithLizard {
+    name = "/lintClojure/${name}";
+    value = lintClojure {
       inherit name;
       targets = builtins.map pathCopy targets;
     };
@@ -18,12 +18,12 @@ let
 in
 {
   options = {
-    lintWithLizard = lib.mkOption {
+    lintClojure = lib.mkOption {
       default = { };
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
     };
   };
   config = {
-    outputs = __toModuleOutputs__ makeOutput config.lintWithLizard;
+    outputs = __toModuleOutputs__ makeOutput config.lintClojure;
   };
 }
