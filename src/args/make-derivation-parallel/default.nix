@@ -1,13 +1,7 @@
-{ makeDerivation
+{ toFileJson
 , ...
 }:
 { dependencies
 , name
 }:
-makeDerivation {
-  env = {
-    envDependencies = dependencies;
-  };
-  builder = "echo $envDependencies > $out";
-  name = "make-derivation-parallel-for-${name}";
-}
+toFileJson "make-derivation-parallel-for-${name}" dependencies

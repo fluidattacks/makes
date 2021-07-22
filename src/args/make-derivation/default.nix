@@ -10,6 +10,7 @@
 { actions ? [ ]
 , builder
 , env ? { }
+, envFiles ? { }
 , local ? false
 , name
 , searchPaths ? { }
@@ -36,7 +37,7 @@ let
 
         ''
     ))
-    env;
+    (env // envFiles);
 in
 builtins.derivation (env' // {
   __envShellCommands = __shellCommands__;
@@ -61,6 +62,7 @@ builtins.derivation (env' // {
   ];
   builder = "${__nixpkgs__.bash}/bin/bash";
   name = toDerivationName name;
+  passAsFile = builtins.attrNames envFiles;
   system = builtins.currentSystem;
 } // __nixpkgs__.lib.optionalAttrs local {
   allowSubstitutes = false;
