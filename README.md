@@ -806,28 +806,39 @@ Lints Markdown code with [Markdown lint tool][MARKDOWN_LINT].
 
 Attributes:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to lint.
-  Defaults to the entire project.
+- self (`attrsOf moduleType`): Optional.
+  Definitions of config and associated paths to lint.
+  Defaults to `{ }`.
+
+Custom Types:
+
+- moduleType (`submodule`):
+    - config (`path`): Optional.
+      Path to the config file.
+      Defaults to
+      `src/evaluator/modules/outputs/builtins/lint-markdown/config.rb`.
+    - targets (`listOf str`): Required.
+      paths to lint with `config`.
 
 Example `makes.nix`:
 
 ```nix
 {
   lintMarkdown = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.md" # A file
-      "/directory" # A directory within the project
-    ];
+    all = {
+      config = ./config/markdown.rb;
+      targets = [ "/" ];
+    };
+    others = {
+      targets = [ "/others" ];
+    };
   };
 }
 ```
 
-Example invocation: `$ m . /lintMarkdown`
+Example invocation: `$ m . /lintMarkdown/all`
+
+Example invocation: `$ m . /lintMarkdown/others`
 
 ### lintNix
 
@@ -994,9 +1005,9 @@ Attributes:
 Custom Types:
 
 - schemaType (`submodule`):
-    - schema (`str`):
+    - schema (`str`): Required.
       Path to the [JSON Schema][JSON_SCHEMA].
-    - targets (`listOf str`):
+    - targets (`listOf str`): Required.
       [YAML][YAML] or [JSON][JSON]
       data files to lint with `schema`.
 
