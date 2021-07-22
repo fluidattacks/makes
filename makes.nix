@@ -116,9 +116,7 @@
     };
   };
   lintWithLizard = {
-    targets = {
-      all = [ "/" ];
-    };
+    all = [ "/" ];
   };
   secretsForTerraformFromEnv = {
     example = {
@@ -142,5 +140,8 @@
         version = "0.13";
       };
     };
+  };
+  lintClojure = {
+    test = [ "/test" ];
   };
 }

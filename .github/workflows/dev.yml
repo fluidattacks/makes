@@ -143,6 +143,22 @@ jobs:
     - name: /lintBash
       run: nix-env -if . && m . /lintBash
 
+  linux_lintClojure_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /lintClojure/test
+      with:
+        args: sh -c "nix-env -if . && m . /lintClojure/test"
+  macos_lintClojure_test:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintClojure
+      run: nix-env -if . && m . /lintClojure/test
+
   linux_lintGitCommitMsg:
     runs-on: ubuntu-latest
     steps:

@@ -106,6 +106,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [formatTerraform](#formatterraform)
     - [Lint](#lint)
         - [lintBash](#lintbash)
+        - [lintClojure](#lintclojure)
         - [lintGitCommitMsg](#lintgitcommitmsg)
         - [lintGitMailMap](#lintgitmailmap)
         - [lintMarkdown](#lintmarkdown)
@@ -756,6 +757,36 @@ Example `makes.nix`:
 
 Example invocation: `$ m . /lintBash`
 
+### lintClojure
+
+Lints clojure code with [clj-kondo][CLJ-KONDO].
+
+Attributes:
+
+- self (`attrsOf (listOf str)`): Optional.
+  Mapping of custom names to lists of paths (relative to the project) to lint.
+  Defaults to `{ }`.
+
+Example `makes.nix`:
+
+```nix
+{
+  lintClojure = {
+    example1 = [
+      "/" # Entire project
+      "/file.clj" # A file
+    ];
+    example2 = [
+      "/directory" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /lintClojure/example1`
+
+Example invocation: `$ m . /lintClojure/example2`
+
 ### lintGitCommitMsg
 
 It creates a commit diff
@@ -1060,7 +1091,7 @@ in all supported languages by [Lizard][LIZARD]
 
 Attributes:
 
-- targets (`attrsOf (listOf str)`): Optional.
+- self (`attrsOf (listOf str)`): Optional.
   Mapping of custom names to lists of paths (relative to the project) to lint.
   Defaults to `{ }`.
 
@@ -1069,15 +1100,13 @@ Example `makes.nix`:
 ```nix
 {
   lintWithLizard = {
-    targets = {
-      example1 = [
-        "/" # Entire project
-        "/file.py" # A file
-      ];
-      example2 = [
-        "/directory" # A directory within the project
-      ];
-    };
+    example1 = [
+      "/" # Entire project
+      "/file.py" # A file
+    ];
+    example2 = [
+      "/directory" # A directory within the project
+    ];
   };
 }
 ```
@@ -2116,6 +2145,9 @@ Examples:
 
 - [CLASSPATH]: https://en.wikipedia.org/wiki/Classpath
   [CLASSPATH Environment Variable][CLASSPATH]
+
+- [CLJ-KONDO]: https://github.com/clj-kondo/clj-kondo
+  [clj-kondo][CLJ-KONDO]
 
 - [COMMITLINT]: https://commitlint.js.org/#/
   [commitlint][COMMITLINT]
