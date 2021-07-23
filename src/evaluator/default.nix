@@ -21,38 +21,37 @@
 , ...
 }:
 let
-  packages = import ../nix/packages.nix;
-  result =
-    let
-      makesNixPath = projectSrc + "/makes.nix";
-      makesNix =
-        if builtins.pathExists makesNixPath
-        then import makesNixPath
-        else { };
+  makesNixPath = projectSrc + "/makes.nix";
+  makesNix =
+    if builtins.pathExists makesNixPath
+    then import makesNixPath
+    else { };
 
-      makesLockNixPath = projectSrc + "/makes.lock.nix";
-      makesLockNix =
-        if builtins.pathExists makesLockNixPath
-        then import makesLockNixPath
-        else { };
+  makesLockNixPath = projectSrc + "/makes.lock.nix";
+  makesLockNix =
+    if builtins.pathExists makesLockNixPath
+    then import makesLockNixPath
+    else { };
 
-      makesSrcOverriden =
-        if makesLockNix ? "makesSrc"
-        then makesLockNix.makesSrc
-        else makesSrc;
-    in
-    packages.nixpkgs.lib.modules.evalModules {
-      modules = [
-        ("${makesSrcOverriden}/src/evaluator/modules/default.nix")
-        (makesNix)
-      ];
-      specialArgs = import "${makesSrcOverriden}/src/args/default.nix" {
-        __nixpkgs__ = packages.nixpkgs;
-        inherit projectSrc;
-        inherit projectSrcMutable;
-        inputs = result.config.inputs;
-        outputs = result.config.outputs;
-      };
-    };
+  makesSrcOverriden =
+    if makesLockNix ? "makesSrc"
+    then makesLockNix.makesSrc
+    else makesSrc;
+
+  args = import "${makesSrcOverriden}/src/args/default.nix" {
+    __nixpkgs__ = packages.nixpkgs;
+    inherit projectSrc;
+    inherit projectSrcMutable;
+    inputs = result.config.inputs;
+    outputs = result.config.outputs;
+  };
+  packages = import "${makesSrcOverriden}/src/nix/packages.nix";
+  result = packages.nixpkgs.lib.modules.evalModules {
+    modules = [
+      ("${makesSrcOverriden}/src/evaluator/modules/default.nix")
+      (makesNix)
+    ];
+    specialArgs = args;
+  };
 in
 result
