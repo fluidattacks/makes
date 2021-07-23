@@ -3,8 +3,8 @@
 , makeDerivation
 , makeDerivationParallel
 , makePythonEnvironment
-, pathCopy
-, pathDirs
+, projectPath
+, projectPathLsDirs
 , ...
 }:
 { config
@@ -18,7 +18,7 @@ let
       env = {
         envSettingsMypy = ./settings-mypy.cfg;
         envSettingsProspector = ./settings-prospector.yaml;
-        envSrc = pathCopy src;
+        envSrc = projectPath src;
       };
       name = "lint-python-module-for-${name}";
       searchPaths = {
@@ -52,7 +52,7 @@ let
             src = "${src}/${moduleName}";
           }).value;
         })
-        (pathDirs src);
+        (projectPathLsDirs src);
     in
     (modules ++ [{
       name = "/lintPython/dirOfModules/${name}";

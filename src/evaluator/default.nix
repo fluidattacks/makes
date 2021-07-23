@@ -31,13 +31,13 @@ let
   packages = import ../nix/packages.nix;
   result =
     let
-      makesNixPath = args.path "/makes.nix";
+      makesNixPath = projectSrc + "/makes.nix";
       makesNix =
         if builtins.pathExists makesNixPath
         then import makesNixPath
         else { };
 
-      makesLockNixPath = args.path "/makes.lock.nix";
+      makesLockNixPath = projectSrc + "/makes.lock.nix";
       makesLockNix =
         if builtins.pathExists makesLockNixPath
         then import makesLockNixPath

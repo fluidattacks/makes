@@ -1,5 +1,5 @@
 { lintGitCommitMsg
-, pathMutable
+, projectPathMutable
 , ...
 }:
 { config
@@ -36,7 +36,7 @@
           config = config.lintGitCommitMsg.config;
           name = "lint-git-commit-msg";
           parser = config.lintGitCommitMsg.parser;
-          src = pathMutable "/";
+          src = projectPathMutable "/";
         });
     };
   };

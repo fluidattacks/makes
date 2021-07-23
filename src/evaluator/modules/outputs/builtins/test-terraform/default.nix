@@ -1,7 +1,7 @@
 { __nixpkgs__
 , __toModuleOutputs__
 , testTerraform
-, pathCopy
+, projectPath
 , ...
 }:
 { config
@@ -14,7 +14,7 @@ let
     value = testTerraform {
       inherit setup;
       inherit name;
-      src = pathCopy src;
+      src = projectPath src;
       inherit version;
     };
   };

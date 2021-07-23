@@ -21,7 +21,7 @@ let
             else { })
           (builtins.readDir path)));
 
-  makes = args.path "/makes";
+  makes = args.projectPath "/makes";
 in
 {
   config = {
