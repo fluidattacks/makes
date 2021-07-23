@@ -38,7 +38,10 @@ from urllib.parse import (
 )
 
 CWD: str = getcwd()
-ON_EXIT: List[Callable[[], None]] = []
+OUT_BASE: str = tempfile.mkdtemp()
+ON_EXIT: List[Callable[[], None]] = [
+    partial(shutil.rmtree, OUT_BASE, ignore_errors=True)
+]
 VERSION: str = "21.08"
 
 
@@ -292,7 +295,7 @@ def cli(args: List[str]) -> None:
     if attr not in attrs:
         _help_and_exit(src, attrs)
 
-    out: str = join(CWD, f"result{attr.replace('/', '-')}")
+    out: str = join(OUT_BASE, f"result{attr.replace('/', '-')}")
 
     cache: Dict[str, str] = _get_cache(src, head)
     code, _, _ = _run(
