@@ -5,11 +5,6 @@
 , outputs
 }:
 let
-  projectSrcInStore = builtins.path {
-    name = "head";
-    path = projectSrc;
-  };
-
   args = {
     inherit __nixpkgs__;
     __shellCommands__ = ./shell-commands/makes-setup.sh;
@@ -51,11 +46,13 @@ let
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
     inherit outputs;
-    path = rel: projectSrcInStore + rel;
-    pathCopy = import ./path-copy/default.nix args projectSrc;
-    pathDirs = import ./path-dirs/default.nix args;
-    pathMutable = rel: projectSrcMutable + rel;
-    pathsMatching = import ./paths-matching/default.nix args;
+    inherit projectSrc;
+    projectPath = import ./project-path/default.nix args;
+    projectPathLsDirs = import ./project-path-ls-dirs/default.nix args;
+    projectPathMutable = rel: projectSrcMutable + rel;
+    projectPathsMatching = import ./project-paths-matching/default.nix args;
+    projectSrcInStore = builtins.path { name = "head"; path = projectSrc; };
+    inherit projectSrcMutable;
     securePythonWithBandit = import ./secure-python-with-bandit/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);

@@ -1,11 +1,11 @@
 { __nixpkgs__
-, path
+, projectPath
 , ...
 }:
 rel:
 let
   isDir = _: value: value == "directory";
-  ls = builtins.readDir (path rel);
+  ls = builtins.readDir (projectPath rel);
   dirs = __nixpkgs__.lib.filterAttrs isDir ls;
   dirNames = builtins.attrNames dirs;
 in

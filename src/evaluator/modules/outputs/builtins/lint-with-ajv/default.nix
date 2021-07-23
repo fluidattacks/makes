@@ -1,6 +1,6 @@
 { __toModuleOutputs__
 , lintWithAjv
-, pathCopy
+, projectPath
 , ...
 }:
 { config
@@ -12,8 +12,8 @@ let
     name = "/lintWithAjv/${name}";
     value = lintWithAjv {
       inherit name;
-      schema = pathCopy schema;
-      targets = builtins.map pathCopy targets;
+      schema = projectPath schema;
+      targets = builtins.map projectPath targets;
     };
   };
 in

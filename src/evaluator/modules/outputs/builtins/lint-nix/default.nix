@@ -1,7 +1,7 @@
 { __nixpkgs__
 , asBashArray
 , makeDerivation
-, path
+, projectPath
 , ...
 }:
 { config
@@ -27,7 +27,7 @@
         env = {
           envTargets = asBashArray
             (builtins.map
-              path
+              projectPath
               config.lintNix.targets);
         };
         name = "lint-nix";

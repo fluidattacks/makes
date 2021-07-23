@@ -2,7 +2,7 @@
 , asBashArray
 , makeNodeEnvironment
 , makeScript
-, pathMutable
+, projectPathMutable
 , ...
 }:
 { config
@@ -32,7 +32,7 @@
           __argDoctocArgs__ = asBashArray
             config.formatMarkdown.doctocArgs;
           __argTargets__ = asBashArray
-            (builtins.map pathMutable config.formatMarkdown.targets);
+            (builtins.map projectPathMutable config.formatMarkdown.targets);
         };
         name = "format-markdown";
         searchPaths = {
