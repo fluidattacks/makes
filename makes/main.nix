@@ -1,6 +1,6 @@
 { makeScript
 , inputs
-, pathCopy
+, projectPath
 , ...
 }:
 makeScript {
@@ -10,7 +10,7 @@ makeScript {
     "makes-v21.08"
   ];
   replace = {
-    __argMakesSrc__ = pathCopy "/";
+    __argMakesSrc__ = projectPath "/";
   };
   entrypoint = ''
     __MAKES_SRC__=__argMakesSrc__ \

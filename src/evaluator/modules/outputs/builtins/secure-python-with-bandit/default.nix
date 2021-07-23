@@ -1,5 +1,5 @@
 { __toModuleOutputs__
-, pathCopy
+, projectPath
 , securePythonWithBandit
 , ...
 }:
@@ -13,7 +13,7 @@ let
     value = securePythonWithBandit {
       inherit name;
       inherit python;
-      target = pathCopy target;
+      target = projectPath target;
     };
   };
 in

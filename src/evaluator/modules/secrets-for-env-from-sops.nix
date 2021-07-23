@@ -1,6 +1,6 @@
 { __toModuleOutputs__
 , makeSecretForEnvFromSops
-, pathCopy
+, projectPath
 , ...
 }:
 { config
@@ -23,7 +23,7 @@ let
     name = "/secretsForEnvFromSops/${name}";
     value = makeSecretForEnvFromSops {
       inherit name;
-      target = pathCopy target;
+      target = projectPath target;
       inherit vars;
     };
   };

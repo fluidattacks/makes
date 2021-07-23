@@ -1,7 +1,7 @@
 { __nixpkgs__
 , asBashArray
 , makeDerivation
-, path
+, projectPath
 , ...
 }:
 { config
@@ -26,9 +26,7 @@
       "/lintBash" = lib.mkIf config.lintBash.enable (makeDerivation {
         env = {
           envTargets = asBashArray
-            (builtins.map
-              path
-              config.lintBash.targets);
+            (builtins.map projectPath config.lintBash.targets);
         };
         name = "lint-bash";
         searchPaths = {

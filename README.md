@@ -138,7 +138,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [makeSearchPaths](#makesearchpaths)
         - [makeDerivation](#makederivation)
         - [makeScript](#makescript)
-        - [path](#path)
+        - [projectPath](#projectpath)
         - [asBashArray](#asbasharray)
 - [Contact an expert](#contact-an-expert)
 - [Contributing to Makes](#contributing-to-makes)
@@ -1906,11 +1906,10 @@ $ m . /example
     1 directory, 1 file
 ```
 
-### path
+### projectPath
 
-Store a path in the [Nix][NIX] store
-and use it as an input
-for higher level builtins.
+Store a path out of the current [Makes][MAKES] project
+being evaluated in the [Nix][NIX] store.
 
 - It can be used for including paths in
   [makeScript](#makescript)
@@ -1919,18 +1918,18 @@ for higher level builtins.
   parameters respectively.
 - Derivations are rebuilt
   every time
-  provided paths change,
+  provided path contents change,
   thus increasing reproducibility.
+- Derivations are not rebuilt
+  if the path contents do not change,
+  thus increasing performance.
 - It removes spurious files and directories
   created while developing,
   thus increasing reproducibility.
-- It is fast, as it only loads
-  the repository HEAD once
-  and then reuses it.
 
 Inputs:
 
-- path (`str`):
+- relativePath (`str`):
   path to store.
   It must be absolute
   within the repository.
@@ -1942,12 +1941,12 @@ Example:
 
 # /path/to/my/project/makes/example/main.nix
 { makeScript
-, path
+, projectPath
 , ...
 }:
 makeScript {
   replace = {
-    __argPath__ = path "/src/nix";
+    __argPath__ = projectPath "/src/nix";
   };
   entrypoint = ''
     info Path is: __argPath__

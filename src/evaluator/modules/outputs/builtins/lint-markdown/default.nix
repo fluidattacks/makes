@@ -1,6 +1,6 @@
 { __toModuleOutputs__
 , lintMarkdown
-, pathCopy
+, projectPath
 , ...
 }:
 { config
@@ -13,7 +13,7 @@ let
     value = lintMarkdown {
       inherit name;
       inherit config;
-      targets = builtins.map pathCopy targets;
+      targets = builtins.map projectPath targets;
     };
   };
 in
