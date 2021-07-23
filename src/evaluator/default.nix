@@ -21,13 +21,6 @@
 , ...
 }:
 let
-  args = import ../args/default.nix {
-    __nixpkgs__ = packages.nixpkgs;
-    inherit projectSrc;
-    inherit projectSrcMutable;
-    inputs = result.config.inputs;
-    outputs = result.config.outputs;
-  };
   packages = import ../nix/packages.nix;
   result =
     let
@@ -53,7 +46,13 @@ let
         ("${makesSrcOverriden}/src/evaluator/modules/default.nix")
         (makesNix)
       ];
-      specialArgs = args;
+      specialArgs = import "${makesSrcOverriden}/src/args/default.nix" {
+        __nixpkgs__ = packages.nixpkgs;
+        inherit projectSrc;
+        inherit projectSrcMutable;
+        inputs = result.config.inputs;
+        outputs = result.config.outputs;
+      };
     };
 in
 result
