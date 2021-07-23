@@ -97,7 +97,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
         - [Configuring on Travis CI](#configuring-on-travis-ci)
     - [Configuring the cache](#configuring-the-cache)
-- [Makes.nix](#makesnix)
+- [Makes.nix reference](#makesnix-reference)
     - [Format](#format)
         - [formatBash](#formatbash)
         - [formatMarkdown](#formatmarkdown)
@@ -128,13 +128,13 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
     - [Stability](#stability)
         - [inputs](#inputs)
-        - [makesCommit](#makescommit)
     - [Examples](#examples)
         - [helloWorld](#helloworld)
+- [Makes.lock.nix reference](#makeslocknix-reference)
 - [Extending Makes](#extending-makes)
     - [Main.nix format](#mainnix-format)
         - [Derivations](#derivations)
-    - [Main.nix function arguments](#mainnix-function-arguments)
+    - [Main.nix reference](#mainnix-reference)
         - [makeSearchPaths](#makesearchpaths)
         - [makeDerivation](#makederivation)
         - [makeScript](#makescript)
@@ -376,7 +376,7 @@ Git commits are mathematically stable.
 
 You can find the commits list [here][MAKES_COMMITS].
 
-Please read the [makesCommit Reference][MAKES_COMMIT_REF] for more information.
+Please read the [Makes.lock.nix Reference][MAKES_LOCK_REF] for more information.
 
 ## Versioning scheme for the CLI
 
@@ -532,7 +532,7 @@ In order to do this:
     - Read access: `Public` or `Private`.
 1. Configure `makes.nix` as explained in the following sections
 
-# Makes.nix
+# Makes.nix reference
 
 A Makes project is identified by a `makes.nix` file
 in the top level directory.
@@ -1450,23 +1450,6 @@ Example `makes.nix`:
 }
 ```
 
-### makesCommit
-
-Commit of the [Makes][MAKES] source code used to evaluate your Project.
-
-Attributes:
-
-- self (`str`): Optional.
-  Defaults to the version bundled with the [Makes][MAKES] CLI.
-
-Example `makes.nix`:
-
-```nix
-{
-  makesCommit = "3c2be9cc5793317c323ac3c2f139b19f412db0b2"
-}
-```
-
 ## Examples
 
 ### helloWorld
@@ -1491,6 +1474,28 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /helloWorld 1 2 3`
+
+# Makes.lock.nix reference
+
+Allows you to define the exact version of [Makes]
+to evaluate your project with.
+
+Attributes:
+
+- makesSrc (`package`): Optional.
+  Source code of [Makes][MAKES] used to evaluate your Project.
+  Defaults to the version bundled with the [Makes][MAKES] CLI.
+
+Example `makes.lock.nix`:
+
+```nix
+{
+  makesSrc = builtins.fetchGit {
+    url = "https://github.com/fluidattacks/makes";
+    rev = "0dae5699b8d806e33e18122311c8af9510e18048";
+  };
+}
+```
 
 # Extending Makes
 
@@ -1601,7 +1606,7 @@ which contains, among other files:
 │   └── sh
 ```
 
-## Main.nix function arguments
+## Main.nix reference
 
 Makes offers you a few building blocks
 for you to reuse.
@@ -2194,8 +2199,8 @@ Examples:
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]
 
-- [MAKES_COMMIT_REF]: #makescommit
-  [makesCommit Reference][MAKES_COMMIT_REF]
+- [MAKES_LOCK_REF]: #makeslocknix-reference
+  [Makes.lock.nix Reference][MAKES_LOCK_REF]
 
 - [MAKES_COMMITS]: https://github.com/fluidattacks/makes/commits/main
   [Makes Commits][MAKES_COMMITS]
