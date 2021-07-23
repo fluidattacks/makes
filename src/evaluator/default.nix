@@ -36,24 +36,22 @@ let
         if builtins.pathExists makesNixPath
         then import makesNixPath
         else { };
-      makesNixConfig =
-        if builtins.isFunction makesNix
-        then makesNix args
-        else makesNix;
+
+      makesLockNixPath = args.path "/makes.lock.nix";
+      makesLockNix =
+        if builtins.pathExists makesLockNixPath
+        then import makesLockNixPath
+        else { };
+
       makesSrcOverriden =
-        if makesNixConfig ? "makesCommit"
-        then
-          (builtins.fetchGit {
-            name = "makes";
-            url = "https://github.com/fluidattacks/makes";
-            rev = makesNixConfig.makesCommit;
-          })
+        if makesLockNix ? "makesSrc"
+        then makesLockNix.makesSrc
         else makesSrc;
     in
     packages.nixpkgs.lib.modules.evalModules {
       modules = [
-        ("${makesSrcOverriden}/src/evaluator/modules")
-        (builtins.removeAttrs makesNixConfig [ "makesCommit" ])
+        ("${makesSrcOverriden}/src/evaluator/modules/default.nix")
+        (makesNix)
       ];
       specialArgs = args;
     };
