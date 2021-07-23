@@ -1,5 +1,5 @@
 jobs:
-  linux-all:
+  linux_all:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -14,7 +14,8 @@ jobs:
     - uses: cachix/install-nix-action@v13
     - name: __all__
       run: nix-env -if . && m . __all__
-  deployTerraform_module:
+
+  linux_deployTerraform_module:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +23,15 @@ jobs:
       name: /deployTerraform/module
       with:
         args: sh -c "nix-env -if . && m . /deployTerraform/module"
-  formatBash:
+  macos_deployTerraform_module:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /deployTerraform/module
+      run: nix-env -if . && m . /deployTerraform/module
+
+  linux_formatBash:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -30,7 +39,15 @@ jobs:
       name: /formatBash
       with:
         args: sh -c "nix-env -if . && m . /formatBash"
-  formatMarkdown:
+  macos_formatBash:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /formatBash
+      run: nix-env -if . && m . /formatBash
+
+  linux_formatMarkdown:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +55,15 @@ jobs:
       name: /formatMarkdown
       with:
         args: sh -c "nix-env -if . && m . /formatMarkdown"
-  formatNix:
+  macos_formatMarkdown:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /formatMarkdown
+      run: nix-env -if . && m . /formatMarkdown
+
+  linux_formatNix:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -46,7 +71,15 @@ jobs:
       name: /formatNix
       with:
         args: sh -c "nix-env -if . && m . /formatNix"
-  formatPython:
+  macos_formatNix:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /formatNix
+      run: nix-env -if . && m . /formatNix
+
+  linux_formatPython:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -54,7 +87,15 @@ jobs:
       name: /formatPython
       with:
         args: sh -c "nix-env -if . && m . /formatPython"
-  formatTerraform:
+  macos_formatPython:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /formatPython
+      run: nix-env -if . && m . /formatPython
+
+  linux_formatTerraform:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -62,7 +103,15 @@ jobs:
       name: /formatTerraform
       with:
         args: sh -c "nix-env -if . && m . /formatTerraform"
-  helloWorld:
+  macos_formatTerraform:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /formatTerraform
+      run: nix-env -if . && m . /formatTerraform
+
+  linux_helloWorld:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -70,7 +119,15 @@ jobs:
       name: /helloWorld
       with:
         args: sh -c "nix-env -if . && m . /helloWorld"
-  lintBash:
+  macos_helloWorld:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /helloWorld
+      run: nix-env -if . && m . /helloWorld
+
+  linux_lintBash:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -78,7 +135,15 @@ jobs:
       name: /lintBash
       with:
         args: sh -c "nix-env -if . && m . /lintBash"
-  lintGitCommitMsg:
+  macos_lintBash:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintBash
+      run: nix-env -if . && m . /lintBash
+
+  linux_lintGitCommitMsg:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -88,7 +153,17 @@ jobs:
       name: /lintGitCommitMsg
       with:
         args: sh -c "nix-env -if . && m . /lintGitCommitMsg"
-  lintGitMailMap:
+  macos_lintGitCommitMsg:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: cachix/install-nix-action@v13
+    - name: /lintGitCommitMsg
+      run: nix-env -if . && m . /lintGitCommitMsg
+
+  linux_lintGitMailMap:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -98,7 +173,15 @@ jobs:
       name: /lintGitMailMap
       with:
         args: sh -c "nix-env -if . && m . /lintGitMailMap"
-  lintMarkdown_all:
+  macos_lintGitMailMap:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintGitMailMap
+      run: nix-env -if . && m . /lintGitMailMap
+
+  linux_lintMarkdown_all:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -106,7 +189,15 @@ jobs:
       name: /lintMarkdown/all
       with:
         args: sh -c "nix-env -if . && m . /lintMarkdown/all"
-  lintNix:
+  macos_lintMarkdown_all:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintMarkdown/all
+      run: nix-env -if . && m . /lintMarkdown/all
+
+  linux_lintNix:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -114,7 +205,15 @@ jobs:
       name: /lintNix
       with:
         args: sh -c "nix-env -if . && m . /lintNix"
-  lintPython_dirOfModules_makes:
+  macos_lintNix:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintNix
+      run: nix-env -if . && m . /lintNix
+
+  linux_lintPython_dirOfModules_makes:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -122,7 +221,15 @@ jobs:
       name: /lintPython/dirOfModules/makes
       with:
         args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes"
-  lintPython_dirOfModules_makes_main:
+  macos_lintPython_dirOfModules_makes:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintPython/dirOfModules/makes
+      run: nix-env -if . && m . /lintPython/dirOfModules/makes
+
+  linux_lintPython_dirOfModules_makes_main:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -130,7 +237,15 @@ jobs:
       name: /lintPython/dirOfModules/makes/main
       with:
         args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes/main"
-  lintPython_module_cliMain:
+  macos_lintPython_dirOfModules_makes_main:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintPython/dirOfModules/makes/main
+      run: nix-env -if . && m . /lintPython/dirOfModules/makes/main
+
+  linux_lintPython_module_cliMain:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -138,7 +253,15 @@ jobs:
       name: /lintPython/module/cliMain
       with:
         args: sh -c "nix-env -if . && m . /lintPython/module/cliMain"
-  lintTerraform_module:
+  macos_lintPython_module_cliMain:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintPython/module/cliMain
+      run: nix-env -if . && m . /lintPython/module/cliMain
+
+  linux_lintTerraform_module:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -146,7 +269,15 @@ jobs:
       name: /lintTerraform/module
       with:
         args: sh -c "nix-env -if . && m . /lintTerraform/module"
-  lintWithLizard_all:
+  macos_lintTerraform_module:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintTerraform/module
+      run: nix-env -if . && m . /lintTerraform/module
+
+  linux_lintWithLizard_all:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -154,7 +285,15 @@ jobs:
       name: /lintWithLizard/all
       with:
         args: sh -c "nix-env -if . && m . /lintWithLizard/all"
-  securePythonWithBandit_cli:
+  macos_lintWithLizard_all:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintWithLizard/all
+      run: nix-env -if . && m . /lintWithLizard/all
+
+  linux_securePythonWithBandit_cli:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -162,7 +301,15 @@ jobs:
       name: /securePythonWithBandit/cli
       with:
         args: sh -c "nix-env -if . && m . /securePythonWithBandit/cli"
-  testTerraform_module:
+  macos_securePythonWithBandit_cli:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /securePythonWithBandit/cli
+      run: nix-env -if . && m . /securePythonWithBandit/cli
+
+  linux_testTerraform_module:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -170,6 +317,13 @@ jobs:
       name: /testTerraform/module
       with:
         args: sh -c "nix-env -if . && m . /testTerraform/module"
+  macos_testTerraform_module:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /testTerraform/module
+      run: nix-env -if . && m . /testTerraform/module
 name: dev
 on:
   pull_request:
