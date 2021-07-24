@@ -1,5 +1,7 @@
 { __nixpkgs__
 , asContent
+, hasPrefix
+, optionalAttrs
 , __shellCommands__
 , __shellOptions__
 , makeSearchPaths
@@ -25,10 +27,7 @@ let
   # Validate env
   env' = builtins.mapAttrs
     (k: v: (
-      if (
-        (__nixpkgs__.lib.strings.hasPrefix "__" k) ||
-        (__nixpkgs__.lib.strings.hasPrefix "env" k)
-      )
+      if (hasPrefix "__" k) || (hasPrefix "env" k)
       then v
       else
         abort ''
@@ -64,10 +63,10 @@ builtins.derivation (env' // {
   name = toDerivationName name;
   passAsFile = builtins.attrNames envFiles;
   system = builtins.currentSystem;
-} // __nixpkgs__.lib.optionalAttrs local {
+} // optionalAttrs local {
   allowSubstitutes = false;
   preferLocalBuild = true;
-} // __nixpkgs__.lib.optionalAttrs (sha256 != null) {
+} // optionalAttrs (sha256 != null) {
   outputHash = sha256;
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

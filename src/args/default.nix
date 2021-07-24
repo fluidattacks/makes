@@ -15,14 +15,19 @@ let
     asContent = import ./as-content/default.nix;
     deployContainerImage = import ./deploy-container-image/default.nix args;
     deployTerraform = import ./deploy-terraform/default.nix args;
+    escapeShellArg = lib.strings.escapeShellArg;
+    escapeShellArgs = lib.strings.escapeShellArgs;
     fakeSha256 = lib.fakeSha256;
     fetchGithub = import ./fetch-github/default.nix args;
     fetchNixpkgs = import ./fetch-nixpkgs/default.nix args;
     fetchUrl = import ./fetch-url/default.nix args;
     fetchZip = import ./fetch-zip/default.nix args;
+    filterAttrs = lib.filterAttrs;
+    flatten = lib.lists.flatten;
     formatBash = import ./format-bash/default.nix args;
     formatTerraform = import ./format-terraform/default.nix args;
     getAttr = import ./get-attr/default.nix;
+    hasPrefix = lib.strings.hasPrefix;
     inherit inputs;
     lintClojure = import ./lint-clojure/default.nix args;
     lintGitCommitMsg = import ./lint-git-commit-msg/default.nix args;
@@ -31,6 +36,7 @@ let
     lintTerraform = import ./lint-terraform/default.nix args;
     lintWithAjv = import ./lint-with-ajv/default.nix args;
     lintWithLizard = import ./lint-with-lizard/default.nix args;
+    listFilesRecursive = lib.filesystem.listFilesRecursive;
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;
     makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
@@ -46,6 +52,8 @@ let
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
+    mapAttrsToList = lib.mapAttrsToList;
+    optionalAttrs = lib.optionalAttrs;
     inherit outputs;
     inherit projectSrc;
     projectPath = rel: builtins.path { path = projectSrc + rel; };
@@ -54,6 +62,7 @@ let
     projectPathsMatching = import ./project-paths-matching/default.nix args;
     projectSrcInStore = builtins.path { name = "head"; path = projectSrc; };
     inherit projectSrcMutable;
+    removePrefix = lib.removePrefix;
     securePythonWithBandit = import ./secure-python-with-bandit/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
