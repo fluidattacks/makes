@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  source __argCommands__ local commands
-  source __argParallelArgs__ local parallel_args
+  source __argCommands__/makes-setup.sh local commands
+  source __argParallelArgs__/makes-setup.sh local parallel_args
   local commands_file
 
   commands_file="$(mktemp)" \

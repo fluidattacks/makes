@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  source "${envAliases}" local aliases
+  source "${envAliases}"/makes-setup.sh local aliases
 
   info Copying files \
     && mkdir -p "${out}/bin" \

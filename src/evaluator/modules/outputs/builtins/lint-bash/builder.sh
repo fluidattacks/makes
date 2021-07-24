@@ -2,7 +2,7 @@
 
 function main {
   local tmp
-  source "${envTargets}" local targets
+  source "${envTargets}/makes-setup.sh" local targets
   local args=(
     "--exclude=SC1090,SC1091,SC2016,SC2153,SC2154"
     "--external-sources"
