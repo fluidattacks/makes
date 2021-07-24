@@ -16,12 +16,12 @@ let
     deployContainerImage = import ./deploy-container-image/default.nix args;
     deployTerraform = import ./deploy-terraform/default.nix args;
     fakeSha256 = lib.fakeSha256;
-    fetchGithub = import ./fetchers/github.nix args;
-    fetchNixpkgs = import ./fetchers/nixpkgs.nix args;
-    fetchUrl = import ./fetchers/url.nix args;
-    fetchZip = import ./fetchers/zip.nix args;
-    formatBash = import ./format-bash args;
-    formatTerraform = import ./format-terraform args;
+    fetchGithub = import ./fetch-github/default.nix args;
+    fetchNixpkgs = import ./fetch-nixpkgs/default.nix args;
+    fetchUrl = import ./fetch-url/default.nix args;
+    fetchZip = import ./fetch-zip/default.nix args;
+    formatBash = import ./format-bash/default.nix args;
+    formatTerraform = import ./format-terraform/default.nix args;
     getAttr = import ./get-attr/default.nix;
     inherit inputs;
     lintClojure = import ./lint-clojure/default.nix args;
