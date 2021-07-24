@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  source __argVars__ local vars
+  source __argVars__/makes-setup.sh local vars
 
   info Making secrets for env from sops for __argName__: \
     && decrypted=$(sops --decrypt --output-type json '__argTarget__') \

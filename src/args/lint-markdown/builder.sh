@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  source "${envTargets}" local targets
+  source "${envTargets}/makes-setup.sh" local targets
 
   info Linting Markdown code \
     && for target in "${targets[@]}"; do

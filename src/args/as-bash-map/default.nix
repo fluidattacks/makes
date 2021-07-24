@@ -12,5 +12,5 @@ makeTemplate {
         attrset);
   };
   template = ./template.sh;
-  name = "bash-map";
+  name = "as-bash-map";
 }

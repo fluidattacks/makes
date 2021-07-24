@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  source __argTargets__ local targets
-  source __argDoctocArgs__ local doctoc_args
+  source __argTargets__/makes-setup.sh local targets
+  source __argDoctocArgs__/makes-setup.sh local doctoc_args
   local tmp
 
   info Formatting Markdown code \
