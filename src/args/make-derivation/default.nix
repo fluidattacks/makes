@@ -44,7 +44,7 @@ builtins.derivation (env' // {
   __envSearchPaths =
     if searchPaths == { }
     then "/dev/null"
-    else "${makeSearchPaths searchPaths}/makes-setup.sh";
+    else "${makeSearchPaths searchPaths}/template";
   __envSearchPathsBase = __nixpkgs__.lib.strings.makeBinPath [
     __nixpkgs__.coreutils
   ];

@@ -7,7 +7,7 @@ function main {
   local args_isort=(
     --settings-path '__argSettingsIsort__'
   )
-  source __argTargets__/makes-setup.sh local targets
+  source __argTargets__/template local targets
 
   if running_in_ci_cd_provider; then
     args_black+=(--diff --check --color) \

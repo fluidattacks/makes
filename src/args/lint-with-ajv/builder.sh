@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  source "${envTargets}/makes-setup.sh" local targets
+  source "${envTargets}/template" local targets
 
   info "Compiling schema: ${envSchema}" \
     && ajv compile -s "${envSchema}" \

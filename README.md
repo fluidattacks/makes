@@ -2021,7 +2021,7 @@ makeDerivation {
     envTargets = asBashArray [ "first" "second" "third" ];
   };
   builder = ''
-    source "''${envTargets}/makes-setup.sh" export targets
+    source "''${envTargets}/template" export targets
     for target in "''${targets[@]}"; do
       info "''${target}"
       info ---

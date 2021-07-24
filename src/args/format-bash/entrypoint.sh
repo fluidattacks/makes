@@ -9,7 +9,7 @@ function main {
     -sr  # Space after redirect operators
     -w   # Format in-place
   )
-  source __argTargets__/makes-setup.sh local targets
+  source __argTargets__/template local targets
 
   info Formatting bash code \
     && if running_in_ci_cd_provider; then

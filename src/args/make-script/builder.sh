@@ -1,15 +1,15 @@
 # shellcheck shell=bash
 
 function main {
-  source "${envAliases}"/makes-setup.sh local aliases
+  source "${envAliases}"/template local aliases
 
   info Copying files \
     && mkdir -p "${out}/bin" \
     && cd "${out}/bin" \
     && for location in "${aliases[@]}"; do
-      cat "${envEntrypointSetup}/makes-setup.sh" > "${location}" \
+      cat "${envEntrypointSetup}/template" > "${location}" \
         && echo >> "${location}" \
-        && cat "${envEntrypoint}/makes-setup.sh" >> "${location}" \
+        && cat "${envEntrypoint}/template" >> "${location}" \
         && chmod +x "${location}"
     done
 }
