@@ -1,5 +1,7 @@
 { __nixpkgs__
+, listFilesRecursive
 , projectPath
+, removePrefix
 , ...
 }:
 { regex
@@ -12,9 +14,9 @@ let
       targetInNixStore = projectPath target;
       matchingPaths = builtins.filter
         (path: builtins.match regex path != null)
-        (__nixpkgs__.lib.filesystem.listFilesRecursive targetInNixStore);
+        (listFilesRecursive targetInNixStore);
       matchingPathsRelative = builtins.map
-        (path: target + (__nixpkgs__.lib.removePrefix targetInNixStore path))
+        (path: target + (removePrefix targetInNixStore path))
         (matchingPaths);
     in
     builtins.map builtins.unsafeDiscardStringContext matchingPathsRelative;
