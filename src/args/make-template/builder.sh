@@ -16,20 +16,20 @@ function replace_arg_in_file {
 
 function main {
   mkdir "${out}" \
-    && echo "${__envTemplate}" > "${out}/makes-setup.sh" \
+    && echo "${__envTemplate}" > "${out}/template" \
     && while read -r 'var_name'; do
-      replace_arg_in_file "${out}/makes-setup.sh" \
+      replace_arg_in_file "${out}/template" \
         "${var_name}" \
         "${!var_name}" \
         || return 1
     done < "${__envArgumentNamesFile}" \
     && while read -r 'var_name'; do
-      replace_arg_in_file "${out}/makes-setup.sh" \
+      replace_arg_in_file "${out}/template" \
         "${var_name}" \
         "$(echo -n "${!var_name}" | base64 --wrap=0)" \
         || return 1
     done < "${__envArgumentBase64NamesFile}" \
-    && if grep --perl-regexp "${__envArgumentsRegex}" "${out}/makes-setup.sh"; then
+    && if grep --perl-regexp "${__envArgumentsRegex}" "${out}/template"; then
       error Some arguments are not being used
     fi
 }

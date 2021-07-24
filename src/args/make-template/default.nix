@@ -35,7 +35,7 @@ in
 makeDerivation {
   actions = [{
     type = "cat";
-    location = "/makes-setup.sh";
+    location = "/template";
   }];
   env = replace' // replaceBase64' // {
     __envArgumentsRegex = argumentRegex;
@@ -51,7 +51,7 @@ makeDerivation {
       if searchPaths == { }
       then asContent template
       else ''
-        source "${makeSearchPaths searchPaths}/makes-setup.sh"
+        source "${makeSearchPaths searchPaths}/template"
 
         ${asContent template}
       '';

@@ -7,8 +7,8 @@
 let
   args = {
     inherit __nixpkgs__;
-    __shellCommands__ = ./shell-commands/makes-setup.sh;
-    __shellOptions__ = ./shell-options/makes-setup.sh;
+    __shellCommands__ = ./shell-commands/template.sh;
+    __shellOptions__ = ./shell-options/template.sh;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
     asBashArray = import ./as-bash-array/default.nix args;
     asBashMap = import ./as-bash-map/default.nix args;

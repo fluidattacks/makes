@@ -2,7 +2,7 @@
 
 function main {
   export LANG=C.UTF-8
-  source "${envTargets}/makes-setup.sh" local targets
+  source "${envTargets}/template" local targets
   local args=(
     --recursive
     --check=BetaReduction

@@ -26,8 +26,8 @@ let
     else "export ${envVar}=\"${envDrv}${envPath}\"";
   sourceDrv = envDrv:
     ''
-      if test -e "${envDrv}/makes-setup.sh"; then
-        source "${envDrv}/makes-setup.sh"
+      if test -e "${envDrv}/template"; then
+        source "${envDrv}/template"
       else
         source "${envDrv}"
       fi

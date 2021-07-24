@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  source __argTargets__/makes-setup.sh local targets
+  source __argTargets__/template local targets
 
   info Formatting Nix code \
     && for target in "${targets[@]}"; do

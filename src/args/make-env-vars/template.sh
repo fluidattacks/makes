@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  source __argMap__/makes-setup.sh map
+  source __argMap__/template map
 
   info Making environment variables for __argName__: \
     && for var in "${!map[@]}"; do
