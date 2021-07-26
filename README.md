@@ -88,6 +88,7 @@ Real life projects that run entirely on [Makes][MAKES]:
 - [Getting started](#getting-started)
     - [Getting started as user](#getting-started-as-user)
     - [Getting started as developer](#getting-started-as-developer)
+    - [Learning the language](#learning-the-language)
     - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
     - [Versioning scheme for the CLI](#versioning-scheme-for-the-cli)
     - [Compatibility information](#compatibility-information)
@@ -368,6 +369,18 @@ In order to use Makes you'll need to:
         [INFO] Hello from Makes! Jane Doe.
         [INFO] You called us with CLI arguments: [ 1 2 3 ].
         ```
+
+## Learning the language
+
+Most of [Makes][MAKES] syntax
+is written in [Bash][BASH]
+and the [Nix][NIX] expression language.
+We highly recommend you the following resources:
+
+- [Bash][BASH]:
+  - [Shell Scripting Tutorial][BASH_TUTORIAL_SHELL_SCRIPTING]
+- [Nix][NIX] Expression Language:
+  - [Nix Pills][NIX_PILLS]
 
 ## Versioning scheme for the framework
 
@@ -2122,6 +2135,9 @@ Examples:
 - [BASH]: https://www.gnu.org/software/bash/
   [Bash][BASH]
 
+- [BASH_TUTORIAL_SHELL_SCRIPTING]: https://www.tutorialspoint.com/unix/shell_scripting.htm
+  [Shell Scripting Tutorial][BASH_TUTORIAL_SHELL_SCRIPTING]
+
 - [BLACK]: https://github.com/psf/black
   [Black][BLACK]
 
@@ -2274,6 +2290,9 @@ Examples:
 
 - [NIX_LINTER]: https://github.com/Synthetica9/nix-linter'
   [nix-linter][NIX_LINTER]
+
+- [NIX_PILLS]: https://nixos.org/guides/nix-pills/
+  [Nix Pills][NIX_PILLS]
 
 - [NIX_PKGS_FMT]: https://github.com/nix-community/nixpkgs-fmt
   [nixpkgs-fmt][NIX_PKGS_FMT]
