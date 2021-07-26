@@ -56,7 +56,7 @@ let
     optionalAttrs = lib.optionalAttrs;
     inherit outputs;
     inherit projectSrc;
-    projectPath = rel: builtins.path { path = projectSrc + rel; };
+    projectPath = import ./project-path/default.nix args;
     projectPathLsDirs = import ./project-path-ls-dirs/default.nix args;
     projectPathMutable = rel: projectSrcMutable + rel;
     projectPathsMatching = import ./project-paths-matching/default.nix args;
