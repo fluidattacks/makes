@@ -311,30 +311,17 @@ def cli(args: List[str]) -> None:
 
     if code == 0:
         cache_push(cache, out)
-        execute_actions(args, out)
+        execute_action(args, out)
 
     raise SystemExit(code)
 
 
-def execute_actions(args: List[str], out: str) -> None:
-    actions_path: str = join(out, "makes-actions.json")
+def execute_action(args: List[str], out: str) -> None:
+    action_path: str = join(out, "makes-action.sh")
 
-    if exists(actions_path):
-        with open(actions_path) as actions_file:
-            for action in json.load(actions_file):
-                if action["type"] == "exec":
-                    action_target: str = join(out, action["location"][1:])
-                    code, _, _ = _run(
-                        args=[action_target, *args],
-                        capture_io=False,
-                    )
-                    raise SystemExit(code)
-                if action["type"] == "cat":
-                    _log()
-                    action_target = join(out, action["location"][1:])
-                    with open(action_target) as file:
-                        print(file.read())
-                    raise SystemExit(0)
+    if exists(action_path):
+        code, _, _ = _run(args=[action_path, out, *args], capture_io=False)
+        raise SystemExit(code)
 
 
 def cache_push(cache: Dict[str, str], out: str) -> None:
