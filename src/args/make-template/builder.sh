@@ -8,7 +8,7 @@ function replace_arg_in_file {
   local arg_value="${3}"
 
   if grep --fixed-strings --quiet "${arg_name}" "${file}"; then
-    rpl "${arg_name}" "${arg_value}" "${file}" 2> /dev/null
+    rpl --quiet "${arg_name}" "${arg_value}" "${file}" 2> /dev/null
   else
     error Argument is not being used: "${arg_name}", please remove it
   fi

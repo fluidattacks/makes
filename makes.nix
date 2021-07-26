@@ -118,6 +118,20 @@
   lintWithLizard = {
     all = [ "/" ];
   };
+  pipelines = {
+    example = {
+      jobs = [
+        {
+          output = "/lintNix";
+          args = [ ];
+        }
+        {
+          output = "/helloWorld";
+          args = [ "1" "2" "3" ];
+        }
+      ];
+    };
+  };
   secretsForTerraformFromEnv = {
     example = {
       test = "VAR_NAME";
