@@ -33,10 +33,9 @@ let
   replaceBase64' = validateArguments replaceBase64;
 in
 makeDerivation {
-  actions = [{
-    type = "cat";
-    location = "/template";
-  }];
+  action = ''
+    cat "$1/template"
+  '';
   env = replace' // replaceBase64' // {
     __envArgumentsRegex = argumentRegex;
     __envArgumentNamesFile = toFileLst "replace.lst"

@@ -1,15 +1,15 @@
 { __nixpkgs__
-, asContent
-, hasPrefix
-, optionalAttrs
 , __shellCommands__
 , __shellOptions__
+, asContent
+, hasPrefix
 , makeSearchPaths
+, optionalAttrs
 , toDerivationName
 , ...
 }:
 
-{ actions ? [ ]
+{ action ? null
 , builder
 , env ? { }
 , envFiles ? { }
@@ -19,11 +19,6 @@
 , sha256 ? null
 }:
 let
-  actions' =
-    if actions == [ ]
-    then ""
-    else "echo '${builtins.toJSON actions}' > $out/makes-actions.json";
-
   # Validate env
   env' = builtins.mapAttrs
     (k: v: (
@@ -37,35 +32,48 @@ let
         ''
     ))
     (env // envFiles);
+
+  searchPathsBase = __nixpkgs__.lib.strings.makeBinPath [
+    __nixpkgs__.coreutils
+  ];
 in
 builtins.derivation (env' // {
   __envShellCommands = __shellCommands__;
   __envShellOptions = __shellOptions__;
-  __envSearchPaths =
-    if searchPaths == { }
-    then "/dev/null"
-    else "${makeSearchPaths searchPaths}/template";
-  __envSearchPathsBase = __nixpkgs__.lib.strings.makeBinPath [
-    __nixpkgs__.coreutils
-  ];
+  __envSearchPathsBase = searchPathsBase;
   args = [
     (builtins.toFile "make-derivation" ''
       source $__envShellCommands
       source $__envShellOptions
       export PATH=$__envSearchPathsBase
-      source $__envSearchPaths
+      if test -v __envSearchPaths; then
+        source $__envSearchPaths/template
+      fi
 
       ${asContent builder}
-      ${actions'}
+
+      if test -v __envAction; then
+        copy $__envAction $out/makes-action.sh
+      fi
     '')
   ];
   builder = "${__nixpkgs__.bash}/bin/bash";
   name = "make-derivation-for-${toDerivationName name}";
+  outputs = [ "out" ];
   passAsFile = builtins.attrNames envFiles;
   system = builtins.currentSystem;
-} // optionalAttrs local {
+} // optionalAttrs (action != null) {
+  __envAction = __nixpkgs__.writeShellScript "makes-action-for-${name}" ''
+    source ${__shellOptions__}
+    export PATH=${searchPathsBase}
+
+    ${action}
+  '';
+} // optionalAttrs (local) {
   allowSubstitutes = false;
   preferLocalBuild = true;
+} // optionalAttrs (searchPaths != { }) {
+  __envSearchPaths = makeSearchPaths searchPaths;
 } // optionalAttrs (sha256 != null) {
   outputHash = sha256;
   outputHashAlgo = "sha256";

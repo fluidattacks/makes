@@ -38,10 +38,9 @@ let
   name' = toDerivationName name;
 in
 makeDerivation {
-  actions = [{
-    type = "exec";
-    location = "/bin/${name'}";
-  }];
+  action = ''
+    "$1/bin/${name'}" "''${@:2}"
+  '';
   env = {
     envAliases = asBashArray ([ name' ] ++ aliases');
     envEntrypoint = makeTemplate {
