@@ -5,9 +5,9 @@
 , makeDerivation
 , makeSearchPaths
 , makeTemplate
+, toDerivationName
 , ...
 }:
-
 { aliases ? [ ]
 , entrypoint
 , name
@@ -33,14 +33,17 @@ let
         then [ ]
         else [ "/not-set" ])
       (builtins.functionArgs makeSearchPaths));
+
+  aliases' = builtins.map toDerivationName aliases;
+  name' = toDerivationName name;
 in
 makeDerivation {
   actions = [{
     type = "exec";
-    location = "/bin/${name}";
+    location = "/bin/${name'}";
   }];
   env = {
-    envAliases = asBashArray (aliases ++ [ name ]);
+    envAliases = asBashArray ([ name' ] ++ aliases');
     envEntrypoint = makeTemplate {
       inherit replace;
       inherit name;
@@ -51,7 +54,7 @@ makeDerivation {
         __argShellCommands__ = __shellCommands__;
         __argShellOptions__ = __shellOptions__;
         __argCaCert__ = __nixpkgs__.cacert;
-        __argName__ = name;
+        __argName__ = name';
         __argSearchPaths__ = makeSearchPaths searchPaths;
         __argSearchPathsBase__ = searchPathsBase;
         __argSearchPathsEmpty__ = searchPathsEmpty;

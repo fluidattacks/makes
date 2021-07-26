@@ -60,7 +60,7 @@ builtins.derivation (env' // {
     '')
   ];
   builder = "${__nixpkgs__.bash}/bin/bash";
-  name = toDerivationName name;
+  name = "make-derivation-for-${toDerivationName name}";
   passAsFile = builtins.attrNames envFiles;
   system = builtins.currentSystem;
 } // optionalAttrs local {
