@@ -26,6 +26,8 @@ let
     flatten = lib.lists.flatten;
     formatBash = import ./format-bash/default.nix args;
     formatTerraform = import ./format-terraform/default.nix args;
+    fromJson = builtins.fromJSON;
+    fromYaml = import ./from-yaml/default.nix args;
     getAttr = import ./get-attr/default.nix;
     hasPrefix = lib.strings.hasPrefix;
     inherit inputs;
@@ -69,6 +71,7 @@ let
     testTerraform = import ./test-terraform/default.nix args;
     toDerivationName = lib.strings.sanitizeDerivationName;
     toFileJson = import ./to-file-json/default.nix args;
+    toFileJsonFromFileYaml = import ./to-file-json-from-file-yaml/default.nix args;
     toFileLst = import ./to-file-lst/default.nix;
   };
 

@@ -378,9 +378,9 @@ and the [Nix][NIX] expression language.
 We highly recommend you the following resources:
 
 - [Bash][BASH]:
-  - [Shell Scripting Tutorial][BASH_TUTORIAL_SHELL_SCRIPTING]
+    - [Shell Scripting Tutorial][BASH_TUTORIAL_SHELL_SCRIPTING]
 - [Nix][NIX] Expression Language:
-  - [Nix Pills][NIX_PILLS]
+    - [Nix Pills][NIX_PILLS]
 
 ## Versioning scheme for the framework
 
