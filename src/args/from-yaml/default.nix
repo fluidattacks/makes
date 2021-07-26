@@ -6,4 +6,5 @@ expr:
 fromJson (
   builtins.readFile (
     toFileJsonFromFileYaml (
-      builtins.toFile "" expr)))
+      builtins.toFile "" expr
+    )))

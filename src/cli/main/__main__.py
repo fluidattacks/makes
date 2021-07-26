@@ -9,6 +9,7 @@ from os import (
     environ,
     getcwd,
     makedirs,
+    remove,
 )
 from os.path import (
     exists,
@@ -164,6 +165,8 @@ def _get_head(src: str) -> str:
                 makedirs(dirname(dest))
             if exists(path):
                 shutil.copy(path, dest)
+            else:
+                remove(dest)
 
     shutil.rmtree(join(head, ".git"))
     return head
