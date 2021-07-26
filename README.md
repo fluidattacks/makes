@@ -142,6 +142,8 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [makeScript](#makescript)
         - [projectPath](#projectpath)
         - [asBashArray](#asbasharray)
+        - [fromYaml](#fromyaml)
+        - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
 - [Contact an expert](#contact-an-expert)
 - [Contributing to Makes](#contributing-to-makes)
     - [Is easy](#is-easy)
@@ -2009,7 +2011,7 @@ $ m . /example
 
 ### asBashArray
 
-Transforms a list of arguments
+Transform a list of arguments
 into a [Bash][BASH] array.
 It can be used for passing
 several arguments from [Nix][NIX]
@@ -2053,6 +2055,106 @@ $ m . /example
     [INFO] ---
     [INFO] third
     [INFO] ----
+```
+
+### fromYaml
+
+Convert a [YAML][YAML] string
+to a [Nix][NIX] value.
+
+Inputs:
+
+- expr (`str`):
+  [YAML][YAML] expression to convert.
+
+Examples:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ fromYaml
+, makeDerivation
+, ...
+}:
+let
+  data = fromYaml ''
+    name: "John"
+    lastName: "Doe"
+    tickets: 3
+  '';
+in
+makeDerivation {
+  env = {
+    envName = data.name;
+    envLastName = data.lastName;
+    envTickets = data.tickets;
+  };
+  builder = ''
+    info "Name is: ${envName}"
+    info "Last name is: ${envLastName}"
+    info "Tickets is: ${envTickets}"
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    [INFO] Name is: John
+    [INFO] Last name is: Doe
+    [INFO] Tickets is: 3
+```
+
+### toFileJsonFromFileYaml
+
+Use [yq][YQ] to
+transform a [YAML][YAML] file
+into its [JSON][JSON]
+equivalent.
+
+Inputs:
+
+- envSrc (`path`):
+  [YAML][YAML] file to
+  transform.
+
+Examples:
+
+```yaml
+# /path/to/my/project/test.yaml
+
+name: "John"
+lastName: "Doe"
+tickets: 3
+```
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeDerivation
+, projectPath
+, toFileJsonFromFileYaml
+, ...
+}:
+makeDerivation {
+  env = {
+    envJson = toFileJsonFromFileYaml (
+      projectPath "/path/to/my/project/test.yaml");
+  };
+  builder = ''
+    cat "''${envJson}"
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+{
+  "name": "John",
+  "lastName": "Doe",
+  "tickets": 3
+}
 ```
 
 :construction: This section is Work in progress
@@ -2374,6 +2476,9 @@ Examples:
 
 - [YAML]: https://yaml.org/
   [YAML][YAML]
+
+- [YQ]: https://github.com/mikefarah/yq
+  [yq][YQ]
 
 - [YUM]: http://yum.baseurl.org/
   [Yellowdog Updated Modified (yum)][YUM]
