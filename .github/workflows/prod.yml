@@ -17,7 +17,6 @@ jobs:
 
   deployContainerImage_makesGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
-    needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
