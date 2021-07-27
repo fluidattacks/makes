@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashArray
+, toBashArray
 , makeNodeEnvironment
 , makeNodeInterpreter
 , makeNodeModules
@@ -31,9 +31,9 @@
     outputs = {
       "/formatMarkdown" = lib.mkIf config.formatMarkdown.enable (makeScript {
         replace = {
-          __argDoctocArgs__ = asBashArray
+          __argDoctocArgs__ = toBashArray
             config.formatMarkdown.doctocArgs;
-          __argTargets__ = asBashArray
+          __argTargets__ = toBashArray
             (builtins.map projectPathMutable config.formatMarkdown.targets);
         };
         name = "format-markdown";

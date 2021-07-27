@@ -1,4 +1,4 @@
-{ asBashArray
+{ toBashArray
 , makeDerivation
 , makeNodeEnvironment
 , makeNodeInterpreter
@@ -12,7 +12,7 @@
 makeDerivation {
   env = {
     envSchema = schema;
-    envTargets = asBashArray targets;
+    envTargets = toBashArray targets;
   };
   name = "lint-with-ajv-for-${name}";
   searchPaths = {

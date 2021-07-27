@@ -146,13 +146,16 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Main.nix format](#mainnix-format)
         - [Derivations](#derivations)
     - [Main.nix reference](#mainnix-reference)
-        - [makeSearchPaths](#makesearchpaths)
-        - [makeDerivation](#makederivation)
-        - [makeScript](#makescript)
-        - [projectPath](#projectpath)
-        - [asBashArray](#asbasharray)
-        - [fromYaml](#fromyaml)
-        - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
+        - [Fundamentals](#fundamentals)
+            - [makeSearchPaths](#makesearchpaths)
+            - [makeDerivation](#makederivation)
+            - [makeTemplate](#maketemplate)
+            - [makeScript](#makescript)
+            - [projectPath](#projectpath)
+        - [Format conversion](#format-conversion)
+            - [fromYaml](#fromyaml)
+            - [toBashArray](#tobasharray)
+            - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
 - [Contact an expert](#contact-an-expert)
 - [Contributing to Makes](#contributing-to-makes)
     - [Is easy](#is-easy)
@@ -1773,7 +1776,9 @@ for you to reuse.
 
 Let's start from the basics.
 
-### makeSearchPaths
+### Fundamentals
+
+#### makeSearchPaths
 
 On [Linux][LINUX]
 software dependencies
@@ -1857,11 +1862,11 @@ Types specific to [pkg-config][PKG_CONFIG]:
 
 - makeSearchPaths:
 
-  - `pkgConfig` (`listOf derivation`): Optional.
-    Append `/lib/pkgconfig`
-    of each element in the list
-    to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
-    Defaults to `[ ]`.
+    - `pkgConfig` (`listOf derivation`): Optional.
+      Append `/lib/pkgconfig`
+      of each element in the list
+      to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
+      Defaults to `[ ]`.
 
 Types specific to [Python][PYTHON]:
 
@@ -1942,7 +1947,7 @@ makeSearchPaths {
 }
 ```
 
-### makeDerivation
+#### makeDerivation
 
 Perform a build step in an **isolated** environment:
 
@@ -2015,7 +2020,54 @@ $ cat /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
     0 directories, 1 file
 ```
 
-### makeScript
+#### makeTemplate
+
+Replace placeholders with the specified values
+in a file of any format.
+
+Types:
+
+- makeTemplate (`function { ... } -> package`):
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - replace (`attrsOf strLike`): Optional.
+      Placeholders will be replaced in the script with their respective value.
+      Variable names must start with `__arg`, end with `__`
+      and have at least 6 characters long.
+      Defaults to `{ }`.
+    - template (`either str package`):
+      A string, file, output or package
+      in which placeholders will be replaced.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ inputs
+, makeTemplate
+, ...
+}:
+makeTemplate {
+  name = "example";
+  replace = {
+    __argBash__ = inputs.nixpkgs.bash;
+    __argVersion__ = "1.0";
+  };
+  template = ''
+    Bash is: __argBash__
+    Version is: __argVersion__
+  '';
+}
+```
+
+```bash
+$ m . /example
+
+    Bash is: /nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23
+    Version is: 1.0
+```
+
+#### makeScript
 
 Wrap a [Bash][BASH] script
 that runs in a **almost-isolated** environment.
@@ -2039,7 +2091,7 @@ Types:
       A [Bash][BASH] script that performs the build step.
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - replace (`attrsOf str`): Optional.
+    - replace (`attrsOf strLike`): Optional.
       Placeholders will be replaced in the script with their respective value.
       Variable names must start with `__arg`, end with `__`
       and have at least 6 characters long.
@@ -2089,7 +2141,7 @@ $ m . /example
     1 directory, 1 file
 ```
 
-### projectPath
+#### projectPath
 
 Copy a path from the current [Makes][MAKES] project
 being evaluated to the [Nix][NIX] store
@@ -2133,57 +2185,9 @@ $ m . /example
     packages.nix  sources.json  sources.nix
 ```
 
-### asBashArray
+### Format conversion
 
-Transform a list of arguments
-into a [Bash][BASH] array.
-It can be used for passing
-several arguments from [Nix][NIX]
-to [Bash][BASH].
-
-Types:
-
-- asBashArray (`function (listOf coercibleToString) -> package`):
-
-    - (`listOf coercibleToString`):
-      list of arguments
-      to transform.
-
-Examples:
-
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ asBashArray
-, makeDerivation
-, ...
-}:
-makeDerivation {
-  env = {
-    envTargets = asBashArray [ "first" "second" "third" ];
-  };
-  builder = ''
-    source "$envTargets/template" export targets
-    for target in "''${targets[@]}"; do
-      info "$target"
-      info ---
-    done
-  '';
-  name = "example";
-}
-```
-
-```bash
-$ m . /example
-
-    [INFO] first
-    [INFO] ---
-    [INFO] second
-    [INFO] ---
-    [INFO] third
-    [INFO] ----
-```
-
-### fromYaml
+#### fromYaml
 
 Convert a [YAML][YAML] string
 to a [Nix][NIX] value.
@@ -2233,7 +2237,57 @@ $ m . /example
     [INFO] Tickets is: 3
 ```
 
-### toFileJsonFromFileYaml
+#### toBashArray
+
+Transform a list of arguments
+into a [Bash][BASH] array.
+It can be used for passing
+several arguments from [Nix][NIX]
+to [Bash][BASH].
+
+Types:
+
+- toBashArray (`function (listOf strLike) -> package`):
+
+    - (`listOf strLike`):
+      list of arguments
+      to transform.
+
+Examples:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ toBashArray
+, makeDerivation
+, ...
+}:
+makeDerivation {
+  env = {
+    envTargets = toBashArray [ "first" "second" "third" ];
+  };
+  builder = ''
+    source "$envTargets/template" export targets
+    for target in "''${targets[@]}"; do
+      info "$target"
+      info ---
+    done
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    [INFO] first
+    [INFO] ---
+    [INFO] second
+    [INFO] ---
+    [INFO] third
+    [INFO] ----
+```
+
+#### toFileJsonFromFileYaml
 
 Use [yq][YQ] to
 transform a [YAML][YAML] file

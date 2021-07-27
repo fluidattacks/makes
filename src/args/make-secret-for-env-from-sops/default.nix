@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashArray
+, toBashArray
 , makeTemplate
 , toDerivationName
 , ...
@@ -12,7 +12,7 @@ makeTemplate {
   replace = {
     __argName__ = toDerivationName name;
     __argTarget__ = target;
-    __argVars__ = asBashArray vars;
+    __argVars__ = toBashArray vars;
   };
   name = "make-secret-for-env-from-sops-for-${name}";
   searchPaths = {

@@ -7,6 +7,6 @@ makeTemplate {
   replace = {
     __argArray__ = escapeShellArgs list;
   };
-  name = "as-bash-array";
+  name = "to-bash-array";
   template = ./template.sh;
 }

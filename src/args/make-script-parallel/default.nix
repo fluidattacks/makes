@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashArray
+, toBashArray
 , makeScript
 , ...
 }:
@@ -9,8 +9,8 @@
 }:
 makeScript {
   replace = {
-    __argCommands__ = asBashArray commands;
-    __argParallelArgs__ = asBashArray extraArgs;
+    __argCommands__ = toBashArray commands;
+    __argParallelArgs__ = toBashArray extraArgs;
   };
   entrypoint = ./entrypoint.sh;
   name = "make-script-parallel-for-${name}";

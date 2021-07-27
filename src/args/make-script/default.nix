@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashArray
+, toBashArray
 , __shellCommands__
 , __shellOptions__
 , makeDerivation
@@ -42,7 +42,7 @@ makeDerivation {
     "$1/bin/${name'}" "''${@:2}"
   '';
   env = {
-    envAliases = asBashArray ([ name' ] ++ aliases');
+    envAliases = toBashArray ([ name' ] ++ aliases');
     envEntrypoint = makeTemplate {
       inherit replace;
       inherit name;

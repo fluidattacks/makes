@@ -1,5 +1,5 @@
 { __toModuleOutputs__
-, asBashArray
+, toBashArray
 , asBashMap
 , makeScript
 , outputs
@@ -39,7 +39,7 @@ let
       inherit name;
       value = makeScript {
         replace = {
-          __argArgs__ = asBashArray args;
+          __argArgs__ = toBashArray args;
           __argOutput__ = outputs.${output};
         };
         name = "job-for-${name}";
