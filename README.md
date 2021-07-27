@@ -7,6 +7,13 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
+![Linux](https://img.shields.io/badge/Linux-blue)
+![MacOS](https://img.shields.io/badge/MacOS-blue)
+![GitHub](https://img.shields.io/badge/GitHub-brightgreen)
+![GitLab](https://img.shields.io/badge/GitLab-brightgreen)
+![Local](https://img.shields.io/badge/Local-brightgreen)
+![Docker](https://img.shields.io/badge/Docker-brightgreen)
+
 ## At a glance
 
 This is how creating a [CI/CD][CI_CD] pipeline
@@ -287,8 +294,8 @@ This means that Makes is able to run
 on any of the [Nix's supported platforms][NIX_PLATFORMS].
 
 We have **thoroughly** tested it in
-[x86_64, AMD64 or Intel64][X86_64] Linux machines,
-which are very easy to find on any cloud provider.
+[x86_64][X86_64] hardware architectures
+running Linux and MacOS (darwin) machines.
 
 In order to use Makes you'll need to:
 
@@ -426,7 +433,7 @@ below is a small table that clearly expresses their trade-offs.
 
 | Provider                         | Easy   | Config | Scale  | SaaS   | Security |
 |----------------------------------|--------|--------|--------|--------|----------|
-| [GitHub Actions][GITHUB_ACTIONS] | :star: | :star: | :star: | :star: |          |
+| [GitHub Actions][GITHUB_ACTIONS] | :star: | :star: |        | :star: |          |
 | [GitLab CI/CD][GITLAB_CI]        | :star: | :star: |        | :star: | :star:   |
 | [Travis CI][TRAVIS_CI]           |        |        | :star: | :star: | :star:   |
 
@@ -436,8 +443,8 @@ it's a good idea to try [GitHub Actions][GITHUB_ACTIONS].
 If you want **serious** security try [GitLab CI/CD][GITLAB_CI].
 
 We didn't like [Travis CI][TRAVIS_CI]
-because managing encrypted secrets is just ugly.
-It also does not support running custom container images.
+because managing encrypted secrets is ugly.
+It does not support running custom container images.
 
 ### Configuring on GitHub Actions
 
