@@ -10,7 +10,7 @@ let
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
-    asBashArray = import ./as-bash-array/default.nix args;
+    toBashArray = import ./to-bash-array/default.nix args;
     asBashMap = import ./as-bash-map/default.nix args;
     asContent = import ./as-content/default.nix;
     deployContainerImage = import ./deploy-container-image/default.nix args;

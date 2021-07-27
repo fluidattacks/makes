@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashArray
+, toBashArray
 , makeScript
 , projectPathMutable
 , ...
@@ -10,7 +10,7 @@
 }:
 makeScript {
   replace = {
-    __argTargets__ = asBashArray
+    __argTargets__ = toBashArray
       (builtins.map projectPathMutable targets);
   };
   name = "format-bash-for-${name}";

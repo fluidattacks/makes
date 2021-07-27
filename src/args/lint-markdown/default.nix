@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashArray
+, toBashArray
 , makeDerivation
 , ...
 }:
@@ -10,7 +10,7 @@
 makeDerivation {
   env = {
     envConfig = config;
-    envTargets = asBashArray targets;
+    envTargets = toBashArray targets;
   };
   name = "lint-markdown-for-${name}";
   searchPaths = {

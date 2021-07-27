@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashArray
+, toBashArray
 , makeScript
 , projectPathMutable
 , ...
@@ -25,7 +25,7 @@
     outputs = {
       "/formatNix" = lib.mkIf config.formatNix.enable (makeScript {
         replace = {
-          __argTargets__ = asBashArray
+          __argTargets__ = toBashArray
             (builtins.map projectPathMutable config.formatNix.targets);
         };
         name = "format-nix";
