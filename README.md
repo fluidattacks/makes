@@ -598,13 +598,14 @@ Formatters help your code be consistent, beautiful and more maintainable.
 
 Ensure that Bash code is formatted according to [shfmt][SHFMT].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
+- formatBash:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to format.
+      Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -627,15 +628,16 @@ Example invocation: `$ m . /formatBash`
 
 Ensure that Markdown code is formatted according to [doctoc][DOCTOC].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- doctocArgs (`listOf str`): Optional.
-  Extra CLI flags to propagate to [doctoc][DOCTOC].
-  Defaults to `[ ]`.
-- targets (`listOf str`):
-  Files (relative to the project) to format.
+- formatMarkdown:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - doctocArgs (`listOf str`): Optional.
+      Extra CLI flags to propagate to [doctoc][DOCTOC].
+      Defaults to `[ ]`.
+    - targets (`listOf str`):
+      Files (relative to the project) to format.
 
 Example `makes.nix`:
 
@@ -655,13 +657,14 @@ Example invocation: `$ m . /formatMarkdown`
 
 Ensure that Nix code is formatted according to [nixpkgs-fmt][NIX_PKGS_FMT].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
+- formatNix:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to format.
+      Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -685,13 +688,14 @@ Example invocation: `$ m . /formatNix`
 Ensure that Python code is formatted according to [Black][BLACK]
 and [isort][ISORT].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
+- formatPython:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to format.
+      Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -715,13 +719,14 @@ Example invocation: `$ m . /formatPython`
 Ensure that [Terraform][TERRAFORM] code
 is formatted according to [Terraform FMT][TERRAFORM_FMT].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to format.
-  Defaults to the entire project.
+- formatTerraform:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to format.
+      Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -749,13 +754,14 @@ best practices.
 
 Lints Bash code with [ShellCheck][SHELLCHECK].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to lint.
-  Defaults to the entire project.
+- lintBash:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to lint.
+      Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -778,9 +784,9 @@ Example invocation: `$ m . /lintBash`
 
 Lints clojure code with [clj-kondo][CLJ-KONDO].
 
-Attributes:
+Types:
 
-- self (`attrsOf (listOf str)`): Optional.
+- lintClojure (`attrsOf (listOf str)`): Optional.
   Mapping of custom names to lists of paths (relative to the project) to lint.
   Defaults to `{ }`.
 
@@ -812,21 +818,23 @@ and the main branch of the repository.
 All commits included in the diff
 are linted using [Commitlint][COMMITLINT].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- branch (`str`): Optional.
-  Name of the main branch.
-  Defaults to `main`.
-- config (`path`): Optional.
-  Configuration file for [Commitlint][COMMITLINT].
-  Defaults to
-  [config.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/config.js).
-- parser (`path`): Optional.
-  [Commitlint][COMMITLINT] parser definitions.
-  Defaults to
-  [parser.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/parser.js).
+- lintGitCommitMsg:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - branch (`str`): Optional.
+      Name of the main branch.
+      Defaults to `main`.
+    - config (`path`): Optional.
+      Configuration file for [Commitlint][COMMITLINT].
+      Defaults to
+      [config.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/config.js).
+    - parser (`path`): Optional.
+      [Commitlint][COMMITLINT] parser definitions.
+      Defaults to
+      [parser.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/parser.js).
+
 Example `makes.nix`:
 
 ```nix
@@ -845,10 +853,11 @@ Example invocation: `$ m . /lintGitCommitMsg`
 Lint the [Git][GIT] [MailMap][GIT_MAILMAP] of the project
 with [MailMap Linter][MAILMAP_LINTER].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
+- lintGitMailmap:
+    - enable (`boolean`): Optional.
+      Defaults to false.
 
 Example `makes.nix`:
 
@@ -866,9 +875,9 @@ Example invocation: `$ m . /lintGitMailMap`
 
 Lints Markdown code with [Markdown lint tool][MARKDOWN_LINT].
 
-Attributes:
+Types:
 
-- self (`attrsOf moduleType`): Optional.
+- lintMarkdown (`attrsOf moduleType`): Optional.
   Definitions of config and associated paths to lint.
   Defaults to `{ }`.
 
@@ -906,13 +915,14 @@ Example invocation: `$ m . /lintMarkdown/others`
 
 Lints Nix code with [nix-linter][NIX_LINTER].
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- targets (`listOf str`): Optional.
-  Files or directories (relative to the project) to lint.
-  Defaults to the entire project.
+- lintNix:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to lint.
+      Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -935,17 +945,15 @@ Example invocation: `$ m . /lintNix`
 
 Lints Python code with [mypy][MYPY] and [Prospector][PROSPECTOR].
 
-Attributes:
+Types:
 
-- dirsOfModules (`attrsOf dirOfModulesType`): Optional.
-  Definitions of directories of python packages/modules to lint.
-  Defaults to `{ }`.
-- modules (`attrsOf moduleType`): Optional.
-  Definitions of python packages/modules to lint.
-  Defaults to `{ }`.
-
-Custom Types:
-
+- lintPython:
+    - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
+      Definitions of directories of python packages/modules to lint.
+      Defaults to `{ }`.
+    - modules (`attrsOf moduleType`): Optional.
+      Definitions of python packages/modules to lint.
+      Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
     - extraSources (`listOf package`): Optional.
       List of scripts that will be sourced before performing the linting process.
@@ -996,27 +1004,25 @@ Example invocation: `$ m . /lintPython/module/cliMain`
 Lint [Terraform][TERRAFORM] code
 with [TFLint][TFLINT].
 
-Attributes:
+Types:
 
-- config (`lines`): Optional.
-  Defaults to:
+- lintTerraform:
+    - config (`lines`): Optional.
+      Defaults to:
 
-  ```hcl
-  config {
-    module = true
-  }
+      ```hcl
+      config {
+        module = true
+      }
 
-  plugin "aws" {
-    enabled = true
-  }
-  ```
+      plugin "aws" {
+        enabled = true
+      }
+      ```
 
-- modules (`attrsOf moduleType`): Optional.
-  Path to [Terraform][TERRAFORM] modules to lint.
-  Defaults to `{ }`.
-
-Custom Types:
-
+    - modules (`attrsOf moduleType`): Optional.
+      Path to [Terraform][TERRAFORM] modules to lint.
+      Defaults to `{ }`.
 - moduleType (`submodule`):
     - setup (`listOf package`): Optional.
       [Makes Environment][MAKES_ENVIRONMENT]
@@ -1058,9 +1064,9 @@ Lints [JSON][JSON] and [YAML][YAML] data files
 with [JSON Schemas][JSON_SCHEMA].
 It uses [ajv-cli][AJV_CLI].
 
-Attributes:
+Types:
 
-- self (`attrsOf schemaType`): Optional.
+- lintWithAjv (`attrsOf schemaType`): Optional.
   Definitions of schema and associated data to lint.
   Defaults to `{ }`.
 
@@ -1106,9 +1112,9 @@ Using [Lizard][LIZARD] to check
 Ciclomatic Complexity and functions length
 in all supported languages by [Lizard][LIZARD]
 
-Attributes:
+Types:
 
-- self (`attrsOf (listOf str)`): Optional.
+- lintWithLizard (`attrsOf (listOf str)`): Optional.
   Mapping of custom names to lists of paths (relative to the project) to lint.
   Defaults to `{ }`.
 
@@ -1140,14 +1146,12 @@ Test [Terraform][TERRAFORM] code
 by performing a `terraform plan`
 over the specified [Terraform][TERRAFORM] modules.
 
-Attributes:
+Types:
 
-- modules (`attrsOf moduleType`): Optional.
-  Path to [Terraform][TERRAFORM] modules to lint.
-  Defaults to `{ }`.
-
-Custom Types:
-
+- testTerraform:
+    - modules (`attrsOf moduleType`): Optional.
+      Path to [Terraform][TERRAFORM] modules to lint.
+      Defaults to `{ }`.
 - moduleType (`submodule`):
     - setup (`listOf package`): Optional.
       [Makes Environment][MAKES_ENVIRONMENT]
@@ -1189,9 +1193,9 @@ Example invocation: `$ m . /testTerraform/module2`
 
 Secure Python code with [Bandit][BANDIT].
 
-Attributes:
+Types:
 
-- self (`attrsOf projectType`): Optional.
+- securePythonWithBandit (`attrsOf projectType`): Optional.
   Definitions of directories of python packages/modules to lint.
   Defaults to `{ }`.
 
@@ -1228,11 +1232,12 @@ to the specified container registries.
 For details on how to build container images in [OCI Format][OCI_FORMAT_REPO]
 please read the `makeContainerImage` reference.
 
-Attributes:
+Types:
 
-- images (`attrsOf imageType`): Optional.
-  Definitions of container images to deploy.
-  Defaults to `{ }`.
+- deployContainerImage:
+    - images (`attrsOf imageType`): Optional.
+      Definitions of container images to deploy.
+      Defaults to `{ }`.
 
 Custom Types:
 
@@ -1298,11 +1303,12 @@ Deploy [Terraform][TERRAFORM] code
 by performing a `terraform apply`
 over the specified [Terraform][TERRAFORM] modules.
 
-Attributes:
+Types:
 
-- modules (`attrsOf moduleType`): Optional.
-  Path to [Terraform][TERRAFORM] modules to lint.
-  Defaults to `{ }`.
+- deployTerraform:
+    - modules (`attrsOf moduleType`): Optional.
+      Path to [Terraform][TERRAFORM] modules to lint.
+      Defaults to `{ }`.
 
 Custom Types:
 
@@ -1347,14 +1353,15 @@ Example invocation: `$ m . /deployTerraform/module2`
 
 Cache build results on a [Cachix][CACHIX] cache.
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- name (`str`):
-  Name of the [Cachix][CACHIX] cache.
-- pubKey (`str`):
-  Public key of the [Cachix][CACHIX] cache.
+- cache:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - name (`str`):
+      Name of the [Cachix][CACHIX] cache.
+    - pubKey (`str`):
+      Public key of the [Cachix][CACHIX] cache.
 
 Required environment variables:
 
@@ -1487,9 +1494,9 @@ across different [Makes][MAKES] components.
 Load [Amazon Web Services (AWS)][AWS] secrets
 from [Environment Variables][ENV_VAR].
 
-Attributes:
+Types:
 
-- self (`attrsOf awsFromEnvType`): Optional.
+- secretsForAwsFromEnv (`attrsOf awsFromEnvType`): Optional.
   Defaults to `{ }`.
 
 Custom Types:
@@ -1569,9 +1576,9 @@ Example `makes.nix`:
 Explicitly declare the inputs and sources for your project.
 Inputs can be anything.
 
-Attributes:
+Types:
 
-- self (`attrs`): Optional.
+- inputs (`attrOf anything`): Optional.
   Defaults to `{ }`.
 
 Example `makes.nix`:
@@ -1601,11 +1608,12 @@ Example `makes.nix`:
 
 Small command for demo purposes, it greets the specified user:
 
-Attributes:
+Types:
 
-- enable (`boolean`): Optional.
-  Defaults to false.
-- name (`string`): Required.Some test
+- helloWorld:
+    - enable (`boolean`): Optional.
+      Defaults to false.
+    - name (`string`): Required.Some test
 
 Example `makes.nix`:
 
@@ -1625,7 +1633,7 @@ Example invocation: `$ m . /helloWorld 1 2 3`
 Allows you to define the exact version of [Makes]
 to evaluate your project with.
 
-Attributes:
+Types:
 
 - makesSrc (`package`): Optional.
   Source code of [Makes][MAKES] used to evaluate your Project.
