@@ -8,6 +8,7 @@
 , javaClass ? [ ]
 , nodeBin ? [ ]
 , nodeModule ? [ ]
+, pkgConfig ? [ ]
 , pythonMypy ? [ ]
 , pythonMypy37 ? [ ]
 , pythonMypy38 ? [ ]
@@ -46,6 +47,10 @@ makeTemplate {
       {
         derivations = bin;
         generator = export "PATH" "/bin";
+      }
+      {
+        derivations = pkgConfig;
+        generator = export "PKG_CONFIG_PATH" "/lib/pkgconfig";
       }
       {
         derivations = javaClass;
