@@ -7,7 +7,7 @@ jobs:
       name: __all__
       with:
         args: sh -c "nix-env -if . && m . __all__"
-  mac-all:
+  mac_all:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2

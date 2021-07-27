@@ -1,16 +1,21 @@
 jobs:
-  deployContainerImage_makesGitHub:
-    if: ${{ github.repository == 'fluidattacks/makes' }}
+  linux_all:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: docker://docker.io/nixos/nix:2.3.12
-      env:
-        GITHUB_ACTOR: ${{ github.actor }}
-        GITHUB_TOKEN: ${{ github.token }}
+      name: __all__
       with:
-        args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
-  deployContainerImage_makesGitHubMonthly:
+        args: sh -c "nix-env -if . && m . __all__"
+  mac_all:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: __all__
+      run: nix-env -if . && m . __all__
+
+  deployContainerImage_makesGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     needs: deployContainerImage_makesGitHub
     runs-on: ubuntu-latest
@@ -22,6 +27,30 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         args: m . /deployContainerImage/makesGitHubMonthly
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      env:
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
+
+  releaseGitHub:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: richardsimko/update-tag@v1
+      with:
+        tag_name: 21.08
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - uses: johnwbyrd/update-release@v1.0.0
+      with:
+        files: README.md
+        release: 21.08
+        prerelease: true
+        tag: 21.08
+        token: ${{ github.token }}
 name: prod
 on:
   push:
