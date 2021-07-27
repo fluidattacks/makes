@@ -126,6 +126,7 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Performance](#performance)
         - [cache](#cache)
     - [Environment](#environment)
+        - [envVars](#envvars)
     - [Secrets](#secrets)
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
     - [Stability](#stability)
@@ -1358,7 +1359,7 @@ Required environment variables:
 
 - `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
     - For Public caches:
-      If not set the cache will only be read, but not written to.
+      If not set the cache will be read, but not written to.
     - For private caches:
       If not set the cache won't be read, nor written to.
 
@@ -1375,6 +1376,51 @@ Example `makes.nix`:
 ```
 
 ## Environment
+
+### envVars
+
+:warning: Do not propagate sensitive information here, it's not safe.
+Use [Makes Secrets][MAKES_SECRETS] instead.
+
+Allows you to map environment variables from a name to a value.
+
+Types:
+
+- envVars (`attrsOf (attrsOf str)`): Optional.
+  Defaults to `{ }`.
+
+Example `makes.nix`:
+
+```nix
+{ inputs
+, outputs
+, ...
+}:
+{
+  envVars = {
+    example = {
+      # Equals to: export awsDefaultRegion=us-east-1
+      awsDefaultRegion = "us-east-1";
+    };
+    otherExample = {
+      # Equals to: export license=/nix/store/...-my-license
+      license = outputs."/MyLicense";
+      # Equals to: export bash=/nix/store/...-bash
+      bash = inputs.nixpkgs.bash;
+    };
+  };
+  inputs = {
+    nixpkgs = fetchNixpkgs {
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /envVars/example`
+
+Example invocation: `$ m . /envVars/otherExample`
 
 ## Secrets
 
