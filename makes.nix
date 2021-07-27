@@ -3,17 +3,10 @@
 , ...
 }:
 {
-  inputs = {
-    nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
-    };
-  };
-
   cache = {
     enable = true;
-    name = "fluidattacks";
-    pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+    name = "makes";
+    pubKey = "makes.cachix.org-1:HbCQcdlYyT/mYuOx6rlgkNkonTGUjVr3D+YpuGRmO+Y=";
   };
   deployContainerImage = {
     images = {
@@ -71,6 +64,12 @@
   helloWorld = {
     enable = true;
     name = "Jane Doe";
+  };
+  inputs = {
+    nixpkgs = fetchNixpkgs {
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+    };
   };
   lintBash = {
     enable = true;
