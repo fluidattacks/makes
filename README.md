@@ -1822,104 +1822,114 @@ Instead of this:
 export PATH="/nix/store/m5kp2jhiga25ynk3iq61f4psaqixg7ib-git-2.32.0/bin${PATH:+:}${PATH:-}"
 ```
 
-Inputs:
+Types:
 
-- `bin` (`listOf package`): Optional.
-  Append `/`
-  of every element in the list
-  to [PATH][PATH].
-  Defaults to `[ ]`.
+- makeSearchPaths (`function { ... } -> package`):
 
-- `rpath` (`listOf package`): Optional.
-  Append `/lib` and `/lib64`
-  of every element in the list
-  to [LD_LIBRARY_PATH][RPATH].
-  Defaults to `[ ]`.
+    - `bin` (`listOf package`): Optional.
+      Append `/`
+      of every element in the list
+      to [PATH][PATH].
+      Defaults to `[ ]`.
 
-- `source` (`listOf package`): Optional.
-  Source (as in [Bash][BASH]'s `source` command)
-  every element in the list.
-  Defaults to `[ ]`.
+    - `rpath` (`listOf package`): Optional.
+      Append `/lib` and `/lib64`
+      of every element in the list
+      to [LD_LIBRARY_PATH][RPATH].
+      Defaults to `[ ]`.
 
-Inputs specific to Java:
+    - `source` (`listOf package`): Optional.
+      Source (as in [Bash][BASH]'s `source` command)
+      every element in the list.
+      Defaults to `[ ]`.
 
-- `javaClass` (`listOf package`): Optional.
-  Append `/`
-  of each element in the list
-  to [CLASSPATH][CLASSPATH].
-  Defaults to `[ ]`.
+Types specific to Java:
 
-Inputs specific to [pkg-config][PKG_CONFIG]:
+- makeSearchPaths:
 
-- `pkgConfig` (`listOf derivation`): Optional.
-  Append `/lib/pkgconfig`
-  of each element in the list
-  to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
-  Defaults to `[ ]`.
+    - `javaClass` (`listOf package`): Optional.
+      Append `/`
+      of each element in the list
+      to [CLASSPATH][CLASSPATH].
+      Defaults to `[ ]`.
 
-Inputs specific to [Python][PYTHON]:
+Types specific to [pkg-config][PKG_CONFIG]:
 
-- `pythonMypy` (`listOf package`): Optional.
-  Append `/`
-  of each element in the list
-  to [MYPYPATH][MYPYPATH].
-  Defaults to `[ ]`.
+- makeSearchPaths:
 
-- `pythonMypy37` (`listOf package`): Optional.
-  Append `/lib/python3.7/site-packages`
-  of each element in the list
-  to [MYPYPATH][MYPYPATH].
-  Defaults to `[ ]`.
+  - `pkgConfig` (`listOf derivation`): Optional.
+    Append `/lib/pkgconfig`
+    of each element in the list
+    to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
+    Defaults to `[ ]`.
 
-- `pythonMypy38` (`listOf package`): Optional.
-  Append `/lib/python3.8/site-packages`
-  of each element in the list
-  to [MYPYPATH][MYPYPATH].
-  Defaults to `[ ]`.
+Types specific to [Python][PYTHON]:
 
-- `pythonMypy39` (`listOf package`): Optional.
-  Append `/lib/python3.9/site-packages`
-  of each element in the list
-  to [MYPYPATH][MYPYPATH].
-  Defaults to `[ ]`.
+- makeSearchPaths:
 
-- `pythonPackage` (`listOf package`): Optional.
-  Append `/`
-  of each element in the list
-  to [PYTHONPATH][PYTHONPATH].
-  Defaults to `[ ]`.
+    - `pythonMypy` (`listOf package`): Optional.
+      Append `/`
+      of each element in the list
+      to [MYPYPATH][MYPYPATH].
+      Defaults to `[ ]`.
 
-- `pythonPackage37` (`listOf package`): Optional.
-  Append `/lib/python3.7/site-packages`
-  of each element in the list
-  to [PYTHONPATH][PYTHONPATH].
-  Defaults to `[ ]`.
+    - `pythonMypy37` (`listOf package`): Optional.
+      Append `/lib/python3.7/site-packages`
+      of each element in the list
+      to [MYPYPATH][MYPYPATH].
+      Defaults to `[ ]`.
 
-- `pythonPackage38` (`listOf package`): Optional.
-  Append `/lib/python3.8/site-packages`
-  of each element in the list
-  to [PYTHONPATH][PYTHONPATH].
-  Defaults to `[ ]`.
+    - `pythonMypy38` (`listOf package`): Optional.
+      Append `/lib/python3.8/site-packages`
+      of each element in the list
+      to [MYPYPATH][MYPYPATH].
+      Defaults to `[ ]`.
 
-- `pythonPackage39` (`listOf package`): Optional.
-  Append `/lib/python3.9/site-packages`
-  of each element in the list
-  to [PYTHONPATH][PYTHONPATH].
-  Defaults to `[ ]`.
+    - `pythonMypy39` (`listOf package`): Optional.
+      Append `/lib/python3.9/site-packages`
+      of each element in the list
+      to [MYPYPATH][MYPYPATH].
+      Defaults to `[ ]`.
 
-Inputs specific to [Node.js][NODE_JS]:
+    - `pythonPackage` (`listOf package`): Optional.
+      Append `/`
+      of each element in the list
+      to [PYTHONPATH][PYTHONPATH].
+      Defaults to `[ ]`.
 
-- `nodeBin` (`listOf package`): Optional.
-  Append `/node_modules/.bin`
-  of each element in the list
-  to [PATH][PATH].
-  Defaults to `[ ]`.
+    - `pythonPackage37` (`listOf package`): Optional.
+      Append `/lib/python3.7/site-packages`
+      of each element in the list
+      to [PYTHONPATH][PYTHONPATH].
+      Defaults to `[ ]`.
 
-- `nodeModule` (`listOf package`): Optional.
-  Append `/node_modules`
-  of each element in the list
-  to [NODE_PATH][NODE_PATH].
-  Defaults to `[ ]`.
+    - `pythonPackage38` (`listOf package`): Optional.
+      Append `/lib/python3.8/site-packages`
+      of each element in the list
+      to [PYTHONPATH][PYTHONPATH].
+      Defaults to `[ ]`.
+
+    - `pythonPackage39` (`listOf package`): Optional.
+      Append `/lib/python3.9/site-packages`
+      of each element in the list
+      to [PYTHONPATH][PYTHONPATH].
+      Defaults to `[ ]`.
+
+Types specific to [Node.js][NODE_JS]:
+
+- makeSearchPaths:
+
+    - `nodeBin` (`listOf package`): Optional.
+      Append `/node_modules/.bin`
+      of each element in the list
+      to [PATH][PATH].
+      Defaults to `[ ]`.
+
+    - `nodeModule` (`listOf package`): Optional.
+      Append `/node_modules`
+      of each element in the list
+      to [NODE_PATH][NODE_PATH].
+      Defaults to `[ ]`.
 
 Example:
 
@@ -1950,19 +1960,20 @@ Perform a build step in an **isolated** environment:
     - User and group ownership are removed
     - Last-modified timestamps are reset to `1970-01-01T00:00:00+00:00`.
 
-Inputs:
+Types:
 
-- builder (`either str package`):
-  A [Bash][BASH] script that performs the build step.
-- env (`attrsOf str`): Optional.
-  Environment variables that will be propagated to the `builder`.
-  Variable names must start with `env`.
-  Defaults to `{ }`.
-- name (`str`):
-  Custom name to assign to the build step, be creative, it helps in debugging.
-- searchPaths (`asIn makeSearchPaths`): Optional.
-  Arguments here will be passed as-is to `makeSearchPaths`.
-  Defaults to `makeSearchPaths`'s defaults.
+- makeDerivation (`function { ... } -> package`):
+    - builder (`either str package`):
+      A [Bash][BASH] script that performs the build step.
+    - env (`attrsOf str`): Optional.
+      Environment variables that will be propagated to the `builder`.
+      Variable names must start with `env`.
+      Defaults to `{ }`.
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
@@ -2007,7 +2018,7 @@ $ cat /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
 ### makeScript
 
 Wrap a [Bash][BASH] script
-that runs in a **quasi-isolated** environment.
+that runs in a **almost-isolated** environment.
 
 - The file system is **not** isolated, the script runs in user-space.
 - External environment variables are visible by the script.
@@ -2021,20 +2032,21 @@ that runs in a **quasi-isolated** environment.
   that can be used to store the script's state (if any).
 - After the build, the script is executed.
 
-Inputs:
+Types:
 
-- entrypoint (`either str package`):
-  A [Bash][BASH] script that performs the build step.
-- name (`str`):
-  Custom name to assign to the build step, be creative, it helps in debugging.
-- replace (`attrsOf str`): Optional.
-  Placeholders will be replaced in the script with their respective value.
-  Variable names must start with `__arg`, end with `__`
-  and have at least 6 characters long.
-  Defaults to `{ }`.
-- searchPaths (`asIn makeSearchPaths`): Optional.
-  Arguments here will be passed as-is to `makeSearchPaths`.
-  Defaults to `makeSearchPaths`'s defaults.
+- makeScript (`function { ... } -> package`):
+    - entrypoint (`either str package`):
+      A [Bash][BASH] script that performs the build step.
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - replace (`attrsOf str`): Optional.
+      Placeholders will be replaced in the script with their respective value.
+      Variable names must start with `__arg`, end with `__`
+      and have at least 6 characters long.
+      Defaults to `{ }`.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
@@ -2079,31 +2091,16 @@ $ m . /example
 
 ### projectPath
 
-Store a path out of the current [Makes][MAKES] project
-being evaluated in the [Nix][NIX] store.
+Copy a path from the current [Makes][MAKES] project
+being evaluated to the [Nix][NIX] store
+in the **most** pure and reproducible way possible.
 
-- It can be used for including paths in
-  [makeScript](#makescript)
-  and [makeDerivation](#makederivation)
-  via `replace` and `env`
-  parameters respectively.
-- Derivations are rebuilt
-  every time
-  provided path contents change,
-  thus increasing reproducibility.
-- Derivations are not rebuilt
-  if the path contents do not change,
-  thus increasing performance.
-- It removes spurious files and directories
-  created while developing,
-  thus increasing reproducibility.
+Types:
 
-Inputs:
+- projectPath (`function str -> package`):
 
-- relativePath (`str`):
-  path to store.
-  It must be absolute
-  within the repository.
+    - (`str`):
+      Absolute path, assumming the repository is located at `"/"`.
 
 Example:
 
@@ -2144,11 +2141,13 @@ It can be used for passing
 several arguments from [Nix][NIX]
 to [Bash][BASH].
 
-Inputs:
+Types:
 
-- args (`listOf str`):
-  list of arguments
-  to transform.
+- asBashArray (`function (listOf coercibleToString) -> package`):
+
+    - (`listOf coercibleToString`):
+      list of arguments
+      to transform.
 
 Examples:
 
@@ -2163,9 +2162,9 @@ makeDerivation {
     envTargets = asBashArray [ "first" "second" "third" ];
   };
   builder = ''
-    source "''${envTargets}/template" export targets
+    source "$envTargets/template" export targets
     for target in "''${targets[@]}"; do
-      info "''${target}"
+      info "$target"
       info ---
     done
   '';
@@ -2189,10 +2188,12 @@ $ m . /example
 Convert a [YAML][YAML] string
 to a [Nix][NIX] value.
 
-Inputs:
+Types:
 
-- expr (`str`):
-  [YAML][YAML] expression to convert.
+- fromYaml (`function str -> anything`):
+
+    - (`str`):
+      [YAML][YAML] expression to convert.
 
 Examples:
 
@@ -2216,9 +2217,9 @@ makeDerivation {
     envTickets = data.tickets;
   };
   builder = ''
-    info "Name is: ${envName}"
-    info "Last name is: ${envLastName}"
-    info "Tickets is: ${envTickets}"
+    info "Name is: $envName"
+    info "Last name is: $envLastName"
+    info "Tickets is: $envTickets"
   '';
   name = "example";
 }
@@ -2239,16 +2240,17 @@ transform a [YAML][YAML] file
 into its [JSON][JSON]
 equivalent.
 
-Inputs:
+Types:
 
-- envSrc (`path`):
-  [YAML][YAML] file to
-  transform.
+- toFileJsonFromFileYaml (`function package -> package`):
+
+    - (`package`):
+      [YAML][YAML] file to transform.
 
 Examples:
 
 ```yaml
-# /path/to/my/project/test.yaml
+# /path/to/my/project/makes/example/test.yaml
 
 name: "John"
 lastName: "Doe"
@@ -2264,11 +2266,12 @@ tickets: 3
 }:
 makeDerivation {
   env = {
-    envJson = toFileJsonFromFileYaml (
-      projectPath "/path/to/my/project/test.yaml");
+    envJson =
+      toFileJsonFromFileYaml
+        (projectPath "/makes/example/test.yaml");
   };
   builder = ''
-    cat "''${envJson}"
+    cat "$envJson"
   '';
   name = "example";
 }
@@ -2283,8 +2286,6 @@ $ m . /example
   "tickets": 3
 }
 ```
-
-:construction: This section is Work in progress
 
 # Contact an expert
 
@@ -2549,6 +2550,9 @@ Examples:
 
 - [PKG_CONFIG]: https://www.freedesktop.org/wiki/Software/pkg-config/
   [pkg-config][PKG_CONFIG]
+
+- [PKG_CONFIG_PATH]: https://linux.die.net/man/1/pkg-config
+  [PKG_CONFIG_PATH Environment Variable][PKG_CONFIG_PATH]
 
 - [PROSPECTOR]: http://prospector.landscape.io/en/master/
   [Prospector][PROSPECTOR]
