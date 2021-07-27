@@ -1223,6 +1223,9 @@ Example invocation: `$ m . /securePythonWithBandit/cli`
 Deploy a set of container images in [OCI Format][OCI_FORMAT_REPO]
 to the specified container registries.
 
+For details on how to build container images in [OCI Format][OCI_FORMAT_REPO]
+please read the `makeContainerImage` reference.
+
 Attributes:
 
 - images (`attrsOf imageType`): Optional.
