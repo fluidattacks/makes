@@ -1683,6 +1683,9 @@ of the environment variables we currently support.
 - [PATH][PATH]:
   Location of directories where executable programs are located.
 
+- [PKG_CONFIG_PATH][PKG_CONFIG_PATH]:
+  Location of [pkg-config][PKG_CONFIG] packages.
+
 - [NODE_PATH][NODE_PATH]:
   Location of [Node.js][NODE_JS] modules.
 
@@ -1728,6 +1731,14 @@ Inputs specific to Java:
   Append `/`
   of each element in the list
   to [CLASSPATH][CLASSPATH].
+  Defaults to `[ ]`.
+
+Inputs specific to [pkg-config][PKG_CONFIG]:
+
+- `pkgConfig` (`listOf derivation`): Optional.
+  Append `/lib/pkgconfig`
+  of each element in the list
+  to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
   Defaults to `[ ]`.
 
 Inputs specific to [Python][PYTHON]:
@@ -2419,6 +2430,9 @@ Examples:
 
 - [PIP]: https://pypi.org/project/pip/
   [Package Installer for Python (pip)][PIP]
+
+- [PKG_CONFIG]: https://www.freedesktop.org/wiki/Software/pkg-config/
+  [pkg-config][PKG_CONFIG]
 
 - [PROSPECTOR]: http://prospector.landscape.io/en/master/
   [Prospector][PROSPECTOR]
