@@ -45,6 +45,8 @@ let
     makeEnvVars = import ./make-env-vars/default.nix args;
     makeEnvVarsForTerraform = import ./make-env-vars-for-terraform/default.nix args;
     makeNodeEnvironment = import ./make-node-environment/default.nix args;
+    makeNodeInterpreter = import ./make-node-interpreter/default.nix args;
+    makeNodeModules = import ./make-node-modules/default.nix args;
     makePythonEnvironment = import ./make-python-environment/default.nix args;
     makeScript = import ./make-script/default.nix args;
     makeScriptParallel = import ./make-script-parallel/default.nix args;
