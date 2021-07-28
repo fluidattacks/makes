@@ -185,6 +185,10 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeTemplate](#maketemplate)
             - [makeScript](#makescript)
             - [projectPath](#projectpath)
+        - [Node Package Manager (NPM)](#node-package-manager-npm)
+            - [makeNodeInterpreter](#makenodeinterpreter)
+            - [makeNodeModules](#makenodemodules)
+            - [makeNodeEnvironment](#makenodeenvironment)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
@@ -2218,6 +2222,164 @@ $ m . /example
     [INFO] Path is: <nix-store-path>
     [INFO] Path contents are:
     packages.nix  sources.json  sources.nix
+```
+
+### Node Package Manager (NPM)
+
+#### makeNodeInterpreter
+
+Get a specific [Node.js][NODE_JS] version.
+Useful for passing a node version
+to either `makeNodeEnvironment`
+or `makeNodeModules`.
+
+Types:
+
+- makeNodeInterpreter (`function str -> package`):
+
+    - (`enum [ "10" "12" "14" "16" ]`):
+      [Node.js][NODE_JS] version to use.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeScript
+, makeNodeInterpreter
+, ...
+}:
+makeScript {
+  entrypoint = ''
+    node --version
+  '';
+  name = "example";
+  searchPaths = {
+    bin = [ (makeNodeInterpreter "16") ];
+  };
+}
+```
+
+```bash
+$ m . /example
+
+    v16.2.0
+```
+
+#### makeNodeModules
+
+Build a `node_modules` environment
+for a list of [NPM][NPM] dependencies.
+
+Types:
+
+- makeNodeModules (`function { ... } -> package`):
+
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - node (`package`):
+      [Node.js][NODE_JS] package
+      to run `npm install`.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
+    - dependencies (`listOf str`):
+      Direct dependencies to install.
+      Equivalent to `dependencies` in `package.json`.
+    - subDependencies (`listOf str`):
+      Inherited dependencies.
+      Relevant for completely pinning your environment.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeScript
+, makeNodeInterpreter
+, makeNodeModules
+, ...
+}:
+let
+  hello = makeNodeModules {
+    name = "hello-world-npm";
+    node = makeNodeInterpreter "16";
+    dependencies = [ "hello-world-npm@1.1.1" ];
+    subDependencies = [];
+  };
+in
+makeScript {
+  replace = {
+    __argHello__ = hello;
+  };
+  entrypoint = ''
+    ls __argHello__
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    node_modules  package.json  package-lock.json  requirements
+```
+
+#### makeNodeEnvironment
+
+Source a `makeNodeModules` environment
+using `makeSearchPaths`.
+It appends:
+
+- `node` to `PATH`.
+- `node_modules/.bin` to `PATH`.
+- `node_modules` to [NODE_PATH][NODE_PATH].
+
+Types:
+
+- makeNodeEnvironment (`function { ... } -> package`):
+
+    - node (`package`):
+      [Node.js][NODE_JS] package
+      to run `npm install`.
+    - nodeModules (`makeNodeModules`):
+      [Node.js][NODE_JS] environment to source.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeScript
+, makeNodeInterpreter
+, makeNodeEnvironment
+, makeNodeModules
+, ...
+}:
+let
+  node = makeNodeInterpreter "16";
+  hello = makeNodeEnvironment {
+    inherit node;
+    nodeModules = makeNodeModules {
+      name = "hello-world-npm";
+      inherit node;
+      dependencies = [ "hello-world-npm@1.1.1" ];
+      subDependencies = [];
+    };
+  };
+in
+makeScript {
+  entrypoint = ''
+    hello-world-npm
+  '';
+  name = "example";
+  searchPaths = {
+    source = [ hello ];
+  };
+}
+```
+
+```bash
+$ m . /example
+
+    Hello World NPM
 ```
 
 ### Containers

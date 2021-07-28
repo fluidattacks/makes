@@ -41,7 +41,7 @@ makeDerivation {
     envPackageJsonFile = builtins.toFile "package.json" packageJson;
   };
   builder = ./builder.sh;
-  name = "make-node-environment-for-${name}";
+  name = "make-node-modules-for-${name}";
   searchPaths = searchPaths // {
     bin = (getAttr searchPaths "bin" [ ]) ++ [
       __nixpkgs__.git
