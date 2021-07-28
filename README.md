@@ -152,6 +152,8 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeTemplate](#maketemplate)
             - [makeScript](#makescript)
             - [projectPath](#projectpath)
+        - [Containers](#containers)
+            - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
             - [fromYaml](#fromyaml)
             - [toBashArray](#tobasharray)
@@ -1236,10 +1238,10 @@ Example invocation: `$ m . /securePythonWithBandit/cli`
 
 ### deployContainerImage
 
-Deploy a set of container images in [OCI Format][OCI_FORMAT_REPO]
+Deploy a set of container images in [OCI Format][OCI_FORMAT]
 to the specified container registries.
 
-For details on how to build container images in [OCI Format][OCI_FORMAT_REPO]
+For details on how to build container images in [OCI Format][OCI_FORMAT]
 please read the `makeContainerImage` reference.
 
 Types:
@@ -1255,7 +1257,7 @@ Custom Types:
     - registry (`enum ["docker.io" "ghcr.io" "registry.gitlab.com"]`):
       Registry in which the image will be copied to.
     - src (`package`):
-      Derivation that contains the container image in [OCI Format][OCI_FORMAT_REPO].
+      Derivation that contains the container image in [OCI Format][OCI_FORMAT].
     - tag (`str`):
       The tag under which the image will be stored in the registry.
 
@@ -2184,6 +2186,38 @@ $ m . /example
     [INFO] Path contents are:
     packages.nix  sources.json  sources.nix
 ```
+### Containers
+
+#### makeContainerImage
+
+Build a container image in [OCI Format][OCI_FORMAT].
+
+A container image is composed of:
+
+- 0 or more layers (binary blobs).
+    - Each layer contains a snapshot of the root file system (`/`),
+      they represent portions of it.
+    - When the container is executed
+      all layers are squashed together
+      to compose the root
+      of the file system (`/`).
+- A JSON manifest (metadata)
+  that describes important aspects of the container,
+  for instance its layers, environment variables, entrypoint, etc.
+
+Resources:
+- https://grahamc.com/blog/nix-and-layered-docker-images
+
+Types:
+
+- makeContainerImage (`function { ... } -> package`):
+    - layers (`listOf package`): Optional.
+      Layers of the container.
+      Defaults to `[ ]`.
+    - config (`attrsOf anything`): Optional.
+      Configuration manifest as described in
+      [OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
+      Defaults to `{ }`.
 
 ### Format conversion
 
@@ -2590,8 +2624,11 @@ Examples:
 - [NPM]: https://www.npmjs.com/
   [Node Package Manager (NPM)][NPM]
 
-- [OCI_FORMAT_REPO]: https://github.com/opencontainers/image-spec
-  [Open Container Image specification][OCI_FORMAT_REPO]
+- [OCI_FORMAT]: https://github.com/opencontainers/image-spec
+  [Open Container Image specification][OCI_FORMAT]
+
+- [OCI_RUNTIME_CONFIG]: https://github.com/moby/moby/blob/master/image/spec/v1.2.md#container-runconfig-field-descriptions
+[OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
 
 - [PACKER]: https://www.packer.io/
   [Packer][PACKER]
