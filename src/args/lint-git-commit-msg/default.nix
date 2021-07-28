@@ -1,7 +1,7 @@
 { __nixpkgs__
-, makeNodeEnvironment
-, makeNodeModules
-, makeNodeVersion
+, makeNodeJsEnvironment
+, makeNodeJsModules
+, makeNodeJsVersion
 , makeScript
 , ...
 }:
@@ -12,10 +12,10 @@
 , src
 }:
 let
-  node = makeNodeVersion "10";
-  commitlint = makeNodeEnvironment {
+  node = makeNodeJsVersion "10";
+  commitlint = makeNodeJsEnvironment {
     inherit node;
-    nodeModules = makeNodeModules {
+    nodeModules = makeNodeJsModules {
       dependencies = [ "@commitlint/cli@11.0.0" ];
       name = "commitlint";
       inherit node;

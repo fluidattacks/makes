@@ -44,9 +44,9 @@ let
     makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
     makeEnvVars = import ./make-env-vars/default.nix args;
     makeEnvVarsForTerraform = import ./make-env-vars-for-terraform/default.nix args;
-    makeNodeEnvironment = import ./make-node-environment/default.nix args;
-    makeNodeModules = import ./make-node-modules/default.nix args;
-    makeNodeVersion = import ./make-node-version/default.nix args;
+    makeNodeJsEnvironment = import ./make-node-js-environment/default.nix args;
+    makeNodeJsModules = import ./make-node-js-modules/default.nix args;
+    makeNodeJsVersion = import ./make-node-js-version/default.nix args;
     makePythonEnvironment = import ./make-python-environment/default.nix args;
     makeScript = import ./make-script/default.nix args;
     makeScriptParallel = import ./make-script-parallel/default.nix args;

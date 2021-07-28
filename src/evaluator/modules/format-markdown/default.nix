@@ -1,10 +1,10 @@
 { __nixpkgs__
-, toBashArray
-, makeNodeEnvironment
-, makeNodeModules
-, makeNodeVersion
+, makeNodeJsEnvironment
+, makeNodeJsModules
+, makeNodeJsVersion
 , makeScript
 , projectPathMutable
+, toBashArray
 , ...
 }:
 { config
@@ -44,11 +44,11 @@
             __nixpkgs__.gnused
           ];
           source = [
-            (makeNodeEnvironment {
-              node = makeNodeVersion "16";
-              nodeModules = makeNodeModules {
+            (makeNodeJsEnvironment {
+              node = makeNodeJsVersion "16";
+              nodeModules = makeNodeJsModules {
                 name = "doctoc";
-                node = makeNodeVersion "16";
+                node = makeNodeJsVersion "16";
                 dependencies = [ "doctoc@2.0.1" ];
                 subDependencies = [
                   "@textlint/ast-node-types@4.4.3"
