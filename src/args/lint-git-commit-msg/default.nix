@@ -1,7 +1,7 @@
 { __nixpkgs__
 , makeNodeEnvironment
-, makeNodeInterpreter
 , makeNodeModules
+, makeNodeVersion
 , makeScript
 , ...
 }:
@@ -12,7 +12,7 @@
 , src
 }:
 let
-  node = makeNodeInterpreter "10";
+  node = makeNodeVersion "10";
   commitlint = makeNodeEnvironment {
     inherit node;
     nodeModules = makeNodeModules {

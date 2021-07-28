@@ -1,8 +1,8 @@
 { __nixpkgs__
 , toBashArray
 , makeNodeEnvironment
-, makeNodeInterpreter
 , makeNodeModules
+, makeNodeVersion
 , makeScript
 , projectPathMutable
 , ...
@@ -45,10 +45,10 @@
           ];
           source = [
             (makeNodeEnvironment {
-              node = makeNodeInterpreter "16";
+              node = makeNodeVersion "16";
               nodeModules = makeNodeModules {
                 name = "doctoc";
-                node = makeNodeInterpreter "16";
+                node = makeNodeVersion "16";
                 dependencies = [ "doctoc@2.0.1" ];
                 subDependencies = [
                   "@textlint/ast-node-types@4.4.3"

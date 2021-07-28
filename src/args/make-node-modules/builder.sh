@@ -10,23 +10,21 @@ function get_deps_from_lock {
 # would install them anyway due to being an inherited dependency
 # from another package, thus creating an Integrity Check error
 function main {
-  mkdir "${out}" \
-    && copy "${envPackageJsonFile}" "${out}/package.json" \
-    && pushd "${out}" \
+  copy "${envPackageJsonFile}" package.json \
     && HOME=. npm install --force --ignore-scripts=false --verbose \
-    && popd \
     && info Freezing \
-    && get_deps_from_lock "${out}/package-lock.json" > "${out}/requirements" \
-    && if test "$(cat "${out}/requirements")" = "$(cat "${envRequirementsFile}")"; then
+    && get_deps_from_lock package-lock.json > requirements \
+    && if test "$(cat requirements)" = "$(cat "${envRequirementsFile}")"; then
       info Integrity check passed
     else
       info Integrity check failed \
         && info You need to specify all dependencies: \
         && git --no-pager diff --no-index \
-          "${envRequirementsFile}" "${out}/requirements" \
+          "${envRequirementsFile}" requirements \
         && error Stopping due to failed integrity check
     fi \
-    || return 1
+    && mkdir "${out}" \
+    && mv node_modules/* "${out}"
 }
 
 main "${@}"

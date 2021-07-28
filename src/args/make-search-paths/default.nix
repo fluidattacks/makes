@@ -58,11 +58,11 @@ makeTemplate {
       }
       {
         derivations = nodeBin;
-        generator = export "PATH" "/node_modules/.bin";
+        generator = export "PATH" "/.bin";
       }
       {
         derivations = nodeModule;
-        generator = export "NODE_PATH" "/node_modules";
+        generator = export "NODE_PATH" "";
       }
       {
         derivations = pythonMypy;
