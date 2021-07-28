@@ -1,8 +1,8 @@
 { toBashArray
 , makeDerivation
 , makeNodeEnvironment
-, makeNodeInterpreter
 , makeNodeModules
+, makeNodeVersion
 , ...
 }:
 { name
@@ -18,10 +18,10 @@ makeDerivation {
   searchPaths = {
     source = [
       (makeNodeEnvironment {
-        node = makeNodeInterpreter "16";
+        node = makeNodeVersion "16";
         nodeModules = makeNodeModules {
           name = "ajv-cli";
-          node = makeNodeInterpreter "16";
+          node = makeNodeVersion "16";
           dependencies = [ "ajv-cli@5.0.0" ];
           subDependencies = [
             "ajv@8.6.0"

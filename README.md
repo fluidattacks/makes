@@ -185,8 +185,8 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeTemplate](#maketemplate)
             - [makeScript](#makescript)
             - [projectPath](#projectpath)
-        - [Node Package Manager (NPM)](#node-package-manager-npm)
-            - [makeNodeInterpreter](#makenodeinterpreter)
+        - [Node.js](#nodejs)
+            - [makeNodeVersion](#makenodeversion)
             - [makeNodeModules](#makenodemodules)
             - [makeNodeEnvironment](#makenodeenvironment)
         - [Containers](#containers)
@@ -1964,13 +1964,13 @@ Types specific to [Node.js][NODE_JS]:
 - makeSearchPaths:
 
     - `nodeBin` (`listOf package`): Optional.
-      Append `/node_modules/.bin`
+      Append `/.bin`
       of each element in the list
       to [PATH][PATH].
       Defaults to `[ ]`.
 
     - `nodeModule` (`listOf package`): Optional.
-      Append `/node_modules`
+      Append `/`
       of each element in the list
       to [NODE_PATH][NODE_PATH].
       Defaults to `[ ]`.
@@ -2224,9 +2224,9 @@ $ m . /example
     packages.nix  sources.json  sources.nix
 ```
 
-### Node Package Manager (NPM)
+### Node.js
 
-#### makeNodeInterpreter
+#### makeNodeVersion
 
 Get a specific [Node.js][NODE_JS] version.
 Useful for passing a node version
@@ -2235,7 +2235,7 @@ or `makeNodeModules`.
 
 Types:
 
-- makeNodeInterpreter (`function str -> package`):
+- makeNodeVersion (`function str -> package`):
 
     - (`enum [ "10" "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
@@ -2244,8 +2244,8 @@ Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeScript
-, makeNodeInterpreter
+{ makeNodeVersion
+, makeScript
 , ...
 }:
 makeScript {
@@ -2254,7 +2254,7 @@ makeScript {
   '';
   name = "example";
   searchPaths = {
-    bin = [ (makeNodeInterpreter "16") ];
+    bin = [ (makeNodeVersion "16") ];
   };
 }
 ```
@@ -2293,15 +2293,15 @@ Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeScript
-, makeNodeInterpreter
-, makeNodeModules
+{ makeNodeModules
+, makeNodeVersion
+, makeScript
 , ...
 }:
 let
   hello = makeNodeModules {
     name = "hello-world-npm";
-    node = makeNodeInterpreter "16";
+    node = makeNodeVersion "16";
     dependencies = [ "hello-world-npm@1.1.1" ];
     subDependencies = [];
   };
@@ -2320,7 +2320,7 @@ makeScript {
 ```bash
 $ m . /example
 
-    node_modules  package.json  package-lock.json  requirements
+    hello-world-npm
 ```
 
 #### makeNodeEnvironment
@@ -2347,14 +2347,14 @@ Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeScript
-, makeNodeInterpreter
-, makeNodeEnvironment
+{ makeNodeEnvironment
 , makeNodeModules
+, makeNodeVersion
+, makeScript
 , ...
 }:
 let
-  node = makeNodeInterpreter "16";
+  node = makeNodeVersion "16";
   hello = makeNodeEnvironment {
     inherit node;
     nodeModules = makeNodeModules {
