@@ -1,8 +1,8 @@
-{ toBashArray
-, makeDerivation
-, makeNodeEnvironment
-, makeNodeModules
-, makeNodeVersion
+{ makeDerivation
+, makeNodeJsEnvironment
+, makeNodeJsModules
+, makeNodeJsVersion
+, toBashArray
 , ...
 }:
 { name
@@ -17,11 +17,11 @@ makeDerivation {
   name = "lint-with-ajv-for-${name}";
   searchPaths = {
     source = [
-      (makeNodeEnvironment {
-        node = makeNodeVersion "16";
-        nodeModules = makeNodeModules {
+      (makeNodeJsEnvironment {
+        node = makeNodeJsVersion "16";
+        nodeModules = makeNodeJsModules {
           name = "ajv-cli";
-          node = makeNodeVersion "16";
+          node = makeNodeJsVersion "16";
           dependencies = [ "ajv-cli@5.0.0" ];
           subDependencies = [
             "ajv@8.6.0"

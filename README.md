@@ -186,9 +186,9 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeScript](#makescript)
             - [projectPath](#projectpath)
         - [Node.js](#nodejs)
-            - [makeNodeVersion](#makenodeversion)
-            - [makeNodeModules](#makenodemodules)
-            - [makeNodeEnvironment](#makenodeenvironment)
+            - [makeNodeJsVersion](#makenodejsversion)
+            - [makeNodeJsModules](#makenodejsmodules)
+            - [makeNodeJsEnvironment](#makenodejsenvironment)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
@@ -2226,16 +2226,16 @@ $ m . /example
 
 ### Node.js
 
-#### makeNodeVersion
+#### makeNodeJsVersion
 
 Get a specific [Node.js][NODE_JS] version.
 Useful for passing a node version
-to either `makeNodeEnvironment`
-or `makeNodeModules`.
+to either `makeNodeJsEnvironment`
+or `makeNodeJsModules`.
 
 Types:
 
-- makeNodeVersion (`function str -> package`):
+- makeNodeJsVersion (`function str -> package`):
 
     - (`enum [ "10" "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
@@ -2244,7 +2244,7 @@ Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeNodeVersion
+{ makeNodeJsVersion
 , makeScript
 , ...
 }:
@@ -2254,7 +2254,7 @@ makeScript {
   '';
   name = "example";
   searchPaths = {
-    bin = [ (makeNodeVersion "16") ];
+    bin = [ (makeNodeJsVersion "16") ];
   };
 }
 ```
@@ -2265,14 +2265,14 @@ $ m . /example
     v16.2.0
 ```
 
-#### makeNodeModules
+#### makeNodeJsModules
 
 Build a `node_modules` environment
 for a list of [NPM][NPM] dependencies.
 
 Types:
 
-- makeNodeModules (`function { ... } -> package`):
+- makeNodeJsModules (`function { ... } -> package`):
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
@@ -2293,15 +2293,15 @@ Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeNodeModules
-, makeNodeVersion
+{ makeNodeJsModules
+, makeNodeJsVersion
 , makeScript
 , ...
 }:
 let
-  hello = makeNodeModules {
+  hello = makeNodeJsModules {
     name = "hello-world-npm";
-    node = makeNodeVersion "16";
+    node = makeNodeJsVersion "16";
     dependencies = [ "hello-world-npm@1.1.1" ];
     subDependencies = [];
   };
@@ -2323,9 +2323,9 @@ $ m . /example
     hello-world-npm
 ```
 
-#### makeNodeEnvironment
+#### makeNodeJsEnvironment
 
-Source a `makeNodeModules` environment
+Source a `makeNodeJsModules` environment
 using `makeSearchPaths`.
 It appends:
 
@@ -2335,29 +2335,29 @@ It appends:
 
 Types:
 
-- makeNodeEnvironment (`function { ... } -> package`):
+- makeNodeJsEnvironment (`function { ... } -> package`):
 
     - node (`package`):
       [Node.js][NODE_JS] package
       to run `npm install`.
-    - nodeModules (`makeNodeModules`):
+    - nodeModules (`makeNodeJsModules`):
       [Node.js][NODE_JS] environment to source.
 
 Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeNodeEnvironment
-, makeNodeModules
-, makeNodeVersion
+{ makeNodeJsEnvironment
+, makeNodeJsModules
+, makeNodeJsVersion
 , makeScript
 , ...
 }:
 let
-  node = makeNodeVersion "16";
-  hello = makeNodeEnvironment {
+  node = makeNodeJsVersion "16";
+  hello = makeNodeJsEnvironment {
     inherit node;
-    nodeModules = makeNodeModules {
+    nodeModules = makeNodeJsModules {
       name = "hello-world-npm";
       inherit node;
       dependencies = [ "hello-world-npm@1.1.1" ];
