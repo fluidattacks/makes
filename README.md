@@ -62,7 +62,44 @@ Easy, isn't it?
 
 Now 🔥 it up with: ` $ m . /deployTerraform/myAwesomeMicroService`
 
-[![asciicast](https://asciinema.org/a/426280.svg)](https://asciinema.org/a/426280)
+```text
+Makes v21.08-linux
+
+[INFO] Making environment variables for Terraform for myAwesomeMicroService:
+[INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
+[INFO] - TF_VAR_salesforceApiToken from SALESFORCE_API_TOKEN
+
+[INFO] Making secrets for AWS from environment variables for myAwesomeMicroService:
+[INFO] - AWS_ACCESS_KEY_ID from MAKES_PROD_AWS_ACCESS_KEY_ID
+[INFO] - AWS_CONFIG_FILE=/tmp/tmp.mSVQ2KvnaB
+[INFO] - AWS_DEFAULT_REGION=us-east-1
+[INFO] - AWS_SECRET_ACCESS_KEY from MAKES_PROD_AWS_SECRET_ACCESS_KEY
+[INFO] - AWS_SESSION_TOKEN from AWS_SESSION_TOKEN
+[INFO] - AWS_SHARED_CREDENTIALS_FILE=/tmp/tmp.ZMLtadaKhZ
+
+[INFO] Initializing /nix/store/lwcrnykdfidang01ahnpwa8ylh1ihwxs-infra
+
+Initializing the backend...
+...
+
+Initializing provider plugins...
+- Installed hashicorp/aws v3.23.0 (signed by HashiCorp)
+...
+
+Terraform has been successfully initialized!
+
+data.local_file.queues: Refreshing state... [id=acf7c9972a897013ca273aa7c0dd317e73efdda3]
+aws_iam_role.aws_ecs_instance_role: Refreshing state... [id=aws_ecs_instance_role]
+data.aws_ec2_instance_type.instance: Refreshing state... [id=c5ad.xlarge]
+aws_security_group.aws_batch_compute_environment_security_group: Refreshing state... [id=sg-0a4eb2a28b2d09842]
+aws_launch_template.batch_instance: Refreshing state... [id=lt-00731456272d350e1]
+aws_subnet.default: Refreshing state... [id=subnet-06326784973787c13]
+....
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+```
+
+Live demo: [here](https://asciinema.org/a/426280)
 
 ## Production ready
 
@@ -73,18 +110,14 @@ Real life projects that run entirely on [Makes][MAKES]:
 - [Fluid Attacks][FLUID_ATTACKS] monorepo:
   https://gitlab.com/fluidattacks/product
 
-## On GitHub Actions
+### Demos
 
-![Makes on GitHub Actions!](
-  /static/makes_on_github_actions.png "Makes on GitHub Actions")
-
-## On GitLab
-
-![Makes on GitLab!](/static/makes_on_gitlab.png "Makes on GitLab")
-
-## CLI Showcase
-
-[![Makes Demo](https://asciinema.org/a/425886.svg)](https://asciinema.org/a/425886)
+- Running Makes on GitHub Actions:
+  click [here](/static/makes_on_github_actions.png)
+- Running Makes GitLab:
+  click [here](/static/makes_on_gitlab.png)
+- Makes CLI:
+  click [here](https://asciinema.org/a/425886)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -2186,6 +2219,7 @@ $ m . /example
     [INFO] Path contents are:
     packages.nix  sources.json  sources.nix
 ```
+
 ### Containers
 
 #### makeContainerImage
@@ -2206,6 +2240,7 @@ A container image is composed of:
   for instance its layers, environment variables, entrypoint, etc.
 
 Resources:
+
 - https://grahamc.com/blog/nix-and-layered-docker-images
 
 Types:
@@ -2712,7 +2747,7 @@ Examples:
   [Open Container Image specification][OCI_FORMAT]
 
 - [OCI_RUNTIME_CONFIG]: https://github.com/moby/moby/blob/master/image/spec/v1.2.md#container-runconfig-field-descriptions
-[OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
+  [OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
 
 - [PACKER]: https://www.packer.io/
   [Packer][PACKER]
