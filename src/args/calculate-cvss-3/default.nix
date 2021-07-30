@@ -8,7 +8,7 @@ envTarget:
 makeDerivation {
   env = {
     inherit envTarget;
-    envScriptCvss = projectPath "/src/args/calculate-cvss-3/cvss.py";
+    envScriptCvss = ./cvss.py;
   };
   name = "calculate-cvss-3";
   searchPaths = {
