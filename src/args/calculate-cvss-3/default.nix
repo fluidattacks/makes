@@ -1,7 +1,6 @@
 { __nixpkgs__
 , makeDerivation
 , makePythonEnvironment
-, projectPath
 , ...
 }:
 envTarget:
