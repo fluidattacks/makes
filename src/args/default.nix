@@ -13,6 +13,7 @@ let
     toBashArray = import ./to-bash-array/default.nix args;
     asBashMap = import ./as-bash-map/default.nix args;
     asContent = import ./as-content/default.nix;
+    calculateCvss3 = import ./calculate-cvss-3/default.nix args;
     deployContainerImage = import ./deploy-container-image/default.nix args;
     deployTerraform = import ./deploy-terraform/default.nix args;
     escapeShellArg = lib.strings.escapeShellArg;
