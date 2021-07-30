@@ -189,6 +189,8 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeNodeJsVersion](#makenodejsversion)
             - [makeNodeJsModules](#makenodejsmodules)
             - [makeNodeJsEnvironment](#makenodejsenvironment)
+        - [Python](#python)
+            - [makePythonEnvironment](#makepythonenvironment)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
@@ -2380,6 +2382,63 @@ makeScript {
 $ m . /example
 
     Hello World NPM
+```
+
+### Python
+
+#### makePythonEnvironment
+
+Create an environment where python dependencies are available
+
+Types:
+
+- makePythonEnvironment (`function { ... } -> package`):
+
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - python (`enum [ "3.7" "3.8" "3.9" ]`):
+      [Python][PYTHON] interpreter version to use.
+    - dependencies (`listOf str`):
+      Direct dependencies to install.
+      Equivalent to a `requirements.txt` file.
+    - subDependencies (`listOf str`):
+      Inherited dependencies.
+      Relevant for completely pinning your environment.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makePythonEnvironment
+, makeScript
+, ...
+}:
+let
+  env = makePythonEnvironment {
+    name = "hello-world";
+    python = "3.9";
+    dependencies = [ "say-hello-world==0.0.4" ];
+    subDependencies = [ ];
+  };
+in
+makeScript {
+  entrypoint = ''
+    python -c 'import sayhello; sayhello.say_hello()'
+  '';
+  name = "example";
+  searchPaths = {
+    source = [ env ];
+  };
+}
+```
+
+```bash
+$ m . /example
+
+    Hello World
 ```
 
 ### Containers
