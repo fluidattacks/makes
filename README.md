@@ -197,6 +197,8 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [fromYaml](#fromyaml)
             - [toBashArray](#tobasharray)
             - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
+        - [Others](#others)
+            - [calculateCvss3](#calculatecvss3)
 - [Contact an expert](#contact-an-expert)
 - [Contributing to Makes](#contributing-to-makes)
     - [Is easy](#is-easy)
@@ -2715,6 +2717,48 @@ $ m . /example
 }
 ```
 
+### Others
+
+#### calculateCvss3
+
+Calculate [CVSS3][CVSS3]
+score and severity
+for a [CVSS3 Vector String][CVSS3_VECTOR_STRING].
+
+Types:
+
+- calculateCvss3 (`function str -> package`):
+
+    - (`str`):
+      [CVSS3 Vector String][CVSS3_VECTOR_STRING]
+      to calculate.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeScript
+, calculateCvss3
+, ...
+}:
+makeScript {
+  replace = {
+    __argCalculate__ = calculateCvss3
+      "CVSS:3.0/S:C/C:H/I:H/A:N/AV:P/AC:H/PR:H/UI:R/E:H/RL:O/RC:R/CR:H/IR:X/AR:X/MAC:H/MPR:X/MUI:X/MC:L/MA:X";
+  };
+  entrypoint = ''
+    cat "__argCalculate__"
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    {"score": {"base": 6.5, "temporal": 6.0, "environmental": 5.3}, "severity": {"base": "Medium", "temporal": "Medium", "environmental": "Medium"}}
+```
+
 # Contact an expert
 
 - [Makes][MAKES] support: help@fluidattacks.com
@@ -2825,6 +2869,12 @@ Examples:
 
 - [COMMITLINT]: https://commitlint.js.org/#/
   [commitlint][COMMITLINT]
+
+- [CVSS3]: https://www.first.org/cvss/v3.0/specification-document
+  [CVSS3][CVSS3]
+
+- [CVSS3_VECTOR_STRING]: https://www.first.org/cvss/v3.0/specification-document#Vector-String
+  [CVSS3 Vector String][CVSS3_VECTOR_STRING]
 
 - [DOCKER]: https://www.docker.com/
   [Docker][DOCKER]
