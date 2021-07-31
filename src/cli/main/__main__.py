@@ -59,12 +59,13 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 
 
 def _clone_src(src: str) -> str:
-    args: List[str]
+    remote: str
     head = tempfile.TemporaryDirectory(prefix="makes-").name
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
     if is_src_local(src):
-        args = [abspath(src)]
+        remote = abspath(src)
+        rev = "HEAD"
 
     elif match := re.match(
         r"^github:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$", src
@@ -72,7 +73,7 @@ def _clone_src(src: str) -> str:
         owner = url_quote(match.group("owner"))
         repo = url_quote(match.group("repo"))
         rev = url_quote(match.group("rev"))
-        args = [f"https://github.com/{owner}/{repo}", "--branch", rev]
+        remote = f"https://github.com/{owner}/{repo}"
 
     elif match := re.match(
         r"^gitlab:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$", src
@@ -80,14 +81,24 @@ def _clone_src(src: str) -> str:
         owner = url_quote(match.group("owner"))
         repo = url_quote(match.group("repo"))
         rev = url_quote(match.group("rev"))
-        args = [f"https://gitlab.com/{owner}/{repo}", "--branch", rev]
+        remote = f"https://gitlab.com/{owner}/{repo}"
 
     else:
         raise Error(f"Unable to parse [SOURCE]: {src}")
 
-    out, stdout, stderr = _run(["git", "clone", "--depth", "1", *args, head])
+    out, stdout, stderr = _run(["git", "init", "--shared=false", head])
     if out != 0:
-        raise Error(f"Unable to clone: {src}", stdout, stderr)
+        raise Error(f"Unable to git init: {src}", stdout, stderr)
+
+    out, stdout, stderr = _run(
+        ["git", "-C", head, "fetch", "--depth=1", remote, f"{rev}:{rev}"]
+    )
+    if out != 0:
+        raise Error(f"Unable to git fetch: {src}", stdout, stderr)
+
+    out, stdout, stderr = _run(["git", "-C", head, "checkout", rev])
+    if out != 0:
+        raise Error(f"Unable to git checkout: {src}", stdout, stderr)
 
     return head
 
@@ -248,10 +259,10 @@ def _help_and_exit(
         _log("    ./relative/path")
         _log("    .")
         _log()
-        _log("  A GitHub repository, rev (branch or tag):")
+        _log("  A GitHub repository and revision (branch, commit or tag):")
         _log("    github:owner/repo@rev")
         _log()
-        _log("  A GitLab repository, rev (branch or tag):")
+        _log("  A GitLab repository and revision (branch, commit or tag):")
         _log("    gitlab:owner/repo@rev")
     if attrs is None:
         _log()
