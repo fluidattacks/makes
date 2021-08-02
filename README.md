@@ -201,6 +201,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
+            - [fromJson](#fromjson)
             - [fromYaml](#fromyaml)
             - [toBashArray](#tobasharray)
             - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
@@ -2775,17 +2776,69 @@ $ docker run container-image:latest ls /
 
 ### Format conversion
 
+#### fromJson
+
+Convert a [JSON][JSON] formatted string
+to a [Nix][NIX] expression.
+
+Types:
+
+- fromJson (`function str -> anything`):
+
+    - (`str`):
+      [JSON][JSON] formatted string to convert.
+
+Examples:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ fromJson
+, makeDerivation
+, ...
+}:
+let
+  data = fromJson ''
+    {
+      "name": "John",
+      "lastName": "Doe",
+      "tickets": 3
+    }
+  '';
+in
+makeDerivation {
+  env = {
+    envName = data.name;
+    envLastName = data.lastName;
+    envTickets = data.tickets;
+  };
+  builder = ''
+    info "Name is: $envName"
+    info "Last name is: $envLastName"
+    info "Tickets is: $envTickets"
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    [INFO] Name is: John
+    [INFO] Last name is: Doe
+    [INFO] Tickets is: 3
+```
+
 #### fromYaml
 
-Convert a [YAML][YAML] string
-to a [Nix][NIX] value.
+Convert a [YAML][YAML] formatted string
+to a [Nix][NIX] expression.
 
 Types:
 
 - fromYaml (`function str -> anything`):
 
     - (`str`):
-      [YAML][YAML] expression to convert.
+      [YAML][YAML] formatted string to convert.
 
 Examples:
 
