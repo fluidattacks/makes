@@ -10,8 +10,6 @@ let
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
-    toBashArray = import ./to-bash-array/default.nix args;
-    asBashMap = import ./as-bash-map/default.nix args;
     asContent = import ./as-content/default.nix;
     calculateCvss3 = import ./calculate-cvss-3/default.nix args;
     deployContainerImage = import ./deploy-container-image/default.nix args;
@@ -19,7 +17,7 @@ let
     escapeShellArg = lib.strings.escapeShellArg;
     escapeShellArgs = lib.strings.escapeShellArgs;
     fakeSha256 = lib.fakeSha256;
-    fetchGithub = import ./fetch-github/default.nix args;
+    fetchGithub = import ./fetch-github/default.nix;
     fetchNixpkgs = import ./fetch-nixpkgs/default.nix args;
     fetchUrl = import ./fetch-url/default.nix args;
     fetchZip = import ./fetch-zip/default.nix args;
@@ -73,6 +71,8 @@ let
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
     testTerraform = import ./test-terraform/default.nix args;
     toDerivationName = lib.strings.sanitizeDerivationName;
+    toBashArray = import ./to-bash-array/default.nix args;
+    toBashMap = import ./to-bash-map/default.nix args;
     toFileJson = import ./to-file-json/default.nix args;
     toFileJsonFromFileYaml = import ./to-file-json-from-file-yaml/default.nix args;
     toFileLst = import ./to-file-lst/default.nix;
