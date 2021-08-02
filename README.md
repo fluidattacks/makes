@@ -29,16 +29,16 @@ and [Makes][MAKES] looks like:
   # Authenticate securely 🛡 through environment variables
   secretsForTerraformFromEnv = {
     myAwesomeMicroService = {
-      githubToken = "GITHUB_API_TOKEN";
-      salesforceApiToken = "SALESFORCE_API_TOKEN";
+      githubToken = "ENV_VAR_FOR_GITHUB_API_TOKEN";
+      salesforceApiToken = "ENV_VAR_FOR_SALESFORCE_API_TOKEN";
     };
   };
 
   # Authenticate securely 🛡 to AWS with environment variables
   secretsForAwsFromEnv = {
     myAwesomeMicroService = {
-      accessKeyId = "MY_APP_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "MY_APP_AWS_SECRET_ACCESS_KEY";
+      accessKeyId = "ENV_VAR_FOR_MY_APP_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "ENV_VAR_FOR_MY_APP_AWS_SECRET_ACCESS_KEY";
     };
   };
 
@@ -171,6 +171,7 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Secrets](#secrets)
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
         - [secretsForEnvFromSops](#secretsforenvfromsops)
+        - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
     - [Stability](#stability)
         - [inputs](#inputs)
     - [Examples](#examples)
@@ -1576,12 +1577,12 @@ Example `makes.nix`:
 {
   secretsForAwsFromEnv = {
     makesDev = {
-      accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
+      accessKeyId = "ENV_VAR_FOR_MAKES_DEV_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "ENV_VAR_FOR_MAKES_DEV_AWS_SECRET_ACCESS_KEY";
     };
     makesProd = {
-      accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
+      accessKeyId = "ENV_VAR_FOR_MAKES_PROD_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "ENV_VAR_FOR_MAKES_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
   lintTerraform = {
@@ -1629,6 +1630,9 @@ Example `makes.nix`:
 {
   secretsForEnvFromSops = {
     cloudflare = {
+      # Manifest contains inside:
+      #   CLOUDFLARE_ACCOUNT_ID: ... ciphertext ...
+      #   CLOUDFLARE_API_TOKEN: ... ciphertext ...
       manifest = "/infra/secrets/prod.yaml";
       vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
     };
@@ -1645,6 +1649,44 @@ Example `makes.nix`:
     };
   };
 }
+```
+
+### secretsForTerraformFromEnv
+
+Export secrets in a format suitable for [Terraform][TERRAFORM]
+from the given [Environment Variables][ENV_VAR].
+
+Types:
+
+- secretsForTerraformFromEnv (`attrsOf (attrsOf str)`): Optional.
+  Mapping of secrets group name
+  to a mapping of [Terraform][TERRAFORM] variable names
+  to environment variable names.
+  Defaults to `{ }`.
+
+Example `makes.nix`:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  secretsForTerraformFromEnv = {
+    example = {
+      # Equivalent in Bash to:
+      #   export TF_VAR_cloudflareAccountId=$ENV_VAR_FOR_CLOUDFLARE_ACCOUNT_ID
+      #   export TF_VAR_cloudflareApiToken=$ENV_VAR_FOR_CLOUDFLARE_API_TOKEN
+      cloudflareAccountId = "ENV_VAR_FOR_CLOUDFLARE_ACCOUNT_ID";
+      cloudflareApiToken = "ENV_VAR_FOR_CLOUDFLARE_API_TOKEN";
+    };
+  };
+}
+```
+
+Example `main.tf`:
+
+```tf
+variable "cloudflareAccountId" {}
 ```
 
 ## Stability
