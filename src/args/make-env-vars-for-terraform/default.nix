@@ -1,5 +1,5 @@
 { __nixpkgs__
-, asBashMap
+, toBashMap
 , makeTemplate
 , toDerivationName
 , ...
@@ -10,7 +10,7 @@
 makeTemplate {
   replace = {
     __argName__ = toDerivationName name;
-    __argMap__ = asBashMap mapping;
+    __argMap__ = toBashMap mapping;
   };
   name = "make-env-vars-for-terraform-for-${name}";
   template = ./template.sh;

@@ -1,6 +1,6 @@
 { __toModuleOutputs__
 , toBashArray
-, asBashMap
+, toBashMap
 , makeScript
 , outputs
 , ...
@@ -52,7 +52,7 @@ let
     value = makeScript {
       entrypoint = ./entrypoint-for-pipeline.sh;
       replace = {
-        __argJobs__ = asBashMap
+        __argJobs__ = toBashMap
           (builtins.listToAttrs (builtins.map makeJob jobs));
       };
       name = "pipeline-for-${name}";

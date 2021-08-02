@@ -187,6 +187,8 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeTemplate](#maketemplate)
             - [makeScript](#makescript)
             - [projectPath](#projectpath)
+        - [Fetchers](#fetchers)
+            - [fetchGithub](#fetchgithub)
         - [Node.js](#nodejs)
             - [makeNodeJsVersion](#makenodejsversion)
             - [makeNodeJsModules](#makenodejsmodules)
@@ -2295,6 +2297,38 @@ $ m . /example
     packages.nix  sources.json  sources.nix
 ```
 
+### Fetchers
+
+#### fetchGithub
+
+Fetch a commit from the specified Git repository at [GitHub][GITHUB].
+
+Types:
+
+- fetchGithub (`function { ... } -> package`):
+
+    - owner (`str`):
+      Owner of the repository.
+    - repo (`str`):
+      Name of the repository.
+    - commit (`str`):
+      Commit to fetch.
+
+Example:
+
+```nix
+
+# /path/to/my/project/makes/example/main.nix
+{ fetchGithub
+, ...
+}:
+fetchGithub {
+  commit = "e0799aa47ac5ce6776ca8581ba50ace362e5d0ce";
+  owner = "kamadorueda";
+  repo = "mailmap-linter";
+}
+```
+
 ### Node.js
 
 #### makeNodeJsVersion
@@ -2961,11 +2995,14 @@ Examples:
 - [GIT_MAILMAP]: https://git-scm.com/docs/gitmailmap
   [Git Mailmap][GIT_MAILMAP]
 
+- [GITHUB]: https://github.com
+  [GitHub][GITHUB]
+
 - [GITHUB_ACTIONS]: https://github.com/features/actions
-  [Github Actions][GITHUB_ACTIONS]
+  [GitHub Actions][GITHUB_ACTIONS]
 
 - [GITHUB_WORKFLOWS]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-  [Github Workflows][GITHUB_WORKFLOWS]
+  [GitHub Workflows][GITHUB_WORKFLOWS]
 
 - [GITLAB_CI]: https://docs.gitlab.com/ee/ci/
   [GitLab CI][GITLAB_CI]
