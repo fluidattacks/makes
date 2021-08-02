@@ -325,16 +325,20 @@ def cli(args: List[str]) -> None:
 
     if code == 0:
         cache_push(cache, out)
-        execute_action(args, out)
+        execute_action(args, head, out, src)
 
     raise SystemExit(code)
 
 
-def execute_action(args: List[str], out: str) -> None:
+def execute_action(args: List[str], head: str, out: str, src: str) -> None:
     action_path: str = join(out, "makes-action.sh")
 
     if exists(action_path):
-        code, _, _ = _run(args=[action_path, out, *args], capture_io=False)
+        code, _, _ = _run(
+            args=[action_path, out, *args],
+            capture_io=False,
+            cwd=src if is_src_local(src) else head,
+        )
         raise SystemExit(code)
 
 
