@@ -189,6 +189,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [projectPath](#projectpath)
         - [Fetchers](#fetchers)
             - [fetchGithub](#fetchgithub)
+            - [fetchNixpkgs](#fetchnixpkgs)
         - [Node.js](#nodejs)
             - [makeNodeJsVersion](#makenodejsversion)
             - [makeNodeJsModules](#makenodejsmodules)
@@ -1310,8 +1311,7 @@ Example `makes.nix`:
 {
   inputs = {
     nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
     };
   };
 
@@ -1461,8 +1461,7 @@ Example `makes.nix`:
   };
   inputs = {
     nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
     };
   };
 }
@@ -1506,8 +1505,7 @@ Example `makes.nix`:
   };
   inputs = {
     nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
     };
   };
 }
@@ -1717,8 +1715,7 @@ Example `makes.nix`:
       sha256 = "11311l1apb1xvx2j033zlvbyb3gsqblyxq415qwdsd0db1hlwd52";
     };
     nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
     };
   };
 }
@@ -2317,7 +2314,6 @@ Types:
 Example:
 
 ```nix
-
 # /path/to/my/project/makes/example/main.nix
 { fetchGithub
 , ...
@@ -2327,6 +2323,42 @@ fetchGithub {
   owner = "kamadorueda";
   repo = "mailmap-linter";
 }
+```
+
+#### fetchNixpkgs
+
+Fetch a commit from the [Nixpkgs][NIXPKGS] repository.
+
+:warning: By default all licenses in the Nixpkgs repository are accepted.
+Options to decline individual licenses are provided below.
+
+Types:
+
+- fetchNixpkgs (`function { ... } -> anything`):
+    - commit (`str`):
+      Commit to fetch.
+    - allowUnfree (`bool`): Optional.
+      Allow software that do not respect the freedom of its users.
+      Defaults to `true`.
+    - acceptAndroidSdkLicense (`bool`): Optional.
+      Accept the Android SDK license.
+      Defaults to `true`.
+    - overalys (`listOf overlayType`): Optional.
+      Overlays to apply to the [Nixpkgs][NIXPKGS] set.
+      Defaults to `[ ]`.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ fetchNixpkgs
+, ...
+}:
+let nixpkgs = fetchNixpkgs {
+  commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+};
+in
+nixpkgs.awscli
 ```
 
 ### Node.js

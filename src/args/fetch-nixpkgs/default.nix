@@ -1,24 +1,23 @@
-{ fakeSha256
-, fetchZip
+{ fetchGithub
 , ...
 }:
-{ rev
-, sha256 ? fakeSha256
+{ commit
 , acceptAndroidSdkLicense ? true
+, allowUnfree ? true
 , overlays ? [ ]
 }:
-let
-  src = fetchZip {
-    inherit sha256;
-    url = "https://github.com/nixos/nixpkgs/archive/${rev}.tar.gz";
-  };
-in
-import src {
-  config = {
-    allowUnfree = true;
-    android_sdk = {
-      accept_license = acceptAndroidSdkLicense;
+import
+  (fetchGithub {
+    inherit commit;
+    owner = "nixos";
+    repo = "nixpkgs";
+  })
+  ({
+    config = {
+      inherit allowUnfree;
+      android_sdk = {
+        accept_license = acceptAndroidSdkLicense;
+      };
     };
-  };
-  inherit overlays;
-}
+    inherit overlays;
+  })
