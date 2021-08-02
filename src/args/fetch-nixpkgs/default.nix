@@ -1,16 +1,19 @@
-{ fetchGithub
+{ fakeSha256
+, fetchGithub
 , ...
 }:
-{ commit
+{ rev
 , acceptAndroidSdkLicense ? true
 , allowUnfree ? true
 , overlays ? [ ]
+, sha256 ? fakeSha256
 }:
 import
   (fetchGithub {
-    inherit commit;
+    inherit rev;
     owner = "nixos";
     repo = "nixpkgs";
+    inherit sha256;
   })
   ({
     config = {

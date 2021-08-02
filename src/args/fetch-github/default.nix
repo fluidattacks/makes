@@ -1,8 +1,12 @@
-{ commit
+{ fetchZip
+, ...
+}:
+{ rev
 , owner
 , repo
+, sha256
 }:
-builtins.fetchGit {
-  url = "https://github.com/${owner}/${repo}";
-  rev = commit;
+fetchZip {
+  inherit sha256;
+  url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
 }

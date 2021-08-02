@@ -1311,7 +1311,8 @@ Example `makes.nix`:
 {
   inputs = {
     nixpkgs = fetchNixpkgs {
-      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
     };
   };
 
@@ -1461,7 +1462,8 @@ Example `makes.nix`:
   };
   inputs = {
     nixpkgs = fetchNixpkgs {
-      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
     };
   };
 }
@@ -1505,7 +1507,8 @@ Example `makes.nix`:
   };
   inputs = {
     nixpkgs = fetchNixpkgs {
-      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
     };
   };
 }
@@ -1715,7 +1718,8 @@ Example `makes.nix`:
       sha256 = "11311l1apb1xvx2j033zlvbyb3gsqblyxq415qwdsd0db1hlwd52";
     };
     nixpkgs = fetchNixpkgs {
-      commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
     };
   };
 }
@@ -2308,8 +2312,13 @@ Types:
       Owner of the repository.
     - repo (`str`):
       Name of the repository.
-    - commit (`str`):
-      Commit to fetch.
+    - rev (`str`):
+      Commit, branch or tag to fetch.
+    - sha256 (`str`):
+      SHA256 of the expected output,
+      In order to get the SHA256
+      you can omit this parameter and execute Makes,
+      Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -2319,9 +2328,10 @@ Example:
 , ...
 }:
 fetchGithub {
-  commit = "e0799aa47ac5ce6776ca8581ba50ace362e5d0ce";
   owner = "kamadorueda";
   repo = "mailmap-linter";
+  rev = "e0799aa47ac5ce6776ca8581ba50ace362e5d0ce";
+  sha256 = "02nr39rn4hicfam1rccbqhn6w6pl25xq7fl2kw0s0ahxzvfk24mh";
 }
 ```
 
@@ -2335,8 +2345,8 @@ Options to decline individual licenses are provided below.
 Types:
 
 - fetchNixpkgs (`function { ... } -> anything`):
-    - commit (`str`):
-      Commit to fetch.
+    - rev (`str`):
+      Commit, branch or tag to fetch.
     - allowUnfree (`bool`): Optional.
       Allow software that do not respect the freedom of its users.
       Defaults to `true`.
@@ -2346,6 +2356,11 @@ Types:
     - overalys (`listOf overlayType`): Optional.
       Overlays to apply to the [Nixpkgs][NIXPKGS] set.
       Defaults to `[ ]`.
+    - sha256 (`str`):
+      SHA256 of the expected output,
+      In order to get the SHA256
+      you can omit this parameter and execute Makes,
+      Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -2355,7 +2370,8 @@ Example:
 , ...
 }:
 let nixpkgs = fetchNixpkgs {
-  commit = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+  rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+  sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
 };
 in
 nixpkgs.awscli
