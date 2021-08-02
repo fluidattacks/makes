@@ -17,10 +17,10 @@ let
     escapeShellArg = lib.strings.escapeShellArg;
     escapeShellArgs = lib.strings.escapeShellArgs;
     fakeSha256 = lib.fakeSha256;
+    fetchArchive = import ./fetch-archive/default.nix args;
     fetchGithub = import ./fetch-github/default.nix args;
     fetchNixpkgs = import ./fetch-nixpkgs/default.nix args;
     fetchUrl = import ./fetch-url/default.nix args;
-    fetchZip = import ./fetch-zip/default.nix args;
     filterAttrs = lib.filterAttrs;
     flatten = lib.lists.flatten;
     formatBash = import ./format-bash/default.nix args;
