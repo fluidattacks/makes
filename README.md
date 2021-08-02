@@ -1,4 +1,4 @@
-# Makes v21.08
+# Makes v21.09
 
 A DevSecOps framework
 powered by [Nix][NIX].
@@ -63,7 +63,7 @@ Easy, isn't it?
 Now 🔥 it up with: ` $ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v21.08-linux
+Makes v21.09-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -362,10 +362,10 @@ In order to use Makes you'll need to:
     `$ nix-env -if https://fluidattacks.com/makes/install`
 
     [Other releases][MAKES_RELEASES]:
-    `$ nix-env -if https://fluidattacks.com/makes/install/21.08`
+    `$ nix-env -if https://fluidattacks.com/makes/install/21.09`
 
     We will install two commands in your system:
-    `m`, and `m-v21.08` (depending on the version you installed).
+    `m`, and `m-v21.09` (depending on the version you installed).
 
     Makes targets two kind of users:
 
@@ -521,7 +521,7 @@ jobs:
     - uses: actions/checkout@v2
       # We offer this GitHub action in the following versions:
       #   main: latest release (example: /makes:main)
-      #   yy.mm: monthly release (example: /makes:21.08)
+      #   yy.mm: monthly release (example: /makes:21.09)
     - uses: docker://ghcr.io/fluidattacks/makes:main
       # You can use any name you like here
       name: helloWorld
@@ -548,7 +548,7 @@ looks like this:
 /helloWorld:
   # We offer this Container Image in the following tags:
   #   main: latest release (example: /makes:main)
-  #   yy.mm: monthly release (example: /makes:21.08)
+  #   yy.mm: monthly release (example: /makes:21.09)
   image: ghcr.io/fluidattacks/makes:main
   script:
     - m . /helloWorld 1 2 3
@@ -576,8 +576,8 @@ language: nix
 nix: 2.3.12
 # We offer this installation step in the following versions:
 #   main: latest release (example: /install/main)
-#   yy.mm: monthly release (example: /install/21.08)
-install: nix-env -if https://fluidattacks.com/makes/install/21.08
+#   yy.mm: monthly release (example: /install/21.09)
+install: nix-env -if https://fluidattacks.com/makes/install/21.09
 env:
   global:
     # Encrypted environment variable
