@@ -17,7 +17,7 @@ let
     escapeShellArg = lib.strings.escapeShellArg;
     escapeShellArgs = lib.strings.escapeShellArgs;
     fakeSha256 = lib.fakeSha256;
-    fetchGithub = import ./fetch-github/default.nix;
+    fetchGithub = import ./fetch-github/default.nix args;
     fetchNixpkgs = import ./fetch-nixpkgs/default.nix args;
     fetchUrl = import ./fetch-url/default.nix args;
     fetchZip = import ./fetch-zip/default.nix args;
