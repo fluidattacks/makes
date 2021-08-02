@@ -204,6 +204,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [fromJson](#fromjson)
             - [fromYaml](#fromyaml)
             - [toBashArray](#tobasharray)
+            - [toBashMap](#tobashmap)
             - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
         - [Others](#others)
             - [calculateCvss3](#calculatecvss3)
@@ -2926,6 +2927,60 @@ $ m . /example
     [INFO] ---
     [INFO] third
     [INFO] ----
+```
+
+#### toBashMap
+
+Transform a [Nix][NIX] `attrsOf strLike` expression
+into a [Bash][BASH] associative array (map).
+It can be used for passing
+several arguments from [Nix][NIX]
+to [Bash][BASH].
+You can combine with toBashArray for more complex structures.
+
+Types:
+
+- toBashMap (`function (attrsOf strLike) -> package`):
+
+    - (`attrsOf strLike`):
+      expression to transform.
+
+Examples:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ toBashMap
+, makeDerivation
+, ...
+}:
+makeDerivation {
+  env = {
+    envData = toBashMap {
+      name = "Makes";
+      tags = "ci/cd, framework, nix";
+    };
+  };
+  builder = ''
+    source "$envData/template" data
+
+    for target in "''${!targets[@]}"; do
+      info "$target"
+      info ---
+    done
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+  [INFO] key: tags
+  [INFO] value: ci/cd, framework, nix
+  [INFO] ---
+  [INFO] key: name
+  [INFO] value: Makes
+  [INFO] ---
 ```
 
 #### toFileJsonFromFileYaml
