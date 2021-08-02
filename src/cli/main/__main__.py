@@ -225,18 +225,18 @@ def _run(
     cwd: Optional[str] = None,
     env: Optional[Dict[str, str]] = None,
     capture_io: bool = True,
+    stdin: Optional[bytes] = None,
 ) -> Tuple[int, bytes, bytes]:
     with subprocess.Popen(
         args=args,
         cwd=cwd,
         env=env,
         shell=False,  # nosec
+        stdin=None if stdin is None else subprocess.PIPE,
         stdout=subprocess.PIPE if capture_io else None,
         stderr=subprocess.PIPE if capture_io else None,
     ) as process:
-        out, err = bytes(), bytes()
-        if capture_io:
-            out, err = process.communicate()
+        out, err = process.communicate(stdin)
 
     return process.returncode, out, err
 
@@ -342,9 +342,11 @@ def cache_push(cache: Dict[str, str], out: str) -> None:
     if cache:
         if "CACHIX_AUTH_TOKEN" in environ:
             _log("Pushing to cache")
+            _, stdout, _ = _run(["nix-store", "-qR", out])
             _run(
-                args=["cachix", "push", "-c", "0", cache["name"], out],
+                args=["cachix", "push", "-c", "0", cache["name"]],
                 capture_io=False,
+                stdin=stdout,
             )
 
 
