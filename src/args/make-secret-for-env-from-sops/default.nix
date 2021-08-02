@@ -6,12 +6,12 @@
 }:
 { vars
 , name
-, target
+, manifest
 }:
 makeTemplate {
   replace = {
+    __argManifest__ = manifest;
     __argName__ = toDerivationName name;
-    __argTarget__ = target;
     __argVars__ = toBashArray vars;
   };
   name = "make-secret-for-env-from-sops-for-${name}";

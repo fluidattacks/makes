@@ -10,20 +10,20 @@
 let
   secretForEnvFromSopsType = lib.types.submodule (_: {
     options = {
+      manifest = lib.mkOption {
+        type = lib.types.str;
+      };
       vars = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-      };
-      target = lib.mkOption {
-        type = lib.types.str;
       };
     };
   });
 
-  makeOutput = name: { target, vars }: {
+  makeOutput = name: { manifest, vars }: {
     name = "/secretsForEnvFromSops/${name}";
     value = makeSecretForEnvFromSops {
+      manifest = projectPath manifest;
       inherit name;
-      target = projectPath target;
       inherit vars;
     };
   };
