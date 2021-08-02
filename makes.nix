@@ -18,7 +18,7 @@
       makesGitHubMonthly = {
         registry = "ghcr.io";
         src = outputs."/container-image";
-        tag = "fluidattacks/makes:21.08";
+        tag = "fluidattacks/makes:21.09";
       };
     };
   };
