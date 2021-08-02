@@ -8,7 +8,7 @@ makeTemplate {
   replace = {
     __argMap__ = builtins.toString
       (mapAttrsToList
-        (name: value: escapeShellArg "[${name}]=${value}")
+        (name: value: escapeShellArg "[${name}]=${escapeShellArg value}")
         attrset);
   };
   template = ./template.sh;
