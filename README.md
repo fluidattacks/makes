@@ -188,6 +188,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeScript](#makescript)
             - [projectPath](#projectpath)
         - [Fetchers](#fetchers)
+            - [fetchUrl](#fetchurl)
             - [fetchGithub](#fetchgithub)
             - [fetchNixpkgs](#fetchnixpkgs)
         - [Node.js](#nodejs)
@@ -2299,6 +2300,35 @@ $ m . /example
 ```
 
 ### Fetchers
+
+#### fetchUrl
+
+Fetch a file from the specified URL.
+
+Types:
+
+- fetchUrl (`function { ... } -> package`):
+
+    - url (`str`):
+      URL to download.
+    - sha256 (`str`):
+      SHA256 of the expected output,
+      In order to get the SHA256
+      you can omit this parameter and execute Makes,
+      Makes will tell you the correct SHA256 on failure.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ fetchUrl
+, ...
+}:
+fetchUrl {
+  url = "https://example.com";
+  sha256 = "03nr39rn4hicfam1rccbqhn6w6pl25xq7fl2kw0s0ahxzvfk24mh";
+}
+```
 
 #### fetchGithub
 
