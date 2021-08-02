@@ -170,6 +170,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [envVarsForTerraform](#envvarsforterraform)
     - [Secrets](#secrets)
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
+        - [secretsForEnvFromSops](#secretsforenvfromsops)
     - [Stability](#stability)
         - [inputs](#inputs)
     - [Examples](#examples)
@@ -933,9 +934,6 @@ Types:
 - lintMarkdown (`attrsOf moduleType`): Optional.
   Definitions of config and associated paths to lint.
   Defaults to `{ }`.
-
-Custom Types:
-
 - moduleType (`submodule`):
     - config (`path`): Optional.
       Path to the config file.
@@ -1122,9 +1120,6 @@ Types:
 - lintWithAjv (`attrsOf schemaType`): Optional.
   Definitions of schema and associated data to lint.
   Defaults to `{ }`.
-
-Custom Types:
-
 - schemaType (`submodule`):
     - schema (`str`): Required.
       Path to the [JSON Schema][JSON_SCHEMA].
@@ -1251,9 +1246,6 @@ Types:
 - securePythonWithBandit (`attrsOf projectType`): Optional.
   Definitions of directories of python packages/modules to lint.
   Defaults to `{ }`.
-
-Custom Types:
-
 - projectType (`submodule`):
     - python (`enum [ "3.7" "3.8" "3.9" ]`):
       Python interpreter version that your package/module is designed for.
@@ -1291,9 +1283,6 @@ Types:
     - images (`attrsOf imageType`): Optional.
       Definitions of container images to deploy.
       Defaults to `{ }`.
-
-Custom Types:
-
 - imageType (`submodule`):
     - registry (`enum ["docker.io" "ghcr.io" "registry.gitlab.com"]`):
       Registry in which the image will be copied to.
@@ -1362,9 +1351,6 @@ Types:
     - modules (`attrsOf moduleType`): Optional.
       Path to [Terraform][TERRAFORM] modules to lint.
       Defaults to `{ }`.
-
-Custom Types:
-
 - moduleType (`submodule`):
     - setup (`listOf package`): Optional.
       [Makes Environment][MAKES_ENVIRONMENT]
@@ -1551,9 +1537,6 @@ Types:
 
 - secretsForAwsFromEnv (`attrsOf awsFromEnvType`): Optional.
   Defaults to `{ }`.
-
-Custom Types:
-
 - awsFromEnvType (`submodule`):
 
     - accessKeyId (`str`): Optional.
@@ -1615,6 +1598,48 @@ Example `makes.nix`:
           outputs."/secretsForAwsFromEnv/makesProd"
         ];
         src = "/my/module2";
+        version = "0.12";
+      };
+    };
+  };
+}
+```
+
+### secretsForEnvFromSops
+
+Export secrets from a [Sops][SOPS] encrypted manifest
+to [Environment Variables][ENV_VAR].
+
+Types:
+
+- secretsForEnvFromSops (`attrsOf secretForEnvFromSopsType`): Optional.
+  Defaults to `{ }`.
+- secretForEnvFromSopsType (`submodule`):
+    - manifest (`str`):
+      Relative path to the encrypted [Sops][SOPS] file.
+    - vars (`listOf str`):
+      Names of the values to export out of the manifest.
+
+Example `makes.nix`:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  secretsForEnvFromSops = {
+    cloudflare = {
+      manifest = "/infra/secrets/prod.yaml";
+      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
+    };
+  };
+  lintTerraform = {
+    modules = {
+      moduleProd = {
+        setup = [
+          outputs."/secretsForEnvFromSops/cloudflare"
+        ];
+        src = "/my/module1";
         version = "0.12";
       };
     };
@@ -3067,6 +3092,9 @@ Examples:
 
 - [SHFMT]: https://github.com/mvdan/sh
   [SHFMT][SHFMT]
+
+- [SOPS]: https://github.com/mozilla/sops
+  [Mozilla's Sops][SOPS]
 
 - [TERRAFORM]: https://www.terraform.io/
   [Terraform][TERRAFORM]
