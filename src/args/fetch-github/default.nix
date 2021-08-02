@@ -1,4 +1,4 @@
-{ fetchZip
+{ fetchArchive
 , ...
 }:
 { rev
@@ -6,7 +6,7 @@
 , repo
 , sha256
 }:
-fetchZip {
+fetchArchive {
   inherit sha256;
   url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
 }

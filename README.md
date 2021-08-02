@@ -189,6 +189,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [projectPath](#projectpath)
         - [Fetchers](#fetchers)
             - [fetchUrl](#fetchurl)
+            - [fetchArchive](#fetcharchive)
             - [fetchGithub](#fetchgithub)
             - [fetchNixpkgs](#fetchnixpkgs)
         - [Node.js](#nodejs)
@@ -2325,9 +2326,41 @@ Example:
 , ...
 }:
 fetchUrl {
-  url = "https://example.com";
-  sha256 = "03nr39rn4hicfam1rccbqhn6w6pl25xq7fl2kw0s0ahxzvfk24mh";
+  url = "https://github.com/fluidattacks/makes/blob/16aafa1e3ed4cc99eb354842341fbf6f478a211c/README.md";
+  sha256 = "18scrymrar0bv7s92hfqfb01bv5pibyjw6dxp3i8nylmnh6gjv15";
 }
+
+```
+
+#### fetchArchive
+
+Fetch a Zip (.zip) or Tape Archive (.tar) from the specified URL
+and unpack it.
+
+Types:
+
+- fetchArchive (`function { ... } -> package`):
+
+    - url (`str`):
+      URL to download.
+    - sha256 (`str`):
+      SHA256 of the expected output,
+      In order to get the SHA256
+      you can omit this parameter and execute Makes,
+      Makes will tell you the correct SHA256 on failure.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ fetchArchive
+, ...
+}:
+fetchArchive {
+  url = "https://github.com/fluidattacks/makes/archive/16aafa1e3ed4cc99eb354842341fbf6f478a211c.zip";
+  sha256 = "16zx89lzv5n048h5l9f8dgpvdj0l38hx7aapc7h1d1mjc1ca2i6a";
+}
+
 ```
 
 #### fetchGithub
