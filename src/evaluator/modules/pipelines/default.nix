@@ -1,6 +1,7 @@
 { __toModuleOutputs__
 , attrsMerge
 , attrsOptional
+, escapeShellArgs
 , toBashArray
 , toBashMap
 , toFileYaml
@@ -75,7 +76,7 @@ let
     };
   };
 
-  makeGitlabJob = { gitDepth, gitlabExtra, output, ... }: {
+  makeGitlabJob = { args, gitDepth, gitlabExtra, output, ... }: {
     name = output;
     value = attrsMerge [
       gitlabExtra
@@ -83,6 +84,10 @@ let
         image = "ghcr.io/fluidattacks/makes:21.08";
         interruptible = true;
         needs = [ ];
+        script =
+          if args == [ ]
+          then [ "m . ${output}" ]
+          else [ "m . ${output} ${escapeShellArgs args}" ];
         variables = {
           GIT_DEPTH = gitDepth;
         };
