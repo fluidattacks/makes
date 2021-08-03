@@ -207,6 +207,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [toBashMap](#tobashmap)
             - [toFileJson](#tofilejson)
             - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
+            - [toFileYaml](#tofileyaml)
         - [Others](#others)
             - [calculateCvss3](#calculatecvss3)
 - [Contact an expert](#contact-an-expert)
@@ -3075,6 +3076,45 @@ $ m . /example
   "lastName": "Doe",
   "tickets": 3
 }
+```
+
+#### toFileYaml
+
+Convert a [Nix][NIX] expression
+into a [YAML][YAML] file.
+
+Types:
+
+- toFileYaml (`function str anything -> package`):
+
+    - (`str`):
+      Name of the created file.
+    - (`anything`):
+      Nix expression to convert.
+
+Examples:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ toFileYaml
+, makeDerivation
+, ...
+}:
+makeDerivation {
+  env = {
+    envFile = toFileYaml "example.yaml" { name = "value"; };
+  };
+  builder = ''
+    cat $envFile
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    name: value
 ```
 
 ### Others
