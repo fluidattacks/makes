@@ -31,6 +31,7 @@ let
     fromJson = builtins.fromJSON;
     fromYaml = import ./from-yaml/default.nix args;
     getAttr = import ./get-attr/default.nix;
+    gitlabCi = import ./gitlab-ci/default.nix;
     hasPrefix = lib.strings.hasPrefix;
     inherit inputs;
     lintClojure = import ./lint-clojure/default.nix args;
