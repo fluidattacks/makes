@@ -6,6 +6,7 @@
 { append ? true
 , bin ? [ ]
 , javaClass ? [ ]
+, kubeConfig ? [ ]
 , nodeBin ? [ ]
 , nodeModule ? [ ]
 , pkgConfig ? [ ]
@@ -55,6 +56,10 @@ makeTemplate {
       {
         derivations = javaClass;
         generator = export "CLASSPATH" "";
+      }
+      {
+        derivations = kubeConfig;
+        generator = export "KUBECONFIG" "";
       }
       {
         derivations = nodeBin;
