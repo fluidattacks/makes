@@ -1972,9 +1972,17 @@ Types specific to Java:
 - makeSearchPaths:
 
     - `javaClass` (`listOf package`): Optional.
-      Append `/`
-      of each element in the list
+      Append each element in the list
       to [CLASSPATH][CLASSPATH].
+      Defaults to `[ ]`.
+
+Types specific to [Kubernetes][KUBERNETES]:
+
+- makeSearchPaths:
+
+    - `kubeConfig` (`listOf strLike`): Optional.
+      Append each element in the list
+      to [KUBECONFIG][KUBECONFIG].
       Defaults to `[ ]`.
 
 Types specific to [pkg-config][PKG_CONFIG]:
@@ -3338,6 +3346,9 @@ Examples:
 
 - [JSON_SCHEMA]: https://json-schema.org/
   [JSON Schema][JSON_SCHEMA]
+
+- [KUBECONFIG]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#the-kubeconfig-environment-variable
+  [KUBECONFIG Environment Variable][KUBECONFIG]
 
 - [KUBERNETES]: https://kubernetes.io/
   [Kubernetes][KUBERNETES]
