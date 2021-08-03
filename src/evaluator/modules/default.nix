@@ -33,6 +33,7 @@
     (import ./pipelines/default.nix args)
     (import ./secrets-for-aws-from-env/default.nix args)
     (import ./secrets-for-env-from-sops/default.nix args)
+    (import ./secrets-for-kubernetes-config-from-aws/default.nix args)
     (import ./secrets-for-terraform-from-env/default.nix args)
     (import ./secure-python-with-bandit/default.nix args)
     (import ./test-terraform/default.nix args)

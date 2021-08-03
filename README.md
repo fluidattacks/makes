@@ -171,6 +171,7 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Secrets](#secrets)
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
         - [secretsForEnvFromSops](#secretsforenvfromsops)
+        - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
         - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
     - [Stability](#stability)
         - [inputs](#inputs)
@@ -1651,6 +1652,52 @@ Example `makes.nix`:
       moduleProd = {
         setup = [
           outputs."/secretsForEnvFromSops/cloudflare"
+        ];
+        src = "/my/module1";
+        version = "0.12";
+      };
+    };
+  };
+}
+```
+
+### secretsForKubernetesConfigFromAws
+
+Create a [Kubernetes][KUBERNETES]
+config file out of an [AWS][AWS] EKS cluster
+and set it up in the [KUBECONFIG Environment Variable][KUBECONFIG].
+
+We internally use the [AWS CLI][AWS_CLI]
+so make sure you setup [AWS] secrets first.
+
+Types:
+
+- secretsForKubernetesConfigFromAws (`attrsOf secretForKubernetesConfigFromAwsType`): Optional.
+  Defaults to `{ }`.
+- secretForKubernetesConfigFromAwsType (`submodule`):
+    - cluster (`str`):
+      [AWS][AWS] EKS Cluster name.
+    - region (`str`):
+      [AWS][AWS] Region the EKS cluster is located in.
+
+Example `makes.nix`:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  secretsForKubernetesConfigFromAws = {
+    myCluster = {
+      cluster = "makes-k8s";
+      region = "us-east-1";
+    };
+  };
+  deployTerraform = {
+    modules = {
+      moduleProd = {
+        setup = [
+          outputs."/secretsForKubernetesConfigFromAws/myCluster"
         ];
         src = "/my/module1";
         version = "0.12";
@@ -3227,9 +3274,6 @@ Examples:
 - [Ansible]: https://www.ansible.com/
   [Ansible][ANSIBLE]
 
-- [AWS]: https://aws.amazon.com/
-  [Amazon Web Services (AWS)][AWS]
-
 - [APACHE_ANT]: https://ant.apache.org/
   [Apache Ant][APACHE_ANT]
 
@@ -3238,6 +3282,12 @@ Examples:
 
 - [APT]: https://en.wikipedia.org/wiki/APT_(software)
   [Advanced Package Tool][APT]
+
+- [AWS]: https://aws.amazon.com/
+  [Amazon Web Services (AWS)][AWS]
+
+- [AWS_CLI]: https://aws.amazon.com/cli/
+  [AWS CLI][AWS_CLI]
 
 - [BANDIT]: https://github.com/PyCQA/bandit
   [Bandit][BANDIT]
