@@ -11,6 +11,9 @@ let
     __shellOptions__ = ./shell-options/template.sh;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
     asContent = import ./as-content/default.nix;
+    attrsMapToList = lib.mapAttrsToList;
+    attrsMerge = builtins.foldl' lib.recursiveUpdate { };
+    attrsOptional = lib.optionalAttrs;
     calculateCvss3 = import ./calculate-cvss-3/default.nix args;
     deployContainerImage = import ./deploy-container-image/default.nix args;
     deployTerraform = import ./deploy-terraform/default.nix args;
@@ -55,8 +58,6 @@ let
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
-    mapAttrsToList = lib.mapAttrsToList;
-    optionalAttrs = lib.optionalAttrs;
     inherit outputs;
     inherit projectSrc;
     projectPath = import ./project-path/default.nix args;

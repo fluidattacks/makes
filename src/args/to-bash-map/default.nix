@@ -1,4 +1,4 @@
-{ mapAttrsToList
+{ attrsMapToList
 , makeTemplate
 , escapeShellArg
 , ...
@@ -7,7 +7,7 @@ attrset:
 makeTemplate {
   replace = {
     __argMap__ = builtins.toString
-      (mapAttrsToList
+      (attrsMapToList
         (name: value: escapeShellArg "[${name}]=${escapeShellArg value}")
         attrset);
   };

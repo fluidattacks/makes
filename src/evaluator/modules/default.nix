@@ -1,6 +1,7 @@
-{ config
+{ attrsMapToList
+, config
 , lib
-, optionalAttrs
+, attrsOptional
 , projectPath
 , toFileJson
 , ...
@@ -55,7 +56,7 @@
             lib.mergeAttrs
             { }
             (lib.lists.flatten
-              (lib.attrsets.mapAttrsToList
+              (attrsMapToList
                 (name: type:
                   if type == "directory"
                   then attrsFromPath "${path}/${name}" (position ++ [ name ])
@@ -70,7 +71,7 @@
         makes = projectPath "/makes";
       in
       (
-        optionalAttrs
+        attrsOptional
           (builtins.pathExists makes)
           (attrsFromPath makes [ ])
       ) //
