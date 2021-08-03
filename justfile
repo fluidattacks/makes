@@ -5,8 +5,7 @@ _:
   @just --list
 
 m *ARGS:
-  CACHIX_AUTH_TOKEN="${CACHIX_MAKES_TOKEN:-}" \
-    "$(nix-build --show-trace --no-out-link)/bin/m" {{ARGS}}
+  "$(nix-build --show-trace --no-out-link)/bin/m" {{ARGS}}
 
 ma:
   just m . __all__
