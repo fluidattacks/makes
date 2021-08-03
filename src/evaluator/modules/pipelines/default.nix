@@ -1,4 +1,5 @@
-{ __toModuleOutputs__
+{ __nixpkgs__
+, __toModuleOutputs__
 , attrsMerge
 , attrsOptional
 , escapeShellArgs
@@ -107,6 +108,7 @@ let
                 (builtins.map makeGitlabJob jobs));
             __argGitlabPath__ = projectPathMutable gitlabPath;
           };
+          searchPaths.bin = [ __nixpkgs__.git ];
           entrypoint = ./entrypoint-for-pipeline-on-gitlab.sh;
         };
       });
