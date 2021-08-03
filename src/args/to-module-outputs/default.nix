@@ -1,11 +1,15 @@
 { __nixpkgs__
 , flatten
-, mapAttrsToList
+, attrsMapToList
 , ...
 }:
 makeOutput:
 set:
 (builtins.foldl'
-  (all: one: all // { "${one.name}" = one.value; })
+  (all: one: all // (
+    if one == { }
+    then { }
+    else { "${one.name}" = one.value; }
+  ))
   { }
-  (flatten (mapAttrsToList makeOutput set)))
+  (flatten (attrsMapToList makeOutput set)))

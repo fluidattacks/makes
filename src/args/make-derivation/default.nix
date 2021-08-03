@@ -4,7 +4,7 @@
 , asContent
 , hasPrefix
 , makeSearchPaths
-, optionalAttrs
+, attrsOptional
 , toDerivationName
 , ...
 }:
@@ -62,19 +62,19 @@ builtins.derivation (env' // {
   outputs = [ "out" ];
   passAsFile = builtins.attrNames envFiles;
   system = builtins.currentSystem;
-} // optionalAttrs (action != null) {
+} // attrsOptional (action != null) {
   __envAction = __nixpkgs__.writeShellScript "makes-action-for-${name}" ''
     source ${__shellOptions__}
     export PATH=${searchPathsBase}
 
     ${action}
   '';
-} // optionalAttrs (local) {
+} // attrsOptional (local) {
   allowSubstitutes = false;
   preferLocalBuild = true;
-} // optionalAttrs (searchPaths != { }) {
+} // attrsOptional (searchPaths != { }) {
   __envSearchPaths = makeSearchPaths searchPaths;
-} // optionalAttrs (sha256 != null) {
+} // attrsOptional (sha256 != null) {
   outputHash = sha256;
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

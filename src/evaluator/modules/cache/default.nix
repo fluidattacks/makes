@@ -1,4 +1,5 @@
-{ toFileJson
+{ attrsOptional
+, toFileJson
 , ...
 }:
 { config
@@ -25,7 +26,7 @@
   };
   config = {
     cacheAsJson = toFileJson "cache.json"
-      (lib.optionalAttrs config.cache.enable {
+      (attrsOptional config.cache.enable {
         name = config.cache.name;
         url = "https://${config.cache.name}.cachix.org";
         pubKey = config.cache.pubKey;
