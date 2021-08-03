@@ -1,8 +1,12 @@
 { __toModuleOutputs__
+, attrsMerge
+, attrsOptional
 , toBashArray
 , toBashMap
+, toFileYaml
 , makeScript
 , outputs
+, projectPathMutable
 , ...
 }:
 { config
@@ -16,6 +20,14 @@ let
         default = [ ];
         type = lib.types.listOf lib.types.str;
       };
+      gitDepth = lib.mkOption {
+        default = 1;
+        type = lib.types.int;
+      };
+      gitlabExtra = lib.mkOption {
+        default = { };
+        type = lib.types.attrsOf lib.types.anything;
+      };
       output = lib.mkOption {
         type = lib.types.str;
       };
@@ -24,6 +36,10 @@ let
 
   pipelineType = lib.types.submodule (_: {
     options = {
+      gitlabPath = lib.mkOption {
+        default = null;
+        type = lib.types.nullOr lib.types.str;
+      };
       jobs = lib.mkOption {
         default = { };
         type = lib.types.listOf jobType;
@@ -31,7 +47,7 @@ let
     };
   });
 
-  makeJob = { output, args }:
+  makeJob = { output, args, ... }:
     let
       name = builtins.toString ([ output ] ++ args);
     in
@@ -47,7 +63,7 @@ let
       };
     };
 
-  makePipeline = name: { jobs }: {
+  makePipeline = name: { jobs, ... }: {
     name = "/pipeline/${name}";
     value = makeScript {
       entrypoint = ./entrypoint-for-pipeline.sh;
@@ -58,6 +74,37 @@ let
       name = "pipeline-for-${name}";
     };
   };
+
+  makeGitlabJob = { gitDepth, gitlabExtra, output, ... }: {
+    name = output;
+    value = attrsMerge [
+      gitlabExtra
+      ({
+        image = "ghcr.io/fluidattacks/makes:21.08";
+        interruptible = true;
+        needs = [ ];
+        variables = {
+          GIT_DEPTH = gitDepth;
+        };
+      })
+    ];
+  };
+  makeGitlab = name: { gitlabPath, jobs, ... }:
+    (attrsOptional
+      (gitlabPath != null)
+      {
+        name = "/pipelineOnGitlab/${name}";
+        value = makeScript {
+          name = "pipeline-on-gitlab-for-${name}";
+          replace = {
+            __argGitlabCiYaml__ = toFileYaml "gitlab-ci.yaml"
+              (builtins.listToAttrs
+                (builtins.map makeGitlabJob jobs));
+            __argGitlabPath__ = projectPathMutable gitlabPath;
+          };
+          entrypoint = ./entrypoint-for-pipeline-on-gitlab.sh;
+        };
+      });
 in
 {
   options = {
@@ -67,6 +114,9 @@ in
     };
   };
   config = {
-    outputs = __toModuleOutputs__ makePipeline config.pipelines;
+    outputs = attrsMerge [
+      (__toModuleOutputs__ makePipeline config.pipelines)
+      (__toModuleOutputs__ makeGitlab config.pipelines)
+    ];
   };
 }

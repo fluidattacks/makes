@@ -119,6 +119,7 @@
   };
   pipelines = {
     example = {
+      gitlabPath = "/.gitlab-ci.yaml";
       jobs = [
         {
           output = "/lintNix";
