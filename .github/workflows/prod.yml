@@ -24,12 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: docker://ghcr.io/fluidattacks/makes:main
+    - uses: docker://docker.io/nixos/nix:2.3.12
       env:
         GITHUB_ACTOR: ${{ github.actor }}
         GITHUB_TOKEN: ${{ github.token }}
       with:
-        args: m . /deployContainerImage/makesGitHubMonthly
+        args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHubMonthly"
     - uses: docker://docker.io/nixos/nix:2.3.12
       env:
         GITHUB_ACTOR: ${{ github.actor }}
