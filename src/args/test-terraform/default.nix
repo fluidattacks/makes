@@ -3,15 +3,17 @@
 , makeTerraformEnvironment
 , ...
 }:
-{ setup
+{ debug ? false
 , name
-, version
+, setup
 , src
+, version
 , ...
 }:
 makeScript {
   entrypoint = ./entrypoint.sh;
   replace = {
+    __argDebug__ = debug;
     __argSrc__ = src;
   };
   name = "test-terraform-for-${name}";

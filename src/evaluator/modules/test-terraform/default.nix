@@ -9,9 +9,10 @@
 , ...
 }:
 let
-  makeOutput = name: { setup, src, version }: {
+  makeOutput = name: { debug, setup, src, version }: {
     name = "/testTerraform/${name}";
     value = testTerraform {
+      inherit debug;
       inherit setup;
       inherit name;
       src = projectPath src;
@@ -26,6 +27,10 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            debug = lib.mkOption {
+              default = false;
+              type = lib.types.bool;
+            };
             setup = lib.mkOption {
               default = [ ];
               type = lib.types.listOf lib.types.package;

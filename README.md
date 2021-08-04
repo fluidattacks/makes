@@ -1222,6 +1222,10 @@ Types:
       Path to the [Terraform][TERRAFORM] module.
     - version (`enum [ "0.12" "0.13" "0.14" "0.15" "0.16" ]`):
       [Terraform][TERRAFORM] version your module is built with.
+    - debug (`bool`): Optional.
+      Enable maximum level of debugging
+      and remove parallelism so logs are clean.
+      Defaults to `false`.
 
 Example `makes.nix`:
 
@@ -1672,7 +1676,8 @@ so make sure you setup [AWS] secrets first.
 
 Types:
 
-- secretsForKubernetesConfigFromAws (`attrsOf secretForKubernetesConfigFromAwsType`): Optional.
+- secretsForKubernetesConfigFromAws
+  (`attrsOf secretForKubernetesConfigFromAwsType`): Optional.
   Defaults to `{ }`.
 - secretForKubernetesConfigFromAwsType (`submodule`):
     - cluster (`str`):
