@@ -2,7 +2,7 @@
 
 function main {
   local src=__argSrc__
-  source __argResources__ local resources
+  source __argResources__/template local resources
 
   cd "$(mktemp -d)" \
     && copy "${src}" . \
@@ -12,7 +12,7 @@ function main {
     && terraform refresh \
     && for resource in "${resources[@]}"; do
       info Tainting "${src}" @ "${resource}" \
-        && terraform taint "${resource}" \
+        && terraform taint -allow-missing "${resource}" \
         || return 1
     done
 }

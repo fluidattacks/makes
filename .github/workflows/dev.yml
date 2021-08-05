@@ -325,6 +325,22 @@ jobs:
     - name: /securePythonWithBandit/cli
       run: nix-env -if . && m . /securePythonWithBandit/cli
 
+  linux_taintTerraform_module:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /taintTerraform/module
+      with:
+        args: sh -c "nix-env -if . && m . /taintTerraform/module"
+  macos_taintTerraform_module:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /taintTerraform/module
+      run: nix-env -if . && m . /taintTerraform/module
+
   linux_testTerraform_module:
     runs-on: ubuntu-latest
     steps:
