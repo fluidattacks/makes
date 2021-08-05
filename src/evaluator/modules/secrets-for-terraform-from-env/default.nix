@@ -1,4 +1,5 @@
 { __toModuleOutputs__
+, __outputsPrefix__
 , makeSecretForTerraformFromEnv
 , ...
 }:
@@ -8,7 +9,7 @@
 }:
 let
   makeSecretForTerraformFromEnvOutput = name: mapping: {
-    name = "/secretsForTerraformFromEnv/${name}";
+    name = "${__outputsPrefix__}/secretsForTerraformFromEnv/${name}";
     value = makeSecretForTerraformFromEnv {
       inherit name;
       inherit mapping;

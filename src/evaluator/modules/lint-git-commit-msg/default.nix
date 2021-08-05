@@ -1,4 +1,5 @@
 { lintGitCommitMsg
+, __outputsPrefix__
 , projectPathMutable
 , ...
 }:
@@ -29,7 +30,7 @@
   };
   config = {
     outputs = {
-      "/lintGitCommitMsg" = lib.mkIf
+      "${__outputsPrefix__}/lintGitCommitMsg" = lib.mkIf
         (config.lintGitCommitMsg.enable)
         (lintGitCommitMsg {
           branch = config.lintGitCommitMsg.branch;

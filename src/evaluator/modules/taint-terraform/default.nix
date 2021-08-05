@@ -1,4 +1,5 @@
 { __nixpkgs__
+, __outputsPrefix__
 , __toModuleOutputs__
 , projectPath
 , taintTerraform
@@ -10,7 +11,7 @@
 }:
 let
   makeOutput = name: { resources, setup, src, version }: {
-    name = "/taintTerraform/${name}";
+    name = "${__outputsPrefix__}/taintTerraform/${name}";
     value = taintTerraform {
       inherit name;
       inherit setup;

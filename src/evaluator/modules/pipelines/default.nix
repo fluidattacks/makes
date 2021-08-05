@@ -1,5 +1,6 @@
 { __nixpkgs__
 , __toModuleOutputs__
+, __outputsPrefix__
 , attrsMerge
 , attrsOptional
 , escapeShellArgs
@@ -66,7 +67,7 @@ let
     };
 
   makePipeline = name: { jobs, ... }: {
-    name = "/pipeline/${name}";
+    name = "${__outputsPrefix__}/pipeline/${name}";
     value = makeScript {
       entrypoint = ./entrypoint-for-pipeline.sh;
       replace = {
@@ -99,7 +100,7 @@ let
     (attrsOptional
       (gitlabPath != null)
       {
-        name = "/pipelineOnGitlab/${name}";
+        name = "${__outputsPrefix__}/pipelineOnGitlab/${name}";
         value = makeScript {
           name = "pipeline-on-gitlab-for-${name}";
           replace = {

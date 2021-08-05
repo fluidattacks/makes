@@ -1,4 +1,5 @@
 { __nixpkgs__
+, __outputsPrefix__
 , __toModuleOutputs__
 , lintTerraform
 , projectPath
@@ -10,7 +11,7 @@
 }:
 let
   makeOutput = name: { setup, src, version }: {
-    name = "/lintTerraform/${name}";
+    name = "${__outputsPrefix__}/lintTerraform/${name}";
     value = lintTerraform {
       inherit setup;
       config = builtins.toFile "tflint.hcl" config.lintTerraform.config;

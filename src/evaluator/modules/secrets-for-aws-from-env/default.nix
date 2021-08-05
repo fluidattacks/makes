@@ -1,4 +1,5 @@
 { __toModuleOutputs__
+, __outputsPrefix__
 , makeSecretForAwsFromEnv
 , ...
 }:
@@ -33,7 +34,7 @@ let
     , secretAccessKey
     , sessionToken
     }: {
-      name = "/secretsForAwsFromEnv/${name}";
+      name = "${__outputsPrefix__}/secretsForAwsFromEnv/${name}";
       value = makeSecretForAwsFromEnv {
         inherit accessKeyId;
         inherit defaultRegion;

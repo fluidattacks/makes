@@ -1,14 +1,17 @@
-{ attrsMapToList
+{ __outputsPrefix__
+, attrsMapToList
 , config
 , lib
 , attrsOptional
+, listsOptionals
 , projectPath
 , toFileJson
 , ...
 } @ args:
 {
-  imports = [
+  imports = (listsOptionals (__outputsPrefix__ == "") [
     (import ./cache/default.nix args)
+  ]) ++ [
     (import ./deploy-container-image/default.nix args)
     (import ./deploy-terraform/default.nix args)
     (import ./env-vars/default.nix args)

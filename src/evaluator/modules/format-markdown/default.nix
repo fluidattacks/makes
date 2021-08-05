@@ -1,4 +1,5 @@
 { __nixpkgs__
+, __outputsPrefix__
 , makeNodeJsEnvironment
 , makeNodeJsModules
 , makeNodeJsVersion
@@ -29,7 +30,7 @@
   };
   config = {
     outputs = {
-      "/formatMarkdown" = lib.mkIf config.formatMarkdown.enable (makeScript {
+      "${__outputsPrefix__}/formatMarkdown" = lib.mkIf config.formatMarkdown.enable (makeScript {
         replace = {
           __argDoctocArgs__ = toBashArray
             config.formatMarkdown.doctocArgs;

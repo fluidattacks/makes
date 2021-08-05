@@ -1,4 +1,5 @@
 { lintGitMailMap
+, __outputsPrefix__
 , projectPathMutable
 , ...
 }:
@@ -16,7 +17,7 @@
   };
   config = {
     outputs = {
-      "/lintGitMailMap" = lintGitMailMap {
+      "${__outputsPrefix__}/lintGitMailMap" = lintGitMailMap {
         name = "lint-git-mailmap";
         src = projectPathMutable "/";
       };
