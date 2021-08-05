@@ -143,6 +143,15 @@
       target = "/src/cli";
     };
   };
+  taintTerraform = {
+    modules = {
+      module = {
+        resources = [ "null_resource.example" ];
+        src = "/test/terraform/module";
+        version = "0.13";
+      };
+    };
+  };
   testTerraform = {
     modules = {
       module = {
