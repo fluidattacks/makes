@@ -1,4 +1,5 @@
 { __toModuleOutputs__
+, __outputsPrefix__
 , makeSecretForKubernetesConfigFromAws
 , ...
 }:
@@ -19,7 +20,7 @@ let
   });
 
   makeOutput = name: { cluster, region }: {
-    name = "/secretsForKubernetesConfigFromAws/${name}";
+    name = "${__outputsPrefix__}/secretsForKubernetesConfigFromAws/${name}";
     value = makeSecretForKubernetesConfigFromAws {
       inherit cluster;
       inherit name;

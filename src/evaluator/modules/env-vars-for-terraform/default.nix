@@ -1,4 +1,5 @@
 { __toModuleOutputs__
+, __outputsPrefix__
 , makeEnvVarsForTerraform
 , ...
 }:
@@ -8,7 +9,7 @@
 }:
 let
   makeEnvVarsForTerraformOutput = name: mapping: {
-    name = "/envVarsForTerraform/${name}";
+    name = "${__outputsPrefix__}/envVarsForTerraform/${name}";
     value = makeEnvVarsForTerraform {
       inherit name;
       inherit mapping;

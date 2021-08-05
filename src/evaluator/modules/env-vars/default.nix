@@ -1,4 +1,5 @@
 { __toModuleOutputs__
+, __outputsPrefix__
 , makeEnvVars
 , ...
 }:
@@ -8,7 +9,7 @@
 }:
 let
   makeEnvVarsOutput = name: mapping: {
-    name = "/envVars/${name}";
+    name = "${__outputsPrefix__}/envVars/${name}";
     value = makeEnvVars {
       inherit name;
       inherit mapping;

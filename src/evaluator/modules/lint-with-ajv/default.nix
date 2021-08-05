@@ -1,4 +1,5 @@
 { __toModuleOutputs__
+, __outputsPrefix__
 , lintWithAjv
 , projectPath
 , ...
@@ -9,7 +10,7 @@
 }:
 let
   makeOutput = name: { schema, targets }: {
-    name = "/lintWithAjv/${name}";
+    name = "${__outputsPrefix__}/lintWithAjv/${name}";
     value = lintWithAjv {
       inherit name;
       schema = projectPath schema;

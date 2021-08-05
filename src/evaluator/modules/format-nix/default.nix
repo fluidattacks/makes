@@ -1,4 +1,5 @@
 { __nixpkgs__
+, __outputsPrefix__
 , toBashArray
 , makeScript
 , projectPathMutable
@@ -23,7 +24,7 @@
   };
   config = {
     outputs = {
-      "/formatNix" = lib.mkIf config.formatNix.enable (makeScript {
+      "${__outputsPrefix__}/formatNix" = lib.mkIf config.formatNix.enable (makeScript {
         replace = {
           __argTargets__ = toBashArray
             (builtins.map projectPathMutable config.formatNix.targets);
