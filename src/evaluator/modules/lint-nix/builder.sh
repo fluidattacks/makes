@@ -4,14 +4,28 @@ function main {
   export LANG=C.UTF-8
   source "${envTargets}/template" local targets
   local args=(
-    --recursive
+    # --check=AlphabeticalArgs
+    # --check=AlphabeticalBindings
     --check=BetaReduction
+    --check=DIYInherit
     --check=EmptyVariadicParamSet
+    --check=EmptyInherit
+    --check=EmptyLet
+    --check=EtaReduce
+    --check=FreeLetInFunc
+    --check=LetInInheritRecset
+    --check=ListLiteralConcat
+    --check=NegateAtom
+    --check=SequentialLet
+    --check=SetLiteralUpdate
+    --check=UnfortunateArgName
     --check=UnneededAntiquote
+    --check=UnneededRec
+    --check=UnusedArg
+    --check=UnusedLetBind
+    --check=UpdateEmptySet
+    --recursive
   )
-  # Maybe these two are buggy, worth checking out in the future
-  #   AlphabeticalArgs
-  #   AlphabeticalBindings
 
   info Linting Nix code \
     && for target in "${targets[@]}"; do
