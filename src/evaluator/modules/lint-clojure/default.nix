@@ -1,5 +1,4 @@
 { __toModuleOutputs__
-, __outputsPrefix__
 , lintClojure
 , projectPath
 , ...
@@ -10,7 +9,7 @@
 }:
 let
   makeOutput = name: targets: {
-    name = "${__outputsPrefix__}/lintClojure/${name}";
+    name = "/lintClojure/${name}";
     value = lintClojure {
       inherit name;
       targets = builtins.map projectPath targets;

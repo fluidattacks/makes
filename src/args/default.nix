@@ -1,5 +1,4 @@
 { __nixpkgs__
-, __outputsPrefix__
 , projectSrc
 , projectSrcMutable
 , inputs
@@ -8,7 +7,6 @@
 let
   args = {
     inherit __nixpkgs__;
-    inherit __outputsPrefix__;
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
@@ -43,9 +41,6 @@ let
     lintTerraform = import ./lint-terraform/default.nix args;
     lintWithAjv = import ./lint-with-ajv/default.nix args;
     lintWithLizard = import ./lint-with-lizard/default.nix args;
-    listsMerge = builtins.concatLists;
-    listsOptional = lib.lists.optional;
-    listsOptionals = lib.lists.optionals;
     listFilesRecursive = lib.filesystem.listFilesRecursive;
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;

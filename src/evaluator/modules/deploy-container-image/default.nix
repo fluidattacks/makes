@@ -1,5 +1,4 @@
 { __toModuleOutputs__
-, __outputsPrefix__
 , deployContainerImage
 , ...
 }:
@@ -9,7 +8,7 @@
 }:
 let
   makeOutput = name: { src, registry, tag }: {
-    name = "${__outputsPrefix__}/deployContainerImage/${name}";
+    name = "/deployContainerImage/${name}";
     value = deployContainerImage {
       containerImage = src;
       inherit name;

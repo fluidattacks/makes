@@ -1,5 +1,4 @@
 { __nixpkgs__
-, __outputsPrefix__
 , __toModuleOutputs__
 , testTerraform
 , projectPath
@@ -11,7 +10,7 @@
 }:
 let
   makeOutput = name: { debug, setup, src, version }: {
-    name = "${__outputsPrefix__}/testTerraform/${name}";
+    name = "/testTerraform/${name}";
     value = testTerraform {
       inherit debug;
       inherit setup;

@@ -163,7 +163,6 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Deploy](#deploy)
         - [deployContainerImage](#deploycontainerimage)
         - [deployTerraform](#deployterraform)
-        - [taintTerraform](#taintterraform)
     - [Performance](#performance)
         - [cache](#cache)
     - [Environment](#environment)

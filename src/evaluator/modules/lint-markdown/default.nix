@@ -1,5 +1,4 @@
-{ __outputsPrefix__
-, __toModuleOutputs__
+{ __toModuleOutputs__
 , lintMarkdown
 , projectPath
 , ...
@@ -10,7 +9,7 @@
 }:
 let
   makeOutput = name: { config, targets }: {
-    name = "${__outputsPrefix__}/lintMarkdown/${name}";
+    name = "/lintMarkdown/${name}";
     value = lintMarkdown {
       inherit name;
       inherit config;

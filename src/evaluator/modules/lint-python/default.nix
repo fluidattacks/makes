@@ -1,5 +1,4 @@
 { __nixpkgs__
-, __outputsPrefix__
 , __toModuleOutputs__
 , makeDerivation
 , makeDerivationParallel
@@ -14,7 +13,7 @@
 }:
 let
   makeModule = name: { extraSources, python, src }: {
-    name = "${__outputsPrefix__}/lintPython/module/${name}";
+    name = "/lintPython/module/${name}";
     value = makeDerivation {
       env = {
         envSettingsMypy = ./settings-mypy.cfg;
@@ -46,7 +45,7 @@ let
     let
       modules = builtins.map
         (moduleName: {
-          name = "${__outputsPrefix__}/lintPython/dirOfModules/${name}/${moduleName}";
+          name = "/lintPython/dirOfModules/${name}/${moduleName}";
           value = (makeModule moduleName {
             inherit extraSources;
             inherit python;
@@ -56,7 +55,7 @@ let
         (projectPathLsDirs src);
     in
     (modules ++ [{
-      name = "${__outputsPrefix__}/lintPython/dirOfModules/${name}";
+      name = "/lintPython/dirOfModules/${name}";
       value = makeDerivationParallel {
         dependencies = lib.attrsets.catAttrs "value" modules;
         name = "lint-python-dir-of-modules-for-${name}";

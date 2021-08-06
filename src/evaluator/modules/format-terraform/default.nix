@@ -1,5 +1,4 @@
-{ __outputsPrefix__
-, formatTerraform
+{ formatTerraform
 , ...
 }:
 { config
@@ -20,7 +19,7 @@
   };
   config = {
     outputs = {
-      "${__outputsPrefix__}/formatTerraform" = lib.mkIf
+      "/formatTerraform" = lib.mkIf
         config.formatTerraform.enable
         (formatTerraform {
           name = "format-terraform";
