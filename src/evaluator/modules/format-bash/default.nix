@@ -1,5 +1,4 @@
 { formatBash
-, __outputsPrefix__
 , ...
 }:
 { config
@@ -21,7 +20,7 @@
   };
   config = {
     outputs = {
-      "${__outputsPrefix__}/formatBash" = lib.mkIf config.formatBash.enable (formatBash {
+      "/formatBash" = lib.mkIf config.formatBash.enable (formatBash {
         name = "builtin";
         targets = config.formatBash.targets;
       });

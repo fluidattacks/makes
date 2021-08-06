@@ -18,12 +18,6 @@
   # Path to the user's project, outside the sandbox.
   # Only available when running local Makes projects.
 , projectSrcMutable ? projectSrc
-
-  # Arguments below are used by the evaluator to recurse on itself
-
-  # All outputs will be preceded by this prefix,
-  # some outputs are only available in the top level
-, outputsPrefix ? ""
 , ...
 }:
 let
@@ -46,7 +40,6 @@ let
 
   args = import "${makesSrcOverriden}/src/args/default.nix" {
     __nixpkgs__ = packages.nixpkgs;
-    __outputsPrefix__ = outputsPrefix;
     inherit projectSrc;
     inherit projectSrcMutable;
     inputs = result.config.inputs;

@@ -1,5 +1,4 @@
 { __toModuleOutputs__
-, __outputsPrefix__
 , makeSecretForEnvFromSops
 , projectPath
 , ...
@@ -21,7 +20,7 @@ let
   });
 
   makeOutput = name: { manifest, vars }: {
-    name = "${__outputsPrefix__}/secretsForEnvFromSops/${name}";
+    name = "/secretsForEnvFromSops/${name}";
     value = makeSecretForEnvFromSops {
       manifest = projectPath manifest;
       inherit name;

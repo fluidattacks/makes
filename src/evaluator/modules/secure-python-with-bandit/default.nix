@@ -1,5 +1,4 @@
 { __toModuleOutputs__
-, __outputsPrefix__
 , projectPath
 , securePythonWithBandit
 , ...
@@ -10,7 +9,7 @@
 }:
 let
   makeModule = name: { python, target }: {
-    name = "${__outputsPrefix__}/securePythonWithBandit/${name}";
+    name = "/securePythonWithBandit/${name}";
     value = securePythonWithBandit {
       inherit name;
       inherit python;

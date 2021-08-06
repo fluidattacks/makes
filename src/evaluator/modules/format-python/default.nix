@@ -1,5 +1,4 @@
 { __nixpkgs__
-, __outputsPrefix__
 , toBashArray
 , makeScript
 , projectPathMutable
@@ -24,7 +23,7 @@
   };
   config = {
     outputs = {
-      "${__outputsPrefix__}/formatPython" = lib.mkIf config.formatPython.enable (makeScript {
+      "/formatPython" = lib.mkIf config.formatPython.enable (makeScript {
         replace = {
           __argSettingsBlack__ = ./settings-black.toml;
           __argSettingsIsort__ = ./settings-isort.toml;
