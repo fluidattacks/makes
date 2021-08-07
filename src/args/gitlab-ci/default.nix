@@ -31,7 +31,7 @@
       "if" = "$CI_COMMIT_TITLE =~ /${pattern}/";
     };
     varIsDefined = var: {
-      "if" = "\$${var} == \"\"";
+      "if" = "\$${var} == null";
       "when" = "never";
     };
   };
