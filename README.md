@@ -1414,6 +1414,9 @@ Types:
       Path to [Terraform][TERRAFORM] modules to lint.
       Defaults to `{ }`.
 - moduleType (`submodule`):
+    - reDeploy (`bool`): Optional.
+      Perform a `terraform apply` after tainting resources.
+      Defaults to `false`.
     - resources (`listOf str`):
       Resources to taint.
     - setup (`listOf package`): Optional.
