@@ -1,5 +1,8 @@
 {
   rules = {
+    always = {
+      "when" = "always";
+    };
     branch = branch: {
       "if" = "$CI_COMMIT_BRANCH != \"${branch}\"";
       "when" = "never";
@@ -20,8 +23,16 @@
       "if" = "$CI_PIPELINE_SOURCE == \"trigger\"";
       "when" = "never";
     };
+    schedules = {
+      "if" = "$CI_PIPELINE_SOURCE != \"schedule\"";
+      "when" = "never";
+    };
     titleMatching = pattern: {
       "if" = "$CI_COMMIT_TITLE =~ /${pattern}/";
+    };
+    varIsDefined = name: {
+      "if" = "$${var} == \"\"";
+      "when" = "never";
     };
   };
 }
