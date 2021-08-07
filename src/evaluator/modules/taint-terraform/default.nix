@@ -1,6 +1,6 @@
 { __nixpkgs__
 , __toModuleOutputs__
-, projectPath
+, projectPathMutable
 , taintTerraform
 , ...
 }:
@@ -15,7 +15,7 @@ let
       inherit name;
       inherit reDeploy;
       inherit setup;
-      src = projectPath src;
+      src = projectPathMutable src;
       inherit resources;
       inherit version;
     };

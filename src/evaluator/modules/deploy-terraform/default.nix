@@ -1,7 +1,7 @@
 { __nixpkgs__
 , __toModuleOutputs__
 , deployTerraform
-, projectPath
+, projectPathMutable
 , ...
 }:
 { config
@@ -14,7 +14,7 @@ let
     value = deployTerraform {
       inherit setup;
       inherit name;
-      src = projectPath src;
+      src = projectPathMutable src;
       inherit version;
     };
   };

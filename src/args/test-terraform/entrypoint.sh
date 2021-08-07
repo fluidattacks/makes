@@ -5,13 +5,13 @@ function main {
     -lock=false
     -refresh=true
   )
+  local src='__argSrc__'
   export TF_LOG
 
-  cd "$(mktemp -d)" \
-    && copy '__argSrc__' . \
-    && info Initializing '__argSrc__' \
+  pushd "${src}" \
+    && info Initializing "${src}" \
     && terraform init \
-    && info Testing '__argSrc__' \
+    && info Testing "${src}" \
     && if test -n '__argDebug__'; then
       TF_LOG=TRACE \
         && args+=(

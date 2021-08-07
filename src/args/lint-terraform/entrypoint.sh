@@ -1,12 +1,14 @@
 # shellcheck shell=bash
 
 function main {
-  cd "$(mktemp -d)" \
-    && copy '__argSrc__' . \
-    && info Initializing '__argSrc__' \
+  local src='__argSrc__'
+  local cfg='__argConfig__'
+
+  pushd "${src}" \
+    && info Initializing "${src}" \
     && terraform init \
-    && info Linting '__argSrc__' \
-    && tflint -c '__argConfig__'
+    && info Linting "${src}" \
+    && tflint -c "${cfg}"
 }
 
 main "${@}"
