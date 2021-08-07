@@ -1,7 +1,6 @@
 { __nixpkgs__
 , toBashArray
 , makeScript
-, projectPathMutable
 , ...
 }:
 { name
@@ -10,8 +9,7 @@
 }:
 makeScript {
   replace = {
-    __argTargets__ = toBashArray
-      (builtins.map projectPathMutable targets);
+    __argTargets__ = toBashArray targets;
   };
   name = "format-terraform-for-${name}";
   searchPaths = {

@@ -1,7 +1,7 @@
 { __nixpkgs__
 , __toModuleOutputs__
 , lintTerraform
-, projectPath
+, projectPathMutable
 , ...
 }:
 { config
@@ -15,7 +15,7 @@ let
       inherit setup;
       config = builtins.toFile "tflint.hcl" config.lintTerraform.config;
       inherit name;
-      src = projectPath src;
+      src = projectPathMutable src;
       inherit version;
     };
   };

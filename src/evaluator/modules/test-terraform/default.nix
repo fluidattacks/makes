@@ -1,7 +1,7 @@
 { __nixpkgs__
 , __toModuleOutputs__
 , testTerraform
-, projectPath
+, projectPathMutable
 , ...
 }:
 { config
@@ -15,7 +15,7 @@ let
       inherit debug;
       inherit setup;
       inherit name;
-      src = projectPath src;
+      src = projectPathMutable src;
       inherit version;
     };
   };

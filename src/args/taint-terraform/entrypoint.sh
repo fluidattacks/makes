@@ -7,8 +7,7 @@ function main {
   local src=__argSrc__
   source __argResources__/template local resources
 
-  cd "$(mktemp -d)" \
-    && copy "${src}" . \
+  pushd "${src}" \
     && info Initializing "${src}" \
     && terraform init \
     && info Refreshing state "${src}" \
