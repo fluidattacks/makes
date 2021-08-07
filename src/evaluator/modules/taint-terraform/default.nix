@@ -9,10 +9,11 @@
 , ...
 }:
 let
-  makeOutput = name: { resources, setup, src, version }: {
+  makeOutput = name: { reDeploy, resources, setup, src, version }: {
     name = "/taintTerraform/${name}";
     value = taintTerraform {
       inherit name;
+      inherit reDeploy;
       inherit setup;
       src = projectPath src;
       inherit resources;
@@ -27,6 +28,10 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            reDeploy = lib.mkOption {
+              default = false;
+              type = lib.types.bool;
+            };
             resources = lib.mkOption {
               type = lib.types.listOf lib.types.str;
             };
