@@ -30,7 +30,7 @@
     titleMatching = pattern: {
       "if" = "$CI_COMMIT_TITLE =~ /${pattern}/";
     };
-    varIsDefined = name: {
+    varIsDefined = var: {
       "if" = "$${var} == \"\"";
       "when" = "never";
     };
