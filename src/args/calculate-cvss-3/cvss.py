@@ -8,9 +8,13 @@ from typing import (
 )
 
 
+def _round(scores: Tuple[float, float, float]) -> Tuple[float, float, float]:
+    return tuple(round(score, 1) for score in scores)
+
+
 def main(vector: str) -> None:
     result: CVSS3 = CVSS3(vector)
-    scores: Tuple[float, float, float] = result.scores()
+    scores: Tuple[float, float, float] = _round(result.scores())
     severities: Tuple[str, str, str] = result.severities()
 
     print(
