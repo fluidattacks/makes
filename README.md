@@ -51,7 +51,7 @@ and [Makes][MAKES] looks like:
           outputs."/secretsForAwsFromEnv/myAwesomeMicroService"
         ];
         src = "/infra/microServices/myAwesomeMicroService";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -1106,11 +1106,11 @@ Example `makes.nix`:
     modules = {
       module1 = {
         src = "/my/module1";
-        version = "0.12";
+        version = "0.14";
       };
       module2 = {
         src = "/my/module2";
-        version = "0.16";
+        version = "0.15";
       };
     };
   };
@@ -1236,7 +1236,7 @@ Example `makes.nix`:
     modules = {
       module1 = {
         src = "/my/module1";
-        version = "0.12";
+        version = "0.14";
       };
       module2 = {
         src = "/my/module2";
@@ -1387,7 +1387,7 @@ Example `makes.nix`:
     modules = {
       module1 = {
         src = "/my/module1";
-        version = "0.12";
+        version = "0.14";
       };
       module2 = {
         src = "/my/module2";
@@ -1440,7 +1440,7 @@ Example `makes.nix`:
       module = {
         resources = [ "null_resource.example" ];
         src = "/test/terraform/module";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -1654,14 +1654,14 @@ Example `makes.nix`:
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/my/module1";
-        version = "0.12";
+        version = "0.14";
       };
       moduleProd = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
         ];
         src = "/my/module2";
-        version = "0.12";
+        version = "0.14";
       };
     };
   };
@@ -1706,7 +1706,7 @@ Example `makes.nix`:
           outputs."/secretsForEnvFromSops/cloudflare"
         ];
         src = "/my/module1";
-        version = "0.12";
+        version = "0.14";
       };
     };
   };
@@ -1753,7 +1753,7 @@ Example `makes.nix`:
           outputs."/secretsForKubernetesConfigFromAws/myCluster"
         ];
         src = "/my/module1";
-        version = "0.12";
+        version = "0.14";
       };
     };
   };

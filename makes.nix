@@ -26,7 +26,7 @@
     modules = {
       module = {
         src = "/test/terraform/module";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -110,7 +110,7 @@
     modules = {
       module = {
         src = "/test/terraform/module";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -148,7 +148,7 @@
       module = {
         resources = [ "null_resource.example" ];
         src = "/test/terraform/module";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -160,7 +160,7 @@
           outputs."/secretsForTerraformFromEnv/example"
         ];
         src = "/test/terraform/module";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
