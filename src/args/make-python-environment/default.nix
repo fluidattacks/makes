@@ -32,15 +32,6 @@ let
     subDependencies'
   );
 
-  pythonInterpreter =
-    if python == "3.7"
-    then __nixpkgs__.python37
-    else if python == "3.8"
-    then __nixpkgs__.python38
-    else if python == "3.9"
-    then __nixpkgs__.python39
-    else abort "Supported python versions are: 3.7 and 3.8";
-
   pythonEnvironment = makeDerivation {
     env = {
       envRequirementsFile = toFileLst "reqs.lst" requirementsList;
@@ -52,7 +43,7 @@ let
         __nixpkgs__.gcc
         __nixpkgs__.git
         __nixpkgs__.gnused
-        pythonInterpreter
+        python
       ];
     };
   };

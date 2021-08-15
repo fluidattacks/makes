@@ -3,6 +3,7 @@
 , makeDerivation
 , makeDerivationParallel
 , makePythonEnvironment
+, makePythonVersion
 , projectPath
 , projectPathLsDirs
 , ...
@@ -33,7 +34,7 @@ let
               "returns==0.16.0"
             ];
             name = "lint-python";
-            inherit python;
+            python = makePythonVersion python;
             subDependencies = pythonEnvironmentSubdependencies.${python};
           })
         ];
