@@ -1,6 +1,7 @@
 { __nixpkgs__
 , makeDerivation
 , makePythonEnvironment
+, makePythonVersion
 , ...
 }:
 envTarget:
@@ -17,7 +18,7 @@ makeDerivation {
           "cvss==2.3"
         ];
         name = "cvss";
-        python = "3.8";
+        python = makePythonVersion "3.8";
       })
     ];
   };

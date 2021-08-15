@@ -1,6 +1,7 @@
 { makeDerivation
 , makeDerivationParallel
 , makePythonEnvironment
+, makePythonVersion
 , ...
 }:
 { targets
@@ -20,7 +21,7 @@ let
             "lizard==1.17.3"
           ];
           name = "lizard";
-          python = "3.7";
+          python = makePythonVersion "3.7";
         })
       ];
     };

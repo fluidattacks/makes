@@ -2759,8 +2759,9 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - python (`enum [ "3.7" "3.8" "3.9" ]`):
-      [Python][PYTHON] interpreter version to use.
+    - python (`package`):
+      [Python][PYTHON] interpreter to use.
+      For example: `makePythonVersion "3.8"`.
     - dependencies (`listOf str`):
       Direct dependencies to install.
       Equivalent to a `requirements.txt` file.
@@ -2776,13 +2777,14 @@ Example:
 ```nix
 # /path/to/my/project/makes/example/main.nix
 { makePythonEnvironment
+, makePythonVersion
 , makeScript
 , ...
 }:
 let
   env = makePythonEnvironment {
     name = "hello-world";
-    python = "3.9";
+    python = makePythonVersion "3.9";
     dependencies = [ "say-hello-world==0.0.4" ];
     subDependencies = [ ];
   };
