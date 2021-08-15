@@ -199,6 +199,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeNodeJsModules](#makenodejsmodules)
             - [makeNodeJsEnvironment](#makenodejsenvironment)
         - [Python](#python)
+            - [makePythonVersion](#makepythonversion)
             - [makePythonEnvironment](#makepythonenvironment)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
@@ -2711,6 +2712,42 @@ $ m . /example
 ```
 
 ### Python
+
+#### makePythonVersion
+
+Get a specific [Python][PYTHON] interpreter.
+
+Types:
+
+- makePythonVersion (`function str -> package`):
+
+    - (`enum [ "3.7" "3.8" "3.9" ]`):
+      [Python][PYTHON] version of the interpreter to return.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makePythonVersion
+, makeScript
+, ...
+}:
+makeScript {
+  entrypoint = ''
+    python --version
+  '';
+  name = "example";
+  searchPaths = {
+    bin = [ (makePythonVersion "3.8") ];
+  };
+}
+```
+
+```bash
+$ m . /example
+
+    Python 3.8.9
+```
 
 #### makePythonEnvironment
 
