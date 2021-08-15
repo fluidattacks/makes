@@ -1,7 +1,9 @@
 { __nixpkgs__
 , getAttr
 , toFileLst
+, listOptional
 , makeDerivation
+, makePythonVersion
 , makeSearchPaths
 , sortAsciiCaseless
 , ...
@@ -50,7 +52,7 @@ let
 in
 makeSearchPaths {
   bin = [ pythonEnvironment ];
-  pythonPackage37 = if (python == "3.7") then [ pythonEnvironment ] else [ ];
-  pythonPackage38 = if (python == "3.8") then [ pythonEnvironment ] else [ ];
-  pythonPackage39 = if (python == "3.9") then [ pythonEnvironment ] else [ ];
+  pythonPackage37 = listOptional (python == makePythonVersion "3.7") pythonEnvironment;
+  pythonPackage38 = listOptional (python == makePythonVersion "3.8") pythonEnvironment;
+  pythonPackage39 = listOptional (python == makePythonVersion "3.9") pythonEnvironment;
 }
