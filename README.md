@@ -200,6 +200,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeNodeJsEnvironment](#makenodejsenvironment)
         - [Python](#python)
             - [makePythonVersion](#makepythonversion)
+            - [makePythonPypiMirror](#makepythonpypimirror)
             - [makePythonEnvironment](#makepythonenvironment)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
@@ -2749,6 +2750,59 @@ $ m . /example
     Python 3.8.9
 ```
 
+#### makePythonPypiMirror
+
+Copy the required installers
+for a set of [Python][PYTHON] packages
+from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
+in PEP 503 format.
+
+Types:
+
+- makePythonPypiMirror (`function { ... } -> package`):
+
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - dependencies (`attrsOf str`):
+      Mapping of packages to versions.
+    - subDependencies (`attrsOf str`): Optional.
+      Mapping of packages to versions.
+      In order to get the complete list of sub-dependencies
+      you can omit this parameter and execute Makes.
+      Makes will tell you this information on failure.
+      Defaults to `{ }`.
+    - python (`package`):
+      [Python][PYTHON] interpreter to use.
+      For example: `makePythonVersion "3.8"`.
+    - sha256 (`str`):
+      SHA256 of the expected output,
+      In order to get the SHA256
+      you can omit this parameter and execute Makes.
+      Makes will tell you the correct SHA256 on failure.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makePythonPypiMirror
+, makePythonVersion
+, ...
+}:
+makePythonPypiMirror {
+  name = "example";
+  dependencies = {
+    "django" = "3.2.6";
+  };
+  subDependencies = {
+    "asgiref" = "3.4.1";
+    "pytz" = "2021.1";
+    "sqlparse" = "0.4.1";
+  };
+  python = makePythonVersion "3.8";
+  sha256 = "0x5qa0m5bhfqcpk4gj2n8rgffvx2msnbgx5jmawjdpz11lamc377";
+}
+```
+
 #### makePythonEnvironment
 
 Create an environment where python dependencies are available
@@ -3599,6 +3653,9 @@ Examples:
 
 - [PYTHONPATH]: https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
   [PYTHONPATH Environment Variable][PYTHONPATH]
+
+- [PYTHON_PYPI]: https://pypi.org/
+  [Python Packaging Index (PyPI)][PYTHON_PYPI]
 
 - [RAKE]: https://github.com/ruby/rake
   [Rake][RAKE]
