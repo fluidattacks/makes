@@ -201,6 +201,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [Python](#python)
             - [makePythonVersion](#makepythonversion)
             - [makePythonPypiMirror](#makepythonpypimirror)
+            - [makePythonPypiEnvironment](#makepythonpypienvironment)
             - [makePythonEnvironment](#makepythonenvironment)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
@@ -2799,6 +2800,66 @@ makePythonPypiMirror {
     "sqlparse" = "0.4.1";
   };
   python = makePythonVersion "3.8";
+  sha256 = "0x5qa0m5bhfqcpk4gj2n8rgffvx2msnbgx5jmawjdpz11lamc377";
+}
+```
+
+#### makePythonPypiEnvironment
+
+Create a virtual environment
+where the provided set of [Python][PYTHON] packages
+from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
+are installed.
+
+Types:
+
+- makePythonPypiEnvironment (`function { ... } -> package`):
+
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - dependencies (`attrsOf str`):
+      Mapping of packages to versions.
+    - subDependencies (`attrsOf str`): Optional.
+      Mapping of packages to versions.
+      In order to get the complete list of sub-dependencies
+      you can omit this parameter and execute Makes.
+      Makes will tell you this information on failure.
+      Defaults to `{ }`.
+    - python (`package`):
+      [Python][PYTHON] interpreter to use.
+      For example: `makePythonVersion "3.8"`.
+    - sha256 (`str`):
+      SHA256 of the expected output,
+      In order to get the SHA256
+      you can omit this parameter and execute Makes.
+      Makes will tell you the correct SHA256 on failure.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ inputs
+, makePythonPypiEnvironment
+, makePythonVersion
+, ...
+}:
+makePythonPypiEnvironment {
+  name = "example";
+  dependencies = {
+    "django" = "3.2.6";
+  };
+  subDependencies = {
+    "asgiref" = "3.4.1";
+    "pytz" = "2021.1";
+    "sqlparse" = "0.4.1";
+  };
+  python = makePythonVersion "3.8";
+  searchPaths = {
+    bin = [ inputs.nixpkgs.gcc ];
+  };
   sha256 = "0x5qa0m5bhfqcpk4gj2n8rgffvx2msnbgx5jmawjdpz11lamc377";
 }
 ```
