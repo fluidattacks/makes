@@ -63,15 +63,19 @@ def load_requirements_txt(path: str) -> Set[str]:
 
 
 def list_requirements_in_mirror(path: str) -> Set[str]:
-    all: Set[str] = set()
+    pkgs: Set[str] = set()
     for pkg in os.listdir(path):
         if pkg != "index.html":
             for pkg_src in os.listdir(os.path.join(path, pkg)):
                 if pkg_src != "index.html":
                     _, pkg_version, *_ = pkg_src.split("-")
-                    all.add(format_pkg(pkg, pkg_version))
+
+                    if pkg_version.endswith('.tar.gz'):
+                        pkg_version = pkg_version[0:-7]
+
+                    pkgs.add(format_pkg(pkg, pkg_version))
                     break
-    return all
+    return pkgs
 
 
 if __name__ == "__main__":

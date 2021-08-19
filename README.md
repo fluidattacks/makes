@@ -2795,13 +2795,13 @@ makePythonPypiMirror {
   dependencies = {
     "django" = "3.2.6";
   };
+  python = makePythonVersion "3.8";
+  sha256 = "01yymaq13msgva72q05lzfh5dspkldspi40yw17swwcgjv3lclb0";
   subDependencies = {
     "asgiref" = "3.4.1";
     "pytz" = "2021.1";
     "sqlparse" = "0.4.1";
   };
-  python = makePythonVersion "3.8";
-  sha256 = "0x5qa0m5bhfqcpk4gj2n8rgffvx2msnbgx5jmawjdpz11lamc377";
 }
 ```
 
