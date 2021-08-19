@@ -15,6 +15,10 @@
 , subDependencies ? { }
 }:
 let
+  is37 = python == makePythonVersion "3.7";
+  is38 = python == makePythonVersion "3.8";
+  is39 = python == makePythonVersion "3.9";
+
   pypiEnvironment = makeDerivation {
     builder = ./builder.sh;
     env.envMirror = makePythonPypiMirror {
@@ -32,7 +36,7 @@ let
 in
 makeSearchPaths {
   bin = [ pypiEnvironment ];
-  pythonPackage37 = listOptional (python == makePythonVersion "3.7") pypiEnvironment;
-  pythonPackage38 = listOptional (python == makePythonVersion "3.8") pypiEnvironment;
-  pythonPackage39 = listOptional (python == makePythonVersion "3.9") pypiEnvironment;
+  pythonPackage37 = listOptional is37 pypiEnvironment;
+  pythonPackage38 = listOptional is38 pypiEnvironment;
+  pythonPackage39 = listOptional is39 pypiEnvironment;
 }

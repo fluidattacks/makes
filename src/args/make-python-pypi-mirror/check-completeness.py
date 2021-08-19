@@ -11,7 +11,7 @@ def main() -> None:
     deps: Set[str] = load_requirements_txt(sys.argv[2])
     sub_deps: Set[str] = load_requirements_txt(sys.argv[3])
 
-    print("Downloaded packages:")
+    print("Closure:")
     for dep in sorted(closure):
         print(f"  {dep}")
 

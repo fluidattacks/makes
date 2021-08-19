@@ -32,20 +32,26 @@ function main {
 
 function get_url {
   local file="${1}"
+
   remainder="${file}" \
-    && remainder="${remainder%*.tar.gz}" \
-    && remainder="${remainder%*.whl}" \
-    && project_name="${file%%-*}" \
-    && remainder="${remainder:1}" \
-    && remainder="${remainder:${#project_name}}" \
-    && version="${remainder%%-*}" \
-    && remainder="${remainder:1}" \
-    && remainder="${remainder:${#version}}" \
-    && if test "${remainder}" = ""; then
-      python_version='source'
-    else
-      python_version="${remainder%%-*}"
-    fi \
+    && case "${file}" in
+      *.tar.gz)
+        remainder="${remainder%*.tar.gz}" \
+          && version="${remainder##*-}" \
+          && project_name="${remainder%-*}" \
+          && python_version='source'
+        ;;
+      *.whl)
+        project_name="${file%%-*}" \
+          && remainder="${remainder:1}" \
+          && remainder="${remainder:${#project_name}}" \
+          && version="${remainder%%-*}" \
+          && remainder="${remainder:1}" \
+          && remainder="${remainder:${#version}}" \
+          && python_version="${remainder%%-*}"
+        ;;
+      *) critical Unable to parse "${file}" ;;
+    esac \
     && project_l="${project_name:0:1}" \
     && echo "https://pypi.org/packages/${python_version}/${project_l}/${project_name}/${file}"
 }
