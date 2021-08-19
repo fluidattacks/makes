@@ -1,6 +1,6 @@
 { makeDerivation
 , makeDerivationParallel
-, makePythonEnvironment
+, makePythonPypiEnvironment
 , makePythonVersion
 , ...
 }:
@@ -16,12 +16,11 @@ let
     name = "build-lint-with-lizard-for-${name}-${envTarget}";
     searchPaths = {
       source = [
-        (makePythonEnvironment {
-          dependencies = [
-            "lizard==1.17.3"
-          ];
+        (makePythonPypiEnvironment {
+          dependencies.lizard = "1.17.3";
           name = "lizard";
           python = makePythonVersion "3.7";
+          sha256 = "0kibmxrl13i9j2cidmlkrkcq341276cl5w76jgajwfcx09gbn58y";
         })
       ];
     };
