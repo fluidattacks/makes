@@ -1,6 +1,6 @@
 { __nixpkgs__
 , makeDerivation
-, makePythonEnvironment
+, makePythonPypiEnvironment
 , makePythonVersion
 , ...
 }:
@@ -13,12 +13,11 @@ makeDerivation {
   name = "calculate-cvss-3";
   searchPaths = {
     source = [
-      (makePythonEnvironment {
-        dependencies = [
-          "cvss==2.3"
-        ];
+      (makePythonPypiEnvironment {
+        dependencies.cvss = "2.3";
         name = "cvss";
         python = makePythonVersion "3.8";
+        sha256 = "0n5ix3pbp8s88xjjgp4d8j1had8fcgymvgfj597x6rmrynqfqkq6";
       })
     ];
   };

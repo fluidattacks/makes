@@ -6,8 +6,8 @@ function main {
     && HOME=. python -m pip install \
       --cache-dir . \
       --index-url "file://${envMirror}/mirror" \
-      --requirement "${envMirror}/deps.txt" \
-      --requirement "${envMirror}/sub-deps.txt"
+      --requirement "${envMirror}/deps.lst" \
+      --requirement "${envMirror}/sub-deps.lst"
 }
 
 main "${@}"

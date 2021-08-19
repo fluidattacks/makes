@@ -27,7 +27,7 @@ makeDerivation {
         python = python.version;
       };
       tool.poetry.description = "";
-      tool.poetry.name = name;
+      tool.poetry.name = "pyproject-toml-for-make-python-pypi-mirror";
       tool.poetry.version = "1";
     };
     envCheckCompleteness = ./check-completeness.py;
