@@ -1,4 +1,5 @@
-{ fakeSha256
+{ __nixpkgs__
+, fakeSha256
 , getAttr
 , listOptional
 , makeDerivation

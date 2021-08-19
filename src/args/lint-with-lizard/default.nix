@@ -20,7 +20,7 @@ let
           dependencies.lizard = "1.17.3";
           name = "lizard";
           python = makePythonVersion "3.7";
-          sha256 = "0kibmxrl13i9j2cidmlkrkcq341276cl5w76jgajwfcx09gbn58y";
+          sha256 = "17pwl53zrfvi6m2f58mgn6vj6wfz6k23z6r01x21lmmf3w0hawg7";
         })
       ];
     };
