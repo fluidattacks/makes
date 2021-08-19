@@ -29,6 +29,7 @@ let
     formatBash = import ./format-bash/default.nix args;
     formatTerraform = import ./format-terraform/default.nix args;
     fromJson = builtins.fromJSON;
+    fromToml = builtins.fromTOML;
     fromYaml = import ./from-yaml/default.nix args;
     getAttr = import ./get-attr/default.nix;
     gitlabCi = import ./gitlab-ci/default.nix;
@@ -82,6 +83,7 @@ let
     toBashArray = import ./to-bash-array/default.nix args;
     toBashMap = import ./to-bash-map/default.nix args;
     toFileJson = import ./to-file-json/default.nix args;
+    toFileToml = import ./to-file-toml/default.nix args;
     toFileYaml = import ./to-file-yaml/default.nix args;
     toFileJsonFromFileYaml = import ./to-file-json-from-file-yaml/default.nix args;
     toFileLst = import ./to-file-lst/default.nix;
