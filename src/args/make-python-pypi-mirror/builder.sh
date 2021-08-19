@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function main {
+  source "${envExtraFiles}/template" local extra_files
   export POETRY_VIRTUALENVS_IN_PROJECT=1
 
   HOME="$(mktemp -d)" \
@@ -21,6 +22,10 @@ function main {
         && echo "GET: ${url}" \
         && curl -L "${url}" -o "downloads/${file}" -s \
         || critical Unable to download "${file}"
+    done \
+    && for file in "${extra_files[@]}"; do
+      copy "${file}" "downloads/${file:44}" \
+        || return 1
     done \
     && pypi-mirror create \
       --copy \
