@@ -207,6 +207,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
             - [fromJson](#fromjson)
+            - [fromToml](#fromtoml)
             - [fromYaml](#fromyaml)
             - [toBashArray](#tobasharray)
             - [toBashMap](#tobashmap)
@@ -3093,6 +3094,57 @@ $ m . /example
     [INFO] Tickets is: 3
 ```
 
+#### fromToml
+
+Convert a [TOML][TOML] formatted string
+to a [Nix][NIX] expression.
+
+Types:
+
+- fromToml (`function str -> anything`):
+
+    - (`str`):
+      [TOML][TOML] formatted string to convert.
+
+Examples:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ fromToml
+, makeDerivation
+, ...
+}:
+let
+  data = fromToml ''
+    [example]
+    name = "John"
+    lastName = "Doe"
+    tickets = 3
+  '';
+in
+makeDerivation {
+  env = {
+    envName = data.example.name;
+    envLastName = data.example.lastName;
+    envTickets = data.example.tickets;
+  };
+  builder = ''
+    info "Name is: $envName"
+    info "Last name is: $envLastName"
+    info "Tickets is: $envTickets"
+  '';
+  name = "example";
+}
+```
+
+```bash
+$ m . /example
+
+    [INFO] Name is: John
+    [INFO] Last name is: Doe
+    [INFO] Tickets is: 3
+```
+
 #### fromYaml
 
 Convert a [YAML][YAML] formatted string
@@ -3753,6 +3805,9 @@ Examples:
 
 - [TFLINT]: https://github.com/terraform-linters/tflint
   [TFLint][TFLINT]
+
+- [TOML]: https://github.com/toml-lang/toml
+  [TOML][TOML]
 
 - [TRAVIS_CI]: https://travis-ci.org/
   [Travis CI][TRAVIS_CI]
