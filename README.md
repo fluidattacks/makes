@@ -2764,7 +2764,7 @@ Pre-requisites:
 1. You need to generate `sourcesJson` like this:
 
     ```bash
-    m github:fluidattacks/makes@main /utils/makePythonPypiEnvironmentSources \
+    m github:fluidattacks/makes@21.09 /utils/makePythonPypiEnvironmentSources \
       "${python_version}" \
       "${dependencies_json}" \
       "${sources_path}
@@ -3461,7 +3461,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    rev = "1593400a20a450887488832451d60605925ca20f";
+    rev = "21.09";
   }}/src/args/agnostic.nix";
 in
 # Use the framework
