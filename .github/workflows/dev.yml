@@ -341,6 +341,22 @@ jobs:
     - name: /taintTerraform/module
       run: nix-env -if . && m . /taintTerraform/module
 
+  linux_tests_calculateCvss3:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /tests/calculateCvss3
+      with:
+        args: sh -c "nix-env -if . && m . /tests/calculateCvss3"
+  macos_tests_calculateCvss3:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /tests/calculateCvss3
+      run: nix-env -if . && m . /tests/calculateCvss3
+
   linux_testTerraform_module:
     runs-on: ubuntu-latest
     steps:
