@@ -53,7 +53,6 @@ let
     makeNodeJsEnvironment = import ./make-node-js-environment/default.nix args;
     makeNodeJsModules = import ./make-node-js-modules/default.nix args;
     makeNodeJsVersion = import ./make-node-js-version/default.nix args;
-    makePythonEnvironment = import ./make-python-environment/default.nix args;
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix args;
     makePythonVersion = import ./make-python-version/default.nix args;
     makeScript = import ./make-script/default.nix args;
