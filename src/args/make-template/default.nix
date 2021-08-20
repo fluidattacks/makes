@@ -14,7 +14,7 @@
 }:
 let
   # Validate arguments to replace
-  argumentRegex = "__arg[A-Z][a-zA-Z]{2,}__";
+  argumentRegex = "__arg[A-Z][a-zA-Z0-9]{2,}__";
   validateArguments = builtins.mapAttrs
     (k: v: (
       if builtins.match argumentRegex k == null
@@ -23,7 +23,7 @@ let
 
           Ivalid placeholder: ${k}
           Placeholders must match: ${argumentRegex}
-          For example: __argExample__
+          For example: __argExample123__
 
         ''
       else v
