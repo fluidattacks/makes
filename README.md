@@ -2759,6 +2759,34 @@ for a set of [Python][PYTHON] packages
 from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
 in PEP 503 format.
 
+Pre-requisites:
+
+1. You need to generate a sources file, like this:
+
+    ```bash
+    m github:fluidattacks/makes@main /utils/makePythonPypiMirrorSources \
+      "${python_version}" \
+      "${dependencies_json}" \
+      "${sources_path}
+    ```
+
+    - Supported `python_version`s are: `3.7`, `3.8` and `3.9`.
+    - `dependencies_json` is a [JSON][JSON] file
+      mapping [PyPI][PYTHON_PYPI] packages to version constraints.
+
+      Example:
+
+      ```json
+      {
+        "Django": "3.2.*",
+        "psycopg2": "2.9.1"
+      }
+      ```
+
+    - `sources_path` is a file were the script will output results.
+
+      Please save this file because it is required by `makePythonPypiMirror`.
+
 Types:
 
 - makePythonPypiMirror (`function { ... } -> package`):
