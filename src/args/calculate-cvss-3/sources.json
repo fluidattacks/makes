@@ -1,12 +1,18 @@
-[
-  {
-    "name": "cvss-2.3-py2.py3-none-any.whl",
-    "sha256": "0dm3hvlj6ax3vji6ixb3fyhnvzhajxzdfj2syyxapxa0w5w6nsqb",
-    "url": "https://pypi.org/packages/py2.py3/c/cvss/cvss-2.3-py2.py3-none-any.whl"
+{
+  "closure": {
+    "cvss": "2.3"
   },
-  {
-    "name": "cvss-2.3.tar.gz",
-    "sha256": "0h21l80ia9zhhrk98b9y86ihigp7jnf2g8dydi3y14vv5vdcj8pw",
-    "url": "https://pypi.org/packages/source/c/cvss/cvss-2.3.tar.gz"
-  }
-]
+  "links": [
+    {
+      "name": "cvss-2.3-py2.py3-none-any.whl",
+      "sha256": "0dm3hvlj6ax3vji6ixb3fyhnvzhajxzdfj2syyxapxa0w5w6nsqb",
+      "url": "https://pypi.org/packages/py2.py3/c/cvss/cvss-2.3-py2.py3-none-any.whl"
+    },
+    {
+      "name": "cvss-2.3.tar.gz",
+      "sha256": "0h21l80ia9zhhrk98b9y86ihigp7jnf2g8dydi3y14vv5vdcj8pw",
+      "url": "https://pypi.org/packages/source/c/cvss/cvss-2.3.tar.gz"
+    }
+  ],
+  "python": "3.8"
+}

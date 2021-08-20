@@ -29,6 +29,7 @@ let
     formatBash = import ./format-bash/default.nix args;
     formatTerraform = import ./format-terraform/default.nix args;
     fromJson = builtins.fromJSON;
+    fromJsonFile = path: builtins.fromJSON (builtins.readFile path);
     fromToml = builtins.fromTOML;
     fromYaml = import ./from-yaml/default.nix args;
     getAttr = import ./get-attr/default.nix;
@@ -54,7 +55,6 @@ let
     makeNodeJsVersion = import ./make-node-js-version/default.nix args;
     makePythonEnvironment = import ./make-python-environment/default.nix args;
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix args;
-    makePythonPypiMirror = import ./make-python-pypi-mirror/default.nix args;
     makePythonVersion = import ./make-python-version/default.nix args;
     makeScript = import ./make-script/default.nix args;
     makeScriptParallel = import ./make-script-parallel/default.nix args;

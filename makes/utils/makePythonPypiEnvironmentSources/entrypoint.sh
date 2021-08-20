@@ -44,8 +44,15 @@ function main {
       < poetry.lock > poetry.lock.json \
     && jq -er '.metadata.files[][]|.file' \
       < poetry.lock.json > files.lst \
+    && jq -er \
+      --arg python_version "${python_version}" \
+      '{
+        closure: [ .package[] | {key: .name, value: .version} ] | from_entries,
+        links: [],
+        python: $python_version
+      }' \
+      < poetry.lock.json > sources.json \
     && mapfile -t files < files.lst \
-    && echo [] > sources.json \
     && for file in "${files[@]}"; do
       url="$(get_url "${file}")" \
         && sha256="$(nix-prefetch-url --name "${file}" --type sha256 "${url}")" \
@@ -55,16 +62,18 @@ function main {
           --arg sha256 "${sha256}" \
           --argjson sources "${sources}" \
           --arg url "${url}" \
-          '$sources + [{
-            name: $file,
-            sha256: $sha256,
-            url: $url
-          }]' \
+          '{
+            closure: $sources.closure,
+            links: ($sources.links + [{
+              name: $file,
+              sha256: $sha256,
+              url: $url
+            }]),
+            python: $sources.python
+          }' \
           > sources.json \
         || critical Unable to download "${file}"
     done \
-    && info Final sources are: \
-    && cat sources.json \
     && cp sources.json "${sources_json}" \
     && info Generated a sources file at "${sources_json}"
 }
