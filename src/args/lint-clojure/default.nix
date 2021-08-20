@@ -1,6 +1,6 @@
-{ makeDerivation
+{ __nixpkgs__
+, makeDerivation
 , makeDerivationParallel
-, inputs
 , ...
 }:
 { targets
@@ -13,11 +13,7 @@ let
       inherit envTarget;
     };
     name = "build-lint-clojure-for-${name}-${envTarget}";
-    searchPaths = {
-      bin = [
-        inputs.nixpkgs.clj-kondo
-      ];
-    };
+    searchPaths.bin = [ __nixpkgs__.clj-kondo ];
     builder = ./builder.sh;
   };
 in

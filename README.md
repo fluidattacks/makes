@@ -214,6 +214,8 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [toFileYaml](#tofileyaml)
         - [Others](#others)
             - [calculateCvss3](#calculatecvss3)
+- [Migrating to Makes](#migrating-to-makes)
+    - [From a Nix project](#from-a-nix-project)
 - [Contact an expert](#contact-an-expert)
 - [Contributing to Makes](#contributing-to-makes)
     - [Is easy](#is-easy)
@@ -323,7 +325,7 @@ So, if [Nix][NIX] is that powerful: Why [Makes][MAKES], then?
     with as little code as possible, in many providers.
 
 1. [Makes][MAKES] hides unnecessary boilerplate and complexity
-    so you can focus on what matters:
+    so you can focus in the business:
     **Adding value** to your **customers**, daily!
 
 # Goal
@@ -3446,6 +3448,34 @@ $ m . /example
     {"score": {"base": 6.5, "temporal": 6.0, "environmental": 5.3}, "severity": {"base": "Medium", "temporal": "Medium", "environmental": "Medium"}}
 ```
 
+# Migrating to Makes
+
+## From a Nix project
+
+If your project currently uses [Nix][NIX]
+and you want to start using [Makes][MAKES] features
+you can do the following:
+
+```nix
+let
+  # Import the framework
+  makes = import "${builtins.fetchGit {
+    url = "https://github.com/fluidattacks/makes";
+    rev = "1593400a20a450887488832451d60605925ca20f";
+  }}/src/args/agnostic.nix";
+in
+# Use the framework
+makes.makePythonPypiEnvironment {
+  name = "example";
+  sourcesJson = ./sources.json;
+}
+```
+
+Most functions documented in the [Extending Makes][MAKES_EXTENDING] section
+are available.
+For a defailed list checkout:
+[/src/args/agnostic.nix](./src/args/agnostic.nix).
+
 # Contact an expert
 
 - [Makes][MAKES] support: help@fluidattacks.com
@@ -3658,6 +3688,9 @@ Examples:
 
 - [MAKES_ENVIRONMENT]: #environment
   [Makes Environment][MAKES_ENVIRONMENT]
+
+- [MAKES_EXTENDING]: #extending-makes
+  [Makes - Extending][MAKES_EXTENDING]
 
 - [MAKES_ISSUES]: https://github.com/fluidattacks/makes/issues
   [Makes issues][MAKES_ISSUES]
