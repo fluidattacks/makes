@@ -3,7 +3,6 @@
 , makeDerivation
 , makeDerivationParallel
 , makePythonPypiEnvironment
-, makePythonVersion
 , projectPath
 , projectPathLsDirs
 , ...
@@ -28,41 +27,15 @@ let
         ];
         source = extraSources ++ [
           (makePythonPypiEnvironment {
-            dependencies = {
-              "mypy" = "0.910";
-              "prospector" = "1.3.1";
-            };
             name = "lint-python";
-            python = makePythonVersion python;
-            subDependencies = {
-              "astroid" = "2.4.1";
-              "colorama" = "0.4.4";
-              "dodgy" = "0.2.1";
-              "flake8" = "3.8.4";
-              "flake8-polyfill" = "1.0.2";
-              "isort" = "4.3.21";
-              "lazy-object-proxy" = "1.4.3";
-              "mccabe" = "0.6.1";
-              "mypy-extensions" = "0.4.3";
-              "pep8-naming" = "0.10.0";
-              "pycodestyle" = "2.6.0";
-              "pydocstyle" = "6.1.1";
-              "pyflakes" = "2.2.0";
-              "pylint" = "2.5.3";
-              "pylint-celery" = "0.3";
-              "pylint-django" = "2.1.0";
-              "pylint-flask" = "0.6";
-              "pylint-plugin-utils" = "0.6";
-              "pyyaml" = "5.4.1";
-              "requirements-detector" = "0.7";
-              "setoptconf" = "0.2.0";
-              "six" = "1.16.0";
-              "snowballstemmer" = "2.1.0";
-              "toml" = "0.10.2";
-              "typing-extensions" = "3.10.0.0";
-              "wrapt" = "1.12.1";
-            };
-            sha256 = "0nlgpbszrmg1z7v6rhfqdjkrmv4diy3z9q3hn70z591m4pz93d4x";
+            sourcesJson = {
+              "3.7" = ./sources-3.7.json;
+              "3.8" = ./sources-3.8.json;
+              "3.9" = ./sources-3.9.json;
+            }.${python};
+            withSetuptools_57_4_0 = true;
+            withSetuptoolsScm_6_0_1 = true;
+            withWheel_0_37_0 = true;
           })
         ];
       };

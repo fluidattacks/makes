@@ -200,7 +200,6 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeNodeJsEnvironment](#makenodejsenvironment)
         - [Python](#python)
             - [makePythonVersion](#makepythonversion)
-            - [makePythonPypiMirror](#makepythonpypimirror)
             - [makePythonPypiEnvironment](#makepythonpypienvironment)
             - [makePythonEnvironment](#makepythonenvironment)
         - [Containers](#containers)
@@ -2752,19 +2751,19 @@ $ m . /example
     Python 3.8.9
 ```
 
-#### makePythonPypiMirror
+#### makePythonPypiEnvironment
 
-Copy the required installers
-for a set of [Python][PYTHON] packages
+Create a virtual environment
+where the provided set of [Python][PYTHON] packages
 from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
-in PEP 503 format.
+are installed.
 
 Pre-requisites:
 
-1. You need to generate a sources file, like this:
+1. You need to generate `sourcesJson` like this:
 
     ```bash
-    m github:fluidattacks/makes@main /utils/makePythonPypiMirrorSources \
+    m github:fluidattacks/makes@main /utils/makePythonPypiEnvironmentSources \
       "${python_version}" \
       "${dependencies_json}" \
       "${sources_path}
@@ -2785,60 +2784,7 @@ Pre-requisites:
 
     - `sources_path` is a file were the script will output results.
 
-      Please save this file because it is required by `makePythonPypiMirror`.
-
-Types:
-
-- makePythonPypiMirror (`function { ... } -> package`):
-
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - dependencies (`attrsOf str`):
-      Mapping of packages to versions.
-    - subDependencies (`attrsOf str`): Optional.
-      Mapping of packages to versions.
-      In order to get the complete list of sub-dependencies
-      you can omit this parameter and execute Makes.
-      Makes will tell you this information on failure.
-      Defaults to `{ }`.
-    - python (`package`):
-      [Python][PYTHON] interpreter to use.
-      For example: `makePythonVersion "3.8"`.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes.
-      Makes will tell you the correct SHA256 on failure.
-
-Example:
-
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makePythonPypiMirror
-, makePythonVersion
-, ...
-}:
-makePythonPypiMirror {
-  name = "example";
-  dependencies = {
-    "django" = "3.2.6";
-  };
-  python = makePythonVersion "3.8";
-  sha256 = "01yymaq13msgva72q05lzfh5dspkldspi40yw17swwcgjv3lclb0";
-  subDependencies = {
-    "asgiref" = "3.4.1";
-    "pytz" = "2021.1";
-    "sqlparse" = "0.4.1";
-  };
-}
-```
-
-#### makePythonPypiEnvironment
-
-Create a virtual environment
-where the provided set of [Python][PYTHON] packages
-from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
-are installed.
+      Please save this file because it is required by `makePythonPypiEnvironment`.
 
 Types:
 
@@ -2846,51 +2792,108 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - dependencies (`attrsOf str`):
-      Mapping of packages to versions.
-    - subDependencies (`attrsOf str`): Optional.
-      Mapping of packages to versions.
-      In order to get the complete list of sub-dependencies
-      you can omit this parameter and execute Makes.
-      Makes will tell you this information on failure.
-      Defaults to `{ }`.
-    - python (`package`):
-      [Python][PYTHON] interpreter to use.
-      For example: `makePythonVersion "3.8"`.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes.
-      Makes will tell you the correct SHA256 on failure.
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.
       Defaults to `makeSearchPaths`'s defaults.
+    - sourcesJson (`package`):
+      `sources.json` file
+      computed as explained in the pre-requisites section.
+    - withSetuptools_57_4_0 (`bool`): Optional.
+      Where to bootstrap setuptools 57.4.0 in the environment.
+      (Sometimes required to build special packages)
+      Defaults to `false`.
+    - withSetuptoolsScm_6_0_1 (`bool`) Optional.
+      Where to bootstrap setuptools-scm 6.0.1 in the environment.
+      (Sometimes required to build special packages)
+      Defaults to `false`.
+    - withWheel_0_37_0 (`bool`): Optional.
+      Where to bootstrap wheel 0.37.0 in the environment.
+      (Sometimes required to build special packages)
+      Defaults to `false`.
 
 Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ inputs
-, makePythonPypiEnvironment
-, makePythonVersion
+{ makePythonPypiEnvironment
+, projectPath
 , ...
 }:
 makePythonPypiEnvironment {
   name = "example";
-  dependencies = {
-    "django" = "3.2.6";
-  };
-  subDependencies = {
-    "asgiref" = "3.4.1";
-    "pytz" = "2021.1";
-    "sqlparse" = "0.4.1";
-  };
-  python = makePythonVersion "3.8";
-  searchPaths = {
-    bin = [ inputs.nixpkgs.gcc ];
-  };
-  sha256 = "0x5qa0m5bhfqcpk4gj2n8rgffvx2msnbgx5jmawjdpz11lamc377";
+  sourcesJson = projectPath "/makes/example/sources.json";
 }
+```
+
+`sourcesJson` is generated like this:
+
+```bash
+$ cd /path/to/my/project/makes/example
+
+$ cat dependencies.json
+
+  {
+    "Django": "3.2.6"
+  }
+
+$ m github:fluidattacks/makes@main \
+    /utils/makePythonPypiEnvironment 3.8 dependencies.json sources.json
+
+  # ...
+
+$ cat sources.json
+
+  {
+    "closure": {
+      "asgiref": "3.4.1",
+      "django": "3.2.6",
+      "pytz": "2021.1",
+      "sqlparse": "0.4.1"
+    },
+    "links": [
+      {
+        "name": "Django-3.2.6-py3-none-any.whl",
+        "sha256": "04qzllkmyl0g2fgdab55r7hv3vqswfdv32p77cgjj3ma54sl34kz",
+        "url": "https://pypi.org/packages/py3/D/Django/Django-3.2.6-py3-none-any.whl"
+      },
+      {
+        "name": "Django-3.2.6.tar.gz",
+        "sha256": "08p0gf1n548fjba76wspcj1jb3li6lr7xi87w2xq7hylr528azzj",
+        "url": "https://pypi.org/packages/source/D/Django/Django-3.2.6.tar.gz"
+      },
+      {
+        "name": "pytz-2021.1-py2.py3-none-any.whl",
+        "sha256": "1607gl2x9290ks5sa6dvqw9dgg1kwdf9fj9xcb9jw19nfwzcw47b",
+        "url": "https://pypi.org/packages/py2.py3/p/pytz/pytz-2021.1-py2.py3-none-any.whl"
+      },
+      {
+        "name": "pytz-2021.1.tar.gz",
+        "sha256": "1nn459q7zg20n75akxl3ljkykgw1ydc8nb05rx1y4f5zjh4ak943",
+        "url": "https://pypi.org/packages/source/p/pytz/pytz-2021.1.tar.gz"
+      },
+      {
+        "name": "sqlparse-0.4.1-py3-none-any.whl",
+        "sha256": "1l2f616scnhbx7nkzvwmiqvpjh97x11kz1v1bbqs3mnvk8vxwz01",
+        "url": "https://pypi.org/packages/py3/s/sqlparse/sqlparse-0.4.1-py3-none-any.whl"
+      },
+      {
+        "name": "sqlparse-0.4.1.tar.gz",
+        "sha256": "1s2l0jgi1v7rk7smzb99iamasaz22apfkczsphn3ci4wh8pgv48g",
+        "url": "https://pypi.org/packages/source/s/sqlparse/sqlparse-0.4.1.tar.gz"
+      },
+      {
+        "name": "asgiref-3.4.1-py3-none-any.whl",
+        "sha256": "052j8715bw39iywciicgfg5hxnsgmyvv7cg7fdb1fvwfj2m43hgz",
+        "url": "https://pypi.org/packages/py3/a/asgiref/asgiref-3.4.1-py3-none-any.whl"
+      },
+      {
+        "name": "asgiref-3.4.1.tar.gz",
+        "sha256": "1saqgpgbdvb8awzm0f0640j0im55hkrfzvcw683cgqw4ni3apwaf",
+        "url": "https://pypi.org/packages/source/a/asgiref/asgiref-3.4.1.tar.gz"
+      }
+    ],
+    "python": "3.8"
+  }
 ```
 
 #### makePythonEnvironment
