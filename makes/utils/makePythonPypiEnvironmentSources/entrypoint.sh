@@ -37,11 +37,11 @@ function main {
       "${pyproject_toml}" \
     | yj -jt | tee pyproject.toml \
     && poetry env use "${python}/bin/python" \
-    && poetry lock \
+    && poetry lock -vv \
     && yj -tj \
       < poetry.lock > poetry.lock.json \
-    && jq -er '.metadata.files[][]|.file' \
-      < poetry.lock.json > files.lst \
+    && jq -er '.package[] | "https://pypi.org/pypi/\(.name)/\(.version)/json"' \
+      < poetry.lock.json > endpoints.lst \
     && jq -er \
       --arg python_version "${python_version}" \
       '{
@@ -50,56 +50,34 @@ function main {
         python: $python_version
       }' \
       < poetry.lock.json > sources.json \
-    && mapfile -t files < files.lst \
-    && for file in "${files[@]}"; do
-      url="$(get_url "${file}")" \
-        && sha256="$(nix-prefetch-url --name "${file}" --type sha256 "${url}")" \
-        && sources="$(cat sources.json)" \
-        && jq -enr \
-          --arg file "${file}" \
-          --arg sha256 "${sha256}" \
-          --argjson sources "${sources}" \
-          --arg url "${url}" \
-          '{
-            closure: $sources.closure,
-            links: ($sources.links + [{
-              name: $file,
-              sha256: $sha256,
-              url: $url
-            }]),
-            python: $sources.python
-          }' \
-          > sources.json \
-        || critical Unable to download "${file}"
+    && mapfile -t endpoints < endpoints.lst \
+    && for endpoint in "${endpoints[@]}"; do
+      curl -L "${endpoint}" | jq -er .urls[] > data.json \
+        && jq -er .filename < data.json > files.lst \
+        && jq -er .url < data.json > urls.lst \
+        && mapfile -t files < files.lst \
+        && mapfile -t urls < urls.lst \
+        && for ((index = 0; index < "${#files[@]}"; index++)); do
+          file="${files[${index}]}" \
+            && url="${urls[${index}]}" \
+            && sha256="$(nix-prefetch-url --name "${file}" --type sha256 "${url}")" \
+            && jq -ers \
+              --arg file "${file}" \
+              --arg sha256 "${sha256}" \
+              --arg url "${url}" \
+              '.[0] | .links += [{
+                name: $file,
+                sha256: $sha256,
+                url: $url
+              }]' \
+              sources.json \
+              > sources2.json \
+            && mv sources2.json sources.json \
+            || critical Unable to download "${file}"
+        done
     done \
     && yj -jy < sources.json > "${sources_yaml}" \
     && info Generated a sources file at "${sources_yaml}"
-}
-
-function get_url {
-  local file="${1}"
-
-  remainder="${file}" \
-    && case "${file}" in
-      *.tar.gz)
-        remainder="${remainder%*.tar.gz}" \
-          && version="${remainder##*-}" \
-          && project_name="${remainder%-*}" \
-          && python_version='source'
-        ;;
-      *.whl)
-        project_name="${file%%-*}" \
-          && remainder="${remainder:1}" \
-          && remainder="${remainder:${#project_name}}" \
-          && version="${remainder%%-*}" \
-          && remainder="${remainder:1}" \
-          && remainder="${remainder:${#version}}" \
-          && python_version="${remainder%%-*}"
-        ;;
-      *) critical Unable to parse "${file}" ;;
-    esac \
-    && project_l="${project_name:0:1}" \
-    && echo "https://pypi.org/packages/${python_version}/${project_l}/${project_name}/${file}"
 }
 
 main "${@}"
