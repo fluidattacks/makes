@@ -12,6 +12,7 @@ makeScript {
     __argPy39__ = makePythonVersion "3.9";
   };
   searchPaths.bin = [
+    __nixpkgs__.curl
     __nixpkgs__.jq
     __nixpkgs__.nix
     __nixpkgs__.poetry
