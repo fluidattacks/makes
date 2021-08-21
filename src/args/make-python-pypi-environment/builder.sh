@@ -2,7 +2,6 @@
 
 function main {
   pypi-mirror create \
-    --copy \
     --download-dir "${envDownloads}" \
     --mirror-dir mirror \
     && python -m venv "${out}" \
