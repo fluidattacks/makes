@@ -39,14 +39,14 @@ let
     else makesSrc;
 
   args = import "${makesSrcOverriden}/src/args/default.nix" {
-    __nixpkgs__ = packages.nixpkgs;
     inherit projectSrc;
     inherit projectSrcMutable;
     inputs = result.config.inputs;
     outputs = result.config.outputs;
   };
-  packages = import "${makesSrcOverriden}/src/nix/packages.nix";
-  result = packages.nixpkgs.lib.modules.evalModules {
+  nixpkgs = import sources.nixpkgs { };
+  sources = import "${makesSrcOverriden}/src/nix/sources.nix";
+  result = nixpkgs.lib.modules.evalModules {
     modules = [
       ("${makesSrcOverriden}/src/evaluator/modules/default.nix")
       (makesNix)

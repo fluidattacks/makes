@@ -1,12 +1,13 @@
 # Arguments that can be used outside of a Makes project
 # and therefore are agnostic to the framework.
-{ __nixpkgs__ ? (import ../nix/packages.nix).nixpkgs
+{ system ? builtins.currentSystem
 }:
 let
   args = {
-    inherit __nixpkgs__;
+    __nixpkgs__ = import sources.nixpkgs { inherit system; };
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;
+    __system__ = system;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
     asContent = import ./as-content/default.nix;
     attrsMapToList = lib.mapAttrsToList;
@@ -73,6 +74,8 @@ let
     toFileLst = import ./to-file-lst/default.nix;
   };
 
-  lib = __nixpkgs__.lib;
+  lib = args.__nixpkgs__.lib;
+
+  sources = import ../nix/sources.nix;
 in
 args

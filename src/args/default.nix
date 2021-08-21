@@ -1,13 +1,11 @@
-{ __nixpkgs__
-, projectSrc
+{ projectSrc
 , projectSrcMutable
 , inputs
 , outputs
+, ...
 }:
 let
-  agnostic = import ./agnostic.nix {
-    inherit __nixpkgs__;
-  };
+  agnostic = import ./agnostic.nix { };
 
   args = agnostic // {
     inherit inputs;
