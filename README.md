@@ -2798,6 +2798,10 @@ Types:
     - sourcesYaml (`package`):
       `sources.yaml` file
       computed as explained in the pre-requisites section.
+    - withCython_0_29_24 (`bool`): Optional.
+      Where to bootstrap cython 0.29.24 in the environment.
+      (Sometimes required to build special packages)
+      Defaults to `false`.
     - withSetuptools_57_4_0 (`bool`): Optional.
       Where to bootstrap setuptools 57.4.0 in the environment.
       (Sometimes required to build special packages)

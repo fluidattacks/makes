@@ -12,6 +12,7 @@
 { name
 , searchPaths ? { }
 , sourcesYaml
+, withCython_0_29_24 ? false
 , withSetuptools_57_4_0 ? false
 , withSetuptoolsScm_6_0_1 ? false
 , withWheel_0_37_0 ? false
@@ -41,6 +42,11 @@ let
         })
         (builtins.concatLists [
           (sources.links)
+          (listOptional withCython_0_29_24 {
+            name = "Cython-0.29.24-py2.py3-none-any.whl";
+            sha256 = "f96411f0120b5cae483923aaacd2872af8709be4b46522daedc32f051d778385";
+            url = "https://files.pythonhosted.org/packages/ec/30/8707699ea6e1c1cbe79c37e91f5b06a6266de24f699a5e19b8c0a63c4b65/Cython-0.29.24-py2.py3-none-any.whl";
+          })
           (listOptional withSetuptools_57_4_0 {
             name = "setuptools-57.4.0-py3-none-any.whl";
             sha256 = "1mhq6jw21sglccqmimydqi2rjvh3g5xjykb16gcvkkx6gabk14m4";
