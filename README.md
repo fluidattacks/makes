@@ -2771,7 +2771,7 @@ Pre-requisites:
     ```
 
     - Supported `python_version`s are: `3.7`, `3.8` and `3.9`.
-    - `dependencies_json` is a [JSON][JSON] file
+    - `dependencies_json` is the **absolute path** to a [JSON][JSON] file
       mapping [PyPI][PYTHON_PYPI] packages to version constraints.
 
       Example:
@@ -2783,7 +2783,8 @@ Pre-requisites:
       }
       ```
 
-    - `sources_path` is a file were the script will output results.
+    - `sources_path` is the **absolute path**
+      to a file were the script will output results.
 
       Please save this file because it is required by `makePythonPypiEnvironment`.
 
@@ -2829,20 +2830,20 @@ makePythonPypiEnvironment {
 `sourcesJson` is generated like this:
 
 ```bash
-$ cd /path/to/my/project/makes/example
-
-$ cat dependencies.json
+$ cat /path/to/my/project/makes/example/dependencies.json
 
   {
     "Django": "3.2.6"
   }
 
-$ m github:fluidattacks/makes@main \
-    /utils/makePythonPypiEnvironment 3.8 dependencies.json sources.json
+$ m github:fluidattacks/makes@21.09 /utils/makePythonPypiEnvironmentSources \
+    3.8 \
+    /path/to/my/project/makes/example/dependencies.json \
+    /path/to/my/project/makes/example/sources.json
 
   # ...
 
-$ cat sources.json
+$ cat /path/to/my/project/makes/example/sources.json
 
   {
     "closure": {
