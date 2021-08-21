@@ -28,10 +28,10 @@ let
         source = extraSources ++ [
           (makePythonPypiEnvironment {
             name = "lint-python";
-            sourcesJson = {
-              "3.7" = ./sources-3.7.json;
-              "3.8" = ./sources-3.8.json;
-              "3.9" = ./sources-3.9.json;
+            sourcesYaml = {
+              "3.7" = ./sources-3.7.yaml;
+              "3.8" = ./sources-3.8.yaml;
+              "3.9" = ./sources-3.9.yaml;
             }.${python};
             withSetuptools_57_4_0 = true;
             withSetuptoolsScm_6_0_1 = true;

@@ -1,0 +1,490 @@
+closure:
+  astroid: 2.4.1
+  colorama: 0.4.4
+  dodgy: 0.2.1
+  flake8: 3.8.4
+  flake8-polyfill: 1.0.2
+  importlib-metadata: 4.6.4
+  isort: 4.3.21
+  lazy-object-proxy: 1.4.3
+  mccabe: 0.6.1
+  mypy: "0.910"
+  mypy-extensions: 0.4.3
+  pep8-naming: 0.10.0
+  prospector: 1.3.1
+  pycodestyle: 2.6.0
+  pydocstyle: 6.1.1
+  pyflakes: 2.2.0
+  pylint: 2.5.3
+  pylint-celery: "0.3"
+  pylint-django: 2.1.0
+  pylint-flask: "0.6"
+  pylint-plugin-utils: "0.6"
+  pyyaml: 5.4.1
+  requirements-detector: "0.7"
+  setoptconf: 0.2.0
+  six: 1.16.0
+  snowballstemmer: 2.1.0
+  toml: 0.10.2
+  typed-ast: 1.4.3
+  typing-extensions: 3.10.0.0
+  wrapt: 1.12.1
+  zipp: 3.5.0
+links:
+  - name: flake8-3.8.4-py2.py3-none-any.whl
+    sha256: 0ff8ww8mmcngdibb3rgqiragzr989shrggr7mwc17kyhpzbbp7bl
+    url: https://pypi.org/packages/py2.py3/f/flake8/flake8-3.8.4-py2.py3-none-any.whl
+  - name: flake8-3.8.4.tar.gz
+    sha256: 0fvcrsbyzjpcli8ldbpsdbpmf238nkvwc1dy4hy82lf63rvfinma
+    url: https://pypi.org/packages/source/f/flake8/flake8-3.8.4.tar.gz
+  - name: isort-4.3.21-py2.py3-none-any.whl
+    sha256: 1z80w75i884g0lwq2pmnqn41jkwljs3xnyj04r2l6s2r575iz0bf
+    url: https://pypi.org/packages/py2.py3/i/isort/isort-4.3.21-py2.py3-none-any.whl
+  - name: isort-4.3.21.tar.gz
+    sha256: 1cfavhcvfy2sqdkpznc0xvhv15y91syqc36dxbyc8mc98s97xnjl
+    url: https://pypi.org/packages/source/i/isort/isort-4.3.21.tar.gz
+  - name: mccabe-0.6.1-py2.py3-none-any.whl
+    sha256: 0hhdp0srgrv4bmzlzvmk67zrqr9cvkjjzgd4gmkvd90dhrc652mb
+    url: https://pypi.org/packages/py2.py3/m/mccabe/mccabe-0.6.1-py2.py3-none-any.whl
+  - name: mccabe-0.6.1.tar.gz
+    sha256: 07w3p1qm44hgxf3vvwz84kswpsx6s7kvaibzrsx5dzm0hli1i3fx
+    url: https://pypi.org/packages/source/m/mccabe/mccabe-0.6.1.tar.gz
+  - name: pep8-naming-0.10.0.tar.gz
+    sha256: 0fmzccbmr0jn9ynamdb9ly2ai8qs5qfk8alfgnzr3fbjvpwsbd7k
+    url: https://pypi.org/packages/source/p/pep8-naming/pep8-naming-0.10.0.tar.gz
+  - name: pep8_naming-0.10.0-py2.py3-none-any.whl
+    sha256: 0r21lb7m4n4r13iki13l1zrf442pcvssglcq9qscw9wlrdb117sx
+    url: https://pypi.org/packages/py2.py3/p/pep8_naming/pep8_naming-0.10.0-py2.py3-none-any.whl
+  - name: wrapt-1.12.1.tar.gz
+    sha256: 1mwpkdnqxf0yxj1a0hsnl06lf287qi5ap7309wm37x45zf0zlbxn
+    url: https://pypi.org/packages/source/w/wrapt/wrapt-1.12.1.tar.gz
+  - name: pyflakes-2.2.0-py2.py3-none-any.whl
+    sha256: 14har5983bq70zlrh7nasdl5qbpblvwxqvab8jcpmr8rbbhf150d
+    url: https://pypi.org/packages/py2.py3/p/pyflakes/pyflakes-2.2.0-py2.py3-none-any.whl
+  - name: pyflakes-2.2.0.tar.gz
+    sha256: 1j3zqbiwkyicvww499bblq33x0bjpzdrxajhaysr7sk7x5gdgcim
+    url: https://pypi.org/packages/source/p/pyflakes/pyflakes-2.2.0.tar.gz
+  - name: requirements-detector-0.7.tar.gz
+    sha256: 0yvgxvdhzxrs3znf5k8r0q73mjqbk0cvnv3fr31zjhyj3vk167hd
+    url: https://pypi.org/packages/source/r/requirements-detector/requirements-detector-0.7.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://pypi.org/packages/py2.py3/s/six/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://pypi.org/packages/source/s/six/six-1.16.0.tar.gz
+  - name: snowballstemmer-2.1.0-py2.py3-none-any.whl
+    sha256: 1hpdblr2cs2rxilaiz338k5x9awai1m14l5n2f69dyc5x9xl86xm
+    url: https://pypi.org/packages/py2.py3/s/snowballstemmer/snowballstemmer-2.1.0-py2.py3-none-any.whl
+  - name: snowballstemmer-2.1.0.tar.gz
+    sha256: 0579j2pn9513sw1jyzj6jb3x7pqjv6x33iplnr8rj4z9yajbm5z9
+    url: https://pypi.org/packages/source/s/snowballstemmer/snowballstemmer-2.1.0.tar.gz
+  - name: toml-0.10.2-py2.py3-none-any.whl
+    sha256: 16sgpg57kxx5jh467d9qwc2hwshfvdbl0xkafdp3qspvbfp46qc0
+    url: https://pypi.org/packages/py2.py3/t/toml/toml-0.10.2-py2.py3-none-any.whl
+  - name: toml-0.10.2.tar.gz
+    sha256: 13z6rff86bzdpl094x0vmfvls779931xj90dlbs9kpfm138s3gdk
+    url: https://pypi.org/packages/source/t/toml/toml-0.10.2.tar.gz
+  - name: dodgy-0.2.1-py3-none-any.whl
+    sha256: 19j20ly712smfb2qpww4z428rlr9yhclndbz71a3iyl6v07lrxai
+    url: https://pypi.org/packages/py3/d/dodgy/dodgy-0.2.1-py3-none-any.whl
+  - name: dodgy-0.2.1.tar.gz
+    sha256: 0fkcz149n3ypa6xcnf24qyd0xk15ycbzl5nksgykj89mr6zkqci8
+    url: https://pypi.org/packages/source/d/dodgy/dodgy-0.2.1.tar.gz
+  - name: pylint-plugin-utils-0.6.tar.gz
+    sha256: 0nm22hbpia0p0w11gzdhm12vy64khzyxh71i64vz8h01lb65sqjp
+    url: https://pypi.org/packages/source/p/pylint-plugin-utils/pylint-plugin-utils-0.6.tar.gz
+  - name: pylint_plugin_utils-0.6-py3-none-any.whl
+    sha256: 02jdzkhpdmxqcfxb56r26fa1p2nrkf2b55d1sdlg5va63h752c1g
+    url: https://pypi.org/packages/py3/p/pylint_plugin_utils/pylint_plugin_utils-0.6-py3-none-any.whl
+  - name: pydocstyle-6.1.1-py3-none-any.whl
+    sha256: 1i2d2iq7ywiniss4jcfnf4ypxk08bkpvwh80jhwnh1bmcxnq51v9
+    url: https://pypi.org/packages/py3/p/pydocstyle/pydocstyle-6.1.1-py3-none-any.whl
+  - name: pydocstyle-6.1.1.tar.gz
+    sha256: 1p4jvxr3z4llgrpmr3586dslmcfa4zl9mszj8p1yc3msb72bfh8x
+    url: https://pypi.org/packages/source/p/pydocstyle/pydocstyle-6.1.1.tar.gz
+  - name: zipp-3.5.0-py3-none-any.whl
+    sha256: 18whjgls10yan9vhcd9544g9kjj1123y7fdq1ic8kqwpfylgsz4m
+    url: https://pypi.org/packages/py3/z/zipp/zipp-3.5.0-py3-none-any.whl
+  - name: zipp-3.5.0.tar.gz
+    sha256: 1i7hkdbivya5lvww9y8i85mp3spbwzsfk9a96kvcyj3y00g2p0gm
+    url: https://pypi.org/packages/source/z/zipp/zipp-3.5.0.tar.gz
+  - name: typed_ast-1.4.3-cp35-cp35m-manylinux1_i686.whl
+    sha256: 19pb08wz6354v5lflgw3l84nrwi9gvx308c085xbh9d1flam6s10
+    url: https://pypi.org/packages/cp35/t/typed_ast/typed_ast-1.4.3-cp35-cp35m-manylinux1_i686.whl
+  - name: typed_ast-1.4.3-cp35-cp35m-manylinux1_x86_64.whl
+    sha256: 0xa0pqy8dzmz133nf0pawxa6mn92kjxcbfk5spx96gp8n5hza1y9
+    url: https://pypi.org/packages/cp35/t/typed_ast/typed_ast-1.4.3-cp35-cp35m-manylinux1_x86_64.whl
+  - name: typed_ast-1.4.3-cp35-cp35m-manylinux2014_aarch64.whl
+    sha256: 0a5mg0iwk47nazlqvd8pfrk32vq9ghhx3xzr13pin469jr5asghv
+    url: https://pypi.org/packages/cp35/t/typed_ast/typed_ast-1.4.3-cp35-cp35m-manylinux2014_aarch64.whl
+  - name: typed_ast-1.4.3-cp35-cp35m-win32.whl
+    sha256: 0a3l6r9fi10v14h82hqhwl16yq11g2baakjhvl0rq7dckp51ds6x
+    url: https://pypi.org/packages/cp35/t/typed_ast/typed_ast-1.4.3-cp35-cp35m-win32.whl
+  - name: typed_ast-1.4.3-cp35-cp35m-win_amd64.whl
+    sha256: 1lv5wx9rixifz445qvlbc4bp18v3i2vy7hia88sdjv7a9g42cykp
+    url: https://pypi.org/packages/cp35/t/typed_ast/typed_ast-1.4.3-cp35-cp35m-win_amd64.whl
+  - name: typed_ast-1.4.3-cp36-cp36m-macosx_10_9_x86_64.whl
+    sha256: 0bzgwmpzjc25xfar408zp7vsy4bwr3717q48k9qxl6jirhawzbzq
+    url: https://pypi.org/packages/cp36/t/typed_ast/typed_ast-1.4.3-cp36-cp36m-macosx_10_9_x86_64.whl
+  - name: typed_ast-1.4.3-cp36-cp36m-manylinux1_i686.whl
+    sha256: 0ha3zgjvblslvpva4y7pf26myljqhbv86hisgxwany7ihf6fpcaj
+    url: https://pypi.org/packages/cp36/t/typed_ast/typed_ast-1.4.3-cp36-cp36m-manylinux1_i686.whl
+  - name: typed_ast-1.4.3-cp36-cp36m-manylinux1_x86_64.whl
+    sha256: 1khafcnaspdyc2h9sbr5pqgsllzs3as7m68ma2nyw88x8drmzbh1
+    url: https://pypi.org/packages/cp36/t/typed_ast/typed_ast-1.4.3-cp36-cp36m-manylinux1_x86_64.whl
+  - name: typed_ast-1.4.3-cp36-cp36m-manylinux2014_aarch64.whl
+    sha256: 0zsc9j52plcn6p513yalq2jj3jxb76vvzpk3g1mqp7wzks4z1461
+    url: https://pypi.org/packages/cp36/t/typed_ast/typed_ast-1.4.3-cp36-cp36m-manylinux2014_aarch64.whl
+  - name: typed_ast-1.4.3-cp36-cp36m-win32.whl
+    sha256: 0qy3maypj6zzmhcwb66x4lawhdaf2358b0yrx1z2nk8g936l93ir
+    url: https://pypi.org/packages/cp36/t/typed_ast/typed_ast-1.4.3-cp36-cp36m-win32.whl
+  - name: typed_ast-1.4.3-cp36-cp36m-win_amd64.whl
+    sha256: 19vd1qvm8bnsdai98vjs4dv49zr4zchij3szlf7vlfqvr1qsvxmz
+    url: https://pypi.org/packages/cp36/t/typed_ast/typed_ast-1.4.3-cp36-cp36m-win_amd64.whl
+  - name: typed_ast-1.4.3-cp37-cp37m-macosx_10_9_x86_64.whl
+    sha256: 0rm267fb709n3ml233rkyvrllk2vq7r550qz5i4xg1ricj61pdqg
+    url: https://pypi.org/packages/cp37/t/typed_ast/typed_ast-1.4.3-cp37-cp37m-macosx_10_9_x86_64.whl
+  - name: typed_ast-1.4.3-cp37-cp37m-manylinux1_i686.whl
+    sha256: 17hf8m395pfsmscmqvp1dlfvbza07sp6l3sd1r7ia6h4n63x22kn
+    url: https://pypi.org/packages/cp37/t/typed_ast/typed_ast-1.4.3-cp37-cp37m-manylinux1_i686.whl
+  - name: typed_ast-1.4.3-cp37-cp37m-manylinux1_x86_64.whl
+    sha256: 014dn4a8pzc02h39ijp4sm7nc2nxh9xn0i6p2xs0b55g2yfakv2z
+    url: https://pypi.org/packages/cp37/t/typed_ast/typed_ast-1.4.3-cp37-cp37m-manylinux1_x86_64.whl
+  - name: typed_ast-1.4.3-cp37-cp37m-manylinux2014_aarch64.whl
+    sha256: 16aqxim92ap48d4d83c0x9iir6c3ih8j2p440m08f8cs60k1lhwm
+    url: https://pypi.org/packages/cp37/t/typed_ast/typed_ast-1.4.3-cp37-cp37m-manylinux2014_aarch64.whl
+  - name: typed_ast-1.4.3-cp37-cp37m-win32.whl
+    sha256: 177kkhjrpfsqy82jlfcmvi4rid95qchgjgr6w79pph76dcjw3q5f
+    url: https://pypi.org/packages/cp37/t/typed_ast/typed_ast-1.4.3-cp37-cp37m-win32.whl
+  - name: typed_ast-1.4.3-cp37-cp37m-win_amd64.whl
+    sha256: 01fqvwmvvwfnbz6z3wcsz9g6866qw1phbypxh6pjpq41qqpcklls
+    url: https://pypi.org/packages/cp37/t/typed_ast/typed_ast-1.4.3-cp37-cp37m-win_amd64.whl
+  - name: typed_ast-1.4.3-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 06lylk1nb2k0rf8qx4ibb1chj204qmax296hsphjafhh40wlysxk
+    url: https://pypi.org/packages/cp38/t/typed_ast/typed_ast-1.4.3-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: typed_ast-1.4.3-cp38-cp38-manylinux1_i686.whl
+    sha256: 1zy513nfrpxkln0d8n2lsvc6grc1bhp9ld2r9smdqw7n9m2p8yh6
+    url: https://pypi.org/packages/cp38/t/typed_ast/typed_ast-1.4.3-cp38-cp38-manylinux1_i686.whl
+  - name: typed_ast-1.4.3-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 0h8sy6062qx1i303pi0h797k53q3lhij9f1lnalwsb2ff2ay8f3m
+    url: https://pypi.org/packages/cp38/t/typed_ast/typed_ast-1.4.3-cp38-cp38-manylinux1_x86_64.whl
+  - name: typed_ast-1.4.3-cp38-cp38-manylinux2014_aarch64.whl
+    sha256: 0fcfp2kjdrify8iyv132v62g1rg7ghj9sk9kdf6i699pg5rllgdg
+    url: https://pypi.org/packages/cp38/t/typed_ast/typed_ast-1.4.3-cp38-cp38-manylinux2014_aarch64.whl
+  - name: typed_ast-1.4.3-cp38-cp38-win32.whl
+    sha256: 09v9xdj8gcy8028w81y3mql2lg44nz2xnil9jd12q5zkn0y2ydpj
+    url: https://pypi.org/packages/cp38/t/typed_ast/typed_ast-1.4.3-cp38-cp38-win32.whl
+  - name: typed_ast-1.4.3-cp38-cp38-win_amd64.whl
+    sha256: 0h2y8afgw0ni7835a7zbzfwzhchxa3z33jqhhjsd5f227wjj2jnx
+    url: https://pypi.org/packages/cp38/t/typed_ast/typed_ast-1.4.3-cp38-cp38-win_amd64.whl
+  - name: typed_ast-1.4.3-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1crixhbjm98sq2lfc9zv36sykv5x2n7a9pxf3qq137zdxg7ssa7k
+    url: https://pypi.org/packages/cp39/t/typed_ast/typed_ast-1.4.3-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: typed_ast-1.4.3-cp39-cp39-manylinux1_i686.whl
+    sha256: 1m44dijp0vriagjhq93wxbcm442j7w3dx8lk8r0mrz09dlknqwic
+    url: https://pypi.org/packages/cp39/t/typed_ast/typed_ast-1.4.3-cp39-cp39-manylinux1_i686.whl
+  - name: typed_ast-1.4.3-cp39-cp39-manylinux1_x86_64.whl
+    sha256: 1c3zfpr6sw8v694d05gnfi0wrbnnflgl8f3mndpv9lr5k0w3rrfa
+    url: https://pypi.org/packages/cp39/t/typed_ast/typed_ast-1.4.3-cp39-cp39-manylinux1_x86_64.whl
+  - name: typed_ast-1.4.3-cp39-cp39-manylinux2014_aarch64.whl
+    sha256: 1hri75g9vzz5faayddbk6a9xc0naxvwwfxcyhl6hg1gn0dplqmxr
+    url: https://pypi.org/packages/cp39/t/typed_ast/typed_ast-1.4.3-cp39-cp39-manylinux2014_aarch64.whl
+  - name: typed_ast-1.4.3-cp39-cp39-win32.whl
+    sha256: 021qf16yazq0qz6gdkzfwqq6kn1mr4m323ay3pbr1nbixjj9d590
+    url: https://pypi.org/packages/cp39/t/typed_ast/typed_ast-1.4.3-cp39-cp39-win32.whl
+  - name: typed_ast-1.4.3-cp39-cp39-win_amd64.whl
+    sha256: 133qlfbj23alws5fmnc5zrzvl02xwbmg0zkvcny30lrbama1lvcw
+    url: https://pypi.org/packages/cp39/t/typed_ast/typed_ast-1.4.3-cp39-cp39-win_amd64.whl
+  - name: typed_ast-1.4.3.tar.gz
+    sha256: 0rgcynvicc614fyzq1bdq9c864wrkhwq21ypxnfa5pish2nbw6zv
+    url: https://pypi.org/packages/source/t/typed_ast/typed_ast-1.4.3.tar.gz
+  - name: colorama-0.4.4-py2.py3-none-any.whl
+    sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
+    url: https://pypi.org/packages/py2.py3/c/colorama/colorama-0.4.4-py2.py3-none-any.whl
+  - name: colorama-0.4.4.tar.gz
+    sha256: 16w62sm95hmh55rqxn4zwdz0bkh3fqm1qnz9cwi3s510iasb4har
+    url: https://pypi.org/packages/source/c/colorama/colorama-0.4.4.tar.gz
+  - name: lazy-object-proxy-1.4.3.tar.gz
+    sha256: 1w1aaay424ciz8fz3fkzxb0pxzfxn184f2whpyn4fx72bn50x47k
+    url: https://pypi.org/packages/source/l/lazy-object-proxy/lazy-object-proxy-1.4.3.tar.gz
+  - name: lazy_object_proxy-1.4.3-cp27-cp27m-macosx_10_13_x86_64.whl
+    sha256: 0hnla31br9z1fn6y1hbml48dr50i9mhs2486f76mc6mp3ffqw8x2
+    url: https://pypi.org/packages/cp27/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp27-cp27m-macosx_10_13_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp27-cp27m-win32.whl
+    sha256: 1r6kyww1sgj7daizx3kmls75qpbz4f96z2vyfyrvp66f428r18gg
+    url: https://pypi.org/packages/cp27/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp27-cp27m-win32.whl
+  - name: lazy_object_proxy-1.4.3-cp27-cp27m-win_amd64.whl
+    sha256: 0nigj39lhzk92gr9r2chf58va5xagmdym7s8gylivjblwjagaxs6
+    url: https://pypi.org/packages/cp27/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp27-cp27m-win_amd64.whl
+  - name: lazy_object_proxy-1.4.3-cp27-cp27mu-manylinux1_x86_64.whl
+    sha256: 0kah39zd6qlcs1jc139vvcaizy7da0y35pfvqh2py2d84xi20jqc
+    url: https://pypi.org/packages/cp27/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp27-cp27mu-manylinux1_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp34-cp34m-manylinux1_x86_64.whl
+    sha256: 0npwibaqnmmjmfzhwy3i92wkx4ciykrcb20anwszzcrrasd26ifr
+    url: https://pypi.org/packages/cp34/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp34-cp34m-manylinux1_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp34-cp34m-win32.whl
+    sha256: 0gpch0df63bdkz3kn2q9pqq067k55bhg67blns73anh4k58kflcn
+    url: https://pypi.org/packages/cp34/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp34-cp34m-win32.whl
+  - name: lazy_object_proxy-1.4.3-cp34-cp34m-win_amd64.whl
+    sha256: 0my3zy53j8dr4izvvpx1l0dsd5px8nc6hfwby6nisg1jj08039zb
+    url: https://pypi.org/packages/cp34/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp34-cp34m-win_amd64.whl
+  - name: lazy_object_proxy-1.4.3-cp35-cp35m-manylinux1_x86_64.whl
+    sha256: 0l5cygmq2wj4hbhp3j65iiy120zk0b4awwh52mxhfca8pm7binj8
+    url: https://pypi.org/packages/cp35/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp35-cp35m-manylinux1_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp35-cp35m-win32.whl
+    sha256: 1nz3950hljlny1ma7cszj6c4f98axjazh76xw9dp5ifv7n5942na
+    url: https://pypi.org/packages/cp35/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp35-cp35m-win32.whl
+  - name: lazy_object_proxy-1.4.3-cp35-cp35m-win_amd64.whl
+    sha256: 0j9lv8znrmm4d77n17i5nd6wb7s51ri4x23hixp90sr4dwp0jk8r
+    url: https://pypi.org/packages/cp35/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp35-cp35m-win_amd64.whl
+  - name: lazy_object_proxy-1.4.3-cp36-cp36m-manylinux1_x86_64.whl
+    sha256: 0miirw1y32976p4bkj1acwy0r5qwlix90szqk40cxkgiys25ifwp
+    url: https://pypi.org/packages/cp36/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp36-cp36m-manylinux1_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp36-cp36m-win32.whl
+    sha256: 0c8mmpjdl7nva5jv1z5p2i9mz99d92wcw1picsmh8s2s01bpqb6b
+    url: https://pypi.org/packages/cp36/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp36-cp36m-win32.whl
+  - name: lazy_object_proxy-1.4.3-cp36-cp36m-win_amd64.whl
+    sha256: 1yrgiwf70mnwnksj5x6bn7q6fga82q1s42mhqs5pzvzqpa4rp1cd
+    url: https://pypi.org/packages/cp36/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp36-cp36m-win_amd64.whl
+  - name: lazy_object_proxy-1.4.3-cp37-cp37m-macosx_10_13_x86_64.whl
+    sha256: 022cd1z6jz9dr4jnqdy5xjxacc4qwm59fv5a14v00j39z74y9rqv
+    url: https://pypi.org/packages/cp37/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp37-cp37m-macosx_10_13_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp37-cp37m-manylinux1_x86_64.whl
+    sha256: 10r3jnazqz1lk73iyy2zimj946mvddqlv9a77fn7bkzr7dlvhjyp
+    url: https://pypi.org/packages/cp37/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp37-cp37m-manylinux1_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp37-cp37m-win32.whl
+    sha256: 0hnixprrj9qxd82crnq7m4gvpsy4ndqbg97vl39jfmzkq3sg65cv
+    url: https://pypi.org/packages/cp37/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp37-cp37m-win32.whl
+  - name: lazy_object_proxy-1.4.3-cp37-cp37m-win_amd64.whl
+    sha256: 1smrq731rvlyasjw3byymxbd1fb40zma01xh84s1wm4vicsz8m4j
+    url: https://pypi.org/packages/cp37/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp37-cp37m-win_amd64.whl
+  - name: lazy_object_proxy-1.4.3-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 0qkwg6vz42m66qjpa7p0bywrkzivahx81193w6f91y8bik815bm6
+    url: https://pypi.org/packages/cp38/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp38-cp38-manylinux1_x86_64.whl
+  - name: lazy_object_proxy-1.4.3-cp38-cp38-win32.whl
+    sha256: 1z9x407ihgmsdpq2c8s62iila1a18ci8x7yrvc13f5yd4pdclham
+    url: https://pypi.org/packages/cp38/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp38-cp38-win32.whl
+  - name: lazy_object_proxy-1.4.3-cp38-cp38-win_amd64.whl
+    sha256: 0fb2mymxlyyvlc7rr5v4vbf4z9i1ilnylhnzq95mc28b23przxsr
+    url: https://pypi.org/packages/cp38/l/lazy_object_proxy/lazy_object_proxy-1.4.3-cp38-cp38-win_amd64.whl
+  - name: prospector-1.3.1.tar.gz
+    sha256: 1ijjksw5da1zhh40jvpwh429lq0bpv31iysq59d06wrxv4c7j3bh
+    url: https://pypi.org/packages/source/p/prospector/prospector-1.3.1.tar.gz
+  - name: pycodestyle-2.6.0-py2.py3-none-any.whl
+    sha256: 0rs3jgf8plpmv2rra5klibdm5dlicmhizjzbhl2i1gdmysrfg592
+    url: https://pypi.org/packages/py2.py3/p/pycodestyle/pycodestyle-2.6.0-py2.py3-none-any.whl
+  - name: pycodestyle-2.6.0.tar.gz
+    sha256: 0bhr6ia0hmgx3nhgibc9pmkzhlh1zcqk707i5fbxgs702ll7v2n5
+    url: https://pypi.org/packages/source/p/pycodestyle/pycodestyle-2.6.0.tar.gz
+  - name: pylint-2.5.3-py3-none-any.whl
+    sha256: 070s22v98lz9sd9yvf7wpxg79sz8l6h3zwg8n2420hpy4g9fgv6h
+    url: https://pypi.org/packages/py3/p/pylint/pylint-2.5.3-py3-none-any.whl
+  - name: pylint-2.5.3.tar.gz
+    sha256: 1p3aqk67pmh8m9zsl5n07z8xznxjs1r7fa5zgmqikl6qy8vq9mvx
+    url: https://pypi.org/packages/source/p/pylint/pylint-2.5.3.tar.gz
+  - name: astroid-2.4.1-py3-none-any.whl
+    sha256: 0f0g3b9qpcc0hhj9j6fcmmiyhga2rj6vkj4r2nw39xzsld16hl6q
+    url: https://pypi.org/packages/py3/a/astroid/astroid-2.4.1-py3-none-any.whl
+  - name: astroid-2.4.1.tar.gz
+    sha256: 1h99jal7ax07xna1djw5z7hpgb8vjrl3hrrg49p1phljwniww5sc
+    url: https://pypi.org/packages/source/a/astroid/astroid-2.4.1.tar.gz
+  - name: mypy_extensions-0.4.3-py2.py3-none-any.whl
+    sha256: 0pgi8sl514i9iamzdli8l3sxla7l4ic3nc713klrm9j5b7bys3q9
+    url: https://pypi.org/packages/py2.py3/m/mypy_extensions/mypy_extensions-0.4.3-py2.py3-none-any.whl
+  - name: mypy_extensions-0.4.3.tar.gz
+    sha256: 1a04qsk8hd1lqns8w1j7cr0vmvbhg450di5k1i16kqxkbf7q30id
+    url: https://pypi.org/packages/source/m/mypy_extensions/mypy_extensions-0.4.3.tar.gz
+  - name: typing_extensions-3.10.0.0-py2-none-any.whl
+    sha256: 15xl6766zrgpb0cjvmm2h3yqf2f7y5m0rfyyjxmxw6fxjnbzih0a
+    url: https://pypi.org/packages/py2/t/typing_extensions/typing_extensions-3.10.0.0-py2-none-any.whl
+  - name: typing_extensions-3.10.0.0-py3-none-any.whl
+    sha256: 112ar7s85msx9r0hmkl3j9x979y8m8wzzw0wwjdck43d13v874vp
+    url: https://pypi.org/packages/py3/t/typing_extensions/typing_extensions-3.10.0.0-py3-none-any.whl
+  - name: typing_extensions-3.10.0.0.tar.gz
+    sha256: 0hpkrp39w58f6lc6r0jhn97qhcp95z49vyan0ryj2x4ihibz3djh
+    url: https://pypi.org/packages/source/t/typing_extensions/typing_extensions-3.10.0.0.tar.gz
+  - name: importlib_metadata-4.6.4-py3-none-any.whl
+    sha256: 1mcr5aka0bxvv2ikyd1apwvbpcllpa7dv80m8rcw8jrsybz5flgd
+    url: https://pypi.org/packages/py3/i/importlib_metadata/importlib_metadata-4.6.4-py3-none-any.whl
+  - name: importlib_metadata-4.6.4.tar.gz
+    sha256: 0bq05nmyjrw9rivkzhjwmb3g653a2n1hdcvzyjk7hbcjna6sfc3v
+    url: https://pypi.org/packages/source/i/importlib_metadata/importlib_metadata-4.6.4.tar.gz
+  - name: pylint-django-2.1.0.tar.gz
+    sha256: 0z19yqmqv14zxlybyf5svbzdwfa42ps1wsh5f4scvkm0vd26hxdp
+    url: https://pypi.org/packages/source/p/pylint-django/pylint-django-2.1.0.tar.gz
+  - name: pylint_django-2.1.0-py3-none-any.whl
+    sha256: 04f9lrkp7hnd8swz23ziagq141qcgwzkypz7v71d73c7fxy2fcna
+    url: https://pypi.org/packages/py3/p/pylint_django/pylint_django-2.1.0-py3-none-any.whl
+  - name: pylint-flask-0.6.tar.gz
+    sha256: 05qmwgkpvaa5k05abqjxfbrfk3wpdqb8ph690z7bzxvb47i7vngl
+    url: https://pypi.org/packages/source/p/pylint-flask/pylint-flask-0.6.tar.gz
+  - name: setoptconf-0.2.0.tar.gz
+    sha256: 177l7j68j751i781bgk6pfhxjj7hwqxzdm2ja5fkywbp0275s2sv
+    url: https://pypi.org/packages/source/s/setoptconf/setoptconf-0.2.0.tar.gz
+  - name: flake8-polyfill-1.0.2.tar.gz
+    sha256: 1nlf1mkqw856vi6782qcglqhaacb23khk9wkcgn55npnjxshhjz4
+    url: https://pypi.org/packages/source/f/flake8-polyfill/flake8-polyfill-1.0.2.tar.gz
+  - name: flake8_polyfill-1.0.2-py2.py3-none-any.whl
+    sha256: 1sdrd40l01p130dx6c3jmpvda9jqnpkhadd7kjqrbdrsxqs6mghj
+    url: https://pypi.org/packages/py2.py3/f/flake8_polyfill/flake8_polyfill-1.0.2-py2.py3-none-any.whl
+  - name: mypy-0.910-cp35-cp35m-macosx_10_9_x86_64.whl
+    sha256: 0mv4wj8c89645gkn2kpf27g457x3ji28q42bd6ii3rfflq7dhmd1
+    url: https://pypi.org/packages/cp35/m/mypy/mypy-0.910-cp35-cp35m-macosx_10_9_x86_64.whl
+  - name: mypy-0.910-cp35-cp35m-manylinux1_x86_64.whl
+    sha256: 1nxyfm187rxdrr4pxp10hl42gpasl5r92x9813m08jihbrw4nkmr
+    url: https://pypi.org/packages/cp35/m/mypy/mypy-0.910-cp35-cp35m-manylinux1_x86_64.whl
+  - name: mypy-0.910-cp35-cp35m-manylinux2010_x86_64.whl
+    sha256: 1ncxwwlx1jjvprwy0d8q4a21nqc654km6441xh5xhjjbj33xk308
+    url: https://pypi.org/packages/cp35/m/mypy/mypy-0.910-cp35-cp35m-manylinux2010_x86_64.whl
+  - name: mypy-0.910-cp35-cp35m-win_amd64.whl
+    sha256: 03knvfa0c0bbsz3ki1m95fd3ry2xvykr6q7y2cn6sdnypw4yxbmd
+    url: https://pypi.org/packages/cp35/m/mypy/mypy-0.910-cp35-cp35m-win_amd64.whl
+  - name: mypy-0.910-cp36-cp36m-macosx_10_9_x86_64.whl
+    sha256: 08grlnfq5vzimh6iij94bk8py9gbiplzfgf96ir06n37fbzc7lpc
+    url: https://pypi.org/packages/cp36/m/mypy/mypy-0.910-cp36-cp36m-macosx_10_9_x86_64.whl
+  - name: mypy-0.910-cp36-cp36m-manylinux1_x86_64.whl
+    sha256: 1dkrl02mjnw73srq7bfj2lh20fn3mz0s72r8da3bw6ywn2g87pfr
+    url: https://pypi.org/packages/cp36/m/mypy/mypy-0.910-cp36-cp36m-manylinux1_x86_64.whl
+  - name: mypy-0.910-cp36-cp36m-manylinux2010_x86_64.whl
+    sha256: 04l2sz0vawwq4i12anhb1kwms94iflb9mcpj5ndg3k70z0ljnf1y
+    url: https://pypi.org/packages/cp36/m/mypy/mypy-0.910-cp36-cp36m-manylinux2010_x86_64.whl
+  - name: mypy-0.910-cp36-cp36m-win_amd64.whl
+    sha256: 11fqmlf7gbihqbjawni79hjn3zzjdaarc21p2hk8kqlfgar2xzak
+    url: https://pypi.org/packages/cp36/m/mypy/mypy-0.910-cp36-cp36m-win_amd64.whl
+  - name: mypy-0.910-cp37-cp37m-macosx_10_9_x86_64.whl
+    sha256: 1w03pr19p919767m7p6klwk1bzzk7xvp2zpxpjms7x7f78917yxn
+    url: https://pypi.org/packages/cp37/m/mypy/mypy-0.910-cp37-cp37m-macosx_10_9_x86_64.whl
+  - name: mypy-0.910-cp37-cp37m-manylinux1_x86_64.whl
+    sha256: 1ppn8jzp60l4d779bp8df97gk76d5qxiki5shg7d6fwf8wsb5np4
+    url: https://pypi.org/packages/cp37/m/mypy/mypy-0.910-cp37-cp37m-manylinux1_x86_64.whl
+  - name: mypy-0.910-cp37-cp37m-manylinux2010_x86_64.whl
+    sha256: 00v7l0ydk26ghjjg3nma9i6mr6smg0l3xylic36iqdw11k9fmwbx
+    url: https://pypi.org/packages/cp37/m/mypy/mypy-0.910-cp37-cp37m-manylinux2010_x86_64.whl
+  - name: mypy-0.910-cp37-cp37m-win_amd64.whl
+    sha256: 16ja5809zmy99b1jhnxyynch8453b10f8ljrh71qx61m74nzpb8a
+    url: https://pypi.org/packages/cp37/m/mypy/mypy-0.910-cp37-cp37m-win_amd64.whl
+  - name: mypy-0.910-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 013mlrcyk8qvp75va3856krrkqgkgw20gj5xv9mhna6vg780qkpc
+    url: https://pypi.org/packages/cp38/m/mypy/mypy-0.910-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: mypy-0.910-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 1fcpmkp0hdb4kx1afl68ip5l582bcchzcyvqh2lg6qfr68wfv6qi
+    url: https://pypi.org/packages/cp38/m/mypy/mypy-0.910-cp38-cp38-manylinux1_x86_64.whl
+  - name: mypy-0.910-cp38-cp38-manylinux2010_x86_64.whl
+    sha256: 0wn05xs9qgnbb4vrz5j68albdwqwllwlvaj6y5sq8m7fikr42v46
+    url: https://pypi.org/packages/cp38/m/mypy/mypy-0.910-cp38-cp38-manylinux2010_x86_64.whl
+  - name: mypy-0.910-cp38-cp38-win_amd64.whl
+    sha256: 0488lpxh5v8l3vx90mrkmlka3cvyrw3rcf2k73xn9cvzwakf1dnf
+    url: https://pypi.org/packages/cp38/m/mypy/mypy-0.910-cp38-cp38-win_amd64.whl
+  - name: mypy-0.910-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 17mm87xcwcmvm85zjg0c9qx7aknizzfns6nbx061a5yjsj0f518s
+    url: https://pypi.org/packages/cp39/m/mypy/mypy-0.910-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: mypy-0.910-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 0nvgccv86l9ly79kc01pmy8pkyi5adq7bic2l90fsr8vsk76dhj2
+    url: https://pypi.org/packages/cp39/m/mypy/mypy-0.910-cp39-cp39-macosx_11_0_arm64.whl
+  - name: mypy-0.910-cp39-cp39-manylinux1_x86_64.whl
+    sha256: 1qjddawdi6dql6hranjdbpdpz71sc1liywjkj8rpbz3pd2iqqjrw
+    url: https://pypi.org/packages/cp39/m/mypy/mypy-0.910-cp39-cp39-manylinux1_x86_64.whl
+  - name: mypy-0.910-cp39-cp39-manylinux2010_x86_64.whl
+    sha256: 15xb4r5w525b87ssq8xbw0dc41vxh3maklmfbpg0hsj9xlq2vpy0
+    url: https://pypi.org/packages/cp39/m/mypy/mypy-0.910-cp39-cp39-manylinux2010_x86_64.whl
+  - name: mypy-0.910-cp39-cp39-win_amd64.whl
+    sha256: 1a7bjj7s6kysgbkyrlvwig2709rasngi5rl6ix4nfj5pzwnn1hn6
+    url: https://pypi.org/packages/cp39/m/mypy/mypy-0.910-cp39-cp39-win_amd64.whl
+  - name: mypy-0.910-py3-none-any.whl
+    sha256: 0k8pgbjk8a2pcx6id1zdkpm660n423gv2rv8g5i8x5asz8rm0mpg
+    url: https://pypi.org/packages/py3/m/mypy/mypy-0.910-py3-none-any.whl
+  - name: mypy-0.910.tar.gz
+    sha256: 0l31s5pr3j4xkqg44ac2q6s30srp7f3mlxzi32i33jvk4hq9hh3h
+    url: https://pypi.org/packages/source/m/mypy/mypy-0.910.tar.gz
+  - name: pylint-celery-0.3.tar.gz
+    sha256: 1ssbvvhvsday5iqkzy76vgdywjsjvllai3hp8k01b3a0wya21qs1
+    url: https://pypi.org/packages/source/p/pylint-celery/pylint-celery-0.3.tar.gz
+  - name: PyYAML-5.4.1-cp27-cp27m-macosx_10_9_x86_64.whl
+    sha256: 08n9kwmfci8a3716xf89arm24q4k91mgy5gq01bq84kizqj1harv
+    url: https://pypi.org/packages/cp27/P/PyYAML/PyYAML-5.4.1-cp27-cp27m-macosx_10_9_x86_64.whl
+  - name: PyYAML-5.4.1-cp27-cp27m-win32.whl
+    sha256: 14s3rc19jkb5fkv83k7lv1wkn8258rrg7f37znpjzwhvghdyz78j
+    url: https://pypi.org/packages/cp27/P/PyYAML/PyYAML-5.4.1-cp27-cp27m-win32.whl
+  - name: PyYAML-5.4.1-cp27-cp27m-win_amd64.whl
+    sha256: 1j00719kcxaljhrcajmck448bc34rkng8q405779m3diy5714ra4
+    url: https://pypi.org/packages/cp27/P/PyYAML/PyYAML-5.4.1-cp27-cp27m-win_amd64.whl
+  - name: PyYAML-5.4.1-cp27-cp27mu-manylinux1_x86_64.whl
+    sha256: 11912sl7l3ld32vi7k9phyl3yss4abhaw5s1b6y7frrhr7gr2hdv
+    url: https://pypi.org/packages/cp27/P/PyYAML/PyYAML-5.4.1-cp27-cp27mu-manylinux1_x86_64.whl
+  - name: PyYAML-5.4.1-cp36-cp36m-macosx_10_9_x86_64.whl
+    sha256: 0lw20kd2payw4v5lwdnv0gq7n5lc1fv9kqwaa1ia0r8281fn8y3c
+    url: https://pypi.org/packages/cp36/P/PyYAML/PyYAML-5.4.1-cp36-cp36m-macosx_10_9_x86_64.whl
+  - name: PyYAML-5.4.1-cp36-cp36m-manylinux1_x86_64.whl
+    sha256: 1k204n8xwzqmk4x6ja38kaclp4vzr7xwakmg5qs187l89k9861af
+    url: https://pypi.org/packages/cp36/P/PyYAML/PyYAML-5.4.1-cp36-cp36m-manylinux1_x86_64.whl
+  - name: PyYAML-5.4.1-cp36-cp36m-manylinux2014_aarch64.whl
+    sha256: 0irkvh4qqqx1bfh5x5007h10l2afr84zvmpskg552y4wd9r1z83j
+    url: https://pypi.org/packages/cp36/P/PyYAML/PyYAML-5.4.1-cp36-cp36m-manylinux2014_aarch64.whl
+  - name: PyYAML-5.4.1-cp36-cp36m-manylinux2014_s390x.whl
+    sha256: 0hc5izi23fsf1z6kij1bmqg4f3z003hzfw5vb60x7zp80bpn2pw9
+    url: https://pypi.org/packages/cp36/P/PyYAML/PyYAML-5.4.1-cp36-cp36m-manylinux2014_s390x.whl
+  - name: PyYAML-5.4.1-cp36-cp36m-win32.whl
+    sha256: 19c5qcgrqaz81wxggbcxs13109wpn4ih5r6jzz8mgwjc4riy9l1v
+    url: https://pypi.org/packages/cp36/P/PyYAML/PyYAML-5.4.1-cp36-cp36m-win32.whl
+  - name: PyYAML-5.4.1-cp36-cp36m-win_amd64.whl
+    sha256: 1psi018igscscas1mls0pr9xjzn4lypn44abiqd247a8hh3wkyp4
+    url: https://pypi.org/packages/cp36/P/PyYAML/PyYAML-5.4.1-cp36-cp36m-win_amd64.whl
+  - name: PyYAML-5.4.1-cp37-cp37m-macosx_10_9_x86_64.whl
+    sha256: 0620ga6jxaxg4p5nf02hjl24lccdycqpi0vg1sw66fg40dqv3k2s
+    url: https://pypi.org/packages/cp37/P/PyYAML/PyYAML-5.4.1-cp37-cp37m-macosx_10_9_x86_64.whl
+  - name: PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl
+    sha256: 0qrfm0jlv5gx7jyzvpdx0ilbmxv3xjslhbiwgbipmq3blq79gm71
+    url: https://pypi.org/packages/cp37/P/PyYAML/PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl
+  - name: PyYAML-5.4.1-cp37-cp37m-manylinux2014_aarch64.whl
+    sha256: 1air0ba1w9dwf24b8ir241x9wbipvv2npzwzfrgzs913j4b3qcyb
+    url: https://pypi.org/packages/cp37/P/PyYAML/PyYAML-5.4.1-cp37-cp37m-manylinux2014_aarch64.whl
+  - name: PyYAML-5.4.1-cp37-cp37m-manylinux2014_s390x.whl
+    sha256: 1c385hyf7p4xb430hs1zz0n033li8cw7x1kvlg7jd2bn7y7rfsgy
+    url: https://pypi.org/packages/cp37/P/PyYAML/PyYAML-5.4.1-cp37-cp37m-manylinux2014_s390x.whl
+  - name: PyYAML-5.4.1-cp37-cp37m-win32.whl
+    sha256: 06ymkfdprpw7is2r2a0saxd3khwqp92swx3c1pmm7w07c9jf0pfx
+    url: https://pypi.org/packages/cp37/P/PyYAML/PyYAML-5.4.1-cp37-cp37m-win32.whl
+  - name: PyYAML-5.4.1-cp37-cp37m-win_amd64.whl
+    sha256: 1pyyz0w6l0akp0nc9l8ggiah4zi7camg1nmx8x3kj8n7f9mjys08
+    url: https://pypi.org/packages/cp37/P/PyYAML/PyYAML-5.4.1-cp37-cp37m-win_amd64.whl
+  - name: PyYAML-5.4.1-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 0ipy1w20pjjawc20gvdc5031iv7c0vjnn8ga6m7qdbxlly781nfj
+    url: https://pypi.org/packages/cp38/P/PyYAML/PyYAML-5.4.1-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: PyYAML-5.4.1-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 1yxqq5p1lg6rqlvn3n76i0bnkdla9r1bdir294c0z8ljxrbya6wc
+    url: https://pypi.org/packages/cp38/P/PyYAML/PyYAML-5.4.1-cp38-cp38-manylinux1_x86_64.whl
+  - name: PyYAML-5.4.1-cp38-cp38-manylinux2014_aarch64.whl
+    sha256: 0is2f15rn1x1pl4imqgy5kb9nfw38bph8h1qnqhza387m2cnjzzx
+    url: https://pypi.org/packages/cp38/P/PyYAML/PyYAML-5.4.1-cp38-cp38-manylinux2014_aarch64.whl
+  - name: PyYAML-5.4.1-cp38-cp38-manylinux2014_s390x.whl
+    sha256: 1p5zk54y76xg8k9vrlrgwg6i5iljhjgnkaanr30pfggzshc1kddz
+    url: https://pypi.org/packages/cp38/P/PyYAML/PyYAML-5.4.1-cp38-cp38-manylinux2014_s390x.whl
+  - name: PyYAML-5.4.1-cp38-cp38-win32.whl
+    sha256: 1z18flx8062kqbz6zbkx5ddq2lp9iygzvgqc4gl33s6q4w2y4nps
+    url: https://pypi.org/packages/cp38/P/PyYAML/PyYAML-5.4.1-cp38-cp38-win32.whl
+  - name: PyYAML-5.4.1-cp38-cp38-win_amd64.whl
+    sha256: 15m67z2wf1cvg4y6x14rgrz1mmmmlwh5zd5lv3fav6z0q235fpqg
+    url: https://pypi.org/packages/cp38/P/PyYAML/PyYAML-5.4.1-cp38-cp38-win_amd64.whl
+  - name: PyYAML-5.4.1-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 0xvz97xwbw8bjf6kdi60cv1nlhn3la75vxhyil5x0r50xxjv6k99
+    url: https://pypi.org/packages/cp39/P/PyYAML/PyYAML-5.4.1-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: PyYAML-5.4.1-cp39-cp39-manylinux1_x86_64.whl
+    sha256: 10risp185mvz66v2mgl9plhpkydq49iyyhpgg9x71kq7fxglihbl
+    url: https://pypi.org/packages/cp39/P/PyYAML/PyYAML-5.4.1-cp39-cp39-manylinux1_x86_64.whl
+  - name: PyYAML-5.4.1-cp39-cp39-manylinux2014_aarch64.whl
+    sha256: 08lix35bmr6zjxpy9czgimx0wj8rmn1pfvzbf00wk4ljcd7av0yl
+    url: https://pypi.org/packages/cp39/P/PyYAML/PyYAML-5.4.1-cp39-cp39-manylinux2014_aarch64.whl
+  - name: PyYAML-5.4.1-cp39-cp39-manylinux2014_s390x.whl
+    sha256: 1mi5zvnqwj9wrr87f6mny4hkskm5g2kawinfdgzlagyk7i3l5j7x
+    url: https://pypi.org/packages/cp39/P/PyYAML/PyYAML-5.4.1-cp39-cp39-manylinux2014_s390x.whl
+  - name: PyYAML-5.4.1-cp39-cp39-win32.whl
+    sha256: 042vklis79046b1j0xcfc4idvdcngbigx585dlh6x6sv0vcwvm29
+    url: https://pypi.org/packages/cp39/P/PyYAML/PyYAML-5.4.1-cp39-cp39-win32.whl
+  - name: PyYAML-5.4.1-cp39-cp39-win_amd64.whl
+    sha256: 1nwqx0c37q0x9kklww318nnz4r3n2sdqafdg8x0qn74r94nzl362
+    url: https://pypi.org/packages/cp39/P/PyYAML/PyYAML-5.4.1-cp39-cp39-win_amd64.whl
+  - name: PyYAML-5.4.1.tar.gz
+    sha256: 0pm440pmpvgv5rbbnm8hk4qga5a292kvlm1bh3x2nwr8pb5p8xv0
+    url: https://pypi.org/packages/source/P/PyYAML/PyYAML-5.4.1.tar.gz
+python: "3.9"

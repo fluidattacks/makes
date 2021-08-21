@@ -30,6 +30,7 @@ let
     fromJsonFile = path: builtins.fromJSON (builtins.readFile path);
     fromToml = builtins.fromTOML;
     fromYaml = import ./from-yaml/default.nix args;
+    fromYamlFile = path: args.fromYaml (builtins.readFile path);
     getAttr = import ./get-attr/default.nix;
     gitlabCi = import ./gitlab-ci/default.nix;
     hasPrefix = lib.strings.hasPrefix;
