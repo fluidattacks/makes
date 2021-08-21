@@ -1,6 +1,7 @@
 { __nixpkgs__
 , __shellCommands__
 , __shellOptions__
+, __system__
 , asContent
 , hasPrefix
 , makeSearchPaths
@@ -61,7 +62,7 @@ builtins.derivation (env' // {
   name = toDerivationName name;
   outputs = [ "out" ];
   passAsFile = builtins.attrNames envFiles;
-  system = builtins.currentSystem;
+  system = __system__;
 } // attrsOptional (action != null) {
   __envAction = __nixpkgs__.writeShellScript "makes-action-for-${name}" ''
     source ${__shellOptions__}
