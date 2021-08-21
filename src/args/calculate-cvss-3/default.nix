@@ -1,7 +1,6 @@
 { __nixpkgs__
 , makeDerivation
 , makePythonPypiEnvironment
-, makePythonVersion
 , ...
 }:
 envTarget:
@@ -15,7 +14,7 @@ makeDerivation {
     source = [
       (makePythonPypiEnvironment {
         name = "cvss";
-        sourcesJson = ./sources.json;
+        sourcesYaml = ./sources.yaml;
       })
     ];
   };

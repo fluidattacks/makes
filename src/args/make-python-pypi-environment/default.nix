@@ -1,6 +1,6 @@
 { __nixpkgs__
 , attrsMapToList
-, fromJsonFile
+, fromYamlFile
 , getAttr
 , listOptional
 , makeDerivation
@@ -11,13 +11,13 @@
 }:
 { name
 , searchPaths ? { }
-, sourcesJson
+, sourcesYaml
 , withSetuptools_57_4_0 ? false
 , withSetuptoolsScm_6_0_1 ? false
 , withWheel_0_37_0 ? false
 }:
 let
-  sources = fromJsonFile sourcesJson;
+  sources = fromYamlFile sourcesYaml;
 
   is37 = sources.python == "3.7";
   is38 = sources.python == "3.8";

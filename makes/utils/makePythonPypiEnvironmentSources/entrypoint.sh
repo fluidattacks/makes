@@ -2,8 +2,8 @@
 
 function main {
   local python_version="${1}"
-  local deps_json="${2}"
-  local sources_json="${3:-sources.json}"
+  local deps_yaml="${2}"
+  local sources_yaml="${3:-sources.yaml}"
   local pyproject_toml='{
     "build-system": {
       "build-backend": "poetry.core.masonry.api"
@@ -23,8 +23,6 @@ function main {
   }'
 
   true \
-    && deps_json="$(realpath "${deps_json}")" \
-    && sources_json="$(realpath "${sources_json}")" \
     && case "${python_version}" in
       3.7) python=__argPy37__ ;;
       3.8) python=__argPy38__ ;;
@@ -34,7 +32,7 @@ function main {
     && info Generating manifest: \
     && cd "$(mktemp -d)" \
     && jq -enr \
-      --argjson deps "$(cat "${deps_json}")" \
+      --argjson deps "$(yj -yj < "${deps_yaml}")" \
       --arg python_version "${python_version}.*" \
       "${pyproject_toml}" \
     | yj -jt | tee pyproject.toml \
@@ -74,8 +72,8 @@ function main {
           > sources.json \
         || critical Unable to download "${file}"
     done \
-    && cp sources.json "${sources_json}" \
-    && info Generated a sources file at "${sources_json}"
+    && yj -jy < sources.json > "${sources_yaml}" \
+    && info Generated a sources file at "${sources_yaml}"
 }
 
 function get_url {

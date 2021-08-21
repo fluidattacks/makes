@@ -2761,29 +2761,27 @@ are installed.
 
 Pre-requisites:
 
-1. You need to generate `sourcesJson` like this:
+1. You need to generate `sourcesYaml` like this:
 
     ```bash
     m github:fluidattacks/makes@21.09 /utils/makePythonPypiEnvironmentSources \
       "${python_version}" \
-      "${dependencies_json}" \
-      "${sources_path}
+      "${dependencies_yaml}" \
+      "${sources_yaml}
     ```
 
     - Supported `python_version`s are: `3.7`, `3.8` and `3.9`.
-    - `dependencies_json` is the **absolute path** to a [JSON][JSON] file
+    - `dependencies_yaml` is the **absolute path** to a [YAML][YAML] file
       mapping [PyPI][PYTHON_PYPI] packages to version constraints.
 
       Example:
 
-      ```json
-      {
-        "Django": "3.2.*",
-        "psycopg2": "2.9.1"
-      }
+      ```yaml
+      Django: "3.2.*"
+      psycopg2: "2.9.1"
       ```
 
-    - `sources_path` is the **absolute path**
+    - `sources_yaml` is the **absolute path**
       to a file were the script will output results.
 
       Please save this file because it is required by `makePythonPypiEnvironment`.
@@ -2797,8 +2795,8 @@ Types:
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.
       Defaults to `makeSearchPaths`'s defaults.
-    - sourcesJson (`package`):
-      `sources.json` file
+    - sourcesYaml (`package`):
+      `sources.yaml` file
       computed as explained in the pre-requisites section.
     - withSetuptools_57_4_0 (`bool`): Optional.
       Where to bootstrap setuptools 57.4.0 in the environment.
@@ -2823,79 +2821,57 @@ Example:
 }:
 makePythonPypiEnvironment {
   name = "example";
-  sourcesJson = projectPath "/makes/example/sources.json";
+  sourcesYaml = projectPath "/makes/example/sources.yaml";
 }
 ```
 
-`sourcesJson` is generated like this:
+`sourcesYaml` is generated like this:
 
 ```bash
-$ cat /path/to/my/project/makes/example/dependencies.json
+$ cat /path/to/my/project/makes/example/dependencies.yaml
 
-  {
-    "Django": "3.2.6"
-  }
+  Django: "3.2.6"
 
 $ m github:fluidattacks/makes@21.09 /utils/makePythonPypiEnvironmentSources \
     3.8 \
-    /path/to/my/project/makes/example/dependencies.json \
-    /path/to/my/project/makes/example/sources.json
+    /path/to/my/project/makes/example/dependencies.yaml \
+    /path/to/my/project/makes/example/sources.yaml
 
   # ...
 
-$ cat /path/to/my/project/makes/example/sources.json
+$ cat /path/to/my/project/makes/example/sources.yaml
 
-  {
-    "closure": {
-      "asgiref": "3.4.1",
-      "django": "3.2.6",
-      "pytz": "2021.1",
-      "sqlparse": "0.4.1"
-    },
-    "links": [
-      {
-        "name": "Django-3.2.6-py3-none-any.whl",
-        "sha256": "04qzllkmyl0g2fgdab55r7hv3vqswfdv32p77cgjj3ma54sl34kz",
-        "url": "https://pypi.org/packages/py3/D/Django/Django-3.2.6-py3-none-any.whl"
-      },
-      {
-        "name": "Django-3.2.6.tar.gz",
-        "sha256": "08p0gf1n548fjba76wspcj1jb3li6lr7xi87w2xq7hylr528azzj",
-        "url": "https://pypi.org/packages/source/D/Django/Django-3.2.6.tar.gz"
-      },
-      {
-        "name": "pytz-2021.1-py2.py3-none-any.whl",
-        "sha256": "1607gl2x9290ks5sa6dvqw9dgg1kwdf9fj9xcb9jw19nfwzcw47b",
-        "url": "https://pypi.org/packages/py2.py3/p/pytz/pytz-2021.1-py2.py3-none-any.whl"
-      },
-      {
-        "name": "pytz-2021.1.tar.gz",
-        "sha256": "1nn459q7zg20n75akxl3ljkykgw1ydc8nb05rx1y4f5zjh4ak943",
-        "url": "https://pypi.org/packages/source/p/pytz/pytz-2021.1.tar.gz"
-      },
-      {
-        "name": "sqlparse-0.4.1-py3-none-any.whl",
-        "sha256": "1l2f616scnhbx7nkzvwmiqvpjh97x11kz1v1bbqs3mnvk8vxwz01",
-        "url": "https://pypi.org/packages/py3/s/sqlparse/sqlparse-0.4.1-py3-none-any.whl"
-      },
-      {
-        "name": "sqlparse-0.4.1.tar.gz",
-        "sha256": "1s2l0jgi1v7rk7smzb99iamasaz22apfkczsphn3ci4wh8pgv48g",
-        "url": "https://pypi.org/packages/source/s/sqlparse/sqlparse-0.4.1.tar.gz"
-      },
-      {
-        "name": "asgiref-3.4.1-py3-none-any.whl",
-        "sha256": "052j8715bw39iywciicgfg5hxnsgmyvv7cg7fdb1fvwfj2m43hgz",
-        "url": "https://pypi.org/packages/py3/a/asgiref/asgiref-3.4.1-py3-none-any.whl"
-      },
-      {
-        "name": "asgiref-3.4.1.tar.gz",
-        "sha256": "1saqgpgbdvb8awzm0f0640j0im55hkrfzvcw683cgqw4ni3apwaf",
-        "url": "https://pypi.org/packages/source/a/asgiref/asgiref-3.4.1.tar.gz"
-      }
-    ],
-    "python": "3.8"
-  }
+  closure:
+    asgiref: 3.4.1
+    django: 3.2.6
+    pytz: "2021.1"
+    sqlparse: 0.4.1
+  links:
+    - name: Django-3.2.6-py3-none-any.whl
+      sha256: 04qzllkmyl0g2fgdab55r7hv3vqswfdv32p77cgjj3ma54sl34kz
+      url: https://pypi.org/packages/py3/D/Django/Django-3.2.6-py3-none-any.whl
+    - name: Django-3.2.6.tar.gz
+      sha256: 08p0gf1n548fjba76wspcj1jb3li6lr7xi87w2xq7hylr528azzj
+      url: https://pypi.org/packages/source/D/Django/Django-3.2.6.tar.gz
+    - name: pytz-2021.1-py2.py3-none-any.whl
+      sha256: 1607gl2x9290ks5sa6dvqw9dgg1kwdf9fj9xcb9jw19nfwzcw47b
+      url: https://pypi.org/packages/py2.py3/p/pytz/pytz-2021.1-py2.py3-none-any.whl
+    - name: pytz-2021.1.tar.gz
+      sha256: 1nn459q7zg20n75akxl3ljkykgw1ydc8nb05rx1y4f5zjh4ak943
+      url: https://pypi.org/packages/source/p/pytz/pytz-2021.1.tar.gz
+    - name: sqlparse-0.4.1-py3-none-any.whl
+      sha256: 1l2f616scnhbx7nkzvwmiqvpjh97x11kz1v1bbqs3mnvk8vxwz01
+      url: https://pypi.org/packages/py3/s/sqlparse/sqlparse-0.4.1-py3-none-any.whl
+    - name: sqlparse-0.4.1.tar.gz
+      sha256: 1s2l0jgi1v7rk7smzb99iamasaz22apfkczsphn3ci4wh8pgv48g
+      url: https://pypi.org/packages/source/s/sqlparse/sqlparse-0.4.1.tar.gz
+    - name: asgiref-3.4.1-py3-none-any.whl
+      sha256: 052j8715bw39iywciicgfg5hxnsgmyvv7cg7fdb1fvwfj2m43hgz
+      url: https://pypi.org/packages/py3/a/asgiref/asgiref-3.4.1-py3-none-any.whl
+    - name: asgiref-3.4.1.tar.gz
+      sha256: 1saqgpgbdvb8awzm0f0640j0im55hkrfzvcw683cgqw4ni3apwaf
+      url: https://pypi.org/packages/source/a/asgiref/asgiref-3.4.1.tar.gz
+  python: "3.8"
 ```
 
 ### Containers
@@ -3468,7 +3444,7 @@ in
 # Use the framework
 makes.makePythonPypiEnvironment {
   name = "example";
-  sourcesJson = ./sources.json;
+  sourcesYaml = ./sources.yaml;
 }
 ```
 

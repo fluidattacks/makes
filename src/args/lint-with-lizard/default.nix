@@ -17,7 +17,7 @@ let
       source = [
         (makePythonPypiEnvironment {
           name = "lizard";
-          sourcesJson = ./sources.json;
+          sourcesYaml = ./sources.yaml;
         })
       ];
     };
