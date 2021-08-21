@@ -3,8 +3,7 @@
 , ...
 }:
 expr:
-fromJson (
-  builtins.readFile (
-    toFileJsonFromFileYaml (
-      builtins.toFile "" expr
-    )))
+fromJson
+  (builtins.readFile
+    (toFileJsonFromFileYaml
+      (builtins.toFile "src" expr)))
