@@ -27,13 +27,9 @@ let
     then "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\""
     else "export ${envVar}=\"${envDrv}${envPath}\"";
   sourceDrv = envDrv:
-    ''
-      if test -e "${envDrv}/template"; then
-        source "${envDrv}/template"
-      else
-        source "${envDrv}"
-      fi
-    '';
+    if builtins.pathExists "${envDrv}/template"
+    then "source \"${envDrv}/template\""
+    else "source \"${envDrv}\"";
 in
 makeTemplate {
   name = "make-search-paths";
