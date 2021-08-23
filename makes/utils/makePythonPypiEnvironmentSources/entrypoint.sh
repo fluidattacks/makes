@@ -67,8 +67,8 @@ function main {
             && case "${file}" in
               *.egg) continue ;;
               *.exe) continue ;;
-              *.win32.whl) continue ;;
-              *.win_amd64.whl) continue ;;
+              *-win32.whl) continue ;;
+              *-win_amd64.whl) continue ;;
               *) ;;
             esac \
             && if ! in_array "${python_versions[${index}]}" "${implementations[@]}"; then
