@@ -8,4 +8,3 @@ set -o errtrace
 set -o monitor
 set -o posix
 shopt -s dotglob
-shopt -s xpg_echo
