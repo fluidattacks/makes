@@ -37,7 +37,7 @@ let
       envDownloads = __nixpkgs__.linkFarm name (builtins.map
         ({ name, sha256, url }: {
           inherit name;
-          path = builtins.fetchurl {
+          path = __nixpkgs__.fetchurl {
             inherit name;
             inherit sha256;
             inherit url;
