@@ -2800,32 +2800,43 @@ Types:
       computed as explained in the pre-requisites section.
     - withCython_0_29_24 (`bool`): Optional.
       Where to bootstrap cython 0.29.24 in the environment.
-      (Sometimes required to build special packages)
+      Defaults to `false`.
+    - withNumpy_1_21_2 (`bool`): Optional.
+      Where to bootstrap numpy 1.21.2 in the environment.
       Defaults to `false`.
     - withSetuptools_57_4_0 (`bool`): Optional.
       Where to bootstrap setuptools 57.4.0 in the environment.
-      (Sometimes required to build special packages)
       Defaults to `false`.
     - withSetuptoolsScm_6_0_1 (`bool`) Optional.
       Where to bootstrap setuptools-scm 6.0.1 in the environment.
-      (Sometimes required to build special packages)
       Defaults to `false`.
     - withWheel_0_37_0 (`bool`): Optional.
       Where to bootstrap wheel 0.37.0 in the environment.
-      (Sometimes required to build special packages)
       Defaults to `false`.
 
 Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , projectPath
 , ...
 }:
 makePythonPypiEnvironment {
   name = "example";
+  # If some packages require compilers to be built,
+  # you can provide them like this:
+  searchPaths = {
+    bin = [ inputs.nixpkgs.gcc ];
+  };
   sourcesYaml = projectPath "/makes/example/sources.yaml";
+  # Other packages require a few bootstrapped dependencies,
+  # enable them like this:
+  withCython_0_29_24 = true;
+  withSetuptools_57_4_0 = true;
+  withSetuptoolsScm_6_0_1 = true;
+  withWheel_0_37_0 = true;
 }
 ```
 

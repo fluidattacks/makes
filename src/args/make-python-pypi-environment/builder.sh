@@ -9,6 +9,7 @@ function main {
     && HOME=. python -m pip install \
       --cache-dir . \
       --index-url "file://${PWD}/mirror" \
+      --no-deps \
       --requirement "${envClosure}"
 }
 
