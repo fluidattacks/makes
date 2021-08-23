@@ -4,15 +4,18 @@
 , getAttr
 , listOptional
 , makeDerivation
+, makePythonPypiEnvironment
 , makePythonVersion
 , makeSearchPaths
 , toFileLst
+, toFileYaml
 , ...
 }:
 { name
 , searchPaths ? { }
 , sourcesYaml
 , withCython_0_29_24 ? false
+, withNumpy_1_21_2 ? false
 , withSetuptools_57_4_0 ? false
 , withSetuptoolsScm_6_0_1 ? false
 , withWheel_0_37_0 ? false
@@ -42,11 +45,6 @@ let
         })
         (builtins.concatLists [
           (sources.links)
-          (listOptional withCython_0_29_24 {
-            name = "Cython-0.29.24-py2.py3-none-any.whl";
-            sha256 = "f96411f0120b5cae483923aaacd2872af8709be4b46522daedc32f051d778385";
-            url = "https://files.pythonhosted.org/packages/ec/30/8707699ea6e1c1cbe79c37e91f5b06a6266de24f699a5e19b8c0a63c4b65/Cython-0.29.24-py2.py3-none-any.whl";
-          })
           (listOptional withSetuptools_57_4_0 {
             name = "setuptools-57.4.0-py3-none-any.whl";
             sha256 = "1mhq6jw21sglccqmimydqi2rjvh3g5xjykb16gcvkkx6gabk14m4";
@@ -57,11 +55,6 @@ let
             sha256 = "0p4i5nypfdqzjlmlkwvy45107y7kpq3x9s5zq2jl9vwd3iq5zgf3";
             url = "https://files.pythonhosted.org/packages/py3/s/setuptools_scm/setuptools_scm-6.0.1-py3-none-any.whl";
           })
-          (listOptional withWheel_0_37_0 {
-            name = "wheel-0.37.0-py2.py3-none-any.whl";
-            sha256 = "1za6c4s0yjy1dzprmib3kph40hr8xgj3apdsnqs00v9wv4mln091";
-            url = "https://pypi.org/packages/py2.py3/w/wheel/wheel-0.37.0-py2.py3-none-any.whl";
-          })
         ]));
     };
     inherit name;
@@ -69,6 +62,41 @@ let
       bin = (getAttr searchPaths "bin" [ ]) ++ [
         __nixpkgs__.pypi-mirror
         python
+      ];
+      source = builtins.concatLists [
+        (listOptional withCython_0_29_24 (makePythonPypiEnvironment {
+          name = "cython-0.29.24";
+          sourcesYaml = toFileYaml "sources.yaml" {
+            closure.cython = "0.29.24";
+            links = [{
+              name = "Cython-0.29.24-py2.py3-none-any.whl";
+              sha256 = "11c3fwfhaby3xpd24rdlwjdp1y1ahz9arai3754awp0b2bq12r7r";
+              url = "https://files.pythonhosted.org/packages/ec/30/8707699ea6e1c1cbe79c37e91f5b06a6266de24f699a5e19b8c0a63c4b65/Cython-0.29.24-py2.py3-none-any.whl";
+            }];
+            python = sources.python;
+          };
+        }))
+        (listOptional withNumpy_1_21_2 (makePythonPypiEnvironment {
+          name = "numpy-1.21.2";
+          sourcesYaml = {
+            "3.7" = ./sources/numpy-1.21.2/sources-37.yaml;
+            "3.8" = ./sources/numpy-1.21.2/sources-38.yaml;
+            "3.9" = ./sources/numpy-1.21.2/sources-39.yaml;
+          }.${sources.python};
+          withCython_0_29_24 = true;
+        }))
+        (listOptional withWheel_0_37_0 (makePythonPypiEnvironment {
+          name = "wheel-0.37.0";
+          sourcesYaml = toFileYaml "sources.yaml" {
+            closure.wheel = "0.37.0";
+            links = [{
+              name = "wheel-0.37.0-py2.py3-none-any.whl";
+              sha256 = "1za6c4s0yjy1dzprmib3kph40hr8xgj3apdsnqs00v9wv4mln091";
+              url = "https://pypi.org/packages/py2.py3/w/wheel/wheel-0.37.0-py2.py3-none-any.whl";
+            }];
+            python = sources.python;
+          };
+        }))
       ];
     };
   };
