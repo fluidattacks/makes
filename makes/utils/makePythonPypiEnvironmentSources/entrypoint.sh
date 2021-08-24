@@ -21,7 +21,7 @@ function main {
       }
     }
   }'
-  local implementations37=(any cp37 pp37 pp373 py2.py3 py35.py36.py37 py3 source 3.7)
+  local implementations37=(any cp37 py2.py3 py35.py36.py37 py3 source 3.7)
   local implementations38=(any cp38 py2.py3 py3 source)
   local implementations39=(any cp39 py2.py3 py3 source)
 

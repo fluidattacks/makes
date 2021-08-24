@@ -19,9 +19,6 @@ links:
   - name: numpy-1.21.2-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl
     sha256: 1wgdypm4b77dn4wzmwx84gc6f2rvbgj8cvqd7n41by5aifnmjm40
     url: https://files.pythonhosted.org/packages/8f/3d/7247b219c2c3bc5720a0ae963bf384df1f7f39c17330fcff2bd9d8640768/numpy-1.21.2-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl
-  - name: numpy-1.21.2-pp37-pypy37_pp73-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 19zlyw5ckvj0vw2pq3s5nw3yly3545832i4s3sqzwmmgfiynlsnr
-    url: https://files.pythonhosted.org/packages/2c/44/4210d16af96fe03f41c64bac2146435dc521a6e0457fdb3b5d15e1844578/numpy-1.21.2-pp37-pypy37_pp73-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
   - name: numpy-1.21.2.zip
     sha256: 1p6n7pbc4s7qdqh28clyrhahs0xzadh7q0w6vwakp4n5mzc1ccj2
     url: https://files.pythonhosted.org/packages/3a/be/650f9c091ef71cb01d735775d554e068752d3ff63d7943b26316dc401749/numpy-1.21.2.zip
