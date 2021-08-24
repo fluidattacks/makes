@@ -10,8 +10,10 @@
 # You better avoid changing this function signature...
 # Ask a maintainer first.
 {
+  # Unique ID for this execution of makes
+  makesExecutionId
   # Source code of makes, can be overriden by the user.
-  makesSrc
+, makesSrc
   # Path to the user's project, inside a sandbox.
   # The sandbox excludes files not-tracked by git.
 , projectSrc
@@ -39,10 +41,11 @@ let
     else makesSrc;
 
   args = import "${makesSrcOverriden}/src/args/default.nix" {
+    inputs = result.config.inputs;
+    inherit makesExecutionId;
+    outputs = result.config.outputs;
     inherit projectSrc;
     inherit projectSrcMutable;
-    inputs = result.config.inputs;
-    outputs = result.config.outputs;
   };
   nixpkgs = import sources.nixpkgs { };
   sources = import "${makesSrcOverriden}/src/nix/sources.nix";

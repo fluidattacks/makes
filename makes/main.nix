@@ -1,30 +1,4 @@
-{ makeScript
-, inputs
-, projectPath
+{ projectPath
 , ...
 }:
-makeScript {
-  aliases = [
-    "m-v21.09"
-    "makes"
-    "makes-v21.09"
-  ];
-  replace = {
-    __argMakesSrc__ = projectPath "/";
-  };
-  entrypoint = ''
-    __MAKES_SRC__=__argMakesSrc__ \
-    python __argMakesSrc__/src/cli/main/__main__.py "$@"
-  '';
-  searchPaths = {
-    bin = [
-      inputs.nixpkgs.cachix
-      inputs.nixpkgs.git
-      inputs.nixpkgs.gnutar
-      inputs.nixpkgs.gzip
-      inputs.nixpkgs.nix
-      inputs.nixpkgs.python38
-    ];
-  };
-  name = "m";
-}
+import (projectPath "/")

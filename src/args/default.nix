@@ -1,7 +1,8 @@
-{ projectSrc
-, projectSrcMutable
-, inputs
+{ inputs
+, makesExecutionId
 , outputs
+, projectSrc
+, projectSrcMutable
 , ...
 }:
 let
@@ -9,6 +10,7 @@ let
 
   args = agnostic // {
     inherit inputs;
+    inherit makesExecutionId;
     inherit outputs;
     inherit projectSrc;
     projectPath = import ./project-path/default.nix args;
