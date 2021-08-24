@@ -72,7 +72,10 @@ function main {
               *) ;;
             esac \
             && if ! in_array "${python_versions[${index}]}" "${implementations[@]}"; then
-              continue
+              case "${file}" in
+                *-abi3-*.whl) ;;
+                *) continue ;;
+              esac
             fi \
             && url="${urls[${index}]}" \
             && sha256="$(nix-prefetch-url --name "${file}" --type sha256 "${url}")" \
