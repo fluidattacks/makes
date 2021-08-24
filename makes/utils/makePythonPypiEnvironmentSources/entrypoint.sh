@@ -96,7 +96,7 @@ function main {
 }
 
 function in_array {
-  for elem in "${@:1}"; do
+  for elem in "${@:2}"; do
     if test "${1}" = "${elem}"; then return 0; fi
   done && return 1
 }

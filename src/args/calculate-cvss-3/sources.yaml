@@ -3,8 +3,8 @@ closure:
 links:
   - name: cvss-2.3-py2.py3-none-any.whl
     sha256: 0dm3hvlj6ax3vji6ixb3fyhnvzhajxzdfj2syyxapxa0w5w6nsqb
-    url: https://pypi.org/packages/py2.py3/c/cvss/cvss-2.3-py2.py3-none-any.whl
+    url: https://files.pythonhosted.org/packages/96/96/474c8b657040a97d9b4ca7d5b59a56897b8536c8a66400ef57e52971777e/cvss-2.3-py2.py3-none-any.whl
   - name: cvss-2.3.tar.gz
     sha256: 0h21l80ia9zhhrk98b9y86ihigp7jnf2g8dydi3y14vv5vdcj8pw
-    url: https://pypi.org/packages/source/c/cvss/cvss-2.3.tar.gz
+    url: https://files.pythonhosted.org/packages/9b/f8/e0d929b2a37dd32cdf9f7aba88609a99a4f82b0fd961214466fbda8ee756/cvss-2.3.tar.gz
 python: "3.8"
