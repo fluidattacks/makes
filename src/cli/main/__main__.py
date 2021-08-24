@@ -37,6 +37,9 @@ from typing import (
 from urllib.parse import (
     quote_plus as url_quote,
 )
+from uuid import (
+    uuid4 as uuid,
+)
 
 CWD: str = getcwd()
 OUT_BASE: str = tempfile.mkdtemp()
@@ -123,6 +126,7 @@ def _nix_build(
 
     return [
         "nix-build",
+        *["--argstr", "makesExecutionId", uuid().hex],
         *["--argstr", "makesSrc", environ["__MAKES_SRC__"]],
         *["--argstr", "projectSrc", head],
         *_if(is_src_local(src), "--argstr", "projectSrcMutable", src),
