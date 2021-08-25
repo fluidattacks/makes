@@ -13,6 +13,7 @@ makeScript {
   };
   searchPaths.bin = [
     __nixpkgs__.curl
+    __nixpkgs__.git
     __nixpkgs__.jq
     __nixpkgs__.nix
     __nixpkgs__.poetry
