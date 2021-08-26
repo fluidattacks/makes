@@ -2205,6 +2205,10 @@ Types:
       Environment variables that will be propagated to the `builder`.
       Variable names must start with `env`.
       Defaults to `{ }`.
+    - local (`bool`): Optional.
+      Should we always build locally this step?
+      Thus effectively ignoring any configured binary caches.
+      Defaults to `false`.
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
     - searchPaths (`asIn makeSearchPaths`): Optional.
@@ -2259,6 +2263,10 @@ in a file of any format.
 Types:
 
 - makeTemplate (`function { ... } -> package`):
+    - local (`bool`): Optional.
+      Should we always build locally this step?
+      Thus effectively ignoring any configured binary caches.
+      Defaults to `true`.
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
     - replace (`attrsOf strLike`): Optional.
@@ -2798,20 +2806,25 @@ Types:
     - sourcesYaml (`package`):
       `sources.yaml` file
       computed as explained in the pre-requisites section.
+
+    For building a few special packages you may need to boostrap
+    dependencies in the build environment.
+    The following flags are available for convenience:
+
     - withCython_0_29_24 (`bool`): Optional.
-      Where to bootstrap cython 0.29.24 in the environment.
+      Should we bootstrap cython 0.29.24 in the environment?
       Defaults to `false`.
     - withNumpy_1_21_2 (`bool`): Optional.
-      Where to bootstrap numpy 1.21.2 in the environment.
+      Should we bootstrap numpy 1.21.2 in the environment?
       Defaults to `false`.
     - withSetuptools_57_4_0 (`bool`): Optional.
-      Where to bootstrap setuptools 57.4.0 in the environment.
+      Should we bootstrap setuptools 57.4.0 in the environment?
       Defaults to `false`.
     - withSetuptoolsScm_6_0_1 (`bool`) Optional.
-      Where to bootstrap setuptools-scm 6.0.1 in the environment.
+      Should we bootstrap setuptools-scm 6.0.1 in the environment?
       Defaults to `false`.
     - withWheel_0_37_0 (`bool`): Optional.
-      Where to bootstrap wheel 0.37.0 in the environment.
+      Should we bootstrap wheel 0.37.0 in the environment?
       Defaults to `false`.
 
 Example:
