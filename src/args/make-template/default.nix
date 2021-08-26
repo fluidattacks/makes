@@ -6,7 +6,8 @@
 , ...
 }:
 
-{ name
+{ local ? true
+, name
 , replace ? { }
 , replaceBase64 ? { }
 , searchPaths ? { }
@@ -56,6 +57,6 @@ makeDerivation {
       '';
   };
   builder = ./builder.sh;
-  local = true;
+  inherit local;
   name = "make-template-for-${name}";
 }
