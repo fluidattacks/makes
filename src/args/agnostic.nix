@@ -62,6 +62,7 @@ let
     securePythonWithBandit = import ./secure-python-with-bandit/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
+    stringCapitalize = import ./string-capitalize/default.nix args;
     taintTerraform = import ./taint-terraform/default.nix args;
     testTerraform = import ./test-terraform/default.nix args;
     toDerivationName = lib.strings.sanitizeDerivationName;
