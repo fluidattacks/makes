@@ -21,12 +21,14 @@ function main {
       }
     }
   }'
+  local implementations36=(any cp36 py2.py3 py35.py36.py37 py3 source 3.6)
   local implementations37=(any cp37 py2.py3 py35.py36.py37 py3 source 3.7)
   local implementations38=(any cp38 py2.py3 py3 source)
   local implementations39=(any cp39 py2.py3 py3 source)
 
   true \
     && case "${python_version}" in
+      3.6) python=__argPy36__ && implementations=("${implementations36[@]}") ;;
       3.7) python=__argPy37__ && implementations=("${implementations37[@]}") ;;
       3.8) python=__argPy38__ && implementations=("${implementations38[@]}") ;;
       3.9) python=__argPy39__ && implementations=("${implementations39[@]}") ;;
