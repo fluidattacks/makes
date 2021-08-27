@@ -2143,6 +2143,12 @@ Types specific to [Python][PYTHON]:
       to [PYTHONPATH][PYTHONPATH].
       Defaults to `[ ]`.
 
+    - `pythonPackage36` (`listOf package`): Optional.
+      Append `/lib/python3.6/site-packages`
+      of each element in the list
+      to [PYTHONPATH][PYTHONPATH].
+      Defaults to `[ ]`.
+
     - `pythonPackage37` (`listOf package`): Optional.
       Append `/lib/python3.7/site-packages`
       of each element in the list
@@ -2742,7 +2748,7 @@ Types:
 
 - makePythonVersion (`function str -> package`):
 
-    - (`enum [ "3.7" "3.8" "3.9" ]`):
+    - (`enum [ "3.6" "3.7" "3.8" "3.9" ]`):
       [Python][PYTHON] version of the interpreter to return.
 
 Example:
@@ -2788,7 +2794,7 @@ Pre-requisites:
       "${sources_yaml}
     ```
 
-    - Supported `python_version`s are: `3.7`, `3.8` and `3.9`.
+    - Supported `python_version`s are: `3.6`, `3.7`, `3.8` and `3.9`.
     - `dependencies_yaml` is the **absolute path** to a [YAML][YAML] file
       mapping [PyPI][PYTHON_PYPI] packages to version constraints.
 
