@@ -14,7 +14,7 @@ let
   makeImports = name: { config, src }: {
     name = "/lintPython/imports/${name}";
     value = lintPythonImports {
-      inherit config;
+      config = projectPath config;
       inherit name;
       src = projectPath src;
     };

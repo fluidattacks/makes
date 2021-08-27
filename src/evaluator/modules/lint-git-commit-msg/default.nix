@@ -1,4 +1,5 @@
 { lintGitCommitMsg
+, projectPath
 , projectPathMutable
 , ...
 }:
@@ -18,12 +19,12 @@
         type = lib.types.str;
       };
       config = lib.mkOption {
-        default = ./config.js;
-        type = lib.types.path;
+        default = null;
+        type = lib.types.nullOr lib.types.str;
       };
       parser = lib.mkOption {
-        default = ./parser.js;
-        type = lib.types.path;
+        default = null;
+        type = lib.types.nullOr lib.types.str;
       };
     };
   };
@@ -33,9 +34,15 @@
         (config.lintGitCommitMsg.enable)
         (lintGitCommitMsg {
           branch = config.lintGitCommitMsg.branch;
-          config = config.lintGitCommitMsg.config;
+          config =
+            if config.lintGitCommitMsg.config == null
+            then ./config.js
+            else projectPath config.lintGitCommitMsg.config;
           name = "lint-git-commit-msg";
-          parser = config.lintGitCommitMsg.parser;
+          parser =
+            if config.lintGitCommitMsg.parser == null
+            then ./parser.js
+            else projectPath config.lintGitCommitMsg.parser;
           src = projectPathMutable "/";
         });
     };

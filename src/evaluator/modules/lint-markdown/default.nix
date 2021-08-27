@@ -12,7 +12,10 @@ let
     name = "/lintMarkdown/${name}";
     value = lintMarkdown {
       inherit name;
-      inherit config;
+      config =
+        if config == null
+        then ./config.rb
+        else projectPath config;
       targets = builtins.map projectPath targets;
     };
   };
@@ -24,8 +27,8 @@ in
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           config = lib.mkOption {
-            type = lib.types.path;
-            default = ./config.rb;
+            default = null;
+            type = lib.types.nullOr lib.types.str;
           };
           targets = lib.mkOption {
             type = lib.types.listOf lib.types.str;

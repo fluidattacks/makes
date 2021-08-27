@@ -84,7 +84,7 @@
   };
   lintMarkdown = {
     all = {
-      config = ./config/markdown.rb;
+      config = "/test/lint-markdown/config.rb";
       targets = [ "/" ];
     };
   };
@@ -101,18 +101,7 @@
     };
     imports = {
       makes = {
-        config = builtins.toFile "config.cfg" ''
-          [importlinter]
-          include_external_packages = True
-          root_packages=
-            main
-
-          [importlinter:contract:dag]
-            name = Direct Acyclic Graph
-            type = layers
-            layers =
-              main
-        '';
+        config = "/src/cli/imports.cfg";
         src = "/src/cli";
       };
     };
