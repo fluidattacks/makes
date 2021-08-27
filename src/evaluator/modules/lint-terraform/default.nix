@@ -1,6 +1,7 @@
 { __nixpkgs__
 , __toModuleOutputs__
 , lintTerraform
+, projectPath
 , projectPathMutable
 , ...
 }:
@@ -13,7 +14,10 @@ let
     name = "/lintTerraform/${name}";
     value = lintTerraform {
       inherit setup;
-      config = builtins.toFile "tflint.hcl" config.lintTerraform.config;
+      config =
+        if config.lintTerraform.config == null
+        then ./config.hcl
+        else projectPath config.lintTerraform.config;
       inherit name;
       src = projectPathMutable src;
       inherit version;
@@ -24,15 +28,8 @@ in
   options = {
     lintTerraform = {
       config = lib.mkOption {
-        default = ''
-          config {
-            module = true
-          }
-          plugin "aws" {
-            enabled = true
-          }
-        '';
-        type = lib.types.lines;
+        default = null;
+        type = lib.types.nullOr lib.types.str;
       };
       modules = lib.mkOption {
         default = { };

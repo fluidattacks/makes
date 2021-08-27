@@ -896,14 +896,14 @@ Types:
     - branch (`str`): Optional.
       Name of the main branch.
       Defaults to `main`.
-    - config (`path`): Optional.
-      Configuration file for [Commitlint][COMMITLINT].
+    - config (`str`): Optional.
+      Path to a configuration file for [Commitlint][COMMITLINT].
       Defaults to
-      [config.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/config.js).
-    - parser (`path`): Optional.
+      [config.js](./src/evaluator/modules/lint-git-commit-msg/config.js).
+    - parser (`str`): Optional.
       [Commitlint][COMMITLINT] parser definitions.
       Defaults to
-      [parser.js](./src/evaluator/modules/outputs/builtins/lint-git-commit-msg/parser.js).
+      [parser.js](./src/evaluator/modules/lint-git-commit-msg/parser.js).
 
 Example `makes.nix`:
 
@@ -912,6 +912,9 @@ Example `makes.nix`:
   lintGitCommitMsg = {
     enable = true;
     branch = "my-branch-name";
+    # If you want to use custom configs or parsers you can do it like this:
+    # config = "/src/config/config.js";
+    # parser = "/src/config/parser.js";
   };
 }
 ```
@@ -951,10 +954,9 @@ Types:
   Definitions of config and associated paths to lint.
   Defaults to `{ }`.
 - moduleType (`submodule`):
-    - config (`path`): Optional.
+    - config (`str`): Optional.
       Path to the config file.
-      Defaults to
-      `src/evaluator/modules/outputs/builtins/lint-markdown/config.rb`.
+      Defaults to [config.rb](./src/evaluator/modules/lint-markdown/config.rb).
     - targets (`listOf str`): Required.
       paths to lint with `config`.
 
@@ -964,7 +966,8 @@ Example `makes.nix`:
 {
   lintMarkdown = {
     all = {
-      config = ./config/markdown.rb;
+      # You can pass custom configs like this:
+      # config = "/src/config/markdown.rb";
       targets = [ "/" ];
     };
     others = {
@@ -1074,19 +1077,9 @@ with [TFLint][TFLINT].
 Types:
 
 - lintTerraform:
-    - config (`lines`): Optional.
-      Defaults to:
-
-      ```hcl
-      config {
-        module = true
-      }
-
-      plugin "aws" {
-        enabled = true
-      }
-      ```
-
+    - config (`str`): Optional.
+      Path to a [TFLint][TFLINT] configuration file.
+      Defaults to [config.hcl](./src/evaluator/modules/lint-terraform/config.hcl).
     - modules (`attrsOf moduleType`): Optional.
       Path to [Terraform][TERRAFORM] modules to lint.
       Defaults to `{ }`.
@@ -1107,6 +1100,8 @@ Example `makes.nix`:
 ```nix
 {
   lintTerraform = {
+    # You can use a custom configuration like this:
+    # config = "/src/config/tflint.hcl";
     modules = {
       module1 = {
         src = "/my/module1";
