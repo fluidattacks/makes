@@ -1,8 +1,6 @@
-{ __nixpkgs__
-, __toModuleOutputs__
-, makeDerivation
+{ __toModuleOutputs__
+, lintPython
 , makeDerivationParallel
-, makePythonPypiEnvironment
 , projectPath
 , projectPathLsDirs
 , ...
@@ -14,32 +12,13 @@
 let
   makeModule = name: { extraSources, python, src }: {
     name = "/lintPython/module/${name}";
-    value = makeDerivation {
-      env = {
-        envSettingsMypy = ./settings-mypy.cfg;
-        envSettingsProspector = ./settings-prospector.yaml;
-        envSrc = projectPath src;
-      };
-      name = "lint-python-module-for-${name}";
-      searchPaths = {
-        bin = [
-          __nixpkgs__.findutils
-        ];
-        source = extraSources ++ [
-          (makePythonPypiEnvironment {
-            name = "lint-python";
-            sourcesYaml = {
-              "3.7" = ./sources-3.7.yaml;
-              "3.8" = ./sources-3.8.yaml;
-              "3.9" = ./sources-3.9.yaml;
-            }.${python};
-            withSetuptools_57_4_0 = true;
-            withSetuptoolsScm_6_0_1 = true;
-            withWheel_0_37_0 = true;
-          })
-        ];
-      };
-      builder = ./builder.sh;
+    value = lintPython {
+      inherit extraSources;
+      inherit name;
+      inherit python;
+      settingsMypy = ./settings-mypy.cfg;
+      settingsProspector = ./settings-prospector.yaml;
+      src = projectPath src;
     };
   };
   makeDirOfModules = name: { extraSources, python, src }:
