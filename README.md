@@ -1013,13 +1013,17 @@ Example invocation: `$ m . /lintNix`
 
 ### lintPython
 
-Lints Python code with [mypy][MYPY] and [Prospector][PROSPECTOR].
+Lints Python code with [mypy][MYPY], [Prospector][PROSPECTOR]
+and (if configured) [import-linter][IMPORT_LINTER].
 
 Types:
 
 - lintPython:
     - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
       Definitions of directories of python packages/modules to lint.
+      Defaults to `{ }`.
+    - imports (`attrsOf importsType`): Optional.
+      Definitions of python packages whose imports will be linted.
       Defaults to `{ }`.
     - modules (`attrsOf moduleType`): Optional.
       Definitions of python packages/modules to lint.
@@ -1033,6 +1037,11 @@ Types:
       Python interpreter version that your package/module is designed for.
     - src (`str`):
       Path to the directory that contains inside many packages/modules.
+- importsType (`submodule`):
+    - config (`str`):
+      Path to the [import-linter][IMPORT_LINTER] configuration file.
+    - src (`str`):
+      Path to the package/module.
 - moduleType (`submodule`):
     - extraSources (`listOf package`): Optional.
       List of scripts that will be sourced before performing the linting process.
@@ -1050,6 +1059,12 @@ Example `makes.nix`:
     dirsOfModules = {
       makes = {
         python = "3.8";
+        src = "/src/cli";
+      };
+    };
+    imports = {
+      cli = {
+        config = "/src/cli/imports.cfg";
         src = "/src/cli";
       };
     };
@@ -3649,6 +3664,9 @@ Examples:
 
 - [HASH]: https://en.wikipedia.org/wiki/Hash_function
   [Hash Function][HASH]
+
+- [IMPORT_LINTER]: https://import-linter.readthedocs.io/en/stable/
+  [import-linter][IMPORT_LINTER]
 
 - [ISORT]: https://github.com/PyCQA/isort
   [isort][ISORT]
