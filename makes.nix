@@ -99,6 +99,23 @@
         src = "/src/cli";
       };
     };
+    imports = {
+      makes = {
+        config = builtins.toFile "config.cfg" ''
+          [importlinter]
+          include_external_packages = True
+          root_packages=
+            main
+
+          [importlinter:contract:dag]
+            name = Direct Acyclic Graph
+            type = layers
+            layers =
+              main
+        '';
+        src = "/src/cli";
+      };
+    };
     modules = {
       cliMain = {
         python = "3.8";

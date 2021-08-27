@@ -1,5 +1,6 @@
 { __toModuleOutputs__
 , lintPython
+, lintPythonImports
 , makeDerivationParallel
 , projectPath
 , projectPathLsDirs
@@ -10,6 +11,14 @@
 , ...
 }:
 let
+  makeImports = name: { config, src }: {
+    name = "/lintPython/imports/${name}";
+    value = lintPythonImports {
+      inherit config;
+      inherit name;
+      src = projectPath src;
+    };
+  };
   makeModule = name: { extraSources, python, src }: {
     name = "/lintPython/module/${name}";
     value = lintPython {
@@ -62,6 +71,19 @@ in
           };
         }));
       };
+      imports = lib.mkOption {
+        default = { };
+        type = lib.types.attrsOf (lib.types.submodule (_: {
+          options = {
+            config = lib.mkOption {
+              type = lib.types.str;
+            };
+            src = lib.mkOption {
+              type = lib.types.str;
+            };
+          };
+        }));
+      };
       modules = lib.mkOption {
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
@@ -83,7 +105,8 @@ in
   };
   config = {
     outputs =
-      (__toModuleOutputs__ makeModule config.lintPython.modules) //
-      (__toModuleOutputs__ makeDirOfModules config.lintPython.dirsOfModules);
+      (__toModuleOutputs__ makeDirOfModules config.lintPython.dirsOfModules) //
+      (__toModuleOutputs__ makeImports config.lintPython.imports) //
+      (__toModuleOutputs__ makeModule config.lintPython.modules);
   };
 }

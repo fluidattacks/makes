@@ -40,6 +40,7 @@ let
     lintGitMailMap = import ./lint-git-mailmap/default.nix args;
     lintMarkdown = import ./lint-markdown/default.nix args;
     lintPython = import ./lint-python/default.nix args;
+    lintPythonImports = import ./lint-python-imports/default.nix args;
     lintTerraform = import ./lint-terraform/default.nix args;
     lintWithLizard = import ./lint-with-lizard/default.nix args;
     listFilesRecursive = lib.filesystem.listFilesRecursive;
