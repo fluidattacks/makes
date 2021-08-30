@@ -1,5 +1,6 @@
 { __nixpkgs__
 , attrsMapToList
+, fromJsonFile
 , fromYamlFile
 , listOptional
 , makeDerivation
@@ -12,15 +13,29 @@
 }:
 { name
 , searchPaths ? { }
-, sourcesYaml
+, sourcesJson ? null
+, sourcesRaw ? null
+, sourcesYaml ? null
 , withCython_0_29_24 ? false
 , withNumpy_1_21_2 ? false
 , withSetuptools_57_4_0 ? false
 , withSetuptoolsScm_6_0_1 ? false
 , withWheel_0_37_0 ? false
 }:
+assert builtins.any (_: _) [
+  (sourcesJson == null && sourcesRaw != null && sourcesYaml == null)
+  (sourcesJson != null && sourcesRaw == null && sourcesYaml == null)
+  (sourcesJson == null && sourcesRaw == null && sourcesYaml != null)
+];
 let
-  sources = fromYamlFile sourcesYaml;
+  sources =
+    if sourcesJson != null
+    then fromJsonFile sourcesJson
+    else if sourcesRaw != null
+    then sourcesRaw
+    else if sourcesYaml != null
+    then fromYamlFile sourcesYaml
+    else abort "sourcesJson, sourcesRaw or sourcesYaml must be set";
 
   is36 = sources.python == "3.6";
   is37 = sources.python == "3.7";
