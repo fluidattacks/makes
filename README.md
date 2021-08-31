@@ -1030,9 +1030,9 @@ Types:
       Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
     - extraSources (`listOf package`): Optional.
-      List of scripts that will be sourced before performing the linting process.
+      List of packages that will be sourced before performing the linting process.
       Can be used to setup dependencies of the project in the environment.
-      Defaults to `[ ]`
+      Defaults to `[ ]`.
     - python (`enum [ "3.7" "3.8" "3.9" ]`):
       Python interpreter version that your package/module is designed for.
     - src (`str`):
@@ -1040,6 +1040,10 @@ Types:
 - importsType (`submodule`):
     - config (`str`):
       Path to the [import-linter][IMPORT_LINTER] configuration file.
+    - extraSources (`listOf package`): Optional.
+      List of packages that will be sourced before performing the linting process.
+      Can be used to setup dependencies of the project in the environment.
+      Defaults to `[ ]`.
     - src (`str`):
       Path to the package/module.
 - moduleType (`submodule`):

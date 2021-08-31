@@ -3,6 +3,7 @@
 , ...
 }:
 { config
+, extraSources
 , name
 , src
 }:
@@ -13,7 +14,7 @@ makeDerivation {
     envSrc = src;
   };
   name = "lint-python-imports-for-${name}";
-  searchPaths.source = [
+  searchPaths.source = extraSources ++ [
     (makePythonPypiEnvironment {
       name = "lint-python-imports";
       sourcesYaml = ./pypi-sources.yaml;
