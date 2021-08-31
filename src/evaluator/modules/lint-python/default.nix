@@ -11,9 +11,10 @@
 , ...
 }:
 let
-  makeImports = name: { config, src }: {
+  makeImports = name: { config, extraSources, src }: {
     name = "/lintPython/imports/${name}";
     value = lintPythonImports {
+      inherit extraSources;
       config = projectPath config;
       inherit name;
       src = projectPath src;
@@ -77,6 +78,10 @@ in
           options = {
             config = lib.mkOption {
               type = lib.types.str;
+            };
+            extraSources = lib.mkOption {
+              default = [ ];
+              type = lib.types.listOf lib.types.package;
             };
             src = lib.mkOption {
               type = lib.types.str;
