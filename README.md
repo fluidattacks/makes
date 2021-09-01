@@ -1,4 +1,4 @@
-# Makes v21.09
+# Makes v21.10
 
 A DevSecOps framework
 powered by [Nix][NIX].
@@ -63,7 +63,7 @@ Easy, isn't it?
 Now 🔥 it up with: ` $ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v21.09-linux
+Makes v21.10-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -370,10 +370,10 @@ In order to use Makes you'll need to:
     `$ nix-env -if https://fluidattacks.com/makes/install`
 
     [Other releases][MAKES_RELEASES]:
-    `$ nix-env -if https://fluidattacks.com/makes/install/21.09`
+    `$ nix-env -if https://fluidattacks.com/makes/install/21.10`
 
     We will install two commands in your system:
-    `m`, and `m-v21.09` (depending on the version you installed).
+    `m`, and `m-v21.10` (depending on the version you installed).
 
     Makes targets two kind of users:
 
@@ -529,7 +529,7 @@ jobs:
     - uses: actions/checkout@v2
       # We offer this GitHub action in the following versions:
       #   main: latest release (example: /makes:main)
-      #   yy.mm: monthly release (example: /makes:21.09)
+      #   yy.mm: monthly release (example: /makes:21.10)
     - uses: docker://ghcr.io/fluidattacks/makes:main
       # You can use any name you like here
       name: helloWorld
@@ -556,7 +556,7 @@ looks like this:
 /helloWorld:
   # We offer this Container Image in the following tags:
   #   main: latest release (example: /makes:main)
-  #   yy.mm: monthly release (example: /makes:21.09)
+  #   yy.mm: monthly release (example: /makes:21.10)
   image: ghcr.io/fluidattacks/makes:main
   script:
     - m . /helloWorld 1 2 3
@@ -584,8 +584,8 @@ language: nix
 nix: 2.3.12
 # We offer this installation step in the following versions:
 #   main: latest release (example: /install/main)
-#   yy.mm: monthly release (example: /install/21.09)
-install: nix-env -if https://fluidattacks.com/makes/install/21.09
+#   yy.mm: monthly release (example: /install/21.10)
+install: nix-env -if https://fluidattacks.com/makes/install/21.10
 env:
   global:
     # Encrypted environment variable
@@ -2792,7 +2792,7 @@ Pre-requisites:
 1. You need to generate `sourcesYaml` like this:
 
     ```bash
-    m github:fluidattacks/makes@21.09 /utils/makePythonPypiEnvironmentSources \
+    m github:fluidattacks/makes@21.10 /utils/makePythonPypiEnvironmentSources \
       "${python_version}" \
       "${dependencies_yaml}" \
       "${sources_yaml}
@@ -2880,7 +2880,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@21.09 /utils/makePythonPypiEnvironmentSources \
+$ m github:fluidattacks/makes@21.10 /utils/makePythonPypiEnvironmentSources \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -3486,7 +3486,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    rev = "21.09";
+    rev = "21.10";
   }}/src/args/agnostic.nix";
 in
 # Use the framework
