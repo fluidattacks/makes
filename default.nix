@@ -2,9 +2,9 @@ with import ./src/args/agnostic.nix { };
 
 makeScript {
   aliases = [
-    "m-v21.09"
+    "m-v21.10"
     "makes"
-    "makes-v21.09"
+    "makes-v21.10"
   ];
   replace = {
     __argMakesSrc__ = ./.;
