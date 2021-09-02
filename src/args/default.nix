@@ -25,7 +25,6 @@ let
     lintWithAjv = import ./lint-with-ajv/default.nix args;
     makeNodeJsEnvironment = import ./make-node-js-environment/default.nix args;
     makeNodeJsModules = import ./make-node-js-modules/default.nix args;
-    makeNodeJsVersion = import ./make-node-js-version/default.nix args;
   };
 in
 args
