@@ -1,30 +1,29 @@
-# shellcheck shell=bash
+# shellcheck disable=SC2015 shell=bash
 
-function get_deps_from_lock {
-  jq -r '.dependencies | to_entries[] | .key + "@" + .value.version' < "${1}" \
-    | sort
-}
-
-# Use npm install with --force flag for packages that would fail to install
-# due to OS/arch issues (fsevents), but removing them from the dependencies
-# would install them anyway due to being an inherited dependency
-# from another package, thus creating an Integrity Check error
 function main {
-  copy "${envPackageJsonFile}" package.json \
-    && HOME=. npm install --force --ignore-scripts=false --verbose \
-    && info Freezing \
-    && get_deps_from_lock package-lock.json > requirements \
-    && if test "$(cat requirements)" = "$(cat "${envRequirementsFile}")"; then
-      info Integrity check passed
-    else
-      info Integrity check failed \
-        && info You need to specify all dependencies: \
-        && git --no-pager diff --no-index \
-          "${envRequirementsFile}" requirements \
-        && error Stopping due to failed integrity check
-    fi \
-    && mkdir "${out}" \
-    && mv node_modules/* "${out}"
+  local ephemeral
+  local registry_address='127.0.0.1'
+  local registry_pid
+  local registry_port
+
+  ephemeral="$(mktemp -d)" \
+    && cd "${ephemeral}" \
+    && copy "${envPackageJson}" package.json \
+    && copy "${envPackageLockJson}" package-lock.json \
+    && registry_port="$((10000 + "${RANDOM}" % 10000))" \
+    && {
+      python -m http.server \
+        --bind "${registry_address}" \
+        --directory "${envRegistry}" \
+        "${registry_port}" &
+      registry_pid="${!}"
+    } \
+    && HOME="${ephemeral}" npm install \
+      --audit false \
+      --registry "http://${registry_address}:${registry_port}" \
+    && kill "${registry_pid}" \
+    && mv "${ephemeral}/node_modules" "${out}" \
+    || kill "${registry_pid}"
 }
 
 main "${@}"

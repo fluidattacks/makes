@@ -1,54 +1,86 @@
 { __nixpkgs__
 , attrsGet
-, toFileLst
+, fromJsonFile
 , makeDerivation
-, sortAscii
+, makeNodeJsVersion
+, toFileJson
 , ...
 }:
 { name
-, node
-, searchPaths ? { }
-, dependencies
-, subDependencies
+, nodeJsVersion
+, packageJson
+, packageLockJson
 }:
 let
-  # Unpack arguments and sort them
-  dependenciesSorted = sortAscii dependencies;
-  subDependenciesSorted = sortAscii subDependencies;
+  nodeJs = makeNodeJsVersion nodeJsVersion;
+  packageLock = fromJsonFile packageLockJson;
 
-  # Ensure the developer wrote them sorted
-  # This helps with code clarity and maintainability
-  dependencies' =
-    if (dependenciesSorted == dependencies)
-    then dependenciesSorted
-    else abort "Dependencies must be sorted in this order: ${builtins.toJSON dependenciesSorted}";
-  subDependencies' =
-    if (subDependenciesSorted == subDependencies)
-    then subDependenciesSorted
-    else abort "Sub-dependencies must be sorted in this order: ${builtins.toJSON subDependenciesSorted}";
-  requirementsList = sortAscii (
-    dependencies' ++
-    subDependencies'
+  collectDependencies = deps:
+    builtins.foldl'
+      (all: name:
+        let
+          tarball = __nixpkgs__.fetchurl {
+            hash = depAttrs.integrity;
+            url = depAttrs.resolved;
+          };
+          dep = depAttrs // {
+            inherit name;
+            resolved = tarball;
+            resolvedName = "${name}/-/${tarball.name}";
+          };
+          depAttrs = deps.${name};
+          depsOfdep =
+            if builtins.hasAttr "dependencies" dep
+            then collectDependencies dep.dependencies
+            else [ ];
+        in
+        all ++ depsOfdep ++ [ dep ])
+      [ ]
+      (builtins.attrNames deps);
+
+  dependenciesFlat = collectDependencies (
+    (attrsGet packageLock "dependencies" { }) //
+    (attrsGet packageLock "devDependencies" { })
   );
+  dependenciesGrouped = __nixpkgs__.lib.lists.groupBy
+    (dep: dep.name)
+    (dependenciesFlat);
 
-  parsedRequirementsList = builtins.map (builtins.match "(.+)@(.+)") requirementsList;
-  parsedRequirementsSet = builtins.listToAttrs (builtins.map (x: { name = builtins.head x; value = builtins.toString (builtins.tail x); }) parsedRequirementsList);
-  packageJson = builtins.toJSON { "dependencies" = parsedRequirementsSet; };
+  registryIndexes = builtins.map
+    (name: {
+      name = "${name}/index.html";
+      path = toFileJson "index.json" {
+        inherit name;
+        versions = builtins.listToAttrs
+          (builtins.map
+            (versionAttrs: {
+              name = versionAttrs.version;
+              value = {
+                dist.integrity = versionAttrs.integrity;
+                dist.tarball = versionAttrs.resolvedName;
+              };
+            })
+            (dependenciesGrouped.${name}));
+      };
+    })
+    (builtins.attrNames dependenciesGrouped);
+
+  registryTarballs = __nixpkgs__.lib.lists.unique (builtins.map
+    (dep: { name = dep.resolvedName; path = dep.resolved; })
+    (dependenciesFlat));
+
+  registry = __nixpkgs__.linkFarm "make-node-js-modules-registry-for-${name}"
+    (registryIndexes ++ registryTarballs);
 in
 makeDerivation {
-  env = {
-    envRequirementsFile = toFileLst "reqs.lst" requirementsList;
-    envPackageJsonFile = builtins.toFile "package.json" packageJson;
-  };
   builder = ./builder.sh;
-  name = "make-node-modules-for-${name}";
-  searchPaths = searchPaths // {
-    bin = (attrsGet searchPaths "bin" [ ]) ++ [
-      __nixpkgs__.git
-      __nixpkgs__.gnugrep
-      __nixpkgs__.gnused
-      __nixpkgs__.jq
-      node
-    ];
+  env = {
+    envRegistry = registry;
+    envPackageJson = packageJson;
+    envPackageLockJson = packageLockJson;
+  };
+  name = "make-node-js-modules-for-${name}";
+  searchPaths = {
+    bin = [ __nixpkgs__.python39 nodeJs ];
   };
 }
