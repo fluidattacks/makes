@@ -1,4 +1,6 @@
 { __nixpkgs__
+, isDarwin
+, listOptional
 , makeDerivation
 , makePythonPypiEnvironment
 , ...
@@ -22,6 +24,9 @@ makeDerivation {
     source = extraSources ++ [
       (makePythonPypiEnvironment {
         name = "lint-python";
+        searchPaths = {
+          bin = listOptional isDarwin __nixpkgs__.clang;
+        };
         sourcesYaml = {
           "3.7" = ./pypi-sources-3.7.yaml;
           "3.8" = ./pypi-sources-3.8.yaml;

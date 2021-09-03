@@ -35,6 +35,8 @@ let
     fromYamlFile = path: args.fromYaml (builtins.readFile path);
     gitlabCi = import ./gitlab-ci/default.nix;
     hasPrefix = lib.strings.hasPrefix;
+    isDarwin = args.__nixpkgs__.stdenv.isDarwin;
+    isLinux = args.__nixpkgs__.stdenv.isLinux;
     listOptional = lib.lists.optional;
     lintClojure = import ./lint-clojure/default.nix args;
     lintGitCommitMsg = import ./lint-git-commit-msg/default.nix args;
@@ -86,4 +88,5 @@ let
 
   sources = import ../nix/sources.nix;
 in
+assert args.isDarwin || args.isLinux;
 args
