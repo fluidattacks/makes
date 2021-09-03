@@ -1,16 +1,15 @@
 { __nixpkgs__
 , attrsGet
 , fromJsonFile
-, toFileJson
 , makeDerivation
 , makeNodeJsVersion
+, toFileJson
 , ...
 }:
 { name
 , nodeJsVersion
 , packageJson
 , packageLockJson
-, ...
 }:
 let
   nodeJs = makeNodeJsVersion nodeJsVersion;
@@ -20,13 +19,14 @@ let
     builtins.foldl'
       (all: name:
         let
-          dep = depAttrs // rec {
+          tarball = __nixpkgs__.fetchurl {
+            hash = depAttrs.integrity;
+            url = depAttrs.resolved;
+          };
+          dep = depAttrs // {
             inherit name;
-            resolved = __nixpkgs__.fetchurl {
-              hash = depAttrs.integrity;
-              url = depAttrs.resolved;
-            };
-            resolvedName = builtins.baseNameOf resolved;
+            resolved = tarball;
+            resolvedName = "${name}/-/${tarball.name}";
           };
           depAttrs = deps.${name};
           depsOfdep =
@@ -39,8 +39,8 @@ let
       (builtins.attrNames deps);
 
   dependenciesFlat = collectDependencies (
-    (attrsGet packageLock.dependencies "dependencies" { }) //
-    (attrsGet packageLock.dependencies "devDependencies" { })
+    (attrsGet packageLock "dependencies" { }) //
+    (attrsGet packageLock "devDependencies" { })
   );
   dependenciesGrouped = __nixpkgs__.lib.lists.groupBy
     (dep: dep.name)
@@ -48,14 +48,14 @@ let
 
   registryIndexes = builtins.map
     (name: {
-      inherit name;
+      name = "${name}/index.html";
       path = toFileJson "index.json" {
         inherit name;
         versions = builtins.listToAttrs
           (builtins.map
             (versionAttrs: {
               name = versionAttrs.version;
-              value = versionAttrs // {
+              value = {
                 dist.integrity = versionAttrs.integrity;
                 dist.tarball = versionAttrs.resolvedName;
               };
@@ -65,9 +65,9 @@ let
     })
     (builtins.attrNames dependenciesGrouped);
 
-  registryTarballs = builtins.map
+  registryTarballs = __nixpkgs__.lib.lists.unique (builtins.map
     (dep: { name = dep.resolvedName; path = dep.resolved; })
-    (dependenciesFlat);
+    (dependenciesFlat));
 
   registry = __nixpkgs__.linkFarm "registry"
     (registryIndexes ++ registryTarballs);
