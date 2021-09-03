@@ -1,5 +1,5 @@
 { __nixpkgs__
-, getAttr
+, attrsGet
 , toFileLst
 , makeDerivation
 , sortAscii
@@ -43,7 +43,7 @@ makeDerivation {
   builder = ./builder.sh;
   name = "make-node-modules-for-${name}";
   searchPaths = searchPaths // {
-    bin = (getAttr searchPaths "bin" [ ]) ++ [
+    bin = (attrsGet searchPaths "bin" [ ]) ++ [
       __nixpkgs__.git
       __nixpkgs__.gnugrep
       __nixpkgs__.gnused

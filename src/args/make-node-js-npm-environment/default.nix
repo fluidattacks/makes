@@ -1,4 +1,5 @@
 { __nixpkgs__
+, attrsGet
 , fromJsonFile
 , toFileJson
 , makeDerivation
@@ -37,7 +38,10 @@ let
       [ ]
       (builtins.attrNames deps);
 
-  dependenciesFlat = collectDependencies packageLock.dependencies;
+  dependenciesFlat = collectDependencies (
+    (attrsGet packageLock.dependencies "dependencies" { }) //
+    (attrsGet packageLock.dependencies "devDependencies" { })
+  );
   dependenciesGrouped = __nixpkgs__.lib.lists.groupBy
     (dep: dep.name)
     (dependenciesFlat);
@@ -52,10 +56,8 @@ let
             (versionAttrs: {
               name = versionAttrs.version;
               value = versionAttrs // {
-                dist = {
-                  integrity = versionAttrs.integrity;
-                  tarball = versionAttrs.resolvedName;
-                };
+                dist.integrity = versionAttrs.integrity;
+                dist.tarball = versionAttrs.resolvedName;
               };
             })
             (dependenciesGrouped.${name}));

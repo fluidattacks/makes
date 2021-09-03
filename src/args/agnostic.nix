@@ -10,6 +10,7 @@ let
     __system__ = system;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
     asContent = import ./as-content/default.nix;
+    attrsGet = import ./attrs-get/default.nix;
     attrsMapToList = lib.mapAttrsToList;
     attrsMerge = builtins.foldl' lib.recursiveUpdate { };
     attrsOptional = lib.optionalAttrs;
@@ -32,7 +33,6 @@ let
     fromToml = builtins.fromTOML;
     fromYaml = import ./from-yaml/default.nix args;
     fromYamlFile = path: args.fromYaml (builtins.readFile path);
-    getAttr = import ./get-attr/default.nix;
     gitlabCi = import ./gitlab-ci/default.nix;
     hasPrefix = lib.strings.hasPrefix;
     listOptional = lib.lists.optional;
