@@ -2627,8 +2627,8 @@ $ m . /example
 
 #### makeNodeJsModules
 
-Build a `node_modules` environment
-for a list of [NPM][NPM] dependencies.
+Cook the `node_modules` folder
+for the given [NPM][NPM] project.
 
 Types:
 
@@ -2636,34 +2636,54 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - node (`package`):
-      [Node.js][NODE_JS] package
-      to run `npm install`.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - dependencies (`listOf str`):
-      Direct dependencies to install.
-      Equivalent to `dependencies` in `package.json`.
-    - subDependencies (`listOf str`):
-      Inherited dependencies.
-      Relevant for completely pinning your environment.
+    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
+      [Node.js][NODE_JS] version to use.
+    - packageJson (`package`):
+      Path to the `package.json` of your project.
+    - packageLockJson (`package`):
+      Path to the `package-lock.json` of your project.
 
 Example:
+
+```json
+# /path/to/my/project/makes/example/package.json
+{
+  "dependencies": {
+    "hello-world-npm": "*"
+  }
+}
+```
+
+```json
+# /path/to/my/project/makes/example/package-lock.json
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "hello-world-npm": {
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/hello-world-npm/-/hello-world-npm-1.1.1.tgz",
+      "integrity": "sha1-JQgw7wAItDftk+a+WZk0ua0Lkwg="
+    }
+  }
+}
+```
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
 { makeNodeJsModules
-, makeNodeJsVersion
 , makeScript
+, projectPath
 , ...
 }:
 let
   hello = makeNodeJsModules {
     name = "hello-world-npm";
-    node = makeNodeJsVersion "16";
-    dependencies = [ "hello-world-npm@1.1.1" ];
-    subDependencies = [];
+    nodeJsVersion = "16";
+    packageJson =
+      projectPath "/path/to/my/project/makes/example/package.json";
+    packageLockJson =
+      projectPath "/path/to/my/project/makes/example/package-lock.json";
   };
 in
 makeScript {
@@ -2685,7 +2705,7 @@ $ m . /example
 
 #### makeNodeJsEnvironment
 
-Source a `makeNodeJsModules` environment
+Setup a `makeNodeJsModules` in the environment
 using `makeSearchPaths`.
 It appends:
 
@@ -2697,32 +2717,55 @@ Types:
 
 - makeNodeJsEnvironment (`function { ... } -> package`):
 
-    - node (`package`):
-      [Node.js][NODE_JS] package
-      to run `npm install`.
-    - nodeModules (`makeNodeJsModules`):
-      [Node.js][NODE_JS] environment to source.
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
+      [Node.js][NODE_JS] version to use.
+    - packageJson (`package`):
+      Path to the `package.json` of your project.
+    - packageLockJson (`package`):
+      Path to the `package-lock.json` of your project.
 
 Example:
+
+```json
+# /path/to/my/project/makes/example/package.json
+{
+  "dependencies": {
+    "hello-world-npm": "*"
+  }
+}
+```
+
+```json
+# /path/to/my/project/makes/example/package-lock.json
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "hello-world-npm": {
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/hello-world-npm/-/hello-world-npm-1.1.1.tgz",
+      "integrity": "sha1-JQgw7wAItDftk+a+WZk0ua0Lkwg="
+    }
+  }
+}
+```
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
 { makeNodeJsEnvironment
-, makeNodeJsModules
-, makeNodeJsVersion
 , makeScript
 , ...
 }:
 let
-  node = makeNodeJsVersion "16";
   hello = makeNodeJsEnvironment {
-    inherit node;
-    nodeModules = makeNodeJsModules {
-      name = "hello-world-npm";
-      inherit node;
-      dependencies = [ "hello-world-npm@1.1.1" ];
-      subDependencies = [];
-    };
+    name = "hello-world-npm";
+    nodeJsVersion = "16";
+    packageJson =
+      projectPath "/path/to/my/project/makes/example/package.json";
+    packageLockJson =
+      projectPath "/path/to/my/project/makes/example/package-lock.json";
   };
 in
 makeScript {
