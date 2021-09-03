@@ -37,11 +37,13 @@ let
     hasPrefix = lib.strings.hasPrefix;
     listOptional = lib.lists.optional;
     lintClojure = import ./lint-clojure/default.nix args;
+    lintGitCommitMsg = import ./lint-git-commit-msg/default.nix args;
     lintGitMailMap = import ./lint-git-mailmap/default.nix args;
     lintMarkdown = import ./lint-markdown/default.nix args;
     lintPython = import ./lint-python/default.nix args;
     lintPythonImports = import ./lint-python-imports/default.nix args;
     lintTerraform = import ./lint-terraform/default.nix args;
+    lintWithAjv = import ./lint-with-ajv/default.nix args;
     lintWithLizard = import ./lint-with-lizard/default.nix args;
     listFilesRecursive = lib.filesystem.listFilesRecursive;
     makeContainerImage = import ./make-container-image/default.nix args;
@@ -49,7 +51,8 @@ let
     makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
     makeEnvVars = import ./make-env-vars/default.nix args;
     makeEnvVarsForTerraform = import ./make-env-vars-for-terraform/default.nix args;
-    makeNodeJsNpmEnvironment = import ./make-node-js-npm-environment/default.nix args;
+    makeNodeJsEnvironment = import ./make-node-js-environment/default.nix args;
+    makeNodeJsModules = import ./make-node-js-modules/default.nix args;
     makeNodeJsVersion = import ./make-node-js-version/default.nix args;
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix args;
     makePythonVersion = import ./make-python-version/default.nix args;
