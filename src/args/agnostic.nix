@@ -49,7 +49,7 @@ let
     makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
     makeEnvVars = import ./make-env-vars/default.nix args;
     makeEnvVarsForTerraform = import ./make-env-vars-for-terraform/default.nix args;
-    makeNodeJsNpmEnvironmentPure = import ./make-node-js-environment-pure/default.nix args;
+    makeNodeJsNpmEnvironment = import ./make-node-js-npm-environment/default.nix args;
     makeNodeJsVersion = import ./make-node-js-version/default.nix args;
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix args;
     makePythonVersion = import ./make-python-version/default.nix args;
