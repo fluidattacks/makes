@@ -11,7 +11,6 @@
 }:
 let
   commitlint = makeNodeJsEnvironment {
-    bin.commitlint = "@commitlint/cli/cli.js";
     name = "commitlint";
     nodeJsVersion = "12";
     packageJson = ./commitlint/package.json;
