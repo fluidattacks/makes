@@ -3,6 +3,7 @@
 , fromJsonFile
 , makeDerivation
 , makeNodeJsVersion
+, makeSearchPaths
 , toFileJson
 , ...
 }:
@@ -10,6 +11,7 @@
 , nodeJsVersion
 , packageJson
 , packageLockJson
+, searchPaths ? { }
 }:
 let
   nodeJs = makeNodeJsVersion nodeJsVersion;
@@ -81,6 +83,7 @@ makeDerivation {
   };
   name = "make-node-js-modules-for-${name}";
   searchPaths = {
-    bin = [ __nixpkgs__.python39 nodeJs ];
+    bin = [ __nixpkgs__.bash __nixpkgs__.python39 nodeJs ];
+    source = [ (makeSearchPaths searchPaths) ];
   };
 }

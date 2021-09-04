@@ -9,6 +9,7 @@
 , nodeJsVersion
 , packageJson
 , packageLockJson
+, searchPaths ? { }
 }:
 let
   node = makeNodeJsVersion nodeJsVersion;
@@ -17,6 +18,7 @@ let
     inherit nodeJsVersion;
     inherit packageJson;
     inherit packageLockJson;
+    inherit searchPaths;
   };
 
   dotBin = __nixpkgs__.linkFarm "make-node-js-environment-for-${name}"
@@ -28,4 +30,5 @@ makeSearchPaths {
   bin = [ node ];
   nodeBin = [ dotBin nodeModules ];
   nodeModule = [ nodeModules ];
+  source = [ (makeSearchPaths searchPaths) ];
 }
