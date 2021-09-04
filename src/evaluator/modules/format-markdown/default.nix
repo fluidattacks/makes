@@ -43,7 +43,6 @@
           ];
           source = [
             (makeNodeJsEnvironment {
-              bin.doctoc = "doctoc/doctoc.js";
               name = "doctoc";
               nodeJsVersion = "16";
               packageJson = ./doctoc/package.json;

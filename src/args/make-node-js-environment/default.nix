@@ -4,8 +4,7 @@
 , makeSearchPaths
 , ...
 }:
-{ bin ? { }
-, name
+{ name
 , nodeJsVersion
 , packageJson
 , packageLockJson
@@ -20,15 +19,10 @@ let
     inherit packageLockJson;
     inherit searchPaths;
   };
-
-  dotBin = __nixpkgs__.linkFarm "make-node-js-environment-for-${name}"
-    (builtins.map
-      (name: { name = ".bin/${name}"; path = "${nodeModules}/${bin.${name}}"; })
-      (builtins.attrNames bin));
 in
 makeSearchPaths {
   bin = [ node ];
-  nodeBin = [ dotBin nodeModules ];
+  nodeBin = [ nodeModules ];
   nodeModule = [ nodeModules ];
   source = [ (makeSearchPaths searchPaths) ];
 }

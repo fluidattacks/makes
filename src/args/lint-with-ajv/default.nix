@@ -16,7 +16,6 @@ makeDerivation {
   searchPaths = {
     source = [
       (makeNodeJsEnvironment {
-        bin.ajv = "ajv-cli/dist/index.js";
         name = "ajv-cli";
         nodeJsVersion = "16";
         packageJson = ./ajv-cli/package.json;

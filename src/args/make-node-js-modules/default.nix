@@ -83,7 +83,13 @@ makeDerivation {
   };
   name = "make-node-js-modules-for-${name}";
   searchPaths = {
-    bin = [ __nixpkgs__.bash __nixpkgs__.python39 nodeJs ];
+    bin = [
+      __nixpkgs__.bash
+      __nixpkgs__.findutils
+      __nixpkgs__.jq
+      __nixpkgs__.python39
+      nodeJs
+    ];
     source = [ (makeSearchPaths searchPaths) ];
   };
 }
