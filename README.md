@@ -2642,6 +2642,9 @@ Types:
       Path to the `package.json` of your project.
     - packageLockJson (`package`):
       Path to the `package-lock.json` of your project.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
@@ -2725,6 +2728,9 @@ Types:
       Path to the `package.json` of your project.
     - packageLockJson (`package`):
       Path to the `package-lock.json` of your project.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
