@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "/lintWithAjv/test",
+  "title": "Test schema",
+  "description": "Test Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [ "name", "color" ],
+  "properties": {
+    "name": { "type": "string" },
+    "color": {
+      "oneOf": [
+        { "type": "string", "pattern": "^Yellow$" },
+        { "type": "string", "pattern": "^Blue$" },
+        { "type": "string", "pattern": "^Red$" }
+      ]
+    }
+  }
+}
