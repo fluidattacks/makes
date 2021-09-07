@@ -86,8 +86,10 @@ makeDerivation {
     bin = [
       __nixpkgs__.bash
       __nixpkgs__.findutils
+      __nixpkgs__.gnused
       __nixpkgs__.jq
       __nixpkgs__.python39
+      __nixpkgs__.which
       nodeJs
     ];
     source = [ (makeSearchPaths searchPaths) ];
