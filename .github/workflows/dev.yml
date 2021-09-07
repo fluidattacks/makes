@@ -309,6 +309,22 @@ jobs:
     - name: /lintTerraform/module
       run: nix-env -if . && m . /lintTerraform/module
 
+  linux_lintWithAjv_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /lintWithAjv/test
+      with:
+        args: sh -c "nix-env -if . && m . /lintWithAjv/test"
+  macos_lintWithAjv_test:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /lintWithAjv/test
+      run: nix-env -if . && m . /lintWithAjv/test
+
   linux_lintWithLizard_all:
     runs-on: ubuntu-latest
     steps:
