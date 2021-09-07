@@ -123,6 +123,15 @@
   lintWithLizard = {
     all = [ "/" ];
   };
+  lintWithAjv = {
+    "test" = {
+      schema = "/test/lint-with-ajv/schema.json";
+      targets = [
+        "/test/lint-with-ajv/data.json"
+        "/test/lint-with-ajv/data.yaml"
+      ];
+    };
+  };
   pipelines = {
     example = {
       gitlabPath = "/.gitlab-ci.yaml";
