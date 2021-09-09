@@ -1,3 +1,6 @@
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.actor }}
 jobs:
   linux_all:
     runs-on: ubuntu-latest
