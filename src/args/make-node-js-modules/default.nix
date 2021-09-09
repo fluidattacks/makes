@@ -5,6 +5,7 @@
 , makeDerivation
 , makeNodeJsVersion
 , makeSearchPaths
+, patchShebangs
 , toFileJson
 , ...
 }:
@@ -94,6 +95,9 @@ makeDerivation {
       __nixpkgs__.which
       nodeJs
     ];
-    source = [ (makeSearchPaths searchPaths) ];
+    source = [
+      (makeSearchPaths searchPaths)
+      patchShebangs
+    ];
   };
 }

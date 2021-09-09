@@ -1,14 +1,5 @@
 # shellcheck disable=SC2015 shell=bash
 
-function patch_shebang {
-  local path="${1}"
-  local regex='#! /usr/bin/env node'
-  local replace
-
-  replace="#! $(which node)" \
-    && sed -i "s|${regex}|${replace}|" "${path}"
-}
-
 function main {
   local ephemeral
   local registry_address='127.0.0.1'
@@ -50,7 +41,7 @@ function main {
                   && bin_location="${bin_locations[$index]}" \
                   && bin_location="$(dirname "${package_json}")/${bin_location}" \
                   && chmod +x "${bin_location}" \
-                  && patch_shebang "${bin_location}" \
+                  && patch_shebangs "${bin_location}" \
                   && rm -rf "${out}/.bin/${bin}" \
                   && ln -s "${bin_location}" "${out}/.bin/${bin}" \
                   || return 1
@@ -61,6 +52,7 @@ function main {
               && bin="$(jq -er .name < "${package_json}")" \
               && bin_location="$(jq -er .bin < "${package_json}")" \
               && bin_location="$(dirname "${package_json}")/${bin_location}" \
+              && patch_shebangs "${bin_location}" \
               && rm -rf "${out}/.bin/${bin}" \
               && ln -s "${bin_location}" "${out}/.bin/${bin}"
             ;;
