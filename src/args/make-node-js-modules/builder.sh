@@ -11,7 +11,7 @@ function patch_shebang {
 
 function main {
   local ephemeral
-  local registry_address='127.0.0.1'
+  local registry_address='0.0.0.0'
   local registry_pid
   local registry_port
 
