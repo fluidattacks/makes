@@ -1,24 +1,7 @@
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.actor }}
 jobs:
-  linux_all:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: docker://docker.io/nixos/nix:2.3.12
-      name: __all__
-      env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      with:
-        args: sh -c "nix-env -if . && m . __all__"
-  mac_all:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
-    - name: __all__
-      env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      run: nix-env -if . && m . __all__
-
   deployContainerImage_makesGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
