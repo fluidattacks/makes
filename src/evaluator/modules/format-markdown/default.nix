@@ -1,4 +1,6 @@
 { __nixpkgs__
+, attrsOptional
+, isLinux
 , makeNodeJsEnvironment
 , makeScript
 , projectPathMutable
@@ -25,7 +27,7 @@
       };
     };
   };
-  config = {
+  config = attrsOptional isLinux {
     outputs = {
       "/formatMarkdown" = lib.mkIf config.formatMarkdown.enable (makeScript {
         replace = {

@@ -1,4 +1,7 @@
-{ __toModuleOutputs__
+{ __nixpkgs__
+, __toModuleOutputs__
+, attrsOptional
+, isLinux
 , lintWithAjv
 , projectPath
 , ...
@@ -33,7 +36,7 @@ in
       }));
     };
   };
-  config = {
+  config = attrsOptional isLinux {
     outputs = __toModuleOutputs__ makeOutput config.lintWithAjv;
   };
 }
