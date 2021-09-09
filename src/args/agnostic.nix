@@ -67,6 +67,7 @@ let
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
+    patchShebangs = import ./patch-shebangs/default.nix args;
     removePrefix = lib.removePrefix;
     securePythonWithBandit = import ./secure-python-with-bandit/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);
