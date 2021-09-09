@@ -696,6 +696,8 @@ Example invocation: `$ m . /formatBash`
 
 ### formatMarkdown
 
+:warning: This function is only available on Linux at the moment.
+
 Ensure that Markdown code is formatted according to [doctoc][DOCTOC].
 
 Types:
@@ -881,6 +883,8 @@ Example invocation: `$ m . /lintClojure/example1`
 Example invocation: `$ m . /lintClojure/example2`
 
 ### lintGitCommitMsg
+
+:warning: This function is only available on Linux at the moment.
 
 It creates a commit diff
 between you current branch
@@ -1140,6 +1144,8 @@ Example invocation: `$ m . /lintTerraform/module1`
 Example invocation: `$ m . /lintTerraform/module2`
 
 ### lintWithAjv
+
+:warning: This function is only available on Linux at the moment.
 
 Lints [JSON][JSON] and [YAML][YAML] data files
 with [JSON Schemas][JSON_SCHEMA].
@@ -2588,10 +2594,7 @@ nixpkgs.awscli
 
 #### makeNodeJsVersion
 
-Get a specific [Node.js][NODE_JS] version.
-Useful for passing a node version
-to either `makeNodeJsEnvironment`
-or `makeNodeJsModules`.
+Get a specific [Node.js][NODE_JS] version interpreter.
 
 Types:
 
@@ -2626,6 +2629,8 @@ $ m . /example
 ```
 
 #### makeNodeJsModules
+
+:warning: This function is only available on Linux at the moment.
 
 Cook the `node_modules` folder
 for the given [NPM][NPM] project.
@@ -2707,6 +2712,8 @@ $ m . /example
 ```
 
 #### makeNodeJsEnvironment
+
+:warning: This function is only available on Linux at the moment.
 
 Setup a `makeNodeJsModules` in the environment
 using `makeSearchPaths`.

@@ -58,13 +58,6 @@ jobs:
       name: /formatMarkdown
       with:
         args: sh -c "nix-env -if . && m . /formatMarkdown"
-  macos_formatMarkdown:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
-    - name: /formatMarkdown
-      run: nix-env -if . && m . /formatMarkdown
 
   linux_formatNix:
     runs-on: ubuntu-latest
@@ -172,15 +165,6 @@ jobs:
       name: /lintGitCommitMsg
       with:
         args: sh -c "nix-env -if . && m . /lintGitCommitMsg"
-  macos_lintGitCommitMsg:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: cachix/install-nix-action@v13
-    - name: /lintGitCommitMsg
-      run: nix-env -if . && m . /lintGitCommitMsg
 
   linux_lintGitMailMap:
     runs-on: ubuntu-latest
@@ -320,13 +304,6 @@ jobs:
       name: /lintWithAjv/test
       with:
         args: sh -c "nix-env -if . && m . /lintWithAjv/test"
-  macos_lintWithAjv_test:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
-    - name: /lintWithAjv/test
-      run: nix-env -if . && m . /lintWithAjv/test
 
   linux_lintWithLizard_all:
     runs-on: ubuntu-latest

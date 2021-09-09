@@ -1,4 +1,7 @@
-{ lintGitCommitMsg
+{ __nixpkgs__
+, attrsOptional
+, isLinux
+, lintGitCommitMsg
 , projectPath
 , projectPathMutable
 , ...
@@ -28,7 +31,7 @@
       };
     };
   };
-  config = {
+  config = attrsOptional isLinux {
     outputs = {
       "/lintGitCommitMsg" = lib.mkIf
         (config.lintGitCommitMsg.enable)
