@@ -3,6 +3,7 @@
 , lib
 , attrsOptional
 , projectPath
+, projectSrc
 , toFileJson
 , ...
 } @ args:
@@ -70,12 +71,11 @@
                   else { })
                 (builtins.readDir path)));
 
-        makes = projectPath "/makes";
       in
       (
         attrsOptional
-          (builtins.pathExists makes)
-          (attrsFromPath makes [ ])
+          (builtins.pathExists (projectSrc + "/makes"))
+          (attrsFromPath (projectPath "/makes") [ ])
       ) //
       ({
         __all__ = toFileJson "all"
