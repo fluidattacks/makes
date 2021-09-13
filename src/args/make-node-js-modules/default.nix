@@ -26,7 +26,15 @@ let
         let
           tarball = __nixpkgs__.fetchurl {
             hash = depAttrs.integrity;
-            url = depAttrs.resolved;
+            url =
+              # If `resolved` exists it is a tarball
+              if builtins.hasAttr "resolved" depAttrs
+              then depAttrs.resolved
+              # Otherwise `version` likely points to a tarball
+              else if builtins.hasAttr "version" depAttrs
+              then depAttrs.version
+              # Something pending to implement?
+              else abort "Unable to fetch: ${name}";
           };
           dep = depAttrs // {
             inherit name;
