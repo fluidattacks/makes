@@ -172,6 +172,7 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Secrets](#secrets)
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
         - [secretsForEnvFromSops](#secretsforenvfromsops)
+        - [secretsForGpgFromEnv](#secretsforgpgfromenv)
         - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
         - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
     - [Stability](#stability)
@@ -1737,6 +1738,81 @@ Example `makes.nix`:
     };
   };
 }
+```
+
+### secretsForGpgFromEnv
+
+Load [GPG][GNU_GPG] public or private keys
+from [Environment Variables][ENV_VAR]
+into an ephemeral key-ring.
+
+Each key content must be stored
+in a environment variable
+in [ASCII Armor][ASCII_ARMOR] format.
+
+Types:
+
+- secretsForGpgFromEnv (`attrsOf (listOf str)`): Optional.
+  Mapping of name
+  to a list of environment variable names
+  where the GPG key contents are stored.
+  Defaults to `{ }`.
+
+Example:
+
+```nix
+# /path/to/my/project/makes.nix
+{ outputs
+, ...
+}:
+{
+  # Load keys into an ephemeral GPG keyring
+  secretsForGpgFromEnv = {
+    example = [
+      "ENV_VAR_FOR_PRIVATE_KEY_CONTENT"
+      "ENV_VAR_FOR_PUB_KEY_CONTENT"
+    ];
+  };
+  # Use sops to decrypt an encrypted file
+  secretsForEnvFromSops = {
+    example = {
+      manifest = "/secrets.yaml";
+      vars = [ "password" ];
+    };
+  };
+}
+```
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeScript
+, outputs
+, ...
+}:
+makeScript {
+  name = "example";
+  searchPaths.source = [
+    # First setup an ephemeral GPG keyring
+    outputs."/secretsForGpgFromEnv/example"
+    # Now sops will decrypt secrets using the GPG keys in the ring
+    outputs."/secretsForEnvFromSops/example"
+  ];
+  entrypoint = ''
+    echo Decrypted password: $password
+  '';
+}
+```
+
+```yaml
+# /path/to/my/project/secrets.yaml
+password: ENC[AES256_GCM,data:cLbgzNHgBN5drfsDAS+RTV5fL6I=,iv:2YHhHxKg+lbGqdB5nhhG2YemeKB6XWvthGfNNkVgytQ=,tag:cj/el3taq1w7UOp/JQSNwA==,type:str]
+# ...
+```
+
+```bash
+$ m . /example
+
+  Decrypted password: 123
 ```
 
 ### secretsForKubernetesConfigFromAws
@@ -3692,6 +3768,9 @@ Examples:
 - [APT]: https://en.wikipedia.org/wiki/APT_(software)
   [Advanced Package Tool][APT]
 
+- [ASCII_ARMOR]: https://www.techopedia.com/definition/23150/ascii-armor
+  [ASCII Armor][ASCII_ARMOR]
+
 - [AWS]: https://aws.amazon.com/
   [Amazon Web Services (AWS)][AWS]
 
@@ -3784,6 +3863,9 @@ Examples:
 
 - [GNU_COREUTILS]: https://www.gnu.org/software/coreutils/
   [GNU Coreutils][GNU_COREUTILS]
+
+- [GNU_GPG]: https://gnupg.org/
+  [Gnu Privacy Guard][GNU_GPG]
 
 - [GRADLE]: https://gradle.org/
   [Gradle][GRADLE]
