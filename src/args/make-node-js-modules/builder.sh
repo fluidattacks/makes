@@ -5,12 +5,20 @@ function main {
   local registry_address='127.0.0.1'
   local registry_pid
   local registry_port
+  local npm_install_args
 
   ephemeral="$(mktemp -d)" \
     && cd "${ephemeral}" \
     && copy "${envPackageJson}" package.json \
     && copy "${envPackageLockJson}" package-lock.json \
     && registry_port="$((10000 + "${RANDOM}" % 10000))" \
+    && npm_install_args=(
+      --audit false
+      --registry "http://${registry_address}:${registry_port}"
+    ) \
+    && if test -n "${envShouldIgnoreScripts}"; then
+      npm_install_args+=(--ignore-scripts true)
+    fi \
     && {
       python -m http.server \
         --bind "${registry_address}" \
@@ -18,9 +26,7 @@ function main {
         "${registry_port}" &
       registry_pid="${!}"
     } \
-    && HOME="${ephemeral}" npm install \
-      --audit false \
-      --registry "http://${registry_address}:${registry_port}" \
+    && HOME="${ephemeral}" npm install "${npm_install_args[@]}" \
     && kill "${registry_pid}" \
     && mv "${ephemeral}/node_modules" "${out}" \
     && find "${out}" -name package.json -maxdepth 3 | sort > package_jsons.lst \

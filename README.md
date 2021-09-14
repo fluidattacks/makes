@@ -2728,6 +2728,9 @@ Types:
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.
       Defaults to `makeSearchPaths`'s defaults.
+    - shouldIgnoreScripts (`bool`): Optional.
+      Enable to propagate the `--ignore-scripts true` flag to npm.
+      Defaults to `false`.
 
 Example:
 
@@ -2816,6 +2819,9 @@ Types:
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.
       Defaults to `makeSearchPaths`'s defaults.
+    - shouldIgnoreScripts (`bool`): Optional.
+      Enable to propagate the `--ignore-scripts true` flag to npm.
+      Defaults to `false`.
 
 Example:
 

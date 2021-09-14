@@ -14,6 +14,7 @@
 , packageJson
 , packageLockJson
 , searchPaths ? { }
+, shouldIgnoreScripts ? false
 }:
 assert isLinux;
 let
@@ -91,6 +92,7 @@ makeDerivation {
     envRegistry = registry;
     envPackageJson = packageJson;
     envPackageLockJson = packageLockJson;
+    envShouldIgnoreScripts = shouldIgnoreScripts;
   };
   name = "make-node-js-modules-for-${name}";
   searchPaths = {

@@ -9,6 +9,7 @@
 , packageJson
 , packageLockJson
 , searchPaths ? { }
+, shouldIgnoreScripts ? false
 }:
 let
   node = makeNodeJsVersion nodeJsVersion;
@@ -18,6 +19,7 @@ let
     inherit packageJson;
     inherit packageLockJson;
     inherit searchPaths;
+    inherit shouldIgnoreScripts;
   };
 in
 makeSearchPaths {
