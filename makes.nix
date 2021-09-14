@@ -32,6 +32,9 @@
   };
   envVars = {
     example = {
+      # Don't do this in production, it's unsafe. We do this for testing purposes.
+      PGP_PRIVATE = builtins.readFile ./makes/tests/secretsForGpgFromEnv/pgp;
+      PGP_PUBLIC = builtins.readFile ./makes/tests/secretsForGpgFromEnv/pgp.pub;
       VAR_NAME = "test";
     };
   };
@@ -145,6 +148,15 @@
           args = [ "1" "2" "3" ];
         }
       ];
+    };
+  };
+  secretsForGpgFromEnv = {
+    example = [ "PGP_PUBLIC" "PGP_PRIVATE" ];
+  };
+  secretsForEnvFromSops = {
+    example = {
+      manifest = "/makes/tests/secretsForGpgFromEnv/secrets.yaml";
+      vars = [ "secret" ];
     };
   };
   secretsForTerraformFromEnv = {

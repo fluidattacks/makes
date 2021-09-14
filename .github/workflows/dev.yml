@@ -34,6 +34,22 @@ jobs:
     - name: /deployTerraform/module
       run: nix-env -if . && m . /deployTerraform/module
 
+  linux_envVars_example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /envVars/example
+      with:
+        args: sh -c "nix-env -if . && m . /envVars/example"
+  macos_envVars_example:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /envVars/example
+      run: nix-env -if . && m . /envVars/example
+
   linux_formatBash:
     runs-on: ubuntu-latest
     steps:
@@ -321,6 +337,38 @@ jobs:
     - name: /lintWithLizard/all
       run: nix-env -if . && m . /lintWithLizard/all
 
+  linux_secretsForEnvFromSops_example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /secretsForEnvFromSops/example
+      with:
+        args: sh -c "nix-env -if . && m . /secretsForEnvFromSops/example"
+  macos_secretsForEnvFromSops_example:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /secretsForEnvFromSops/example
+      run: nix-env -if . && m . /secretsForEnvFromSops/example
+
+  linux_secretsForGpgFromEnv_example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /secretsForGpgFromEnv/example
+      with:
+        args: sh -c "nix-env -if . && m . /secretsForGpgFromEnv/example"
+  macos_secretsForGpgFromEnv_example:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /secretsForGpgFromEnv/example
+      run: nix-env -if . && m . /secretsForGpgFromEnv/example
+
   linux_securePythonWithBandit_cli:
     runs-on: ubuntu-latest
     steps:
@@ -368,6 +416,22 @@ jobs:
     - uses: cachix/install-nix-action@v13
     - name: /tests/calculateCvss3
       run: nix-env -if . && m . /tests/calculateCvss3
+
+  linux_tests_secretsForGpgFromEnv:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /tests/secretsForGpgFromEnv
+      with:
+        args: sh -c "nix-env -if . && m . /tests/secretsForGpgFromEnv"
+  macos_tests_secretsForGpgFromEnv:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v13
+    - name: /tests/secretsForGpgFromEnv
+      run: nix-env -if . && m . /tests/secretsForGpgFromEnv
 
   linux_testTerraform_module:
     runs-on: ubuntu-latest
