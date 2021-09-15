@@ -371,10 +371,12 @@ In order to use Makes you'll need to:
 1. Install Makes.
 
     Latest release:
-    `$ nix-env -if https://fluidattacks.com/makes/install`
+     - Classical Nix: `$ nix-env -if https://fluidattacks.com/makes/install`
+     - (With Flakes enabled: `$ nix profile install github:fluidattacks/makes`)
 
     [Other releases][MAKES_RELEASES]:
-    `$ nix-env -if https://fluidattacks.com/makes/install/21.10`
+     - Classical Nix: `$ nix-env -if https://fluidattacks.com/makes/install/21.10`
+     - (With Flakes enabled: `$ nix profile install github:fluidattacks/makes/21.10`)
 
     We will install two commands in your system:
     `m`, and `m-v21.10` (depending on the version you installed).

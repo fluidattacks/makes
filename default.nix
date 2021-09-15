@@ -1,4 +1,7 @@
-with import ./src/args/agnostic.nix { };
+{ system ? builtins.currentSystem
+}:
+
+with import ./src/args/agnostic.nix { inherit system; };
 
 makeScript {
   aliases = [
