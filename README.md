@@ -175,7 +175,8 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [secretsForGpgFromEnv](#secretsforgpgfromenv)
         - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
         - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
-    - [Stability](#stability)
+    - [Framework Configuration](#framework-configuration)
+        - [extendingMakesDir](#extendingmakesdir)
         - [inputs](#inputs)
     - [Examples](#examples)
         - [helloWorld](#helloworld)
@@ -707,7 +708,7 @@ Types:
 
 - formatMarkdown:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - doctocArgs (`listOf str`): Optional.
       Extra CLI flags to propagate to [doctoc][DOCTOC].
       Defaults to `[ ]`.
@@ -736,7 +737,7 @@ Types:
 
 - formatNix:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - targets (`listOf str`): Optional.
       Files or directories (relative to the project) to format.
       Defaults to the entire project.
@@ -767,7 +768,7 @@ Types:
 
 - formatPython:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - targets (`listOf str`): Optional.
       Files or directories (relative to the project) to format.
       Defaults to the entire project.
@@ -798,7 +799,7 @@ Types:
 
 - formatTerraform:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - targets (`listOf str`): Optional.
       Files or directories (relative to the project) to format.
       Defaults to the entire project.
@@ -833,7 +834,7 @@ Types:
 
 - lintBash:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - targets (`listOf str`): Optional.
       Files or directories (relative to the project) to lint.
       Defaults to the entire project.
@@ -899,7 +900,7 @@ Types:
 
 - lintGitCommitMsg:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - branch (`str`): Optional.
       Name of the main branch.
       Defaults to `main`.
@@ -937,7 +938,7 @@ Types:
 
 - lintGitMailmap:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
 
 Example `makes.nix`:
 
@@ -996,7 +997,7 @@ Types:
 
 - lintNix:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - targets (`listOf str`): Optional.
       Files or directories (relative to the project) to lint.
       Defaults to the entire project.
@@ -1486,7 +1487,7 @@ Types:
 
 - cache:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - name (`str`):
       Name of the [Cachix][CACHIX] cache.
     - pubKey (`str`):
@@ -1900,7 +1901,16 @@ Example `main.tf`:
 variable "cloudflareAccountId" {}
 ```
 
-## Stability
+## Framework Configuration
+
+### extendingMakesDir
+
+Path to the magic folder where Makes extensions will be loaded from.
+
+Types:
+
+- extendingMakesDir (`str`): Optional.
+  Defaults to `"/makes"`.
 
 ### inputs
 
@@ -1943,7 +1953,7 @@ Types:
 
 - helloWorld:
     - enable (`boolean`): Optional.
-      Defaults to false.
+      Defaults to `false`.
     - name (`string`): Required.Some test
 
 Example `makes.nix`:
@@ -2033,6 +2043,8 @@ In order to do this:
 
 Makes will automatically recognize as outputs all `main.nix` files
 under the `makes/` directory in the root of the project.
+This "magic" `makes/` directory can be configured via the
+`extendingMakesDir` option.
 
 You can create any directory structure you want.
 Output names will me mapped in an intuitive way:
