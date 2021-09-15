@@ -366,23 +366,32 @@ running Linux and MacOS (darwin) machines.
 
 In order to use Makes you'll need to:
 
-1. Install Nix as explained in the [NixOS Download page][NIX_DOWNLOAD].
+1. Make sure that Nix is installed on your system.
+    If it is not, please follow [this tutorial][NIX_DOWNLOAD].
 
-1. Install Makes.
+    If everything went well you should be able to run:
 
-    Latest release:
-    `$ nix-env -if https://fluidattacks.com/makes/install`
+    ```bash
+    $ nix --version
+    ```
 
-    [Other releases][MAKES_RELEASES]:
-    `$ nix-env -if https://fluidattacks.com/makes/install/21.10`
+1. Now install Makes by running one of the following commands:
+
+    - For Nix versions >= 2.3 and < 2.4 (nix stable)
+
+      `$ nix-env -if https://fluidattacks.com/makes/install/21.10`
+
+    - For Nix versions == 2.4 (nix unstable)
+
+      `$ nix profile install github:fluidattacks/makes/21.10`
 
     We will install two commands in your system:
-    `m`, and `m-v21.10` (depending on the version you installed).
+    `$ m`, and `$ m-v21.10`.
 
-    Makes targets two kind of users:
+Makes targets two kind of users:
 
-    - Final users: People that want to use projects built with Makes.
-    - Developers: People who develop projects with Makes.
+- Final users: People that want to use projects built with Makes.
+- Developers: People who develop projects with Makes.
 
 ## Getting started as user
 
