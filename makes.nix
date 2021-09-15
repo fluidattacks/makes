@@ -43,6 +43,7 @@
       VAR_NAME = "test";
     };
   };
+  extendingMakesDir = "/makes";
   formatBash = {
     enable = true;
     targets = [ "/" ];

@@ -45,6 +45,10 @@
     attrs = lib.mkOption {
       type = lib.types.package;
     };
+    extendingMakesDir = lib.mkOption {
+      default = "/makes";
+      type = lib.types.str;
+    };
     outputs = lib.mkOption {
       type = lib.types.attrsOf lib.types.package;
     };
@@ -75,8 +79,8 @@
       in
       (
         attrsOptional
-          (builtins.pathExists (projectSrc + "/makes"))
-          (attrsFromPath (projectPath "/makes") [ ])
+          (builtins.pathExists (projectSrc + config.extendingMakesDir))
+          (attrsFromPath (projectPath config.extendingMakesDir) [ ])
       ) //
       ({
         __all__ = toFileJson "all"
