@@ -1,4 +1,4 @@
 { projectPath
 , ...
 }:
-import (projectPath "/")
+import (projectPath "/") { }
