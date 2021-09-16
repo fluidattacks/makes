@@ -16,10 +16,12 @@
   };
   config = {
     outputs = {
-      "/lintGitMailMap" = lintGitMailMap {
-        name = "lint-git-mailmap";
-        src = projectPathMutable "/";
-      };
+      "/lintGitMailMap" = lib.mkIf
+        (config.lintGitCommitMsg.enable)
+        (lintGitMailMap {
+          name = "lint-git-mailmap";
+          src = projectPathMutable "/";
+        });
     };
   };
 }
