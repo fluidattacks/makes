@@ -17,7 +17,7 @@
   config = {
     outputs = {
       "/lintGitMailMap" = lib.mkIf
-        (config.lintGitCommitMsg.enable)
+        (config.lintGitMailMap.enable)
         (lintGitMailMap {
           name = "lint-git-mailmap";
           src = projectPathMutable "/";
