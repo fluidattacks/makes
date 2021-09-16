@@ -1963,7 +1963,8 @@ Types:
 - helloWorld:
     - enable (`boolean`): Optional.
       Defaults to `false`.
-    - name (`string`): Required.Some test
+    - name (`string`):
+      Name of the user we should greet.
 
 Example `makes.nix`:
 

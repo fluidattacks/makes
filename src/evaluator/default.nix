@@ -20,6 +20,8 @@
   # Path to the user's project, outside the sandbox.
   # Only available when running local Makes projects.
 , projectSrcMutable ? projectSrc
+  # System we should evaluate for
+, system ? builtins.currentSystem
 , ...
 }:
 let
@@ -46,8 +48,9 @@ let
     outputs = result.config.outputs;
     inherit projectSrc;
     inherit projectSrcMutable;
+    inherit system;
   };
-  nixpkgs = import sources.nixpkgs { };
+  nixpkgs = import sources.nixpkgs { inherit system; };
   sources = import "${makesSrcOverriden}/src/nix/sources.nix";
   result = nixpkgs.lib.modules.evalModules {
     modules = [
