@@ -84,12 +84,14 @@ def _clone_src(src: str) -> str:
         owner = url_quote(match.group("owner"))
         repo = url_quote(match.group("repo"))
         rev = url_quote(match.group("rev"))
-        remote = f"https://gitlab.com/{owner}/{repo}"
+        remote = f"https://gitlab.com/{owner}/{repo}.git"
 
     else:
         raise Error(f"Unable to parse [SOURCE]: {src}")
 
-    out, stdout, stderr = _run(["git", "init", "--shared=false", head])
+    out, stdout, stderr = _run(
+        ["git", "init", "--initial-branch=____", "--shared=false", head]
+    )
     if out != 0:
         raise Error(f"Unable to git init: {src}", stdout, stderr)
 
