@@ -63,7 +63,7 @@ let
   registryIndexes = builtins.map
     (name: {
       name = "${name}/index.html";
-      path = toFileJson "index.json" {
+      path = toFileJson "${name}.json" {
         inherit name;
         versions = builtins.listToAttrs
           (builtins.map
