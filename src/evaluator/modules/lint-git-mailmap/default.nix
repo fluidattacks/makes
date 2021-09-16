@@ -2,7 +2,8 @@
 , projectPathMutable
 , ...
 }:
-{ lib
+{ config
+, lib
 , ...
 }:
 {
