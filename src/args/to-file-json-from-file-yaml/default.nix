@@ -7,6 +7,7 @@ makeDerivation {
   env = {
     inherit envSrc;
   };
+  local = true;
   name = "to-file-json-from-file-yaml";
   searchPaths = {
     bin = [
