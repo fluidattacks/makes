@@ -3,10 +3,11 @@
 , outputs
 , projectSrc
 , projectSrcMutable
+, system
 , ...
 }:
 let
-  agnostic = import ./agnostic.nix { };
+  agnostic = import ./agnostic.nix { inherit system; };
 
   args = agnostic // {
     inherit inputs;
