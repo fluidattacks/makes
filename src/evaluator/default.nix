@@ -10,8 +10,10 @@
 # You better avoid changing this function signature...
 # Ask a maintainer first.
 {
+  # extra inputs to inject, if any
+  extraInputs ? { }
   # Unique ID for this execution of makes
-  makesExecutionId
+, makesExecutionId
   # Source code of makes, can be overriden by the user.
 , makesSrc
   # Path to the user's project, inside a sandbox.
@@ -43,7 +45,7 @@ let
     else makesSrc;
 
   args = import "${makesSrcOverriden}/src/args/default.nix" {
-    inputs = result.config.inputs;
+    inputs = result.config.inputs // extraInputs;
     inherit makesExecutionId;
     outputs = result.config.outputs;
     inherit projectSrc;
