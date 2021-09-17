@@ -31,14 +31,16 @@
           };
           evaluatedOutputs = nixpkgs.lib.mapAttrs'
             (output: value: {
-              name = "makes:config:outputs:${output}";
+              name = "config:outputs:${output}";
               inherit value;
             })
             evaluated.config.outputs;
         in
-        evaluatedOutputs // {
-          "makes:config:attrs" = evaluated.config.attrs;
-          "makes:config:cacheAsJson" = evaluated.config.cacheAsJson;
+        {
+          __makes__ = evaluatedOutputs // {
+            "config:attrs" = evaluated.config.attrs;
+            "config:cacheAsJson" = evaluated.config.cacheAsJson;
+          };
         };
     };
 }

@@ -215,7 +215,7 @@ def _get_attrs(src: str, head: str) -> List[str]:
         args=_nix_build(
             attr="config.attrs"
             if NIX_STABLE
-            else f'{head}#"makes:config:attrs"',
+            else f'{head}#__makes__."config:attrs"',
             cache=None,
             head=head,
             out=out,
@@ -235,7 +235,7 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
         args=_nix_build(
             attr="config.cacheAsJson"
             if NIX_STABLE
-            else f'{head}#"makes:config:cacheAsJson"',
+            else f'{head}#__makes__."config:cacheAsJson"',
             cache=None,
             head=head,
             out=out,
@@ -346,7 +346,7 @@ def cli(args: List[str]) -> None:
         args=_nix_build(
             attr=f'config.outputs."{attr}"'
             if NIX_STABLE
-            else f'{head}#makes:config:outputs:"{attr}"',
+            else f'{head}#__makes__."config:outputs:{attr}"',
             cache=cache,
             head=head,
             out=out,
