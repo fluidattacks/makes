@@ -13,7 +13,17 @@ let
     inherit system;
   };
 
-  packages = evaluatorOutputs.config.outputs;
+  packages =
+    (builtins.listToAttrs (builtins.map
+      (output: {
+        name = "makes:config:outputs:${output}";
+        value = evaluatorOutputs.config.outputs.${output};
+      })
+      (builtins.attrNames evaluatorOutputs.config.outputs)))
+    // {
+      "makes:config:attrs" = evaluatorOutputs.config.attrs;
+      "makes:config:cacheAsJson" = evaluatorOutputs.config.cacheAsJson;
+    };
 in
 {
   inherit packages;
