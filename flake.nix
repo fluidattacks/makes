@@ -20,6 +20,7 @@
         }:
         let
           evaluated = import ./src/evaluator/default.nix {
+            extraInputs = inputs;
             # TODO: Deprecate this
             makesExecutionId = "123";
             makesSrc = inputs.makes.outPath;
