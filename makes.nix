@@ -4,9 +4,11 @@
 }:
 {
   cache = {
-    enable = true;
-    name = "makes";
-    pubKey = "makes.cachix.org-1:HbCQcdlYyT/mYuOx6rlgkNkonTGUjVr3D+YpuGRmO+Y=";
+    readAndWrite = {
+      enable = true;
+      name = "makes";
+      pubKey = "makes.cachix.org-1:HbCQcdlYyT/mYuOx6rlgkNkonTGUjVr3D+YpuGRmO+Y=";
+    };
   };
   deployContainerImage = {
     images = {

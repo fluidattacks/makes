@@ -13,10 +13,8 @@ let
     inherit system;
   };
 
-  apps = { };
   packages = evaluatorOutputs.config.outputs;
 in
 {
-  inherit apps;
   inherit packages;
 }
