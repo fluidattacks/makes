@@ -2344,6 +2344,23 @@ Perform a build step in an **isolated** environment:
   and represents the derivation's output.
   The derivation **must** produce an output,
   may be a file, or a directory.
+- Convenience bash functions are exported:
+    - `echo_stderr`: Like `echo` but to standard error.
+    - `debug`: Like `echo_stderr` but with a `[DEBUG]` prefix.
+    - `info`: Like `echo_stderr` but with a `[INFO]` prefix.
+    - `warn`: Like `echo_stderr` but with a `[WARNING]` prefix.
+    - `error`: Like `echo_stderr` but with a `[ERROR]` prefix.
+      Returns exit code 1 to signal failure.
+    - `critical`: Like `echo_stderr` but with a `[CRITICAL]` prefix.
+      Exits immediately with exit code 1, aborting the entire execution.
+    - `copy`: Like `cp` but making paths writeable after copying them.
+    - `require_env_var`: `error`s when the specified env var is not set,
+      or set to an empty value.
+
+      ```bash
+      require_env_var USERNAME
+      ```
+
 - After the build, for all paths in `$out`:
     - User and group ownership are removed
     - Last-modified timestamps are reset to `1970-01-01T00:00:00+00:00`.
