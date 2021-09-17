@@ -49,13 +49,25 @@ ON_EXIT: List[Callable[[], None]] = [
 ]
 VERSION: str = "21.10"
 
-
-class Error(Exception):
-    pass
+# Environment
+__MAKES_SRC__: str = environ["__MAKES_SRC__"]
+__NIX_STABLE__: str = environ["__NIX_STABLE__"]
+__NIX_UNSTABLE__: str = environ["__NIX_UNSTABLE__"]
 
 
 def _log(*args: str) -> None:
     print(*args, file=sys.stderr)
+
+
+# Feature flags
+NIX_STABLE: bool = not bool(environ.get("NIX_UNSTABLE"))
+if not NIX_STABLE:
+    _log("Using feature flag: NIX_UNSTABLE")
+    _log()
+
+
+class Error(Exception):
+    pass
 
 
 def _if(condition: Any, *value: Any) -> List[Any]:
@@ -131,12 +143,16 @@ def _nix_build(
         trusted_pub_keys = " ".join(map(operator.itemgetter("pubKey"), cache))
 
     return [
-        "nix-build",
-        *["--argstr", "makesExecutionId", uuid().hex],
-        *["--argstr", "makesSrc", environ["__MAKES_SRC__"]],
-        *["--argstr", "projectSrc", head],
-        *_if(is_src_local(src), "--argstr", "projectSrcMutable", src),
-        *["--attr", attr],
+        *_if(NIX_STABLE, f"{__NIX_STABLE__}/bin/nix-build"),
+        *_if(not NIX_STABLE, f"{__NIX_UNSTABLE__}/bin/nix"),
+        *_if(not NIX_STABLE, "--experimental-features", "flakes nix-command"),
+        *_if(not NIX_STABLE, "build"),
+        *_if(NIX_STABLE, "--argstr", "makesExecutionId", uuid().hex),
+        *_if(NIX_STABLE, "--argstr", "makesSrc", __MAKES_SRC__),
+        *_if(NIX_STABLE, "--argstr", "projectSrc", head),
+        *_if(NIX_STABLE and is_src_local(src), "--argstr"),
+        *_if(NIX_STABLE and is_src_local(src), "projectSrcMutable", src),
+        *_if(NIX_STABLE, "--attr", attr),
         *["--option", "cores", "0"],
         *["--option", "narinfo-cache-negative-ttl", "1"],
         *["--option", "narinfo-cache-positive-ttl", "1"],
@@ -147,7 +163,8 @@ def _nix_build(
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
         *["--show-trace"],
-        f"{environ['__MAKES_SRC__']}/src/evaluator/default.nix",
+        *_if(NIX_STABLE, f"{__MAKES_SRC__}/src/evaluator/default.nix"),
+        *_if(not NIX_STABLE, attr),
     ]
 
 
@@ -196,7 +213,9 @@ def _get_attrs(src: str, head: str) -> List[str]:
     out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
-            attr="config.attrs",
+            attr="config.attrs"
+            if NIX_STABLE
+            else f'{head}#"makes:config:attrs"',
             cache=None,
             head=head,
             out=out,
@@ -214,7 +233,9 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
     out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
-            attr="config.cacheAsJson",
+            attr="config.cacheAsJson"
+            if NIX_STABLE
+            else f'{head}#"makes:config:cacheAsJson"',
             cache=None,
             head=head,
             out=out,
@@ -323,7 +344,9 @@ def cli(args: List[str]) -> None:
     cache: List[Dict[str, str]] = _get_cache(src, head)
     code, _, _ = _run(
         args=_nix_build(
-            attr=f'config.outputs."{attr}"',
+            attr=f'config.outputs."{attr}"'
+            if NIX_STABLE
+            else f'{head}#makes:config:outputs:"{attr}"',
             cache=cache,
             head=head,
             out=out,
