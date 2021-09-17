@@ -42,6 +42,20 @@
     (import ./test-terraform/default.nix args)
   ];
   options = {
+    globalStateDir = lib.mkOption {
+      type = lib.types.str;
+      default = "\${HOME_IMPURE}/.makes/state";
+      apply = lib.removeSuffix "/"; # canonicalize
+    };
+    projectStateDir = lib.mkOption {
+      type = lib.types.str;
+      default = config.globalStateDir + "/" + config.projectIdentifier;
+      apply = lib.removeSuffix "/"; # canonicalize
+    };
+    projectIdentifier = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+    };
     attrs = lib.mkOption {
       type = lib.types.package;
     };

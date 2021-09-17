@@ -3,6 +3,7 @@
 , ...
 }:
 {
+  projectIdentifier = "makes-repo";
   cache = {
     readAndWrite = {
       enable = true;

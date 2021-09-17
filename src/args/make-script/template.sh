@@ -36,7 +36,11 @@ function setup {
       HOME_IMPURE="${HOME:-}" \
         && HOME="$(mktemp -d)"
     fi \
-    && STATE="${HOME_IMPURE}/.makes/state/__argName__" \
+    && if test __argGlobalState__ -eq "0"; then
+      STATE="__argProjectStateDir__/__argName__"
+    else
+      STATE="__argGlobalStateDir__/__argName__"
+    fi \
     && if test __argPersistState__ -eq "0"; then
       rm -rf "${STATE}"
     fi \
