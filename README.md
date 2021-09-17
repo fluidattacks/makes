@@ -2474,6 +2474,26 @@ that runs in a **almost-isolated** environment.
 - An environment variable called `STATE` points to a directory
   that can be used to store the script's state (if any).
   That state can be optionally persisted.
+- Convenience bash functions are exported:
+    - `running_in_ci_cd_provider`:
+        Detects if we are running on the CI/CD provider (gitlab/github/etc).
+
+        ```bash
+        if running_in_ci_cd_provider; then
+          # ci/cd logic
+        else
+          # non ci/cd logic
+        fi
+        ```
+
+    - `prompt_user_for_confirmation`:
+      Warns the user about a possibly destructive action
+      that will be executed soon
+      and aborts if the user does not confirm aproppriately.
+
+      This function assumes a positive answer
+      when running on the CI/CD provider
+      because there is no human interaction.
 - After the build, the script is executed.
 
 Types:
