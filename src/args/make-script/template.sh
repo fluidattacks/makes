@@ -10,6 +10,20 @@ function running_in_ci_cd_provider {
   test -n "${CI:-}"
 }
 
+function prompt_user_for_confirmation {
+  local answer
+
+  warn Please type '"CONFIRM"' to continue: \
+    && if running_in_ci_cd_provider; then
+      info Running on CI/CD provider, assuming you would have confirmed
+    else
+      read -ep '>>> ' -r answer \
+        && if test "${answer}" != 'CONFIRM'; then
+          critical Only CONFIRM will be accepted as an answer, aborting
+        fi
+    fi
+}
+
 function setup {
   export HOME
   export HOME_IMPURE
