@@ -378,11 +378,9 @@ def cache_push(cache: List[Dict[str, str]], out: str) -> None:
     for config in cache:
         if config["type"] == "cachix" and "CACHIX_AUTH_TOKEN" in environ:
             _log("Pushing to cache")
-            _, stdout, _ = _run(["nix-store", "-qR", out])
             _run(
-                args=["cachix", "push", "-c", "0", config["name"]],
+                args=["cachix", "push", "-c", "0", config["name"], out],
                 capture_io=False,
-                stdin=stdout,
             )
             return
 

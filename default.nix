@@ -27,6 +27,7 @@ makeScript {
       __nixpkgs__.git
       __nixpkgs__.gnutar
       __nixpkgs__.gzip
+      __nixpkgs__.nixStable
       __nixpkgs__.python38
     ];
   };
