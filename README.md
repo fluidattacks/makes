@@ -2491,6 +2491,7 @@ that runs in a **almost-isolated** environment.
 - An environment variable called `STATE` points to a directory
   that can be used to store the script's state (if any).
   That state can be optionally persisted.
+  That state can be optionally shared across repositories.
 - Convenience bash functions are exported:
     - `running_in_ci_cd_provider`:
         Detects if we are running on the CI/CD provider (gitlab/github/etc).
@@ -2531,6 +2532,17 @@ Types:
     - persistState (`bool`): Optional.
       If true, state will _not_ be cleared before each script run.
       Defaults to `false`.
+    - globalState (`bool`): Optional.
+      If true, script state will be written to `globalStateDir` and
+      to `projectStateDir` otherwise.
+      Defaults to `false`, if `projectStateDir` is specified or derived.
+      Note:
+        - It is implicitly `true`, if `projectStateDir == globalStateDir`.
+        - `projectStateDir == globalStateDir` is the default if
+          `projectIdentifier` is not configured.
+        - Hence, generally enable project local state by
+            - either setting `projectIdentifier`
+            - or `projectStateDir` different from `globalStateDir`.
 
 Example:
 
@@ -3780,7 +3792,10 @@ let
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
     rev = "21.10";
-  }}/src/args/agnostic.nix";
+  }}/src/args/agnostic.nix" {
+    __globalStateDir__ = "\${HOME_IMPURE}/.makes/state";
+    __projectStateDir__ = "\${HOME_IMPURE}/.makes/state/<project-name>";
+  };
 in
 # Use the framework
 makes.makePythonPypiEnvironment {

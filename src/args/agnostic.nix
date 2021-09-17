@@ -1,9 +1,13 @@
 # Arguments that can be used outside of a Makes project
 # and therefore are agnostic to the framework.
 { system ? builtins.currentSystem
+, __globalStateDir__
+, __projectStateDir__
 }:
 let
   args = {
+    inherit __projectStateDir__;
+    inherit __globalStateDir__;
     __nixpkgs__ = import sources.nixpkgs { inherit system; };
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;

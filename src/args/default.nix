@@ -1,18 +1,26 @@
 { inputs
 , makesExecutionId
 , outputs
+, projectIdentifier
+, globalStateDir
+, projectStateDir
 , projectSrc
 , projectSrcMutable
 , system
 , ...
 }:
 let
-  agnostic = import ./agnostic.nix { inherit system; };
+  agnostic = import ./agnostic.nix {
+    inherit system;
+    __globalStateDir__ = globalStateDir;
+    __projectStateDir__ = projectStateDir;
+  };
 
   args = agnostic // {
     inherit inputs;
     inherit makesExecutionId;
     inherit outputs;
+    inherit projectIdentifier;
     inherit projectSrc;
     projectPath = import ./project-path/default.nix args;
     projectPathLsDirs = import ./project-path-ls-dirs/default.nix args;

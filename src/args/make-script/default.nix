@@ -6,6 +6,8 @@
 , makeSearchPaths
 , makeTemplate
 , toDerivationName
+, __projectStateDir__
+, __globalStateDir__
 , ...
 }:
 { aliases ? [ ]
@@ -14,7 +16,9 @@
 , replace ? { }
 , searchPaths ? { }
 , persistState ? false
+, globalState ? if (__projectStateDir__ == __globalStateDir__) then true else false
 }:
+assert (if (__projectStateDir__ == __globalStateDir__) then globalState else true);
 let
   # Minimalistic shell environment
   # Let's try to keep it as lightweight as possible because this
@@ -55,11 +59,14 @@ makeDerivation {
         __argShellOptions__ = __shellOptions__;
         __argCaCert__ = __nixpkgs__.cacert;
         __argName__ = name';
+        __argProjectStateDir__ = __projectStateDir__;
+        __argGlobalStateDir__ = __globalStateDir__;
         __argSearchPaths__ = makeSearchPaths searchPaths;
         __argSearchPathsBase__ = searchPathsBase;
         __argSearchPathsEmpty__ = searchPathsEmpty;
         __argShell__ = "${__nixpkgs__.bash}/bin/bash";
         __argPersistState__ = if persistState then 1 else 0;
+        __argGlobalState__ = if globalState then 1 else 0;
       };
       name = "make-script-for-${name}";
       template = ./template.sh;

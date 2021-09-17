@@ -48,6 +48,9 @@ let
     inputs = flakeInputs // result.config.inputs;
     inherit makesExecutionId;
     outputs = result.config.outputs;
+    projectIdentifier = result.config.projectIdentifier;
+    globalStateDir = result.config.globalStateDir;
+    projectStateDir = result.config.projectStateDir;
     inherit projectSrc;
     inherit projectSrcMutable;
     inherit system;

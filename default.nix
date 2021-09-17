@@ -2,7 +2,12 @@
 ,
 }:
 
-with import ./src/args/agnostic.nix { inherit system; };
+with import ./src/args/agnostic.nix
+{
+  inherit system;
+  __globalStateDir__ = "/tmp/null";
+  __projectStateDir__ = "/tmp/null";
+};
 
 makeScript {
   aliases = [
