@@ -370,9 +370,9 @@ def main() -> None:
     except Error as err:
         _log(f"[ERROR] {err.args[0]}")
         if err.args[1:]:
-            _log(f"[ERROR] Stdout: {err.args[1].decode(errors='replace')}")
+            _log(f"[ERROR] Stdout: \n{err.args[1].decode(errors='replace')}")
         if err.args[2:]:
-            _log(f"[ERROR] Stderr: {err.args[2].decode(errors='replace')}")
+            _log(f"[ERROR] Stderr: \n{err.args[2].decode(errors='replace')}")
         sys.exit(1)
     except SystemExit as err:
         sys.exit(err.code)
