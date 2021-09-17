@@ -2473,6 +2473,7 @@ that runs in a **almost-isolated** environment.
   are present by default.
 - An environment variable called `STATE` points to a directory
   that can be used to store the script's state (if any).
+  That state can be optionally persisted.
 - After the build, the script is executed.
 
 Types:
@@ -2490,6 +2491,9 @@ Types:
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.
       Defaults to `makeSearchPaths`'s defaults.
+    - persistState (`bool`): Optional.
+      If true, state will _not_ be cleared before each script run.
+      Defaults to `false`.
 
 Example:
 

@@ -13,6 +13,7 @@
 , name
 , replace ? { }
 , searchPaths ? { }
+, persistState ? false
 }:
 let
   # Minimalistic shell environment
@@ -58,6 +59,7 @@ makeDerivation {
         __argSearchPathsBase__ = searchPathsBase;
         __argSearchPathsEmpty__ = searchPathsEmpty;
         __argShell__ = "${__nixpkgs__.bash}/bin/bash";
+        __argPersistState__ = if persistState then 1 else 0;
       };
       name = "make-script-for-${name}";
       template = ./template.sh;

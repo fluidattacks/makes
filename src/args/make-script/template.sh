@@ -23,7 +23,9 @@ function setup {
         && HOME="$(mktemp -d)"
     fi \
     && STATE="${HOME_IMPURE}/.makes/state/__argName__" \
-    && rm -rf "${STATE}" \
+    && if test __argPersistState__ -eq "0"; then
+      rm -rf "${STATE}"
+    fi \
     && mkdir -p "${STATE}" \
     && source __argShellCommands__ \
     && source __argSearchPaths__/template
