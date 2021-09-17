@@ -1490,17 +1490,30 @@ Example invocation: `$ m . /taintTerraform/module`
 
 ### cache
 
-Cache build results on a [Cachix][CACHIX] cache.
+Configure caches to read,
+and optionally a [Cachix][CACHIX] cache for reading and writting.
 
 Types:
 
 - cache:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - name (`str`):
-      Name of the [Cachix][CACHIX] cache.
+    - readNixos (`bool`): Optional.
+      Set to `true` in order to add https://cache.nixos.org as a read cache.
+      Defaults to `true`.
+    - readExtra (`listOf readCacheType`): Optional.
+      Extra caches to read, if any.
+      Defaults to `[ ]`.
+    - readAndWrite:
+        - enable (`boolean`): Optional.
+          Defaults to `false`.
+        - name (`str`):
+          Name of the [Cachix][CACHIX] cache.
+        - pubKey (`str`):
+          Public key of the [Cachix][CACHIX] cache.
+- readCacheType (`submodule`):
+    - url (`str`):
+      URL of the cache.
     - pubKey (`str`):
-      Public key of the [Cachix][CACHIX] cache.
+      Public key of the cache.
 
 Required environment variables:
 
@@ -1515,9 +1528,22 @@ Example `makes.nix`:
 ```nix
 {
   cache = {
-    enable = true;
-    name = "fluidattacks";
-    pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+    readNixos = true;
+    readExtra = [
+      {
+        url = "https://example.com";
+        pubKey = "example.example.org-1:123...";
+      }
+      {
+        url = "https://example2.com";
+        pubKey = "example2.example2.org-1:123...";
+      }
+    ];
+    readAndWrite = {
+      enable = true;
+      name = "makes";
+      pubKey = "makes.cachix.org-1:HbCQcdlYyT/mYuOx6rlgkNkonTGUjVr3D+YpuGRmO+Y=";
+    };
   };
 }
 ```

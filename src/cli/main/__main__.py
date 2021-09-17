@@ -5,6 +5,7 @@ from functools import (
     partial,
 )
 import json
+import operator
 from os import (
     environ,
     getcwd,
@@ -115,16 +116,19 @@ def is_src_local(src: str) -> bool:
 def _nix_build(
     *,
     attr: str,
-    cache: Dict[str, str],
+    cache: Optional[List[Dict[str, str]]],
     head: str,
     out: str = "",
     src: str,
 ) -> List[str]:
-    substituters = "https://cache.nixos.org " + cache.get("url", "")
-    trusted_public_keys = (
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= "
-        + cache.get("pubKey", "")
-    )
+    if cache is None:
+        substituters = "https://cache.nixos.org"
+        trusted_pub_keys = (
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        )
+    else:
+        substituters = " ".join(map(operator.itemgetter("url"), cache))
+        trusted_pub_keys = " ".join(map(operator.itemgetter("pubKey"), cache))
 
     return [
         "nix-build",
@@ -138,7 +142,7 @@ def _nix_build(
         *["--option", "narinfo-cache-positive-ttl", "1"],
         *["--option", "max-jobs", "auto"],
         *["--option", "substituters", substituters],
-        *["--option", "trusted-public-keys", trusted_public_keys],
+        *["--option", "trusted-public-keys", trusted_pub_keys],
         *["--option", "sandbox", "true"],
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
@@ -193,7 +197,7 @@ def _get_attrs(src: str, head: str) -> List[str]:
     code, stdout, stderr, = _run(
         args=_nix_build(
             attr="config.attrs",
-            cache={},
+            cache=None,
             head=head,
             out=out,
             src=src,
@@ -206,12 +210,12 @@ def _get_attrs(src: str, head: str) -> List[str]:
     raise Error(f"Unable to list project outputs from: {src}", stdout, stderr)
 
 
-def _get_cache(src: str, head: str) -> Dict[str, str]:
+def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
     out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
             attr="config.cacheAsJson",
-            cache={},
+            cache=None,
             head=head,
             out=out,
             src=src,
@@ -316,7 +320,7 @@ def cli(args: List[str]) -> None:
 
     out: str = join(OUT_BASE, f"result{attr.replace('/', '-')}")
 
-    cache: Dict[str, str] = _get_cache(src, head)
+    cache: List[Dict[str, str]] = _get_cache(src, head)
     code, _, _ = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"',
@@ -347,16 +351,17 @@ def execute_action(args: List[str], head: str, out: str, src: str) -> None:
         raise SystemExit(code)
 
 
-def cache_push(cache: Dict[str, str], out: str) -> None:
-    if cache:
-        if "CACHIX_AUTH_TOKEN" in environ:
+def cache_push(cache: List[Dict[str, str]], out: str) -> None:
+    for config in cache:
+        if config["type"] == "cachix" and "CACHIX_AUTH_TOKEN" in environ:
             _log("Pushing to cache")
             _, stdout, _ = _run(["nix-store", "-qR", out])
             _run(
-                args=["cachix", "push", "-c", "0", cache["name"]],
+                args=["cachix", "push", "-c", "0", config["name"]],
                 capture_io=False,
                 stdin=stdout,
             )
+            return
 
 
 def main() -> None:
