@@ -6,6 +6,7 @@
 { commands
 , extraArgs ? [ ]
 , name
+, help ? null
 }:
 makeScript {
   replace = {
@@ -13,6 +14,7 @@ makeScript {
     __argParallelArgs__ = toBashArray extraArgs;
   };
   entrypoint = ./entrypoint.sh;
+  inherit help;
   name = "make-script-parallel-for-${name}";
   searchPaths = {
     bin = [

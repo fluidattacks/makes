@@ -39,6 +39,7 @@ let
     fromYamlFile = path: args.fromYaml (builtins.readFile path);
     gitlabCi = import ./gitlab-ci/default.nix;
     hasPrefix = lib.strings.hasPrefix;
+    hasSuffix = lib.strings.hasSuffix;
     isDarwin = args.__nixpkgs__.stdenv.isDarwin;
     isLinux = args.__nixpkgs__.stdenv.isLinux;
     listOptional = lib.lists.optional;
