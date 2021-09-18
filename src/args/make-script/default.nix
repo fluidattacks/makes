@@ -13,6 +13,7 @@
 { aliases ? [ ]
 , entrypoint
 , name
+, help ? null
 , replace ? { }
 , searchPaths ? { }
 , persistState ? false
@@ -74,5 +75,5 @@ makeDerivation {
   };
   builder = ./builder.sh;
   local = true;
-  inherit name;
+  inherit name help;
 }
