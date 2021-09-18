@@ -5,14 +5,9 @@
     nixpkgs.url = "github:nixos/nixpkgs";
   };
 
-  outputs = { nixpkgs, ... }:
-    let makes = import ./default.nix { system = "x86_64-linux"; };
-    in
-    {
-      defaultPackage.x86_64-linux = makes;
-
-      defaultApp.x86_64-linux.program = "${makes}/bin/m";
-      defaultApp.x86_64-linux.type = "app";
+  outputs = { self, nixpkgs, ... }@inputs:
+    let
+      makes = import ./default.nix { system = "x86_64-linux"; };
 
       lib.flakes.evaluate =
         { inputs
@@ -42,5 +37,18 @@
             "config:cacheAsJson" = evaluated.config.cacheAsJson;
           };
         };
+    in
+
+    (lib.flakes.evaluate { inputs = inputs // { makes = self; }; system = "x86_64-linux"; })
+
+    //
+
+    {
+      inherit lib;
+
+      defaultPackage.x86_64-linux = makes;
+
+      defaultApp.x86_64-linux.program = "${makes}/bin/m";
+      defaultApp.x86_64-linux.type = "app";
     };
 }
