@@ -64,6 +64,7 @@ let
     makeNodeJsVersion = import ./make-node-js-version/default.nix args;
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix args;
     makePythonVersion = import ./make-python-version/default.nix args;
+    makeRubyVersion = import ./make-ruby-version/default.nix args;
     makeScript = import ./make-script/default.nix args;
     makeScriptParallel = import ./make-script-parallel/default.nix args;
     makeSearchPaths = import ./make-search-paths/default.nix args;
