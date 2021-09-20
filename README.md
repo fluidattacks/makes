@@ -204,6 +204,8 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [Python](#python)
             - [makePythonVersion](#makepythonversion)
             - [makePythonPypiEnvironment](#makepythonpypienvironment)
+        - [Ruby](#ruby)
+            - [makeRubyVersion](#makerubyversion)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
@@ -2325,32 +2327,34 @@ Types for non covered cases:
 - makeSearchPaths (`function { ... } -> package`):
 
     - `export` (`listOf (tuple [ str package str ])`): Optional.
-      Export (as in [Bash][BASH]'s `export` command)
-      every tuple in the list.
-      Tuples format is:
-          1. Name of the environment variable to export.
-          1. Base package to export from.
-          1. Relative path.
-      Defaults to `[ ]`.
+        Export (as in [Bash][BASH]'s `export` command)
+        every tuple in the list.
+        Defaults to `[ ]`.
 
-      Example:
+        Tuples elements are:
 
-      ```nix
-      makeSearchPaths {
-        export = [
-          [ "PATH" inputs.nixpkgs.bash "/bin"]
-          [ "CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0"]
-          # add more as you need ...
-        ];
-      }
-      ```
+        - Name of the environment variable to export.
+        - Base package to export from.
+        - Relative path with respect to the package that should be appended.
 
-      Is equivalent to:
+        Example:
 
-      ```bash
-      export PATH="/nix/store/...-bash/bin${PATH:+:}${PATH:-}"
-      export CPATH="/nix/store/...-glib-dev/include/glib-2.0${CPATH:+:}${CPATH:-}"
-      ```
+        ```nix
+        makeSearchPaths {
+          export = [
+            [ "PATH" inputs.nixpkgs.bash "/bin"]
+            [ "CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0"]
+            # add more as you need ...
+          ];
+        }
+        ```
+
+        Is equivalent to:
+
+        ```bash
+        export PATH="/nix/store/...-bash/bin${PATH:+:}${PATH:-}"
+        export CPATH="/nix/store/...-glib-dev/include/glib-2.0${CPATH:+:}${CPATH:-}"
+        ```
 
 Example:
 
@@ -3225,6 +3229,44 @@ $ cat /path/to/my/project/makes/example/sources.yaml
       sha256: 1saqgpgbdvb8awzm0f0640j0im55hkrfzvcw683cgqw4ni3apwaf
       url: https://pypi.org/packages/source/a/asgiref/asgiref-3.4.1.tar.gz
   python: "3.8"
+```
+
+### Ruby
+
+#### makeRubyVersion
+
+Get a specific [Ruby][RUBY] interpreter.
+
+Types:
+
+- makeRubyVersion (`function str -> package`):
+
+    - (`enum [ "2.6" "2.7" "3.0" ]`):
+      [Ruby][RUBY] version of the interpreter to return.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeRubyVersion
+, makeScript
+, ...
+}:
+makeScript {
+  entrypoint = ''
+    ruby --version
+  '';
+  name = "example";
+  searchPaths = {
+    bin = [ (makeRubyVersion "2.6") ];
+  };
+}
+```
+
+```bash
+$ m . /example
+
+    ruby 2.6.8p205 (2021-07-07) [x86_64-linux]
 ```
 
 ### Containers
