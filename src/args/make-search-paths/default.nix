@@ -5,6 +5,7 @@
 
 { append ? true
 , bin ? [ ]
+, export ? [ ]
 , javaClass ? [ ]
 , kubeConfig ? [ ]
 , nodeBin ? [ ]
@@ -23,11 +24,11 @@
 , source ? [ ]
 }:
 let
-  export = envVar: envPath: envDrv:
+  makeExport = envVar: envPath: envDrv:
     if append
     then "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\""
     else "export ${envVar}=\"${envDrv}${envPath}\"";
-  sourceDrv = envDrv:
+  makeSource = envDrv:
     ''
       if test -e "${envDrv}/template"
       then source "${envDrv}/template"
@@ -44,83 +45,90 @@ makeTemplate {
       else sources ++ (builtins.map generator derivations)
     )
     [ ]
-    [
+    ([
+      {
+        derivations = export;
+        generator = export: makeExport
+          (builtins.elemAt export 0)
+          (builtins.elemAt export 2)
+          (builtins.elemAt export 1);
+      }
       {
         derivations = bin;
-        generator = export "PATH" "/bin";
+        generator = makeExport "PATH" "/bin";
       }
       {
         derivations = pkgConfig;
-        generator = export "PKG_CONFIG_PATH" "/lib/pkgconfig";
+        generator = makeExport "PKG_CONFIG_PATH" "/lib/pkgconfig";
       }
       {
         derivations = javaClass;
-        generator = export "CLASSPATH" "";
+        generator = makeExport "CLASSPATH" "";
       }
       {
         derivations = kubeConfig;
-        generator = export "KUBECONFIG" "";
+        generator = makeExport "KUBECONFIG" "";
       }
       {
         derivations = nodeBin;
-        generator = export "PATH" "/.bin";
+        generator = makeExport "PATH" "/.bin";
       }
       {
         derivations = nodeModule;
-        generator = export "NODE_PATH" "";
+        generator = makeExport "NODE_PATH" "";
       }
       {
         derivations = pythonMypy;
-        generator = export "MYPYPATH" "";
+        generator = makeExport "MYPYPATH" "";
       }
       {
         derivations = pythonMypy37;
-        generator = export "MYPYPATH" "/lib/python3.7/site-packages";
+        generator = makeExport "MYPYPATH" "/lib/python3.7/site-packages";
       }
       {
         derivations = pythonMypy38;
-        generator = export "MYPYPATH" "/lib/python3.8/site-packages";
+        generator = makeExport "MYPYPATH" "/lib/python3.8/site-packages";
       }
       {
         derivations = pythonMypy39;
-        generator = export "MYPYPATH" "/lib/python3.9/site-packages";
+        generator = makeExport "MYPYPATH" "/lib/python3.9/site-packages";
       }
       {
         derivations = pythonPackage;
-        generator = export "PYTHONPATH" "";
+        generator = makeExport "PYTHONPATH" "";
       }
       {
         derivations = pythonPackage36;
-        generator = export "PYTHONPATH" "/lib/python3.6/site-packages";
+        generator = makeExport "PYTHONPATH" "/lib/python3.6/site-packages";
       }
       {
         derivations = pythonPackage37;
-        generator = export "PYTHONPATH" "/lib/python3.7/site-packages";
+        generator = makeExport "PYTHONPATH" "/lib/python3.7/site-packages";
       }
       {
         derivations = pythonPackage38;
-        generator = export "PYTHONPATH" "/lib/python3.8/site-packages";
+        generator = makeExport "PYTHONPATH" "/lib/python3.8/site-packages";
       }
       {
         derivations = pythonPackage39;
-        generator = export "PYTHONPATH" "/lib/python3.9/site-packages";
+        generator = makeExport "PYTHONPATH" "/lib/python3.9/site-packages";
       }
       {
         derivations = rpath;
-        generator = export "LD_LIBRARY_PATH" "/lib";
+        generator = makeExport "LD_LIBRARY_PATH" "/lib";
       }
       {
         derivations = rpath;
-        generator = export "LD_LIBRARY_PATH" "/lib64";
+        generator = makeExport "LD_LIBRARY_PATH" "/lib64";
       }
       {
         derivations = [ __shellCommands__ ];
-        generator = sourceDrv;
+        generator = makeSource;
       }
       {
         derivations = source;
-        generator = sourceDrv;
+        generator = makeSource;
       }
-    ]
+    ])
   );
 }
