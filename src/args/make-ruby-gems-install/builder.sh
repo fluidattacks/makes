@@ -8,7 +8,8 @@ function main {
       --install-dir "${out}" \
       --local \
       --no-document \
-      "${gems_spec[@]}"
+      "${gems_spec[@]}" \
+    && patch_shebangs "${out}/bin"
 }
 
 main "${@}"
