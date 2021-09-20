@@ -2769,6 +2769,37 @@ in
 nixpkgs.awscli
 ```
 
+#### fetchRubyGem
+
+Fetch a [Ruby][RUBY] gem from [Ruby community’s gem hosting service][RUBYGEMS].
+
+Types:
+
+- fetchRubyGem (`function { ... } -> package`):
+    - name (`str`):
+      Name of the gem to download.
+    - version (`str`):
+      Version of the gem to download.
+    - sha256 (`str`):
+      SHA256 of the expected output,
+      In order to get the SHA256
+      you can omit this parameter and execute Makes,
+      Makes will tell you the correct SHA256 on failure.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ fetchRubyGem
+, ...
+}:
+fetchRubyGem {
+  name = "slim";
+  version = "4.1.0";
+  sha256 = "0gjx30g84c82qzg32bd7giscvb4206v7mvg56kc839w9wjagn36n";
+}
+```
+
 ### Node.js
 
 #### makeNodeJsVersion
@@ -4129,6 +4160,12 @@ Examples:
 
 - [RPM]: https://rpm.org/
   [RPM Package Manager][RPM]
+
+- [RUBY]: https://www.ruby-lang.org/en/
+  [Ruby Language][RUBY]
+
+- [RUBYGEMS]: https://rubygems.org/gems/slim
+  [Ruby community’s gem hosting service][RUBYGEMS]
 
 - [SBT]: https://www.scala-sbt.org/
   [sbt][SBT]
