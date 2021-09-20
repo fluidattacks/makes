@@ -206,6 +206,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makePythonPypiEnvironment](#makepythonpypienvironment)
         - [Ruby](#ruby)
             - [makeRubyVersion](#makerubyversion)
+            - [makeRubyGemsInstall](#makerubygemsinstall)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
@@ -3242,7 +3243,7 @@ Types:
 - makeRubyVersion (`function str -> package`):
 
     - (`enum [ "2.6" "2.7" "3.0" ]`):
-      [Ruby][RUBY] version of the interpreter to return.
+      Version of the [Ruby][RUBY] interpreter.
 
 Example:
 
@@ -3267,6 +3268,52 @@ makeScript {
 $ m . /example
 
     ruby 2.6.8p205 (2021-07-07) [x86_64-linux]
+```
+
+#### makeRubyGemsInstall
+
+Fetch and install the specified [Ruby][RUBY] gems
+from the [Ruby community’s gem hosting service][RUBYGEMS].
+
+Types:
+
+- makeRubyGemsInstall (`function { ... } -> package`):
+
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - ruby (`enum [ "2.6" "2.7" "3.0" ]`):
+      Version of the [Ruby][RUBY] interpreter.
+    - rubyGems (`listOf (asIn fetchRubyGem)`):
+      Ruby gems specification that should be fetched and installed.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeRubyGemsInstall
+, ...
+}:
+makeRubyGemsInstall {
+  name = "example";
+  ruby = "3.0";
+  rubyGems = [
+    {
+      name = "tilt";
+      version = "2.0.10";
+      sha256 = "0rn8z8hda4h41a64l0zhkiwz2vxw9b1nb70gl37h1dg2k874yrlv";
+    }
+    {
+      name = "slim";
+      version = "4.1.0";
+      sha256 = "0gjx30g84c82qzg32bd7giscvb4206v7mvg56kc839w9wjagn36n";
+    }
+    {
+      name = "temple";
+      version = "0.8.2";
+      sha256 = "060zzj7c2kicdfk6cpnn40n9yjnhfrr13d0rsbdhdij68chp2861";
+    }
+  ];
+}
 ```
 
 ### Containers
