@@ -3,6 +3,7 @@
 , makeDerivation
 , makeRubyVersion
 , toBashArray
+, patchShebangs
 , ...
 }:
 { name
@@ -28,5 +29,6 @@ makeDerivation {
   };
   searchPaths = {
     bin = [ (makeRubyVersion ruby) ];
+    source = [ patchShebangs ];
   };
 }
