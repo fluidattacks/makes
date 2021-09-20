@@ -24,6 +24,32 @@ function prompt_user_for_confirmation {
     fi
 }
 
+function prompt_user_for_input {
+  local answer
+  local default="${1:-}"
+
+  defaulNotice=$(if test -z "${default}"; then echo no default; else echo default: "${default}"; fi)
+
+  warn "Please enter your input - ($defaulNotice):" \
+    && if test -z "$default"; then
+      if running_in_ci_cd_provider; then
+        critical Running on CI/CD provider, cannot ask for user \
+          input, there are no humans around and there \
+          is no default set
+      fi
+    fi \
+    && read -ep '>>> ' -r answer \
+    && if test -n "$answer"; then
+      info "Using: '$answer'" \
+        && echo "$default"
+    elif test -z "$default"; then
+      critical No input provided and no default set
+    else
+      info "Using default: '$default'" \
+        && echo "$default"
+    fi
+}
+
 function setup {
   export HOME
   export HOME_IMPURE
