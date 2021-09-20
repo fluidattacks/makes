@@ -207,6 +207,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [Ruby](#ruby)
             - [makeRubyVersion](#makerubyversion)
             - [makeRubyGemsInstall](#makerubygemsinstall)
+            - [makeRubyGemsEnvironment](#makerubygemsenvironment)
         - [Containers](#containers)
             - [makeContainerImage](#makecontainerimage)
         - [Format conversion](#format-conversion)
@@ -3333,6 +3334,69 @@ makeRubyGemsInstall {
     }
   ];
 }
+```
+
+#### makeRubyGemsEnvironment
+
+Create an environment where the specified [Ruby][RUBY] gems
+from the [Ruby community’s gem hosting service][RUBYGEMS]
+are available.
+
+Types:
+
+- makeRubyGemsEnvironment (`function { ... } -> package`):
+
+    - name (`str`):
+      Custom name to assign to the build step, be creative, it helps in debugging.
+    - ruby (`enum [ "2.6" "2.7" "3.0" ]`):
+      Version of the [Ruby][RUBY] interpreter.
+    - rubyGems (`listOf (asIn fetchRubyGem)`):
+      Ruby gems specification that should be fetched and installed.
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ makeRubyGemsEnvironment
+, makeScript
+, ...
+}:
+let
+  env = makeRubyGemsEnvironment {
+    name = "example";
+    ruby = "3.0";
+    rubyGems = [
+      {
+        name = "slim";
+        sha256 = "0gjx30g84c82qzg32bd7giscvb4206v7mvg56kc839w9wjagn36n";
+        version = "4.1.0";
+      }
+      {
+        name = "temple";
+        sha256 = "060zzj7c2kicdfk6cpnn40n9yjnhfrr13d0rsbdhdij68chp2861";
+        version = "0.8.2";
+      }
+      {
+        name = "tilt";
+        sha256 = "0rn8z8hda4h41a64l0zhkiwz2vxw9b1nb70gl37h1dg2k874yrlv";
+        version = "2.0.10";
+      }
+    ];
+  };
+in
+makeScript {
+  entrypoint = ''
+    slimrb --version
+  '';
+  name = "example";
+  searchPaths.source = [ env ];
+}
+```
+
+```bash
+$ m . /example
+
+    Slim 4.1.0
 ```
 
 ### Containers

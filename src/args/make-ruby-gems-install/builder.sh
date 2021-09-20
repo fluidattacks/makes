@@ -9,6 +9,8 @@ function main {
       --local \
       --no-document \
       "${gems_spec[@]}" \
+    && rm -rf "${out}/build_info" \
+    && rm -rf "${out}/cache" \
     && patch_shebangs "${out}/bin"
 }
 
