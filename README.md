@@ -196,6 +196,7 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [fetchArchive](#fetcharchive)
             - [fetchGithub](#fetchgithub)
             - [fetchNixpkgs](#fetchnixpkgs)
+            - [fetchRubyGem](#fetchrubygem)
         - [Node.js](#nodejs)
             - [makeNodeJsVersion](#makenodejsversion)
             - [makeNodeJsModules](#makenodejsmodules)
@@ -2201,7 +2202,7 @@ Types:
 - makeSearchPaths (`function { ... } -> package`):
 
     - `bin` (`listOf package`): Optional.
-      Append `/`
+      Append `/bin`
       of every element in the list
       to [PATH][PATH].
       Defaults to `[ ]`.
@@ -2219,7 +2220,7 @@ Types:
 
 Types specific to Java:
 
-- makeSearchPaths:
+- makeSearchPaths (`function { ... } -> package`):
 
     - `javaClass` (`listOf package`): Optional.
       Append each element in the list
@@ -2228,7 +2229,7 @@ Types specific to Java:
 
 Types specific to [Kubernetes][KUBERNETES]:
 
-- makeSearchPaths:
+- makeSearchPaths (`function { ... } -> package`):
 
     - `kubeConfig` (`listOf strLike`): Optional.
       Append each element in the list
@@ -2237,7 +2238,7 @@ Types specific to [Kubernetes][KUBERNETES]:
 
 Types specific to [pkg-config][PKG_CONFIG]:
 
-- makeSearchPaths:
+- makeSearchPaths (`function { ... } -> package`):
 
     - `pkgConfig` (`listOf derivation`): Optional.
       Append `/lib/pkgconfig`
@@ -2247,7 +2248,7 @@ Types specific to [pkg-config][PKG_CONFIG]:
 
 Types specific to [Python][PYTHON]:
 
-- makeSearchPaths:
+- makeSearchPaths (`function { ... } -> package`):
 
     - `pythonMypy` (`listOf package`): Optional.
       Append `/`
@@ -2305,7 +2306,7 @@ Types specific to [Python][PYTHON]:
 
 Types specific to [Node.js][NODE_JS]:
 
-- makeSearchPaths:
+- makeSearchPaths (`function { ... } -> package`):
 
     - `nodeBin` (`listOf package`): Optional.
       Append `/.bin`
@@ -2318,6 +2319,38 @@ Types specific to [Node.js][NODE_JS]:
       of each element in the list
       to [NODE_PATH][NODE_PATH].
       Defaults to `[ ]`.
+
+Types for non covered cases:
+
+- makeSearchPaths (`function { ... } -> package`):
+
+    - `export` (`listOf (tuple [ str package str ])`): Optional.
+      Export (as in [Bash][BASH]'s `export` command)
+      every tuple in the list.
+      Tuples format is:
+          1. Name of the environment variable to export.
+          1. Base package to export from.
+          1. Relative path.
+      Defaults to `[ ]`.
+
+      Example:
+
+      ```nix
+      makeSearchPaths {
+        export = [
+          [ "PATH" inputs.nixpkgs.bash "/bin"]
+          [ "CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0"]
+          # add more as you need ...
+        ];
+      }
+      ```
+
+      Is equivalent to:
+
+      ```bash
+      export PATH="/nix/store/...-bash/bin${PATH:+:}${PATH:-}"
+      export CPATH="/nix/store/...-glib-dev/include/glib-2.0${CPATH:+:}${CPATH:-}"
+      ```
 
 Example:
 

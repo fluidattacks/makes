@@ -35,6 +35,8 @@ let
       (name: _:
         if name == "append"
         then false
+        else if name == "export"
+        then [ ]
         else if name == "source"
         then [ ]
         else [ "/not-set" ])
