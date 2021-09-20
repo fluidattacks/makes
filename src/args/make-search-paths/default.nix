@@ -21,6 +21,8 @@
 , pythonPackage38 ? [ ]
 , pythonPackage39 ? [ ]
 , rpath ? [ ]
+, rubyBin ? [ ]
+, rubyGemPath ? [ ]
 , source ? [ ]
 }:
 let
@@ -120,6 +122,14 @@ makeTemplate {
       {
         derivations = rpath;
         generator = makeExport "LD_LIBRARY_PATH" "/lib64";
+      }
+      {
+        derivations = rubyBin;
+        generator = makeExport "PATH" "/bin";
+      }
+      {
+        derivations = rubyGemPath;
+        generator = makeExport "GEM_PATH" "/";
       }
       {
         derivations = [ __shellCommands__ ];

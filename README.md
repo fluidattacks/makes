@@ -2168,20 +2168,23 @@ of the environment variables we currently support.
 - [CLASSPATH][CLASSPATH]:
   Location of user-defined classes and packages.
 
+- [GEM_PATH][GEM_PATH]:
+  Location of libraries for [Ruby][RUBY].
+
 - [LD_LIBRARY_PATH][RPATH]:
   Location of libraries for Dynamic Linking Loaders.
 
 - [MYPYPATH][MYPYPATH]:
   Location of library stubs and static types for [MyPy][MYPY].
 
+- [NODE_PATH][NODE_PATH]:
+  Location of [Node.js][NODE_JS] modules.
+
 - [PATH][PATH]:
   Location of directories where executable programs are located.
 
 - [PKG_CONFIG_PATH][PKG_CONFIG_PATH]:
   Location of [pkg-config][PKG_CONFIG] packages.
-
-- [NODE_PATH][NODE_PATH]:
-  Location of [Node.js][NODE_JS] modules.
 
 - [PYTHONPATH][PYTHONPATH]:
   Location of [Python][PYTHON] modules and site-packages.
@@ -2321,6 +2324,22 @@ Types specific to [Node.js][NODE_JS]:
       Append `/`
       of each element in the list
       to [NODE_PATH][NODE_PATH].
+      Defaults to `[ ]`.
+
+Types specific to [Ruby][RUBY]:
+
+- makeSearchPaths (`function { ... } -> package`):
+
+    - `rubyBin` (`listOf package`): Optional.
+      Append `/bin`
+      of every element in the list
+      to [PATH][PATH].
+      Defaults to `[ ]`.
+
+    - `rubyGemPath` (`listOf package`): Optional.
+      Append `/`
+      of each element in the list
+      to [GEM_PATH][GEM_PATH].
       Defaults to `[ ]`.
 
 Types for non covered cases:
@@ -4096,6 +4115,9 @@ Examples:
 
 - [FLUID_ATTACKS]: https://fluidattacks.com
   [Fluid Attacks][FLUID_ATTACKS]
+
+- [GEM_PATH]: https://guides.rubygems.org/command-reference
+  [GEM_PATH Environment Variable][GEM_PATH]
 
 - [GIT]: https://git-scm.com/
   [Git][GIT]
