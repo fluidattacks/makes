@@ -126,7 +126,7 @@ Real life projects that run entirely on [Makes][MAKES]:
 - [Why](#why)
 - [Goal](#goal)
 - [Getting started](#getting-started)
-    - [Getting started as user](#getting-started-as-user)
+    - [Getting started as a final user](#getting-started-as-a-final-user)
     - [Getting started as developer](#getting-started-as-developer)
     - [Learning the language](#learning-the-language)
     - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
@@ -398,17 +398,9 @@ Makes targets two kind of users:
 - Final users: People that want to use projects built with Makes.
 - Developers: People who develop projects with Makes.
 
-## Getting started as user
+## Getting started as a final user
 
 1. List outputs of a [Makes] project:
-
-    - For local [Makes][MAKES] projects, run:
-
-      `$ m /path/to/local/repository`
-
-      or if the project is in the current working directory, run:
-
-      `$ m .`
 
     - For GitHub [Makes][MAKES] projects, run:
 
@@ -448,7 +440,7 @@ Makes targets two kind of users:
     that you can include in jour project as simple as this.
 
 1. Now run makes!
-    - List all available commands: `$ m .`
+    - List all available outputs: `$ m .`
 
         ```
         Outputs list for project: /path/to/my/project
@@ -2069,7 +2061,7 @@ In order to do this:
 
 1. Now run makes!
 
-    - List all available commands: `$ m .`
+    - List all available outputs: `$ m .`
 
         ```
         Outputs list for project: /path/to/my/project

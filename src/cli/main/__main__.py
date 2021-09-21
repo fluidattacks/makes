@@ -15,7 +15,6 @@ from os import (
 from os.path import (
     exists,
     getctime,
-    isdir,
     join,
 )
 from posixpath import (
@@ -178,7 +177,7 @@ def _clone_src_cache_refresh(head: str, cache_key: str) -> None:
 
 
 def is_src_local(src: str) -> bool:
-    return isdir(src)
+    return abspath(src) == CWD
 
 
 def _nix_build(
@@ -340,16 +339,14 @@ def _help_and_exit(
         _log()
         _log("[SOURCE] can be:")
         _log()
-        _log("  A local Git repository:")
-        _log("    /path/to/local/repository")
-        _log("    ./relative/path")
-        _log("    .")
+        _log("  A Git repository in the current working directory:")
+        _log("    $ m .")
         _log()
         _log("  A GitHub repository and revision (branch, commit or tag):")
-        _log("    github:owner/repo@rev")
+        _log("    $ m github:owner/repo@rev")
         _log()
         _log("  A GitLab repository and revision (branch, commit or tag):")
-        _log("    gitlab:owner/repo@rev")
+        _log("    $ m gitlab:owner/repo@rev")
     if attrs is None:
         _log()
         _log("[OUTPUT] options will be listed when you provide a [SOURCE]")
@@ -413,19 +410,19 @@ def cli(args: List[str]) -> None:
 
     if code == 0:
         cache_push(cache, out)
-        execute_action(args, head, out, src)
+        execute_action(args, out)
 
     raise SystemExit(code)
 
 
-def execute_action(args: List[str], head: str, out: str, src: str) -> None:
+def execute_action(args: List[str], out: str) -> None:
     action_path: str = join(out, "makes-action.sh")
 
     if exists(action_path):
         code, _, _ = _run(
             args=[action_path, out, *args],
             capture_io=False,
-            cwd=src if is_src_local(src) else head,
+            cwd=CWD,
         )
         raise SystemExit(code)
 
