@@ -14,6 +14,7 @@ from os import (
 )
 from os.path import (
     exists,
+    getctime,
     isdir,
     join,
 )
@@ -26,6 +27,9 @@ import shutil
 import subprocess  # nosec
 import sys
 import tempfile
+from time import (
+    time,
+)
 from typing import (
     Any,
     Callable,
@@ -43,6 +47,7 @@ from uuid import (
 )
 
 CWD: str = getcwd()
+SOURCES_CACHE: str = join(environ["HOME_IMPURE"], ".cache", "makes", "sources")
 OUT_BASE: str = tempfile.mkdtemp()
 ON_EXIT: List[Callable[[], None]] = [
     partial(shutil.rmtree, OUT_BASE, ignore_errors=True)
@@ -80,29 +85,18 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 
 
 def _clone_src(src: str) -> str:
-    remote: str
     head = tempfile.TemporaryDirectory(prefix="makes-").name
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
     if is_src_local(src):
-        remote = abspath(src)
+        cache_key: str = ""
+        remote: str = abspath(src)
         rev = "HEAD"
 
-    elif match := re.match(
-        r"^github:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$", src
-    ):
-        owner = url_quote(match.group("owner"))
-        repo = url_quote(match.group("repo"))
-        rev = url_quote(match.group("rev"))
-        remote = f"https://github.com/{owner}/{repo}"
-
-    elif match := re.match(
-        r"^gitlab:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$", src
-    ):
-        owner = url_quote(match.group("owner"))
-        repo = url_quote(match.group("repo"))
-        rev = url_quote(match.group("rev"))
-        remote = f"https://gitlab.com/{owner}/{repo}.git"
+    elif match := _clone_src_github(src):
+        cache_key, remote, rev = match
+    elif match := _clone_src_gitlab(src):
+        cache_key, remote, rev = match
 
     else:
         raise Error(f"Unable to parse [SOURCE]: {src}")
@@ -112,6 +106,8 @@ def _clone_src(src: str) -> str:
     )
     if out != 0:
         raise Error(f"Unable to git init: {src}", stdout, stderr)
+
+    remote = _clone_src_cache_get(src, cache_key, remote)
 
     out, stdout, stderr = _run(
         ["git", "-C", head, "fetch", "--depth=1", remote, f"{rev}:{rev}"]
@@ -123,7 +119,62 @@ def _clone_src(src: str) -> str:
     if out != 0:
         raise Error(f"Unable to git checkout: {src}", stdout, stderr)
 
+    _clone_src_cache_refresh(head, cache_key)
+
     return head
+
+
+def _clone_src_github(src: str) -> Optional[Tuple[str, str, str]]:
+    regex = r"^github:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$"
+
+    if match := re.match(regex, src):
+        owner = url_quote(match.group("owner"))
+        repo = url_quote(match.group("repo"))
+        rev = url_quote(match.group("rev"))
+        remote = f"https://github.com/{owner}/{repo}"
+        cache_key = f"github-{owner}-{repo}-{rev}"
+
+        return cache_key, remote, rev
+
+    return None
+
+
+def _clone_src_gitlab(src: str) -> Optional[Tuple[str, str, str]]:
+    regex = r"^gitlab:(?P<owner>.*)/(?P<repo>.*)@(?P<rev>.*)$"
+
+    if match := re.match(regex, src):
+        owner = url_quote(match.group("owner"))
+        repo = url_quote(match.group("repo"))
+        rev = url_quote(match.group("rev"))
+        remote = f"https://gitlab.com/{owner}/{repo}.git"
+        cache_key = f"gitlab-{owner}-{repo}-{rev}"
+
+        return cache_key, remote, rev
+
+    return None
+
+
+def _clone_src_cache_get(src: str, cache_key: str, remote: str) -> str:
+    cached: str = join(SOURCES_CACHE, cache_key)
+    if cache_key:
+        if exists(cached):
+            cached_since: float = time() - getctime(cached)
+            if cached_since <= 86400.0:
+                _log(f"Using cached version of: {src}, from: {cached}")
+                _log()
+                remote = cached
+            else:
+                shutil.rmtree(cached)
+        else:
+            _log(f"Downloading: {src}")
+
+    return remote
+
+
+def _clone_src_cache_refresh(head: str, cache_key: str) -> None:
+    cached: str = join(SOURCES_CACHE, cache_key)
+    if cache_key and not exists(cached):
+        shutil.copytree(head, cached)
 
 
 def is_src_local(src: str) -> bool:
@@ -228,7 +279,7 @@ def _get_attrs(src: str, head: str) -> List[str]:
         ),
     )
     if code == 0:
-        with open(out) as file:
+        with open(out, encoding="utf-8") as file:
             return json.load(file)
 
     raise Error(f"Unable to list project outputs from: {src}", stdout, stderr)
@@ -249,7 +300,7 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
     )
 
     if code == 0:
-        with open(out) as file:
+        with open(out, encoding="utf-8") as file:
             return json.load(file)
 
     raise Error(f"Unable to get cache config from: {src}", stdout, stderr)
