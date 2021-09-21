@@ -425,7 +425,6 @@ def execute_action(args: List[str], head: str, out: str, src: str) -> None:
         code, _, _ = _run(
             args=[action_path, out, *args],
             capture_io=False,
-            cwd=src if is_src_local(src) else head,
         )
         raise SystemExit(code)
 
