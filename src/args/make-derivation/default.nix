@@ -100,7 +100,7 @@ builtins.derivation (env' // {
     shift 1
 
     if test -f ''${BASH_SOURCE%/*}/README.md; then
-      case $1 in
+      case "''${1:-}" in
         -h|--help)
           export LESSCHARSET=utf-8
           glow --pager --local ''${BASH_SOURCE%/*}/README.md
