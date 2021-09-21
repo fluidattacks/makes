@@ -60,6 +60,11 @@ def _log(*args: str) -> None:
 
 
 # Feature flags
+K8S_COMPAT: bool = bool(environ.get("K8S_COMPAT"))
+if K8S_COMPAT:
+    _log("Using feature flag: K8S_COMPAT")
+    _log()
+
 NIX_STABLE: bool = not bool(environ.get("NIX_UNSTABLE"))
 if not NIX_STABLE:
     _log("Using feature flag: NIX_UNSTABLE")
@@ -159,7 +164,7 @@ def _nix_build(
         *["--option", "max-jobs", "auto"],
         *["--option", "substituters", substituters],
         *["--option", "trusted-public-keys", trusted_pub_keys],
-        *["--option", "sandbox", "true"],
+        *["--option", "sandbox", "false" if K8S_COMPAT else "true"],
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
         *["--show-trace"],
