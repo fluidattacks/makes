@@ -3305,6 +3305,9 @@ Types:
       Version of the [Ruby][RUBY] interpreter.
     - rubyGems (`listOf (asIn fetchRubyGem)`):
       Ruby gems specification that should be fetched and installed.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
@@ -3352,12 +3355,21 @@ Types:
       Version of the [Ruby][RUBY] interpreter.
     - rubyGems (`listOf (asIn fetchRubyGem)`):
       Ruby gems specification that should be fetched and installed.
+    - searchPathsBuild (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`
+      and used while installing gems.
+      Defaults to `makeSearchPaths`'s defaults.
+    - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`
+      and propagated to the runtime environment.
+      Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeRubyGemsEnvironment
+{ inputs
+, makeRubyGemsEnvironment
 , makeScript
 , ...
 }:
@@ -3382,6 +3394,8 @@ let
         version = "2.0.10";
       }
     ];
+    searchPathsBuild.bin = [ inputs.nixpkgs.gcc ];
+    searchPathsRuntime.rpath = [ inputs.nixpkgs.gcc.cc.lib ];
   };
 in
 makeScript {

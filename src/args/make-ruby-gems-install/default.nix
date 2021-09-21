@@ -2,6 +2,7 @@
 , fetchRubyGem
 , makeDerivation
 , makeRubyVersion
+, makeSearchPaths
 , toBashArray
 , patchShebangs
 , ...
@@ -9,6 +10,7 @@
 { name
 , ruby
 , rubyGems
+, searchPaths
 }:
 let
   gems = builtins.map
@@ -29,6 +31,9 @@ makeDerivation {
   };
   searchPaths = {
     bin = [ (makeRubyVersion ruby) ];
-    source = [ patchShebangs ];
+    source = [
+      (patchShebangs)
+      (makeSearchPaths searchPaths)
+    ];
   };
 }
