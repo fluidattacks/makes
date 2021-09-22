@@ -9,6 +9,7 @@ let
     inherit __projectStateDir__;
     inherit __globalStateDir__;
     __nixpkgs__ = import sources.nixpkgs { inherit system; };
+    __nixpkgsSrc__ = sources.nixpkgs;
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;
     __system__ = system;
@@ -79,6 +80,7 @@ let
     makeTemplate = import ./make-template/default.nix args;
     patchShebangs = import ./patch-shebangs/default.nix args;
     removePrefix = lib.removePrefix;
+    secureNixWithVulnix = import ./secure-nix-with-vulnix/default.nix args;
     securePythonWithBandit = import ./secure-python-with-bandit/default.nix args;
     sortAscii = builtins.sort (a: b: a < b);
     sortAsciiCaseless = builtins.sort (a: b: lib.toLower a < lib.toLower b);
