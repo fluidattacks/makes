@@ -1,5 +1,4 @@
 { lintGitMailMap
-, projectPathMutable
 , ...
 }:
 { config
@@ -21,7 +20,7 @@
         (config.lintGitMailMap.enable)
         (lintGitMailMap {
           name = "lint-git-mailmap";
-          src = projectPathMutable "/";
+          src = ".";
         });
     };
   };

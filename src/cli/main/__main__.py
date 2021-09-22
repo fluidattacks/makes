@@ -186,7 +186,6 @@ def _nix_build(
     cache: Optional[List[Dict[str, str]]],
     head: str,
     out: str = "",
-    src: str,
 ) -> List[str]:
     if cache is None:
         substituters = "https://cache.nixos.org"
@@ -205,10 +204,9 @@ def _nix_build(
         *_if(NIX_STABLE, "--argstr", "makesExecutionId", uuid().hex),
         *_if(NIX_STABLE, "--argstr", "makesSrc", __MAKES_SRC__),
         *_if(NIX_STABLE, "--argstr", "projectSrc", head),
-        *_if(NIX_STABLE and is_src_local(src), "--argstr"),
-        *_if(NIX_STABLE and is_src_local(src), "projectSrcMutable", src),
         *_if(NIX_STABLE, "--attr", attr),
         *["--option", "cores", "0"],
+        *_if(not NIX_STABLE, "--impure"),
         *["--option", "narinfo-cache-negative-ttl", "1"],
         *["--option", "narinfo-cache-positive-ttl", "1"],
         *["--option", "max-jobs", "auto"],
@@ -274,7 +272,6 @@ def _get_attrs(src: str, head: str) -> List[str]:
             cache=None,
             head=head,
             out=out,
-            src=src,
         ),
     )
     if code == 0:
@@ -294,7 +291,6 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
             cache=None,
             head=head,
             out=out,
-            src=src,
         ),
     )
 
@@ -403,7 +399,6 @@ def cli(args: List[str]) -> None:
             cache=cache,
             head=head,
             out=out,
-            src=src,
         ),
         capture_io=False,
     )

@@ -2,7 +2,6 @@
 , __toModuleOutputs__
 , lintTerraform
 , projectPath
-, projectPathMutable
 , ...
 }:
 { config
@@ -19,7 +18,7 @@ let
         then ./config.hcl
         else projectPath config.lintTerraform.config;
       inherit name;
-      src = projectPathMutable src;
+      src = "." + src;
       inherit version;
     };
   };

@@ -5,7 +5,6 @@
 , globalStateDir
 , projectStateDir
 , projectSrc
-, projectSrcMutable
 , system
 , ...
 }:
@@ -24,10 +23,8 @@ let
     inherit projectSrc;
     projectPath = import ./project-path/default.nix args;
     projectPathLsDirs = import ./project-path-ls-dirs/default.nix args;
-    projectPathMutable = rel: projectSrcMutable + rel;
     projectPathsMatching = import ./project-paths-matching/default.nix args;
     projectSrcInStore = builtins.path { name = "head"; path = projectSrc; };
-    inherit projectSrcMutable;
   };
 in
 args

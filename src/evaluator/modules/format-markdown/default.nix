@@ -3,7 +3,6 @@
 , isLinux
 , makeNodeJsEnvironment
 , makeScript
-, projectPathMutable
 , toBashArray
 , ...
 }:
@@ -34,7 +33,7 @@
           __argDoctocArgs__ = toBashArray
             config.formatMarkdown.doctocArgs;
           __argTargets__ = toBashArray
-            (builtins.map projectPathMutable config.formatMarkdown.targets);
+            (builtins.map (rel: "." + rel) config.formatMarkdown.targets);
         };
         name = "format-markdown";
         searchPaths = {

@@ -20,8 +20,6 @@
             makesExecutionId = "123";
             makesSrc = inputs.makes.outPath;
             projectSrc = inputs.self.sourceInfo.outPath;
-            # TODO: Make it mutable
-            projectSrcMutable = inputs.self.sourceInfo.outPath;
             inherit system;
           };
           evaluatedOutputs = nixpkgs.lib.mapAttrs'
