@@ -1,6 +1,7 @@
 { __nixpkgs__
 , __nixpkgsSrc__
 , fetchGithub
+, isLinux
 , makeScript
 , toBashArray
 , toFileToml
@@ -10,6 +11,7 @@
 , derivations
 , whitelist
 }:
+assert isLinux;
 let
   vulnixSrc = fetchGithub {
     owner = "flyingcircusio";

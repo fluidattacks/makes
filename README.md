@@ -1318,6 +1318,8 @@ Example invocation: `$ m . /testTerraform/module2`
 
 ### secureNixWithVulnix
 
+:warning: This function is only available on Linux at the moment.
+
 Secure [Nix][NIX] derivations
 with [Vulnix][VULNIX].
 
