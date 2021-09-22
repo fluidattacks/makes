@@ -23,7 +23,6 @@ in
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           derivations = lib.mkOption {
-            default = [ ];
             type = lib.types.listOf lib.types.package;
           };
           whitelist = lib.mkOption {
