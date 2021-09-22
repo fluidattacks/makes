@@ -1,7 +1,6 @@
 { __nixpkgs__
 , toBashArray
 , makeScript
-, projectPathMutable
 , ...
 }:
 { config
@@ -28,7 +27,7 @@
           __argSettingsBlack__ = ./settings-black.toml;
           __argSettingsIsort__ = ./settings-isort.toml;
           __argTargets__ = toBashArray
-            (builtins.map projectPathMutable config.formatPython.targets);
+            (builtins.map (rel: "." + rel) config.formatPython.targets);
         };
         name = "format-python";
         searchPaths = {

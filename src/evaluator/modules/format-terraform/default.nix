@@ -1,5 +1,4 @@
 { formatTerraform
-, projectPathMutable
 , ...
 }:
 { config
@@ -24,9 +23,7 @@
         config.formatTerraform.enable
         (formatTerraform {
           name = "format-terraform";
-          targets = builtins.map
-            projectPathMutable
-            config.formatTerraform.targets;
+          targets = builtins.map (rel: "." + rel) config.formatTerraform.targets;
         });
     };
   };

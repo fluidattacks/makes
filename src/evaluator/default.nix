@@ -19,9 +19,6 @@
   # Path to the user's project, inside a sandbox.
   # The sandbox excludes files not-tracked by git.
 , projectSrc
-  # Path to the user's project, outside the sandbox.
-  # Only available when running local Makes projects.
-, projectSrcMutable ? projectSrc
   # System we should evaluate for
 , system ? builtins.currentSystem
 , ...
@@ -52,7 +49,6 @@ let
     globalStateDir = result.config.globalStateDir;
     projectStateDir = result.config.projectStateDir;
     inherit projectSrc;
-    inherit projectSrcMutable;
     inherit system;
   };
   nixpkgs = import sources.nixpkgs { inherit system; };

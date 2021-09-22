@@ -1,5 +1,4 @@
 { formatBash
-, projectPathMutable
 , ...
 }:
 { config
@@ -23,7 +22,7 @@
     outputs = {
       "/formatBash" = lib.mkIf config.formatBash.enable (formatBash {
         name = "builtin";
-        targets = builtins.map projectPathMutable config.formatBash.targets;
+        targets = builtins.map (rel: "." + rel) config.formatBash.targets;
       });
     };
   };

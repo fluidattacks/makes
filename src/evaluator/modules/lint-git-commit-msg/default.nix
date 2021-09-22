@@ -3,7 +3,6 @@
 , isLinux
 , lintGitCommitMsg
 , projectPath
-, projectPathMutable
 , ...
 }:
 { config
@@ -46,7 +45,7 @@
             if config.lintGitCommitMsg.parser == null
             then ./parser.js
             else projectPath config.lintGitCommitMsg.parser;
-          src = projectPathMutable "/";
+          src = ".";
         });
     };
   };

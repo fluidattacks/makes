@@ -8,7 +8,6 @@
 , toFileYaml
 , makeScript
 , outputs
-, projectPathMutable
 , ...
 }:
 { config
@@ -106,7 +105,7 @@ let
             __argGitlabCiYaml__ = toFileYaml "gitlab-ci.yaml"
               (builtins.listToAttrs
                 (builtins.map makeGitlabJob jobs));
-            __argGitlabPath__ = projectPathMutable gitlabPath;
+            __argGitlabPath__ = "." + gitlabPath;
           };
           searchPaths.bin = [ __nixpkgs__.git ];
           entrypoint = ./entrypoint-for-pipeline-on-gitlab.sh;
