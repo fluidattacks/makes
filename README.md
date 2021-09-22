@@ -187,6 +187,7 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Test](#test)
         - [testTerraform](#testterraform)
     - [Security](#security)
+        - [secureNixWithVulnix](#securenixwithvulnix)
         - [securePythonWithBandit](#securepythonwithbandit)
     - [Deploy](#deploy)
         - [deployContainerImage](#deploycontainerimage)
@@ -1314,6 +1315,47 @@ Example invocation: `$ m . /testTerraform/module1`
 Example invocation: `$ m . /testTerraform/module2`
 
 ## Security
+
+### secureNixWithVulnix
+
+Secure [Nix][NIX] derivations
+with [Vulnix][VULNIX].
+
+Types:
+
+- secureNixWithVulnix (`attrsOf targetGroupType`): Optional.
+  Set of [Nix][NIX] derivations groups to verify.
+  Defaults to `{ }`.
+- targetGroupType (`submodule`):
+    - derivations (`listOf package`):
+      List of [Nix][NIX] derivations to verify.
+    - whitelist (`anything`):
+      Whitelist in [Vulnix][VULNIX] required format.
+
+Example `makes.nix`:
+
+```nix
+{ __nixpkgs__
+, ...
+}:
+{
+  secureNixWithVulnix = {
+    example = {
+      derivations = [
+        __nixpkgs__.libunitstring
+      ];
+      whitelist = {
+        "binutils-2.35.1" = {
+          cve = [ "CVE-2021-20284" ];
+          until = "2100-01-01";
+          comment = "Gonna fix it soon...";
+        };
+      };
+    };
+  };
+```
+
+Example invocation: `$ m . /secureNixWithVulnix/example`
 
 ### securePythonWithBandit
 
@@ -4447,6 +4489,9 @@ Examples:
 
 - [TRAVIS_ENV_VARS]: https://docs.travis-ci.com/user/environment-variables
   [Travis Environment Variables][TRAVIS_ENV_VARS]
+
+- [VULNIX]: https://github.com/flyingcircusio/vulnix
+  [Vulnix][VULNIX]
 
 - [X86_64]: https://en.wikipedia.org/wiki/X86-64
   [x86-64][X86_64]
