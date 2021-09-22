@@ -1,4 +1,6 @@
 { __toModuleOutputs__
+, attrsOptional
+, isLinux
 , secureNixWithVulnix
 , ...
 }:
@@ -33,7 +35,7 @@ in
       }));
     };
   };
-  config = {
+  config = attrsOptional isLinux {
     outputs = __toModuleOutputs__ makeModule config.secureNixWithVulnix;
   };
 }
