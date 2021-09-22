@@ -16,6 +16,8 @@ in just a few steps, in any technology.
 
 ## At a glance
 
+### Declarative infra, declarative CI/CD, pure profit 😏
+
 This is how creating a [CI/CD][CI_CD] pipeline
 for deploying infrastructure with [Terraform][TERRAFORM]
 and [Makes][MAKES] looks like:
@@ -60,7 +62,7 @@ and [Makes][MAKES] looks like:
 
 Easy, isn't it?
 
-Now 🔥 it up with: ` $ m . /deployTerraform/myAwesomeMicroService`
+Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
 Makes v21.10-linux
@@ -87,19 +89,45 @@ Initializing provider plugins...
 ...
 
 Terraform has been successfully initialized!
-
-data.local_file.queues: Refreshing state... [id=acf7c9972a897013ca273aa7c0dd317e73efdda3]
-aws_iam_role.aws_ecs_instance_role: Refreshing state... [id=aws_ecs_instance_role]
-data.aws_ec2_instance_type.instance: Refreshing state... [id=c5ad.xlarge]
-aws_security_group.aws_batch_compute_environment_security_group: Refreshing state... [id=sg-0a4eb2a28b2d09842]
-aws_launch_template.batch_instance: Refreshing state... [id=lt-00731456272d350e1]
-aws_subnet.default: Refreshing state... [id=subnet-06326784973787c13]
-....
+...
 
 Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 ```
 
 Live demo: [here](https://asciinema.org/a/426280)
+
+### Deploying to Kubernetes ☸
+
+This is how easy it is to deploy an application
+built with [Makes][MAKES] into [Kubernetes][KUBERNETES]:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+spec:
+  template:
+    spec:
+      containers:
+        - name: example
+          image: ghcr.io/fluidattacks/makes:21.10
+          command: [m]
+          args:
+            - github:fluidattacks/makes@main
+            - /helloWorld
+```
+
+### From dev to prod 🌟
+
+This is how your final users are going to interact
+with applications packaged with [Makes][MAKES]:
+
+`$ m github:org/repo@branch /yourAwesomeApplication arg1 arg2 ...`
+
+And how your developers are going to develop `yourAwesomeApplication` locally:
+
+`$ m . /yourAwesomeApplication arg1 arg2 ...`
+
+It works on dev, it works on prod, :100:% reproducibility!
 
 ## Production ready
 
