@@ -1,0 +1,70 @@
+{ __toModuleOutputs__
+, computeOnAwsBatch
+, ...
+}:
+{ config
+, lib
+, ...
+}:
+let
+  makeOutput = name: config: {
+    name = "/computeOnAwsBatch/${name}";
+    value = computeOnAwsBatch {
+      inherit (config) attempts;
+      inherit (config) attemptDurationSeconds;
+      inherit (config) command;
+      inherit (config) environment;
+      inherit (config) definition;
+      inherit (config) memory;
+      inherit (config) queue;
+      inherit name;
+      inherit (config) setup;
+      inherit (config) vcpus;
+    };
+  };
+in
+{
+  options = {
+    computeOnAwsBatch = lib.mkOption {
+      default = { };
+      type = lib.types.attrsOf (lib.types.submodule (_: {
+        options = {
+          attempts = lib.mkOption {
+            default = 1;
+            type = lib.types.ints.positive;
+          };
+          attemptDurationSeconds = lib.mkOption {
+            type = lib.types.ints.positive;
+          };
+          command = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.str;
+          };
+          environment = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.str;
+          };
+          definition = lib.mkOption {
+            type = lib.types.str;
+          };
+          memory = lib.mkOption {
+            type = lib.types.ints.positive;
+          };
+          queue = lib.mkOption {
+            type = lib.types.str;
+          };
+          setup = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.package;
+          };
+          vcpus = lib.mkOption {
+            type = lib.types.ints.positive;
+          };
+        };
+      }));
+    };
+  };
+  config = {
+    outputs = __toModuleOutputs__ makeOutput config.computeOnAwsBatch;
+  };
+}

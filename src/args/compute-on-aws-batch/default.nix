@@ -3,37 +3,36 @@
 , toFileJson
 , ...
 }:
-{ environment ? [ ]
-, jobAttempts ? 1
-, jobAttemptDurationSeconds
-, jobCommand
-, jobDefinition
-, jobMemory
-, jobName ? name
-, jobQueue
-, jobVcpus
+{ attempts ? 1
+, attemptDurationSeconds
+, command
+, environment ? [ ]
+, definition
+, memory
+, queue
 , name
 , setup ? [ ]
+, vcpus
 }:
 makeScript {
   name = "compute-on-aws-batch-for-${name}";
   replace = {
-    __argJobAttempts__ = jobAttempts;
-    __argJobAttemptDurationSeconds__ = jobAttemptDurationSeconds;
-    __argJobCommand__ = toFileJson "command.json" jobCommand;
-    __argJobDefinition__ = jobDefinition;
-    __argJobManifest__ = toFileJson "manifest.json" {
+    __argAttempts__ = attempts;
+    __argAttemptDurationSeconds__ = attemptDurationSeconds;
+    __argCommand__ = toFileJson "command.json" command;
+    __argDefinition__ = definition;
+    __argManifest__ = toFileJson "manifest.json" {
       environment = builtins.concatLists [
         [{ name = "CI"; value = "true"; }]
         (builtins.map
           (name: { inherit name; value = "\${${name}}"; })
           (environment))
       ];
-      memory = jobMemory;
-      vcpus = jobVcpus;
+      inherit memory;
+      inherit vcpus;
     };
-    __argJobName__ = jobName;
-    __argJobQueue__ = jobQueue;
+    __argName__ = name;
+    __argQueue__ = queue;
   };
   searchPaths = {
     bin = [
