@@ -20,6 +20,7 @@ let
     attrsMerge = builtins.foldl' lib.recursiveUpdate { };
     attrsOptional = lib.optionalAttrs;
     calculateCvss3 = import ./calculate-cvss-3/default.nix args;
+    computeOnAwsBatch = import ./compute-on-aws-batch/default.nix args;
     deployContainerImage = import ./deploy-container-image/default.nix args;
     deployTerraform = import ./deploy-terraform/default.nix args;
     escapeShellArg = lib.strings.escapeShellArg;
