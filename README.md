@@ -190,6 +190,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [secureNixWithVulnix](#securenixwithvulnix)
         - [securePythonWithBandit](#securepythonwithbandit)
     - [Deploy](#deploy)
+        - [computeOnAwsBatch](#computeonawsbatch)
         - [deployContainerImage](#deploycontainerimage)
         - [deployTerraform](#deployterraform)
         - [taintTerraform](#taintterraform)
@@ -1390,6 +1391,112 @@ Example `makes.nix`:
 Example invocation: `$ m . /securePythonWithBandit/cli`
 
 ## Deploy
+
+### computeOnAwsBatch
+
+Submit a job to an [AWS BATCH][AWS_BATCH] queue.
+
+Types:
+
+- computeOnAwsBatch (`attrsOf jobType`): Optional.
+  Job groups to submit.
+  Defaults to `{ }`.
+- jobType (`submodule`):
+    - attempts (`ints.positive`): Optional.
+      If the value of attempts is greater than one,
+      the job is retried on failure the same number of attempts as the value.
+      Defaults to `1`.
+    - attemptDurationSeconds (`ints.positive`): Optional.
+      The time duration in seconds
+      (measured from the job attempt's startedAt timestamp)
+      after which [AWS Batch][AWS_BATCH] terminates your jobs
+      if they have not finished.
+    - command (`listOf str`):
+      The command to send to the container.
+      It overrides the one specified
+      in the [AWS Batch][AWS_BATCH] job definition.
+      Additional arguments can be propagated when running this module output.
+    - environment (`listOf str`): Optional.
+      Name of the environment variables
+      whose names and values should be copied from the machine running Makes
+      to the machine on [AWS Batch][AWS_BATCH] running the job.
+      Defaults to `[ ]`.
+    - definition (`str`):
+      Name of the [AWS Batch][AWS_BATCH] job definition
+      that we will use as base for submitting the job.
+      In general an [AWS Batch][AWS_BATCH] job definition is required
+      in order to specify which container image
+      our job is going to run on.
+
+      The most basic [AWS Batch][AWS_BATCH] job definition
+      to run a [Makes][MAKES] job is (in [Terraform][TERRAFORM] syntax):
+
+      ```tf
+      resource "aws_batch_job_definition" "makes" {
+        name = "makes"
+        type = "container"
+        container_properties = jsonencode({
+          # This image cannot be parametrized later.
+          #
+          # If you need to run jobs on different container images,
+          # simply  create many `aws_batch_job_definition`s
+          image = "ghcr.io/fluidattacks/makes:21.10"
+
+          # Below arguments can be parametrized later,
+          # but they are required for the job definition to be created
+          # so let's put some dummy values here
+          command = [ ]
+          memory  = 512
+          vcpus   = 1
+        })
+      }
+      ```
+
+    - memory (`ints.positive`):
+      Amount of memory, in MiB that is reserved for the job.
+    - queue (`str`):
+      Name of the [AWS Batch][AWS_BATCH] queue we should submit the job to.
+    - setup (`listOf package`):
+      [Makes Environment][MAKES_ENVIRONMENT]
+      or [Makes Secrets][MAKES_SECRETS]
+      to `source` (as in Bash's `source`)
+      before anything else.
+    - vcpus (`ints.positive`):
+      Amount of virtual CPUs that is reserved for the job.
+
+Example `makes.nix`:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  computeOnAwsBatch = {
+    helloWorld = {
+      attempts = 1;
+      attemptDurationSeconds = 43200;
+      command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
+      definition = "makes";
+      environment = [ "ENV_VAR_FOR_WHATEVER" ];
+      memory = 1800;
+      queue = "ec2_spot";
+      setup = [
+        # Use default authentication for AWS
+        outputs."/secretsForAwsFromEnv/__default__"
+      ];
+      vcpus = 1;
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /computeOnAwsBatch/helloWorld`
+
+Example invocation: `$ m . /computeOnAwsBatch/helloWorld 1 2 3`
+
+Note that positional arguments (`[ "1" "2" "3" ]` in this case)
+will be appended to the end of `command`
+before sending the job to [AWS Batch][AWS_BATCH].
 
 ### deployContainerImage
 
@@ -4197,6 +4304,9 @@ Examples:
 
 - [AWS]: https://aws.amazon.com/
   [Amazon Web Services (AWS)][AWS]
+
+- [AWS_BATCH]: https://aws.amazon.com/batch/
+  [AWS Batch][AWS_BATCH]
 
 - [AWS_CLI]: https://aws.amazon.com/cli/
   [AWS CLI][AWS_CLI]

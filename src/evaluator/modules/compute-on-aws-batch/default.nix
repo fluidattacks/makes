@@ -37,7 +37,6 @@ in
             type = lib.types.ints.positive;
           };
           command = lib.mkOption {
-            default = [ ];
             type = lib.types.listOf lib.types.str;
           };
           environment = lib.mkOption {
