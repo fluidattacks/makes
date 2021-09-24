@@ -32,7 +32,7 @@ in
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           allowDuplicates = lib.mkOption {
-            default = true;
+            default = false;
             type = lib.types.bool;
           };
           attempts = lib.mkOption {
@@ -60,7 +60,7 @@ in
             type = lib.types.ints.positive;
           };
           queue = lib.mkOption {
-            type = lib.types.str;
+            type = lib.types.nullOr lib.types.str;
           };
           setup = lib.mkOption {
             default = [ ];

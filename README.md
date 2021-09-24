@@ -1435,7 +1435,7 @@ Types:
     - allowDuplicates (`bool`): Optional.
       Set to `false` in order to prevent submitting the job
       if there is already a job in the queue with the same name.
-      Defaults to `true`.
+      Defaults to `false`.
     - attempts (`ints.positive`): Optional.
       If the value of attempts is greater than one,
       the job is retried on failure the same number of attempts as the value.
@@ -1493,8 +1493,11 @@ Types:
       Defaults to `true`.
     - memory (`ints.positive`):
       Amount of memory, in MiB that is reserved for the job.
-    - queue (`str`):
+    - queue (`nullOr str`):
       Name of the [AWS Batch][AWS_BATCH] queue we should submit the job to.
+      It can be set to `null`,
+      causing Makes to read
+      the `MAKES_COMPUTE_ON_AWS_BATCH_QUEUE` environment variable at runtime.
     - setup (`listOf package`):
       [Makes Environment][MAKES_ENVIRONMENT]
       or [Makes Secrets][MAKES_SECRETS]
