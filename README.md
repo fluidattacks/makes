@@ -1455,6 +1455,12 @@ Types:
       }
       ```
 
+    - includePositionalArgsInName (`bool`): Optional.
+      Enable to make positional arguments part of the job name.
+      This is useful for identifying jobs
+      in the [AWS Batch][AWS_BATCH] console
+      more easily.
+      Defaults to `true`.
     - memory (`ints.positive`):
       Amount of memory, in MiB that is reserved for the job.
     - queue (`str`):

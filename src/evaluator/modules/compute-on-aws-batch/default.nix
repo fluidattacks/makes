@@ -14,8 +14,9 @@ let
       inherit (config) attempts;
       inherit (config) attemptDurationSeconds;
       inherit (config) command;
-      inherit (config) environment;
       inherit (config) definition;
+      inherit (config) includePositionalArgsInName;
+      inherit (config) environment;
       inherit (config) memory;
       inherit (config) queue;
       inherit name;
@@ -44,12 +45,16 @@ in
           command = lib.mkOption {
             type = lib.types.listOf lib.types.str;
           };
+          definition = lib.mkOption {
+            type = lib.types.str;
+          };
           environment = lib.mkOption {
             default = [ ];
             type = lib.types.listOf lib.types.str;
           };
-          definition = lib.mkOption {
-            type = lib.types.str;
+          includePositionalArgsInName = lib.mkOption {
+            default = true;
+            type = lib.types.bool;
           };
           memory = lib.mkOption {
             type = lib.types.ints.positive;
