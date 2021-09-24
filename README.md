@@ -96,7 +96,7 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
 Live demo: [here](https://asciinema.org/a/426280)
 
-### Deploying to Kubernetes ☸
+### Cloud native applications with Kubernetes ☸
 
 This is how easy it is to deploy an application
 built with [Makes][MAKES] into [Kubernetes][KUBERNETES]:
@@ -114,6 +114,36 @@ spec:
           args:
             - github:fluidattacks/makes@main
             - /helloWorld
+```
+
+### Large scale computing on the cloud 🏋
+
+Not a problem!
+
+This is how running [Makes][MAKES]
+on [AWS Batch][AWS_BATCH] looks like:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  computeOnAwsBatch = {
+    helloWorld = {
+      attemptDurationSeconds = 43200;
+      command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
+      definition = "makes";
+      environment = [ "ENV_VAR_FOR_MY_JOB" ];
+      memory = 1800;
+      queue = "ec2_spot";
+      setup = [
+        # Use default authentication for AWS
+        outputs."/secretsForAwsFromEnv/__default__"
+      ];
+      vcpus = 1;
+    };
+  };
+}
 ```
 
 ### From dev to prod 🌟
