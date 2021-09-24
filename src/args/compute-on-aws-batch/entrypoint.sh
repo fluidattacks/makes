@@ -15,6 +15,10 @@ function main {
   local queue="__argQueue__"
 
   : \
+    && if test -z "${queue}"; then
+      require_env_var MAKES_COMPUTE_ON_AWS_BATCH_QUEUE \
+        && queue="${MAKES_COMPUTE_ON_AWS_BATCH_QUEUE}"
+    fi \
     && if test -n "__argIncludePositionalArgsInName__"; then
       for arg in "${@}"; do
         name="${name}-${arg}"
