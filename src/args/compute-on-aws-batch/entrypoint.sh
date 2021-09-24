@@ -15,6 +15,11 @@ function main {
   local queue="__argQueue__"
 
   : \
+    && if test -n "__argIncludePositionalArgsInName__"; then
+      for arg in "${@}"; do
+        name="${name}-${arg}"
+      done
+    fi \
     && if test -z "__argAllowDuplicates__"; then
       info Checking if job "${name}" is already in the queue to avoid duplicates \
         && is_already_in_queue=$(

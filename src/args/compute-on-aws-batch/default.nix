@@ -7,8 +7,9 @@
 , attempts
 , attemptDurationSeconds
 , command
-, environment
 , definition
+, environment
+, includePositionalArgsInName
 , memory
 , queue
 , name
@@ -23,6 +24,7 @@ makeScript {
     __argAttemptDurationSeconds__ = attemptDurationSeconds;
     __argCommand__ = toFileJson "command.json" command;
     __argDefinition__ = definition;
+    __argIncludePositionalArgsInName__ = includePositionalArgsInName;
     __argManifest__ = toFileJson "manifest.json" {
       environment = builtins.concatLists [
         [{ name = "CI"; value = "true"; }]
