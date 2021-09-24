@@ -14,7 +14,22 @@ function main {
   local name="__argName__"
   local queue="__argQueue__"
 
-  info Sending job \
+  : \
+    && if test -z "__argAllowDuplicates__"; then
+      info Checking if job "${name}" is already in the queue to avoid duplicates \
+        && is_already_in_queue=$(
+          aws batch list-jobs \
+            --job-queue "${queue}" \
+            --job-status RUNNABLE \
+            --query 'jobSummaryList[*].jobName' \
+            | jq -r --arg name "${name}" '. | contains([$name])'
+        ) \
+        && if test "${is_already_in_queue}" = true; then
+          info Job "${name}" is already in queue, we skipped sending it \
+            && return 0
+        fi
+    fi \
+    && info Sending job \
     && command="$(subst_env_vars "${command}")" \
     && command="$(
       jq -enr \

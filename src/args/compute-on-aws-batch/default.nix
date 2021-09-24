@@ -3,20 +3,22 @@
 , toFileJson
 , ...
 }:
-{ attempts ? 1
+{ allowDuplicates
+, attempts
 , attemptDurationSeconds
 , command
-, environment ? [ ]
+, environment
 , definition
 , memory
 , queue
 , name
-, setup ? [ ]
+, setup
 , vcpus
 }:
 makeScript {
   name = "compute-on-aws-batch-for-${name}";
   replace = {
+    __argAllowDuplicates__ = allowDuplicates;
     __argAttempts__ = attempts;
     __argAttemptDurationSeconds__ = attemptDurationSeconds;
     __argCommand__ = toFileJson "command.json" command;

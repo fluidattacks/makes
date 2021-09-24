@@ -10,6 +10,7 @@ let
   makeOutput = name: config: {
     name = "/computeOnAwsBatch/${name}";
     value = computeOnAwsBatch {
+      inherit (config) allowDuplicates;
       inherit (config) attempts;
       inherit (config) attemptDurationSeconds;
       inherit (config) command;
@@ -29,6 +30,10 @@ in
       default = { };
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
+          allowDuplicates = lib.mkOption {
+            default = true;
+            type = lib.types.bool;
+          };
           attempts = lib.mkOption {
             default = 1;
             type = lib.types.ints.positive;

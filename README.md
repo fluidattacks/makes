@@ -1402,6 +1402,10 @@ Types:
   Job groups to submit.
   Defaults to `{ }`.
 - jobType (`submodule`):
+    - allowDuplicates (`bool`): Optional.
+      Set to `false` in order to prevent submitting the job
+      if there is already a job in the queue with the same name.
+      Defaults to `true`.
     - attempts (`ints.positive`): Optional.
       If the value of attempts is greater than one,
       the job is retried on failure the same number of attempts as the value.
@@ -1445,7 +1449,6 @@ Types:
           # Below arguments can be parametrized later,
           # but they are required for the job definition to be created
           # so let's put some dummy values here
-          command = [ ]
           memory  = 512
           vcpus   = 1
         })
