@@ -2784,6 +2784,21 @@ that runs in a **almost-isolated** environment.
       This function assumes a positive answer
       when running on the CI/CD provider
       because there is no human interaction.
+
+    - `prompt_user_for_input`:
+      Ask the user to type information
+      or optionally use a default value by pressing ENTER.
+
+      This function assumes the default value
+      when running on the CI/CD provider
+      because there is no human interaction.
+
+      ```bash
+      user_supplied_input="$(prompt_user_for_input "default123123")"
+
+      info Supplied input: "${user_supplied_input}"
+      ```
+
 - After the build, the script is executed.
 
 Types:
@@ -2949,6 +2964,11 @@ Types:
       In order to get the SHA256
       you can omit this parameter and execute Makes,
       Makes will tell you the correct SHA256 on failure.
+    - stripRoot (`bool`): Optional.
+      Most archives have a symbolic top-level folder
+      that is discarded during unpack phase.
+      If this is not the case you can set this flag to `false`.
+      Defaults to `true`.
 
 Example:
 
