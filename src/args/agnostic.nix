@@ -88,6 +88,7 @@ let
     stringCapitalize = import ./string-capitalize/default.nix args;
     taintTerraform = import ./taint-terraform/default.nix args;
     testTerraform = import ./test-terraform/default.nix args;
+    testPython = import ./test-python/default.nix args;
     toDerivationName = lib.strings.sanitizeDerivationName;
     toBashArray = import ./to-bash-array/default.nix args;
     toBashMap = import ./to-bash-map/default.nix args;
