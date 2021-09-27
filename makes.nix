@@ -197,6 +197,12 @@
       };
     };
   };
+  testPython = {
+    example = {
+      python = "3.9";
+      src = "/test/test-python";
+    };
+  };
   testTerraform = {
     modules = {
       module = {
