@@ -3,11 +3,12 @@
 , listOptional
 , makeDerivation
 , makePythonPypiEnvironment
+, makeSearchPaths
 , ...
 }:
-{ extraSources
-, name
+{ name
 , python
+, searchPaths
 , settingsMypy
 , settingsProspector
 , src
@@ -21,7 +22,8 @@ makeDerivation {
   name = "lint-python-module-for-${name}";
   searchPaths = {
     bin = [ __nixpkgs__.findutils ];
-    source = extraSources ++ [
+    source = [
+      (makeSearchPaths searchPaths)
       (makePythonPypiEnvironment {
         name = "lint-python";
         searchPaths = {

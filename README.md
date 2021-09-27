@@ -1103,29 +1103,27 @@ Types:
       Definitions of python packages/modules to lint.
       Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
-    - extraSources (`listOf package`): Optional.
-      List of packages that will be sourced before performing the linting process.
-      Can be used to setup dependencies of the project in the environment.
-      Defaults to `[ ]`.
     - python (`enum [ "3.7" "3.8" "3.9" ]`):
       Python interpreter version that your package/module is designed for.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
     - src (`str`):
       Path to the directory that contains inside many packages/modules.
 - importsType (`submodule`):
     - config (`str`):
       Path to the [import-linter][IMPORT_LINTER] configuration file.
-    - extraSources (`listOf package`): Optional.
-      List of packages that will be sourced before performing the linting process.
-      Can be used to setup dependencies of the project in the environment.
-      Defaults to `[ ]`.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
     - src (`str`):
       Path to the package/module.
 - moduleType (`submodule`):
-    - extraSources (`listOf package`): Optional.
-      List of scripts that will be sourced before performing the linting process.
-      Can be used to setup dependencies of the project in the environment.
     - python (`enum [ "3.7" "3.8" "3.9" ]`):
       Python interpreter version that your package/module is designed for.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
     - src (`str`):
       Path to the package/module.
 
