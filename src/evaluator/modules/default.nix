@@ -41,6 +41,7 @@
     (import ./secure-nix-with-vulnix/default.nix args)
     (import ./secure-python-with-bandit/default.nix args)
     (import ./taint-terraform/default.nix args)
+    (import ./test-python/default.nix args)
     (import ./test-terraform/default.nix args)
   ];
   options = {
