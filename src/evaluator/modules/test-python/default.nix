@@ -12,10 +12,12 @@ let
     name = "/testPython/${name}";
     value = testPython {
       inherit name;
+      inherit (args) extraSrcs;
       inherit (args) extraFlags;
+      project = projectPath "/";
       inherit (args) python;
       inherit (args) searchPaths;
-      src = projectPath args.src;
+      inherit (args) src;
     };
   };
 in
@@ -25,6 +27,10 @@ in
       default = { };
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
+          extraSrcs = lib.mkOption {
+            default = { };
+            type = lib.types.attrsOf lib.types.package;
+          };
           extraFlags = lib.mkOption {
             default = [ ];
             type = lib.types.listOf lib.types.str;
