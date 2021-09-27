@@ -579,8 +579,15 @@ it's a good idea to try [GitHub Actions][GITHUB_ACTIONS].
 If you want **serious** security try [GitLab CI/CD][GITLAB_CI].
 
 We didn't like [Travis CI][TRAVIS_CI]
-because managing encrypted secrets is ugly.
-It does not support running custom container images.
+because managing encrypted secrets is ugly,
+and it does not support running custom container images.
+
+Notes:
+
+- By deploying multiple runner agents (bastions)
+  you can make of GitLab a highly scalable and cost-effective solution.
+
+  This is not the out-of-the box behavior.
 
 ### Configuring on GitHub Actions
 
