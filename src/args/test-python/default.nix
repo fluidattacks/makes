@@ -1,13 +1,13 @@
-{ makeEntrypoint
-, makePythonPypiEnvironment
+{ makePythonPypiEnvironment
+, makeScript
 , toBashArray
 , ...
 }:
 { extraFlags
 , name
 , python
-, src
 , setup
+, src
 }:
 let
   pythonPypiEnvironment = makePythonPypiEnvironment {
@@ -20,16 +20,14 @@ let
     }.${python};
   };
 in
-makeEntrypoint {
+makeScript {
   name = "test-python-for-${name}";
   replace = {
     __argExtraFlags__ = toBashArray extraFlags;
     __argSrc__ = src;
   };
+  entrypoint = ./entrypoint.sh;
   searchPaths = {
-    source = [
-      (pythonPypiEnvironment)
-      (setup)
-    ];
+    source = [ pythonPypiEnvironment ] ++ setup;
   };
 }
