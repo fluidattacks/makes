@@ -28,6 +28,7 @@ let
     fakeSha256 = lib.fakeSha256;
     fetchArchive = import ./fetch-archive/default.nix args;
     fetchGithub = import ./fetch-github/default.nix args;
+    fetchGitlab = import ./fetch-gitlab/default.nix args;
     fetchNixpkgs = import ./fetch-nixpkgs/default.nix args;
     fetchRubyGem = import ./fetch-rubygem/default.nix args;
     fetchUrl = import ./fetch-url/default.nix args;
