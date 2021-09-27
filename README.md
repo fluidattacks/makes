@@ -257,6 +257,8 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [fetchGithub](#fetchgithub)
             - [fetchNixpkgs](#fetchnixpkgs)
             - [fetchRubyGem](#fetchrubygem)
+        - [Git](#git)
+            - [libGit](#libgit)
         - [Node.js](#nodejs)
             - [makeNodeJsVersion](#makenodejsversion)
             - [makeNodeJsModules](#makenodejsmodules)
@@ -3067,6 +3069,71 @@ fetchRubyGem {
   version = "4.1.0";
   sha256 = "0gjx30g84c82qzg32bd7giscvb4206v7mvg56kc839w9wjagn36n";
 }
+```
+
+### Git
+
+#### libGit
+
+A small template for doing git kung-fu.
+
+Types:
+
+- libGit (`package`):
+  A package that can be sourced to setup functions in the current scope.
+  The list of available functions is documented below:
+
+    - `is_git_repository`:
+      Return 0 if the provided path is a git repository.
+
+      ```bash
+      if is_git_repository /path/to/anywhere; then
+        # custom logic
+      fi
+      ```
+
+    - `require_git_repository`:
+      Stops the execution
+      if the provided path is not a git repository.
+
+      ```bash
+      require_git_repository /path/to/anywhere
+      ```
+
+    - `get_abbrev_rev`:
+      If available, returns an abbreviated name for the provided revision.
+      Otherwise returns the revision unchanged.
+
+      ```bash
+      # Would return main, trunk, develop, etc
+      get_abbrev_rev /path/to/anywhere HEAD
+      ```
+
+Example:
+
+```nix
+# /path/to/my/project/makes/example/main.nix
+{ libGit
+, makeScript
+, ...
+}:
+makeScript {
+  entrypoint = ''
+    require_git_repository /some-path-that-do-not-exists
+
+    echo other business logic goes here ...
+  '';
+  name = "example";
+  searchPaths = {
+    source = [ libGit ];
+  };
+}
+```
+
+```bash
+$ m . /example
+
+    [CRITICAL] We require a git repository, but this one is not: /some-path-that-do-not-exists
 ```
 
 ### Node.js
