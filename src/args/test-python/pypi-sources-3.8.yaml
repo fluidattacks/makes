@@ -1,0 +1,94 @@
+closure:
+  atomicwrites: 1.4.0
+  attrs: 21.2.0
+  colorama: 0.4.4
+  importlib-metadata: 4.8.1
+  iniconfig: 1.1.1
+  packaging: "21.0"
+  pluggy: 1.0.0
+  py: 1.10.0
+  pyparsing: 2.4.7
+  pytest: 6.2.5
+  toml: 0.10.2
+  typing-extensions: 3.10.0.2
+  zipp: 3.5.0
+links:
+  - name: atomicwrites-1.4.0-py2.py3-none-any.whl
+    sha256: 15z1i1xjlc71ya8kcy3dz7ywpr5n807n4v1b2yjx9j60lzg885vd
+    url: https://files.pythonhosted.org/packages/2c/a0/da5f49008ec6e9a658dbf5d7310a4debd397bce0b4db03cf8a410066bb87/atomicwrites-1.4.0-py2.py3-none-any.whl
+  - name: atomicwrites-1.4.0.tar.gz
+    sha256: 0yla2svfhfqrcj8qbyqzx7wi4jy0dwcxvlkg0k3zjd54s5m3jw5f
+    url: https://files.pythonhosted.org/packages/55/8d/74a75635f2c3c914ab5b3850112fd4b0c8039975ecb320e4449aa363ba54/atomicwrites-1.4.0.tar.gz
+  - name: attrs-21.2.0-py2.py3-none-any.whl
+    sha256: 1cdh2v3scv9mi00195khsch3y6l8wvq0rmjsjmxdn85cv3b917hl
+    url: https://files.pythonhosted.org/packages/20/a9/ba6f1cd1a1517ff022b35acd6a7e4246371dfab08b8e42b829b6d07913cc/attrs-21.2.0-py2.py3-none-any.whl
+  - name: attrs-21.2.0.tar.gz
+    sha256: 1yzmwi5d197p0qhl7rl4xi9q1w8mk9i3zn6hrl22knbcrb1slspg
+    url: https://files.pythonhosted.org/packages/ed/d6/3ebca4ca65157c12bd08a63e20ac0bdc21ac7f3694040711f9fd073c0ffb/attrs-21.2.0.tar.gz
+  - name: colorama-0.4.4-py2.py3-none-any.whl
+    sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
+    url: https://files.pythonhosted.org/packages/44/98/5b86278fbbf250d239ae0ecb724f8572af1c91f4a11edf4d36a206189440/colorama-0.4.4-py2.py3-none-any.whl
+  - name: colorama-0.4.4.tar.gz
+    sha256: 16w62sm95hmh55rqxn4zwdz0bkh3fqm1qnz9cwi3s510iasb4har
+    url: https://files.pythonhosted.org/packages/1f/bb/5d3246097ab77fa083a61bd8d3d527b7ae063c7d8e8671b1cf8c4ec10cbe/colorama-0.4.4.tar.gz
+  - name: importlib_metadata-4.8.1-py3-none-any.whl
+    sha256: 05dx8mbfkr12hd1irvdh55iaaxkclibwz5snvmmg38pzsp9bc65n
+    url: https://files.pythonhosted.org/packages/71/c2/cb1855f0b2a0ae9ccc9b69f150a7aebd4a8d815bd951e74621c4154c52a8/importlib_metadata-4.8.1-py3-none-any.whl
+  - name: importlib_metadata-4.8.1.tar.gz
+    sha256: 1c93dwrdzrqgg9wlsypiixl3jlvgrlnbp1mb0dfixban2bhv717j
+    url: https://files.pythonhosted.org/packages/f0/70/ca3dd67cdd368b957e73a8156f7e1a10339f9813e314cb8b4549526070da/importlib_metadata-4.8.1.tar.gz
+  - name: iniconfig-1.1.1-py2.py3-none-any.whl
+    sha256: 1cx8kpp3akxwadzsmv2cdnifkyzj8fki5frmv3mzcivz9g3287h1
+    url: https://files.pythonhosted.org/packages/9b/dd/b3c12c6d707058fa947864b67f0c4e0c39ef8610988d7baea9578f3c48f3/iniconfig-1.1.1-py2.py3-none-any.whl
+  - name: iniconfig-1.1.1.tar.gz
+    sha256: 0ckzngs3scaa1mcfmsi1w40a1l8cxxnncscrxzjjwjyisx8z0fmw
+    url: https://files.pythonhosted.org/packages/23/a2/97899f6bd0e873fed3a7e67ae8d3a08b21799430fb4da15cfedf10d6e2c2/iniconfig-1.1.1.tar.gz
+  - name: packaging-21.0-py3-none-any.whl
+    sha256: 057z2kyp5f66w7gz9ph0h3d4f20gfvgblsadr4ff6m8d4bwm8qn8
+    url: https://files.pythonhosted.org/packages/3c/77/e2362b676dc5008d81be423070dd9577fa03be5da2ba1105811900fda546/packaging-21.0-py3-none-any.whl
+  - name: packaging-21.0.tar.gz
+    sha256: 1rzvq94xyygpf5s7px23nc5xs1hi52j402b7q32wwk1symln5jbx
+    url: https://files.pythonhosted.org/packages/df/86/aef78bab3afd461faecf9955a6501c4999933a48394e90f03cd512aad844/packaging-21.0.tar.gz
+  - name: pluggy-1.0.0-py2.py3-none-any.whl
+    sha256: 1lvvnc39v43v5jawq2wz0765rg9lkx8f25l4sqv1l0vz8nzln4vl
+    url: https://files.pythonhosted.org/packages/9e/01/f38e2ff29715251cf25532b9082a1589ab7e4f571ced434f98d0139336dc/pluggy-1.0.0-py2.py3-none-any.whl
+  - name: pluggy-1.0.0.tar.gz
+    sha256: 0n8iadlas2z1b4h0fc73b043c7iwfvx9rgvqm1azjmffmhxkf922
+    url: https://files.pythonhosted.org/packages/a1/16/db2d7de3474b6e37cbb9c008965ee63835bba517e22cdb8c35b5116b5ce1/pluggy-1.0.0.tar.gz
+  - name: py-1.10.0-py2.py3-none-any.whl
+    sha256: 12l1326xbn82inp4b1a6lvnnr3xb4djdlip012hymznilrm8701v
+    url: https://files.pythonhosted.org/packages/67/32/6fe01cfc3d1a27c92fdbcdfc3f67856da8cbadf0dd9f2e18055202b2dc62/py-1.10.0-py2.py3-none-any.whl
+  - name: py-1.10.0.tar.gz
+    sha256: 1lqvkqk3b440g9z82gqbzlzas84wrm6ir8kplzhzavmn2pd1pf11
+    url: https://files.pythonhosted.org/packages/0d/8c/50e9f3999419bb7d9639c37e83fa9cdcf0f601a9d407162d6c37ad60be71/py-1.10.0.tar.gz
+  - name: pyparsing-2.4.7-py2.py3-none-any.whl
+    sha256: 12y8xwjb118a4jqvvfg9k90kqg03n4d3ygb5csz0l81wxy4pb7gg
+    url: https://files.pythonhosted.org/packages/8a/bb/488841f56197b13700afd5658fc279a2025a39e22449b7cf29864669b15d/pyparsing-2.4.7-py2.py3-none-any.whl
+  - name: pyparsing-2.4.7.tar.gz
+    sha256: 1hgc8qrbq1ymxbwfbjghv01fm3fbpjwpjwi0bcailxxzhf3yq0y2
+    url: https://files.pythonhosted.org/packages/c1/47/dfc9c342c9842bbe0036c7f763d2d6686bcf5eb1808ba3e170afdb282210/pyparsing-2.4.7.tar.gz
+  - name: pytest-6.2.5-py3-none-any.whl
+    sha256: 0d61miyag9041vxn02wwck3acswzsq2a633nkscyv767gg9gh43k
+    url: https://files.pythonhosted.org/packages/40/76/86f886e750b81a4357b6ed606b2bcf0ce6d6c27ad3c09ebf63ed674fc86e/pytest-6.2.5-py3-none-any.whl
+  - name: pytest-6.2.5.tar.gz
+    sha256: 12cyi0lnyaq8sdqfnqlppd76gkw6zcg10gyih5knx9v611l3c6qk
+    url: https://files.pythonhosted.org/packages/4b/24/7d1f2d2537de114bdf1e6875115113ca80091520948d370c964b88070af2/pytest-6.2.5.tar.gz
+  - name: toml-0.10.2-py2.py3-none-any.whl
+    sha256: 16sgpg57kxx5jh467d9qwc2hwshfvdbl0xkafdp3qspvbfp46qc0
+    url: https://files.pythonhosted.org/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl
+  - name: toml-0.10.2.tar.gz
+    sha256: 13z6rff86bzdpl094x0vmfvls779931xj90dlbs9kpfm138s3gdk
+    url: https://files.pythonhosted.org/packages/be/ba/1f744cdc819428fc6b5084ec34d9b30660f6f9daaf70eead706e3203ec3c/toml-0.10.2.tar.gz
+  - name: typing_extensions-3.10.0.2-py3-none-any.whl
+    sha256: 0d0s8knd86ldzfygnrj7mwbrhh31rjmksqfhxi3b25p5zpd5xlpi
+    url: https://files.pythonhosted.org/packages/74/60/18783336cc7fcdd95dae91d73477830aa53f5d3181ae4fe20491d7fc3199/typing_extensions-3.10.0.2-py3-none-any.whl
+  - name: typing_extensions-3.10.0.2.tar.gz
+    sha256: 0zk7kbcms828by6avmqp09bsag1az37qr60viqjwvw8izwb5vxs9
+    url: https://files.pythonhosted.org/packages/ed/12/c5079a15cf5c01d7f4252b473b00f7e68ee711be605b9f001528f0298b98/typing_extensions-3.10.0.2.tar.gz
+  - name: zipp-3.5.0-py3-none-any.whl
+    sha256: 18whjgls10yan9vhcd9544g9kjj1123y7fdq1ic8kqwpfylgsz4m
+    url: https://files.pythonhosted.org/packages/92/d9/89f433969fb8dc5b9cbdd4b4deb587720ec1aeb59a020cf15002b9593eef/zipp-3.5.0-py3-none-any.whl
+  - name: zipp-3.5.0.tar.gz
+    sha256: 1i7hkdbivya5lvww9y8i85mp3spbwzsfk9a96kvcyj3y00g2p0gm
+    url: https://files.pythonhosted.org/packages/3a/9f/1d4b62cbe8d222539a84089eeab603d8e45ee1f897803a0ae0860400d6e7/zipp-3.5.0.tar.gz
+python: "3.7"
