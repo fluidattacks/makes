@@ -12,7 +12,8 @@ function main {
       --exitfirst \
       --showlocals \
       --show-capture no \
-      -vvv
+      -vvv \
+      "${extra_flags[@]}"
 }
 
 main "${@}"
