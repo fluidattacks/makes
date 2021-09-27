@@ -1,4 +1,5 @@
 { makePythonPypiEnvironment
+, makeSearchPaths
 , makeScript
 , toBashArray
 , ...
@@ -6,7 +7,7 @@
 { extraFlags
 , name
 , python
-, setup
+, searchPaths
 , src
 }:
 let
@@ -28,6 +29,6 @@ makeScript {
   };
   entrypoint = ./entrypoint.sh;
   searchPaths = {
-    source = [ pythonPypiEnvironment ] ++ setup;
+    source = [ pythonPypiEnvironment (makeSearchPaths searchPaths) ];
   };
 }

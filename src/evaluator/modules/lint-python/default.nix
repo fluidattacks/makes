@@ -11,19 +11,19 @@
 , ...
 }:
 let
-  makeImports = name: { config, extraSources, src }: {
+  makeImports = name: { config, searchPaths, src }: {
     name = "/lintPython/imports/${name}";
     value = lintPythonImports {
-      inherit extraSources;
+      inherit searchPaths;
       config = projectPath config;
       inherit name;
       src = projectPath src;
     };
   };
-  makeModule = name: { extraSources, python, src }: {
+  makeModule = name: { searchPaths, python, src }: {
     name = "/lintPython/module/${name}";
     value = lintPython {
-      inherit extraSources;
+      inherit searchPaths;
       inherit name;
       inherit python;
       settingsMypy = ./settings-mypy.cfg;
@@ -31,13 +31,13 @@ let
       src = projectPath src;
     };
   };
-  makeDirOfModules = name: { extraSources, python, src }:
+  makeDirOfModules = name: { searchPaths, python, src }:
     let
       modules = builtins.map
         (moduleName: {
           name = "/lintPython/dirOfModules/${name}/${moduleName}";
           value = (makeModule moduleName {
-            inherit extraSources;
+            inherit searchPaths;
             inherit python;
             src = "${src}/${moduleName}";
           }).value;
@@ -59,12 +59,12 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
-            extraSources = lib.mkOption {
-              default = [ ];
-              type = lib.types.listOf lib.types.package;
-            };
             python = lib.mkOption {
               type = lib.types.enum [ "3.7" "3.8" "3.9" ];
+            };
+            searchPaths = lib.mkOption {
+              default = { };
+              type = lib.types.attrs;
             };
             src = lib.mkOption {
               type = lib.types.str;
@@ -79,9 +79,9 @@ in
             config = lib.mkOption {
               type = lib.types.str;
             };
-            extraSources = lib.mkOption {
-              default = [ ];
-              type = lib.types.listOf lib.types.package;
+            searchPaths = lib.mkOption {
+              default = { };
+              type = lib.types.attrs;
             };
             src = lib.mkOption {
               type = lib.types.str;
@@ -93,12 +93,12 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
-            extraSources = lib.mkOption {
-              default = [ ];
-              type = lib.types.listOf lib.types.package;
-            };
             python = lib.mkOption {
               type = lib.types.enum [ "3.7" "3.8" "3.9" ];
+            };
+            searchPaths = lib.mkOption {
+              default = { };
+              type = lib.types.attrs;
             };
             src = lib.mkOption {
               type = lib.types.str;

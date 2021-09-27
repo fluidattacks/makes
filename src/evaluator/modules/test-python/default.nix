@@ -14,7 +14,7 @@ let
       inherit name;
       inherit (args) extraFlags;
       inherit (args) python;
-      inherit (args) setup;
+      inherit (args) searchPaths;
       src = projectPath args.src;
     };
   };
@@ -32,9 +32,9 @@ in
           python = lib.mkOption {
             type = lib.types.enum [ "3.6" "3.7" "3.8" "3.9" ];
           };
-          setup = lib.mkOption {
-            default = [ ];
-            type = lib.types.listOf lib.types.package;
+          searchPaths = lib.mkOption {
+            default = { };
+            type = lib.types.attrs;
           };
           src = lib.mkOption {
             type = lib.types.str;
