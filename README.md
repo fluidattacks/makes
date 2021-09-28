@@ -215,6 +215,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [lintWithAjv](#lintwithajv)
         - [lintWithLizard](#lintwithlizard)
     - [Test](#test)
+        - [testPython](#testpython)
         - [testTerraform](#testterraform)
     - [Security](#security)
         - [secureNixWithVulnix](#securenixwithvulnix)
@@ -1309,6 +1310,77 @@ Example invocation: `$ m . /lintWithLizard/example1`
 Example invocation: `$ m . /lintWithLizard/example2`
 
 ## Test
+
+### testPython
+
+Test [Python][PYTHON] code
+with [pytest][PYTEST].
+
+Types:
+
+- testPython (`attrsOf targetType`): Optional.
+  Mapping of names to [pytest][PYTEST] targets.
+  Defaults to `{ }`.
+- targetType (`submodule`):
+    - python (`enum [ "3.6" "3.7" "3.8" "3.9" ]`):
+      Python interpreter version that your package/module is designed for.
+    - src (`str`):
+      Path to the file or folder that contains the tests code.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`.
+      Defaults to `makeSearchPaths`'s defaults.
+    - extraFlags (`listOf str`): Optional.
+      Extra command line arguments to propagate to [pytest][PYTEST].
+      Defaults to `[ ]`.
+    - extraSrcs (`attrsOf package`): Optional.
+      Place extra sources at the same level of your project code
+      so you can reference them via relative paths.
+
+      The final test structure looks like this:
+
+      ```bash
+      /tmp/some-random-unique-folder
+      ├── __project__  # The entire source code of your project
+      │   ├── ...
+      │   └── path/to/src
+      ... # repeat for all extraSrcs
+      ├── "${extraSrcName}"
+      │   └── "${extraSrcValue}"
+      ...
+      ```
+
+      And we will run [pytest][PYTEST] like this:
+
+      `$ pytest /tmp/some-random-unique-folder/__project__/path/to/src`
+
+      Defaults to `{ }`.
+
+Example `makes.nix`:
+
+```nix
+{
+  testPython = {
+    example = {
+      python = "3.9";
+      src = "/test/test-python";
+    };
+  };
+}
+```
+
+```bash
+$ tree test/test-python/
+
+  test/test-python/
+  └── test_something.py
+
+$ cat test/test-python/test_something.py
+
+  1 def test_one_plus_one_equals_two() -> None:
+  2     assert (1 + 1) == 2
+```
+
+Example invocation: `$ m . /testPython/example`
 
 ### testTerraform
 
@@ -4685,6 +4757,9 @@ Examples:
 
 - [PROSPECTOR]: http://prospector.landscape.io/en/master/
   [Prospector][PROSPECTOR]
+
+- [PYTEST]: https://docs.pytest.org/
+  [pytest][PYTEST]
 
 - [PYTHON]: https://www.python.org/
   [Python][PYTHON]
