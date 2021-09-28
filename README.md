@@ -187,9 +187,9 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Getting started as a final user](#getting-started-as-a-final-user)
     - [Getting started as developer](#getting-started-as-developer)
     - [Learning the language](#learning-the-language)
-    - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
-    - [Versioning scheme for the CLI](#versioning-scheme-for-the-cli)
-    - [Compatibility information](#compatibility-information)
+    - [Versioning scheme](#versioning-scheme)
+        - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
+        - [Compatibility information](#compatibility-information)
 - [Configuring CI/CD](#configuring-cicd)
     - [Providers comparison](#providers-comparison)
         - [Configuring on GitHub Actions](#configuring-on-github-actions)
@@ -240,7 +240,6 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [inputs](#inputs)
     - [Examples](#examples)
         - [helloWorld](#helloworld)
-- [Makes.lock.nix reference](#makeslocknix-reference)
 - [Extending Makes](#extending-makes)
     - [Main.nix format](#mainnix-format)
         - [Derivations](#derivations)
@@ -529,36 +528,45 @@ We highly recommend you the following resources:
 - [Nix][NIX] Expression Language:
     - [Nix Pills][NIX_PILLS]
 
-## Versioning scheme for the framework
+## Versioning scheme
 
-We use [Git][GIT] commits for versioning the [Makes][MAKES] Framework.
-If means you are in full control on how your project evolves over time.
-Git commits are mathematically stable.
-
-You can find the commits list [here][MAKES_COMMITS].
-
-Please read the [Makes.lock.nix Reference][MAKES_LOCK_REF] for more information.
-
-## Versioning scheme for the CLI
-
-We use [calendar versioning][CALVER] for the Makes CLI (a.k.a. `$ m`),
-like this: `year.month`.
+We use [calendar versioning][CALVER].
 
 You can assume that the current month release is stable,
-for instance: `20.01` (at January 2021).
-We won't add new features to it nor change it in backward-incompatible ways.
+for instance: `21.01` (if today were January 2021).
+The stable version is frozen. We don't touch it under any circumstances.
 
 Development/unstable releases are tagged with the next month
-[calendar version][CALVER], for instance `21.02` (at January 2021).
+[calendar version][CALVER], for instance `21.02` (if today were January 2021).
 Please don't use unstable releases in production.
 
-You can find the releases list [here][MAKES_RELEASES].
+The [Makes][MAKES] ecosystem has two components:
+the framework itself, and the CLI (a.k.a. `$ m`).
 
-## Compatibility information
+### Versioning scheme for the framework
+
+You can ensure
+that your project is always evaluated
+with the same version of [Makes][MAKES]
+by creating a `makes.lock.nix` in the root of your project,
+for instance:
+
+```nix
+# /path/to/my/project/makes.lock.nix
+{
+  makesSrc = builtins.fetchGit {
+    url = "https://github.com/fluidattacks/makes";
+    ref = "21.10";
+  };
+}
+```
+
+### Compatibility information
 
 For the whole ecosystem to work
-you need to use versions (of Makes CLI and Framework)
-created in the same month.
+you need to use the **same version**
+of the framework and the CLI.
+For example: `21.10`.
 
 # Configuring CI/CD
 
@@ -2230,28 +2238,6 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /helloWorld 1 2 3`
-
-# Makes.lock.nix reference
-
-Allows you to define the exact version of [Makes]
-to evaluate your project with.
-
-Types:
-
-- makesSrc (`package`): Optional.
-  Source code of [Makes][MAKES] used to evaluate your Project.
-  Defaults to the version bundled with the [Makes][MAKES] CLI.
-
-Example `makes.lock.nix`:
-
-```nix
-{
-  makesSrc = builtins.fetchGit {
-    url = "https://github.com/fluidattacks/makes";
-    rev = "0dae5699b8d806e33e18122311c8af9510e18048";
-  };
-}
-```
 
 # Extending Makes
 
@@ -4618,9 +4604,6 @@ Examples:
 
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]
-
-- [MAKES_LOCK_REF]: #makeslocknix-reference
-  [Makes.lock.nix Reference][MAKES_LOCK_REF]
 
 - [MAKES_COMMITS]: https://github.com/fluidattacks/makes/commits/main
   [Makes Commits][MAKES_COMMITS]
