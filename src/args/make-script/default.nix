@@ -1,25 +1,24 @@
 { __nixpkgs__
-, toBashArray
 , __shellCommands__
 , __shellOptions__
+, __stateDirs__
 , makeDerivation
 , makeSearchPaths
 , makeTemplate
+, toBashArray
 , toDerivationName
-, __projectStateDir__
-, __globalStateDir__
 , ...
 }:
 { aliases ? [ ]
 , entrypoint
-, name
+, globalState ? __stateDirs__.project == __stateDirs__.global
 , help ? null
+, name
+, persistState ? false
 , replace ? { }
 , searchPaths ? { }
-, persistState ? false
-, globalState ? if (__projectStateDir__ == __globalStateDir__) then true else false
 }:
-assert (if (__projectStateDir__ == __globalStateDir__) then globalState else true);
+assert (if (__stateDirs__.project == __stateDirs__.global) then globalState else true);
 let
   # Minimalistic shell environment
   # Let's try to keep it as lightweight as possible because this
@@ -62,8 +61,8 @@ makeDerivation {
         __argShellOptions__ = __shellOptions__;
         __argCaCert__ = __nixpkgs__.cacert;
         __argName__ = name';
-        __argProjectStateDir__ = __projectStateDir__;
-        __argGlobalStateDir__ = __globalStateDir__;
+        __argProjectStateDir__ = __stateDirs__.project;
+        __argGlobalStateDir__ = __stateDirs__.global;
         __argSearchPaths__ = makeSearchPaths searchPaths;
         __argSearchPathsBase__ = searchPathsBase;
         __argSearchPathsEmpty__ = searchPathsEmpty;
