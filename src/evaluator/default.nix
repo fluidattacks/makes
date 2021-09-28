@@ -46,9 +46,11 @@ let
     inherit makesExecutionId;
     outputs = result.config.outputs;
     projectIdentifier = result.config.projectIdentifier;
-    globalStateDir = result.config.globalStateDir;
-    projectStateDir = result.config.projectStateDir;
     inherit projectSrc;
+    stateDirs = {
+      global = result.config.globalStateDir;
+      project = result.config.projectStateDir;
+    };
     inherit system;
   };
   nixpkgs = import sources.nixpkgs { inherit system; };

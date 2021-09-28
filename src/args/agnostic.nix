@@ -1,17 +1,18 @@
 # Arguments that can be used outside of a Makes project
 # and therefore are agnostic to the framework.
-{ system ? builtins.currentSystem
-, __globalStateDir__
-, __projectStateDir__
+{ stateDirs ? {
+    global = "$HOME_IMPURE/.makes/state";
+    project = "$HOME_IMPURE/.makes/state/<project-name>";
+  }
+, system ? builtins.currentSystem
 }:
 let
   args = {
-    inherit __projectStateDir__;
-    inherit __globalStateDir__;
     __nixpkgs__ = import sources.nixpkgs { inherit system; };
     __nixpkgsSrc__ = sources.nixpkgs;
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;
+    __stateDirs__ = stateDirs;
     __system__ = system;
     __toModuleOutputs__ = import ./to-module-outputs/default.nix args;
     asContent = import ./as-content/default.nix;

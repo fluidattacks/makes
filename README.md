@@ -4369,10 +4369,7 @@ let
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
     rev = "21.10";
-  }}/src/args/agnostic.nix" {
-    __globalStateDir__ = "\${HOME_IMPURE}/.makes/state";
-    __projectStateDir__ = "\${HOME_IMPURE}/.makes/state/<project-name>";
-  };
+  }}/src/args/agnostic.nix" { };
 in
 # Use the framework
 makes.makePythonPypiEnvironment {

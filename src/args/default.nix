@@ -2,17 +2,15 @@
 , makesExecutionId
 , outputs
 , projectIdentifier
-, globalStateDir
-, projectStateDir
 , projectSrc
+, stateDirs
 , system
 , ...
 }:
 let
   agnostic = import ./agnostic.nix {
+    inherit stateDirs;
     inherit system;
-    __globalStateDir__ = globalStateDir;
-    __projectStateDir__ = projectStateDir;
   };
 
   args = agnostic // {
