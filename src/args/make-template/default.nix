@@ -5,7 +5,6 @@
 , makeSearchPaths
 , ...
 }:
-
 { local ? true
 , name
 , help ? null
