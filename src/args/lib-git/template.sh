@@ -21,3 +21,11 @@ function get_abbrev_rev {
   require_git_repository "${path}" \
     && git -C "${path}" rev-parse --abbrev-ref "${rev}"
 }
+
+function get_commit_from_rev {
+  local path="${1}"
+  local rev="${2}"
+
+  require_git_repository "${path}" \
+    && git -C "${path}" rev-parse "${rev}"
+}

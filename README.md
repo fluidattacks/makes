@@ -3230,6 +3230,15 @@ Types:
       get_abbrev_rev /path/to/anywhere HEAD
       ```
 
+    - `get_commit_from_rev`:
+      If available, returns the full commit of the provided revision.
+      Otherwise returns an error.
+
+      ```bash
+      # Would return the full commit (e026a413...)
+      get_commit_from_rev /path/to/anywhere HEAD
+      ```
+
 Example:
 
 ```nix
