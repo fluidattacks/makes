@@ -54,6 +54,7 @@ ON_EXIT: List[Callable[[], None]] = [
 VERSION: str = "21.10"
 
 # Environment
+__MAKES_REGISTRY__: str = environ["__MAKES_REGISTRY__"]
 __MAKES_SRC__: str = environ["__MAKES_SRC__"]
 __NIX_STABLE__: str = environ["__NIX_STABLE__"]
 __NIX_UNSTABLE__: str = environ["__NIX_UNSTABLE__"]
@@ -91,14 +92,16 @@ def _clone_src(src: str) -> str:
         cache_key: str = ""
         remote: str = abspath(src)
         rev = "HEAD"
-
-    elif match := _clone_src_github(src):
-        cache_key, remote, rev = match
-    elif match := _clone_src_gitlab(src):
-        cache_key, remote, rev = match
-
     else:
-        raise Error(f"Unable to parse [SOURCE]: {src}")
+        src = _clone_src_apply_registry(src)
+
+        if match := _clone_src_github(src):
+            cache_key, remote, rev = match
+        elif match := _clone_src_gitlab(src):
+            cache_key, remote, rev = match
+
+        else:
+            raise Error(f"Unable to parse [SOURCE]: {src}")
 
     out, stdout, stderr = _run(
         ["git", "init", "--initial-branch=____", "--shared=false", head]
@@ -121,6 +124,16 @@ def _clone_src(src: str) -> str:
     _clone_src_cache_refresh(head, cache_key)
 
     return head
+
+
+def _clone_src_apply_registry(src: str) -> str:
+    with open(__MAKES_REGISTRY__, encoding="utf-8") as file:
+        registry = json.load(file)
+
+        for to_, from_ in registry.items():
+            src = re.sub(from_, to_, src)
+
+    return src
 
 
 def _clone_src_github(src: str) -> Optional[Tuple[str, str, str]]:
