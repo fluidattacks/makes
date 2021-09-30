@@ -2462,6 +2462,9 @@ of the environment variables we currently support.
 - [CLASSPATH][CLASSPATH]:
   Location of user-defined classes and packages.
 
+- [CRYSTAL_LIBRARY_PATH][CRYSTAL_LIBRARY_PATH]:
+  Location of [Crystal][CRYSTAL] libraries.
+
 - [GEM_PATH][GEM_PATH]:
   Location of libraries for [Ruby][RUBY].
 
@@ -2504,28 +2507,38 @@ Types:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `bin` (`listOf package`): Optional.
+    - `bin` (`listOf coercibleToStr`): Optional.
       Append `/bin`
-      of every element in the list
+      of each element in the list
       to [PATH][PATH].
       Defaults to `[ ]`.
 
-    - `rpath` (`listOf package`): Optional.
+    - `rpath` (`listOf coercibleToStr`): Optional.
       Append `/lib` and `/lib64`
-      of every element in the list
+      of each element in the list
       to [LD_LIBRARY_PATH][RPATH].
       Defaults to `[ ]`.
 
-    - `source` (`listOf package`): Optional.
+    - `source` (`listOf coercibleToStr`): Optional.
       Source (as in [Bash][BASH]'s `source` command)
-      every element in the list.
+      each element in the list.
+      Defaults to `[ ]`.
+
+Types specific to [Crystal][CRYSTAL]:
+
+- makeSearchPaths (`function { ... } -> package`):
+
+    - `crystalLib` (`listOf coercibleToStr`): Optional.
+      Append `/lib`
+      of each element in the list
+      to [CRYSTAL_LIBRARY_PATH][CRYSTAL_LIBRARY_PATH].
       Defaults to `[ ]`.
 
 Types specific to Java:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `javaClass` (`listOf package`): Optional.
+    - `javaClass` (`listOf coercibleToStr`): Optional.
       Append each element in the list
       to [CLASSPATH][CLASSPATH].
       Defaults to `[ ]`.
@@ -2534,7 +2547,7 @@ Types specific to [Kubernetes][KUBERNETES]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `kubeConfig` (`listOf strLike`): Optional.
+    - `kubeConfig` (`listOf coercibleToStr`): Optional.
       Append each element in the list
       to [KUBECONFIG][KUBECONFIG].
       Defaults to `[ ]`.
@@ -2543,7 +2556,7 @@ Types specific to [pkg-config][PKG_CONFIG]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `pkgConfig` (`listOf derivation`): Optional.
+    - `pkgConfig` (`listOf coercibleToStr`): Optional.
       Append `/lib/pkgconfig`
       of each element in the list
       to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
@@ -2553,13 +2566,13 @@ Types specific to [OCaml][OCAML]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `ocamlBin` (`listOf package`): Optional.
+    - `ocamlBin` (`listOf coercibleToStr`): Optional.
       Append `/bin`
-      of every element in the list
+      of each element in the list
       to [PATH][PATH].
       Defaults to `[ ]`.
 
-    - `ocamlLib` (`listOf derivation`): Optional.
+    - `ocamlLib` (`listOf coercibleToStr`): Optional.
       Append `/`
       of each element in the list
       to [OCAMLPATH][OCAMLPATH].
@@ -2569,55 +2582,55 @@ Types specific to [Python][PYTHON]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `pythonMypy` (`listOf package`): Optional.
+    - `pythonMypy` (`listOf coercibleToStr`): Optional.
       Append `/`
       of each element in the list
       to [MYPYPATH][MYPYPATH].
       Defaults to `[ ]`.
 
-    - `pythonMypy37` (`listOf package`): Optional.
+    - `pythonMypy37` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.7/site-packages`
       of each element in the list
       to [MYPYPATH][MYPYPATH].
       Defaults to `[ ]`.
 
-    - `pythonMypy38` (`listOf package`): Optional.
+    - `pythonMypy38` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.8/site-packages`
       of each element in the list
       to [MYPYPATH][MYPYPATH].
       Defaults to `[ ]`.
 
-    - `pythonMypy39` (`listOf package`): Optional.
+    - `pythonMypy39` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.9/site-packages`
       of each element in the list
       to [MYPYPATH][MYPYPATH].
       Defaults to `[ ]`.
 
-    - `pythonPackage` (`listOf package`): Optional.
+    - `pythonPackage` (`listOf coercibleToStr`): Optional.
       Append `/`
       of each element in the list
       to [PYTHONPATH][PYTHONPATH].
       Defaults to `[ ]`.
 
-    - `pythonPackage36` (`listOf package`): Optional.
+    - `pythonPackage36` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.6/site-packages`
       of each element in the list
       to [PYTHONPATH][PYTHONPATH].
       Defaults to `[ ]`.
 
-    - `pythonPackage37` (`listOf package`): Optional.
+    - `pythonPackage37` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.7/site-packages`
       of each element in the list
       to [PYTHONPATH][PYTHONPATH].
       Defaults to `[ ]`.
 
-    - `pythonPackage38` (`listOf package`): Optional.
+    - `pythonPackage38` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.8/site-packages`
       of each element in the list
       to [PYTHONPATH][PYTHONPATH].
       Defaults to `[ ]`.
 
-    - `pythonPackage39` (`listOf package`): Optional.
+    - `pythonPackage39` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.9/site-packages`
       of each element in the list
       to [PYTHONPATH][PYTHONPATH].
@@ -2627,13 +2640,13 @@ Types specific to [Node.js][NODE_JS]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `nodeBin` (`listOf package`): Optional.
+    - `nodeBin` (`listOf coercibleToStr`): Optional.
       Append `/.bin`
       of each element in the list
       to [PATH][PATH].
       Defaults to `[ ]`.
 
-    - `nodeModule` (`listOf package`): Optional.
+    - `nodeModule` (`listOf coercibleToStr`): Optional.
       Append `/`
       of each element in the list
       to [NODE_PATH][NODE_PATH].
@@ -2643,13 +2656,13 @@ Types specific to [Ruby][RUBY]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `rubyBin` (`listOf package`): Optional.
+    - `rubyBin` (`listOf coercibleToStr`): Optional.
       Append `/bin`
-      of every element in the list
+      of each element in the list
       to [PATH][PATH].
       Defaults to `[ ]`.
 
-    - `rubyGemPath` (`listOf package`): Optional.
+    - `rubyGemPath` (`listOf coercibleToStr`): Optional.
       Append `/`
       of each element in the list
       to [GEM_PATH][GEM_PATH].
@@ -2659,9 +2672,9 @@ Types for non covered cases:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `export` (`listOf (tuple [ str package str ])`): Optional.
+    - `export` (`listOf (tuple [ str coercibleToStr str ])`): Optional.
         Export (as in [Bash][BASH]'s `export` command)
-        every tuple in the list.
+        each tuple in the list.
         Defaults to `[ ]`.
 
         Tuples elements are:
@@ -4619,6 +4632,12 @@ Examples:
 
 - [COMMITLINT]: https://commitlint.js.org/#/
   [commitlint][COMMITLINT]
+
+- [CRYSTAL]: https://crystal-lang.org/
+  [Crystal Programming Language][CRYSTAL]
+
+- [CRYSTAL_LIBRARY_PATH]: https://crystal-lang.org/reference/guides/static_linking.html
+  [CRYSTAL_LIBRARY_PATH Environment Variable][CRYSTAL_LIBRARY_PATH]
 
 - [CVSS3]: https://www.first.org/cvss/v3.0/specification-document
   [CVSS3][CVSS3]
