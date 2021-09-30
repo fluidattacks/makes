@@ -16,12 +16,23 @@ function main {
       error Ivalid registry
     fi \
     && info Syncing container image: "${tag}" \
-    && skopeo \
-      --insecure-policy \
-      copy \
-      --dest-creds "${credentials}" \
-      "docker-archive://${container_image}" \
+    && command=(
+      skopeo
+      --insecure-policy
+      copy
+      --dest-creds "${credentials}"
+      "docker-archive://${container_image}"
       "docker://${tag}"
+    ) \
+    && seq 1 __argAttempts__ | while read -r num; do
+      if "${command[@]}"; then
+        return 0
+      else
+        info Retrying number "${num}" ...
+      fi
+    done \
+    && return 1 \
+    || return 1
 }
 
 main "${@}"

@@ -1653,6 +1653,10 @@ Types:
       Definitions of container images to deploy.
       Defaults to `{ }`.
 - imageType (`submodule`):
+    - attempts (`ints.positive`): Optional.
+      If the value of attempts is greater than one,
+      the job is retried on failure the same number of attempts as the value.
+      Defaults to `1`.
     - registry (`enum ["docker.io" "ghcr.io" "registry.gitlab.com"]`):
       Registry in which the image will be copied to.
     - src (`package`):
