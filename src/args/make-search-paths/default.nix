@@ -5,6 +5,7 @@
 
 { append ? true
 , bin ? [ ]
+, crystalLib ? [ ]
 , export ? [ ]
 , javaClass ? [ ]
 , kubeConfig ? [ ]
@@ -60,6 +61,10 @@ makeTemplate {
       {
         derivations = bin;
         generator = makeExport "PATH" "/bin";
+      }
+      {
+        derivations = crystalLib;
+        generator = makeExport "CRYSTAL_LIBRARY_PATH" "/lib";
       }
       {
         derivations = pkgConfig;
