@@ -2474,6 +2474,9 @@ of the environment variables we currently support.
 - [NODE_PATH][NODE_PATH]:
   Location of [Node.js][NODE_JS] modules.
 
+- [OCAMLPATH][OCAMLPATH]:
+  Location of [OCaml][OCAML] libraries.
+
 - [PATH][PATH]:
   Location of directories where executable programs are located.
 
@@ -2544,6 +2547,22 @@ Types specific to [pkg-config][PKG_CONFIG]:
       Append `/lib/pkgconfig`
       of each element in the list
       to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
+      Defaults to `[ ]`.
+
+Types specific to [OCaml][OCAML]:
+
+- makeSearchPaths (`function { ... } -> package`):
+
+    - `ocamlBin` (`listOf package`): Optional.
+      Append `/bin`
+      of every element in the list
+      to [PATH][PATH].
+      Defaults to `[ ]`.
+
+    - `ocamlLib` (`listOf derivation`): Optional.
+      Append `/`
+      of each element in the list
+      to [OCAMLPATH][OCAMLPATH].
       Defaults to `[ ]`.
 
 Types specific to [Python][PYTHON]:
@@ -4759,6 +4778,12 @@ Examples:
 
 - [NPM]: https://www.npmjs.com/
   [Node Package Manager (NPM)][NPM]
+
+- [OCAML]: https://ocaml.org/
+  [OCaml][OCAML]
+
+- [OCAMLPATH]: https://github.com/ocaml/ocaml/issues/8898
+  [OCAMLPATH Environment Variable][OCAMLPATH]
 
 - [OCI_FORMAT]: https://github.com/opencontainers/image-spec
   [Open Container Image specification][OCI_FORMAT]
