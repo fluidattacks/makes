@@ -13,6 +13,7 @@
 , nodeModule ? [ ]
 , ocamlBin ? [ ]
 , ocamlLib ? [ ]
+, ocamlStublib ? [ ]
 , pkgConfig ? [ ]
 , pythonMypy ? [ ]
 , pythonMypy37 ? [ ]
@@ -93,6 +94,10 @@ makeTemplate {
       {
         derivations = ocamlLib;
         generator = makeExport "OCAMLPATH" "";
+      }
+      {
+        derivations = ocamlStublib;
+        generator = makeExport "CAML_LD_LIBRARY_PATH" "/stublibs";
       }
       {
         derivations = pythonMypy;
