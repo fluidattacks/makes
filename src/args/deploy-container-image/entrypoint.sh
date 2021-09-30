@@ -24,7 +24,10 @@ function main {
       "docker-archive://${container_image}"
       "docker://${tag}"
     ) \
-    && seq 1 __argAttempts__ | while read -r num; do
+    && temp="$(mktemp)" \
+    && seq 1 __argAttempts__ > "${temp}" \
+    && mapfile -t nums < "${temp}" \
+    && for num in "${nums[@]}"; do
       if "${command[@]}"; then
         return 0
       else
