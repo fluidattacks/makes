@@ -10,8 +10,8 @@ let
   mailmapLinter = fetchGithub {
     owner = "kamadorueda";
     repo = "mailmap-linter";
-    rev = "e0799aa47ac5ce6776ca8581ba50ace362e5d0ce";
-    sha256 = "02nr39rn4hicfam1rccbqhn6w6pl25xq7fl2kw0s0ahxzvfk24mh";
+    rev = "a51ac7e44515c754938a08f81038762e7d09a827";
+    sha256 = "1da49y2cw9g9i4gbd2ykqghnpqpqdac18lafmn878qdlf1v8n9lh";
   };
 in
 makeScript {
