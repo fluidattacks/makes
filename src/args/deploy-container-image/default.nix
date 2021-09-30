@@ -2,7 +2,8 @@
 , makeScript
 , ...
 }:
-{ containerImage
+{ attempts ? 1
+, containerImage
 , name
 , registry
 , tag
@@ -12,6 +13,7 @@ makeScript {
     __argContainerImage__ = containerImage;
     __argRegistry__ = registry;
     __argTag__ = "${registry}/${tag}";
+    __argAttempts__ = attempts;
   };
   entrypoint = ./entrypoint.sh;
   inherit name;

@@ -7,13 +7,14 @@
 , ...
 }:
 let
-  makeOutput = name: { src, registry, tag }: {
+  makeOutput = name: args: {
     name = "/deployContainerImage/${name}";
     value = deployContainerImage {
-      containerImage = src;
+      inherit (args) attempts;
+      containerImage = args.src;
       inherit name;
-      inherit registry;
-      inherit tag;
+      inherit (args) registry;
+      inherit (args) tag;
     };
   };
 in
@@ -24,6 +25,10 @@ in
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            attempts = lib.mkOption {
+              default = 1;
+              type = lib.types.ints.positive;
+            };
             registry = lib.mkOption {
               type = lib.types.enum [
                 "docker.io"
