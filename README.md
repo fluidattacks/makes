@@ -2480,6 +2480,9 @@ of the environment variables we currently support.
 - [OCAMLPATH][OCAMLPATH]:
   Location of [OCaml][OCAML] libraries.
 
+- [CAML_LD_LIBRARY_PATH][CAML_LD_LIBRARY_PATH]:
+  Location of [OCaml][OCAML] stublibs.
+
 - [PATH][PATH]:
   Location of directories where executable programs are located.
 
@@ -2577,6 +2580,12 @@ Types specific to [OCaml][OCAML]:
       of each element in the list
       to [OCAMLPATH][OCAMLPATH].
       Defaults to `[ ]`.
+    
+    - `ocamlStublib` (`listOf coercibleToStr`): Optional.
+      Append `/stublib`
+      of each element in the list
+      to [CAML_LD_LIBRARY_PATH][CAML_LD_LIBRARY_PATH].
+      Defaults to `[ ]`
 
 Types specific to [Python][PYTHON]:
 
@@ -4803,6 +4812,9 @@ Examples:
 
 - [OCAMLPATH]: https://github.com/ocaml/ocaml/issues/8898
   [OCAMLPATH Environment Variable][OCAMLPATH]
+
+- [CAML_LD_LIBRARY_PATH]: https://ocaml.org/manual/runtime.html
+  [CAML_LD_LIBRARY_PATH Environment Variable][CAML_LD_LIBRARY_PATH]
 
 - [OCI_FORMAT]: https://github.com/opencontainers/image-spec
   [Open Container Image specification][OCI_FORMAT]
