@@ -51,7 +51,7 @@ OUT_BASE: str = tempfile.mkdtemp()
 ON_EXIT: List[Callable[[], None]] = [
     partial(shutil.rmtree, OUT_BASE, ignore_errors=True)
 ]
-VERSION: str = "21.10"
+VERSION: str = "21.11"
 
 # Environment
 __MAKES_REGISTRY__: str = environ["__MAKES_REGISTRY__"]

@@ -1,4 +1,4 @@
-# Makes v21.10
+# Makes v21.11
 
 A DevSecOps framework
 powered by [Nix][NIX].
@@ -65,7 +65,7 @@ Easy, isn't it?
 Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v21.10-linux
+Makes v21.11-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -109,7 +109,7 @@ spec:
     spec:
       containers:
         - name: example
-          image: ghcr.io/fluidattacks/makes:21.10
+          image: ghcr.io/fluidattacks/makes:21.11
           command: [m]
           args:
             - github:fluidattacks/makes@main
@@ -448,14 +448,14 @@ In order to use Makes you'll need to:
 
     - For Nix versions >= 2.3 and < 2.4 (nix stable)
 
-      `$ nix-env -if https://fluidattacks.com/makes/install/21.10`
+      `$ nix-env -if https://fluidattacks.com/makes/install/21.11`
 
     - For Nix versions == 2.4 (nix unstable)
 
-      `$ nix profile install github:fluidattacks/makes/21.10`
+      `$ nix profile install github:fluidattacks/makes/21.11`
 
     We will install two commands in your system:
-    `$ m`, and `$ m-v21.10`.
+    `$ m`, and `$ m-v21.11`.
 
 Makes targets two kind of users:
 
@@ -558,7 +558,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "21.10";
+    ref = "21.11";
   };
 }
 ```
@@ -568,7 +568,7 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `21.10`.
+For example: `21.11`.
 
 ## Command-line completion
 
@@ -628,7 +628,7 @@ jobs:
     - uses: actions/checkout@v2
       # We offer this GitHub action in the following versions:
       #   main: latest release (example: /makes:main)
-      #   yy.mm: monthly release (example: /makes:21.10)
+      #   yy.mm: monthly release (example: /makes:21.11)
     - uses: docker://ghcr.io/fluidattacks/makes:main
       # You can use any name you like here
       name: helloWorld
@@ -655,7 +655,7 @@ looks like this:
 /helloWorld:
   # We offer this Container Image in the following tags:
   #   main: latest release (example: /makes:main)
-  #   yy.mm: monthly release (example: /makes:21.10)
+  #   yy.mm: monthly release (example: /makes:21.11)
   image: ghcr.io/fluidattacks/makes:main
   script:
     - m . /helloWorld 1 2 3
@@ -683,8 +683,8 @@ language: nix
 nix: 2.3.12
 # We offer this installation step in the following versions:
 #   main: latest release (example: /install/main)
-#   yy.mm: monthly release (example: /install/21.10)
-install: nix-env -if https://fluidattacks.com/makes/install/21.10
+#   yy.mm: monthly release (example: /install/21.11)
+install: nix-env -if https://fluidattacks.com/makes/install/21.11
 env:
   global:
     # Encrypted environment variable
@@ -1572,7 +1572,7 @@ Types:
           #
           # If you need to run jobs on different container images,
           # simply  create many `aws_batch_job_definition`s
-          image = "ghcr.io/fluidattacks/makes:21.10"
+          image = "ghcr.io/fluidattacks/makes:21.11"
 
           # Below arguments can be parametrized later,
           # but they are required for the job definition to be created
@@ -3576,7 +3576,7 @@ Pre-requisites:
 1. You need to generate `sourcesYaml` like this:
 
     ```bash
-    m github:fluidattacks/makes@21.10 /utils/makePythonPypiEnvironmentSources \
+    m github:fluidattacks/makes@21.11 /utils/makePythonPypiEnvironmentSources \
       "${python_version}" \
       "${dependencies_yaml}" \
       "${sources_yaml}
@@ -3664,7 +3664,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@21.10 /utils/makePythonPypiEnvironmentSources \
+$ m github:fluidattacks/makes@21.11 /utils/makePythonPypiEnvironmentSources \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -4495,7 +4495,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    rev = "21.10";
+    rev = "21.11";
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework

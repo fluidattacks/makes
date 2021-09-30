@@ -81,7 +81,7 @@ let
     value = attrsMerge [
       gitlabExtra
       ({
-        image = "ghcr.io/fluidattacks/makes:21.10";
+        image = "ghcr.io/fluidattacks/makes:21.11";
         interruptible = true;
         needs = [ ];
         script =
