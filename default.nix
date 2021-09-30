@@ -7,9 +7,9 @@ with import ./src/args/agnostic.nix { inherit system; };
 let
   bin = makeScript {
     aliases = [
-      "m-v21.10"
+      "m-v21.11"
       "makes"
-      "makes-v21.10"
+      "makes-v21.11"
     ];
     replace = {
       __argMakesSrc__ = ./.;
