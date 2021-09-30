@@ -10,6 +10,8 @@
 , kubeConfig ? [ ]
 , nodeBin ? [ ]
 , nodeModule ? [ ]
+, ocamlBin ? [ ]
+, ocamlLib ? [ ]
 , pkgConfig ? [ ]
 , pythonMypy ? [ ]
 , pythonMypy37 ? [ ]
@@ -78,6 +80,14 @@ makeTemplate {
       {
         derivations = nodeModule;
         generator = makeExport "NODE_PATH" "";
+      }
+      {
+        derivations = ocamlBin;
+        generator = makeExport "PATH" "/bin";
+      }
+      {
+        derivations = ocamlLib;
+        generator = makeExport "OCAMLPATH" "";
       }
       {
         derivations = pythonMypy;
