@@ -190,6 +190,7 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Versioning scheme](#versioning-scheme)
         - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
         - [Compatibility information](#compatibility-information)
+    - [Command-line completion](#command-line-completion)
 - [Configuring CI/CD](#configuring-cicd)
     - [Providers comparison](#providers-comparison)
         - [Configuring on GitHub Actions](#configuring-on-github-actions)
@@ -568,6 +569,15 @@ For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
 For example: `21.10`.
+
+## Command-line completion
+
+We currently have [Command-line Completion][CLI_COMPLETION] scripts
+for the following shells:
+
+- [Bash][BASH]:
+  Add this: `source <(m-comp-bash)`
+  to the end of your `~/.bashrc`
 
 # Configuring CI/CD
 
@@ -4580,6 +4590,9 @@ Examples:
 
 - [CLJ-KONDO]: https://github.com/clj-kondo/clj-kondo
   [clj-kondo][CLJ-KONDO]
+
+- [CLI_COMPLETION]: https://en.wikipedia.org/wiki/Command-line_completion
+  [Command-line Completion][CLI_COMPLETION]
 
 - [COMMITLINT]: https://commitlint.js.org/#/
   [commitlint][COMMITLINT]
