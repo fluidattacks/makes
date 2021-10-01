@@ -1,0 +1,16 @@
+/helloWorld__1__2__3:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  script:
+    - m . /helloWorld '1' '2' '3'
+  variables:
+    GIT_DEPTH: 1
+/lintNix:
+  image: ghcr.io/fluidattacks/makes:21.11
+  interruptible: true
+  needs: []
+  script:
+    - m . /lintNix
+  variables:
+    GIT_DEPTH: 1
