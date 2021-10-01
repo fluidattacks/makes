@@ -1,39 +1,39 @@
 closure:
-  astroid: 2.4.1
+  astroid: 2.8.0
   colorama: 0.4.4
   dodgy: 0.2.1
-  flake8: 3.8.4
+  flake8: 3.9.2
   flake8-polyfill: 1.0.2
-  isort: 4.3.21
-  lazy-object-proxy: 1.4.3
+  isort: 5.9.3
+  lazy-object-proxy: 1.6.0
   mccabe: 0.6.1
   mypy: "0.910"
   mypy-extensions: 0.4.3
   pep8-naming: 0.10.0
-  prospector: 1.3.1
-  pycodestyle: 2.6.0
+  platformdirs: 2.4.0
+  prospector: 1.5.1
+  pycodestyle: 2.7.0
   pydocstyle: 6.1.1
-  pyflakes: 2.2.0
-  pylint: 2.5.3
+  pyflakes: 2.3.1
+  pylint: 2.11.1
   pylint-celery: "0.3"
-  pylint-django: 2.1.0
+  pylint-django: 2.4.4
   pylint-flask: "0.6"
   pylint-plugin-utils: "0.6"
   pyyaml: 5.4.1
   requirements-detector: "0.7"
-  setoptconf: 0.2.0
-  six: 1.16.0
+  setoptconf-tmp: 0.3.1
   snowballstemmer: 2.1.0
   toml: 0.10.2
-  typing-extensions: 3.10.0.0
+  typing-extensions: 3.10.0.2
   wrapt: 1.12.1
 links:
-  - name: astroid-2.4.1-py3-none-any.whl
-    sha256: 0f0g3b9qpcc0hhj9j6fcmmiyhga2rj6vkj4r2nw39xzsld16hl6q
-    url: https://files.pythonhosted.org/packages/46/c9/e9c2642dfb169590fb8bdb395f9329da042ee559c2ae7c1e612a3e5f40b4/astroid-2.4.1-py3-none-any.whl
-  - name: astroid-2.4.1.tar.gz
-    sha256: 1h99jal7ax07xna1djw5z7hpgb8vjrl3hrrg49p1phljwniww5sc
-    url: https://files.pythonhosted.org/packages/c4/82/30e5f146863fb34b733bd57e82f96a6c61a6cb3692fc838e20d0091ee752/astroid-2.4.1.tar.gz
+  - name: astroid-2.8.0-py3-none-any.whl
+    sha256: 0wal4168dij6nz21j287cwls024qdjyl45l02c0245glcmhnzh6w
+    url: https://files.pythonhosted.org/packages/ec/40/2a60085a121e890f915a1ac2e2e10a2472eabed8b241ed3aa9c9bce57b7e/astroid-2.8.0-py3-none-any.whl
+  - name: astroid-2.8.0.tar.gz
+    sha256: 02178k1gjnvlvy3l8pjwfzqr9lrmv7xjyc2kav5ll9im1c6gi0gy
+    url: https://files.pythonhosted.org/packages/ac/d9/e64c49b9ef308505d7cb9f5e2b8e0af01933e7553c76b76d3dd183661428/astroid-2.8.0.tar.gz
   - name: colorama-0.4.4-py2.py3-none-any.whl
     sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
     url: https://files.pythonhosted.org/packages/44/98/5b86278fbbf250d239ae0ecb724f8572af1c91f4a11edf4d36a206189440/colorama-0.4.4-py2.py3-none-any.whl
@@ -46,30 +46,33 @@ links:
   - name: dodgy-0.2.1.tar.gz
     sha256: 0fkcz149n3ypa6xcnf24qyd0xk15ycbzl5nksgykj89mr6zkqci8
     url: https://files.pythonhosted.org/packages/40/10/236a51323133319e108bc52594a66a39ec2f8fa9e4e47543936b5f4582d0/dodgy-0.2.1.tar.gz
-  - name: flake8-3.8.4-py2.py3-none-any.whl
-    sha256: 0ff8ww8mmcngdibb3rgqiragzr989shrggr7mwc17kyhpzbbp7bl
-    url: https://files.pythonhosted.org/packages/d4/ca/3971802ee6251da1abead1a22831d7f4743781e2f743bd266bdd2f46c19b/flake8-3.8.4-py2.py3-none-any.whl
-  - name: flake8-3.8.4.tar.gz
-    sha256: 0fvcrsbyzjpcli8ldbpsdbpmf238nkvwc1dy4hy82lf63rvfinma
-    url: https://files.pythonhosted.org/packages/71/6a/b3341ef7e7f3585add027d876a7d9837cdfe3320b6c6b5fd0cddfa9ceeac/flake8-3.8.4.tar.gz
+  - name: flake8-3.9.2-py2.py3-none-any.whl
+    sha256: 01q927ija7hhqnqbxsdlwvd4wf53ydg90iwddrhlz13d6hrx73xz
+    url: https://files.pythonhosted.org/packages/fc/80/35a0716e5d5101e643404dabd20f07f5528a21f3ef4032d31a49c913237b/flake8-3.9.2-py2.py3-none-any.whl
+  - name: flake8-3.9.2.tar.gz
+    sha256: 0sspgh2ph7bb5fmf49mrdhi7n5m421kfkxk1n0vn4akgg20q6lh7
+    url: https://files.pythonhosted.org/packages/9e/47/15b267dfe7e03dca4c4c06e7eadbd55ef4dfd368b13a0bab36d708b14366/flake8-3.9.2.tar.gz
   - name: flake8_polyfill-1.0.2-py2.py3-none-any.whl
     sha256: 1sdrd40l01p130dx6c3jmpvda9jqnpkhadd7kjqrbdrsxqs6mghj
     url: https://files.pythonhosted.org/packages/86/b5/a43fed6fd0193585d17d6faa7b85317d4461f694aaed546098c69f856579/flake8_polyfill-1.0.2-py2.py3-none-any.whl
   - name: flake8-polyfill-1.0.2.tar.gz
     sha256: 1nlf1mkqw856vi6782qcglqhaacb23khk9wkcgn55npnjxshhjz4
     url: https://files.pythonhosted.org/packages/e6/67/1c26634a770db5c442e361311bee73cb3a177adb2eb3f7af8953cfd9f553/flake8-polyfill-1.0.2.tar.gz
-  - name: isort-4.3.21-py2.py3-none-any.whl
-    sha256: 1z80w75i884g0lwq2pmnqn41jkwljs3xnyj04r2l6s2r575iz0bf
-    url: https://files.pythonhosted.org/packages/e5/b0/c121fd1fa3419ea9bfd55c7f9c4fedfec5143208d8c7ad3ce3db6c623c21/isort-4.3.21-py2.py3-none-any.whl
-  - name: isort-4.3.21.tar.gz
-    sha256: 1cfavhcvfy2sqdkpznc0xvhv15y91syqc36dxbyc8mc98s97xnjl
-    url: https://files.pythonhosted.org/packages/43/00/8705e8d0c05ba22f042634f791a61f4c678c32175763dcf2ca2a133f4739/isort-4.3.21.tar.gz
-  - name: lazy_object_proxy-1.4.3-cp38-cp38-manylinux1_x86_64.whl
-    sha256: 0qkwg6vz42m66qjpa7p0bywrkzivahx81193w6f91y8bik815bm6
-    url: https://files.pythonhosted.org/packages/34/8c/74acd0ad5a0518be9e0f3b4d022e84da0c1d9b78972afce73259ac85d78b/lazy_object_proxy-1.4.3-cp38-cp38-manylinux1_x86_64.whl
-  - name: lazy-object-proxy-1.4.3.tar.gz
-    sha256: 1w1aaay424ciz8fz3fkzxb0pxzfxn184f2whpyn4fx72bn50x47k
-    url: https://files.pythonhosted.org/packages/07/3f/a3d687f83c7d44970f70ff0400677746c8860b11f0c08f6b4e07205f0cdc/lazy-object-proxy-1.4.3.tar.gz
+  - name: isort-5.9.3-py3-none-any.whl
+    sha256: 1wl1gif1wh85133rwvxj63mdcd7kayljb01sl2q9sp09h4mnwzg1
+    url: https://files.pythonhosted.org/packages/c4/1d/f4e03047d6767e35c1efb13a280c1ef8b88807230f902da4cfc431a9f602/isort-5.9.3-py3-none-any.whl
+  - name: isort-5.9.3.tar.gz
+    sha256: 16cqpbrhnyg2ahnp7icqhsi0vfiq10f53zh7hfvnf4l75pka2blw
+    url: https://files.pythonhosted.org/packages/1c/34/ed9178b5b23ade4561bf77b91856e0e3bc094620fd81bd74d535817a0f0d/isort-5.9.3.tar.gz
+  - name: lazy_object_proxy-1.6.0-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 0lwn6dmy47phpv3wgm4g6ccl9schv8v9giiq2wa29z3lldxrdq0p
+    url: https://files.pythonhosted.org/packages/87/c4/da8ed7f77c85347c0bc50911d27faa563b85b46d136f8ce6c0f8d05f610d/lazy_object_proxy-1.6.0-cp38-cp38-manylinux1_x86_64.whl
+  - name: lazy_object_proxy-1.6.0-cp38-cp38-manylinux2014_aarch64.whl
+    sha256: 1ls3pm1cr3xkj98i687jlyd07h7j4hpzm53qhcdva4gk59rq60j1
+    url: https://files.pythonhosted.org/packages/62/c6/80e0f4eba49f7e76f9ccf15a4fabdaf28b3c9fb053ff61b0c5cec65b53c4/lazy_object_proxy-1.6.0-cp38-cp38-manylinux2014_aarch64.whl
+  - name: lazy-object-proxy-1.6.0.tar.gz
+    sha256: 09lp6xf2z9ixjrh0di5c3xnkr89agx4sdyw2z7372x9pd39h1428
+    url: https://files.pythonhosted.org/packages/bb/f5/646893a04dcf10d4acddb61c632fd53abb3e942e791317dcdd57f5800108/lazy-object-proxy-1.6.0.tar.gz
   - name: mccabe-0.6.1-py2.py3-none-any.whl
     sha256: 0hhdp0srgrv4bmzlzvmk67zrqr9cvkjjzgd4gmkvd90dhrc652mb
     url: https://files.pythonhosted.org/packages/87/89/479dc97e18549e21354893e4ee4ef36db1d237534982482c3681ee6e7b57/mccabe-0.6.1-py2.py3-none-any.whl
@@ -103,42 +106,51 @@ links:
   - name: pep8-naming-0.10.0.tar.gz
     sha256: 0fmzccbmr0jn9ynamdb9ly2ai8qs5qfk8alfgnzr3fbjvpwsbd7k
     url: https://files.pythonhosted.org/packages/06/af/1e182d83519eb3fca41befaa2b671f1dcb4c4280e830aa0908c038b1de67/pep8-naming-0.10.0.tar.gz
-  - name: prospector-1.3.1.tar.gz
-    sha256: 1ijjksw5da1zhh40jvpwh429lq0bpv31iysq59d06wrxv4c7j3bh
-    url: https://files.pythonhosted.org/packages/76/6b/9e825e3541009284542edd534843322f342b2db76ae257e8515ba982051c/prospector-1.3.1.tar.gz
-  - name: pycodestyle-2.6.0-py2.py3-none-any.whl
-    sha256: 0rs3jgf8plpmv2rra5klibdm5dlicmhizjzbhl2i1gdmysrfg592
-    url: https://files.pythonhosted.org/packages/10/5b/88879fb861ab79aef45c7e199cae3ef7af487b5603dcb363517a50602dd7/pycodestyle-2.6.0-py2.py3-none-any.whl
-  - name: pycodestyle-2.6.0.tar.gz
-    sha256: 0bhr6ia0hmgx3nhgibc9pmkzhlh1zcqk707i5fbxgs702ll7v2n5
-    url: https://files.pythonhosted.org/packages/bb/82/0df047a5347d607be504ad5faa255caa7919562962b934f9372b157e8a70/pycodestyle-2.6.0.tar.gz
+  - name: platformdirs-2.4.0-py3-none-any.whl
+    sha256: 0782cwd4iikmacs2lsn8bcgk5yyj65qjxwjn07r443f8qgivns48
+    url: https://files.pythonhosted.org/packages/b1/78/dcfd84d3aabd46a9c77260fb47ea5d244806e4daef83aa6fe5d83adb182c/platformdirs-2.4.0-py3-none-any.whl
+  - name: platformdirs-2.4.0.tar.gz
+    sha256: 1whycrymqpsl7nsaknmcybzyh4fg4kqk6vd7zwl28kfhnf05wyin
+    url: https://files.pythonhosted.org/packages/4b/96/d70b9462671fbeaacba4639ff866fb4e9e558580853fc5d6e698d0371ad4/platformdirs-2.4.0.tar.gz
+  - name: prospector-1.5.1-py3-none-any.whl
+    sha256: 05db0dn9mn54a0i2bl60cvmbv9q0nchcm4mkgsb7dqkasczzzy27
+    url: https://files.pythonhosted.org/packages/92/cf/d4fd1fbfd6442576d3c1b0cd7613da31959878dd18a4fdf2f8a9cdffa65e/prospector-1.5.1-py3-none-any.whl
+  - name: prospector-1.5.1.tar.gz
+    sha256: 0y4mj67vj9z92bqahfl5ybd18786lpvzlz6j3zlzwp31rn92h745
+    url: https://files.pythonhosted.org/packages/fc/6f/4b2ee334b852caec57b3faa08a17f11f5ae6948ea111b6c3189fabfa9627/prospector-1.5.1.tar.gz
+  - name: pycodestyle-2.7.0-py2.py3-none-any.whl
+    sha256: 0s1062z8jw6111c7505vggh982cp6w52yiw0crfbbh7w33cpcksi
+    url: https://files.pythonhosted.org/packages/de/cc/227251b1471f129bc35e966bb0fceb005969023926d744139642d847b7ae/pycodestyle-2.7.0-py2.py3-none-any.whl
+  - name: pycodestyle-2.7.0.tar.gz
+    sha256: 1vqwmzmjdv331kmfq3q9j3as2x7r2r49lf83r9w4147pdg8c32f3
+    url: https://files.pythonhosted.org/packages/02/b3/c832123f2699892c715fcdfebb1a8fdeffa11bb7b2350e46ecdd76b45a20/pycodestyle-2.7.0.tar.gz
   - name: pydocstyle-6.1.1-py3-none-any.whl
     sha256: 1i2d2iq7ywiniss4jcfnf4ypxk08bkpvwh80jhwnh1bmcxnq51v9
     url: https://files.pythonhosted.org/packages/87/67/4df10786068766000518c6ad9c4a614e77585a12ab8f0654c776757ac9dc/pydocstyle-6.1.1-py3-none-any.whl
   - name: pydocstyle-6.1.1.tar.gz
     sha256: 1p4jvxr3z4llgrpmr3586dslmcfa4zl9mszj8p1yc3msb72bfh8x
     url: https://files.pythonhosted.org/packages/4c/30/4cdea3c8342ad343d41603afc1372167c224a04dc5dc0bf4193ccb39b370/pydocstyle-6.1.1.tar.gz
-  - name: pyflakes-2.2.0-py2.py3-none-any.whl
-    sha256: 14har5983bq70zlrh7nasdl5qbpblvwxqvab8jcpmr8rbbhf150d
-    url: https://files.pythonhosted.org/packages/69/5b/fd01b0c696f2f9a6d2c839883b642493b431f28fa32b29abc465ef675473/pyflakes-2.2.0-py2.py3-none-any.whl
-  - name: pyflakes-2.2.0.tar.gz
-    sha256: 1j3zqbiwkyicvww499bblq33x0bjpzdrxajhaysr7sk7x5gdgcim
-    url: https://files.pythonhosted.org/packages/f1/e2/e02fc89959619590eec0c35f366902535ade2728479fc3082c8af8840013/pyflakes-2.2.0.tar.gz
-  - name: pylint-2.5.3-py3-none-any.whl
-    sha256: 070s22v98lz9sd9yvf7wpxg79sz8l6h3zwg8n2420hpy4g9fgv6h
-    url: https://files.pythonhosted.org/packages/e8/fb/734960c55474c8f74e6ad4c8588fc44073fb9d69e223269d26a3c2435d16/pylint-2.5.3-py3-none-any.whl
-  - name: pylint-2.5.3.tar.gz
-    sha256: 1p3aqk67pmh8m9zsl5n07z8xznxjs1r7fa5zgmqikl6qy8vq9mvx
-    url: https://files.pythonhosted.org/packages/3b/f0/ee19aeccaea881c38d129f015b2be7658724fcefa3a506d7c44747d764d9/pylint-2.5.3.tar.gz
+  - name: pyflakes-2.3.1-py2.py3-none-any.whl
+    sha256: 1hzgabzbyaxj0n4zlp6rxvjriw2gv3adzmvjvl8ria5q04ypi4vq
+    url: https://files.pythonhosted.org/packages/6c/11/2a745612f1d3cbbd9c69ba14b1b43a35a2f5c3c81cd0124508c52c64307f/pyflakes-2.3.1-py2.py3-none-any.whl
+  - name: pyflakes-2.3.1.tar.gz
+    sha256: 1ny10364ciqh4ripasj4zzv4145l21l3s85m3qlrvfq5pk58xg7m
+    url: https://files.pythonhosted.org/packages/a8/0f/0dc480da9162749bf629dca76570972dd9cce5bedc60196a3c912875c87d/pyflakes-2.3.1.tar.gz
+  - name: pylint-2.11.1-py3-none-any.whl
+    sha256: 09mid5r30axpdv3l17fjrkfaqa2xwy1vir51sbdd9js53hi8wd8g
+    url: https://files.pythonhosted.org/packages/37/42/948d1486727806df2e0016f1cfc2d3beafe289f96d53dfc85d967f79afc5/pylint-2.11.1-py3-none-any.whl
+  - name: pylint-2.11.1.tar.gz
+    sha256: 0dn4j0znrn4p6awvvk77hrhgia65h9n80mm2k2ns1358y7zl761c
+    url: https://files.pythonhosted.org/packages/61/c0/752d9f4c506457f2f6969c3ea0e2d62809ac34d16e8d00502894f164bded/pylint-2.11.1.tar.gz
   - name: pylint-celery-0.3.tar.gz
     sha256: 1ssbvvhvsday5iqkzy76vgdywjsjvllai3hp8k01b3a0wya21qs1
     url: https://files.pythonhosted.org/packages/d7/11/7241fec486839a853cee783e3a00950d46ee1e3e993884341b1d4208a287/pylint-celery-0.3.tar.gz
-  - name: pylint_django-2.1.0-py3-none-any.whl
-    sha256: 04f9lrkp7hnd8swz23ziagq141qcgwzkypz7v71d73c7fxy2fcna
-    url: https://files.pythonhosted.org/packages/7c/72/d2ece655832bc33104072379afec70d849e26db4a7b1b8a645f2febbb666/pylint_django-2.1.0-py3-none-any.whl
-  - name: pylint-django-2.1.0.tar.gz
-    sha256: 0z19yqmqv14zxlybyf5svbzdwfa42ps1wsh5f4scvkm0vd26hxdp
-    url: https://files.pythonhosted.org/packages/15/a7/6f952ab8a44f35a32e9652147c3cd970cc6ccfd5248ece6a3aba57fc9b83/pylint-django-2.1.0.tar.gz
+  - name: pylint_django-2.4.4-py3-none-any.whl
+    sha256: 06rpny9gczrv0q05hh4gj42k529q2h21llnp9rxh57530ab9vx5g
+    url: https://files.pythonhosted.org/packages/b2/88/4a2aa92173c9050ca0d6e1745ac1a81020b634d8f69081d97d32bf26eb4b/pylint_django-2.4.4-py3-none-any.whl
+  - name: pylint-django-2.4.4.tar.gz
+    sha256: 1z7kjilrpbh5g11bgz4404rlf1i950nc7w98kkhy9hmhd5qp2gzn
+    url: https://files.pythonhosted.org/packages/65/e2/b8ef8c89415ca8dda7b77de653a90edfbea694a503a63c2ee9660cc954de/pylint-django-2.4.4.tar.gz
   - name: pylint-flask-0.6.tar.gz
     sha256: 05qmwgkpvaa5k05abqjxfbrfk3wpdqb8ph690z7bzxvb47i7vngl
     url: https://files.pythonhosted.org/packages/0d/ec/e8c5742985bab80b2fcd0ab429cf6804779d8cfd15264fdad933057d1380/pylint-flask-0.6.tar.gz
@@ -166,15 +178,12 @@ links:
   - name: requirements-detector-0.7.tar.gz
     sha256: 0yvgxvdhzxrs3znf5k8r0q73mjqbk0cvnv3fr31zjhyj3vk167hd
     url: https://files.pythonhosted.org/packages/df/80/b7434a84b37ccd604d59d8e50a938557a6060b1259306048967a3dcecc78/requirements-detector-0.7.tar.gz
-  - name: setoptconf-0.2.0.tar.gz
-    sha256: 177l7j68j751i781bgk6pfhxjj7hwqxzdm2ja5fkywbp0275s2sv
-    url: https://files.pythonhosted.org/packages/6b/5a/9186be8db0804d808a5a82a9b7e47e6260832a5e5b5ec531a1de9dd49076/setoptconf-0.2.0.tar.gz
-  - name: six-1.16.0-py2.py3-none-any.whl
-    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
-    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
-  - name: six-1.16.0.tar.gz
-    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
-    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+  - name: setoptconf_tmp-0.3.1-py3-none-any.whl
+    sha256: 0id7h2x3iqa5j6v1bhq5mlsalfna1r32vqba0nwkhgars5f5s0vn
+    url: https://files.pythonhosted.org/packages/59/98/6d072ea4b59693d93782b1e685547dd8e90f7880d4b3c050f67d4b9eec4f/setoptconf_tmp-0.3.1-py3-none-any.whl
+  - name: setoptconf-tmp-0.3.1.tar.gz
+    sha256: 0y2pgpraa36wzlzkxigvmz80mqd3mzcc9wv2yx9bliqks7fhlj70
+    url: https://files.pythonhosted.org/packages/c1/f1/dda18cbb5df090c67ed879760f49ee65aa1b5d4266c66175467f61aa8f58/setoptconf-tmp-0.3.1.tar.gz
   - name: snowballstemmer-2.1.0-py2.py3-none-any.whl
     sha256: 1hpdblr2cs2rxilaiz338k5x9awai1m14l5n2f69dyc5x9xl86xm
     url: https://files.pythonhosted.org/packages/f6/6e/7e07970c90a57c21da92013c5ba47f8e9598c17e88cc35b008ca61225ed3/snowballstemmer-2.1.0-py2.py3-none-any.whl
@@ -187,12 +196,12 @@ links:
   - name: toml-0.10.2.tar.gz
     sha256: 13z6rff86bzdpl094x0vmfvls779931xj90dlbs9kpfm138s3gdk
     url: https://files.pythonhosted.org/packages/be/ba/1f744cdc819428fc6b5084ec34d9b30660f6f9daaf70eead706e3203ec3c/toml-0.10.2.tar.gz
-  - name: typing_extensions-3.10.0.0-py3-none-any.whl
-    sha256: 112ar7s85msx9r0hmkl3j9x979y8m8wzzw0wwjdck43d13v874vp
-    url: https://files.pythonhosted.org/packages/2e/35/6c4fff5ab443b57116cb1aad46421fb719bed2825664e8fe77d66d99bcbc/typing_extensions-3.10.0.0-py3-none-any.whl
-  - name: typing_extensions-3.10.0.0.tar.gz
-    sha256: 0hpkrp39w58f6lc6r0jhn97qhcp95z49vyan0ryj2x4ihibz3djh
-    url: https://files.pythonhosted.org/packages/aa/55/62e2d4934c282a60b4243a950c9dbfa01ae7cac0e8d6c0b5315b87432c81/typing_extensions-3.10.0.0.tar.gz
+  - name: typing_extensions-3.10.0.2-py3-none-any.whl
+    sha256: 0d0s8knd86ldzfygnrj7mwbrhh31rjmksqfhxi3b25p5zpd5xlpi
+    url: https://files.pythonhosted.org/packages/74/60/18783336cc7fcdd95dae91d73477830aa53f5d3181ae4fe20491d7fc3199/typing_extensions-3.10.0.2-py3-none-any.whl
+  - name: typing_extensions-3.10.0.2.tar.gz
+    sha256: 0zk7kbcms828by6avmqp09bsag1az37qr60viqjwvw8izwb5vxs9
+    url: https://files.pythonhosted.org/packages/ed/12/c5079a15cf5c01d7f4252b473b00f7e68ee711be605b9f001528f0298b98/typing_extensions-3.10.0.2.tar.gz
   - name: wrapt-1.12.1.tar.gz
     sha256: 1mwpkdnqxf0yxj1a0hsnl06lf287qi5ap7309wm37x45zf0zlbxn
     url: https://files.pythonhosted.org/packages/82/f7/e43cefbe88c5fd371f4cf0cf5eb3feccd07515af9fd6cf7dbf1d1793a797/wrapt-1.12.1.tar.gz

@@ -3637,6 +3637,9 @@ Types:
     - withSetuptools_57_4_0 (`bool`): Optional.
       Should we bootstrap setuptools 57.4.0 in the environment?
       Defaults to `false`.
+    - withSetuptoolsScm_5_0_2 (`bool`) Optional.
+      Should we bootstrap setuptools-scm 5.0.2 in the environment?
+      Defaults to `false`.
     - withSetuptoolsScm_6_0_1 (`bool`) Optional.
       Should we bootstrap setuptools-scm 6.0.1 in the environment?
       Defaults to `false`.

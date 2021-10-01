@@ -35,7 +35,7 @@ makeDerivation {
           "3.9" = ./pypi-sources-3.9.yaml;
         }.${python};
         withSetuptools_57_4_0 = true;
-        withSetuptoolsScm_6_0_1 = true;
+        withSetuptoolsScm_5_0_2 = true;
         withWheel_0_37_0 = true;
       })
     ];

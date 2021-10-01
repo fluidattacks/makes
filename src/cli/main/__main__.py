@@ -85,6 +85,8 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 
 
 def _clone_src(src: str) -> str:
+    # disable because the temporary directory is used in other contexts
+    # pylint: disable=consider-using-with
     head = tempfile.TemporaryDirectory(prefix="makes-").name
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
