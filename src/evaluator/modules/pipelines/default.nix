@@ -82,7 +82,6 @@ let
   makeGitlabJob = { args, gitDepth, gitlabExtra, output, ... }: {
     name = toJobName output args;
     value = attrsMerge [
-      gitlabExtra
       ({
         image = "ghcr.io/fluidattacks/makes:21.11";
         interruptible = true;
@@ -95,6 +94,7 @@ let
           GIT_DEPTH = gitDepth;
         };
       })
+      gitlabExtra
     ];
   };
   makeGitlab = name: { gitlabPath, jobs, ... }:
