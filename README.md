@@ -13,6 +13,10 @@ in just a few steps, in any technology.
 ![GitLab](https://img.shields.io/badge/GitLab-brightgreen)
 ![Local](https://img.shields.io/badge/Local-brightgreen)
 ![Docker](https://img.shields.io/badge/Docker-brightgreen)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-brightgreen)
+![AWS Batch](https://img.shields.io/badge/AWS%20Batch-brightgreen)
+![Contributors](https://img.shields.io/github/contributors/fluidattacks/makes?color=blueviolet&label=Contributors&labelColor=blueviolet)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/fluidattacks/makes?color=blueviolet&label=Commits&labelColor=blueviolet)
 
 ## At a glance
 

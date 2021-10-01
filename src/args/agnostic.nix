@@ -2,7 +2,7 @@
 # and therefore are agnostic to the framework.
 { stateDirs ? {
     global = "$HOME_IMPURE/.makes/state";
-    project = "$HOME_IMPURE/.makes/state/<project-name>";
+    project = "$HOME_IMPURE/.makes/state/__default__";
   }
 , system ? builtins.currentSystem
 }:
