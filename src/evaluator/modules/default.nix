@@ -19,6 +19,7 @@
     (import ./format-markdown/default.nix args)
     (import ./format-nix/default.nix args)
     (import ./format-python/default.nix args)
+    (import ./format-javascript/default.nix args)
     (import ./format-terraform/default.nix args)
     (import ./hello-world/default.nix args)
     (import ./inputs/default.nix)
