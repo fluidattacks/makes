@@ -53,6 +53,10 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatJavaScript = {
+    enable = true;
+    targets = [ "/" ];
+  };
   formatMarkdown = {
     enable = true;
     doctocArgs = [ "--title" "# Contents" ];
