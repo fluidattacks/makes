@@ -15,6 +15,9 @@
 , ...
 }:
 let
+  toJobName = output: args:
+    builtins.concatStringsSep "__" ([ output ] ++ args);
+
   jobType = lib.types.submodule (_: {
     options = {
       args = lib.mkOption {
@@ -50,7 +53,7 @@ let
 
   makeJob = { output, args, ... }:
     let
-      name = builtins.toString ([ output ] ++ args);
+      name = toJobName output args;
     in
     {
       inherit name;
@@ -77,7 +80,7 @@ let
   };
 
   makeGitlabJob = { args, gitDepth, gitlabExtra, output, ... }: {
-    name = output;
+    name = toJobName output args;
     value = attrsMerge [
       gitlabExtra
       ({
