@@ -78,9 +78,10 @@ let
     makeScriptParallel = import ./make-script-parallel/default.nix args;
     makeSearchPaths = import ./make-search-paths/default.nix args;
     makeSecretForAwsFromEnv = import ./make-secret-for-aws-from-env/default.nix args;
-    makeSecretForGpgFromEnv = import ./make-secret-for-gpg-from-env/default.nix args;
     makeSecretForEnvFromSops = import ./make-secret-for-env-from-sops/default.nix args;
+    makeSecretForGpgFromEnv = import ./make-secret-for-gpg-from-env/default.nix args;
     makeSecretForKubernetesConfigFromAws = import ./make-secret-for-kubernetes-config-from-aws/default.nix args;
+    makeSecretForNomadFromEnv = import ./make-secret-for-nomad-from-env/default.nix args;
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
