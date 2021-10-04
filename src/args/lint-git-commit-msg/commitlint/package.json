@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@commitlint/cli": "*"
+    "@commitlint/cli": "*",
+    "ansi-regex": "*"
   }
 }
