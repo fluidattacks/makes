@@ -23,6 +23,7 @@ let
     calculateCvss3 = import ./calculate-cvss-3/default.nix args;
     computeOnAwsBatch = import ./compute-on-aws-batch/default.nix args;
     deployContainerImage = import ./deploy-container-image/default.nix args;
+    deployNomad = import ./deploy-nomad/default.nix args;
     deployTerraform = import ./deploy-terraform/default.nix args;
     escapeShellArg = lib.strings.escapeShellArg;
     escapeShellArgs = lib.strings.escapeShellArgs;
@@ -67,6 +68,7 @@ let
     makeNodeJsEnvironment = import ./make-node-js-environment/default.nix args;
     makeNodeJsModules = import ./make-node-js-modules/default.nix args;
     makeNodeJsVersion = import ./make-node-js-version/default.nix args;
+    makeNomadEnvironment = import ./make-nomad-environment/default.nix args;
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix args;
     makePythonVersion = import ./make-python-version/default.nix args;
     makeRubyGemsEnvironment = import ./make-ruby-gems-environment/default.nix args;
