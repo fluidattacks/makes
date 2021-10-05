@@ -94,7 +94,6 @@ builtins.derivation (env' // {
 } // attrsOptional (action != null) {
   __envAction = __nixpkgs__.writeShellScript "makes-action-for-${name}" ''
     source ${__shellOptions__}
-    export PATH=${searchPathsAction}
 
     scriptName="$1"
     shift 1
@@ -103,6 +102,7 @@ builtins.derivation (env' // {
       case "''${1:-}" in
         -h|--help)
           export LESSCHARSET=utf-8
+          export PATH=${searchPathsAction}
           glow --pager --local ''${BASH_SOURCE%/*}/README.md
           exit 0
           ;;

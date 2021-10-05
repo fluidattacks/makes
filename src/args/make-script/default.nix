@@ -38,6 +38,8 @@ let
         then [ ]
         else if name == "source"
         then [ ]
+        else if name == "withAction"
+        then false
         else [ "/not-set" ])
       (builtins.functionArgs makeSearchPaths));
 

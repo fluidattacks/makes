@@ -1,4 +1,5 @@
 { fetchNixpkgs
+, inputs
 , outputs
 , ...
 }:
@@ -33,6 +34,11 @@
         src = "/test/terraform/module";
         version = "0.14";
       };
+    };
+  };
+  dev = {
+    example = {
+      bin = [ inputs.nixpkgs.hello ];
     };
   };
   envVars = {

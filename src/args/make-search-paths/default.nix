@@ -28,6 +28,7 @@
 , rubyBin ? [ ]
 , rubyGemPath ? [ ]
 , source ? [ ]
+, withAction ? true
 }:
 let
   makeExport = envVar: envPath: envDrv:
@@ -161,4 +162,5 @@ makeTemplate {
       }
     ])
   );
+  inherit withAction;
 }
