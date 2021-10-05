@@ -46,11 +46,9 @@ from uuid import (
 )
 
 CWD: str = getcwd()
-SOURCES_CACHE: str = join(environ["HOME_IMPURE"], ".cache", "makes", "sources")
-OUT_BASE: str = tempfile.mkdtemp()
-ON_EXIT: List[Callable[[], None]] = [
-    partial(shutil.rmtree, OUT_BASE, ignore_errors=True)
-]
+MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
+SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
+ON_EXIT: List[Callable[[], None]] = []
 VERSION: str = "21.11"
 
 # Environment
@@ -403,7 +401,7 @@ def cli(args: List[str]) -> None:
     if attr not in attrs:
         _help_and_exit(src, attrs)
 
-    out: str = join(OUT_BASE, f"result{attr.replace('/', '-')}")
+    out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
 
     cache: List[Dict[str, str]] = _get_cache(src, head)
     code, _, _ = _run(
