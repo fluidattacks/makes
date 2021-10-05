@@ -202,6 +202,8 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [Configuring on Travis CI](#configuring-on-travis-ci)
     - [Configuring the cache](#configuring-the-cache)
 - [Makes.nix reference](#makesnix-reference)
+    - [Development](#development)
+        - [dev](#dev)
     - [Format](#format)
         - [formatBash](#formatbash)
         - [formatMarkdown](#formatmarkdown)
@@ -762,6 +764,112 @@ A `makes.nix` file should be:
   ```
 
 Below we document all configuration options you can tweak in a `makes.nix`.
+
+## Development
+
+### dev
+
+Create declarative development environments.
+
+Can be used with [direnv][DIRENV]
+to make your shell automatically load
+the development environment and its required dependencies.
+
+Types:
+
+- dev (`attrsOf (asIn makeSearchPaths)`): Optional.
+  Mapping of environment name to searchPaths.
+  Defaults to `{ }`.
+
+Example `makes.nix`:
+
+```nix
+{ inputs
+, ...
+}:
+{
+  inputs = {
+    nixpkgs = fetchNixpkgs {
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+    };
+  };
+
+  dev = {
+    example = {
+      # A development environment with `hello` package
+      bin = [
+        inputs.nixpkgs.hello
+      ];
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /dev/example`
+
+---
+
+Example usage with [direnv][DIRENV]
+on remote projects:
+
+```bash
+$ cat /path/to/some/folder/.envrc
+
+    source "$(m github:fluidattacks/makes@main /dev/example)/template"
+
+# Now every time you enter /path/to/some/folder
+# the shell will automatically load the environment
+$ cd /path/to/some/folder
+
+    direnv: loading /path/to/some/folder/.envrc
+    direnv: export ~PATH
+
+/path/to/some/folder $ hello
+
+    Hello, world!
+
+# If you exit the folder, the development environment is unloaded
+/path/to/some/folder $ cd ..
+
+    direnv: unloading
+
+/path/to/some $ hello
+
+    hello: command not found
+```
+
+---
+
+Example usage with [direnv][DIRENV]
+on a local project:
+
+```bash
+$ cat /path/to/some/folder/.envrc
+
+    cd /path/to/my/project
+    source "$(m . /dev/example)/template"
+
+# Now every time you enter /path/to/some/folder
+# the shell will automatically load the environment
+$ cd /path/to/some/folder
+
+    direnv: loading /path/to/some/folder/.envrc
+    direnv: export ~PATH
+
+/path/to/some/folder $ hello
+
+    Hello, world!
+
+# If you exit the folder, the development environment is unloaded
+/path/to/some/folder $ cd ..
+
+    direnv: unloading
+
+/path/to/some $ hello
+
+    hello: command not found
+```
 
 ## Format
 
@@ -4660,6 +4768,9 @@ Examples:
 
 - [CVSS3_VECTOR_STRING]: https://www.first.org/cvss/v3.0/specification-document#Vector-String
   [CVSS3 Vector String][CVSS3_VECTOR_STRING]
+
+- [DIRENV]: https://direnv.net/
+  [direnv][DIRENV]
 
 - [DOCKER]: https://www.docker.com/
   [Docker][DOCKER]

@@ -12,6 +12,7 @@
 , replaceBase64 ? { }
 , searchPaths ? { }
 , template ? ""
+, withAction ? true
 }:
 let
   # Validate arguments to replace
@@ -34,9 +35,12 @@ let
   replaceBase64' = validateArguments replaceBase64;
 in
 makeDerivation {
-  action = ''
-    cat "$1/template"
-  '';
+  action =
+    if withAction
+    then ''
+      cat "$1/template" 1>&2
+    ''
+    else null;
   env = replace' // replaceBase64' // {
     __envArgumentsRegex = argumentRegex;
     __envArgumentNamesFile = toFileLst "replace.lst"

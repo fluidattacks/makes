@@ -11,6 +11,7 @@
   imports = [
     (import ./cache/default.nix args)
     (import ./compute-on-aws-batch/default.nix args)
+    (import ./dev/default.nix args)
     (import ./deploy-container-image/default.nix args)
     (import ./deploy-terraform/default.nix args)
     (import ./env-vars/default.nix args)
