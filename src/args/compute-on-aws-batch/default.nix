@@ -41,7 +41,9 @@ makeScript {
   searchPaths = {
     bin = [
       __nixpkgs__.awscli
+      __nixpkgs__.gnugrep
       __nixpkgs__.envsubst
+      __nixpkgs__.gnused
       __nixpkgs__.jq
     ];
     source = setup;
