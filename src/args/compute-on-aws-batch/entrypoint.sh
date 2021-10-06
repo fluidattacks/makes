@@ -4,6 +4,10 @@ function subst_env_vars {
   envsubst -no-empty -no-unset < "${1}"
 }
 
+function normalize_job_name {
+  echo "${1}" | sed -E 's|[^a-zA-Z0-9_-]|-|g' | grep -oP '^.{0,128}'
+}
+
 function main {
   local attempts="__argAttempts__"
   local attempt_duration_seconds="__argAttemptDurationSeconds__"
@@ -24,6 +28,7 @@ function main {
         name="${name}-${arg}"
       done
     fi \
+    && name="$(normalize_job_name "${name}")" \
     && if test -z "__argAllowDuplicates__"; then
       info Checking if job "${name}" is already in the queue to avoid duplicates \
         && is_already_in_queue=$(
