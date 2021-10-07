@@ -63,6 +63,11 @@ def _log(*args: str) -> None:
 
 
 # Feature flags
+AWS_BATCH_COMPAT: bool = bool(environ.get("AWS_BATCH_COMPAT"))
+if AWS_BATCH_COMPAT:
+    _log("Using feature flag: AWS_BATCH_COMPAT")
+    _log()
+
 GIT_DEPTH: int = int(environ.get("GIT_DEPTH", "1"))
 if GIT_DEPTH != 1:
     _log(f"Using feature flag: GIT_DEPTH={GIT_DEPTH}")
@@ -187,7 +192,7 @@ def _clone_src_local(src: str) -> Optional[Tuple[str, str, str]]:
         path = url_quote(match.group("path"))
         rev = url_quote(match.group("rev"))
         remote = f"file://{path}"
-        cache_key = f"gitlab-{path}-{rev}".replace("/", "_")
+        cache_key = f"gitlab-{path}-{rev}"
 
         return cache_key, remote, rev
 
@@ -448,19 +453,19 @@ def cli(args: List[str]) -> None:
 
     if code == 0:
         cache_push(cache, out)
-        execute_action(args, out)
+        execute_action(args, head, out)
 
     raise SystemExit(code)
 
 
-def execute_action(args: List[str], out: str) -> None:
+def execute_action(args: List[str], head: str, out: str) -> None:
     action_path: str = join(out, "makes-action.sh")
 
     if exists(action_path):
         code, _, _ = _run(
             args=[action_path, out, *args],
             capture_io=False,
-            cwd=CWD,
+            cwd=head if AWS_BATCH_COMPAT else CWD,
         )
         raise SystemExit(code)
 
