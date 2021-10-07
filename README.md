@@ -632,10 +632,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      # We offer this GitHub action in the following versions:
-      #   main: latest release (example: /makes:main)
-      #   yy.mm: monthly release (example: /makes:21.11)
-    - uses: docker://ghcr.io/fluidattacks/makes:main
+    - uses: docker://ghcr.io/fluidattacks/makes:21.11
       # You can use any name you like here
       name: helloWorld
       # You can pass secrets (if required) as environment variables like this:
@@ -659,10 +656,7 @@ looks like this:
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
 /helloWorld:
-  # We offer this Container Image in the following tags:
-  #   main: latest release (example: /makes:main)
-  #   yy.mm: monthly release (example: /makes:21.11)
-  image: ghcr.io/fluidattacks/makes:main
+  image: ghcr.io/fluidattacks/makes:21.11
   script:
     - m . /helloWorld 1 2 3
 
@@ -687,9 +681,6 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-# We offer this installation step in the following versions:
-#   main: latest release (example: /install/main)
-#   yy.mm: monthly release (example: /install/21.11)
 install: nix-env -if https://fluidattacks.com/makes/install/21.11
 env:
   global:

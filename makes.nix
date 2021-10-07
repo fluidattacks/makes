@@ -18,12 +18,6 @@
         attempts = 3;
         registry = "ghcr.io";
         src = outputs."/container-image";
-        tag = "fluidattacks/makes:main";
-      };
-      makesGitHubMonthly = {
-        attempts = 3;
-        registry = "ghcr.io";
-        src = outputs."/container-image";
         tag = "fluidattacks/makes:21.11";
       };
     };
