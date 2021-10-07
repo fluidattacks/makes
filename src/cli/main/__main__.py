@@ -271,7 +271,6 @@ def _get_head(src: str) -> str:
             else:
                 remove(dest)
 
-    shutil.rmtree(join(head, ".git"))
     return head
 
 
