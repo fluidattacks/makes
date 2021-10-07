@@ -100,12 +100,12 @@ def _clone_src(src: str) -> str:
         rev = "HEAD"
     else:
         src = _clone_src_apply_registry(src)
-
-        if match := _clone_src_github(src):
+        if (
+            (match := _clone_src_github(src))
+            or (match := _clone_src_gitlab(src))
+            or (match := _clone_src_local(src))
+        ):
             cache_key, remote, rev = match
-        elif match := _clone_src_gitlab(src):
-            cache_key, remote, rev = match
-
         else:
             raise Error(f"Unable to parse [SOURCE]: {src}")
 
@@ -174,6 +174,20 @@ def _clone_src_gitlab(src: str) -> Optional[Tuple[str, str, str]]:
         rev = url_quote(match.group("rev"))
         remote = f"https://gitlab.com/{owner}/{repo}.git"
         cache_key = f"gitlab-{owner}-{repo}-{rev}"
+
+        return cache_key, remote, rev
+
+    return None
+
+
+def _clone_src_local(src: str) -> Optional[Tuple[str, str, str]]:
+    regex = r"^local:(?P<path>.*)@(?P<rev>.*)$"
+
+    if match := re.match(regex, src):
+        path = url_quote(match.group("path"))
+        rev = url_quote(match.group("rev"))
+        remote = f"file://{path}"
+        cache_key = f"gitlab-{path}-{rev}".replace("/", "_")
 
         return cache_key, remote, rev
 
@@ -363,6 +377,9 @@ def _help_and_exit(
         _log()
         _log("  A Git repository in the current working directory:")
         _log("    $ m .")
+        _log()
+        _log("  A Git repository and revision (branch, commit or tag):")
+        _log("    $ m local:/path/to/repo@rev")
         _log()
         _log("  A GitHub repository and revision (branch, commit or tag):")
         _log("    $ m github:owner/repo@rev")
