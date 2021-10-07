@@ -21,7 +21,7 @@ let
       __MAKES_SRC__=__argMakesSrc__ \
       __NIX_STABLE__=__argNixStable__ \
       __NIX_UNSTABLE__=__argNixUnstable__ \
-      python __argMakesSrc__/src/cli/main/__main__.py "$@"
+      python -u __argMakesSrc__/src/cli/main/__main__.py "$@"
     '';
     searchPaths = {
       bin = [
