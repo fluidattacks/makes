@@ -92,6 +92,7 @@ let
           else [ "m . ${output} ${escapeShellArgs args}" ];
         variables = {
           GIT_DEPTH = gitDepth;
+          MAKES_GIT_DEPTH = gitDepth;
         };
       })
       gitlabExtra
