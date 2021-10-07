@@ -63,6 +63,12 @@ def _log(*args: str) -> None:
 
 
 # Feature flags
+GIT_DEPTH: int = int(environ.get("GIT_DEPTH", "1"))
+if GIT_DEPTH != 1:
+    _log(f"Using feature flag: GIT_DEPTH={GIT_DEPTH}")
+    _log()
+
+
 K8S_COMPAT: bool = bool(environ.get("K8S_COMPAT"))
 if K8S_COMPAT:
     _log("Using feature flag: K8S_COMPAT")
@@ -112,7 +118,15 @@ def _clone_src(src: str) -> str:
     remote = _clone_src_cache_get(src, cache_key, remote)
 
     out, stdout, stderr = _run(
-        ["git", "-C", head, "fetch", "--depth=1", remote, f"{rev}:{rev}"]
+        [
+            "git",
+            "-C",
+            head,
+            "fetch",
+            *_if(GIT_DEPTH >= 1, f"--depth={GIT_DEPTH}"),
+            remote,
+            f"{rev}:{rev}",
+        ]
     )
     if out != 0:
         raise Error(f"Unable to git fetch: {src}", stdout, stderr)
