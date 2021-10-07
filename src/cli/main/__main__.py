@@ -63,25 +63,25 @@ def _log(*args: str) -> None:
 
 
 # Feature flags
-AWS_BATCH_COMPAT: bool = bool(environ.get("AWS_BATCH_COMPAT"))
+AWS_BATCH_COMPAT: bool = bool(environ.get("MAKES_AWS_BATCH_COMPAT"))
 if AWS_BATCH_COMPAT:
-    _log("Using feature flag: AWS_BATCH_COMPAT")
+    _log("Using feature flag: MAKES_AWS_BATCH_COMPAT")
     _log()
 
-GIT_DEPTH: int = int(environ.get("GIT_DEPTH", "1"))
+GIT_DEPTH: int = int(environ.get("MAKES_GIT_DEPTH", "1"))
 if GIT_DEPTH != 1:
-    _log(f"Using feature flag: GIT_DEPTH={GIT_DEPTH}")
+    _log(f"Using feature flag: MAKES_GIT_DEPTH={GIT_DEPTH}")
     _log()
 
 
-K8S_COMPAT: bool = bool(environ.get("K8S_COMPAT"))
+K8S_COMPAT: bool = bool(environ.get("MAKES_K8S_COMPAT"))
 if K8S_COMPAT:
-    _log("Using feature flag: K8S_COMPAT")
+    _log("Using feature flag: MAKES_K8S_COMPAT")
     _log()
 
-NIX_STABLE: bool = not bool(environ.get("NIX_UNSTABLE"))
+NIX_STABLE: bool = not bool(environ.get("MAKES_NIX_UNSTABLE"))
 if not NIX_STABLE:
-    _log("Using feature flag: NIX_UNSTABLE")
+    _log("Using feature flag: MAKES_NIX_UNSTABLE")
     _log()
 
 

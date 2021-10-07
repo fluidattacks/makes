@@ -27,8 +27,8 @@ makeScript {
     __argIncludePositionalArgsInName__ = includePositionalArgsInName;
     __argManifest__ = toFileJson "manifest.json" {
       environment = builtins.concatLists [
-        [{ name = "AWS_BATCH_COMPAT"; value = "true"; }]
         [{ name = "CI"; value = "true"; }]
+        [{ name = "MAKES_AWS_BATCH_COMPAT"; value = "true"; }]
         (builtins.map
           (name: { inherit name; value = "\${${name}}"; })
           (environment))
