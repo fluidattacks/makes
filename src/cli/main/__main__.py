@@ -113,14 +113,25 @@ def _clone_src(src: str) -> str:
         else:
             raise Error(f"Unable to parse [SOURCE]: {src}")
 
+    _clone_src_git_init(src, head)
+    remote = _clone_src_cache_get(src, cache_key, remote)
+    _clone_src_git_fetch(src, head, remote, rev)
+    _clone_src_git_checkout(src, head, rev)
+    _clone_src_cache_refresh(head, cache_key)
+
+    return head
+
+
+def _clone_src_git_init(src: str, head: str) -> None:
     out, stdout, stderr = _run(
-        ["git", "init", "--initial-branch=____", "--shared=false", head]
+        ["git", "init", "--initial-branch=____", "--shared=false", head],
+        capture_stderr=False,
     )
     if out != 0:
         raise Error(f"Unable to git init: {src}", stdout, stderr)
 
-    remote = _clone_src_cache_get(src, cache_key, remote)
 
+def _clone_src_git_fetch(src: str, head: str, remote: str, rev: str) -> None:
     out, stdout, stderr = _run(
         [
             "git",
@@ -136,13 +147,14 @@ def _clone_src(src: str) -> str:
     if out != 0:
         raise Error(f"Unable to git fetch: {src}", stdout, stderr)
 
-    out, stdout, stderr = _run(["git", "-C", head, "checkout", rev])
+
+def _clone_src_git_checkout(src: str, head: str, rev: str) -> None:
+    out, stdout, stderr = _run(
+        ["git", "-C", head, "checkout", rev],
+        capture_stderr=False,
+    )
     if out != 0:
         raise Error(f"Unable to git checkout: {src}", stdout, stderr)
-
-    _clone_src_cache_refresh(head, cache_key)
-
-    return head
 
 
 def _clone_src_apply_registry(src: str) -> str:
@@ -267,6 +279,8 @@ def _get_head(src: str) -> str:
     # Checkout repository HEAD into a temporary directory
     # This is nice for reproducibility and security,
     # files not in the HEAD commit are left out of the build inputs
+    _log()
+    _log("Fetching project...")
     head: str = _clone_src(src)
 
     # Applies only to local repositories
@@ -304,6 +318,8 @@ def _get_head(src: str) -> str:
 
 
 def _get_attrs(src: str, head: str) -> List[str]:
+    _log()
+    _log("Building project outputs list...")
     out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
@@ -315,6 +331,7 @@ def _get_attrs(src: str, head: str) -> List[str]:
             out=out,
         ),
         capture_stderr=False,
+        capture_stdout=False,
     )
     if code == 0:
         with open(out, encoding="utf-8") as file:
@@ -324,6 +341,8 @@ def _get_attrs(src: str, head: str) -> List[str]:
 
 
 def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
+    _log()
+    _log("Building project cache configuration...")
     out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
@@ -335,6 +354,7 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
             out=out,
         ),
         capture_stderr=False,
+        capture_stdout=False,
     )
 
     if code == 0:
@@ -415,7 +435,6 @@ def _help_and_exit(
 
 def cli(args: List[str]) -> None:
     _log(f"Makes v{VERSION}-{sys.platform}")
-    _log()
     if not args[1:]:
         _help_and_exit()
 
@@ -439,6 +458,8 @@ def cli(args: List[str]) -> None:
     out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
 
     cache: List[Dict[str, str]] = _get_cache(src, head)
+    _log()
+    _log("Building project output...")
     code, _, _ = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"'
@@ -463,6 +484,8 @@ def execute_action(args: List[str], head: str, out: str) -> None:
     action_path: str = join(out, "makes-action.sh")
 
     if exists(action_path):
+        _log()
+        _log("Running project output...")
         code, _, _ = _run(
             args=[action_path, out, *args],
             capture_stderr=False,
