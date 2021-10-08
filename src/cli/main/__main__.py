@@ -99,9 +99,8 @@ def _clone_src(src: str) -> str:
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
     if abspath(src) == CWD:  # `m .` ?
-        cache_key: str = ""
         remote: str = abspath(src)
-        rev = "HEAD"
+        _clone_src_git_worktree_add(remote, head)
     else:
         src = _clone_src_apply_registry(src)
         if (
@@ -113,11 +112,11 @@ def _clone_src(src: str) -> str:
         else:
             raise Error(f"Unable to parse [SOURCE]: {src}")
 
-    _clone_src_git_init(src, head)
-    remote = _clone_src_cache_get(src, cache_key, remote)
-    _clone_src_git_fetch(src, head, remote, rev)
-    _clone_src_git_checkout(src, head, rev)
-    _clone_src_cache_refresh(head, cache_key)
+        _clone_src_git_init(src, head)
+        remote = _clone_src_cache_get(src, cache_key, remote)
+        _clone_src_git_fetch(src, head, remote, rev)
+        _clone_src_git_checkout(src, head, rev)
+        _clone_src_cache_refresh(head, cache_key)
 
     return head
 
@@ -155,6 +154,15 @@ def _clone_src_git_checkout(src: str, head: str, rev: str) -> None:
     )
     if out != 0:
         raise Error(f"Unable to git checkout: {src}", stdout, stderr)
+
+
+def _clone_src_git_worktree_add(remote: str, head: str) -> None:
+    out, stdout, stderr = _run(
+        ["git", "-C", remote, "worktree", "add", head, "HEAD"],
+        capture_stderr=False,
+    )
+    if out != 0:
+        raise Error(f"Unable to add git worktree: {remote}", stdout, stderr)
 
 
 def _clone_src_apply_registry(src: str) -> str:
