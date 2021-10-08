@@ -94,12 +94,11 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 
 
 def _clone_src(src: str) -> str:
-    # disable because the temporary directory is used in other contexts
     # pylint: disable=consider-using-with
     head = tempfile.TemporaryDirectory(prefix="makes-").name
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
-    if is_src_local(src):
+    if abspath(src) == CWD:  # `m .` ?
         cache_key: str = ""
         remote: str = abspath(src)
         rev = "HEAD"
@@ -131,7 +130,8 @@ def _clone_src(src: str) -> str:
             *_if(GIT_DEPTH >= 1, f"--depth={GIT_DEPTH}"),
             remote,
             f"{rev}:{rev}",
-        ]
+        ],
+        capture_stderr=False,
     )
     if out != 0:
         raise Error(f"Unable to git fetch: {src}", stdout, stderr)
@@ -192,7 +192,7 @@ def _clone_src_local(src: str) -> Optional[Tuple[str, str, str]]:
         path = url_quote(match.group("path"))
         rev = url_quote(match.group("rev"))
         remote = f"file://{path}"
-        cache_key = f"gitlab-{path}-{rev}"
+        cache_key = ""
 
         return cache_key, remote, rev
 
@@ -220,10 +220,6 @@ def _clone_src_cache_refresh(head: str, cache_key: str) -> None:
     cached: str = join(SOURCES_CACHE, cache_key)
     if cache_key and not exists(cached):
         shutil.copytree(head, cached)
-
-
-def is_src_local(src: str) -> bool:
-    return abspath(src) == CWD
 
 
 def _nix_build(
@@ -274,7 +270,7 @@ def _get_head(src: str) -> str:
     head: str = _clone_src(src)
 
     # Applies only to local repositories
-    if is_src_local(src):
+    if abspath(src) == CWD:  # `m .` ?
         paths: Set[str] = set()
 
         # Propagated `git add`ed files
@@ -318,6 +314,7 @@ def _get_attrs(src: str, head: str) -> List[str]:
             head=head,
             out=out,
         ),
+        capture_stderr=False,
     )
     if code == 0:
         with open(out, encoding="utf-8") as file:
@@ -337,6 +334,7 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
             head=head,
             out=out,
         ),
+        capture_stderr=False,
     )
 
     if code == 0:
@@ -346,11 +344,12 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
     raise Error(f"Unable to get cache config from: {src}", stdout, stderr)
 
 
-def _run(
+def _run(  # pylint: disable=too-many-arguments
     args: List[str],
     cwd: Optional[str] = None,
     env: Optional[Dict[str, str]] = None,
-    capture_io: bool = True,
+    capture_stderr: bool = True,
+    capture_stdout: bool = True,
     stdin: Optional[bytes] = None,
 ) -> Tuple[int, bytes, bytes]:
     with subprocess.Popen(
@@ -359,8 +358,8 @@ def _run(
         env=env,
         shell=False,  # nosec
         stdin=None if stdin is None else subprocess.PIPE,
-        stdout=subprocess.PIPE if capture_io else None,
-        stderr=subprocess.PIPE if capture_io else None,
+        stdout=subprocess.PIPE if capture_stdout else None,
+        stderr=subprocess.PIPE if capture_stderr else None,
     ) as process:
         out, err = process.communicate(stdin)
 
@@ -372,6 +371,7 @@ def _help_and_exit(
     attrs: Optional[List[str]] = None,
     exc: Optional[Exception] = None,
 ) -> None:
+    _log()
     _log("Usage: m [SOURCE] [OUTPUT] [ARGS]...")
     if src:
         _log()
@@ -448,7 +448,8 @@ def cli(args: List[str]) -> None:
             head=head,
             out=out,
         ),
-        capture_io=False,
+        capture_stderr=False,
+        capture_stdout=False,
     )
 
     if code == 0:
@@ -464,7 +465,8 @@ def execute_action(args: List[str], head: str, out: str) -> None:
     if exists(action_path):
         code, _, _ = _run(
             args=[action_path, out, *args],
-            capture_io=False,
+            capture_stderr=False,
+            capture_stdout=False,
             cwd=head if AWS_BATCH_COMPAT else CWD,
         )
         raise SystemExit(code)
@@ -476,7 +478,8 @@ def cache_push(cache: List[Dict[str, str]], out: str) -> None:
             _log("Pushing to cache")
             _run(
                 args=["cachix", "push", "-c", "0", config["name"], out],
-                capture_io=False,
+                capture_stderr=False,
+                capture_stdout=False,
             )
             return
 
@@ -486,9 +489,9 @@ def main() -> None:
         cli(sys.argv)
     except Error as err:
         _log(f"[ERROR] {err.args[0]}")
-        if err.args[1:]:
+        if err.args[1:] and err.args[1]:
             _log(f"[ERROR] Stdout: \n{err.args[1].decode(errors='replace')}")
-        if err.args[2:]:
+        if err.args[2:] and err.args[2]:
             _log(f"[ERROR] Stderr: \n{err.args[2].decode(errors='replace')}")
         sys.exit(1)
     except SystemExit as err:
