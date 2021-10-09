@@ -21,11 +21,18 @@ from posixpath import (
     abspath,
     dirname,
 )
+import random
 import re
+import rich.console
+import rich.layout
+import rich.panel
+import rich.text
+import rich.tree
 import shutil
 import subprocess  # nosec
 import sys
 import tempfile
+import textwrap
 from time import (
     time,
 )
@@ -46,6 +53,10 @@ from uuid import (
 )
 
 CWD: str = getcwd()
+CON: rich.console.Console = rich.console.Console(
+    highlight=False,
+    stderr=True,
+)
 MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
 SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
 ON_EXIT: List[Callable[[], None]] = []
@@ -59,30 +70,44 @@ __NIX_UNSTABLE__: str = environ["__NIX_UNSTABLE__"]
 
 
 def _log(*args: str) -> None:
-    print(*args, file=sys.stderr)
+    CON.out(*args)
 
 
 # Feature flags
 AWS_BATCH_COMPAT: bool = bool(environ.get("MAKES_AWS_BATCH_COMPAT"))
 if AWS_BATCH_COMPAT:
-    _log("Using feature flag: MAKES_AWS_BATCH_COMPAT")
-    _log()
+    CON.out("Using feature flag: MAKES_AWS_BATCH_COMPAT")
+    CON.out()
 
 GIT_DEPTH: int = int(environ.get("MAKES_GIT_DEPTH", "1"))
 if GIT_DEPTH != 1:
-    _log(f"Using feature flag: MAKES_GIT_DEPTH={GIT_DEPTH}")
-    _log()
+    CON.out(f"Using feature flag: MAKES_GIT_DEPTH={GIT_DEPTH}")
 
 
 K8S_COMPAT: bool = bool(environ.get("MAKES_K8S_COMPAT"))
 if K8S_COMPAT:
-    _log("Using feature flag: MAKES_K8S_COMPAT")
-    _log()
+    CON.out("Using feature flag: MAKES_K8S_COMPAT")
 
 NIX_STABLE: bool = not bool(environ.get("MAKES_NIX_UNSTABLE"))
 if not NIX_STABLE:
-    _log("Using feature flag: MAKES_NIX_UNSTABLE")
-    _log()
+    CON.out("Using feature flag: MAKES_NIX_UNSTABLE")
+
+
+# Constants
+EMOJIS_FAILURE = [
+    "collision",
+    "exploding_head",
+    "face_with_monocle",
+    "sad_but_relieved_face",
+    "thinking_face",
+]
+EMOJIS_SUCCESS = [
+    "airplane_departure",
+    "blossom",
+    "boxing_glove",
+    "checkered_flag",
+    "rocket",
+]
 
 
 class Error(Exception):
@@ -124,7 +149,7 @@ def _clone_src(src: str) -> str:
 def _clone_src_git_init(src: str, head: str) -> None:
     out, stdout, stderr = _run(
         ["git", "init", "--initial-branch=____", "--shared=false", head],
-        capture_stderr=False,
+        stderr=None,
     )
     if out != 0:
         raise Error(f"Unable to git init: {src}", stdout, stderr)
@@ -141,7 +166,7 @@ def _clone_src_git_fetch(src: str, head: str, remote: str, rev: str) -> None:
             remote,
             f"{rev}:{rev}",
         ],
-        capture_stderr=False,
+        stderr=None,
     )
     if out != 0:
         raise Error(f"Unable to git fetch: {src}", stdout, stderr)
@@ -150,7 +175,7 @@ def _clone_src_git_fetch(src: str, head: str, remote: str, rev: str) -> None:
 def _clone_src_git_checkout(src: str, head: str, rev: str) -> None:
     out, stdout, stderr = _run(
         ["git", "-C", head, "checkout", rev],
-        capture_stderr=False,
+        stderr=None,
     )
     if out != 0:
         raise Error(f"Unable to git checkout: {src}", stdout, stderr)
@@ -159,10 +184,11 @@ def _clone_src_git_checkout(src: str, head: str, rev: str) -> None:
 def _clone_src_git_worktree_add(remote: str, head: str) -> None:
     out, stdout, stderr = _run(
         ["git", "-C", remote, "worktree", "add", head, "HEAD"],
-        capture_stderr=False,
+        stderr=None,
     )
     if out != 0:
         raise Error(f"Unable to add git worktree: {remote}", stdout, stderr)
+    CON.out(head)
 
 
 def _clone_src_apply_registry(src: str) -> str:
@@ -225,13 +251,12 @@ def _clone_src_cache_get(src: str, cache_key: str, remote: str) -> str:
         if exists(cached):
             cached_since: float = time() - getctime(cached)
             if cached_since <= 86400.0:
-                _log(f"Using cached version of: {src}, from: {cached}")
-                _log()
+                CON.out(f"Cached from {cached}")
                 remote = cached
             else:
                 shutil.rmtree(cached)
         else:
-            _log(f"Downloading: {src}")
+            CON.out(f"From {src}")
 
     return remote
 
@@ -287,8 +312,9 @@ def _get_head(src: str) -> str:
     # Checkout repository HEAD into a temporary directory
     # This is nice for reproducibility and security,
     # files not in the HEAD commit are left out of the build inputs
-    _log()
-    _log("Fetching project...")
+    CON.out()
+    CON.rule(f"Fetching {src}")
+    CON.out()
     head: str = _clone_src(src)
 
     # Applies only to local repositories
@@ -326,8 +352,9 @@ def _get_head(src: str) -> str:
 
 
 def _get_attrs(src: str, head: str) -> List[str]:
-    _log()
-    _log("Building project outputs list...")
+    CON.out()
+    CON.rule("Building project outputs list")
+    CON.out()
     out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
@@ -338,8 +365,8 @@ def _get_attrs(src: str, head: str) -> List[str]:
             head=head,
             out=out,
         ),
-        capture_stderr=False,
-        capture_stdout=False,
+        stderr=None,
+        stdout=sys.stderr.fileno(),
     )
     if code == 0:
         with open(out, encoding="utf-8") as file:
@@ -349,8 +376,9 @@ def _get_attrs(src: str, head: str) -> List[str]:
 
 
 def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
-    _log()
-    _log("Building project cache configuration...")
+    CON.out()
+    CON.rule("Building project cache configuration")
+    CON.out()
     out: str = tempfile.mktemp()  # nosec
     code, stdout, stderr, = _run(
         args=_nix_build(
@@ -361,8 +389,8 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
             head=head,
             out=out,
         ),
-        capture_stderr=False,
-        capture_stdout=False,
+        stderr=None,
+        stdout=sys.stderr.fileno(),
     )
 
     if code == 0:
@@ -376,8 +404,8 @@ def _run(  # pylint: disable=too-many-arguments
     args: List[str],
     cwd: Optional[str] = None,
     env: Optional[Dict[str, str]] = None,
-    capture_stderr: bool = True,
-    capture_stdout: bool = True,
+    stdout: Optional[int] = subprocess.PIPE,
+    stderr: Optional[int] = subprocess.PIPE,
     stdin: Optional[bytes] = None,
 ) -> Tuple[int, bytes, bytes]:
     with subprocess.Popen(
@@ -386,8 +414,8 @@ def _run(  # pylint: disable=too-many-arguments
         env=env,
         shell=False,  # nosec
         stdin=None if stdin is None else subprocess.PIPE,
-        stdout=subprocess.PIPE if capture_stdout else None,
-        stderr=subprocess.PIPE if capture_stderr else None,
+        stdout=stdout,
+        stderr=stderr,
     ) as process:
         out, err = process.communicate(stdin)
 
@@ -399,50 +427,64 @@ def _help_and_exit(
     attrs: Optional[List[str]] = None,
     exc: Optional[Exception] = None,
 ) -> None:
-    _log()
-    _log("Usage: m [SOURCE] [OUTPUT] [ARGS]...")
+    CON.out()
+    CON.rule("Usage")
+    CON.out()
+
     if src:
-        _log()
-        _log(f"[SOURCE] is currently: {src}")
+        text = f"$ m {src} OUTPUT [ARGS...]"
     else:
-        _log()
-        _log("[SOURCE] can be:")
-        _log()
-        _log("  A Git repository in the current working directory:")
-        _log("    $ m .")
-        _log()
-        _log("  A Git repository and revision (branch, commit or tag):")
-        _log("    $ m local:/path/to/repo@rev")
-        _log()
-        _log("  A GitHub repository and revision (branch, commit or tag):")
-        _log("    $ m github:owner/repo@rev")
-        _log()
-        _log("  A GitLab repository and revision (branch, commit or tag):")
-        _log("    $ m gitlab:owner/repo@rev")
+        text = "$ m SOURCE OUTPUT [ARGS...]"
+
+    CON.print(rich.panel.Panel.fit(text), justify="center")
+    CON.out()
+
+    if not src:
+        text = """
+            Can be:
+
+            A git repository in the current working directory:
+                $ m .
+
+            A git repository and revision:
+                $ m local:/path/to/repo@rev
+
+            A GitHub repository and revision:
+                $ m github:owner/repo@rev
+
+            A GitLab repository and revision:
+                $ m gitlab:owner/repo@rev
+
+            Note: A revision is either a branch, full commit or tag
+        """
+        CON.print(rich.panel.Panel(textwrap.dedent(text), title="SOURCE"))
+
     if attrs is None:
-        _log()
-        _log("[OUTPUT] options will be listed when you provide a [SOURCE]")
+        text = "The available outputs will be listed when you provide a source"
+        CON.print(rich.panel.Panel(text, title="OUTPUT"))
     else:
-        _log()
-        _log("[OUTPUT] can be:")
+        text = "Can be:\n\n"
         for attr in attrs:
             if attr not in {
                 "__all__",
                 "/secretsForAwsFromEnv/__default__",
             }:
-                _log(f"  {attr}")
+                text += f"    {attr}\n"
+        CON.print(rich.panel.Panel(text, title="OUTPUT"))
     if exc is not None:
-        _log()
+        CON.out()
         raise exc
 
-    _log()
-    _log("[ARGS] are passed to the output (if supported).")
+    text = "Zero or more arguments to pass to the output (if supported)."
+    CON.print(rich.panel.Panel(text, title="ARGS"))
 
     raise SystemExit(1)
 
 
 def cli(args: List[str]) -> None:
-    _log(f"Makes v{VERSION}-{sys.platform}")
+    CON.out()
+    CON.print(":unicorn_face: [b]Makes[/b]", justify="center")
+    CON.print(f"v{VERSION}-{sys.platform}", justify="center")
     if not args[1:]:
         _help_and_exit()
 
@@ -466,8 +508,9 @@ def cli(args: List[str]) -> None:
     out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
 
     cache: List[Dict[str, str]] = _get_cache(src, head)
-    _log()
-    _log("Building project output...")
+    CON.out()
+    CON.rule(f"Building {attr}")
+    CON.out()
     code, _, _ = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"'
@@ -477,8 +520,8 @@ def cli(args: List[str]) -> None:
             head=head,
             out=out,
         ),
-        capture_stderr=False,
-        capture_stdout=False,
+        stderr=None,
+        stdout=None,
     )
 
     if code == 0:
@@ -492,12 +535,13 @@ def execute_action(args: List[str], head: str, out: str) -> None:
     action_path: str = join(out, "makes-action.sh")
 
     if exists(action_path):
-        _log()
-        _log("Running project output...")
+        CON.out()
+        CON.rule("Running")
+        CON.out()
         code, _, _ = _run(
             args=[action_path, out, *args],
-            capture_stderr=False,
-            capture_stdout=False,
+            stderr=None,
+            stdout=None,
             cwd=head if AWS_BATCH_COMPAT else CWD,
         )
         raise SystemExit(code)
@@ -506,11 +550,11 @@ def execute_action(args: List[str], head: str, out: str) -> None:
 def cache_push(cache: List[Dict[str, str]], out: str) -> None:
     for config in cache:
         if config["type"] == "cachix" and "CACHIX_AUTH_TOKEN" in environ:
-            _log("Pushing to cache")
+            CON.out("Pushing to cache")
             _run(
                 args=["cachix", "push", "-c", "0", config["name"], out],
-                capture_stderr=False,
-                capture_stdout=False,
+                stderr=None,
+                stdout=None,
             )
             return
 
@@ -526,6 +570,15 @@ def main() -> None:
             _log(f"[ERROR] Stderr: \n{err.args[2].decode(errors='replace')}")
         sys.exit(1)
     except SystemExit as err:
+        CON.out()
+        if err.code == 0:
+            emo = random.choice(EMOJIS_SUCCESS)  # nosec
+            CON.rule(f":{emo}: Success!")
+        else:
+            emo = random.choice(EMOJIS_FAILURE)  # nosec
+            CON.rule(f":{emo}: Failed with exit code {err.code}", style="red")
+        CON.out()
+
         sys.exit(err.code)
 
 

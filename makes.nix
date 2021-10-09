@@ -1,4 +1,5 @@
-{ fetchNixpkgs
+{ __nixpkgs__
+, fetchNixpkgs
 , inputs
 , outputs
 , ...
@@ -109,6 +110,11 @@
     dirsOfModules = {
       makes = {
         python = "3.8";
+        searchPaths = {
+          pythonPackage38 = [
+            __nixpkgs__.python38Packages.rich
+          ];
+        };
         src = "/src/cli";
       };
     };
