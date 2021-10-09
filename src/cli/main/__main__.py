@@ -4,6 +4,7 @@ from contextlib import (
 from functools import (
     partial,
 )
+import io
 import json
 import operator
 from os import (
@@ -55,7 +56,7 @@ from uuid import (
 CWD: str = getcwd()
 CON: rich.console.Console = rich.console.Console(
     highlight=False,
-    stderr=True,
+    file=io.TextIOWrapper(sys.stderr.buffer),
 )
 MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
 SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
