@@ -73,7 +73,7 @@
     };
   };
   config = {
-    attrs = toFileJson "attrs"
+    attrs = toFileJson "attrs.json"
       (builtins.attrNames config.outputs);
     outputs =
       let

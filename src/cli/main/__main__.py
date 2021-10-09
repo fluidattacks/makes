@@ -25,10 +25,7 @@ from posixpath import (
 import random
 import re
 import rich.console
-import rich.layout
 import rich.panel
-import rich.text
-import rich.tree
 import shutil
 import subprocess  # nosec
 import sys
@@ -56,7 +53,7 @@ from uuid import (
 CWD: str = getcwd()
 CON: rich.console.Console = rich.console.Console(
     highlight=False,
-    file=io.TextIOWrapper(sys.stderr.buffer),
+    file=io.TextIOWrapper(sys.stderr.buffer, write_through=True),
 )
 MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
 SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
@@ -68,10 +65,6 @@ __MAKES_REGISTRY__: str = environ["__MAKES_REGISTRY__"]
 __MAKES_SRC__: str = environ["__MAKES_SRC__"]
 __NIX_STABLE__: str = environ["__NIX_STABLE__"]
 __NIX_UNSTABLE__: str = environ["__NIX_UNSTABLE__"]
-
-
-def _log(*args: str) -> None:
-    CON.out(*args)
 
 
 # Feature flags
@@ -183,10 +176,6 @@ EMOJIS_SUCCESS = [
 ]
 
 
-class Error(Exception):
-    pass
-
-
 def _if(condition: Any, *value: Any) -> List[Any]:
     return list(value) if condition else []
 
@@ -208,59 +197,48 @@ def _clone_src(src: str) -> str:
         ):
             cache_key, remote, rev = match
         else:
-            raise Error(f"Unable to parse [SOURCE]: {src}")
+            CON.print(f"We can't proceed with SOURCE: {src}", justify="center")
+            CON.print("It has an unrecognized format", justify="center")
+            CON.print()
+            CON.print("Please see the correct usage below", justify="center")
+            _help_and_exit()
 
-        _clone_src_git_init(src, head)
+        _clone_src_git_init(head)
         remote = _clone_src_cache_get(src, cache_key, remote)
-        _clone_src_git_fetch(src, head, remote, rev)
-        _clone_src_git_checkout(src, head, rev)
+        _clone_src_git_fetch(head, remote, rev)
+        _clone_src_git_checkout(head, rev)
         _clone_src_cache_refresh(head, cache_key)
 
     return head
 
 
-def _clone_src_git_init(src: str, head: str) -> None:
-    out, stdout, stderr = _run(
-        ["git", "init", "--initial-branch=____", "--shared=false", head],
-        stderr=None,
-    )
+def _clone_src_git_init(head: str) -> None:
+    cmd = ["git", "init", "--initial-branch=____", "--shared=false", head]
+    out, _, _ = _run(cmd, stderr=None, stdout=None)
     if out != 0:
-        raise Error(f"Unable to git init: {src}", stdout, stderr)
+        raise SystemExit(out)
 
 
-def _clone_src_git_fetch(src: str, head: str, remote: str, rev: str) -> None:
-    out, stdout, stderr = _run(
-        [
-            "git",
-            "-C",
-            head,
-            "fetch",
-            *_if(GIT_DEPTH >= 1, f"--depth={GIT_DEPTH}"),
-            remote,
-            f"{rev}:{rev}",
-        ],
-        stderr=None,
-    )
+def _clone_src_git_fetch(head: str, remote: str, rev: str) -> None:
+    depth = _if(GIT_DEPTH >= 1, f"--depth={GIT_DEPTH}")
+    cmd = ["git", "-C", head, "fetch", *depth, remote, f"{rev}:{rev}"]
+    out, _, _ = _run(cmd, stderr=None, stdout=None)
     if out != 0:
-        raise Error(f"Unable to git fetch: {src}", stdout, stderr)
+        raise SystemExit(out)
 
 
-def _clone_src_git_checkout(src: str, head: str, rev: str) -> None:
-    out, stdout, stderr = _run(
-        ["git", "-C", head, "checkout", rev],
-        stderr=None,
-    )
+def _clone_src_git_checkout(head: str, rev: str) -> None:
+    cmd = ["git", "-C", head, "checkout", rev]
+    out, _, _ = _run(cmd, stderr=None, stdout=None)
     if out != 0:
-        raise Error(f"Unable to git checkout: {src}", stdout, stderr)
+        raise SystemExit(out)
 
 
 def _clone_src_git_worktree_add(remote: str, head: str) -> None:
-    out, stdout, stderr = _run(
-        ["git", "-C", remote, "worktree", "add", head, "HEAD"],
-        stderr=None,
-    )
+    cmd = ["git", "-C", remote, "worktree", "add", head, "HEAD"]
+    out, _, _ = _run(cmd, stderr=None, stdout=None)
     if out != 0:
-        raise Error(f"Unable to add git worktree: {remote}", stdout, stderr)
+        raise SystemExit(out)
     CON.out(head)
 
 
@@ -395,19 +373,17 @@ def _get_head(src: str) -> str:
         paths: Set[str] = set()
 
         # Propagated `git add`ed files
-        out, stdout, stderr = _run(
-            ["git", "-C", src, "diff", "--cached", "--name-only"]
-        )
+        cmd = ["git", "-C", src, "diff", "--cached", "--name-only"]
+        out, stdout, _ = _run(cmd, stderr=None)
         if out != 0:
-            raise Error(f"Unable to list files: {src}", stdout, stderr)
+            raise SystemExit(out)
         paths.update(stdout.decode().splitlines())
 
         # Propagated modified files
-        out, stdout, stderr = _run(
-            ["git", "-C", src, "ls-files", "--modified"]
-        )
+        cmd = ["git", "-C", src, "ls-files", "--modified"]
+        out, stdout, _ = _run(cmd, stderr=None)
         if out != 0:
-            raise Error(f"Unable to list files: {src}", stdout, stderr)
+            raise SystemExit(out)
         paths.update(stdout.decode().splitlines())
 
         # Copy paths to head
@@ -424,12 +400,12 @@ def _get_head(src: str) -> str:
     return head
 
 
-def _get_attrs(src: str, head: str) -> List[str]:
+def _get_attrs(head: str) -> List[str]:
     CON.out()
     CON.rule("Building project outputs list")
     CON.out()
     out: str = tempfile.mktemp()  # nosec
-    code, stdout, stderr, = _run(
+    code, _, _, = _run(
         args=_nix_build(
             attr="config.attrs"
             if NIX_STABLE
@@ -445,15 +421,15 @@ def _get_attrs(src: str, head: str) -> List[str]:
         with open(out, encoding="utf-8") as file:
             return json.load(file)
 
-    raise Error(f"Unable to list project outputs from: {src}", stdout, stderr)
+    raise SystemExit(code)
 
 
-def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
+def _get_cache(head: str) -> List[Dict[str, str]]:
     CON.out()
     CON.rule("Building project cache configuration")
     CON.out()
     out: str = tempfile.mktemp()  # nosec
-    code, stdout, stderr, = _run(
+    code, _, _, = _run(
         args=_nix_build(
             attr="config.cacheAsJson"
             if NIX_STABLE
@@ -470,7 +446,7 @@ def _get_cache(src: str, head: str) -> List[Dict[str, str]]:
         with open(out, encoding="utf-8") as file:
             return json.load(file)
 
-    raise Error(f"Unable to get cache config from: {src}", stdout, stderr)
+    raise SystemExit(code)
 
 
 def _run(  # pylint: disable=too-many-arguments
@@ -498,7 +474,6 @@ def _run(  # pylint: disable=too-many-arguments
 def _help_and_exit(
     src: Optional[str] = None,
     attrs: Optional[List[str]] = None,
-    exc: Optional[Exception] = None,
 ) -> None:
     CON.out()
     CON.rule("Usage")
@@ -531,6 +506,7 @@ def _help_and_exit(
             Note: A revision is either a branch, full commit or tag
         """
         CON.print(rich.panel.Panel(textwrap.dedent(text), title="SOURCE"))
+        CON.out()
 
     if attrs is None:
         text = "The available outputs will be listed when you provide a source"
@@ -544,9 +520,7 @@ def _help_and_exit(
             }:
                 text += f"    {attr}\n"
         CON.print(rich.panel.Panel(text, title="OUTPUT"))
-    if exc is not None:
-        CON.out()
-        raise exc
+    CON.out()
 
     text = "Zero or more arguments to pass to the output (if supported)."
     CON.print(rich.panel.Panel(text, title="ARGS"))
@@ -558,32 +532,32 @@ def cli(args: List[str]) -> None:
     CON.out()
     CON.print(":unicorn_face: [b]Makes[/b]", justify="center")
     CON.print(f"v{VERSION}-{sys.platform}", justify="center")
-    if not args[1:]:
+    if args[1:]:
+        src: str = args[1]
+    else:
         _help_and_exit()
 
-    src: str = args[1]
-    if not args[2:]:
-        try:
-            head: str = _get_head(src)
-            attrs: List[str] = _get_attrs(src, head)
-        except Error as exc:
-            _help_and_exit(src, exc=exc)
-        else:
-            _help_and_exit(src, attrs)
+    head: str = _get_head(src)
+    attrs: List[str] = _get_attrs(head)
 
-    attr: str = args[2]
-    args = args[3:]
-    head = _get_head(src)
-    attrs = _get_attrs(src, head)
-    if attr not in attrs:
+    if args[2:]:
+        attr: str = args[2]
+    else:
         _help_and_exit(src, attrs)
 
-    out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
-
-    cache: List[Dict[str, str]] = _get_cache(src, head)
+    cache: List[Dict[str, str]] = _get_cache(head)
     CON.out()
     CON.rule(f"Building {attr}")
     CON.out()
+
+    if attr not in attrs:
+        CON.print(f"We can't proceed with OUTPUT: {attr}", justify="center")
+        CON.print("It is not a valid project output", justify="center")
+        CON.print()
+        CON.print("Please see the correct usage below", justify="center")
+        _help_and_exit(src, attrs)
+
+    out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
     code, _, _ = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"'
@@ -599,7 +573,7 @@ def cli(args: List[str]) -> None:
 
     if code == 0:
         cache_push(cache, out)
-        execute_action(args, head, out)
+        execute_action(args[3:], head, out)
 
     raise SystemExit(code)
 
@@ -635,13 +609,6 @@ def cache_push(cache: List[Dict[str, str]], out: str) -> None:
 def main() -> None:
     try:
         cli(sys.argv)
-    except Error as err:
-        _log(f"[ERROR] {err.args[0]}")
-        if err.args[1:] and err.args[1]:
-            _log(f"[ERROR] Stdout: \n{err.args[1].decode(errors='replace')}")
-        if err.args[2:] and err.args[2]:
-            _log(f"[ERROR] Stderr: \n{err.args[2].decode(errors='replace')}")
-        sys.exit(1)
     except SystemExit as err:
         CON.out()
         if err.code == 0:

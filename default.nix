@@ -33,6 +33,7 @@ let
         __nixpkgs__.python38
       ];
       pythonPackage38 = [
+        __nixpkgs__.python38Packages.pygments
         __nixpkgs__.python38Packages.rich
       ];
     };
