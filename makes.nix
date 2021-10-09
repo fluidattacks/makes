@@ -106,31 +106,36 @@
     enable = true;
     targets = [ "/" ];
   };
-  lintPython = {
-    dirsOfModules = {
-      makes = {
-        python = "3.8";
-        searchPaths = {
-          pythonPackage38 = [
-            __nixpkgs__.python38Packages.rich
-          ];
+  lintPython =
+    let
+      searchPaths = {
+        pythonPackage38 = [
+          __nixpkgs__.python38Packages.rich
+        ];
+      };
+    in
+    {
+      dirsOfModules = {
+        makes = {
+          python = "3.8";
+          inherit searchPaths;
+          src = "/src/cli";
         };
-        src = "/src/cli";
+      };
+      imports = {
+        makes = {
+          config = "/src/cli/imports.cfg";
+          src = "/src/cli";
+        };
+      };
+      modules = {
+        cliMain = {
+          python = "3.8";
+          inherit searchPaths;
+          src = "/src/cli/main";
+        };
       };
     };
-    imports = {
-      makes = {
-        config = "/src/cli/imports.cfg";
-        src = "/src/cli";
-      };
-    };
-    modules = {
-      cliMain = {
-        python = "3.8";
-        src = "/src/cli/main";
-      };
-    };
-  };
   lintTerraform = {
     modules = {
       module = {
