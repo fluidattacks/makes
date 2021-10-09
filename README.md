@@ -1,4 +1,4 @@
-# Makes v21.11
+# 🦄 Makes
 
 A DevSecOps framework
 powered by [Nix][NIX].
