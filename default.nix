@@ -32,6 +32,9 @@ let
         __nixpkgs__.nixStable
         __nixpkgs__.python38
       ];
+      pythonPackage38 = [
+        __nixpkgs__.python38Packages.rich
+      ];
     };
     name = "m";
   };
