@@ -194,7 +194,6 @@ Real life projects that run entirely on [Makes][MAKES]:
     - [Versioning scheme](#versioning-scheme)
         - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
         - [Compatibility information](#compatibility-information)
-    - [Command-line completion](#command-line-completion)
 - [Configuring CI/CD](#configuring-cicd)
     - [Providers comparison](#providers-comparison)
         - [Configuring on GitHub Actions](#configuring-on-github-actions)
