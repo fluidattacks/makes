@@ -118,7 +118,7 @@
     {
       dirsOfModules = {
         makes = {
-          python = "3.8";
+          python = "3.9";
           inherit searchPaths;
           src = "/src/cli";
         };
@@ -131,7 +131,7 @@
       };
       modules = {
         cliMain = {
-          python = "3.8";
+          python = "3.9";
           inherit searchPaths;
           src = "/src/cli/main";
         };
@@ -202,7 +202,7 @@
   };
   securePythonWithBandit = {
     cli = {
-      python = "3.8";
+      python = "3.9";
       target = "/src/cli";
     };
   };
