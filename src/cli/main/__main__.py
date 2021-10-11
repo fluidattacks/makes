@@ -553,15 +553,20 @@ class TuiCommand(textual.widget.Widget):
 
 
 class TuiOutputs(textual.widget.Widget):
+    output = textual.reactive.Reactive("")
     outputs = textual.reactive.Reactive([])
 
     def render(self) -> rich.text.Text:
         if self.outputs:
             longest = max(map(len, self.outputs))
-            text = "\n".join(output.ljust(longest) for output in self.outputs)
+            text = rich.text.Text()
+            for output in self.outputs:
+                text.append(self.output, style="yellow")
+                text.append(output[len(self.output) :])
+                text.append(" " * (longest - len(output)))
+                text.append("\n")
         else:
-            text = "(none)"
-        text = rich.text.Text(text)
+            text = rich.text.Text("(none)")
         return rich.align.Align(text, align="center")
 
 
@@ -569,8 +574,9 @@ class TuiOutputsTitle(textual.widget.Widget):
     output = textual.reactive.Reactive("")
 
     def render(self) -> rich.text.Text:
-        text = f"Outputs starting with: {self.output}"
-        return rich.text.Text(text, justify="center")
+        text = rich.text.Text("Outputs starting with: ", justify="center")
+        text.append(self.output, style="yellow")
+        return text
 
 
 class TextUserInterface(textual.app.App):
@@ -644,6 +650,7 @@ class TextUserInterface(textual.app.App):
         self.input = " ".join(tokens)
         self.command.input = self.input
         self.outputs_title.output = self.output
+        self.outputs.output = self.output
         self.outputs.outputs = self.output_matches
         self.validate()
 
