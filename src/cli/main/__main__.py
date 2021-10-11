@@ -587,10 +587,12 @@ class TextUserInterface(textual.app.App):
         src: str,
         attrs: List[str],
         initial_input: str,
+        state: Dict[str, Any],
         **kwargs: Any,
     ) -> None:
         self.attrs = attrs
         self.src = src
+        self.state = state
 
         self.command = TuiCommand(src=src)
         self.header = TuiHeader()
@@ -629,7 +631,7 @@ class TextUserInterface(textual.app.App):
             self.propagate_data(autocomplete=True)
         elif event.key == textual.keys.Keys.Enter:
             if self.validate():
-                sys.argv = [sys.argv[0], self.src, self.output, *self.args]
+                self.state["return"] = [self.output, *self.args]
                 await self.action_quit()
         else:
             self.input += event.key
@@ -696,27 +698,29 @@ class TextUserInterface(textual.app.App):
         )
 
 
-def _help_picking_attr(src: str, attrs: List[str]) -> str:
+def _help_picking_attr(src: str, attrs: List[str]) -> List[str]:
     cache = join(MAKES_DIR, "cache", "last.json")
     initial_input = "/"
     if exists(cache):
         with open(cache, encoding="utf-8") as file:
             initial_input = file.read()
 
-    TextUserInterface.run(attrs=attrs, initial_input=initial_input, src=src)
+    state: Dict[str, Any] = {}
+    TextUserInterface.run(
+        attrs=attrs, initial_input=initial_input, state=state, src=src
+    )
 
-    with open(cache, encoding="utf-8", mode="w") as file:
-        file.write(shlex.join(sys.argv[2:]))
-
-    if sys.argv[2:]:
-        return sys.argv[2]
+    if "return" in state:
+        with open(cache, encoding="utf-8", mode="w") as file:
+            file.write(shlex.join(state["return"]))
+        return state["return"]
 
     CON.print()
     CON.print("No command was typed during the prompt", justify="center")
     CON.print()
     CON.print("Please see the correct usage below", justify="center")
     _help_and_exit_with_src_no_tty(src, attrs)
-    return ""
+    return []
 
 
 def cli(args: List[str]) -> None:
@@ -736,7 +740,8 @@ def cli(args: List[str]) -> None:
     if args[2:]:
         attr: str = args[2]
     elif CON.is_terminal:
-        attr = _help_picking_attr(src, attrs)
+        args = [*args[0:2], *_help_picking_attr(src, attrs)]
+        attr = args[2]
     else:
         _help_and_exit_with_src_no_tty(src, attrs)
 
@@ -767,7 +772,6 @@ def cli(args: List[str]) -> None:
     if code == 0:
         cache_push(cache, out)
         execute_action(args[3:], head, out)
-
     raise SystemExit(code)
 
 
