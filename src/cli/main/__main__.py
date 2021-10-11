@@ -642,6 +642,7 @@ class TextUserInterface(textual.app.App):
         else:
             self.input += event.key
             self.propagate_data(autocomplete=True)
+        await self.outputs_scroll.update(self.outputs)  # type: ignore
 
     def propagate_data(self, autocomplete: bool = False) -> None:
         tokens = self.input.split(" ")
