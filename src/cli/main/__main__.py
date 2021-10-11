@@ -430,6 +430,7 @@ def _get_config(head: str) -> Dict[str, Any]:
             head=head,
             out=out,
         ),
+        env=None if NIX_STABLE else dict(HOME=environ["HOME_IMPURE"]),
         stderr=None,
         stdout=sys.stderr.fileno(),
     )
@@ -444,9 +445,7 @@ def _get_config(head: str) -> Dict[str, Any]:
 def _run(  # pylint: disable=too-many-arguments
     args: List[str],
     cwd: Optional[str] = None,
-    env: Optional[Dict[str, str]] = dict(HOME=environ["HOME_IMPURE"])
-    if not NIX_STABLE
-    else None,
+    env: Optional[Dict[str, str]] = None,
     stdout: Optional[int] = subprocess.PIPE,
     stderr: Optional[int] = subprocess.PIPE,
     stdin: Optional[bytes] = None,
@@ -767,10 +766,10 @@ def cli(args: List[str]) -> None:
             head=head,
             out=out,
         ),
+        env=None if NIX_STABLE else dict(HOME=environ["HOME_IMPURE"]),
         stderr=None,
         stdout=None,
     )
-
     if code == 0:
         cache_push(cache, out)
         execute_action(args[3:], head, out)
