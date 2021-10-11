@@ -444,7 +444,9 @@ def _get_config(head: str) -> Dict[str, Any]:
 def _run(  # pylint: disable=too-many-arguments
     args: List[str],
     cwd: Optional[str] = None,
-    env: Optional[Dict[str, str]] = None,
+    env: Optional[Dict[str, str]] = dict(HOME=environ["HOME_IMPURE"])
+    if not NIX_STABLE
+    else None,
     stdout: Optional[int] = subprocess.PIPE,
     stderr: Optional[int] = subprocess.PIPE,
     stdin: Optional[bytes] = None,
