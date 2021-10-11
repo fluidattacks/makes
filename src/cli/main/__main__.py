@@ -202,8 +202,11 @@ def _clone_src(src: str) -> str:
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
     if abspath(src) == CWD:  # `m .` ?
-        remote: str = abspath(src)
-        _clone_src_git_worktree_add(remote, head)
+        if NIX_STABLE:
+            _clone_src_git_worktree_add(src, head)
+        else:
+            # Nix with Flakes already ensures a pristine git repo
+            head = src
     else:
         src = _clone_src_apply_registry(src)
         if (
@@ -384,8 +387,8 @@ def _get_head(src: str) -> str:
     CON.out()
     head: str = _clone_src(src)
 
-    # Applies only to local repositories
-    if abspath(src) == CWD:  # `m .` ?
+    # Applies only to local repositories on non-flakes Nix
+    if abspath(src) == CWD and NIX_STABLE:  # `m .` ?
         paths: Set[str] = set()
 
         # Propagated `git add`ed files
@@ -450,6 +453,8 @@ def _run(  # pylint: disable=too-many-arguments
     stderr: Optional[int] = subprocess.PIPE,
     stdin: Optional[bytes] = None,
 ) -> Tuple[int, bytes, bytes]:
+    env = environ | (env or {})
+
     with subprocess.Popen(
         args=args,
         cwd=cwd,
