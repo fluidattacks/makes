@@ -1,0 +1,23 @@
+closure:
+  colorama: 0.4.4
+  commonmark: 0.9.1
+  pygments: 2.10.0
+  rich: 10.12.0
+  textual: 0.1.12
+links:
+  - name: colorama-0.4.4-py2.py3-none-any.whl
+    sha256: 1qn3bnyd7gdwkyk8nvlhiy3c6zbwjd49fjxj0gp8xxi9faiysiwz
+    url: https://files.pythonhosted.org/packages/44/98/5b86278fbbf250d239ae0ecb724f8572af1c91f4a11edf4d36a206189440/colorama-0.4.4-py2.py3-none-any.whl
+  - name: commonmark-0.9.1-py2.py3-none-any.whl
+    sha256: 1nbgsvb73ad93cjzjdggkpp4zizvxay3q6ms23j3vy4h4p4khbys
+    url: https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl
+  - name: Pygments-2.10.0-py3-none-any.whl
+    sha256: 1003l9kipymrk4n3nj8yxf5z1jr40q69gqmkqjrr5x3qmzk7zrmq
+    url: https://files.pythonhosted.org/packages/78/c8/8d9be2f72d8f465461f22b5f199c04f7ada933add4dae6e2468133c17471/Pygments-2.10.0-py3-none-any.whl
+  - name: rich-10.12.0-py3-none-any.whl
+    sha256: 0yzkqdmvbjsv0dzmikz6bpsvalrys63xblkvdbayygfds446h3f3
+    url: https://files.pythonhosted.org/packages/de/80/f8d5689d21e98e2d4397975969fb329b8e08aa31a15046fd32ef24279cc5/rich-10.12.0-py3-none-any.whl
+  - name: textual-0.1.12-py3-none-any.whl
+    sha256: 0xr4cn53pv5skzk0h4vqp97y3caisx5wnvcq4l534lyg0v6fk59g
+    url: https://files.pythonhosted.org/packages/12/95/330c20294045571906e2566fafbad2779f69e9605a05f70862cea7f81cec/textual-0.1.12-py3-none-any.whl
+python: "3.9"

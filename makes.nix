@@ -35,6 +35,9 @@
     example = {
       bin = [ inputs.nixpkgs.hello ];
     };
+    makes = {
+      source = [ outputs."/cli/pypi" ];
+    };
   };
   envVars = {
     example = {
@@ -109,9 +112,7 @@
   lintPython =
     let
       searchPaths = {
-        pythonPackage38 = [
-          __nixpkgs__.python38Packages.rich
-        ];
+        source = [ outputs."/cli/pypi" ];
       };
     in
     {

@@ -576,15 +576,6 @@ you need to use the **same version**
 of the framework and the CLI.
 For example: `21.11`.
 
-## Command-line completion
-
-We currently have [Command-line Completion][CLI_COMPLETION] scripts
-for the following shells:
-
-- [Bash][BASH]:
-  Add this: `source <(m-comp-bash)`
-  to the end of your `~/.bashrc`
-
 # Configuring CI/CD
 
 ## Providers comparison
