@@ -31,8 +31,7 @@
         in
         {
           __makes__ = evaluatedOutputs // {
-            "config:attrs" = evaluated.config.attrs;
-            "config:cacheAsJson" = evaluated.config.cacheAsJson;
+            "config:configAsJson" = evaluated.config.configAsJson;
           };
         };
     in

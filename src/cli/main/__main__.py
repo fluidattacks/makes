@@ -416,40 +416,16 @@ def _get_head(src: str) -> str:
     return head
 
 
-def _get_attrs(head: str) -> List[str]:
+def _get_config(head: str) -> Dict[str, Any]:
     CON.out()
-    CON.rule("Building project outputs list")
-    CON.out()
-    out: str = tempfile.mktemp()  # nosec
-    code, _, _, = _run(
-        args=_nix_build(
-            attr="config.attrs"
-            if NIX_STABLE
-            else f'{head}#__makes__."config:attrs"',
-            cache=None,
-            head=head,
-            out=out,
-        ),
-        stderr=None,
-        stdout=sys.stderr.fileno(),
-    )
-    if code == 0:
-        with open(out, encoding="utf-8") as file:
-            return json.load(file)
-
-    raise SystemExit(code)
-
-
-def _get_cache(head: str) -> List[Dict[str, str]]:
-    CON.out()
-    CON.rule("Building project cache configuration")
+    CON.rule("Building project configuration")
     CON.out()
     out: str = tempfile.mktemp()  # nosec
     code, _, _, = _run(
         args=_nix_build(
-            attr="config.cacheAsJson"
+            attr="config.configAsJson"
             if NIX_STABLE
-            else f'{head}#__makes__."config:cacheAsJson"',
+            else f'{head}#__makes__."config:configAsJson"',
             cache=None,
             head=head,
             out=out,
@@ -635,7 +611,7 @@ class TextUserInterface(textual.app.App):
         }:
             if len(self.input) >= 2:
                 self.input = self.input[:-1]
-                self.propagate_data()
+            self.propagate_data()
         elif event.key == textual.keys.Keys.Down:
             self.outputs_scroll.scroll_up()  # type: ignore
         elif event.key == textual.keys.Keys.Up:
@@ -746,7 +722,9 @@ def cli(args: List[str]) -> None:
         _help_and_exit_base()
 
     head: str = _get_head(src)
-    attrs: List[str] = _get_attrs(head)
+    config: Dict[str, Any] = _get_config(head)
+    attrs: List[str] = config["outputs"]
+    cache: List[Dict[str, str]] = config["cache"]
 
     if args[2:]:
         attr: str = args[2]
@@ -755,11 +733,9 @@ def cli(args: List[str]) -> None:
     else:
         _help_and_exit_with_src_no_tty(src, attrs)
 
-    cache: List[Dict[str, str]] = _get_cache(head)
     CON.out()
     CON.rule(f"Building {attr}")
     CON.out()
-
     if attr not in attrs:
         CON.print(f"We can't proceed with OUTPUT: {attr}", justify="center")
         CON.print("It is not a valid project output", justify="center")

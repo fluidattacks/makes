@@ -61,20 +61,26 @@
       type = lib.types.str;
       default = "";
     };
-    attrs = lib.mkOption {
-      type = lib.types.package;
-    };
     extendingMakesDir = lib.mkOption {
       default = "/makes";
       type = lib.types.str;
+    };
+
+    config = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+    };
+    configAsJson = lib.mkOption {
+      type = lib.types.package;
     };
     outputs = lib.mkOption {
       type = lib.types.attrsOf lib.types.package;
     };
   };
   config = {
-    attrs = toFileJson "attrs.json"
-      (builtins.attrNames config.outputs);
+    config = {
+      outputs = builtins.attrNames config.outputs;
+    };
+    configAsJson = toFileJson "config.json" config.config;
     outputs =
       let
         # Load an attr set distributed across many files and directories
