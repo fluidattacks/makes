@@ -1305,7 +1305,7 @@ Types:
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "0.16" ]`):
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
       [Terraform][TERRAFORM] version your module is built with.
 
 Example `makes.nix`:
@@ -1506,7 +1506,7 @@ Types:
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "0.16" ]`):
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
       [Terraform][TERRAFORM] version your module is built with.
     - debug (`bool`): Optional.
       Enable maximum level of debugging
@@ -1525,7 +1525,7 @@ Example `makes.nix`:
       };
       module2 = {
         src = "/my/module2";
-        version = "0.16";
+        version = "1.0";
       };
     };
   };
@@ -1826,7 +1826,7 @@ Types:
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "0.16" ]`):
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
       [Terraform][TERRAFORM] version your module is built with.
 
 Example `makes.nix`:
@@ -1841,7 +1841,7 @@ Example `makes.nix`:
       };
       module2 = {
         src = "/my/module2";
-        version = "0.16";
+        version = "1.0";
       };
     };
   };
@@ -1878,7 +1878,7 @@ Types:
       Defaults to `[ ]`.
     - src (`str`):
       Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "0.16" ]`):
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
       [Terraform][TERRAFORM] version your module is built with.
 
 Example `makes.nix`:
