@@ -1,4 +1,5 @@
-{ __shellCommands__
+{ __nixpkgs__
+, __shellCommands__
 , makeTemplate
 , ...
 }:
@@ -36,10 +37,21 @@ let
     then "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\""
     else "export ${envVar}=\"${envDrv}${envPath}\"";
   makeSource = envDrv:
+    let
+      type = builtins.typeOf envDrv;
+      file =
+        if type == "list"
+        then builtins.head envDrv
+        else envDrv;
+      args =
+        if type == "list"
+        then __nixpkgs__.lib.strings.escapeShellArgs (builtins.tail envDrv)
+        else "";
+    in
     ''
-      if test -e "${envDrv}/template"
-      then source "${envDrv}/template"
-      else source "${envDrv}"
+      if test -e "${file}/template"
+      then source "${file}/template" ${args}
+      else source "${file}" ${args}
       fi
     '';
 in
