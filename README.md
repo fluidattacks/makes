@@ -2787,8 +2787,18 @@ Types for non covered cases:
 
         Example:
 
+        ```bash
+        # /path/to/my/project/makes/example/template
+        echo "${@}"
+        ```
+
         ```nix
+        # /path/to/my/project/makes/example/main.nix
         makeSearchPaths {
+          source = [
+            [ ./template "a" "b" "c" ]
+            # add more as you need ...
+          ];
           export = [
             [ "PATH" inputs.nixpkgs.bash "/bin"]
             [ "CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0"]
@@ -2802,6 +2812,11 @@ Types for non covered cases:
         ```bash
         export PATH="/nix/store/...-bash/bin${PATH:+:}${PATH:-}"
         export CPATH="/nix/store/...-glib-dev/include/glib-2.0${CPATH:+:}${CPATH:-}"
+
+        if test -e "/nix/store/...-template/template"
+        then source "/nix/store/...-template/template" '1' '2' '3'
+        else source "/nix/store/...-template" '1' '2' '3'
+        fi
         ```
 
 Example:
