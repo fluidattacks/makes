@@ -10,7 +10,7 @@
 { name
 , ruby
 , rubyGems
-, searchPaths
+, searchPaths ? { }
 }:
 let
   gems = builtins.map
