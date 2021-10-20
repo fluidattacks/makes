@@ -12,7 +12,8 @@
 , ...
 }:
 { name
-, searchPaths ? { }
+, searchPathsBuild ? { }
+, searchPathsRuntime ? { }
 , sourcesJson ? null
 , sourcesRaw ? null
 , sourcesYaml ? null
@@ -79,7 +80,6 @@ let
         python = sources.python;
       };
     }))
-    [ (makeSearchPaths searchPaths) ]
   ];
 
   pypiEnvironment = makeDerivation {
@@ -129,7 +129,10 @@ let
     inherit name;
     searchPaths = {
       bin = [ __nixpkgs__.pypi-mirror python ];
-      source = bootstraped;
+      source = builtins.concatLists [
+        (bootstraped)
+        [ (makeSearchPaths searchPathsBuild) ]
+      ];
     };
   };
 in
@@ -139,5 +142,8 @@ makeSearchPaths {
   pythonPackage37 = listOptional is37 pypiEnvironment;
   pythonPackage38 = listOptional is38 pypiEnvironment;
   pythonPackage39 = listOptional is39 pypiEnvironment;
-  source = bootstraped;
+  source = builtins.concatLists [
+    (bootstraped)
+    [ (makeSearchPaths searchPathsRuntime) ]
+  ];
 }

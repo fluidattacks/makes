@@ -3721,8 +3721,13 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
+    - searchPathsBuild (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`
+      and used while installing the Python dependencies.
+      Defaults to `makeSearchPaths`'s defaults.
+    - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
+      Arguments here will be passed as-is to `makeSearchPaths`
+      and propagated to the runtime environment.
       Defaults to `makeSearchPaths`'s defaults.
     - sourcesYaml (`package`):
       `sources.yaml` file
@@ -3764,8 +3769,12 @@ makePythonPypiEnvironment {
   name = "example";
   # If some packages require compilers to be built,
   # you can provide them like this:
-  searchPaths = {
+  searchPathsBuild = {
     bin = [ inputs.nixpkgs.gcc ];
+  };
+  # You can propagate packages to the runtime environment if needed, too
+  searchPathsRuntime = {
+    bin = [ inputs.nixpkgs.htop ];
   };
   sourcesYaml = projectPath "/makes/example/sources.yaml";
   # Other packages require a few bootstrapped dependencies,

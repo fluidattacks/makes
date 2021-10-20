@@ -26,7 +26,7 @@ makeDerivation {
       (makeSearchPaths searchPaths)
       (makePythonPypiEnvironment {
         name = "lint-python";
-        searchPaths = {
+        searchPathsBuild = {
           bin = listOptional isDarwin __nixpkgs__.clang;
         };
         sourcesYaml = {
