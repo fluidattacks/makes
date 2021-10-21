@@ -1,5 +1,4 @@
 { inputs
-, makesExecutionId
 , outputs
 , projectIdentifier
 , projectSrc
@@ -15,7 +14,6 @@ let
 
   args = agnostic // {
     inherit inputs;
-    inherit makesExecutionId;
     inherit outputs;
     inherit projectIdentifier;
     inherit projectSrc;
