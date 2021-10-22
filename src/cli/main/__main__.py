@@ -217,7 +217,7 @@ def _clone_src(src: str) -> str:
 
 def _clone_src_git_init(head: str) -> None:
     cmd = ["git", "init", "--initial-branch=____", "--shared=false", head]
-    out, _, _ = _run(cmd, stderr=None, stdout=None)
+    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
 
@@ -225,21 +225,21 @@ def _clone_src_git_init(head: str) -> None:
 def _clone_src_git_fetch(head: str, remote: str, rev: str) -> None:
     depth = _if(GIT_DEPTH >= 1, f"--depth={GIT_DEPTH}")
     cmd = ["git", "-C", head, "fetch", *depth, remote, f"{rev}:{rev}"]
-    out, _, _ = _run(cmd, stderr=None, stdout=None)
+    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
 
 
 def _clone_src_git_checkout(head: str, rev: str) -> None:
     cmd = ["git", "-C", head, "checkout", rev]
-    out, _, _ = _run(cmd, stderr=None, stdout=None)
+    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
 
 
 def _clone_src_git_worktree_add(remote: str, head: str) -> None:
     cmd = ["git", "-C", remote, "worktree", "add", head, "HEAD"]
-    out, _, _ = _run(cmd, stderr=None, stdout=None)
+    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
     CON.out(head)
@@ -604,7 +604,7 @@ def cache_push(cache: List[Dict[str, str]], out: str) -> None:
             _run(
                 args=["cachix", "push", "-c", "0", config["name"], out],
                 stderr=None,
-                stdout=None,
+                stdout=sys.stderr.fileno(),
             )
             return
 
