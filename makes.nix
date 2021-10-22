@@ -35,6 +35,11 @@
     example = {
       bin = [ inputs.nixpkgs.hello ];
     };
+    makes = {
+      source = [
+        outputs."/cli/pypi"
+      ];
+    };
   };
   envVars = {
     example = {
