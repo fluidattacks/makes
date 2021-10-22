@@ -14,6 +14,7 @@ from os import (
     remove,
 )
 from os.path import (
+    commonprefix,
     exists,
     getctime,
     join,
@@ -24,12 +25,23 @@ from posixpath import (
 )
 import random
 import re
+import rich.align
 import rich.console
+import rich.markup
 import rich.panel
+import rich.table
+import rich.text
+import shlex
 import shutil
 import subprocess  # nosec
 import sys
 import tempfile
+import textual.app
+import textual.events
+import textual.keys
+import textual.reactive
+import textual.widget
+import textual.widgets
 import textwrap
 from time import (
     time,
@@ -204,7 +216,7 @@ def _clone_src(src: str) -> str:
             CON.print("It has an unrecognized format", justify="center")
             CON.print()
             CON.print("Please see the correct usage below", justify="center")
-            _help_and_exit()
+            _help_and_exit_base()
 
         _clone_src_git_init(head)
         remote = _clone_src_cache_get(src, cache_key, remote)
@@ -474,61 +486,239 @@ def _run(  # pylint: disable=too-many-arguments
     return process.returncode, out, err
 
 
-def _help_and_exit(
-    src: Optional[str] = None,
-    attrs: Optional[List[str]] = None,
-) -> None:
+def _help_and_exit_base() -> None:
     CON.out()
     CON.rule("Usage")
     CON.out()
 
-    if src:
-        text = f"$ m {src} OUTPUT [ARGS...]"
-    else:
-        text = "$ m SOURCE OUTPUT [ARGS...]"
-
+    text = "$ m SOURCE OUTPUT [ARGS...]"
     CON.print(rich.panel.Panel.fit(text), justify="center")
     CON.out()
 
-    if not src:
-        text = """
-            Can be:
+    text = """
+        Can be:
 
-            A git repository in the current working directory:
-                $ m .
+        A git repository in the current working directory:
+            $ m .
 
-            A git repository and revision:
-                $ m local:/path/to/repo@rev
+        A git repository and revision:
+            $ m local:/path/to/repo@rev
 
-            A GitHub repository and revision:
-                $ m github:owner/repo@rev
+        A GitHub repository and revision:
+            $ m github:owner/repo@rev
 
-            A GitLab repository and revision:
-                $ m gitlab:owner/repo@rev
+        A GitLab repository and revision:
+            $ m gitlab:owner/repo@rev
 
-            Note: A revision is either a branch, full commit or tag
-        """
-        CON.print(rich.panel.Panel(textwrap.dedent(text), title="SOURCE"))
-        CON.out()
+        Note: A revision is either a branch, full commit or tag
+    """
+    CON.print(rich.panel.Panel(textwrap.dedent(text), title="SOURCE"))
+    CON.out()
 
-    if attrs is None:
-        text = "The available outputs will be listed when you provide a source"
-        CON.print(rich.panel.Panel(text, title="OUTPUT"))
-    else:
-        text = "Can be:\n\n"
-        for attr in attrs:
-            if attr not in {
-                "__all__",
-                "/secretsForAwsFromEnv/__default__",
-            }:
-                text += f"    {attr}\n"
-        CON.print(rich.panel.Panel(text, title="OUTPUT"))
+    text = "The available outputs will be listed when you provide a source"
+    CON.print(rich.panel.Panel(text, title="OUTPUT"))
     CON.out()
 
     text = "Zero or more arguments to pass to the output (if supported)."
     CON.print(rich.panel.Panel(text, title="ARGS"))
 
     raise SystemExit(1)
+
+
+def _help_and_exit_with_src_no_tty(src: str, attrs: List[str]) -> None:
+    CON.out()
+    CON.rule("Usage")
+    CON.out()
+
+    text = f"$ m {src} OUTPUT [ARGS...]"
+    CON.print(rich.panel.Panel.fit(text), justify="center")
+    CON.out()
+
+    text = "Can be:\n\n"
+    for attr in attrs:
+        if attr not in {
+            "__all__",
+            "/secretsForAwsFromEnv/__default__",
+        }:
+            text += f"    {attr}\n"
+    CON.print(rich.panel.Panel(text, title="OUTPUT"))
+    CON.out()
+
+    text = "Zero or more arguments to pass to the output (if supported)."
+    CON.print(rich.panel.Panel(text, title="ARGS"))
+
+    raise SystemExit(1)
+
+
+class TuiHeader(textual.widget.Widget):
+    def render(self) -> rich.text.Text:
+        text = ":unicorn_face: Makes"
+        return rich.text.Text.from_markup(text, justify="center")
+
+
+class TuiUsage(textual.widget.Widget):
+    def __init__(self, *args: Any, src: str, **kwargs: Any) -> None:
+        self.src = src
+        super().__init__(*args, **kwargs)
+
+    def render(self) -> rich.align.Align:
+        text = f"$ m {self.src} OUTPUT [ARGS...]"
+        panel = rich.panel.Panel.fit(text, title="Usage")
+        return rich.align.Align(panel, align="center")
+
+
+class TuiCommand(textual.widget.Widget):
+    input = textual.reactive.Reactive("")
+
+    def __init__(self, *args: Any, src: str, **kwargs: Any) -> None:
+        self.src = src
+        super().__init__(*args, **kwargs)
+
+    def render(self) -> rich.align.Align:
+        panel = rich.panel.Panel.fit(
+            renderable=f"$ m {self.src} {self.input}",
+            title="Please type the command you want to execute:",
+        )
+        return rich.align.Align(panel, align="center")
+
+
+class Outputs(textual.widget.Widget):
+    outputs = textual.reactive.Reactive([])
+
+    def render(self) -> rich.text.Text:
+        if self.outputs:
+            longest = max(map(len, self.outputs))
+            text = "\n".join(output.ljust(longest) for output in self.outputs)
+        else:
+            text = "(none)"
+        text = rich.text.Text(text)
+        return rich.align.Align(text, align="center")
+
+
+class OutputsTitle(textual.widget.Widget):
+    output = textual.reactive.Reactive("")
+
+    def render(self) -> rich.text.Text:
+        text = f"Outputs starting with: {self.output}"
+        return rich.text.Text(text, justify="center")
+
+
+class TextUserInterface(textual.app.App):
+    # pylint: disable=too-many-instance-attributes
+    def __init__(
+        self,
+        *args: Any,
+        src: str,
+        attrs: List[str],
+        **kwargs: Any,
+    ) -> None:
+        self.attrs = attrs
+        self.src = src
+
+        self.command = TuiCommand(src=src)
+        self.header = TuiHeader()
+        self.outputs = Outputs()
+        self.outputs_scroll = None
+        self.outputs_title = OutputsTitle()
+        self.usage = TuiUsage(src=src)
+
+        self.args: List[str] = []
+        self.input = "/"
+        self.output = self.input
+        self.output_matches = attrs
+
+        super().__init__(*args, **kwargs)
+
+    async def on_key(self, event: textual.events.Key) -> None:
+        if event.key in {
+            textual.keys.Keys.ControlH,
+            textual.keys.Keys.Backspace,
+        }:
+            if len(self.input) >= 2:
+                self.input = self.input[:-1]
+                self.propagate_data()
+        elif event.key == textual.keys.Keys.Down:
+            self.outputs_scroll.scroll_up()  # type: ignore
+        elif event.key == textual.keys.Keys.Up:
+            self.outputs_scroll.scroll_down()  # type: ignore
+        elif event.key in {
+            textual.keys.Keys.ControlI,
+            textual.keys.Keys.Tab,
+        }:
+            self.propagate_data(autocomplete=True)
+        elif event.key == textual.keys.Keys.Enter:
+            if self.validate():
+                sys.argv = [sys.argv[0], self.src, self.output, *self.args]
+                await self.action_quit()
+        else:
+            self.input += event.key
+            self.propagate_data(autocomplete=True)
+
+    def propagate_data(self, autocomplete: bool = False) -> None:
+        tokens = self.input.split(" ")
+        self.output, *self.args = tokens
+        self.output_matches = [
+            attr
+            for attr in self.attrs
+            if attr.lower().startswith(self.output.lower())
+        ]
+        if autocomplete and self.output_matches:
+            self.output = commonprefix(self.output_matches)
+        tokens = [self.output, *self.args]
+
+        self.input = " ".join(tokens)
+        self.command.input = self.input
+        self.outputs_title.output = self.output
+        self.outputs.outputs = self.output_matches
+        self.validate()
+
+    def validate(self) -> bool:
+        valid: bool = True
+
+        # Make it red if syntax is non compliant
+        try:
+            shlex.split(self.input)
+        except ValueError:
+            valid = valid and False
+        else:
+            valid = valid and True
+
+        valid = valid and (self.output in self.attrs)
+
+        self.command.style = "green" if valid else "red"
+
+        return valid
+
+    async def on_mount(self) -> None:
+        self.outputs_scroll = textual.widgets.ScrollView(self.outputs)
+        grid = await self.view.dock_grid(edge="left")
+        grid.add_column(fraction=1, name="c0")
+        grid.add_row(size=2, name="r0")
+        grid.add_row(size=3, name="r1")
+        grid.add_row(size=3, name="r2")
+        grid.add_row(size=1, name="r3")
+        grid.add_row(size=2, name="r4")
+        grid.add_row(fraction=1, name="r5")
+        grid.add_areas(
+            command="c0,r2",
+            header="c0,r0",
+            usage="c0,r1",
+            outputs="c0,r5",
+            outputs_title="c0,r4",
+        )
+        grid.place(
+            command=self.command,
+            header=self.header,
+            outputs=self.outputs_scroll,
+            outputs_title=self.outputs_title,
+            usage=self.usage,
+        )
+        self.propagate_data()
+
+
+def _help_picking_attr(src: str, attrs: List[str]) -> str:
+    TextUserInterface.run(attrs=attrs, src=src)
+    return sys.argv[2]
 
 
 def cli(args: List[str]) -> None:
@@ -538,15 +728,17 @@ def cli(args: List[str]) -> None:
     if args[1:]:
         src: str = args[1]
     else:
-        _help_and_exit()
+        _help_and_exit_base()
 
     head: str = _get_head(src)
     attrs: List[str] = _get_attrs(head)
 
     if args[2:]:
         attr: str = args[2]
+    elif CON.is_terminal:
+        attr = _help_picking_attr(src, attrs)
     else:
-        _help_and_exit(src, attrs)
+        _help_and_exit_with_src_no_tty(src, attrs)
 
     cache: List[Dict[str, str]] = _get_cache(head)
     CON.out()
@@ -558,7 +750,7 @@ def cli(args: List[str]) -> None:
         CON.print("It is not a valid project output", justify="center")
         CON.print()
         CON.print("Please see the correct usage below", justify="center")
-        _help_and_exit(src, attrs)
+        _help_and_exit_with_src_no_tty(src, attrs)
 
     out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
     code, _, _ = _run(
