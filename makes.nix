@@ -36,9 +36,7 @@
       bin = [ inputs.nixpkgs.hello ];
     };
     makes = {
-      source = [
-        outputs."/cli/pypi"
-      ];
+      source = [ outputs."/cli/pypi" ];
     };
   };
   envVars = {

@@ -69,6 +69,7 @@ CON: rich.console.Console = rich.console.Console(
     file=io.TextIOWrapper(sys.stderr.buffer, write_through=True),
 )
 MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
+makedirs(join(MAKES_DIR, "cache"), exist_ok=True)
 SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
 ON_EXIT: List[Callable[[], None]] = []
 VERSION: str = "21.11"
@@ -491,7 +492,7 @@ def _help_and_exit_base() -> None:
     CON.rule("Usage")
     CON.out()
 
-    text = "$ m SOURCE OUTPUT [ARGS...]"
+    text = "$ m SOURCE"
     CON.print(rich.panel.Panel.fit(text), justify="center")
     CON.out()
 
@@ -514,13 +515,6 @@ def _help_and_exit_base() -> None:
     """
     CON.print(rich.panel.Panel(textwrap.dedent(text), title="SOURCE"))
     CON.out()
-
-    text = "The available outputs will be listed when you provide a source"
-    CON.print(rich.panel.Panel(text, title="OUTPUT"))
-    CON.out()
-
-    text = "Zero or more arguments to pass to the output (if supported)."
-    CON.print(rich.panel.Panel(text, title="ARGS"))
 
     raise SystemExit(1)
 
@@ -582,7 +576,7 @@ class TuiCommand(textual.widget.Widget):
         return rich.align.Align(panel, align="center")
 
 
-class Outputs(textual.widget.Widget):
+class TuiOutputs(textual.widget.Widget):
     outputs = textual.reactive.Reactive([])
 
     def render(self) -> rich.text.Text:
@@ -595,7 +589,7 @@ class Outputs(textual.widget.Widget):
         return rich.align.Align(text, align="center")
 
 
-class OutputsTitle(textual.widget.Widget):
+class TuiOutputsTitle(textual.widget.Widget):
     output = textual.reactive.Reactive("")
 
     def render(self) -> rich.text.Text:
@@ -610,6 +604,7 @@ class TextUserInterface(textual.app.App):
         *args: Any,
         src: str,
         attrs: List[str],
+        initial_input: str,
         **kwargs: Any,
     ) -> None:
         self.attrs = attrs
@@ -617,15 +612,19 @@ class TextUserInterface(textual.app.App):
 
         self.command = TuiCommand(src=src)
         self.header = TuiHeader()
-        self.outputs = Outputs()
+        self.outputs = TuiOutputs()
         self.outputs_scroll = None
-        self.outputs_title = OutputsTitle()
+        self.outputs_title = TuiOutputsTitle()
         self.usage = TuiUsage(src=src)
 
-        self.args: List[str] = []
-        self.input = "/"
-        self.output = self.input
-        self.output_matches = attrs
+        self.args: List[str]
+        self.input = initial_input
+        self.output: str
+        self.output_matches: List[str]
+        self.propagate_data()
+        if self.output not in self.attrs:
+            self.input = "/"
+            self.propagate_data()
 
         super().__init__(*args, **kwargs)
 
@@ -675,7 +674,6 @@ class TextUserInterface(textual.app.App):
     def validate(self) -> bool:
         valid: bool = True
 
-        # Make it red if syntax is non compliant
         try:
             shlex.split(self.input)
         except ValueError:
@@ -713,12 +711,29 @@ class TextUserInterface(textual.app.App):
             outputs_title=self.outputs_title,
             usage=self.usage,
         )
-        self.propagate_data()
 
 
 def _help_picking_attr(src: str, attrs: List[str]) -> str:
-    TextUserInterface.run(attrs=attrs, src=src)
-    return sys.argv[2]
+    cache = join(MAKES_DIR, "cache", "last.json")
+    initial_input = "/"
+    if exists(cache):
+        with open(cache, encoding="utf-8") as file:
+            initial_input = file.read()
+
+    TextUserInterface.run(attrs=attrs, initial_input=initial_input, src=src)
+
+    with open(cache, encoding="utf-8", mode="w") as file:
+        file.write(shlex.join(sys.argv[2:]))
+
+    if sys.argv[2:]:
+        return sys.argv[2]
+
+    CON.print()
+    CON.print("No command was typed during the prompt", justify="center")
+    CON.print()
+    CON.print("Please see the correct usage below", justify="center")
+    _help_and_exit_with_src_no_tty(src, attrs)
+    return ""
 
 
 def cli(args: List[str]) -> None:
