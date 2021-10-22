@@ -49,6 +49,7 @@ from urllib.parse import (
 from uuid import (
     uuid4 as uuid,
 )
+import warnings
 
 CWD: str = getcwd()
 CON: rich.console.Console = rich.console.Console(
@@ -182,7 +183,9 @@ def _if(condition: Any, *value: Any) -> List[Any]:
 
 def _clone_src(src: str) -> str:
     # pylint: disable=consider-using-with
-    head = tempfile.TemporaryDirectory(prefix="makes-").name
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        head = tempfile.TemporaryDirectory(prefix="makes-").name
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
     if abspath(src) == CWD:  # `m .` ?
