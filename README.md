@@ -231,6 +231,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [deployContainerImage](#deploycontainerimage)
         - [deployTerraform](#deployterraform)
         - [taintTerraform](#taintterraform)
+        - [deployNomad](#deploynomad)
     - [Performance](#performance)
         - [cache](#cache)
     - [Environment](#environment)
@@ -1898,6 +1899,81 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /taintTerraform/module`
+
+### deployNomad
+
+Deploy [Nomad][NOMAD] code
+by performing a `nomad plan`
+over the specified [Nomad][NOMAD] jobs / namespaces.
+
+Types:
+
+- deployNomad:
+    - jobs (`attrsOf jobsType`): Optional.
+      Path to [Nomad][NOMAD] jobs to deploy.
+      Defaults to `{ }`.
+    - namespaces (`attrsOf namespacesType`): Optional.
+      Path to [Nomad][NOMAD] namespaces to deploy.
+      Defaults to `{ }`.
+- jobsType (`submodule`):
+    - setup (`listOf package`): Optional.
+      [Makes Environment][MAKES_ENVIRONMENT]
+      or [Makes Secrets][MAKES_SECRETS]
+      to `source` (as in Bash's `source`)
+      before anything else.
+      Defaults to `[ ]`.
+    - src (`path`):
+      Path to the [Nomad][NOMAD] job (hcl or json).
+    - version (`enum [ "1.0" "1.1" ]`):
+      [Nomad][NOMAD] version your job is built with.
+      Defaults to `"1.1"`.
+    - namespace (`str`):
+      [Nomad][NOMAD] namespace to deploy the job into.
+- namespacesType (`submodule`):
+    - setup (`listOf package`): Optional.
+      [Makes Environment][MAKES_ENVIRONMENT]
+      or [Makes Secrets][MAKES_SECRETS]
+      to `source` (as in Bash's `source`)
+      before anything else.
+      Defaults to `[ ]`.
+    - jobs (`attrOf path`):
+      Attributes of path to the [Nomad][NOMAD] jobs (hcl or json).
+    - version (`enum [ "1.0" "1.1" ]`):
+      [Nomad][NOMAD] version your jobs are built with.
+      Defaults to `"1.1"`.
+
+Example `makes.nix`:
+
+```nix
+{
+  deployNomad = {
+    jobs = {
+      job1 = {
+        src = ./my/job1.hcl;
+        namespace = "default";
+      };
+      job2 = {
+        src = ./my/job2.json;
+        namespace = "default";
+      };
+    };
+    namespaces = {
+      dev.jobs = {
+        job1 = ./my/dev/job1.hcl;
+        job2 = ./my/dev/job2.json;
+      };
+      staging.jobs = {
+        job1 = ./my/staging/job1.hcl;
+        job2 = ./my/staging/job2.json;
+      };
+    };
+  };
+}
+```
+
+Example invocation: `$ m . /deployNomad/default/job1`
+
+Example invocation: `$ m . /deployNomad/staging/job2`
 
 ## Performance
 
@@ -4926,6 +5002,9 @@ Examples:
 
 - [NODE_PATH]: https://nodejs.org/api/modules.html
   [NODE_PATH][NODE_PATH]
+
+- [NOMAD]: https://www.nomad.io/
+  [nomad][NOMAD]
 
 - [NPM]: https://www.npmjs.com/
   [Node Package Manager (NPM)][NPM]
