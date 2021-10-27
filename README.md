@@ -14,13 +14,65 @@ in just a few steps, in any technology.
 ![Local](https://img.shields.io/badge/Local-brightgreen)
 ![Docker](https://img.shields.io/badge/Docker-brightgreen)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-brightgreen)
+![Nomad](https://img.shields.io/badge/Nomad-brightgreen)
 ![AWS Batch](https://img.shields.io/badge/AWS%20Batch-brightgreen)
-![Contributors](https://img.shields.io/github/contributors/fluidattacks/makes?color=blueviolet&label=Contributors&labelColor=blueviolet)
+
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/fluidattacks/makes?color=blueviolet&label=Commits&labelColor=blueviolet)
+![Contributors](https://img.shields.io/github/contributors/fluidattacks/makes?color=blueviolet&label=Contributors&labelColor=blueviolet)
 
 ## At a glance
 
-### Declarative infra, declarative CI/CD, pure profit 😏
+### Cloud native applications with Kubernetes ☸
+
+This is how easy it is to deploy an application
+built with [Makes][MAKES] into [Kubernetes][KUBERNETES]:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+spec:
+  template:
+    spec:
+      containers:
+        - name: example
+          image: ghcr.io/fluidattacks/makes:21.11
+          command: [m]
+          args:
+            - github:fluidattacks/makes@main
+            - /helloWorld
+```
+
+### Large scale computing on the cloud 🏋
+
+Not a problem!
+
+This is how running [Makes][MAKES]
+on [AWS Batch][AWS_BATCH] looks like:
+
+```nix
+{ outputs
+, ...
+}:
+{
+  computeOnAwsBatch = {
+    helloWorld = {
+      attemptDurationSeconds = 43200;
+      command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
+      definition = "makes";
+      environment = [ "ENV_VAR_FOR_MY_JOB" ];
+      memory = 1800;
+      queue = "ec2_spot";
+      setup = [
+        # Use default authentication for AWS
+        outputs."/secretsForAwsFromEnv/__default__"
+      ];
+      vcpus = 1;
+    };
+  };
+}
+```
+
+### Declarative infra, declarative CI/CD, pure profit
 
 This is how creating a [CI/CD][CI_CD] pipeline
 for deploying infrastructure with [Terraform][TERRAFORM]
@@ -99,56 +151,6 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 ```
 
 Live demo: [here](https://asciinema.org/a/426280)
-
-### Cloud native applications with Kubernetes ☸
-
-This is how easy it is to deploy an application
-built with [Makes][MAKES] into [Kubernetes][KUBERNETES]:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-spec:
-  template:
-    spec:
-      containers:
-        - name: example
-          image: ghcr.io/fluidattacks/makes:21.11
-          command: [m]
-          args:
-            - github:fluidattacks/makes@main
-            - /helloWorld
-```
-
-### Large scale computing on the cloud 🏋
-
-Not a problem!
-
-This is how running [Makes][MAKES]
-on [AWS Batch][AWS_BATCH] looks like:
-
-```nix
-{ outputs
-, ...
-}:
-{
-  computeOnAwsBatch = {
-    helloWorld = {
-      attemptDurationSeconds = 43200;
-      command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
-      definition = "makes";
-      environment = [ "ENV_VAR_FOR_MY_JOB" ];
-      memory = 1800;
-      queue = "ec2_spot";
-      setup = [
-        # Use default authentication for AWS
-        outputs."/secretsForAwsFromEnv/__default__"
-      ];
-      vcpus = 1;
-    };
-  };
-}
-```
 
 ### From dev to prod 🌟
 
@@ -299,6 +301,7 @@ Real life projects that run entirely on [Makes][MAKES]:
 - [Contributing to Makes](#contributing-to-makes)
     - [Is easy](#is-easy)
     - [Code contributions](#code-contributions)
+- [Contributors](#contributors)
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -4766,6 +4769,57 @@ Examples:
   https://github.com/fluidattacks/makes/commit/1c9f06a809bd92d56939d5809ce46058856fdf0a)
 - [feat(build): #232 make parallel utils](
   https://github.com/fluidattacks/makes/commit/99e9f77482a6cbc9858a7a928a91a8a8aa9ff353)
+
+# Contributors
+
+<!-- Feel free to add/edit here your contact information -->
+
+Thank you for your contribution!
+
+We, at Makes, appreciate your effort,
+and the improvements you've made to the project.
+Your support helps to further our mission of making
+CI/CD and Nix more accessible to the community :heart:
+
+Individuals:
+
+- Daniel Salazar (
+  [Email](mailto:podany270895@gmail.com)
+  )
+- David Arnold (
+  [Email](mailto:david.arnold@iohk.io)
+  )
+- Diego Restrepo (
+  [Email](mailto:drestrepo@fluidattacks.com)
+  )
+- Luis Saavedra (
+  [Email](mailto:lsaavedra@fluidattacks.com)
+  )
+- Timothy DeHerrera (
+  [Email](mailto:tim.deherrera@iohk.io)
+  )
+
+Companies:
+
+- Fluid Attacks (
+  [home](https://fluidattacks.com)
+  )
+- Input Output (
+  [home](https://iohk.io)
+  )
+
+Project leaders:
+
+- [2020-12](https://gitlab.com/fluidattacks/product/-/commit/b5305a8ddb5d7b11f22434618fa079bf70d4a45c)
+  to 2021-10: Kevin Amado (
+  [Email](mailto:kamadorueda@gmail.com) |
+  [GitHub](https://github.com/kamadorueda) |
+  [LinkedIn](https://www.linkedin.com/in/kamadorueda/)
+  )
+- 2021-10 to present: Jhon Perez (
+  [Email](mailto:jperez@fluidattacks.com) |
+  [GitHub](https://github.com/jpverde)
+  )
 
 # References
 
