@@ -4802,10 +4802,10 @@ Individuals:
 Companies:
 
 - Fluid Attacks (
-  [home](https://fluidattacks.com)
+  [Home](https://fluidattacks.com)
   )
 - Input Output (
-  [home](https://iohk.io)
+  [Home](https://iohk.io)
   )
 
 Project leaders:
