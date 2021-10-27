@@ -4810,15 +4810,15 @@ Companies:
 
 Project leaders:
 
+- 2021-10 to present: Jhon Perez (
+  [Email](mailto:jperez@fluidattacks.com) |
+  [GitHub](https://github.com/jpverde)
+  )
 - [2020-12](https://gitlab.com/fluidattacks/product/-/commit/b5305a8ddb5d7b11f22434618fa079bf70d4a45c)
   to 2021-10: Kevin Amado (
   [Email](mailto:kamadorueda@gmail.com) |
   [GitHub](https://github.com/kamadorueda) |
   [LinkedIn](https://www.linkedin.com/in/kamadorueda/)
-  )
-- 2021-10 to present: Jhon Perez (
-  [Email](mailto:jperez@fluidattacks.com) |
-  [GitHub](https://github.com/jpverde)
   )
 
 # References
