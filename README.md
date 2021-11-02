@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: example
-          image: ghcr.io/fluidattacks/makes:21.11
+          image: ghcr.io/fluidattacks/makes:21.12
           command: [m]
           args:
             - github:fluidattacks/makes@main
@@ -121,7 +121,7 @@ Easy, isn't it?
 Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v21.11-linux
+Makes v21.12-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -457,14 +457,14 @@ In order to use Makes you'll need to:
 
     - For Nix versions >= 2.3 and < 2.4 (nix stable)
 
-      `$ nix-env -if https://fluidattacks.com/makes/install/21.11`
+      `$ nix-env -if https://fluidattacks.com/makes/install/21.12`
 
     - For Nix versions == 2.4 (nix unstable)
 
-      `$ nix profile install github:fluidattacks/makes/21.11`
+      `$ nix profile install github:fluidattacks/makes/21.12`
 
     We will install two commands in your system:
-    `$ m`, and `$ m-v21.11`.
+    `$ m`, and `$ m-v21.12`.
 
 Makes targets two kind of users:
 
@@ -567,7 +567,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "21.11";
+    ref = "21.12";
   };
 }
 ```
@@ -577,7 +577,7 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `21.11`.
+For example: `21.12`.
 
 # Configuring CI/CD
 
@@ -587,7 +587,7 @@ We've thoroughly tested these providers throughout the years,
 below is a small table that clearly expresses their trade-offs.
 
 | Provider                         | Easy   | Config | Scale  | SaaS   | Security |
-|----------------------------------|--------|--------|--------|--------|----------|
+| -------------------------------- | ------ | ------ | ------ | ------ | -------- |
 | [GitHub Actions][GITHUB_ACTIONS] | :star: | :star: |        | :star: |          |
 | [GitLab CI/CD][GITLAB_CI]        | :star: | :star: |        | :star: | :star:   |
 | [Travis CI][TRAVIS_CI]           |        |        | :star: | :star: | :star:   |
@@ -626,7 +626,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: docker://ghcr.io/fluidattacks/makes:21.11
+    - uses: docker://ghcr.io/fluidattacks/makes:21.12
       # You can use any name you like here
       name: helloWorld
       # You can pass secrets (if required) as environment variables like this:
@@ -650,7 +650,7 @@ looks like this:
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
 /helloWorld:
-  image: ghcr.io/fluidattacks/makes:21.11
+  image: ghcr.io/fluidattacks/makes:21.12
   script:
     - m . /helloWorld 1 2 3
 
@@ -675,7 +675,7 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-install: nix-env -if https://fluidattacks.com/makes/install/21.11
+install: nix-env -if https://fluidattacks.com/makes/install/21.12
 env:
   global:
     # Encrypted environment variable
@@ -1669,7 +1669,7 @@ Types:
           #
           # If you need to run jobs on different container images,
           # simply  create many `aws_batch_job_definition`s
-          image = "ghcr.io/fluidattacks/makes:21.11"
+          image = "ghcr.io/fluidattacks/makes:21.12"
 
           # Below arguments can be parametrized later,
           # but they are required for the job definition to be created
@@ -2555,11 +2555,11 @@ This "magic" `makes/` directory can be configured via the
 You can create any directory structure you want.
 Output names will me mapped in an intuitive way:
 
-|`main.nix` position                               |Output name               | Invocation command   |
-|--------------------------------------------------|--------------------------|----------------------|
-|`/path/to/my/project/makes/main.nix`              |`outputs."/"`             |`$ m . /`             |
-|`/path/to/my/project/makes/example/main.nix`      |`outputs."/example"`      |`$ m . /example`      |
-|`/path/to/my/project/makes/other/example/main.nix`|`outputs."/other/example"`|`$ m . /other/example`|
+| `main.nix` position                                | Output name                | Invocation command     |
+| -------------------------------------------------- | -------------------------- | ---------------------- |
+| `/path/to/my/project/makes/main.nix`               | `outputs."/"`              | `$ m . /`              |
+| `/path/to/my/project/makes/example/main.nix`       | `outputs."/example"`       | `$ m . /example`       |
+| `/path/to/my/project/makes/other/example/main.nix` | `outputs."/other/example"` | `$ m . /other/example` |
 
 ## Main.nix format
 
@@ -3772,7 +3772,7 @@ Pre-requisites:
 1. You need to generate `sourcesYaml` like this:
 
     ```bash
-    m github:fluidattacks/makes@21.11 /utils/makePythonPypiEnvironmentSources \
+    m github:fluidattacks/makes@21.12 /utils/makePythonPypiEnvironmentSources \
       "${python_version}" \
       "${dependencies_yaml}" \
       "${sources_yaml}
@@ -3872,7 +3872,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@21.11 /utils/makePythonPypiEnvironmentSources \
+$ m github:fluidattacks/makes@21.12 /utils/makePythonPypiEnvironmentSources \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -4703,7 +4703,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    rev = "21.11";
+    rev = "21.12";
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
@@ -4810,7 +4810,7 @@ Companies:
 
 Project leaders:
 
-- 2021-10 to present: Jhon Perez (
+- 2021-10 to present: John Perez (
   [Email](mailto:jperez@fluidattacks.com) |
   [GitHub](https://github.com/jpverde)
   )
