@@ -10,9 +10,9 @@ let
 in
 makeScript {
   aliases = [
-    "m-v21.11"
+    "m-v21.12"
     "makes"
-    "makes-v21.11"
+    "makes-v21.12"
   ];
   replace = {
     __argMakesSrc__ = ./.;

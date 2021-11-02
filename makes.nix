@@ -19,7 +19,7 @@
         attempts = 3;
         registry = "ghcr.io";
         src = outputs."/container-image";
-        tag = "fluidattacks/makes:21.11";
+        tag = "fluidattacks/makes:21.12";
       };
     };
   };

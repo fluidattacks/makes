@@ -6,32 +6,32 @@ jobs:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: docker://docker.io/nixos/nix:2.3.12
-      env:
-        GITHUB_ACTOR: ${{ github.actor }}
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
+      - uses: actions/checkout@v2
+      - uses: docker://docker.io/nixos/nix:2.3.12
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
 
   releaseGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: richardsimko/update-tag@v1
-      with:
-        tag_name: "21.11"
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-    - uses: johnwbyrd/update-release@v1.0.0
-      with:
-        files: README.md
-        release: "21.11"
-        prerelease: true
-        tag: "21.11"
-        token: ${{ github.token }}
+      - uses: actions/checkout@v2
+      - uses: richardsimko/update-tag@v1
+        with:
+          tag_name: "21.12"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - uses: johnwbyrd/update-release@v1.0.0
+        with:
+          files: README.md
+          release: "21.12"
+          prerelease: true
+          tag: "21.12"
+          token: ${{ github.token }}
 name: prod
 on:
   push:
-    branches: [ main ]
+    branches: [main]
