@@ -7,6 +7,7 @@ makeTemplate {
   searchPaths = {
     bin = [
       __nixpkgs__.lsof
+      __nixpkgs__.netcat
     ];
   };
   template = ./template.sh;

@@ -21,3 +21,12 @@ function kill_port {
       fi
     done < "${pids}"
 }
+
+function done_port{
+  local host='localhost'
+  local port="${1}"
+
+  kill_port "${port}" \
+    && echo "[INFO] Done at ${host}:${port}" \
+    && nc -kl "${host}" "${port}"
+}
