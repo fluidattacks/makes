@@ -85,6 +85,7 @@ let
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
+    managePorts = import ./kill-port/default.nix args;
     patchShebangs = import ./patch-shebangs/default.nix args;
     removePrefix = lib.removePrefix;
     secureNixWithVulnix = import ./secure-nix-with-vulnix/default.nix args;
