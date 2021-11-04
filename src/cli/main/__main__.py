@@ -58,9 +58,6 @@ from typing import (
 from urllib.parse import (
     quote_plus as url_quote,
 )
-from uuid import (
-    uuid4 as uuid,
-)
 import warnings
 
 CWD: str = getcwd()
@@ -358,7 +355,6 @@ def _nix_build(
         *_if(not NIX_STABLE, f"{__NIX_UNSTABLE__}/bin/nix"),
         *_if(not NIX_STABLE, "--experimental-features", "flakes nix-command"),
         *_if(not NIX_STABLE, "build"),
-        *_if(NIX_STABLE, "--argstr", "makesExecutionId", uuid().hex),
         *_if(NIX_STABLE, "--argstr", "makesSrc", __MAKES_SRC__),
         *_if(NIX_STABLE, "--argstr", "projectSrc", head),
         *_if(NIX_STABLE, "--attr", attr),

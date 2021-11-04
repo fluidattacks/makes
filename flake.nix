@@ -16,8 +16,6 @@
         let
           evaluated = import ./src/evaluator/default.nix {
             flakeInputs = inputs;
-            # TODO: Deprecate this
-            makesExecutionId = "123";
             makesSrc = inputs.makes.outPath;
             projectSrc = inputs.self.sourceInfo.outPath;
             inherit system;

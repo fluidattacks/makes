@@ -12,8 +12,6 @@
 {
   # flake inputs to inject, if any
   flakeInputs ? { }
-  # Unique ID for this execution of makes
-, makesExecutionId
   # Source code of makes, can be overriden by the user.
 , makesSrc
   # Path to the user's project, inside a sandbox.
@@ -43,7 +41,6 @@ let
 
   args = import "${makesSrcOverriden}/src/args/default.nix" {
     inputs = flakeInputs // result.config.inputs;
-    inherit makesExecutionId;
     outputs = result.config.outputs;
     projectIdentifier = result.config.projectIdentifier;
     inherit projectSrc;
