@@ -48,6 +48,7 @@ let
     hasSuffix = lib.strings.hasSuffix;
     isDarwin = args.__nixpkgs__.stdenv.isDarwin;
     isLinux = args.__nixpkgs__.stdenv.isLinux;
+    killPort = import ./kill-port/default.nix args;
     libGit = import ./lib-git/default.nix args;
     listOptional = lib.lists.optional;
     lintClojure = import ./lint-clojure/default.nix args;
