@@ -63,6 +63,7 @@ let
     makeContainerImage = import ./make-container-image/default.nix args;
     makeDerivation = import ./make-derivation/default.nix args;
     makeDerivationParallel = import ./make-derivation-parallel/default.nix args;
+    makeDynamoDb = import ./make-dynamodb/default.nix args;
     makeEnvVars = import ./make-env-vars/default.nix args;
     makeEnvVarsForTerraform = import ./make-env-vars-for-terraform/default.nix args;
     makeNodeJsEnvironment = import ./make-node-js-environment/default.nix args;
@@ -85,7 +86,7 @@ let
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
-    managePorts = import ./kill-port/default.nix args;
+    managePorts = import ./manage-ports/default.nix args;
     patchShebangs = import ./patch-shebangs/default.nix args;
     removePrefix = lib.removePrefix;
     secureNixWithVulnix = import ./secure-nix-with-vulnix/default.nix args;
