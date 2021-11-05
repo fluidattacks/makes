@@ -13,6 +13,8 @@ let
       inherit name;
       inherit (args) host;
       inherit (args) port;
+      dbData = builtins.map (rel: "." + rel) args.dbData;
+      dbInfra = "." + args.dbInfra;
     };
   };
 in
@@ -28,6 +30,14 @@ in
           };
           port = lib.mkOption {
             default = "8022";
+            type = lib.types.str;
+          };
+          dbData = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.str;
+          };
+          dbInfra = lib.mkOption {
+            default = "";
             type = lib.types.str;
           };
         };
