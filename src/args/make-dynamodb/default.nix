@@ -3,12 +3,14 @@
 , managePorts
 , fetchUrl
 , toBashArray
+, makeTerraformEnvironment
 , ...
 }:
 { name
 , host ? "127.0.0.1"
 , port ? "8022"
 , dbData ? [ ]
+, dbInfra ? ""
 , ...
 }:
 makeScript {
@@ -22,6 +24,7 @@ makeScript {
     };
     __argDbData__ = toBashArray dbData;
     __argShouldPopulate__ = builtins.length dbData > 0;
+    __argDbInfra__ = dbInfra;
   };
   searchPaths = {
     bin = [
@@ -30,6 +33,9 @@ makeScript {
       __nixpkgs__.awscli
     ];
     source = [
+      (makeTerraformEnvironment {
+        version = "1.0";
+      })
       managePorts
     ];
   };

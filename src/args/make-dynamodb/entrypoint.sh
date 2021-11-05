@@ -8,7 +8,7 @@ function populate {
       && if [[ ${root_path} != */ ]]; then
         root_path="${root_path}/"
       fi \
-      && for data in "${root_path}/"*'.json'; do
+      && for data in "${root_path}"*'.json'; do
         echo "[INFO] Writing data from: ${data}" \
           && aws dynamodb batch-write-item \
             --endpoint-url "http://${HOST}:${PORT}" \
@@ -37,8 +37,15 @@ function serve {
         -sharedDb &
     } \
     && wait_port 10 "${HOST}:${PORT}" \
-    && if test '__argShouldPopulate__' == '1'; then
-      populate
+    && if ! test -z '__argDbInfra__'; then
+      copy '__argDbInfra__' "${STATE_PATH}/terraform" \
+        && pushd "${STATE_PATH}/terraform" \
+        && terraform init \
+        && terraform apply -auto-approve \
+        && popd \
+        && if test '__argShouldPopulate__' == '1'; then
+          populate
+        fi
     fi \
     && info 'Dynamo DB is ready' \
     && wait
@@ -51,6 +58,10 @@ function main {
   export AWS_ACCESS_KEY_ID='test'
   export AWS_SECRET_ACCESS_KEY='test'
   export AWS_DEFAULT_REGION='us-east-1'
+
+  export TF_VAR_host="${HOST}"
+  export TF_VAR_port="${PORT}"
+
   STATE_PATH="$(mktemp -d)"
   export STATE_PATH
 
