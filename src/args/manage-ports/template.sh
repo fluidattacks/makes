@@ -23,8 +23,8 @@ function kill_port {
 }
 
 function done_port {
-  local host='localhost'
-  local port="${1}"
+  local host="${1}"
+  local port="${2}"
 
   kill_port "${port}" \
     && info "Done at ${host}:${port}" \

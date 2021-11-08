@@ -12,6 +12,7 @@
 , dbData ? [ ]
 , dbDataDerivation ? [ ]
 , dbInfra ? ""
+, daemonMode ? false
 , ...
 }:
 let
@@ -20,7 +21,7 @@ let
 in
 makeScript {
   name = "dynamodb-for-${name}";
-  replace = rec {
+  replace = {
     __argPort__ = port;
     __argHost__ = host;
     __argDynamoZip__ = fetchUrl {
@@ -30,6 +31,7 @@ makeScript {
     __argDbData__ = toBashArray data;
     __argShouldPopulate__ = builtins.length data > 0;
     __argDbInfra__ = dbInfra;
+    __argDaemonMode__ = daemonMode;
   };
   searchPaths = {
     bin = [

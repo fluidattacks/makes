@@ -13,9 +13,10 @@ let
       inherit name;
       inherit (args) host;
       inherit (args) port;
-      inherit (args) dbInfra;
+      inherit (args) daemonMode;
       inherit (args) dbDataDerivation;
       dbData = builtins.map (rel: "." + rel) args.dbData;
+      dbInfra = "." + args.dbInfra;
     };
   };
 in
@@ -44,6 +45,10 @@ in
           dbInfra = lib.mkOption {
             default = "";
             type = lib.types.str;
+          };
+          daemonMode = lib.mkOption {
+            default = false;
+            type = lib.types.bool;
           };
         };
       }));

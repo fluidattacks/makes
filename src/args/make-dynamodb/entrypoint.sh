@@ -18,6 +18,12 @@ function populate {
   done
 }
 
+function serve_daemon {
+  kill_port "2${PORT}" \
+    && { serve "${@}" & } \
+    && wait_port 300 "${HOST}:2${PORT}"
+}
+
 function serve {
   info 'Unpacking DynamoDB' \
     && rm -rf "${STATE_PATH}" \
@@ -47,6 +53,7 @@ function serve {
           populate
         fi
     fi \
+    && done_port "${HOST}" "2${PORT}" \
     && info 'Dynamo DB is ready' \
     && wait
 }
@@ -65,7 +72,11 @@ function main {
   STATE_PATH="$(mktemp -d)"
   export STATE_PATH
 
-  serve "${@}"
+  if test '__argDaemonMode__' == 1; then
+    serve_daemon "${@}"
+  else
+    serve "${@}"
+  fi
 }
 
 main "${@}"
