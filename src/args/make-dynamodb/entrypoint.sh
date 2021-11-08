@@ -26,7 +26,7 @@ function serve {
     && unzip -u '__argDynamoZip__' \
     && popd \
     && info 'Deleting old instance, if exists' \
-    && kill_port "${PORT}" 28022 \
+    && kill_port "${PORT}" "2${PORT}" \
     && info 'Launching DynamoDB' \
     && {
       java \

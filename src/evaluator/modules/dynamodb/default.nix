@@ -13,8 +13,9 @@ let
       inherit name;
       inherit (args) host;
       inherit (args) port;
+      inherit (args) dbInfra;
+      inherit (args) dbDataDerivation;
       dbData = builtins.map (rel: "." + rel) args.dbData;
-      dbInfra = "." + args.dbInfra;
     };
   };
 in
@@ -35,6 +36,10 @@ in
           dbData = lib.mkOption {
             default = [ ];
             type = lib.types.listOf lib.types.str;
+          };
+          dbDataDerivation = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.package;
           };
           dbInfra = lib.mkOption {
             default = "";
