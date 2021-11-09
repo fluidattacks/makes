@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function populate {
-  source __argDbData__/template local root_paths
+  source __argData__/template local root_paths
 
   for root_path in "${root_paths[@]}"; do
     info "Wirting data from root directory: ${root_path}" \
@@ -43,8 +43,8 @@ function serve {
         -sharedDb &
     } \
     && wait_port 10 "${HOST}:${PORT}" \
-    && if ! test -z '__argDbInfra__'; then
-      copy '__argDbInfra__' "${STATE_PATH}/terraform" \
+    && if ! test -z '__argInfra__'; then
+      copy '__argInfra__' "${STATE_PATH}/terraform" \
         && pushd "${STATE_PATH}/terraform" \
         && terraform init \
         && terraform apply -auto-approve \

@@ -14,9 +14,9 @@ let
       inherit (args) host;
       inherit (args) port;
       inherit (args) daemonMode;
-      inherit (args) dbDataDerivation;
-      dbData = builtins.map (rel: "." + rel) args.dbData;
-      dbInfra = "." + args.dbInfra;
+      inherit (args) dataDerivation;
+      data = builtins.map (rel: "." + rel) args.data;
+      infra = "." + args.infra;
     };
   };
 in
@@ -34,15 +34,15 @@ in
             default = "8022";
             type = lib.types.str;
           };
-          dbData = lib.mkOption {
+          data = lib.mkOption {
             default = [ ];
             type = lib.types.listOf lib.types.str;
           };
-          dbDataDerivation = lib.mkOption {
+          dataDerivation = lib.mkOption {
             default = [ ];
             type = lib.types.listOf lib.types.package;
           };
-          dbInfra = lib.mkOption {
+          infra = lib.mkOption {
             default = "";
             type = lib.types.str;
           };

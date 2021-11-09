@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function kill_port {
+function _kill_port {
   local pids
   local port="${1}"
 
@@ -20,6 +20,12 @@ function kill_port {
         error "Unable to kill pid: ${pid}, listening on port: ${port}"
       fi
     done < "${pids}"
+}
+function kill_port {
+  for port in "${@}"; do
+    _kill_port "${port}" \
+      || return 1
+  done
 }
 
 function done_port {

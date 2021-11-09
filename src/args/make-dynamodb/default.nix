@@ -9,15 +9,15 @@
 { name
 , host ? "127.0.0.1"
 , port ? "8022"
-, dbData ? [ ]
-, dbDataDerivation ? [ ]
-, dbInfra ? ""
+, data ? [ ]
+, dataDerivation ? [ ]
+, infra ? ""
 , daemonMode ? false
 , ...
 }:
 let
-  data = dbData ++ dbDataDerivation;
-  hasInfra = (__nixpkgs__.lib.strings.stringLength dbInfra) > 0;
+  dbData = data ++ dataDerivation;
+  hasInfra = (__nixpkgs__.lib.strings.stringLength infra) > 0;
 in
 makeScript {
   name = "dynamodb-for-${name}";
@@ -28,9 +28,9 @@ makeScript {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2021-02-08.zip";
       sha256 = "01xgqk2crrnpvzr3xkd3mwiwcs6bfxqhbbyard6y8c0jgibm31pk";
     };
-    __argDbData__ = toBashArray data;
-    __argShouldPopulate__ = builtins.length data > 0;
-    __argDbInfra__ = dbInfra;
+    __argData__ = toBashArray dbData;
+    __argShouldPopulate__ = builtins.length dbData > 0;
+    __argInfra__ = infra;
     __argDaemonMode__ = daemonMode;
   };
   searchPaths = {
