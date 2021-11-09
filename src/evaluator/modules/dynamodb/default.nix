@@ -13,10 +13,10 @@ let
       inherit name;
       inherit (args) host;
       inherit (args) port;
+      inherit (args) infra;
       inherit (args) daemonMode;
       inherit (args) dataDerivation;
-      data = builtins.map (rel: "." + rel) args.data;
-      infra = "." + args.infra;
+      inherit (args) data;
     };
   };
 in
