@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function kill_port {
+function _kill_port {
   local pids
   local port="${1}"
 
@@ -21,10 +21,16 @@ function kill_port {
       fi
     done < "${pids}"
 }
+function kill_port {
+  for port in "${@}"; do
+    _kill_port "${port}" \
+      || return 1
+  done
+}
 
 function done_port {
-  local host='localhost'
-  local port="${1}"
+  local host="${1}"
+  local port="${2}"
 
   kill_port "${port}" \
     && info "Done at ${host}:${port}" \

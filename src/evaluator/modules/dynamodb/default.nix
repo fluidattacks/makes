@@ -13,8 +13,10 @@ let
       inherit name;
       inherit (args) host;
       inherit (args) port;
-      dbData = builtins.map (rel: "." + rel) args.dbData;
-      dbInfra = "." + args.dbInfra;
+      inherit (args) daemonMode;
+      inherit (args) dataDerivation;
+      data = builtins.map (rel: "." + rel) args.data;
+      infra = "." + args.infra;
     };
   };
 in
@@ -32,13 +34,21 @@ in
             default = "8022";
             type = lib.types.str;
           };
-          dbData = lib.mkOption {
+          data = lib.mkOption {
             default = [ ];
             type = lib.types.listOf lib.types.str;
           };
-          dbInfra = lib.mkOption {
+          dataDerivation = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.package;
+          };
+          infra = lib.mkOption {
             default = "";
             type = lib.types.str;
+          };
+          daemonMode = lib.mkOption {
+            default = false;
+            type = lib.types.bool;
           };
         };
       }));

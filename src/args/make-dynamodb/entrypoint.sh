@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function populate {
-  source __argDbData__/template local root_paths
+  source __argData__/template local root_paths
 
   for root_path in "${root_paths[@]}"; do
     info "Wirting data from root directory: ${root_path}" \
@@ -18,6 +18,12 @@ function populate {
   done
 }
 
+function serve_daemon {
+  kill_port "2${PORT}" \
+    && { serve "${@}" & } \
+    && wait_port 300 "${HOST}:2${PORT}"
+}
+
 function serve {
   info 'Unpacking DynamoDB' \
     && rm -rf "${STATE_PATH}" \
@@ -26,7 +32,7 @@ function serve {
     && unzip -u '__argDynamoZip__' \
     && popd \
     && info 'Deleting old instance, if exists' \
-    && kill_port "${PORT}" 28022 \
+    && kill_port "${PORT}" "2${PORT}" \
     && info 'Launching DynamoDB' \
     && {
       java \
@@ -37,8 +43,8 @@ function serve {
         -sharedDb &
     } \
     && wait_port 10 "${HOST}:${PORT}" \
-    && if ! test -z '__argDbInfra__'; then
-      copy '__argDbInfra__' "${STATE_PATH}/terraform" \
+    && if ! test -z '__argInfra__'; then
+      copy '__argInfra__' "${STATE_PATH}/terraform" \
         && pushd "${STATE_PATH}/terraform" \
         && terraform init \
         && terraform apply -auto-approve \
@@ -47,6 +53,7 @@ function serve {
           populate
         fi
     fi \
+    && done_port "${HOST}" "2${PORT}" \
     && info 'Dynamo DB is ready' \
     && wait
 }
@@ -65,7 +72,11 @@ function main {
   STATE_PATH="$(mktemp -d)"
   export STATE_PATH
 
-  serve "${@}"
+  if test '__argDaemonMode__' == 1; then
+    serve_daemon "${@}"
+  else
+    serve "${@}"
+  fi
 }
 
 main "${@}"
