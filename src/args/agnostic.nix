@@ -84,6 +84,7 @@ let
     makeSecretForKubernetesConfigFromAws = import ./make-secret-for-kubernetes-config-from-aws/default.nix args;
     makeSecretForNomadFromEnv = import ./make-secret-for-nomad-from-env/default.nix args;
     makeSecretForTerraformFromEnv = import ./make-secret-for-terraform-from-env/default.nix args;
+    makeSslCertificate = import ./make-ssl-certificate/default.nix args;
     makeTerraformEnvironment = import ./make-terraform-environment/default.nix args;
     makeTemplate = import ./make-template/default.nix args;
     managePorts = import ./manage-ports/default.nix args;
