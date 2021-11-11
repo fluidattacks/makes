@@ -49,7 +49,7 @@ function serve {
         && terraform init \
         && terraform apply -auto-approve \
         && popd \
-        && if test '__argShouldPopulate__' == '1'; then
+        && if { test '__argShouldPopulate__' == '1' || test "${POPULATE:-}" = 'true'; } && test "${POPULATE:-}" != 'false'; then
           populate
         fi
     fi \
@@ -59,8 +59,8 @@ function serve {
 }
 
 function main {
-  export HOST='__argHost__'
-  export PORT='__argPort__'
+  export HOST="${HOST:-__argHost__}"
+  export PORT="${PORT:-__argPort__}"
 
   export AWS_ACCESS_KEY_ID='test'
   export AWS_SECRET_ACCESS_KEY='test'
@@ -72,7 +72,7 @@ function main {
   STATE_PATH="$(mktemp -d)"
   export STATE_PATH
 
-  if test '__argDaemonMode__' == 1; then
+  if { test "${DAEMON:-}" = "true" || test '__argDaemonMode__' == 1; } && test "${DAEMON:-}" != "false"; then
     serve_daemon "${@}"
   else
     serve "${@}"
