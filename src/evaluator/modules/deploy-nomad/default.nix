@@ -53,7 +53,7 @@ in
               type = lib.types.str;
             };
             namespace = lib.mkOption {
-              type = lib.types.path;
+              type = lib.types.str;
             };
             version = versionOpt;
           };
