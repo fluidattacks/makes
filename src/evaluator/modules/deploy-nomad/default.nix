@@ -50,7 +50,7 @@ in
           options = {
             setup = setupOpt;
             src = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.path;
             };
             namespace = lib.mkOption {
               type = lib.types.str;
