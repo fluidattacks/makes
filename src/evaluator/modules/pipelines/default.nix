@@ -83,7 +83,7 @@ let
     name = toJobName output args;
     value = attrsMerge [
       ({
-        image = "ghcr.io/fluidattacks/makes:21.13";
+        image = "ghcr.io/fluidattacks/makes:22.01";
         interruptible = true;
         needs = [ ];
         script =

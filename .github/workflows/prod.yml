@@ -21,15 +21,15 @@ jobs:
       - uses: actions/checkout@v2
       - uses: richardsimko/update-tag@v1
         with:
-          tag_name: "21.13"
+          tag_name: "22.01"
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - uses: johnwbyrd/update-release@v1.0.0
         with:
           files: README.md
-          release: "21.13"
+          release: "22.01"
           prerelease: true
-          tag: "21.13"
+          tag: "22.01"
           token: ${{ github.token }}
 name: prod
 on:
