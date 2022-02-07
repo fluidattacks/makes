@@ -3581,7 +3581,7 @@ Types:
 
 - makeNodeJsVersion (`function str -> package`):
 
-    - (`enum [ "10" "12" "14" "16" ]`):
+    - (`enum [ "10" "12" "14" "16" "17" ]`):
       [Node.js][NODE_JS] version to use.
 
 Example:
@@ -3622,7 +3622,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
+    - nodeJsVersion (`enum [ "10" "12" "14" "16" "17" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
@@ -3713,7 +3713,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
+    - nodeJsVersion (`enum [ "10" "12" "14" "16" "17" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
