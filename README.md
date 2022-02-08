@@ -3707,6 +3707,34 @@ It appends:
 - `node_modules/.bin` to `PATH`.
 - `node_modules` to [NODE_PATH][NODE_PATH].
 
+Pre-requisites:
+
+1. You can generate a `package-lock.json` using a specific `node` version
+   like this:
+
+    ```bash
+    m github:fluidattacks/makes@22.02 /utils/makeNodeJsLockfile \
+      "${node_js_version}" \
+      "${package_json}" \
+      "${package_lock}
+    ```
+
+    - Supported `node_js_version`s are: `10`, `12`, `14` and `16`.
+    - `package_json` is the **absolute path** to the `package.json` file in your
+      project.
+
+    - `package_lock` is the **absolute path**
+      to the `package-lock.json` file in your project, this file can be an empty
+      file.
+
+      Please save this file because it is required by `makeNodeJsEnvironment`.
+
+Note: the reason behind this script is to maintain `lock` versions through the
+construction of `makeNodeJsEnvironment`, since you can have an updated version
+of `nodejs` or `npm` but not the same as the version stored on the
+[Nixpkgs][NIXPKGS] repository. This doesn't affect your local version
+of `npm` or `nodejs`.
+
 Types:
 
 - makeNodeJsEnvironment (`function { ... } -> package`):
