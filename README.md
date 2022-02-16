@@ -458,11 +458,11 @@ In order to use Makes you'll need to:
 
 1. Now install Makes by running one of the following commands:
 
-    - For Nix versions >= 2.3 and < 2.4 (nix stable)
+    - For Nix versions >= 2.3 and < 2.6 (nix stable)
 
       `$ nix-env -if https://fluidattacks.com/makes/install/22.03`
 
-    - For Nix versions == 2.4 (nix unstable)
+    - For Nix versions > 2.6 (nix unstable)
 
       `$ nix profile install github:fluidattacks/makes/22.03`
 
@@ -3581,7 +3581,7 @@ Types:
 
 - makeNodeJsVersion (`function str -> package`):
 
-    - (`enum [ "10" "12" "14" "16" "17" ]`):
+    - (`enum [ "10" "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
 
 Example:
@@ -3622,7 +3622,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "10" "12" "14" "16" "17" ]`):
+    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
@@ -3738,7 +3738,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "10" "12" "14" "16" "17" ]`):
+    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
