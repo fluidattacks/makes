@@ -1577,7 +1577,7 @@ Example `makes.nix`:
       ];
       whitelist = {
         "binutils-2.35.1" = {
-          cve = [ "CVE-2021-20284" ];
+          cve = [ "CVE-2021-20284" "CVE-2021-20294" "CVE-2021-3487" "CVE-2021-45078" ];
           until = "2100-01-01";
           comment = "Gonna fix it soon...";
         };
