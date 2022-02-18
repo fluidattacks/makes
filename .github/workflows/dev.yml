@@ -14,7 +14,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: __all__
       run: nix-env -if . && m . __all__
 
@@ -30,7 +30,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /deployTerraform/module
       run: nix-env -if . && m . /deployTerraform/module
 
@@ -46,7 +46,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /dev/example
       run: nix-env -if . && m . /dev/example
 
@@ -62,7 +62,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /envVars/example
       run: nix-env -if . && m . /envVars/example
 
@@ -78,7 +78,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /formatBash
       run: nix-env -if . && m . /formatBash
 
@@ -103,7 +103,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /formatNix
       run: nix-env -if . && m . /formatNix
 
@@ -119,7 +119,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /formatPython
       run: nix-env -if . && m . /formatPython
 
@@ -135,7 +135,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /formatTerraform
       run: nix-env -if . && m . /formatTerraform
 
@@ -151,7 +151,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /helloWorld
       run: nix-env -if . && m . /helloWorld
 
@@ -167,7 +167,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintBash
       run: nix-env -if . && m . /lintBash
 
@@ -183,7 +183,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintClojure
       run: nix-env -if . && m . /lintClojure/test
 
@@ -212,7 +212,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintGitMailMap
       run: nix-env -if . && m . /lintGitMailMap
 
@@ -228,7 +228,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintMarkdown/all
       run: nix-env -if . && m . /lintMarkdown/all
 
@@ -244,7 +244,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintNix
       run: nix-env -if . && m . /lintNix
 
@@ -260,7 +260,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintPython/dirOfModules/makes
       run: nix-env -if . && m . /lintPython/dirOfModules/makes
 
@@ -276,7 +276,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintPython/dirOfModules/makes/main
       run: nix-env -if . && m . /lintPython/dirOfModules/makes/main
 
@@ -292,7 +292,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintPython/imports/makes
       run: nix-env -if . && m . /lintPython/imports/makes
 
@@ -308,7 +308,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintPython/module/cliMain
       run: nix-env -if . && m . /lintPython/module/cliMain
 
@@ -324,7 +324,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintTerraform/module
       run: nix-env -if . && m . /lintTerraform/module
 
@@ -349,7 +349,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /lintWithLizard/all
       run: nix-env -if . && m . /lintWithLizard/all
 
@@ -365,7 +365,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /secretsForEnvFromSops/example
       run: nix-env -if . && m . /secretsForEnvFromSops/example
 
@@ -381,7 +381,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /secretsForGpgFromEnv/example
       run: nix-env -if . && m . /secretsForGpgFromEnv/example
 
@@ -397,7 +397,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /securePythonWithBandit/cli
       run: nix-env -if . && m . /securePythonWithBandit/cli
 
@@ -422,7 +422,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /taintTerraform/module
       run: nix-env -if . && m . /taintTerraform/module
 
@@ -438,7 +438,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /testPython/example
       run: nix-env -if . && m . /testPython/example
 
@@ -454,7 +454,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /tests/calculateCvss3
       run: nix-env -if . && m . /tests/calculateCvss3
 
@@ -470,7 +470,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /tests/secretsForGpgFromEnv
       run: nix-env -if . && m . /tests/secretsForGpgFromEnv
 
@@ -486,7 +486,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
     - name: /testTerraform/module
       run: nix-env -if . && m . /testTerraform/module
 name: dev
