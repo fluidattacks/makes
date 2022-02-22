@@ -1761,18 +1761,25 @@ Types:
       If the value of attempts is greater than one,
       the job is retried on failure the same number of attempts as the value.
       Defaults to `1`.
-    - registry (`enum ["docker.io" "ghcr.io" "registry.gitlab.com"]`):
+    - credentials:
+        - token (`str`):
+          Name of the [environment variable][ENV_VAR]
+          that stores the value of the registry token.
+        - user (`str`):
+          Name of the [environment variable][ENV_VAR]
+          that stores the value of the registry user.
+    - registry (`str`):
       Registry in which the image will be copied to.
+    - setup (`listOf package`): Optional.
+      [Makes Environment][MAKES_ENVIRONMENT]
+      or [Makes Secrets][MAKES_SECRETS]
+      to `source` (as in Bash's `source`)
+      before anything else.
+      Defaults to `[ ]`.
     - src (`package`):
       Derivation that contains the container image in [OCI Format][OCI_FORMAT].
     - tag (`str`):
       The tag under which the image will be stored in the registry.
-
-Required environment variables:
-
-- `CI_REGISTRY_USER` and `CI_REGISTRY_PASSWORD`, when deploying to GitLab.
-- `DOCKER_HUB_USER` and `DOCKER_HUB_PASS`, when deploying to Docker Hub.
-- `GITHUB_ACTOR` and `GITHUB_TOKEN`, when deploying to Github Container Registry.
 
 Example `makes.nix`:
 
@@ -1792,16 +1799,28 @@ Example `makes.nix`:
   deployContainerImage = {
     images = {
       nginxDockerHub = {
+        credentials = {
+          token = "DOCKER_HUB_PASS";
+          user = "DOCKER_HUB_USER";
+        };
         src = inputs.nixpkgs.dockerTools.examples.nginx;
         registry = "docker.io";
         tag = "fluidattacks/nginx:latest";
       };
       redisGitHub = {
+        credentials = {
+          token = "GITHUB_TOKEN";
+          user = "GITHUB_ACTOR";
+        };
         src = inputs.nixpkgs.dockerTools.examples.redis;
         registry = "ghcr.io";
         tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
       };
       makesGitLab = {
+        credentials = {
+          token = "CI_REGISTRY_PASSWORD";
+          user = "CI_REGISTRY_USER";
+        };
         src = outputs."/containerImage";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var

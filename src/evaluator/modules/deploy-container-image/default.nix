@@ -11,9 +11,11 @@ let
     name = "/deployContainerImage/${name}";
     value = deployContainerImage {
       inherit (args) attempts;
+      inherit (args) credentials;
       containerImage = args.src;
       inherit name;
       inherit (args) registry;
+      inherit (args) setup;
       inherit (args) tag;
     };
   };
@@ -29,12 +31,20 @@ in
               default = 1;
               type = lib.types.ints.positive;
             };
+            credentials = {
+              token = lib.mkOption {
+                type = lib.types.str;
+              };
+              user = lib.mkOption {
+                type = lib.types.str;
+              };
+            };
             registry = lib.mkOption {
-              type = lib.types.enum [
-                "docker.io"
-                "ghcr.io"
-                "registry.gitlab.com"
-              ];
+              type = lib.types.str;
+            };
+            setup = lib.mkOption {
+              default = [ ];
+              type = lib.types.listOf lib.types.package;
             };
             src = lib.mkOption {
               type = lib.types.package;

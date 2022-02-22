@@ -4,14 +4,17 @@
 }:
 { attempts ? 1
 , containerImage
+, credentials
 , name
 , registry
+, setup
 , tag
 }:
 makeScript {
   replace = {
+    __argUser__ = credentials.user;
+    __argToken__ = credentials.token;
     __argContainerImage__ = containerImage;
-    __argRegistry__ = registry;
     __argTag__ = "${registry}/${tag}";
     __argAttempts__ = attempts;
   };
@@ -21,5 +24,6 @@ makeScript {
     bin = [
       __nixpkgs__.skopeo
     ];
+    source = setup;
   };
 }
