@@ -17,6 +17,10 @@
     images = {
       makesGitHub = {
         attempts = 3;
+        credentials = {
+          token = "GITHUB_TOKEN";
+          user = "GITHUB_ACTOR";
+        };
         registry = "ghcr.io";
         src = outputs."/container-image";
         tag = "fluidattacks/makes:22.03";
