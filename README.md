@@ -245,6 +245,10 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [secretsForGpgFromEnv](#secretsforgpgfromenv)
         - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
         - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
+    - [Utilities](#utilities)
+        - [makeNodeJsLockfile](#makenodejslockfile)
+        - [makePythonPypiEnvironmentSources](#makepythonpypienvironmentsources)
+        - [makeSopsEncryptedFile](#makesopsencryptedfile)
     - [Framework Configuration](#framework-configuration)
         - [extendingMakesDir](#extendingmakesdir)
         - [inputs](#inputs)
@@ -2431,6 +2435,86 @@ Example `main.tf`:
 variable "cloudflareAccountId" {}
 ```
 
+## Utilities
+
+Utilities provide an easy mechanism
+for calling functions from makes
+without having to specify them on any file.
+
+They can be called like this:
+
+```bash
+m github:fluidattacks/makes@22.03 <utility-name> <utility-parameters>
+```
+
+### makeNodeJsLockfile
+
+You can generate a `package-lock.json`
+for [makeNodeJsEnvironment](#makenodejsenvironment)
+like this:
+
+```bash
+m github:fluidattacks/makes@22.03 /utils/makeNodeJsLockfile \
+  "${node_js_version}" \
+  "${package_json}" \
+  "${package_lock}"
+```
+
+- Supported `node_js_version`s are: `10`, `12`, `14` and `16`.
+- `package_json` is the **absolute path** to the `package.json` file in your
+  project.
+- `package_lock` is the **absolute path**
+  to the `package-lock.json` file in your project, this file can be an empty
+  file.
+
+### makePythonPypiEnvironmentSources
+
+You can generate a `sourcesYaml`
+for [makePythonPypiEnvironment](#makepythonpypienvironment)
+like this:
+
+```bash
+m github:fluidattacks/makes@22.03 /utils/makePythonPypiEnvironmentSources \
+  "${python_version}" \
+  "${dependencies_yaml}" \
+  "${sources_yaml}
+```
+
+- Supported `python_version`s are: `3.6`, `3.7`, `3.8` and `3.9`.
+- `dependencies_yaml` is the **absolute path** to a [YAML][YAML] file
+  mapping [PyPI][PYTHON_PYPI] packages to version constraints.
+
+Example:
+
+```yaml
+Django: "3.2.*"
+psycopg2: "2.9.1"
+```
+
+- `sources_yaml` is the **absolute path**
+  to a file were the script will output results.
+
+### makeSopsEncryptedFile
+
+You can generate an encrypted [Sops][SOPS] file like this:
+
+```bash
+m github:fluidattacks/makes@22.03 /utils/makeSopsEncryptedFile \
+  "${kms_key_arn}" \
+  "${output}"
+```
+
+- `kms_key_arn` is the arn of the key you will use for encrypting the file.
+- `output` is the path for your resulting encrypted file.
+
+Example:
+
+```bash
+$ m . /utils/makeSopsEncryptedFile \
+  arn:aws:kms:us-east-1:0000111122223333:alias/my_kms_key \
+  ./output.yaml
+```
+
 ## Framework Configuration
 
 ### extendingMakesDir
@@ -3707,30 +3791,7 @@ It appends:
 - `node_modules/.bin` to `PATH`.
 - `node_modules` to [NODE_PATH][NODE_PATH].
 
-Pre-requisites:
-
-1. You can generate a `package-lock.json` using a specific `node` version
-   like this:
-
-    ```bash
-    m github:fluidattacks/makes@22.03 /utils/makeNodeJsLockfile \
-      "${node_js_version}" \
-      "${package_json}" \
-      "${package_lock}"
-    ```
-
-    - Supported `node_js_version`s are: `10`, `12`, `14` and `16`.
-    - `package_json` is the **absolute path** to the `package.json` file in your
-      project.
-    - `package_lock` is the **absolute path**
-      to the `package-lock.json` file in your project, this file can be an empty
-      file.
-
-Note: the reason behind this script is to maintain `lock` versions through the
-construction of `makeNodeJsEnvironment`, since you can have an updated version
-of `nodejs` or `npm` but not the same as the version stored on the
-[Nixpkgs][NIXPKGS] repository. This doesn't affect your local version
-of `npm` or `nodejs`.
+Pre-requisites: [Generating a package-lock.json](#makenodejslockfile)
 
 Types:
 
@@ -3855,32 +3916,7 @@ where the provided set of [Python][PYTHON] packages
 from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
 are installed.
 
-Pre-requisites:
-
-1. You need to generate `sourcesYaml` like this:
-
-    ```bash
-    m github:fluidattacks/makes@22.03 /utils/makePythonPypiEnvironmentSources \
-      "${python_version}" \
-      "${dependencies_yaml}" \
-      "${sources_yaml}
-    ```
-
-    - Supported `python_version`s are: `3.6`, `3.7`, `3.8` and `3.9`.
-    - `dependencies_yaml` is the **absolute path** to a [YAML][YAML] file
-      mapping [PyPI][PYTHON_PYPI] packages to version constraints.
-
-      Example:
-
-      ```yaml
-      Django: "3.2.*"
-      psycopg2: "2.9.1"
-      ```
-
-    - `sources_yaml` is the **absolute path**
-      to a file were the script will output results.
-
-      Please save this file because it is required by `makePythonPypiEnvironment`.
+Pre-requisites: [Generating a sourcesYaml](#makepythonpypienvironmentsources)
 
 Types:
 
