@@ -10,7 +10,6 @@ function main {
   )
 
   case "${node_js_version}" in
-    10) npm=__argNode10__/bin/npm ;;
     12) npm=__argNode12__/bin/npm ;;
     14) npm=__argNode14__/bin/npm ;;
     16) npm=__argNode16__/bin/npm ;;
