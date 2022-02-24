@@ -1436,7 +1436,7 @@ Types:
   Mapping of names to [pytest][PYTEST] targets.
   Defaults to `{ }`.
 - targetType (`submodule`):
-    - python (`enum [ "3.6" "3.7" "3.8" "3.9" ]`):
+    - python (`enum [ "3.7" "3.8" "3.9" ]`):
       Python interpreter version that your package/module is designed for.
     - src (`str`):
       Path to the file or folder that contains the tests code.
@@ -2473,7 +2473,7 @@ m github:fluidattacks/makes@22.03 /utils/makeNodeJsLockfile \
   "${package_lock}"
 ```
 
-- Supported `node_js_version`s are: `10`, `12`, `14` and `16`.
+- Supported `node_js_version`s are: `12`, `14` and `16`.
 - `package_json` is the **absolute path** to the `package.json` file in your
   project.
 - `package_lock` is the **absolute path**
@@ -2493,7 +2493,7 @@ m github:fluidattacks/makes@22.03 /utils/makePythonPypiEnvironmentSources \
   "${sources_yaml}
 ```
 
-- Supported `python_version`s are: `3.6`, `3.7`, `3.8` and `3.9`.
+- Supported `python_version`s are: `3.7`, `3.8` and `3.9`.
 - `dependencies_yaml` is the **absolute path** to a [YAML][YAML] file
   mapping [PyPI][PYTHON_PYPI] packages to version constraints.
 
@@ -2941,12 +2941,6 @@ Types specific to [Python][PYTHON]:
 
     - `pythonPackage` (`listOf coercibleToStr`): Optional.
       Append `/`
-      of each element in the list
-      to [PYTHONPATH][PYTHONPATH].
-      Defaults to `[ ]`.
-
-    - `pythonPackage36` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.6/site-packages`
       of each element in the list
       to [PYTHONPATH][PYTHONPATH].
       Defaults to `[ ]`.
@@ -3670,7 +3664,7 @@ Types:
 
 - makeNodeJsVersion (`function str -> package`):
 
-    - (`enum [ "10" "12" "14" "16" ]`):
+    - (`enum [ "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
 
 Example:
@@ -3711,7 +3705,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
+    - nodeJsVersion (`enum [ "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
@@ -3804,7 +3798,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "10" "12" "14" "16" ]`):
+    - nodeJsVersion (`enum [ "12" "14" "16" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
@@ -3886,7 +3880,7 @@ Types:
 
 - makePythonVersion (`function str -> package`):
 
-    - (`enum [ "3.6" "3.7" "3.8" "3.9" ]`):
+    - (`enum [ "3.7" "3.8" "3.9" ]`):
       [Python][PYTHON] version of the interpreter to return.
 
 Example:
