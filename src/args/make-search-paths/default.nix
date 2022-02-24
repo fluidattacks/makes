@@ -21,7 +21,6 @@
 , pythonMypy38 ? [ ]
 , pythonMypy39 ? [ ]
 , pythonPackage ? [ ]
-, pythonPackage36 ? [ ]
 , pythonPackage37 ? [ ]
 , pythonPackage38 ? [ ]
 , pythonPackage39 ? [ ]
@@ -131,10 +130,6 @@ makeTemplate {
       {
         derivations = pythonPackage;
         generator = makeExport "PYTHONPATH" "";
-      }
-      {
-        derivations = pythonPackage36;
-        generator = makeExport "PYTHONPATH" "/lib/python3.6/site-packages";
       }
       {
         derivations = pythonPackage37;
