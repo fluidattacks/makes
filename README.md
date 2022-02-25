@@ -209,6 +209,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [formatBash](#formatbash)
         - [formatMarkdown](#formatmarkdown)
         - [formatNix](#formatnix)
+        - [formatNixWithAlejandra](#formatnixwithalejandra)
         - [formatPython](#formatpython)
         - [formatTerraform](#formatterraform)
     - [Lint](#lint)
@@ -957,6 +958,36 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /formatNix`
+
+### formatNixWithAlejandra
+
+Ensure that Nix code is formatted according to [Alejandra][ALEJANDRA].
+
+Types:
+
+- formatNixWithAlejandra:
+    - enable (`boolean`): Optional.
+      Defaults to `false`.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to format.
+      Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatNixWithAlejandra = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/file.nix" # A file
+      "/directory" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /formatNixWithAlejandra`
 
 ### formatPython
 
@@ -5064,6 +5095,9 @@ Project leaders:
 
 - [AJV_CLI]: https://github.com/ajv-validator/ajv-cli
   [ajv-cli][AJV_CLI]
+
+- [ALEJANDRA]: https://github.com/kamadorueda/alejandra
+  [Alejandra][ALEJANDRA]
 
 - [Ansible]: https://www.ansible.com/
   [Ansible][ANSIBLE]

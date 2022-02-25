@@ -74,6 +74,10 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatNixWithAlejandra = {
+    enable = false;
+    targets = [ "/" ];
+  };
   formatPython = {
     enable = true;
     targets = [ "/" ];
