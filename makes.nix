@@ -196,20 +196,6 @@
       test = "VAR_NAME";
     };
   };
-  secureNixWithVulnix = {
-    all = {
-      derivations = [
-        outputs."/tests/secureNixWithVulnix"
-      ];
-      whitelist = {
-        "binutils-2.35.1" = {
-          cve = [ "CVE-2021-20284" "CVE-2021-20294" "CVE-2021-3487" "CVE-2021-45078" ];
-          until = "2100-01-01";
-          comment = "Need CI to pass Jeje";
-        };
-      };
-    };
-  };
   securePythonWithBandit = {
     cli = {
       python = "3.9";
