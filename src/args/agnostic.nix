@@ -94,7 +94,6 @@ let
       managePorts = import ./manage-ports/default.nix self;
       patchShebangs = import ./patch-shebangs/default.nix self;
       removePrefix = self.__nixpkgs__.lib.removePrefix;
-      secureNixWithVulnix = import ./secure-nix-with-vulnix/default.nix self;
       securePythonWithBandit = import ./secure-python-with-bandit/default.nix self;
       sortAscii = builtins.sort (a: b: a < b);
       sortAsciiCaseless = builtins.sort (a: b: self.__nixpkgs__.lib.toLower a < self.__nixpkgs__.lib.toLower b);

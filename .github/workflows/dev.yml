@@ -401,15 +401,6 @@ jobs:
     - name: /securePythonWithBandit/cli
       run: nix-env -if . && m . /securePythonWithBandit/cli
 
-  linux_secureNixWithVulnix_all:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: docker://docker.io/nixos/nix:2.3.12
-      name: /secureNixWithVulnix/all
-      with:
-        args: sh -c "nix-env -if . && m . /secureNixWithVulnix/all"
-
   linux_taintTerraform_module:
     runs-on: ubuntu-latest
     steps:
