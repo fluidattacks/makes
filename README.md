@@ -4117,7 +4117,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - ruby (`enum [ "2.6" "2.7" "3.0" ]`):
+    - ruby (`enum [ "2.7" "3.0" ]`):
       Version of the [Ruby][RUBY] interpreter.
     - rubyGems (`listOf (asIn fetchRubyGem)`):
       Ruby gems specification that should be fetched and installed.
@@ -4167,7 +4167,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - ruby (`enum [ "2.6" "2.7" "3.0" ]`):
+    - ruby (`enum [ "2.7" "3.0" ]`):
       Version of the [Ruby][RUBY] interpreter.
     - rubyGems (`listOf (asIn fetchRubyGem)`):
       Ruby gems specification that should be fetched and installed.
