@@ -39,7 +39,6 @@ let
     then fromYamlFile sourcesYaml
     else abort "sourcesJson, sourcesRaw or sourcesYaml must be set";
 
-  is36 = sources.python == "3.6";
   is37 = sources.python == "3.7";
   is38 = sources.python == "3.8";
   is39 = sources.python == "3.9";
@@ -61,7 +60,6 @@ let
     (listOptional withNumpy_1_21_2 (makePythonPypiEnvironment {
       name = "numpy-1.21.2";
       sourcesYaml = {
-        "3.6" = abort "Numpy requires python >= 3.7";
         "3.7" = ./sources/numpy-1.21.2/sources-37.yaml;
         "3.8" = ./sources/numpy-1.21.2/sources-38.yaml;
         "3.9" = ./sources/numpy-1.21.2/sources-39.yaml;
@@ -138,7 +136,6 @@ let
 in
 makeSearchPaths {
   bin = [ pypiEnvironment ];
-  pythonPackage36 = listOptional is36 pypiEnvironment;
   pythonPackage37 = listOptional is37 pypiEnvironment;
   pythonPackage38 = listOptional is38 pypiEnvironment;
   pythonPackage39 = listOptional is39 pypiEnvironment;

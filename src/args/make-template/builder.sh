@@ -1,6 +1,9 @@
 # shellcheck shell=bash
 
-export PATH="${__envPath}:${PATH:-}"
+# Compatibility layer with Nixpkgs' stdenv
+export buildInputs="${__envNixpkgsBuildInputs}"
+export initialPath="${__envNixpkgsInitialPath}"
+source "${__envNixpkgsSrc}/pkgs/stdenv/generic/setup.sh"
 
 function replace_arg_in_file {
   local file="${1}"

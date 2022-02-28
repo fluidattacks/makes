@@ -1,4 +1,5 @@
 { __nixpkgs__
+, __nixpkgsSrc__
 , asContent
 , toFileLst
 , makeDerivation
@@ -47,10 +48,16 @@ makeDerivation {
       (builtins.attrNames replace);
     __envArgumentBase64NamesFile = toFileLst "replaceBase64.lst"
       (builtins.attrNames replaceBase64);
-    __envPath = __nixpkgs__.lib.strings.makeBinPath [
+
+    # Compatibility layer with Nixpkgs' stdenv
+    __envNixpkgsBuildInputs = [
       __nixpkgs__.gnugrep
+      __nixpkgs__.python3Packages.chardet
       __nixpkgs__.rpl
     ];
+    __envNixpkgsInitialPath = [ __nixpkgs__.coreutils ];
+    __envNixpkgsSrc = __nixpkgsSrc__;
+
     __envTemplate =
       if searchPaths == { }
       then asContent template
