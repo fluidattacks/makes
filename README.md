@@ -227,7 +227,6 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [testPython](#testpython)
         - [testTerraform](#testterraform)
     - [Security](#security)
-        - [secureNixWithVulnix](#securenixwithvulnix)
         - [securePythonWithBandit](#securepythonwithbandit)
     - [Deploy](#deploy)
         - [computeOnAwsBatch](#computeonawsbatch)
@@ -1579,49 +1578,6 @@ Example invocation: `$ m . /testTerraform/module1`
 Example invocation: `$ m . /testTerraform/module2`
 
 ## Security
-
-### secureNixWithVulnix
-
-:warning: This function is only available on Linux at the moment.
-
-Secure [Nix][NIX] derivations
-with [Vulnix][VULNIX].
-
-Types:
-
-- secureNixWithVulnix (`attrsOf targetGroupType`): Optional.
-  Set of [Nix][NIX] derivations groups to verify.
-  Defaults to `{ }`.
-- targetGroupType (`submodule`):
-    - derivations (`listOf package`):
-      List of [Nix][NIX] derivations to verify.
-    - whitelist (`anything`):
-      Whitelist in [Vulnix][VULNIX] required format.
-
-Example `makes.nix`:
-
-```nix
-{ __nixpkgs__
-, ...
-}:
-{
-  secureNixWithVulnix = {
-    example = {
-      derivations = [
-        __nixpkgs__.libunitstring
-      ];
-      whitelist = {
-        "binutils-2.35.1" = {
-          cve = [ "CVE-2021-20284" "CVE-2021-20294" "CVE-2021-3487" "CVE-2021-45078" ];
-          until = "2100-01-01";
-          comment = "Gonna fix it soon...";
-        };
-      };
-    };
-  };
-```
-
-Example invocation: `$ m . /secureNixWithVulnix/example`
 
 ### securePythonWithBandit
 
