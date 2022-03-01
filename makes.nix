@@ -13,6 +13,10 @@
       pubKey = "makes.cachix.org-1:HbCQcdlYyT/mYuOx6rlgkNkonTGUjVr3D+YpuGRmO+Y=";
     };
   };
+  calculateScorecard = {
+    enable = true;
+    target = "github.com/fluidattacks/makes";
+  };
   deployContainerImage = {
     images = {
       makesGitHub = {

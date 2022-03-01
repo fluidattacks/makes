@@ -18,6 +18,26 @@ jobs:
     - name: __all__
       run: nix-env -if . && m . __all__
 
+  linux_calculatescorecard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker://docker.io/nixos/nix:2.3.12
+        name: /calculateScorecard
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          args: sh -c "nix-env -if . && m . /calculateScorecard"
+  macos_calculatescorecard:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cachix/install-nix-action@v15
+      - name: /calculateScorecard
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: nix-env -if . && m . /calculateScorecard
+
   linux_deployTerraform_module:
     runs-on: ubuntu-latest
     steps:
