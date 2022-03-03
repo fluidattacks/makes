@@ -469,6 +469,54 @@ jobs:
     - name: /tests/calculateCvss3
       run: nix-env -if . && m . /tests/calculateCvss3
 
+  linux_tests_makeSearchPaths:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /tests/makeSearchPaths
+      with:
+        args: sh -c "nix-env -if . && m . /tests/makeSearchPaths"
+  macos_tests_makeSearchPaths:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v15
+    - name: /tests/makeSearchPaths
+      run: nix-env -if . && m . /tests/makeSearchPaths
+
+  linux_tests_makeTemplate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /tests/makeTemplate
+      with:
+        args: sh -c "nix-env -if . && m . /tests/makeTemplate"
+  macos_tests_makeTemplate:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v15
+    - name: /tests/makeTemplate
+      run: nix-env -if . && m . /tests/makeTemplate
+
+  linux_tests_scriptWithHelp:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://docker.io/nixos/nix:2.3.12
+      name: /tests/scriptWithHelp
+      with:
+        args: sh -c "nix-env -if . && m . /tests/scriptWithHelp"
+  macos_tests_scriptWithHelp:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v15
+    - name: /tests/scriptWithHelp
+      run: nix-env -if . && m . /tests/scriptWithHelp
+
   linux_tests_secretsForGpgFromEnv:
     runs-on: ubuntu-latest
     steps:
