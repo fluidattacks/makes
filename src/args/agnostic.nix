@@ -41,7 +41,7 @@ let
       filterAttrs = self.__nixpkgs__.lib.filterAttrs;
       flatten = self.__nixpkgs__.lib.lists.flatten;
       formatBash = import ./format-bash/default.nix self;
-      formatNixWithAlejandra = import ./format-nix-with-alejandra/default.nix self;
+      formatNix = import ./format-nix/default.nix self;
       formatTerraform = import ./format-terraform/default.nix self;
       fromJson = builtins.fromJSON;
       fromJsonFile = path: builtins.fromJSON (builtins.readFile path);

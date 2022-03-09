@@ -1,6 +1,4 @@
-{ __nixpkgs__
-, toBashArray
-, makeScript
+{ formatNix
 , ...
 }:
 { config
@@ -22,18 +20,9 @@
   };
   config = {
     outputs = {
-      "/formatNix" = lib.mkIf config.formatNix.enable (makeScript {
-        replace = {
-          __argTargets__ = toBashArray
-            (builtins.map (rel: "." + rel) config.formatNix.targets);
-        };
-        name = "format-nix";
-        searchPaths = {
-          bin = [
-            __nixpkgs__.nixpkgs-fmt
-          ];
-        };
-        entrypoint = ./entrypoint.sh;
+      "/formatNix" = lib.mkIf config.formatNix.enable (formatNix {
+        name = "builtin";
+        targets = builtins.map (rel: "." + rel) config.formatNix.targets;
       });
     };
   };

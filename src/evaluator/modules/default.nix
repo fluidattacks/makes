@@ -22,7 +22,6 @@
     (import ./format-bash/default.nix args)
     (import ./format-markdown/default.nix args)
     (import ./format-nix/default.nix args)
-    (import ./format-nix-with-alejandra/default.nix args)
     (import ./format-python/default.nix args)
     (import ./format-scala/default.nix args)
     (import ./format-javascript/default.nix args)

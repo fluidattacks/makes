@@ -1,10 +1,10 @@
-{ __nixpkgs__
-, fetchNixpkgs
-, inputs
-, outputs
-, ...
-}:
 {
+  __nixpkgs__,
+  fetchNixpkgs,
+  inputs,
+  outputs,
+  ...
+}: {
   projectIdentifier = "makes-repo";
   cache = {
     readAndWrite = {
@@ -41,10 +41,10 @@
   };
   dev = {
     example = {
-      bin = [ inputs.nixpkgs.hello ];
+      bin = [inputs.nixpkgs.hello];
     };
     makes = {
-      source = [ outputs."/cli/pypi" ];
+      source = [outputs."/cli/pypi"];
     };
   };
   envVars = {
@@ -63,32 +63,28 @@
   extendingMakesDir = "/makes";
   formatBash = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   formatJavaScript = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   formatMarkdown = {
     enable = true;
-    doctocArgs = [ "--title" "# Contents" ];
-    targets = [ "/README.md" ];
+    doctocArgs = ["--title" "# Contents"];
+    targets = ["/README.md"];
   };
   formatNix = {
     enable = true;
-    targets = [ "/" ];
-  };
-  formatNixWithAlejandra = {
-    enable = false;
-    targets = [ "/" ];
+    targets = ["/makes.nix"];
   };
   formatPython = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   formatTerraform = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   helloWorld = {
     enable = true;
@@ -102,7 +98,7 @@
   };
   lintBash = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
   lintGitCommitMsg = {
     enable = true;
@@ -116,41 +112,39 @@
   lintMarkdown = {
     all = {
       config = "/test/lint-markdown/config.rb";
-      targets = [ "/" ];
+      targets = ["/"];
     };
   };
   lintNix = {
     enable = true;
-    targets = [ "/" ];
+    targets = ["/"];
   };
-  lintPython =
-    let
-      searchPaths = {
-        source = [ outputs."/cli/pypi" ];
-      };
-    in
-    {
-      dirsOfModules = {
-        makes = {
-          python = "3.9";
-          inherit searchPaths;
-          src = "/src/cli";
-        };
-      };
-      imports = {
-        makes = {
-          config = "/src/cli/imports.cfg";
-          src = "/src/cli";
-        };
-      };
-      modules = {
-        cliMain = {
-          python = "3.9";
-          inherit searchPaths;
-          src = "/src/cli/main";
-        };
+  lintPython = let
+    searchPaths = {
+      source = [outputs."/cli/pypi"];
+    };
+  in {
+    dirsOfModules = {
+      makes = {
+        python = "3.9";
+        inherit searchPaths;
+        src = "/src/cli";
       };
     };
+    imports = {
+      makes = {
+        config = "/src/cli/imports.cfg";
+        src = "/src/cli";
+      };
+    };
+    modules = {
+      cliMain = {
+        python = "3.9";
+        inherit searchPaths;
+        src = "/src/cli/main";
+      };
+    };
+  };
   lintTerraform = {
     modules = {
       module = {
@@ -160,7 +154,7 @@
     };
   };
   lintWithLizard = {
-    all = [ "/" ];
+    all = ["/"];
   };
   lintWithAjv = {
     "test" = {
@@ -177,22 +171,22 @@
       jobs = [
         {
           output = "/lintNix";
-          args = [ ];
+          args = [];
         }
         {
           output = "/helloWorld";
-          args = [ "1" "2" "3" ];
+          args = ["1" "2" "3"];
         }
       ];
     };
   };
   secretsForGpgFromEnv = {
-    example = [ "PGP_PUBLIC" "PGP_PRIVATE" ];
+    example = ["PGP_PUBLIC" "PGP_PRIVATE"];
   };
   secretsForEnvFromSops = {
     example = {
       manifest = "/makes/tests/secretsForGpgFromEnv/secrets.yaml";
-      vars = [ "secret" ];
+      vars = ["secret"];
     };
   };
   secretsForTerraformFromEnv = {
@@ -209,7 +203,7 @@
   taintTerraform = {
     modules = {
       module = {
-        resources = [ "null_resource.example" ];
+        resources = ["null_resource.example"];
         src = "/test/terraform/module";
         version = "1.0";
       };
@@ -234,6 +228,6 @@
     };
   };
   lintClojure = {
-    test = [ "/test" ];
+    test = ["/test"];
   };
 }

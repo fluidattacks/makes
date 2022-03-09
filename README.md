@@ -209,7 +209,6 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [formatBash](#formatbash)
         - [formatMarkdown](#formatmarkdown)
         - [formatNix](#formatnix)
-        - [formatNixWithAlejandra](#formatnixwithalejandra)
         - [formatPython](#formatpython)
         - [formatTerraform](#formatterraform)
     - [Lint](#lint)
@@ -932,7 +931,7 @@ Example invocation: `$ m . /formatMarkdown`
 
 ### formatNix
 
-Ensure that Nix code is formatted according to [nixpkgs-fmt][NIX_PKGS_FMT].
+Ensure that Nix code is formatted according to [Alejandra][ALEJANDRA].
 
 Types:
 
@@ -959,36 +958,6 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /formatNix`
-
-### formatNixWithAlejandra
-
-Ensure that Nix code is formatted according to [Alejandra][ALEJANDRA].
-
-Types:
-
-- formatNixWithAlejandra:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to format.
-      Defaults to the entire project.
-
-Example `makes.nix`:
-
-```nix
-{
-  formatNixWithAlejandra = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.nix" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
-
-Example invocation: `$ m . /formatNixWithAlejandra`
 
 ### formatPython
 
@@ -5367,9 +5336,6 @@ Project leaders:
 
 - [NIX_PILLS]: https://nixos.org/guides/nix-pills/
   [Nix Pills][NIX_PILLS]
-
-- [NIX_PKGS_FMT]: https://github.com/nix-community/nixpkgs-fmt
-  [nixpkgs-fmt][NIX_PKGS_FMT]
 
 - [NODE_JS]: https://nodejs.org/en/
   [NODE_JS][NODE_JS]

@@ -12,15 +12,15 @@ let
   alejandra = fetchGithub {
     owner = "kamadorueda";
     repo = "alejandra";
-    rev = "8b5d2f9e5086d4bd38ca5b497127a750774dee3b";
-    sha256 = "158xqn0cdnrlg61ki963whsrb4rqjs1v2pfc40a9plx8x0il81as";
+    rev = "1.0.0";
+    sha256 = "14n9qrfrzwz3aclal35rsmg70s876whggcrs8h4v7r9q4lfxd7vw";
   };
 in
 makeScript {
   replace = {
     __argTargets__ = toBashArray targets;
   };
-  name = "format-nix-with-alejandra-for-${name}";
+  name = "format-nix-for-${name}";
   searchPaths = {
     bin = [
       (import alejandra)."${__system__}"
