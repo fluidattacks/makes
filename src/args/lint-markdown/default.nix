@@ -1,11 +1,12 @@
-{ __nixpkgs__
-, toBashArray
-, makeDerivation
-, ...
-}:
-{ name
-, config
-, targets
+{
+  __nixpkgs__,
+  toBashArray,
+  makeDerivation,
+  ...
+}: {
+  name,
+  config,
+  targets,
 }:
 makeDerivation {
   env = {

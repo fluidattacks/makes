@@ -1,7 +1,8 @@
-{ __nixpkgs__
-, makeScript
-, projectPath
-, ...
+{
+  __nixpkgs__,
+  makeScript,
+  projectPath,
+  ...
 }:
 makeScript {
   entrypoint = ./entrypoint.sh;

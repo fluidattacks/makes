@@ -1,12 +1,13 @@
-{ __nixpkgs__
-, toBashArray
-, makeTemplate
-, toDerivationName
-, ...
-}:
-{ vars
-, name
-, manifest
+{
+  __nixpkgs__,
+  toBashArray,
+  makeTemplate,
+  toDerivationName,
+  ...
+}: {
+  vars,
+  name,
+  manifest,
 }:
 makeTemplate {
   replace = {
@@ -16,7 +17,7 @@ makeTemplate {
   };
   name = "make-secret-for-env-from-sops-for-${name}";
   searchPaths = {
-    bin = [ __nixpkgs__.jq __nixpkgs__.sops ];
+    bin = [__nixpkgs__.jq __nixpkgs__.sops];
   };
   template = ./template.sh;
 }

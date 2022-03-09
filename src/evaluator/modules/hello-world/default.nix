@@ -1,11 +1,8 @@
-{ makeScript
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-{
+{makeScript, ...}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     helloWorld = {
       enable = lib.mkOption {

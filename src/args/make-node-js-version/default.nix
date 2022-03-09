@@ -1,7 +1,4 @@
-{ __nixpkgs__
-, ...
-}:
-version:
+{__nixpkgs__, ...}: version:
 if version == "10"
 then __nixpkgs__.nodejs-10_x
 else if version == "12"

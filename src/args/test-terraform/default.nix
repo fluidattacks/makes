@@ -1,14 +1,15 @@
-{ __nixpkgs__
-, makeScript
-, makeTerraformEnvironment
-, ...
-}:
-{ debug ? false
-, name
-, setup
-, src
-, version
-, ...
+{
+  __nixpkgs__,
+  makeScript,
+  makeTerraformEnvironment,
+  ...
+}: {
+  debug ? false,
+  name,
+  setup,
+  src,
+  version,
+  ...
 }:
 makeScript {
   entrypoint = ./entrypoint.sh;
@@ -18,10 +19,12 @@ makeScript {
   };
   name = "test-terraform-for-${name}";
   searchPaths = {
-    source = [
-      (makeTerraformEnvironment {
-        inherit version;
-      })
-    ] ++ setup;
+    source =
+      [
+        (makeTerraformEnvironment {
+          inherit version;
+        })
+      ]
+      ++ setup;
   };
 }

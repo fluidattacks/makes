@@ -1,7 +1,8 @@
-{ __nixpkgs__
-, makeNodeJsVersion
-, makeScript
-, ...
+{
+  __nixpkgs__,
+  makeNodeJsVersion,
+  makeScript,
+  ...
 }:
 makeScript {
   entrypoint = ./entrypoint.sh;

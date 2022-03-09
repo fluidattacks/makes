@@ -1,8 +1,9 @@
-{ makeContainerImage
-, makeDerivation
-, inputs
-, outputs
-, ...
+{
+  makeContainerImage,
+  makeDerivation,
+  inputs,
+  outputs,
+  ...
 }:
 makeContainerImage {
   config = {

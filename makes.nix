@@ -76,7 +76,7 @@
   };
   formatNix = {
     enable = true;
-    targets = ["/makes.nix"];
+    targets = ["/"];
   };
   formatPython = {
     enable = true;

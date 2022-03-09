@@ -1,13 +1,14 @@
-{ __nixpkgs__
-, makeScript
-, makeTerraformEnvironment
-, ...
-}:
-{ setup
-, name
-, version
-, src
-, ...
+{
+  __nixpkgs__,
+  makeScript,
+  makeTerraformEnvironment,
+  ...
+}: {
+  setup,
+  name,
+  version,
+  src,
+  ...
 }:
 makeScript {
   entrypoint = ./entrypoint.sh;
@@ -16,10 +17,12 @@ makeScript {
   };
   name = "deploy-terraform-for-${name}";
   searchPaths = {
-    source = [
-      (makeTerraformEnvironment {
-        inherit version;
-      })
-    ] ++ setup;
+    source =
+      [
+        (makeTerraformEnvironment {
+          inherit version;
+        })
+      ]
+      ++ setup;
   };
 }

@@ -1,11 +1,8 @@
-{ formatTerraform
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-{
+{formatTerraform, ...}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     formatTerraform = {
       enable = lib.mkOption {
@@ -19,7 +16,8 @@
   };
   config = {
     outputs = {
-      "/formatTerraform" = lib.mkIf
+      "/formatTerraform" =
+        lib.mkIf
         config.formatTerraform.enable
         (formatTerraform {
           name = "format-terraform";

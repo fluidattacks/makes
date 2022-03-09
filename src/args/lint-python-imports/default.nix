@@ -1,12 +1,13 @@
-{ makeDerivation
-, makePythonPypiEnvironment
-, makeSearchPaths
-, ...
-}:
-{ config
-, name
-, searchPaths
-, src
+{
+  makeDerivation,
+  makePythonPypiEnvironment,
+  makeSearchPaths,
+  ...
+}: {
+  config,
+  name,
+  searchPaths,
+  src,
 }:
 makeDerivation {
   builder = ./builder.sh;

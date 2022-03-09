@@ -1,10 +1,7 @@
-{ lib
-, ...
-}:
-{
+{lib, ...}: {
   options = {
     inputs = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrs;
     };
   };

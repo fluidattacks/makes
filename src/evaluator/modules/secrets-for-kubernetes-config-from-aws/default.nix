@@ -1,12 +1,12 @@
-{ __toModuleOutputs__
-, makeSecretForKubernetesConfigFromAws
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  makeSecretForKubernetesConfigFromAws,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   secretForKubernetesConfigFromAwsType = lib.types.submodule (_: {
     options = {
       cluster = lib.mkOption {
@@ -18,7 +18,10 @@ let
     };
   });
 
-  makeOutput = name: { cluster, region }: {
+  makeOutput = name: {
+    cluster,
+    region,
+  }: {
     name = "/secretsForKubernetesConfigFromAws/${name}";
     value = makeSecretForKubernetesConfigFromAws {
       inherit cluster;
@@ -26,16 +29,16 @@ let
       inherit region;
     };
   };
-in
-{
+in {
   options = {
     secretsForKubernetesConfigFromAws = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf secretForKubernetesConfigFromAwsType;
     };
   };
   config = {
-    outputs = __toModuleOutputs__
+    outputs =
+      __toModuleOutputs__
       makeOutput
       config.secretsForKubernetesConfigFromAws;
   };

@@ -1,12 +1,12 @@
-{ makeDynamoDb
-, __toModuleOutputs__
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  makeDynamoDb,
+  __toModuleOutputs__,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeOutput = name: args: {
     name = "/dynamoDb/${name}";
     value = makeDynamoDb {
@@ -19,11 +19,10 @@ let
       inherit (args) data;
     };
   };
-in
-{
+in {
   options = {
     dynamoDb = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           host = lib.mkOption {
@@ -35,11 +34,11 @@ in
             type = lib.types.str;
           };
           data = lib.mkOption {
-            default = [ ];
+            default = [];
             type = lib.types.listOf lib.types.str;
           };
           dataDerivation = lib.mkOption {
-            default = [ ];
+            default = [];
             type = lib.types.listOf lib.types.package;
           };
           infra = lib.mkOption {

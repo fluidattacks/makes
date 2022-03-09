@@ -5,40 +5,43 @@
     nixpkgs.url = "github:nixos/nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      makes = import ./default.nix { system = "x86_64-linux"; };
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    makes = import ./default.nix {system = "x86_64-linux";};
 
-      lib.flakes.evaluate =
-        { inputs
-        , system
-        }:
-        let
-          evaluated = import ./src/evaluator/default.nix {
-            flakeInputs = inputs;
-            makesSrc = inputs.makes.outPath;
-            projectSrc = inputs.self.sourceInfo.outPath;
-            inherit system;
-          };
-          evaluatedOutputs = nixpkgs.lib.mapAttrs'
-            (output: value: {
-              name = "config:outputs:${output}";
-              inherit value;
-            })
-            evaluated.config.outputs;
-        in
-        {
-          __makes__ = evaluatedOutputs // {
-            "config:configAsJson" = evaluated.config.configAsJson;
-          };
+    lib.flakes.evaluate = {
+      inputs,
+      system,
+    }: let
+      evaluated = import ./src/evaluator/default.nix {
+        flakeInputs = inputs;
+        makesSrc = inputs.makes.outPath;
+        projectSrc = inputs.self.sourceInfo.outPath;
+        inherit system;
+      };
+      evaluatedOutputs =
+        nixpkgs.lib.mapAttrs'
+        (output: value: {
+          name = "config:outputs:${output}";
+          inherit value;
+        })
+        evaluated.config.outputs;
+    in {
+      __makes__ =
+        evaluatedOutputs
+        // {
+          "config:configAsJson" = evaluated.config.configAsJson;
         };
-    in
-
-    (lib.flakes.evaluate { inputs = inputs // { makes = self; }; system = "x86_64-linux"; })
-
-    //
-
-    {
+    };
+  in
+    (lib.flakes.evaluate {
+      inputs = inputs // {makes = self;};
+      system = "x86_64-linux";
+    })
+    // {
       inherit lib;
 
       defaultPackage.x86_64-linux = makes;

@@ -1,11 +1,8 @@
-{ listOptional
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-{
+{listOptional, ...}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     cache = {
       readAndWrite = {
@@ -21,7 +18,7 @@
         };
       };
       readExtra = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf (lib.types.submodule (_: {
           options = {
             pubKey = lib.mkOption {

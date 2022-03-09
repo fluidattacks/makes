@@ -1,6 +1,7 @@
-{ inputs
-, makeSearchPaths
-, ...
+{
+  inputs,
+  makeSearchPaths,
+  ...
 }:
 makeSearchPaths {
   bin = [

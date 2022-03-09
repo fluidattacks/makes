@@ -1,23 +1,23 @@
-{ __toModuleOutputs__
-, makeSearchPaths
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  makeSearchPaths,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeOutput = name: searchPaths: {
     name = "/dev/${name}";
-    value = makeSearchPaths (searchPaths // {
-      withAction = false;
-    });
+    value = makeSearchPaths (searchPaths
+      // {
+        withAction = false;
+      });
   };
-in
-{
+in {
   options = {
     dev = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf lib.types.attrs;
     };
   };

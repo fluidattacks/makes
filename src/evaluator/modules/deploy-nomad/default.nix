@@ -1,16 +1,20 @@
-{ __nixpkgs__
-, __toModuleOutputs__
-, deployNomad
-, attrsMerge
-, attrsMapToList
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
-  makeNamespaceOutput = namespace: { setup, jobs, version }:
+{
+  __nixpkgs__,
+  __toModuleOutputs__,
+  deployNomad,
+  attrsMerge,
+  attrsMapToList,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
+  makeNamespaceOutput = namespace: {
+    setup,
+    jobs,
+    version,
+  }:
     attrsMapToList makeJobOutput (lib.mapAttrs
       (_: src: {
         inherit setup;
@@ -19,7 +23,12 @@ let
         inherit src;
       })
       jobs);
-  makeJobOutput = name: { setup, src, namespace, version }: {
+  makeJobOutput = name: {
+    setup,
+    src,
+    namespace,
+    version,
+  }: {
     name = "/deployNomad/${namespace}/${name}";
     value = deployNomad {
       inherit setup;
@@ -30,7 +39,7 @@ let
     };
   };
   setupOpt = lib.mkOption {
-    default = [ ];
+    default = [];
     type = lib.types.listOf lib.types.package;
   };
   versionOpt = lib.mkOption {
@@ -40,12 +49,11 @@ let
     ];
     default = "1.1";
   };
-in
-{
+in {
   options = {
     deployNomad = {
       jobs = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             setup = setupOpt;
@@ -60,7 +68,7 @@ in
         }));
       };
       namespaces = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             setup = setupOpt;

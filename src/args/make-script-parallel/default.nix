@@ -1,12 +1,13 @@
-{ __nixpkgs__
-, toBashArray
-, makeScript
-, ...
-}:
-{ commands
-, extraArgs ? [ ]
-, name
-, help ? null
+{
+  __nixpkgs__,
+  toBashArray,
+  makeScript,
+  ...
+}: {
+  commands,
+  extraArgs ? [],
+  name,
+  help ? null,
 }:
 makeScript {
   replace = {

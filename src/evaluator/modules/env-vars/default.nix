@@ -1,12 +1,12 @@
-{ __toModuleOutputs__
-, makeEnvVars
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  makeEnvVars,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeEnvVarsOutput = name: mapping: {
     name = "/envVars/${name}";
     value = makeEnvVars {
@@ -14,11 +14,10 @@ let
       inherit mapping;
     };
   };
-in
-{
+in {
   options = {
     envVars = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
     };
   };

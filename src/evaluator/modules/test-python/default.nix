@@ -1,13 +1,13 @@
-{ __toModuleOutputs__
-, projectPath
-, testPython
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  projectPath,
+  testPython,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeOutput = name: args: {
     name = "/testPython/${name}";
     value = testPython {
@@ -20,26 +20,25 @@ let
       inherit (args) src;
     };
   };
-in
-{
+in {
   options = {
     testPython = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           extraSrcs = lib.mkOption {
-            default = { };
+            default = {};
             type = lib.types.attrsOf lib.types.package;
           };
           extraFlags = lib.mkOption {
-            default = [ ];
+            default = [];
             type = lib.types.listOf lib.types.str;
           };
           python = lib.mkOption {
-            type = lib.types.enum [ "3.7" "3.8" "3.9" ];
+            type = lib.types.enum ["3.7" "3.8" "3.9"];
           };
           searchPaths = lib.mkOption {
-            default = { };
+            default = {};
             type = lib.types.attrs;
           };
           src = lib.mkOption {

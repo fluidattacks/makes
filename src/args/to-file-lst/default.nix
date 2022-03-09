@@ -1,3 +1,3 @@
 name: list:
 builtins.toFile name
-  (builtins.concatStringsSep "\n" (list ++ [ "" ]))
+(builtins.concatStringsSep "\n" (list ++ [""]))

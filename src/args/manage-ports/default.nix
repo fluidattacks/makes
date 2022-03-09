@@ -1,6 +1,7 @@
-{ __nixpkgs__
-, makeTemplate
-, ...
+{
+  __nixpkgs__,
+  makeTemplate,
+  ...
 }:
 makeTemplate {
   name = "manage-ports";

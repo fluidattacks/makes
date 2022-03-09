@@ -1,6 +1,7 @@
-{ makeScript
-, outputs
-, ...
+{
+  makeScript,
+  outputs,
+  ...
 }:
 makeScript {
   entrypoint = "echo $secret";

@@ -1,15 +1,16 @@
-{ makeScript
-, makeTerraformEnvironment
-, toBashArray
-, ...
-}:
-{ setup
-, name
-, version
-, reDeploy ? false
-, resources
-, src
-, ...
+{
+  makeScript,
+  makeTerraformEnvironment,
+  toBashArray,
+  ...
+}: {
+  setup,
+  name,
+  version,
+  reDeploy ? false,
+  resources,
+  src,
+  ...
 }:
 makeScript {
   entrypoint = ./entrypoint.sh;
@@ -20,10 +21,12 @@ makeScript {
   };
   name = "taint-terraform-for-${name}";
   searchPaths = {
-    source = [
-      (makeTerraformEnvironment {
-        inherit version;
-      })
-    ] ++ setup;
+    source =
+      [
+        (makeTerraformEnvironment {
+          inherit version;
+        })
+      ]
+      ++ setup;
   };
 }

@@ -1,14 +1,17 @@
-{ __toModuleOutputs__
-, lintMarkdown
-, projectPath
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
-  makeOutput = name: { config, targets }: {
+{
+  __toModuleOutputs__,
+  lintMarkdown,
+  projectPath,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
+  makeOutput = name: {
+    config,
+    targets,
+  }: {
     name = "/lintMarkdown/${name}";
     value = lintMarkdown {
       inherit name;
@@ -19,11 +22,10 @@ let
       targets = builtins.map projectPath targets;
     };
   };
-in
-{
+in {
   options = {
     lintMarkdown = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           config = lib.mkOption {

@@ -1,12 +1,12 @@
-{ __toModuleOutputs__
-, computeOnAwsBatch
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  computeOnAwsBatch,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeOutput = name: config: {
     name = "/computeOnAwsBatch/${name}";
     value = computeOnAwsBatch {
@@ -24,11 +24,10 @@ let
       inherit (config) vcpus;
     };
   };
-in
-{
+in {
   options = {
     computeOnAwsBatch = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           allowDuplicates = lib.mkOption {
@@ -49,7 +48,7 @@ in
             type = lib.types.str;
           };
           environment = lib.mkOption {
-            default = [ ];
+            default = [];
             type = lib.types.listOf lib.types.str;
           };
           includePositionalArgsInName = lib.mkOption {
@@ -63,7 +62,7 @@ in
             type = lib.types.nullOr lib.types.str;
           };
           setup = lib.mkOption {
-            default = [ ];
+            default = [];
             type = lib.types.listOf lib.types.package;
           };
           vcpus = lib.mkOption {

@@ -1,13 +1,13 @@
-{ __toModuleOutputs__
-, makeSecretForEnvFromSops
-, projectPath
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  makeSecretForEnvFromSops,
+  projectPath,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   secretForEnvFromSopsType = lib.types.submodule (_: {
     options = {
       manifest = lib.mkOption {
@@ -19,7 +19,10 @@ let
     };
   });
 
-  makeOutput = name: { manifest, vars }: {
+  makeOutput = name: {
+    manifest,
+    vars,
+  }: {
     name = "/secretsForEnvFromSops/${name}";
     value = makeSecretForEnvFromSops {
       manifest = projectPath manifest;
@@ -27,11 +30,10 @@ let
       inherit vars;
     };
   };
-in
-{
+in {
   options = {
     secretsForEnvFromSops = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf secretForEnvFromSopsType;
     };
   };

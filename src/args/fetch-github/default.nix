@@ -1,11 +1,12 @@
-{ fakeSha256
-, fetchArchive
-, ...
-}:
-{ rev
-, owner
-, repo
-, sha256 ? fakeSha256
+{
+  fakeSha256,
+  fetchArchive,
+  ...
+}: {
+  rev,
+  owner,
+  repo,
+  sha256 ? fakeSha256,
 }:
 fetchArchive {
   inherit sha256;

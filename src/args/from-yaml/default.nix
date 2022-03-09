@@ -1,9 +1,9 @@
-{ fromJson
-, toFileJsonFromFileYaml
-, ...
-}:
-expr:
+{
+  fromJson,
+  toFileJsonFromFileYaml,
+  ...
+}: expr:
 fromJson
-  (builtins.readFile
-    (toFileJsonFromFileYaml
-      (builtins.toFile "src" expr)))
+(builtins.readFile
+  (toFileJsonFromFileYaml
+    (builtins.toFile "src" expr)))

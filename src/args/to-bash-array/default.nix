@@ -1,8 +1,8 @@
-{ escapeShellArgs
-, makeTemplate
-, ...
-}:
-list:
+{
+  escapeShellArgs,
+  makeTemplate,
+  ...
+}: list:
 makeTemplate {
   replace = {
     __argArray__ = escapeShellArgs list;

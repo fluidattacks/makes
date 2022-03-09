@@ -1,14 +1,14 @@
-{ __nixpkgs__
-, toBashArray
-, makeDerivation
-, projectPath
-, ...
-}:
-{ config
-, lib
-, ...
-}:
 {
+  __nixpkgs__,
+  toBashArray,
+  makeDerivation,
+  projectPath,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     lintNix = {
       enable = lib.mkOption {
@@ -16,7 +16,7 @@
         type = lib.types.bool;
       };
       targets = lib.mkOption {
-        default = [ "/" ];
+        default = ["/"];
         type = lib.types.listOf lib.types.str;
       };
     };
@@ -25,7 +25,8 @@
     outputs = {
       "/lintNix" = lib.mkIf config.lintNix.enable (makeDerivation {
         env = {
-          envTargets = toBashArray
+          envTargets =
+            toBashArray
             (builtins.map
               projectPath
               config.lintNix.targets);

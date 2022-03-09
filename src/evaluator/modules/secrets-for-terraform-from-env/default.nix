@@ -1,12 +1,12 @@
-{ __toModuleOutputs__
-, makeSecretForTerraformFromEnv
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  makeSecretForTerraformFromEnv,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeSecretForTerraformFromEnvOutput = name: mapping: {
     name = "/secretsForTerraformFromEnv/${name}";
     value = makeSecretForTerraformFromEnv {
@@ -14,18 +14,17 @@ let
       inherit mapping;
     };
   };
-in
-{
+in {
   options = {
     secretsForTerraformFromEnv = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
     };
   };
   config = {
     outputs =
-      (__toModuleOutputs__
-        makeSecretForTerraformFromEnvOutput
-        config.secretsForTerraformFromEnv);
+      __toModuleOutputs__
+      makeSecretForTerraformFromEnvOutput
+      config.secretsForTerraformFromEnv;
   };
 }
