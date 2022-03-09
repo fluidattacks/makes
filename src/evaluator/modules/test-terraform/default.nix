@@ -1,14 +1,19 @@
-{ __nixpkgs__
-, __toModuleOutputs__
-, testTerraform
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
-  makeOutput = name: { debug, setup, src, version }: {
+{
+  __nixpkgs__,
+  __toModuleOutputs__,
+  testTerraform,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
+  makeOutput = name: {
+    debug,
+    setup,
+    src,
+    version,
+  }: {
     name = "/testTerraform/${name}";
     value = testTerraform {
       inherit debug;
@@ -18,12 +23,11 @@ let
       inherit version;
     };
   };
-in
-{
+in {
   options = {
     testTerraform = {
       modules = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             debug = lib.mkOption {
@@ -31,7 +35,7 @@ in
               type = lib.types.bool;
             };
             setup = lib.mkOption {
-              default = [ ];
+              default = [];
               type = lib.types.listOf lib.types.package;
             };
             src = lib.mkOption {

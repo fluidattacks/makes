@@ -1,13 +1,13 @@
-{ __nixpkgs__
-, toBashArray
-, makeScript
-, ...
-}:
-{ config
-, lib
-, ...
-}:
 {
+  __nixpkgs__,
+  toBashArray,
+  makeScript,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     formatPython = {
       enable = lib.mkOption {
@@ -15,7 +15,7 @@
         type = lib.types.bool;
       };
       targets = lib.mkOption {
-        default = [ "/" ];
+        default = ["/"];
         type = lib.types.listOf lib.types.str;
       };
     };
@@ -26,7 +26,8 @@
         replace = {
           __argSettingsBlack__ = ./settings-black.toml;
           __argSettingsIsort__ = ./settings-isort.toml;
-          __argTargets__ = toBashArray
+          __argTargets__ =
+            toBashArray
             (builtins.map (rel: "." + rel) config.formatPython.targets);
         };
         name = "format-python";

@@ -11,28 +11,27 @@
 # Ask a maintainer first.
 {
   # flake inputs to inject, if any
-  flakeInputs ? { }
+  flakeInputs ? {},
   # Source code of makes, can be overriden by the user.
-, makesSrc
+  makesSrc,
   # Path to the user's project, inside a sandbox.
   # The sandbox excludes files not-tracked by git.
-, projectSrc
+  projectSrc,
   # System we should evaluate for
-, system ? builtins.currentSystem
-, ...
-}:
-let
+  system ? builtins.currentSystem,
+  ...
+}: let
   makesNixPath = projectSrc + "/makes.nix";
   makesNix =
     if builtins.pathExists makesNixPath
     then import makesNixPath
-    else { };
+    else {};
 
   makesLockNixPath = projectSrc + "/makes.lock.nix";
   makesLockNix =
     if builtins.pathExists makesLockNixPath
     then import makesLockNixPath
-    else { };
+    else {};
 
   makesSrcOverriden =
     if makesLockNix ? "makesSrc"
@@ -50,14 +49,14 @@ let
     };
     inherit system;
   };
-  nixpkgs = import sources.nixpkgs { inherit system; };
+  nixpkgs = import sources.nixpkgs {inherit system;};
   sources = import "${makesSrcOverriden}/src/nix/sources.nix";
   result = nixpkgs.lib.modules.evalModules {
     modules = [
-      ("${makesSrcOverriden}/src/evaluator/modules/default.nix")
-      (makesNix)
+      "${makesSrcOverriden}/src/evaluator/modules/default.nix"
+      makesNix
     ];
     specialArgs = args;
   };
 in
-result
+  result

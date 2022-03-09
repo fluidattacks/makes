@@ -1,14 +1,20 @@
-{ __nixpkgs__
-, __toModuleOutputs__
-, taintTerraform
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
-  makeOutput = name: { reDeploy, resources, setup, src, version }: {
+{
+  __nixpkgs__,
+  __toModuleOutputs__,
+  taintTerraform,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
+  makeOutput = name: {
+    reDeploy,
+    resources,
+    setup,
+    src,
+    version,
+  }: {
     name = "/taintTerraform/${name}";
     value = taintTerraform {
       inherit name;
@@ -19,12 +25,11 @@ let
       inherit version;
     };
   };
-in
-{
+in {
   options = {
     taintTerraform = {
       modules = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             reDeploy = lib.mkOption {
@@ -35,7 +40,7 @@ in
               type = lib.types.listOf lib.types.str;
             };
             setup = lib.mkOption {
-              default = [ ];
+              default = [];
               type = lib.types.listOf lib.types.package;
             };
             src = lib.mkOption {

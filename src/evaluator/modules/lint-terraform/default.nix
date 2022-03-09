@@ -1,15 +1,19 @@
-{ __nixpkgs__
-, __toModuleOutputs__
-, lintTerraform
-, projectPath
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
-  makeOutput = name: { setup, src, version }: {
+{
+  __nixpkgs__,
+  __toModuleOutputs__,
+  lintTerraform,
+  projectPath,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
+  makeOutput = name: {
+    setup,
+    src,
+    version,
+  }: {
     name = "/lintTerraform/${name}";
     value = lintTerraform {
       inherit setup;
@@ -22,8 +26,7 @@ let
       inherit version;
     };
   };
-in
-{
+in {
   options = {
     lintTerraform = {
       config = lib.mkOption {
@@ -31,11 +34,11 @@ in
         type = lib.types.nullOr lib.types.str;
       };
       modules = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             setup = lib.mkOption {
-              default = [ ];
+              default = [];
               type = lib.types.listOf lib.types.package;
             };
             src = lib.mkOption {

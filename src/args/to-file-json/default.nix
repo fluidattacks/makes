@@ -1,7 +1,5 @@
-{ makeDerivation
-, ...
-}:
-name: expr: makeDerivation {
+{makeDerivation, ...}: name: expr:
+makeDerivation {
   envFiles.envAll = builtins.toJSON expr;
   builder = "cp $envAllPath $out";
   local = true;

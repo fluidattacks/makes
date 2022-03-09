@@ -1,15 +1,15 @@
-{ __nixpkgs__
-, attrsOptional
-, isLinux
-, lintGitCommitMsg
-, projectPath
-, ...
-}:
-{ config
-, lib
-, ...
-}:
 {
+  __nixpkgs__,
+  attrsOptional,
+  isLinux,
+  lintGitCommitMsg,
+  projectPath,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     lintGitCommitMsg = {
       enable = lib.mkOption {
@@ -32,7 +32,8 @@
   };
   config = attrsOptional isLinux {
     outputs = {
-      "/lintGitCommitMsg" = lib.mkIf
+      "/lintGitCommitMsg" =
+        lib.mkIf
         (config.lintGitCommitMsg.enable)
         (lintGitCommitMsg {
           branch = config.lintGitCommitMsg.branch;

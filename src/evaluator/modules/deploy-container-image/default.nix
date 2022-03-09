@@ -1,12 +1,12 @@
-{ __toModuleOutputs__
-, deployContainerImage
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  deployContainerImage,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeOutput = name: args: {
     name = "/deployContainerImage/${name}";
     value = deployContainerImage {
@@ -19,12 +19,11 @@ let
       inherit (args) tag;
     };
   };
-in
-{
+in {
   options = {
     deployContainerImage = {
       images = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             attempts = lib.mkOption {
@@ -43,7 +42,7 @@ in
               type = lib.types.str;
             };
             setup = lib.mkOption {
-              default = [ ];
+              default = [];
               type = lib.types.listOf lib.types.package;
             };
             src = lib.mkOption {

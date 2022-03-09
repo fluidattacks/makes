@@ -1,17 +1,20 @@
-{ __nixpkgs__
-, __toModuleOutputs__
-, attrsOptional
-, isLinux
-, lintWithAjv
-, projectPath
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
-  makeOutput = name: { schema, targets }: {
+{
+  __nixpkgs__,
+  __toModuleOutputs__,
+  attrsOptional,
+  isLinux,
+  lintWithAjv,
+  projectPath,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
+  makeOutput = name: {
+    schema,
+    targets,
+  }: {
     name = "/lintWithAjv/${name}";
     value = lintWithAjv {
       inherit name;
@@ -19,11 +22,10 @@ let
       targets = builtins.map projectPath targets;
     };
   };
-in
-{
+in {
   options = {
     lintWithAjv = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           schema = lib.mkOption {

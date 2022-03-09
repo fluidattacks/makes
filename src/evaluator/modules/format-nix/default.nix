@@ -1,11 +1,8 @@
-{ formatNix
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-{
+{formatNix, ...}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     formatNix = {
       enable = lib.mkOption {
@@ -13,7 +10,7 @@
         type = lib.types.bool;
       };
       targets = lib.mkOption {
-        default = [ "/" ];
+        default = ["/"];
         type = lib.types.listOf lib.types.str;
       };
     };

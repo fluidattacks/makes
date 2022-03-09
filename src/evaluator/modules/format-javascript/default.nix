@@ -1,11 +1,12 @@
-{ __nixpkgs__
-, toBashArray
-, makeScript
-, ...
-}:
-{ config
-, lib
-, ...
+{
+  __nixpkgs__,
+  toBashArray,
+  makeScript,
+  ...
+}: {
+  config,
+  lib,
+  ...
 }: {
   options = {
     formatJavaScript = {
@@ -14,18 +15,20 @@
         type = lib.types.bool;
       };
       targets = lib.mkOption {
-        default = [ "/" ];
+        default = ["/"];
         type = lib.types.listOf lib.types.str;
       };
     };
   };
   config = {
     outputs = {
-      "/formatJavaScript" = lib.mkIf config.formatJavaScript.enable
+      "/formatJavaScript" =
+        lib.mkIf config.formatJavaScript.enable
         (makeScript {
           replace = {
             __argSettingsPrettier__ = ./settings-prettierrc.yaml;
-            __argTargets__ = toBashArray
+            __argTargets__ =
+              toBashArray
               (builtins.map (rel: "." + rel) config.formatJavaScript.targets);
           };
           name = "format-javascript";

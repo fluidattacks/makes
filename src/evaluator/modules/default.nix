@@ -1,13 +1,13 @@
-{ attrsMapToList
-, config
-, lib
-, attrsOptional
-, projectPath
-, projectSrc
-, toFileJson
-, ...
-} @ args:
 {
+  attrsMapToList,
+  config,
+  lib,
+  attrsOptional,
+  projectPath,
+  projectSrc,
+  toFileJson,
+  ...
+} @ args: {
   imports = [
     (import ./cache/default.nix args)
     (import ./calculate-scorecard/default.nix args)
@@ -84,35 +84,34 @@
       outputs = builtins.attrNames config.outputs;
     };
     configAsJson = toFileJson "config.json" config.config;
-    outputs =
-      let
-        # Load an attr set distributed across many files and directories
-        attrsFromPath = path: position:
-          builtins.foldl'
-            lib.mergeAttrs
-            { }
-            (lib.lists.flatten
-              (attrsMapToList
-                (name: type:
-                  if type == "directory"
-                  then attrsFromPath "${path}/${name}" (position ++ [ name ])
-                  else if name == "main.nix"
-                  then {
-                    "/${builtins.concatStringsSep "/" position}" =
-                      (import "${path}/main.nix" args);
-                  }
-                  else { })
-                (builtins.readDir path)));
-
-      in
+    outputs = let
+      # Load an attr set distributed across many files and directories
+      attrsFromPath = path: position:
+        builtins.foldl'
+        lib.mergeAttrs
+        {}
+        (lib.lists.flatten
+          (attrsMapToList
+            (name: type:
+              if type == "directory"
+              then attrsFromPath "${path}/${name}" (position ++ [name])
+              else if name == "main.nix"
+              then {
+                "/${builtins.concatStringsSep "/" position}" =
+                  import "${path}/main.nix" args;
+              }
+              else {})
+            (builtins.readDir path)));
+    in
       (
         attrsOptional
-          (builtins.pathExists (projectSrc + config.extendingMakesDir))
-          (attrsFromPath (projectPath config.extendingMakesDir) [ ])
-      ) //
-      ({
-        __all__ = toFileJson "all"
-          (builtins.removeAttrs config.outputs [ "__all__" ]);
-      });
+        (builtins.pathExists (projectSrc + config.extendingMakesDir))
+        (attrsFromPath (projectPath config.extendingMakesDir) [])
+      )
+      // {
+        __all__ =
+          toFileJson "all"
+          (builtins.removeAttrs config.outputs ["__all__"]);
+      };
   };
 }

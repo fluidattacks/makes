@@ -1,35 +1,35 @@
-{ __nixpkgs__
-, attrsMapToList
-, fromJsonFile
-, fromYamlFile
-, listOptional
-, makeDerivation
-, makePythonPypiEnvironment
-, makePythonVersion
-, makeSearchPaths
-, toFileLst
-, toFileYaml
-, ...
-}:
-{ name
-, searchPathsBuild ? { }
-, searchPathsRuntime ? { }
-, sourcesJson ? null
-, sourcesRaw ? null
-, sourcesYaml ? null
-, withCython_0_29_24 ? false
-, withNumpy_1_21_2 ? false
-, withSetuptools_57_4_0 ? false
-, withSetuptoolsScm_5_0_2 ? false
-, withSetuptoolsScm_6_0_1 ? false
-, withWheel_0_37_0 ? false
+{
+  __nixpkgs__,
+  attrsMapToList,
+  fromJsonFile,
+  fromYamlFile,
+  listOptional,
+  makeDerivation,
+  makePythonPypiEnvironment,
+  makePythonVersion,
+  makeSearchPaths,
+  toFileLst,
+  toFileYaml,
+  ...
+}: {
+  name,
+  searchPathsBuild ? {},
+  searchPathsRuntime ? {},
+  sourcesJson ? null,
+  sourcesRaw ? null,
+  sourcesYaml ? null,
+  withCython_0_29_24 ? false,
+  withNumpy_1_21_2 ? false,
+  withSetuptools_57_4_0 ? false,
+  withSetuptoolsScm_5_0_2 ? false,
+  withSetuptoolsScm_6_0_1 ? false,
+  withWheel_0_37_0 ? false,
 }:
 assert builtins.any (_: _) [
   (sourcesJson == null && sourcesRaw != null && sourcesYaml == null)
   (sourcesJson != null && sourcesRaw == null && sourcesYaml == null)
   (sourcesJson == null && sourcesRaw == null && sourcesYaml != null)
-];
-let
+]; let
   sources =
     if sourcesJson != null
     then fromJsonFile sourcesJson
@@ -49,32 +49,38 @@ let
       name = "cython-0.29.24";
       sourcesYaml = toFileYaml "sources.yaml" {
         closure.cython = "0.29.24";
-        links = [{
-          name = "Cython-0.29.24-py2.py3-none-any.whl";
-          sha256 = "11c3fwfhaby3xpd24rdlwjdp1y1ahz9arai3754awp0b2bq12r7r";
-          url = "https://files.pythonhosted.org/packages/ec/30/8707699ea6e1c1cbe79c37e91f5b06a6266de24f699a5e19b8c0a63c4b65/Cython-0.29.24-py2.py3-none-any.whl";
-        }];
+        links = [
+          {
+            name = "Cython-0.29.24-py2.py3-none-any.whl";
+            sha256 = "11c3fwfhaby3xpd24rdlwjdp1y1ahz9arai3754awp0b2bq12r7r";
+            url = "https://files.pythonhosted.org/packages/ec/30/8707699ea6e1c1cbe79c37e91f5b06a6266de24f699a5e19b8c0a63c4b65/Cython-0.29.24-py2.py3-none-any.whl";
+          }
+        ];
         python = sources.python;
       };
     }))
     (listOptional withNumpy_1_21_2 (makePythonPypiEnvironment {
       name = "numpy-1.21.2";
-      sourcesYaml = {
-        "3.7" = ./sources/numpy-1.21.2/sources-37.yaml;
-        "3.8" = ./sources/numpy-1.21.2/sources-38.yaml;
-        "3.9" = ./sources/numpy-1.21.2/sources-39.yaml;
-      }.${sources.python};
+      sourcesYaml =
+        {
+          "3.7" = ./sources/numpy-1.21.2/sources-37.yaml;
+          "3.8" = ./sources/numpy-1.21.2/sources-38.yaml;
+          "3.9" = ./sources/numpy-1.21.2/sources-39.yaml;
+        }
+        .${sources.python};
       withCython_0_29_24 = true;
     }))
     (listOptional withWheel_0_37_0 (makePythonPypiEnvironment {
       name = "wheel-0.37.0";
       sourcesYaml = toFileYaml "sources.yaml" {
         closure.wheel = "0.37.0";
-        links = [{
-          name = "wheel-0.37.0-py2.py3-none-any.whl";
-          sha256 = "1za6c4s0yjy1dzprmib3kph40hr8xgj3apdsnqs00v9wv4mln091";
-          url = "https://pypi.org/packages/py2.py3/w/wheel/wheel-0.37.0-py2.py3-none-any.whl";
-        }];
+        links = [
+          {
+            name = "wheel-0.37.0-py2.py3-none-any.whl";
+            sha256 = "1za6c4s0yjy1dzprmib3kph40hr8xgj3apdsnqs00v9wv4mln091";
+            url = "https://pypi.org/packages/py2.py3/w/wheel/wheel-0.37.0-py2.py3-none-any.whl";
+          }
+        ];
         python = sources.python;
       };
     }))
@@ -85,9 +91,13 @@ let
     env = {
       envClosure =
         toFileLst "closure.lst"
-          (attrsMapToList (req: version: "${req}==${version}") sources.closure);
+        (attrsMapToList (req: version: "${req}==${version}") sources.closure);
       envDownloads = __nixpkgs__.linkFarm name (builtins.map
-        ({ name, sha256, url }: {
+        ({
+          name,
+          sha256,
+          url,
+        }: {
           inherit name;
           path = __nixpkgs__.fetchurl {
             inherit name;
@@ -126,21 +136,21 @@ let
     };
     inherit name;
     searchPaths = {
-      bin = [ __nixpkgs__.pypi-mirror python ];
+      bin = [__nixpkgs__.pypi-mirror python];
       source = builtins.concatLists [
-        (bootstraped)
-        [ (makeSearchPaths searchPathsBuild) ]
+        bootstraped
+        [(makeSearchPaths searchPathsBuild)]
       ];
     };
   };
 in
-makeSearchPaths {
-  bin = [ pypiEnvironment ];
-  pythonPackage37 = listOptional is37 pypiEnvironment;
-  pythonPackage38 = listOptional is38 pypiEnvironment;
-  pythonPackage39 = listOptional is39 pypiEnvironment;
-  source = builtins.concatLists [
-    (bootstraped)
-    [ (makeSearchPaths searchPathsRuntime) ]
-  ];
-}
+  makeSearchPaths {
+    bin = [pypiEnvironment];
+    pythonPackage37 = listOptional is37 pypiEnvironment;
+    pythonPackage38 = listOptional is38 pypiEnvironment;
+    pythonPackage39 = listOptional is39 pypiEnvironment;
+    source = builtins.concatLists [
+      bootstraped
+      [(makeSearchPaths searchPathsRuntime)]
+    ];
+  }

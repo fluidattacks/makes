@@ -1,12 +1,12 @@
-{ __toModuleOutputs__
-, makeSecretForAwsFromEnv
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  makeSecretForAwsFromEnv,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   secretForAwsFromEnvType = lib.types.submodule (_: {
     options = {
       accessKeyId = lib.mkOption {
@@ -27,26 +27,25 @@ let
       };
     };
   });
-  makeSecretForAwsFromEnvOutput = name:
-    { accessKeyId
-    , defaultRegion
-    , secretAccessKey
-    , sessionToken
-    }: {
-      name = "/secretsForAwsFromEnv/${name}";
-      value = makeSecretForAwsFromEnv {
-        inherit accessKeyId;
-        inherit defaultRegion;
-        inherit name;
-        inherit secretAccessKey;
-        inherit sessionToken;
-      };
+  makeSecretForAwsFromEnvOutput = name: {
+    accessKeyId,
+    defaultRegion,
+    secretAccessKey,
+    sessionToken,
+  }: {
+    name = "/secretsForAwsFromEnv/${name}";
+    value = makeSecretForAwsFromEnv {
+      inherit accessKeyId;
+      inherit defaultRegion;
+      inherit name;
+      inherit secretAccessKey;
+      inherit sessionToken;
     };
-in
-{
+  };
+in {
   options = {
     secretsForAwsFromEnv = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf secretForAwsFromEnvType;
     };
   };
@@ -54,8 +53,8 @@ in
     outputs =
       (__toModuleOutputs__
         makeSecretForAwsFromEnvOutput
-        config.secretsForAwsFromEnv) //
-      (__toModuleOutputs__
+        config.secretsForAwsFromEnv)
+      // (__toModuleOutputs__
         makeSecretForAwsFromEnvOutput
         {
           __default__ = {

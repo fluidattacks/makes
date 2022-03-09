@@ -1,7 +1,8 @@
-{ __nixpkgs__
-, makePythonVersion
-, makeScript
-, ...
+{
+  __nixpkgs__,
+  makePythonVersion,
+  makeScript,
+  ...
 }:
 makeScript {
   entrypoint = ./entrypoint.sh;

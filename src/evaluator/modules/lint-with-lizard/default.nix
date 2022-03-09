@@ -1,13 +1,13 @@
-{ __toModuleOutputs__
-, lintWithLizard
-, projectPath
-, ...
-}:
-{ config
-, lib
-, ...
-}:
-let
+{
+  __toModuleOutputs__,
+  lintWithLizard,
+  projectPath,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: let
   makeOutput = name: targets: {
     name = "/lintWithLizard/${name}";
     value = lintWithLizard {
@@ -15,11 +15,10 @@ let
       targets = builtins.map projectPath targets;
     };
   };
-in
-{
+in {
   options = {
     lintWithLizard = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
     };
   };

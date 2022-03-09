@@ -1,20 +1,21 @@
-{ __nixpkgs__
-, makeScript
-, toFileJson
-, ...
-}:
-{ allowDuplicates
-, attempts
-, attemptDurationSeconds
-, command
-, definition
-, environment
-, includePositionalArgsInName
-, memory
-, queue
-, name
-, setup
-, vcpus
+{
+  __nixpkgs__,
+  makeScript,
+  toFileJson,
+  ...
+}: {
+  allowDuplicates,
+  attempts,
+  attemptDurationSeconds,
+  command,
+  definition,
+  environment,
+  includePositionalArgsInName,
+  memory,
+  queue,
+  name,
+  setup,
+  vcpus,
 }:
 makeScript {
   name = "compute-on-aws-batch-for-${name}";
@@ -27,11 +28,24 @@ makeScript {
     __argIncludePositionalArgsInName__ = includePositionalArgsInName;
     __argManifest__ = toFileJson "manifest.json" {
       environment = builtins.concatLists [
-        [{ name = "CI"; value = "true"; }]
-        [{ name = "MAKES_AWS_BATCH_COMPAT"; value = "true"; }]
+        [
+          {
+            name = "CI";
+            value = "true";
+          }
+        ]
+        [
+          {
+            name = "MAKES_AWS_BATCH_COMPAT";
+            value = "true";
+          }
+        ]
         (builtins.map
-          (name: { inherit name; value = "\${${name}}"; })
-          (environment))
+          (name: {
+            inherit name;
+            value = "\${${name}}";
+          })
+          environment)
       ];
       inherit memory;
       inherit vcpus;

@@ -1,12 +1,8 @@
-{ __nixpkgs__
-, ...
-}:
-str:
-let
+{__nixpkgs__, ...}: str: let
   lib = __nixpkgs__.lib;
   head = lib.strings.toUpper (builtins.substring 0 1 str);
   tail = builtins.concatStringsSep "" (
     builtins.tail (lib.stringToCharacters str)
   );
 in
-head + tail
+  head + tail

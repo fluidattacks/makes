@@ -1,12 +1,13 @@
-{ makeTemplate
-, toDerivationName
-, ...
-}:
-{ accessKeyId
-, defaultRegion
-, name
-, secretAccessKey
-, sessionToken
+{
+  makeTemplate,
+  toDerivationName,
+  ...
+}: {
+  accessKeyId,
+  defaultRegion,
+  name,
+  secretAccessKey,
+  sessionToken,
 }:
 makeTemplate {
   replace = {

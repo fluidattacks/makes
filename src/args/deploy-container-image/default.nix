@@ -1,14 +1,15 @@
-{ __nixpkgs__
-, makeScript
-, ...
-}:
-{ attempts ? 1
-, containerImage
-, credentials
-, name
-, registry
-, setup
-, tag
+{
+  __nixpkgs__,
+  makeScript,
+  ...
+}: {
+  attempts ? 1,
+  containerImage,
+  credentials,
+  name,
+  registry,
+  setup,
+  tag,
 }:
 makeScript {
   replace = {

@@ -1,16 +1,16 @@
-{ __nixpkgs__
-, attrsOptional
-, isLinux
-, makeNodeJsEnvironment
-, makeScript
-, toBashArray
-, ...
-}:
-{ config
-, lib
-, ...
-}:
 {
+  __nixpkgs__,
+  attrsOptional,
+  isLinux,
+  makeNodeJsEnvironment,
+  makeScript,
+  toBashArray,
+  ...
+}: {
+  config,
+  lib,
+  ...
+}: {
   options = {
     formatMarkdown = {
       enable = lib.mkOption {
@@ -18,7 +18,7 @@
         type = lib.types.bool;
       };
       doctocArgs = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
       };
       targets = lib.mkOption {
@@ -30,9 +30,11 @@
     outputs = {
       "/formatMarkdown" = lib.mkIf config.formatMarkdown.enable (makeScript {
         replace = {
-          __argDoctocArgs__ = toBashArray
+          __argDoctocArgs__ =
+            toBashArray
             config.formatMarkdown.doctocArgs;
-          __argTargets__ = toBashArray
+          __argTargets__ =
+            toBashArray
             (builtins.map (rel: "." + rel) config.formatMarkdown.targets);
         };
         name = "format-markdown";

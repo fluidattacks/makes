@@ -1,8 +1,8 @@
-{ __nixpkgs__
-, makeDerivation
-, ...
-}:
-envSrc:
+{
+  __nixpkgs__,
+  makeDerivation,
+  ...
+}: envSrc:
 makeDerivation {
   env = {
     inherit envSrc;
