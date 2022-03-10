@@ -7,6 +7,7 @@ Our primary goal is to help you setup
 a powerful [CI/CD][CI_CD] system
 in just a few steps, in any technology.
 
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5703/badge)](https://bestpractices.coreinfrastructure.org/projects/5703)
 ![Linux](https://img.shields.io/badge/Linux-blue)
 ![MacOS](https://img.shields.io/badge/MacOS-blue)
 ![GitHub](https://img.shields.io/badge/GitHub-brightgreen)
