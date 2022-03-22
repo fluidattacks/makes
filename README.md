@@ -151,7 +151,7 @@ Terraform has been successfully initialized!
 Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 ```
 
-Live demo: [here](https://asciinema.org/a/426280)
+Live demo: [here](https://asciinema.org/a/479680)
 
 ### From dev to prod 🌟
 
@@ -182,7 +182,7 @@ Real life projects that run entirely on [Makes][MAKES]:
 - Running Makes GitLab:
   click [here](/static/makes_on_gitlab.png)
 - Makes CLI:
-  click [here](https://asciinema.org/a/425886)
+  click [here](https://asciinema.org/a/478175)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
