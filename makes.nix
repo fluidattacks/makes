@@ -14,6 +14,23 @@
     };
   };
   calculateScorecard = {
+    checks = [
+      "Branch-Protection"
+      "License"
+      "SAST"
+      "Binary-Artifacts"
+      "CI-Tests"
+      "Code-Review"
+      "Contributors"
+      "Maintained"
+      "Token-Permissions"
+      "Security-Policy"
+      "CII-Best-Practices"
+      "Dangerous-Workflow"
+      "Packaging"
+      "Signed-Releases"
+      "Vulnerabilities"
+    ];
     enable = true;
     target = "github.com/fluidattacks/makes";
   };
