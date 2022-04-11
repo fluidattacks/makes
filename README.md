@@ -466,7 +466,7 @@ In order to use Makes you'll need to:
 
     - For Nix versions >= 2.3 and < 2.6 (nix stable)
 
-      `$ nix-env -if https://fluidattacks.com/makes/install/22.04`
+      `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.04.tar.gz`
 
     - For Nix versions > 2.6 (nix unstable)
 
@@ -684,7 +684,7 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-install: nix-env -if https://fluidattacks.com/makes/install/22.04
+install: nix-env -if https://github.com/fluidattacks/makes/archive/22.04.tar.gz
 env:
   global:
     # Encrypted environment variable
