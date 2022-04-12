@@ -1,4 +1,3 @@
-permissions: read-all
 concurrency:
   cancel-in-progress: true
   group: ${{ github.actor }}

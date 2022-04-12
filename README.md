@@ -2756,7 +2756,7 @@ In order to do this:
 Makes will automatically recognize as outputs all `main.nix` files
 under the `makes/` directory in the root of the project.
 This "magic" `makes/` directory can be configured via the
-`extendingMakesDir` option.
+`extendingMakesDirs` option.
 
 You can create any directory structure you want.
 Output names will me mapped in an intuitive way:
