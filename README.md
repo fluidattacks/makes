@@ -250,7 +250,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [makePythonPypiEnvironmentSources](#makepythonpypienvironmentsources)
         - [makeSopsEncryptedFile](#makesopsencryptedfile)
     - [Framework Configuration](#framework-configuration)
-        - [extendingMakesDir](#extendingmakesdir)
+        - [extendingMakesDirs](#extendingmakesdirs)
         - [inputs](#inputs)
     - [Database](#database)
         - [dynamoDb](#dynamodb)
@@ -808,23 +808,23 @@ Example usage with [direnv][DIRENV]
 on remote projects:
 
 ```bash
-$ cat /path/to/some/folder/.envrc
+$ cat /path/to/some/dir/.envrc
 
     source "$(m github:fluidattacks/makes@main /dev/example)/template"
 
-# Now every time you enter /path/to/some/folder
+# Now every time you enter /path/to/some/dir
 # the shell will automatically load the environment
-$ cd /path/to/some/folder
+$ cd /path/to/some/dir
 
-    direnv: loading /path/to/some/folder/.envrc
+    direnv: loading /path/to/some/dir/.envrc
     direnv: export ~PATH
 
-/path/to/some/folder $ hello
+/path/to/some/dir $ hello
 
     Hello, world!
 
-# If you exit the folder, the development environment is unloaded
-/path/to/some/folder $ cd ..
+# If you exit the directory, the development environment is unloaded
+/path/to/some/dir $ cd ..
 
     direnv: unloading
 
@@ -839,24 +839,24 @@ Example usage with [direnv][DIRENV]
 on a local project:
 
 ```bash
-$ cat /path/to/some/folder/.envrc
+$ cat /path/to/some/dir/.envrc
 
     cd /path/to/my/project
     source "$(m . /dev/example)/template"
 
-# Now every time you enter /path/to/some/folder
+# Now every time you enter /path/to/some/dir
 # the shell will automatically load the environment
-$ cd /path/to/some/folder
+$ cd /path/to/some/dir
 
-    direnv: loading /path/to/some/folder/.envrc
+    direnv: loading /path/to/some/dir/.envrc
     direnv: export ~PATH
 
-/path/to/some/folder $ hello
+/path/to/some/dir $ hello
 
     Hello, world!
 
-# If you exit the folder, the development environment is unloaded
-/path/to/some/folder $ cd ..
+# If you exit the directory, the development environment is unloaded
+/path/to/some/dir $ cd ..
 
     direnv: unloading
 
@@ -1441,7 +1441,7 @@ Types:
     - python (`enum [ "3.7" "3.8" "3.9" ]`):
       Python interpreter version that your package/module is designed for.
     - src (`str`):
-      Path to the file or folder that contains the tests code.
+      Path to the file or directory that contains the tests code.
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.
       Defaults to `makeSearchPaths`'s defaults.
@@ -1455,7 +1455,7 @@ Types:
       The final test structure looks like this:
 
       ```bash
-      /tmp/some-random-unique-folder
+      /tmp/some-random-unique-dir
       ├── __project__  # The entire source code of your project
       │   ├── ...
       │   └── path/to/src
@@ -1467,7 +1467,7 @@ Types:
 
       And we will run [pytest][PYTEST] like this:
 
-      `$ pytest /tmp/some-random-unique-folder/__project__/path/to/src`
+      `$ pytest /tmp/some-random-unique-dir/__project__/path/to/src`
 
       Defaults to `{ }`.
 
@@ -2481,14 +2481,14 @@ m github:fluidattacks/makes@22.04 /utils/makeSopsEncryptedFile \
 
 ## Framework Configuration
 
-### extendingMakesDir
+### extendingMakesDirs
 
-Path to the magic folder where Makes extensions will be loaded from.
+Paths to magic directories where Makes extensions will be loaded from.
 
 Types:
 
-- extendingMakesDir (`str`): Optional.
-  Defaults to `"/makes"`.
+- extendingMakesDirs (`listOf str`): Optional.
+  Defaults to `["/makes"]`.
 
 ### inputs
 
@@ -3472,7 +3472,7 @@ Types:
       you can omit this parameter and execute Makes,
       Makes will tell you the correct SHA256 on failure.
     - stripRoot (`bool`): Optional.
-      Most archives have a symbolic top-level folder
+      Most archives have a symbolic top-level directory
       that is discarded during unpack phase.
       If this is not the case you can set this flag to `false`.
       Defaults to `true`.
@@ -3750,7 +3750,7 @@ $ m . /example
 
 :warning: This function is only available on Linux at the moment.
 
-Cook the `node_modules` folder
+Cook the `node_modules` directory
 for the given [NPM][NPM] project.
 
 Types:

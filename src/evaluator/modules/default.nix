@@ -64,9 +64,9 @@
       type = lib.types.str;
       default = "";
     };
-    extendingMakesDir = lib.mkOption {
-      default = "/makes";
-      type = lib.types.str;
+    extendingMakesDirs = lib.mkOption {
+      default = ["/makes"];
+      type = lib.types.listOf lib.types.str;
     };
 
     config = lib.mkOption {
@@ -104,9 +104,15 @@
             (builtins.readDir path)));
     in
       (
-        attrsOptional
-        (builtins.pathExists (projectSrc + config.extendingMakesDir))
-        (attrsFromPath (projectPath config.extendingMakesDir) [])
+        builtins.foldl'
+        lib.mergeAttrs
+        {}
+        (builtins.map
+          (dir:
+            attrsOptional
+            (builtins.pathExists (projectSrc + dir))
+            (attrsFromPath (projectPath dir) []))
+          config.extendingMakesDirs)
       )
       // {
         __all__ =
