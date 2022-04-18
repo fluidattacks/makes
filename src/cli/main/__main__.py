@@ -69,7 +69,7 @@ MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
 makedirs(join(MAKES_DIR, "cache"), exist_ok=True)
 SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
 ON_EXIT: List[Callable[[], None]] = []
-VERSION: str = "22.04"
+VERSION: str = "22.05"
 
 # Environment
 __MAKES_REGISTRY__: str = environ["__MAKES_REGISTRY__"]
@@ -564,7 +564,7 @@ class TuiOutputs(textual.widget.Widget):
             text = rich.text.Text()
             for output in self.outputs:
                 text.append(self.output, style="yellow")
-                text.append(output[len(self.output) :])
+                text.append(output[len(self.output):])
                 text.append(" " * (longest - len(output)))
                 text.append("\n")
         else:

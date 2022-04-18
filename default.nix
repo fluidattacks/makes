@@ -6,9 +6,9 @@
 in
   makeScript {
     aliases = [
-      "m-v22.04"
+      "m-v22.05"
       "makes"
-      "makes-v22.04"
+      "makes-v22.05"
     ];
     replace = {
       __argMakesSrc__ = ./.;

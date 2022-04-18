@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: example
-          image: ghcr.io/fluidattacks/makes:22.04
+          image: ghcr.io/fluidattacks/makes:22.05
           command: [m]
           args:
             - github:fluidattacks/makes@main
@@ -122,7 +122,7 @@ Easy, isn't it?
 Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v22.04-linux
+Makes v22.05-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -188,128 +188,137 @@ Real life projects that run entirely on [Makes][MAKES]:
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Contents
 
+- [🦄 Makes](#-makes)
+  - [At a glance](#at-a-glance)
+    - [Cloud native applications with Kubernetes ☸](#cloud-native-applications-with-kubernetes-)
+    - [Large scale computing on the cloud 🏋](#large-scale-computing-on-the-cloud-)
+    - [Declarative infra, declarative CI/CD, pure profit](#declarative-infra-declarative-cicd-pure-profit)
+    - [From dev to prod 🌟](#from-dev-to-prod-)
+  - [Production ready](#production-ready)
+    - [Demos](#demos)
+- [Contents](#contents)
 - [Why](#why)
 - [Goal](#goal)
 - [Getting started](#getting-started)
-    - [Getting started as a final user](#getting-started-as-a-final-user)
-    - [Getting started as developer](#getting-started-as-developer)
-    - [Learning the language](#learning-the-language)
-    - [Versioning scheme](#versioning-scheme)
-        - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
-        - [Compatibility information](#compatibility-information)
+  - [Getting started as a final user](#getting-started-as-a-final-user)
+  - [Getting started as developer](#getting-started-as-developer)
+  - [Learning the language](#learning-the-language)
+  - [Versioning scheme](#versioning-scheme)
+    - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
+    - [Compatibility information](#compatibility-information)
 - [Configuring CI/CD](#configuring-cicd)
-    - [Providers comparison](#providers-comparison)
-        - [Configuring on GitHub Actions](#configuring-on-github-actions)
-        - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
-        - [Configuring on Travis CI](#configuring-on-travis-ci)
-    - [Configuring the cache](#configuring-the-cache)
+  - [Providers comparison](#providers-comparison)
+    - [Configuring on GitHub Actions](#configuring-on-github-actions)
+    - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
+    - [Configuring on Travis CI](#configuring-on-travis-ci)
+  - [Configuring the cache](#configuring-the-cache)
 - [Makes.nix reference](#makesnix-reference)
-    - [Development](#development)
-        - [dev](#dev)
-    - [Format](#format)
-        - [formatBash](#formatbash)
-        - [formatMarkdown](#formatmarkdown)
-        - [formatNix](#formatnix)
-        - [formatPython](#formatpython)
-        - [formatTerraform](#formatterraform)
-    - [Lint](#lint)
-        - [lintBash](#lintbash)
-        - [lintClojure](#lintclojure)
-        - [lintGitCommitMsg](#lintgitcommitmsg)
-        - [lintGitMailMap](#lintgitmailmap)
-        - [lintMarkdown](#lintmarkdown)
-        - [lintNix](#lintnix)
-        - [lintPython](#lintpython)
-        - [lintTerraform](#lintterraform)
-        - [lintWithAjv](#lintwithajv)
-        - [lintWithLizard](#lintwithlizard)
-    - [Test](#test)
-        - [testPython](#testpython)
-        - [testTerraform](#testterraform)
-    - [Security](#security)
-        - [securePythonWithBandit](#securepythonwithbandit)
-    - [Deploy](#deploy)
-        - [computeOnAwsBatch](#computeonawsbatch)
-        - [deployContainerImage](#deploycontainerimage)
-        - [deployTerraform](#deployterraform)
-        - [taintTerraform](#taintterraform)
-        - [deployNomad](#deploynomad)
-    - [Performance](#performance)
-        - [cache](#cache)
-    - [Environment](#environment)
-        - [envVars](#envvars)
-        - [envVarsForTerraform](#envvarsforterraform)
-    - [Secrets](#secrets)
-        - [secretsForAwsFromEnv](#secretsforawsfromenv)
-        - [secretsForEnvFromSops](#secretsforenvfromsops)
-        - [secretsForGpgFromEnv](#secretsforgpgfromenv)
-        - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
-        - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
-    - [Utilities](#utilities)
-        - [makeNodeJsLockfile](#makenodejslockfile)
-        - [makePythonPypiEnvironmentSources](#makepythonpypienvironmentsources)
-        - [makeSopsEncryptedFile](#makesopsencryptedfile)
-    - [Framework Configuration](#framework-configuration)
-        - [extendingMakesDirs](#extendingmakesdirs)
-        - [inputs](#inputs)
-    - [Database](#database)
-        - [dynamoDb](#dynamodb)
-    - [Examples](#examples)
-        - [helloWorld](#helloworld)
-    - [Monitoring](#monitoring)
-        - [calculateScorecard](#calculatescorecard)
+  - [Development](#development)
+    - [dev](#dev)
+  - [Format](#format)
+    - [formatBash](#formatbash)
+    - [formatMarkdown](#formatmarkdown)
+    - [formatNix](#formatnix)
+    - [formatPython](#formatpython)
+    - [formatTerraform](#formatterraform)
+  - [Lint](#lint)
+    - [lintBash](#lintbash)
+    - [lintClojure](#lintclojure)
+    - [lintGitCommitMsg](#lintgitcommitmsg)
+    - [lintGitMailMap](#lintgitmailmap)
+    - [lintMarkdown](#lintmarkdown)
+    - [lintNix](#lintnix)
+    - [lintPython](#lintpython)
+    - [lintTerraform](#lintterraform)
+    - [lintWithAjv](#lintwithajv)
+    - [lintWithLizard](#lintwithlizard)
+  - [Test](#test)
+    - [testPython](#testpython)
+    - [testTerraform](#testterraform)
+  - [Security](#security)
+    - [securePythonWithBandit](#securepythonwithbandit)
+  - [Deploy](#deploy)
+    - [computeOnAwsBatch](#computeonawsbatch)
+    - [deployContainerImage](#deploycontainerimage)
+    - [deployTerraform](#deployterraform)
+    - [taintTerraform](#taintterraform)
+    - [deployNomad](#deploynomad)
+  - [Performance](#performance)
+    - [cache](#cache)
+  - [Environment](#environment)
+    - [envVars](#envvars)
+    - [envVarsForTerraform](#envvarsforterraform)
+  - [Secrets](#secrets)
+    - [secretsForAwsFromEnv](#secretsforawsfromenv)
+    - [secretsForEnvFromSops](#secretsforenvfromsops)
+    - [secretsForGpgFromEnv](#secretsforgpgfromenv)
+    - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
+    - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
+  - [Utilities](#utilities)
+    - [makeNodeJsLockfile](#makenodejslockfile)
+    - [makePythonPypiEnvironmentSources](#makepythonpypienvironmentsources)
+    - [makeSopsEncryptedFile](#makesopsencryptedfile)
+  - [Framework Configuration](#framework-configuration)
+    - [extendingMakesDirs](#extendingmakesdirs)
+    - [inputs](#inputs)
+  - [Database](#database)
+    - [dynamoDb](#dynamodb)
+  - [Examples](#examples)
+    - [helloWorld](#helloworld)
+  - [Monitoring](#monitoring)
+    - [calculateScorecard](#calculatescorecard)
 - [Extending Makes](#extending-makes)
-    - [Main.nix format](#mainnix-format)
-        - [Derivations](#derivations)
-    - [Main.nix reference](#mainnix-reference)
-        - [Fundamentals](#fundamentals)
-            - [makeSearchPaths](#makesearchpaths)
-            - [makeDerivation](#makederivation)
-            - [makeTemplate](#maketemplate)
-            - [makeScript](#makescript)
-            - [projectPath](#projectpath)
-        - [Fetchers](#fetchers)
-            - [fetchUrl](#fetchurl)
-            - [fetchArchive](#fetcharchive)
-            - [fetchGithub](#fetchgithub)
-            - [fetchGitlab](#fetchgitlab)
-            - [fetchNixpkgs](#fetchnixpkgs)
-            - [fetchRubyGem](#fetchrubygem)
-        - [Git](#git)
-            - [libGit](#libgit)
-        - [Node.js](#nodejs)
-            - [makeNodeJsVersion](#makenodejsversion)
-            - [makeNodeJsModules](#makenodejsmodules)
-            - [makeNodeJsEnvironment](#makenodejsenvironment)
-        - [Python](#python)
-            - [makePythonVersion](#makepythonversion)
-            - [makePythonPypiEnvironment](#makepythonpypienvironment)
-        - [Ruby](#ruby)
-            - [makeRubyVersion](#makerubyversion)
-            - [makeRubyGemsInstall](#makerubygemsinstall)
-            - [makeRubyGemsEnvironment](#makerubygemsenvironment)
-        - [Containers](#containers)
-            - [makeContainerImage](#makecontainerimage)
-        - [Format conversion](#format-conversion)
-            - [fromJson](#fromjson)
-            - [fromToml](#fromtoml)
-            - [fromYaml](#fromyaml)
-            - [toBashArray](#tobasharray)
-            - [toBashMap](#tobashmap)
-            - [toFileJson](#tofilejson)
-            - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
-            - [toFileYaml](#tofileyaml)
-        - [Patchers](#patchers)
-            - [pathShebangs](#pathshebangs)
-        - [Others](#others)
-            - [calculateCvss3](#calculatecvss3)
-            - [makeSslCertificate](#makesslcertificate)
+  - [Main.nix format](#mainnix-format)
+    - [Derivations](#derivations)
+  - [Main.nix reference](#mainnix-reference)
+    - [Fundamentals](#fundamentals)
+      - [makeSearchPaths](#makesearchpaths)
+      - [makeDerivation](#makederivation)
+      - [makeTemplate](#maketemplate)
+      - [makeScript](#makescript)
+      - [projectPath](#projectpath)
+    - [Fetchers](#fetchers)
+      - [fetchUrl](#fetchurl)
+      - [fetchArchive](#fetcharchive)
+      - [fetchGithub](#fetchgithub)
+      - [fetchGitlab](#fetchgitlab)
+      - [fetchNixpkgs](#fetchnixpkgs)
+      - [fetchRubyGem](#fetchrubygem)
+    - [Git](#git)
+      - [libGit](#libgit)
+    - [Node.js](#nodejs)
+      - [makeNodeJsVersion](#makenodejsversion)
+      - [makeNodeJsModules](#makenodejsmodules)
+      - [makeNodeJsEnvironment](#makenodejsenvironment)
+    - [Python](#python)
+      - [makePythonVersion](#makepythonversion)
+      - [makePythonPypiEnvironment](#makepythonpypienvironment)
+    - [Ruby](#ruby)
+      - [makeRubyVersion](#makerubyversion)
+      - [makeRubyGemsInstall](#makerubygemsinstall)
+      - [makeRubyGemsEnvironment](#makerubygemsenvironment)
+    - [Containers](#containers)
+      - [makeContainerImage](#makecontainerimage)
+    - [Format conversion](#format-conversion)
+      - [fromJson](#fromjson)
+      - [fromToml](#fromtoml)
+      - [fromYaml](#fromyaml)
+      - [toBashArray](#tobasharray)
+      - [toBashMap](#tobashmap)
+      - [toFileJson](#tofilejson)
+      - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
+      - [toFileYaml](#tofileyaml)
+    - [Patchers](#patchers)
+      - [pathShebangs](#pathshebangs)
+    - [Others](#others)
+      - [calculateCvss3](#calculatecvss3)
+      - [makeSslCertificate](#makesslcertificate)
 - [Migrating to Makes](#migrating-to-makes)
-    - [From a Nix project](#from-a-nix-project)
+  - [From a Nix project](#from-a-nix-project)
 - [Contact an expert](#contact-an-expert)
 - [Contributing to Makes](#contributing-to-makes)
-    - [Is easy](#is-easy)
-    - [Code contributions](#code-contributions)
+  - [Is easy](#is-easy)
+  - [Code contributions](#code-contributions)
 - [Contributors](#contributors)
 - [References](#references)
 
@@ -466,14 +475,14 @@ In order to use Makes you'll need to:
 
     - For Nix versions >= 2.3 and < 2.6 (nix stable)
 
-      `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.04.tar.gz`
+      `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.05.tar.gz`
 
     - For Nix versions > 2.6 (nix unstable)
 
-      `$ nix profile install github:fluidattacks/makes/22.04`
+      `$ nix profile install github:fluidattacks/makes/22.05`
 
     We will install two commands in your system:
-    `$ m`, and `$ m-v22.04`.
+    `$ m`, and `$ m-v22.05`.
 
 Makes targets two kind of users:
 
@@ -576,7 +585,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "22.04";
+    ref = "22.05";
   };
 }
 ```
@@ -586,7 +595,7 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `22.04`.
+For example: `22.05`.
 
 # Configuring CI/CD
 
@@ -635,7 +644,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-    - uses: docker://ghcr.io/fluidattacks/makes:22.04
+    - uses: docker://ghcr.io/fluidattacks/makes:22.05
       # You can use any name you like here
       name: helloWorld
       # You can pass secrets (if required) as environment variables like this:
@@ -659,7 +668,7 @@ looks like this:
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
 /helloWorld:
-  image: ghcr.io/fluidattacks/makes:22.04
+  image: ghcr.io/fluidattacks/makes:22.05
   script:
     - m . /helloWorld 1 2 3
 
@@ -684,7 +693,7 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-install: nix-env -if https://github.com/fluidattacks/makes/archive/22.04.tar.gz
+install: nix-env -if https://github.com/fluidattacks/makes/archive/22.05.tar.gz
 env:
   global:
     # Encrypted environment variable
@@ -1635,7 +1644,7 @@ Types:
           #
           # If you need to run jobs on different container images,
           # simply  create many `aws_batch_job_definition`s
-          image = "ghcr.io/fluidattacks/makes:22.04"
+          image = "ghcr.io/fluidattacks/makes:22.05"
 
           # Below arguments can be parametrized later,
           # but they are required for the job definition to be created
@@ -2426,7 +2435,7 @@ for [makeNodeJsEnvironment](#makenodejsenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.04 /utils/makeNodeJsLockfile \
+m github:fluidattacks/makes@22.05 /utils/makeNodeJsLockfile \
   "${node_js_version}" \
   "${package_json}" \
   "${package_lock}"
@@ -2446,7 +2455,7 @@ for [makePythonPypiEnvironment](#makepythonpypienvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.04 /utils/makePythonPypiEnvironmentSources \
+m github:fluidattacks/makes@22.05 /utils/makePythonPypiEnvironmentSources \
   "${python_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}
@@ -2471,7 +2480,7 @@ psycopg2: "2.9.1"
 You can generate an encrypted [Sops][SOPS] file like this:
 
 ```bash
-m github:fluidattacks/makes@22.04 /utils/makeSopsEncryptedFile \
+m github:fluidattacks/makes@22.05 /utils/makeSopsEncryptedFile \
   "${kms_key_arn}" \
   "${output}"
 ```
@@ -4049,7 +4058,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@22.04 /utils/makePythonPypiEnvironmentSources \
+$ m github:fluidattacks/makes@22.05 /utils/makePythonPypiEnvironmentSources \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -4990,7 +4999,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    rev = "22.04";
+    rev = "22.05";
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
