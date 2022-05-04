@@ -47,8 +47,16 @@ makeScript {
           })
           environment)
       ];
-      inherit memory;
-      inherit vcpus;
+      resourceRequirements = [
+        {
+          type = "VCPU";
+          value = toString vcpus;
+        }
+        {
+          type = "MEMORY";
+          value = toString memory;
+        }
+      ];
     };
     __argName__ = name;
     __argQueue__ = queue;
