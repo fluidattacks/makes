@@ -564,7 +564,7 @@ class TuiOutputs(textual.widget.Widget):
             text = rich.text.Text()
             for output in self.outputs:
                 text.append(self.output, style="yellow")
-                text.append(output[len(self.output):])
+                text.append(output[len(self.output) :])
                 text.append(" " * (longest - len(output)))
                 text.append("\n")
         else:
