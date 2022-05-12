@@ -1611,11 +1611,6 @@ Types:
       It overrides the one specified
       in the [AWS Batch][AWS_BATCH] job definition.
       Additional arguments can be propagated when running this module output.
-    - environment (`listOf str`): Optional.
-      Name of the environment variables
-      whose names and values should be copied from the machine running Makes
-      to the machine on [AWS Batch][AWS_BATCH] running the job.
-      Defaults to `[ ]`.
     - definition (`str`):
       Name of the [AWS Batch][AWS_BATCH] job definition
       that we will use as base for submitting the job.
@@ -1646,6 +1641,11 @@ Types:
       }
       ```
 
+    - environment (`listOf str`): Optional.
+      Name of the environment variables
+      whose names and values should be copied from the machine running Makes
+      to the machine on [AWS Batch][AWS_BATCH] running the job.
+      Defaults to `[ ]`.
     - includePositionalArgsInName (`bool`): Optional.
       Enable to make positional arguments part of the job name.
       This is useful for identifying jobs
@@ -1654,6 +1654,9 @@ Types:
       Defaults to `true`.
     - memory (`ints.positive`):
       Amount of memory, in MiB that is reserved for the job.
+    - parallel (`ints.positive`): Optional.
+      Number of parallel jobs to trigger using
+      [Batch Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html).
     - queue (`nullOr str`):
       Name of the [AWS Batch][AWS_BATCH] queue we should submit the job to.
       It can be set to `null`,

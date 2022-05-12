@@ -12,6 +12,7 @@
   environment,
   includePositionalArgsInName,
   memory,
+  parallel,
   queue,
   name,
   setup,
@@ -59,6 +60,7 @@ makeScript {
       ];
     };
     __argName__ = name;
+    __argParallel__ = parallel;
     __argQueue__ = queue;
   };
   searchPaths = {

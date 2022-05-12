@@ -18,8 +18,9 @@
       inherit (config) includePositionalArgsInName;
       inherit (config) environment;
       inherit (config) memory;
-      inherit (config) queue;
       inherit name;
+      inherit (config) parallel;
+      inherit (config) queue;
       inherit (config) setup;
       inherit (config) vcpus;
     };
@@ -56,6 +57,10 @@ in {
             type = lib.types.bool;
           };
           memory = lib.mkOption {
+            type = lib.types.ints.positive;
+          };
+          parallel = lib.mkOption {
+            default = 1;
             type = lib.types.ints.positive;
           };
           queue = lib.mkOption {
