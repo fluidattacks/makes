@@ -17,6 +17,8 @@ function main {
   local manifest="__argManifest__"
   local name="__argName__"
   local queue="__argQueue__"
+  local parallel="__argParallel__"
+  local submit_job_args
 
   : \
     && if test -z "${queue}"; then
@@ -63,13 +65,18 @@ function main {
           command: $command
         }'
     )" \
-    && aws batch submit-job \
-      --container-overrides "${container_overrides}" \
-      --job-name "${name}" \
-      --job-queue "${queue}" \
-      --job-definition "${definition}" \
-      --retry-strategy "attempts=${attempts}" \
-      --timeout "attemptDurationSeconds=${attempt_duration_seconds}" \
+    && submit_job_args=(
+      --container-overrides "${container_overrides}"
+      --job-name "${name}"
+      --job-queue "${queue}"
+      --job-definition "${definition}"
+      --retry-strategy "attempts=${attempts}"
+      --timeout "attemptDurationSeconds=${attempt_duration_seconds}"
+    ) \
+    && if [ "${parallel}" -gt "1" ]; then
+      submit_job_args+=(--array-properties "size=${parallel}")
+    fi \
+    && aws batch submit-job "${submit_job_args[@]}" \
     && info Job "${name}" has been successfully sent
 }
 
