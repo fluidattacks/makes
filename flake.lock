@@ -6,7 +6,7 @@
         "narHash": "sha256-+EButmvDYPSK1EOkiBndJHmAgfEXFrqQTkzA/amSGRE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cb5ca6505b964bc76aaa866634e4b8ad12da7792",
+        "rev": "d2fc6856824cb87742177eefc8dd534bdb6c3439",
         "type": "github"
       },
       "original": {
