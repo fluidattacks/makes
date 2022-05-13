@@ -8,7 +8,8 @@ function main {
     && info Initializing "${src}" \
     && terraform init \
     && info Linting "${src}" \
-    && tflint -c "${cfg}"
+    && info "${cfg}" \
+    && tflint --config="${cfg}" --init
 }
 
 main "${@}"

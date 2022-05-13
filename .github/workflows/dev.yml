@@ -6,15 +6,16 @@ jobs:
   linux_all:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: __all__
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . __all__"
   mac_all:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: __all__
         run: nix-env -if . && m . __all__
@@ -22,17 +23,18 @@ jobs:
   linux_calculatescorecard:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /calculateScorecard
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /calculateScorecard"
   macos_calculatescorecard:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /calculateScorecard
         env:
@@ -42,15 +44,16 @@ jobs:
   linux_deployTerraform_module:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /deployTerraform/module
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /deployTerraform/module"
   macos_deployTerraform_module:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /deployTerraform/module
         run: nix-env -if . && m . /deployTerraform/module
@@ -58,15 +61,16 @@ jobs:
   linux_dev_example:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /dev/example
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /dev/example"
   macos_dev_example:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /dev/example
         run: nix-env -if . && m . /dev/example
@@ -74,15 +78,16 @@ jobs:
   linux_envVars_example:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /envVars/example
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /envVars/example"
   macos_envVars_example:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /envVars/example
         run: nix-env -if . && m . /envVars/example
@@ -90,15 +95,16 @@ jobs:
   linux_formatBash:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatBash
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /formatBash"
   macos_formatBash:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /formatBash
         run: nix-env -if . && m . /formatBash
@@ -106,24 +112,26 @@ jobs:
   linux_formatMarkdown:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatMarkdown
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /formatMarkdown"
 
   linux_formatNix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatNix
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /formatNix"
   macos_formatNix:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /formatNix
         run: nix-env -if . && m . /formatNix
@@ -131,15 +139,16 @@ jobs:
   linux_formatPython:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatPython
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /formatPython"
   macos_formatPython:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /formatPython
         run: nix-env -if . && m . /formatPython
@@ -147,15 +156,16 @@ jobs:
   linux_formatTerraform:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatTerraform
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /formatTerraform"
   macos_formatTerraform:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /formatTerraform
         run: nix-env -if . && m . /formatTerraform
@@ -163,15 +173,16 @@ jobs:
   linux_helloWorld:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /helloWorld
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /helloWorld"
   macos_helloWorld:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /helloWorld
         run: nix-env -if . && m . /helloWorld
@@ -179,15 +190,16 @@ jobs:
   linux_lintBash:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintBash
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintBash"
   macos_lintBash:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintBash
         run: nix-env -if . && m . /lintBash
@@ -195,15 +207,16 @@ jobs:
   linux_lintClojure_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintClojure/test
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintClojure/test"
   macos_lintClojure_test:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintClojure
         run: nix-env -if . && m . /lintClojure/test
@@ -211,28 +224,30 @@ jobs:
   linux_lintGitCommitMsg:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
         with:
           fetch-depth: 0
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintGitCommitMsg
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintGitCommitMsg"
 
   linux_lintGitMailMap:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
         with:
           fetch-depth: 0
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintGitMailMap
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintGitMailMap"
   macos_lintGitMailMap:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintGitMailMap
         run: nix-env -if . && m . /lintGitMailMap
@@ -240,15 +255,16 @@ jobs:
   linux_lintMarkdown_all:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintMarkdown/all
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintMarkdown/all"
   macos_lintMarkdown_all:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintMarkdown/all
         run: nix-env -if . && m . /lintMarkdown/all
@@ -256,15 +272,16 @@ jobs:
   linux_lintNix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintNix
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintNix"
   macos_lintNix:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintNix
         run: nix-env -if . && m . /lintNix
@@ -272,15 +289,16 @@ jobs:
   linux_lintPython_dirOfModules_makes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/dirOfModules/makes
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes"
   macos_lintPython_dirOfModules_makes:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintPython/dirOfModules/makes
         run: nix-env -if . && m . /lintPython/dirOfModules/makes
@@ -288,15 +306,16 @@ jobs:
   linux_lintPython_dirOfModules_makes_main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/dirOfModules/makes/main
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes/main"
   macos_lintPython_dirOfModules_makes_main:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintPython/dirOfModules/makes/main
         run: nix-env -if . && m . /lintPython/dirOfModules/makes/main
@@ -304,15 +323,16 @@ jobs:
   linux_lintPython_imports_makes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/imports/makes
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintPython/imports/makes"
   macos_lintPython_imports_makes:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintPython/imports/makes
         run: nix-env -if . && m . /lintPython/imports/makes
@@ -320,15 +340,16 @@ jobs:
   linux_lintPython_module_cliMain:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/module/cliMain
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintPython/module/cliMain"
   macos_lintPython_module_cliMain:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintPython/module/cliMain
         run: nix-env -if . && m . /lintPython/module/cliMain
@@ -336,15 +357,16 @@ jobs:
   linux_lintTerraform_module:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintTerraform/module
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintTerraform/module"
   macos_lintTerraform_module:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintTerraform/module
         run: nix-env -if . && m . /lintTerraform/module
@@ -352,24 +374,26 @@ jobs:
   linux_lintWithAjv_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintWithAjv/test
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintWithAjv/test"
 
   linux_lintWithLizard_all:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintWithLizard/all
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /lintWithLizard/all"
   macos_lintWithLizard_all:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /lintWithLizard/all
         run: nix-env -if . && m . /lintWithLizard/all
@@ -377,15 +401,16 @@ jobs:
   linux_secretsForEnvFromSops_example:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /secretsForEnvFromSops/example
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /secretsForEnvFromSops/example"
   macos_secretsForEnvFromSops_example:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /secretsForEnvFromSops/example
         run: nix-env -if . && m . /secretsForEnvFromSops/example
@@ -393,15 +418,16 @@ jobs:
   linux_secretsForGpgFromEnv_example:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /secretsForGpgFromEnv/example
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /secretsForGpgFromEnv/example"
   macos_secretsForGpgFromEnv_example:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /secretsForGpgFromEnv/example
         run: nix-env -if . && m . /secretsForGpgFromEnv/example
@@ -409,15 +435,16 @@ jobs:
   linux_securePythonWithBandit_cli:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /securePythonWithBandit/cli
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /securePythonWithBandit/cli"
   macos_securePythonWithBandit_cli:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /securePythonWithBandit/cli
         run: nix-env -if . && m . /securePythonWithBandit/cli
@@ -425,15 +452,16 @@ jobs:
   linux_taintTerraform_module:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /taintTerraform/module
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /taintTerraform/module"
   macos_taintTerraform_module:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /taintTerraform/module
         run: nix-env -if . && m . /taintTerraform/module
@@ -441,15 +469,16 @@ jobs:
   linux_testPython_example:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /testPython/example
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /testPython/example"
   macos_testPython_example:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /testPython/example
         run: nix-env -if . && m . /testPython/example
@@ -457,15 +486,16 @@ jobs:
   linux_tests_calculateCvss3:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/calculateCvss3
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /tests/calculateCvss3"
   macos_tests_calculateCvss3:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /tests/calculateCvss3
         run: nix-env -if . && m . /tests/calculateCvss3
@@ -473,15 +503,16 @@ jobs:
   linux_tests_makeSearchPaths:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/makeSearchPaths
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /tests/makeSearchPaths"
   macos_tests_makeSearchPaths:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@v15
       - name: /tests/makeSearchPaths
         run: nix-env -if . && m . /tests/makeSearchPaths
@@ -489,15 +520,16 @@ jobs:
   linux_tests_makeTemplate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/makeTemplate
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /tests/makeTemplate"
   macos_tests_makeTemplate:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@v15
       - name: /tests/makeTemplate
         run: nix-env -if . && m . /tests/makeTemplate
@@ -505,15 +537,16 @@ jobs:
   linux_tests_scriptWithHelp:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/scriptWithHelp
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /tests/scriptWithHelp"
   macos_tests_scriptWithHelp:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@v15
       - name: /tests/scriptWithHelp
         run: nix-env -if . && m . /tests/scriptWithHelp
@@ -521,15 +554,16 @@ jobs:
   linux_tests_secretsForGpgFromEnv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/secretsForGpgFromEnv
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /tests/secretsForGpgFromEnv"
   macos_tests_secretsForGpgFromEnv:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /tests/secretsForGpgFromEnv
         run: nix-env -if . && m . /tests/secretsForGpgFromEnv
@@ -537,15 +571,16 @@ jobs:
   linux_testTerraform_module:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /testTerraform/module
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /testTerraform/module"
   macos_testTerraform_module:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
       - name: /testTerraform/module
         run: nix-env -if . && m . /testTerraform/module

@@ -634,7 +634,7 @@ jobs:
   helloWorld:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
     - uses: docker://ghcr.io/fluidattacks/makes:22.05
       # You can use any name you like here
       name: helloWorld
