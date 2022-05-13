@@ -200,11 +200,13 @@ def _clone_src(src: str) -> str:
 
     if abspath(src) == CWD:  # `m .` ?
         if NIX_STABLE:
+            _add_safe_directory()
             _clone_src_git_worktree_add(src, head)
         else:
             # Nix with Flakes already ensures a pristine git repo
             head = src
     else:
+        _add_safe_directory()
         src = _clone_src_apply_registry(src)
         if (
             (match := _clone_src_github(src))
@@ -226,6 +228,20 @@ def _clone_src(src: str) -> str:
         _clone_src_cache_refresh(head, cache_key)
 
     return head
+
+
+def _add_safe_directory() -> None:
+    cmd = [
+        "git",
+        "config",
+        "--global",
+        "--add",
+        "safe.directory",
+        "/github/workspace",
+    ]
+    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
+    if out != 0:
+        raise SystemExit(out)
 
 
 def _clone_src_git_init(head: str) -> None:

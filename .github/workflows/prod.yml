@@ -6,19 +6,20 @@ jobs:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
-      - uses: docker://docker.io/nixos/nix@sha256:2e810dab4086d318d8559b3bd5dce46ce4af3cde48a190af9527e0228aa9580b
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
+          set-safe-directory: "/github/workspace"
           args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
 
   releaseGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
         with:
           tag_name: "22.05"
