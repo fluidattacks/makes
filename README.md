@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: example
-          image: ghcr.io/fluidattacks/makes:22.05
+          image: ghcr.io/fluidattacks/makes:22.06
           command: [m]
           args:
             - github:fluidattacks/makes@main
@@ -462,15 +462,18 @@ In order to use Makes you'll need to:
     $ nix --version
     ```
 
+    Note: Makes is compatible with [Nix][NIX] `2.8`.
+    We recomend using [Nix][NIX] on its latest version
+
 1. Now install Makes by running one of the following commands:
 
-    - For Nix versions >= 2.3 and < 2.6 (nix stable)
+    - For Nix versions >= 2.3 and < 2.8 (nix stable)
 
-      `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.05.tar.gz`
+      `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.06.tar.gz`
 
-    - For Nix versions > 2.6 (nix unstable)
+    - For Nix versions > 2.8 (nix unstable)
 
-      `$ nix profile install github:fluidattacks/makes/22.05`
+      `$ nix profile install github:fluidattacks/makes/22.06`
 
     We will install two commands in your system:
     `$ m`, and `$ m-v22.05`.
@@ -576,7 +579,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "22.05";
+    ref = "22.06";
   };
 }
 ```
@@ -586,7 +589,7 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `22.05`.
+For example: `22.06`.
 
 # Configuring CI/CD
 
@@ -635,7 +638,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-    - uses: docker://ghcr.io/fluidattacks/makes:22.05
+    - uses: docker://ghcr.io/fluidattacks/makes:22.06
       # You can use any name you like here
       name: helloWorld
       # You can pass secrets (if required) as environment variables like this:
@@ -659,7 +662,7 @@ looks like this:
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
 /helloWorld:
-  image: ghcr.io/fluidattacks/makes:22.05
+  image: ghcr.io/fluidattacks/makes:22.06
   script:
     - m . /helloWorld 1 2 3
 
@@ -684,7 +687,7 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-install: nix-env -if https://github.com/fluidattacks/makes/archive/22.05.tar.gz
+install: nix-env -if https://github.com/fluidattacks/makes/archive/22.06.tar.gz
 env:
   global:
     # Encrypted environment variable
@@ -1630,7 +1633,7 @@ Types:
           #
           # If you need to run jobs on different container images,
           # simply  create many `aws_batch_job_definition`s
-          image = "ghcr.io/fluidattacks/makes:22.05"
+          image = "ghcr.io/fluidattacks/makes:22.06"
 
           # Below arguments can be parametrized later,
           # but they are required for the job definition to be created
@@ -2429,7 +2432,7 @@ for [makeNodeJsEnvironment](#makenodejsenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.05 /utils/makeNodeJsLockfile \
+m github:fluidattacks/makes@22.06 /utils/makeNodeJsLockfile \
   "${node_js_version}" \
   "${package_json}" \
   "${package_lock}"
@@ -2449,7 +2452,7 @@ for [makePythonPypiEnvironment](#makepythonpypienvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.05 /utils/makePythonPypiEnvironmentSources \
+m github:fluidattacks/makes@22.06 /utils/makePythonPypiEnvironmentSources \
   "${python_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}
@@ -2474,7 +2477,7 @@ psycopg2: "2.9.1"
 You can generate an encrypted [Sops][SOPS] file like this:
 
 ```bash
-m github:fluidattacks/makes@22.05 /utils/makeSopsEncryptedFile \
+m github:fluidattacks/makes@22.06 /utils/makeSopsEncryptedFile \
   "${kms_key_arn}" \
   "${output}"
 ```
@@ -4052,7 +4055,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@22.05 /utils/makePythonPypiEnvironmentSources \
+$ m github:fluidattacks/makes@22.06 /utils/makePythonPypiEnvironmentSources \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -4993,7 +4996,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    rev = "22.05";
+    rev = "22.06";
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
