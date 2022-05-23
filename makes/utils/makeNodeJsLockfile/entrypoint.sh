@@ -12,6 +12,8 @@ function main {
   case "${node_js_version}" in
     14) npm=__argNode14__/bin/npm ;;
     16) npm=__argNode16__/bin/npm ;;
+    17) npm=__argNode17__/bin/npm ;;
+    18) npm=__argNode18__/bin/npm ;;
     *) critical NodeJs version not supported: "${node_js_version}" ;;
   esac \
     && pushd "$(mktemp -d)" \
