@@ -10,7 +10,7 @@
     readAndWrite = {
       enable = true;
       name = "makes";
-      pubKey = "fluidattacks-makes.cachix.org-1:c5yLfKIJDW2giohRZkRUOBR8xguF9S/Ag1DbiiYeJtw=";
+      pubKey = "makes.cachix.org-1:zO7UjWLTRR8Vfzkgsu1PESjmb6ymy1e4OE9YfMmCQR4=";
     };
   };
   calculateScorecard = {
