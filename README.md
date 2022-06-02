@@ -246,8 +246,6 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
         - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
     - [Utilities](#utilities)
-        - [makeNodeJsLockfile](#makenodejslockfile)
-        - [makePythonPypiEnvironmentSources](#makepythonpypienvironmentsources)
         - [makeSopsEncryptedFile](#makesopsencryptedfile)
     - [Framework Configuration](#framework-configuration)
         - [extendingMakesDirs](#extendingmakesdirs)
@@ -281,9 +279,11 @@ Real life projects that run entirely on [Makes][MAKES]:
             - [makeNodeJsVersion](#makenodejsversion)
             - [makeNodeJsModules](#makenodejsmodules)
             - [makeNodeJsEnvironment](#makenodejsenvironment)
+            - [makeNodeJsLock](#makenodejslock)
         - [Python](#python)
             - [makePythonVersion](#makepythonversion)
             - [makePythonPypiEnvironment](#makepythonpypienvironment)
+            - [makePythonLock](#makepythonlock)
         - [Ruby](#ruby)
             - [makeRubyVersion](#makerubyversion)
             - [makeRubyGemsInstall](#makerubygemsinstall)
@@ -2422,14 +2422,14 @@ Utilities provide an easy mechanism
 for calling functions from makes
 without having to specify them on any file.
 
-### makeNodeJsLockfile
+### makeNodeJsLock
 
 You can generate a `package-lock.json`
 for [makeNodeJsEnvironment](#makenodejsenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.06 /utils/makeNodeJsLockfile \
+m github:fluidattacks/makes@22.06 /utils/makeNodeJsLock \
   "${node_js_version}" \
   "${package_json}" \
   "${package_lock}"
@@ -2442,17 +2442,17 @@ m github:fluidattacks/makes@22.06 /utils/makeNodeJsLockfile \
   to the `package-lock.json` file in your project, this file can be an empty
   file.
 
-### makePythonPypiEnvironmentSources
+### makePythonLock
 
 You can generate a `sourcesYaml`
 for [makePythonPypiEnvironment](#makepythonpypienvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.06 /utils/makePythonPypiEnvironmentSources \
+m github:fluidattacks/makes@22.06 /utils/makePythonLock \
   "${python_version}" \
   "${dependencies_yaml}" \
-  "${sources_yaml}
+  "${sources_yaml}"
 ```
 
 - Supported `python_version`s are: `3.7`, `3.8` and `3.9`.
@@ -3847,7 +3847,7 @@ It appends:
 - `node_modules/.bin` to `PATH`.
 - `node_modules` to [NODE_PATH][NODE_PATH].
 
-Pre-requisites: [Generating a package-lock.json](#makenodejslockfile)
+Pre-requisites: [Generating a package-lock.json](#makenodejslock)
 
 Types:
 
@@ -3972,7 +3972,7 @@ where the provided set of [Python][PYTHON] packages
 from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
 are installed.
 
-Pre-requisites: [Generating a sourcesYaml](#makepythonpypienvironmentsources)
+Pre-requisites: [Generating a sourcesYaml](#makepythonlock)
 
 Types:
 
@@ -4052,7 +4052,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@22.06 /utils/makePythonPypiEnvironmentSources \
+$ m github:fluidattacks/makes@22.06 /utils/makePythonLock \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
