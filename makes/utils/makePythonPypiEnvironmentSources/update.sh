@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local cmd=(just m . /utils/makePythonPypiEnvironmentSources)
+  local cmd=(just m . /utils/makePythonLock)
 
   : \
     && "${cmd[@]}" 3.7 \
