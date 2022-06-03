@@ -22,15 +22,15 @@ jobs:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
         with:
-          tag_name: "22.06"
+          tag_name: "22.07"
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - uses: johnwbyrd/update-release@1d5ec4791e40507e5eca3b4dbf90f0b27e7e4979
         with:
           files: README.md
-          release: "22.06"
+          release: "22.07"
           prerelease: true
-          tag: "22.06"
+          tag: "22.07"
           token: ${{ github.token }}
   linux_all:
     runs-on: ubuntu-latest
