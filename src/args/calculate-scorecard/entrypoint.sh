@@ -8,6 +8,7 @@ function main {
   local checks_len=("${checks}")
 
   info Calculating Scorecard \
+    && nix-env -q \
     && temp="$(mktemp)" \
     && if test "${format}" == "json"; then
       if (("${#checks_len[@]}")); then
