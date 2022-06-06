@@ -2435,7 +2435,7 @@ m github:fluidattacks/makes@22.07 /utils/makeNodeJsLock \
   "${package_lock}"
 ```
 
-- Supported `node_js_version`s are: `14`, `16`, `17` and `18`.
+- Supported `node_js_version`s are: `14`, `16` and `18`.
 - `package_json` is the **absolute path** to the `package.json` file in your
   project.
 - `package_lock` is the **absolute path**
@@ -3721,7 +3721,7 @@ Types:
 
 - makeNodeJsVersion (`function str -> package`):
 
-    - (`enum [ "14" "16" "17" "18" ]`):
+    - (`enum [ "14" "16" "18" ]`):
       [Node.js][NODE_JS] version to use.
 
 Example:
@@ -3762,7 +3762,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "14" "16" "17" "18" ]`):
+    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
@@ -3855,7 +3855,7 @@ Types:
 
     - name (`str`):
       Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "14" "16" "17" "18" ]`):
+    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
       [Node.js][NODE_JS] version to use.
     - packageJson (`package`):
       Path to the `package.json` of your project.
