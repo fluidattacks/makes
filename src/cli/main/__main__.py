@@ -239,14 +239,14 @@ def _add_safe_directory() -> None:
         "safe.directory",
         "/github/workspace",
     ]
-    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
+    out = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
 
 
 def _clone_src_git_init(head: str) -> None:
     cmd = ["git", "init", "--initial-branch=____", "--shared=false", head]
-    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
+    out = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
 
@@ -254,21 +254,21 @@ def _clone_src_git_init(head: str) -> None:
 def _clone_src_git_fetch(head: str, remote: str, rev: str) -> None:
     depth = _if(GIT_DEPTH >= 1, f"--depth={GIT_DEPTH}")
     cmd = ["git", "-C", head, "fetch", *depth, remote, f"{rev}:{rev}"]
-    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
+    out = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
 
 
 def _clone_src_git_checkout(head: str, rev: str) -> None:
     cmd = ["git", "-C", head, "checkout", rev]
-    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
+    out = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
 
 
 def _clone_src_git_worktree_add(remote: str, head: str) -> None:
     cmd = ["git", "-C", remote, "worktree", "add", head, "HEAD"]
-    out, _, _ = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
+    out = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
     if out != 0:
         raise SystemExit(out)
     CON.out(head)
@@ -405,14 +405,14 @@ def _get_head(src: str) -> str:
 
         # Propagated `git add`ed files
         cmd = ["git", "-C", src, "diff", "--cached", "--name-only"]
-        out, stdout, _ = _run(cmd, stderr=None)
+        out, stdout, _ = _run_outputs(cmd, stderr=None)
         if out != 0:
             raise SystemExit(out)
         paths.update(stdout.decode().splitlines())
 
         # Propagated modified files
         cmd = ["git", "-C", src, "ls-files", "--modified"]
-        out, stdout, _ = _run(cmd, stderr=None)
+        out, stdout, _ = _run_outputs(cmd, stderr=None)
         if out != 0:
             raise SystemExit(out)
         paths.update(stdout.decode().splitlines())
@@ -436,7 +436,7 @@ def _get_config(head: str) -> Dict[str, Any]:
     CON.rule("Building project configuration")
     CON.out()
     out: str = tempfile.mktemp()  # nosec
-    code, _, _, = _run(
+    code = _run(
         args=_nix_build(
             attr="config.configAsJson"
             if NIX_STABLE
@@ -457,7 +457,7 @@ def _get_config(head: str) -> Dict[str, Any]:
     raise SystemExit(code)
 
 
-def _run(  # pylint: disable=too-many-arguments
+def _run_outputs(  # pylint: disable=too-many-arguments
     args: List[str],
     cwd: Optional[str] = None,
     env: Optional[Dict[str, str]] = None,
@@ -479,6 +479,28 @@ def _run(  # pylint: disable=too-many-arguments
         out, err = process.communicate(stdin)
 
     return process.returncode, out, err
+
+
+def _run(  # pylint: disable=too-many-arguments
+    args: List[str],
+    cwd: Optional[str] = None,
+    env: Optional[Dict[str, str]] = None,
+    stdout: Optional[int] = None,
+    stderr: Optional[int] = None,
+    stdin: Optional[bytes] = None,
+) -> int:
+    env = environ | (env or {})
+
+    with subprocess.Popen(
+        args=args,
+        cwd=cwd,
+        env=env,
+        shell=False,  # nosec
+        stdin=None if stdin is None else subprocess.PIPE,
+        stdout=stdout,
+        stderr=stderr,
+    ) as process:
+        return process.wait()
 
 
 def _help_and_exit_base() -> None:
@@ -775,7 +797,7 @@ def cli(args: List[str]) -> None:
         _help_and_exit_with_src_no_tty(src, attrs)
 
     out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
-    code, _, _ = _run(
+    code = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"'
             if NIX_STABLE
@@ -801,7 +823,7 @@ def execute_action(args: List[str], head: str, out: str) -> None:
         CON.out()
         CON.rule("Running")
         CON.out()
-        code, _, _ = _run(
+        code = _run(
             args=[action_path, out, *args],
             stderr=None,
             stdout=None,
