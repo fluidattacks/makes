@@ -5,6 +5,7 @@
   extraCommands ? "",
   layered ? true,
   layers ? [],
+  maxLayers ? 65,
   runAsRoot ? null,
 }: let
   sharedAttrs = {
@@ -21,7 +22,7 @@ in
     (sharedAttrs
       // {
         inherit extraCommands;
-        maxLayers = 125;
+        inherit maxLayers;
       })
   else
     __nixpkgs__.dockerTools.buildImage

@@ -4287,6 +4287,9 @@ Types:
     - layers (`listOf package`): Optional.
       Layers of the container.
       Defaults to `[ ]`.
+    - maxLayers (`ints.positive`): Optional.
+      Maximum number of layers the container can have.
+      Defaults to `65`.
     - config (`attrsOf anything`): Optional.
       Configuration manifest as described in
       [OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
