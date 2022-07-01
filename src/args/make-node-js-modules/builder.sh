@@ -51,7 +51,7 @@ function main {
               && for ((index = 0; index < "${#bins[@]}"; index++)); do
                 : \
                   && bin="${bins[$index]}" \
-                  && bin="$(plain_bin ${bin})" \
+                  && bin="$(plain_bin "${bin}")" \
                   && bin_location="${bin_locations[$index]}" \
                   && bin_location="$(dirname "${package_json}")/${bin_location}" \
                   && chmod +x "${bin_location}" \
@@ -64,7 +64,7 @@ function main {
           string)
             info Generating binaries from "${package_json}" \
               && bin="$(jq -er .name < "${package_json}")" \
-              && bin="$(plain_bin ${bin})" \
+              && bin="$(plain_bin "${bin}")" \
               && bin_location="$(jq -er .bin < "${package_json}")" \
               && bin_location="$(dirname "${package_json}")/${bin_location}" \
               && patch_shebangs "${bin_location}" \
