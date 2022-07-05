@@ -60,4 +60,5 @@ makeContainerImage {
 
     outputs."/"
   ];
+  maxLayers = 20;
 }
