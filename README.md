@@ -5145,363 +5145,243 @@ Project leaders:
 
 - [AJV_CLI]: https://github.com/ajv-validator/ajv-cli
   [ajv-cli][AJV_CLI]
-
 - [ALEJANDRA]: https://github.com/kamadorueda/alejandra
   [Alejandra][ALEJANDRA]
-
 - [Ansible]: https://www.ansible.com/
   [Ansible][ANSIBLE]
-
 - [APACHE_ANT]: https://ant.apache.org/
   [Apache Ant][APACHE_ANT]
-
 - [APACHE_MAVEN]: https://maven.apache.org/
   [Apache Maven][APACHE_MAVEN]
-
 - [APT]: https://en.wikipedia.org/wiki/APT_(software)
   [Advanced Package Tool][APT]
-
 - [ASCII_ARMOR]: https://www.techopedia.com/definition/23150/ascii-armor
   [ASCII Armor][ASCII_ARMOR]
-
 - [AWS]: https://aws.amazon.com/
   [Amazon Web Services (AWS)][AWS]
-
 - [AWS_BATCH]: https://aws.amazon.com/batch/
   [AWS Batch][AWS_BATCH]
-
 - [AWS_CLI]: https://aws.amazon.com/cli/
   [AWS CLI][AWS_CLI]
-
 - [BANDIT]: https://github.com/PyCQA/bandit
   [Bandit][BANDIT]
-
 - [BASH]: https://www.gnu.org/software/bash/
   [Bash][BASH]
-
 - [BASH_TUTORIAL_SHELL_SCRIPTING]: https://www.tutorialspoint.com/unix/shell_scripting.htm
   [Shell Scripting Tutorial][BASH_TUTORIAL_SHELL_SCRIPTING]
-
 - [BLACK]: https://github.com/psf/black
   [Black][BLACK]
-
 - [BUCK]: https://buck.build/
   [Buck][BUCK]
-
 - [CACHIX]: https://cachix.org/
   [Cachix][CACHIX]
-
 - [CALVER]: https://calver.org/
   [Calendar Versioning][CALVER]
-
 - [CHEF]: https://www.chef.io/
   [Chef][CHEF]
-
 - [CI_CD]: https://en.wikipedia.org/wiki/CI/CD
   [CI/CD][CI_CD]
-
 - [CIRCLE_CI]: https://circleci.com/
   [Circle CI][CIRCLE_CI]
-
 - [CLASSPATH]: https://en.wikipedia.org/wiki/Classpath
   [CLASSPATH Environment Variable][CLASSPATH]
-
 - [CLJ-KONDO]: https://github.com/clj-kondo/clj-kondo
   [clj-kondo][CLJ-KONDO]
-
 - [CLI_COMPLETION]: https://en.wikipedia.org/wiki/Command-line_completion
   [Command-line Completion][CLI_COMPLETION]
-
 - [COMMITLINT]: https://commitlint.js.org/#/
   [commitlint][COMMITLINT]
-
 - [CRYSTAL]: https://crystal-lang.org/
   [Crystal Programming Language][CRYSTAL]
-
 - [CRYSTAL_LIBRARY_PATH]: https://crystal-lang.org/reference/guides/static_linking.html
   [CRYSTAL_LIBRARY_PATH Environment Variable][CRYSTAL_LIBRARY_PATH]
-
 - [CVSS3]: https://www.first.org/cvss/v3.0/specification-document
   [CVSS3][CVSS3]
-
 - [CVSS3_VECTOR_STRING]: https://www.first.org/cvss/v3.0/specification-document#Vector-String
   [CVSS3 Vector String][CVSS3_VECTOR_STRING]
-
 - [DIRENV]: https://direnv.net/
   [direnv][DIRENV]
-
 - [DOCKER]: https://www.docker.com/
   [Docker][DOCKER]
-
 - [DOCTOC]: https://github.com/thlorenz/doctoc
   [DocToc][DOCTOC]
-
 - [ENV_VAR]: https://en.wikipedia.org/wiki/Environment_variable
   [Environment Variable][ENV_VAR]
-
 - [FLUID_ATTACKS]: https://fluidattacks.com
   [Fluid Attacks][FLUID_ATTACKS]
-
 - [GEM_PATH]: https://guides.rubygems.org/command-reference
   [GEM_PATH Environment Variable][GEM_PATH]
-
 - [GIT]: https://git-scm.com/
   [Git][GIT]
-
 - [GIT_MAILMAP]: https://git-scm.com/docs/gitmailmap
   [Git Mailmap][GIT_MAILMAP]
-
 - [GITHUB]: https://github.com
   [GitHub][GITHUB]
-
 - [GITHUB_ACTIONS]: https://github.com/features/actions
   [GitHub Actions][GITHUB_ACTIONS]
-
 - [GITHUB_WORKFLOWS]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
   [GitHub Workflows][GITHUB_WORKFLOWS]
-
 - [GITLAB_CI]: https://docs.gitlab.com/ee/ci/
   [GitLab CI][GITLAB_CI]
-
 - [GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
   [GitLab CI configuration syntax][GITLAB_CI_REF]
-
 - [GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
   [GitLab Variables][GITLAB_VARS]
-
 - [GNU_MAKE]: https://www.gnu.org/software/make/
   [GNU Make][GNU_MAKE]
-
 - [GNU_COREUTILS]: https://www.gnu.org/software/coreutils/
   [GNU Coreutils][GNU_COREUTILS]
-
 - [GNU_GPG]: https://gnupg.org/
   [Gnu Privacy Guard][GNU_GPG]
-
 - [GRADLE]: https://gradle.org/
   [Gradle][GRADLE]
-
 - [GRUNT]: https://gruntjs.com/
   [Grunt][GRUNT]
-
 - [GULP]: https://gulpjs.com/
   [Gulp][GULP]
-
 - [HASH]: https://en.wikipedia.org/wiki/Hash_function
   [Hash Function][HASH]
-
 - [IMPORT_LINTER]: https://import-linter.readthedocs.io/en/stable/
   [import-linter][IMPORT_LINTER]
-
 - [ISORT]: https://github.com/PyCQA/isort
   [isort][ISORT]
-
 - [JSON]: https://www.json.org/json-en.html
   [JSON][JSON]
-
 - [JSON_SCHEMA]: https://json-schema.org/
   [JSON Schema][JSON_SCHEMA]
-
 - [KUBECONFIG]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#the-kubeconfig-environment-variable
   [KUBECONFIG Environment Variable][KUBECONFIG]
-
 - [KUBERNETES]: https://kubernetes.io/
   [Kubernetes][KUBERNETES]
-
 - [LEININGEN]: https://leiningen.org/
   [Leiningen][LEININGEN]
-
 - [LINUX]: https://en.wikipedia.org/wiki/Linux
   [Linux][LINUX]
-
 - [LIZARD]: https://github.com/terryyin/lizard
   [Lizard][LIZARD]
-
 - [MAILMAP_LINTER]: https://github.com/kamadorueda/mailmap-linter
   [Mailmap Linter][MAILMAP_LINTER]
-
 - [MAKES]: https://github.com/fluidattacks/makes
   [Makes][MAKES]
-
 - [MAKES_COMMITS]: https://github.com/fluidattacks/makes/commits/main
   [Makes Commits][MAKES_COMMITS]
-
 - [MAKES_ENVIRONMENT]: #environment
   [Makes Environment][MAKES_ENVIRONMENT]
-
 - [MAKES_EXTENDING]: #extending-makes
   [Makes - Extending][MAKES_EXTENDING]
-
 - [MAKES_ISSUES]: https://github.com/fluidattacks/makes/issues
   [Makes issues][MAKES_ISSUES]
-
 - [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
   [Makes Releases][MAKES_RELEASES]
-
 - [MAKES_SECRETS]: #secrets
   [Makes Secrets][MAKES_SECRETS]
-
 - [MARKDOWN_LINT]: https://github.com/markdownlint/markdownlint
   [Markdown lint tool][MARKDOWN_LINT]
-
 - [MYPY]: https://mypy.readthedocs.io/en/stable/
   [MyPy][MYPY]
-
 - [MYPYPATH]: https://mypy.readthedocs.io/en/stable/running_mypy.html
   [MYPYPATH Environment Variable][MYPYPATH]
-
 - [NIX]: https://nixos.org
   [Nix][NIX]
-
 - [NIX_DERIVATION]: https://nixos.org/manual/nix/unstable/expressions/derivations.html
   [Nix Derivation][NIX_DERIVATION]
-
 - [NIX_DOWNLOAD]: https://nixos.org/download
   [Nix Download Page][NIX_DOWNLOAD]
-
 - [NIX_FLAKES]: https://www.tweag.io/blog/2020-05-25-flakes/
   [Nix Flakes][NIX_FLAKES]
-
 - [NIX_PLATFORMS]: https://nixos.org/manual/nix/unstable/installation/supported-platforms.html
   [Nix Supported Platforms][NIX_PLATFORMS]
-
 - [NIX_LINTER]: https://github.com/Synthetica9/nix-linter'
   [nix-linter][NIX_LINTER]
-
 - [NIX_PILLS]: https://nixos.org/guides/nix-pills/
   [Nix Pills][NIX_PILLS]
-
 - [NODE_JS]: https://nodejs.org/en/
   [NODE_JS][NODE_JS]
-
 - [NODE_PATH]: https://nodejs.org/api/modules.html
   [NODE_PATH][NODE_PATH]
-
 - [NOMAD]: https://www.nomad.io/
   [nomad][NOMAD]
-
 - [NPM]: https://www.npmjs.com/
   [Node Package Manager (NPM)][NPM]
-
 - [OCAML]: https://ocaml.org/
   [OCaml][OCAML]
-
 - [OCAMLPATH]: https://github.com/ocaml/ocaml/issues/8898
   [OCAMLPATH Environment Variable][OCAMLPATH]
-
 - [CAML_LD_LIBRARY_PATH]: https://ocaml.org/manual/runtime.html
   [CAML_LD_LIBRARY_PATH Environment Variable][CAML_LD_LIBRARY_PATH]
-
 - [OCI_FORMAT]: https://github.com/opencontainers/image-spec
   [Open Container Image specification][OCI_FORMAT]
-
 - [OCI_RUNTIME_CONFIG]: https://github.com/moby/moby/blob/master/image/spec/v1.2.md#container-runconfig-field-descriptions
   [OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
-
 - [OPENSSL]: https://www.openssl.org/docs/
   [OpenSSL][OPENSSL]
-
 - [PACKER]: https://www.packer.io/
   [Packer][PACKER]
-
 - [PATH]: https://en.wikipedia.org/wiki/PATH_(variable)
   [PATH Environment Variable][PATH]
-
 - [PIP]: https://pypi.org/project/pip/
   [Package Installer for Python (pip)][PIP]
-
 - [PKG_CONFIG]: https://www.freedesktop.org/wiki/Software/pkg-config/
   [pkg-config][PKG_CONFIG]
-
 - [PKG_CONFIG_PATH]: https://linux.die.net/man/1/pkg-config
   [PKG_CONFIG_PATH Environment Variable][PKG_CONFIG_PATH]
-
 - [PROSPECTOR]: http://prospector.landscape.io/en/master/
   [Prospector][PROSPECTOR]
-
 - [PYTEST]: https://docs.pytest.org/
   [pytest][PYTEST]
-
 - [PYTHON]: https://www.python.org/
   [Python][PYTHON]
-
 - [PYTHONPATH]: https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
   [PYTHONPATH Environment Variable][PYTHONPATH]
-
 - [PYTHON_PYPI]: https://pypi.org/
   [Python Packaging Index (PyPI)][PYTHON_PYPI]
-
 - [RAKE]: https://github.com/ruby/rake
   [Rake][RAKE]
-
 - [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
   [Reproducible Builds][REPRODUCIBLE_BUILDS]
-
 - [RPATH]: https://en.wikipedia.org/wiki/Rpath
   [RPath][RPATH]
-
 - [RPM]: https://rpm.org/
   [RPM Package Manager][RPM]
-
 - [RUBY]: https://www.ruby-lang.org/en/
   [Ruby Language][RUBY]
-
 - [RUBYGEMS]: https://rubygems.org/gems/slim
   [Ruby community’s gem hosting service][RUBYGEMS]
-
 - [SBT]: https://www.scala-sbt.org/
   [sbt][SBT]
-
 - [SCONS]: https://scons.org/
   [SCons][SCONS]
-
 - [Scorecard]: https://github.com/ossf/scorecard
   [Scorecard][Scorecard]
-
 - [SHEBANG]: https://en.wikipedia.org/wiki/Shebang_(Unix)
   [Shebang][SHEBANG]
-
 - [SHELLCHECK]: https://github.com/koalaman/shellcheck
   [ShellCheck][SHELLCHECK]
-
 - [SHFMT]: https://github.com/mvdan/sh
   [SHFMT][SHFMT]
-
 - [SOPS]: https://github.com/mozilla/sops
   [Mozilla's Sops][SOPS]
-
 - [TERRAFORM]: https://www.terraform.io/
   [Terraform][TERRAFORM]
-
 - [TERRAFORM_FMT]: https://www.terraform.io/docs/cli/commands/fmt.html
   [Terraform FMT][TERRAFORM_FMT]
-
 - [TFLINT]: https://github.com/terraform-linters/tflint
   [TFLint][TFLINT]
-
 - [TOML]: https://github.com/toml-lang/toml
   [TOML][TOML]
-
 - [TRAVIS_CI]: https://travis-ci.org/
   [Travis CI][TRAVIS_CI]
-
 - [TRAVIS_CI_REF]: https://config.travis-ci.com/
   [Travis CI reference][TRAVIS_CI_REF]
-
 - [TRAVIS_ENV_VARS]: https://docs.travis-ci.com/user/environment-variables
   [Travis Environment Variables][TRAVIS_ENV_VARS]
-
 - [VULNIX]: https://github.com/flyingcircusio/vulnix
   [Vulnix][VULNIX]
-
 - [X86_64]: https://en.wikipedia.org/wiki/X86-64
   [x86-64][X86_64]
-
 - [YAML]: https://yaml.org/
   [YAML][YAML]
-
 - [YQ]: https://github.com/mikefarah/yq
   [yq][YQ]
-
 - [YUM]: http://yum.baseurl.org/
   [Yellowdog Updated Modified (yum)][YUM]
