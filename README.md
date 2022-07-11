@@ -1,11 +1,31 @@
 # 🦄 Makes
 
-A DevSecOps framework
+A software supply chain framework
 powered by [Nix][NIX].
 
-Our primary goal is to help you setup
-a powerful [CI/CD][CI_CD] system
-in just a few steps, in any technology.
+Ever needed to run applications locally
+to try out your code?
+Execute CI/CD pipelines locally
+to make sure jobs are being passed?
+Keep execution environments frozen
+for strict dependency control
+against supply chain attacks?
+Know the exact dependency tree of your application?
+Well, we have!
+
+[Makes][MAKES] is an open-source, production-ready framework
+for building CI/CD pipelines
+and application environments.
+It cryptographically signs direct and indirect dependencies,
+supports a distributed and completely granular cache,
+runs on Docker, VMs and any Linux-based OS,
+can be installed with just one command,
+and can be extended to work with any technology.
+
+The goal of [Makes][MAKES] is to provide
+an immutable software supply chain
+while keeping technical implementation
+as simple as possible.
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5703/badge)](https://bestpractices.coreinfrastructure.org/projects/5703)
 ![Linux](https://img.shields.io/badge/Linux-blue)
@@ -20,6 +40,10 @@ in just a few steps, in any technology.
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/fluidattacks/makes?color=blueviolet&label=Commits&labelColor=blueviolet)
 ![Contributors](https://img.shields.io/github/contributors/fluidattacks/makes?color=blueviolet&label=Contributors&labelColor=blueviolet)
+
+## Want to get your hands dirty?
+
+Jump right into our [hands-on example](https://github.com/fluidattacks/makes-example)!
 
 ## At a glance
 
