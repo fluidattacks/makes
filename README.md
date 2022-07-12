@@ -486,18 +486,12 @@ In order to use Makes you'll need to:
     $ nix --version
     ```
 
-    Note: Makes is compatible with [Nix][NIX] `2.8`.
+    Note: Makes is compatible with [Nix][NIX] `2.9`.
     We recomend using [Nix][NIX] on its latest version
 
-1. Now install Makes by running one of the following commands:
+1. Install Makes by running:
 
-    - For Nix versions >= 2.3 and < 2.8 (nix stable)
-
-      `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.08.tar.gz`
-
-    - For Nix versions > 2.8 (nix unstable)
-
-      `$ nix profile install github:fluidattacks/makes/22.08`
+    `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.08.tar.gz`
 
     We will install two commands in your system:
     `$ m`, and `$ m-v22.05`.
