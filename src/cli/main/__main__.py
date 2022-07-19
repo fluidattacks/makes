@@ -72,7 +72,6 @@ ON_EXIT: List[Callable[[], None]] = []
 VERSION: str = "22.08"
 
 # Environment
-__MAKES_REGISTRY__: str = environ["__MAKES_REGISTRY__"]
 __MAKES_SRC__: str = environ["__MAKES_SRC__"]
 __NIX_STABLE__: str = environ["__NIX_STABLE__"]
 __NIX_UNSTABLE__: str = environ["__NIX_UNSTABLE__"]
@@ -207,7 +206,6 @@ def _clone_src(src: str) -> str:
             head = src
     else:
         _add_safe_directory()
-        src = _clone_src_apply_registry(src)
         if (
             (match := _clone_src_github(src))
             or (match := _clone_src_gitlab(src))
@@ -272,16 +270,6 @@ def _clone_src_git_worktree_add(remote: str, head: str) -> None:
     if out != 0:
         raise SystemExit(out)
     CON.out(head)
-
-
-def _clone_src_apply_registry(src: str) -> str:
-    with open(__MAKES_REGISTRY__, encoding="utf-8") as file:
-        registry = json.load(file)
-
-        for to_, from_ in registry.items():
-            src = re.sub(from_, to_, src)
-
-    return src
 
 
 def _clone_src_github(src: str) -> Optional[Tuple[str, str, str]]:

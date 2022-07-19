@@ -1,4 +1,0 @@
-{
-  "gitlab:fluidattacks/universe@\\1": "^f@(.*)$",
-  "gitlab:fluidattacks/universe@trunk": "^f$"
-}
