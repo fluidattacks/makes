@@ -1,4 +1,4 @@
 {
-  "gitlab:fluidattacks/product@\\1": "^f@(.*)$",
-  "gitlab:fluidattacks/product@master": "^f$"
+  "gitlab:fluidattacks/universe@\\1": "^f@(.*)$",
+  "gitlab:fluidattacks/universe@trunk": "^f$"
 }
