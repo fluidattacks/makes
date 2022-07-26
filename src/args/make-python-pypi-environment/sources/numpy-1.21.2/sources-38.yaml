@@ -1,3 +1,4 @@
+---
 closure:
   numpy: 1.21.2
 links:
@@ -28,4 +29,4 @@ links:
   - name: numpy-1.21.2.zip
     sha256: 1p6n7pbc4s7qdqh28clyrhahs0xzadh7q0w6vwakp4n5mzc1ccj2
     url: https://files.pythonhosted.org/packages/3a/be/650f9c091ef71cb01d735775d554e068752d3ff63d7943b26316dc401749/numpy-1.21.2.zip
-python: "3.8"
+python: '3.8'

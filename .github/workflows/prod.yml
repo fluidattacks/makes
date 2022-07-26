@@ -1,3 +1,4 @@
+---
 concurrency:
   cancel-in-progress: true
   group: ${{ github.actor }}
@@ -12,7 +13,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
 
   releaseGitHub:
@@ -22,15 +23,15 @@ jobs:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
         with:
-          tag_name: "22.08"
+          tag_name: '22.08'
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - uses: johnwbyrd/update-release@1d5ec4791e40507e5eca3b4dbf90f0b27e7e4979
         with:
           files: README.md
-          release: "22.08"
+          release: '22.08'
           prerelease: true
-          tag: "22.08"
+          tag: '22.08'
           token: ${{ github.token }}
   linux_all:
     runs-on: ubuntu-latest
@@ -39,7 +40,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: __all__
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . __all__"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -63,7 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /calculateScorecard"
   macos_calculatescorecard:
     runs-on: macos-latest
@@ -83,7 +84,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /deployTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /deployTerraform/module"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -104,7 +105,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /dev/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /dev/example"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -125,7 +126,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /envVars/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /envVars/example"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -146,7 +147,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatBash
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatBash"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -167,7 +168,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatMarkdown
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatMarkdown"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -179,7 +180,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatNix
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatNix"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -200,7 +201,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatPython
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatPython"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -221,7 +222,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatTerraform
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatTerraform"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -235,6 +236,27 @@ jobs:
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
+  linux_formatYaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
+        name: /formatYaml
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /formatYaml"
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+  macos_formatYaml:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
+      - name: /formatYaml
+        run: nix-env -if . && m . /formatYaml
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
   linux_helloWorld:
     runs-on: ubuntu-latest
     steps:
@@ -242,7 +264,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /helloWorld
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /helloWorld"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -263,7 +285,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintBash
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintBash"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -284,7 +306,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintClojure/test
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintClojure/test"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -307,7 +329,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintGitCommitMsg
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintGitCommitMsg"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -321,7 +343,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintGitMailMap
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintGitMailMap"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -342,7 +364,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintMarkdown/all
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintMarkdown/all"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -363,7 +385,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintNix
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintNix"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -384,7 +406,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/dirOfModules/makes
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -405,7 +427,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/dirOfModules/makes/main
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes/main"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -426,7 +448,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/imports/makes
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/imports/makes"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -447,7 +469,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/module/cliMain
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/module/cliMain"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -468,7 +490,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintTerraform/module"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -489,7 +511,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintWithAjv/test
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintWithAjv/test"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -501,7 +523,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintWithLizard/all
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintWithLizard/all"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -522,7 +544,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /secretsForEnvFromSops/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /secretsForEnvFromSops/example"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -543,7 +565,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /secretsForGpgFromEnv/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /secretsForGpgFromEnv/example"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -564,7 +586,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /securePythonWithBandit/cli
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /securePythonWithBandit/cli"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -585,7 +607,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /taintTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /taintTerraform/module"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -606,7 +628,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /testPython/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /testPython/example"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -627,7 +649,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/calculateCvss3
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/calculateCvss3"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -648,7 +670,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/makeSearchPaths
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/makeSearchPaths"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -669,7 +691,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/makeTemplate
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/makeTemplate"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -690,7 +712,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/scriptWithHelp
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/scriptWithHelp"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -711,7 +733,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/secretsForGpgFromEnv
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/secretsForGpgFromEnv"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
@@ -732,7 +754,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /testTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /testTerraform/module"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}

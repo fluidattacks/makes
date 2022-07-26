@@ -1,3 +1,4 @@
+---
 permissions: read-all
 concurrency:
   cancel-in-progress: true
@@ -10,7 +11,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: __all__
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . __all__"
   mac_all:
     runs-on: macos-latest
@@ -29,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /calculateScorecard"
   macos_calculatescorecard:
     runs-on: macos-latest
@@ -48,7 +49,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /deployTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /deployTerraform/module"
   macos_deployTerraform_module:
     runs-on: macos-latest
@@ -65,7 +66,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /dev/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /dev/example"
   macos_dev_example:
     runs-on: macos-latest
@@ -82,7 +83,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /envVars/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /envVars/example"
   macos_envVars_example:
     runs-on: macos-latest
@@ -99,7 +100,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatBash
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatBash"
   macos_formatBash:
     runs-on: macos-latest
@@ -116,7 +117,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatMarkdown
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatMarkdown"
 
   linux_formatNix:
@@ -126,7 +127,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatNix
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatNix"
   macos_formatNix:
     runs-on: macos-latest
@@ -143,7 +144,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatPython
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatPython"
   macos_formatPython:
     runs-on: macos-latest
@@ -160,7 +161,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /formatTerraform
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /formatTerraform"
   macos_formatTerraform:
     runs-on: macos-latest
@@ -170,6 +171,23 @@ jobs:
       - name: /formatTerraform
         run: nix-env -if . && m . /formatTerraform
 
+  linux_formatYaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
+        name: /formatYaml
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /formatYaml"
+  macos_formatYaml:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
+      - name: /formatYaml
+        run: nix-env -if . && m . /formatYaml
+
   linux_helloWorld:
     runs-on: ubuntu-latest
     steps:
@@ -177,7 +195,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /helloWorld
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /helloWorld"
   macos_helloWorld:
     runs-on: macos-latest
@@ -194,7 +212,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintBash
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintBash"
   macos_lintBash:
     runs-on: macos-latest
@@ -211,7 +229,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintClojure/test
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintClojure/test"
   macos_lintClojure_test:
     runs-on: macos-latest
@@ -230,7 +248,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintGitCommitMsg
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintGitCommitMsg"
 
   linux_lintGitMailMap:
@@ -242,7 +260,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintGitMailMap
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintGitMailMap"
   macos_lintGitMailMap:
     runs-on: macos-latest
@@ -259,7 +277,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintMarkdown/all
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintMarkdown/all"
   macos_lintMarkdown_all:
     runs-on: macos-latest
@@ -276,7 +294,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintNix
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintNix"
   macos_lintNix:
     runs-on: macos-latest
@@ -293,7 +311,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/dirOfModules/makes
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes"
   macos_lintPython_dirOfModules_makes:
     runs-on: macos-latest
@@ -310,7 +328,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/dirOfModules/makes/main
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/dirOfModules/makes/main"
   macos_lintPython_dirOfModules_makes_main:
     runs-on: macos-latest
@@ -327,7 +345,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/imports/makes
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/imports/makes"
   macos_lintPython_imports_makes:
     runs-on: macos-latest
@@ -344,7 +362,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintPython/module/cliMain
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintPython/module/cliMain"
   macos_lintPython_module_cliMain:
     runs-on: macos-latest
@@ -361,7 +379,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintTerraform/module"
   macos_lintTerraform_module:
     runs-on: macos-latest
@@ -378,7 +396,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintWithAjv/test
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintWithAjv/test"
 
   linux_lintWithLizard_all:
@@ -388,7 +406,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /lintWithLizard/all
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /lintWithLizard/all"
   macos_lintWithLizard_all:
     runs-on: macos-latest
@@ -405,7 +423,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /secretsForEnvFromSops/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /secretsForEnvFromSops/example"
   macos_secretsForEnvFromSops_example:
     runs-on: macos-latest
@@ -422,7 +440,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /secretsForGpgFromEnv/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /secretsForGpgFromEnv/example"
   macos_secretsForGpgFromEnv_example:
     runs-on: macos-latest
@@ -439,7 +457,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /securePythonWithBandit/cli
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /securePythonWithBandit/cli"
   macos_securePythonWithBandit_cli:
     runs-on: macos-latest
@@ -456,7 +474,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /taintTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /taintTerraform/module"
   macos_taintTerraform_module:
     runs-on: macos-latest
@@ -473,7 +491,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /testPython/example
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /testPython/example"
   macos_testPython_example:
     runs-on: macos-latest
@@ -490,7 +508,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/calculateCvss3
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/calculateCvss3"
   macos_tests_calculateCvss3:
     runs-on: macos-latest
@@ -507,7 +525,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/makeSearchPaths
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/makeSearchPaths"
   macos_tests_makeSearchPaths:
     runs-on: macos-latest
@@ -524,7 +542,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/makeTemplate
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/makeTemplate"
   macos_tests_makeTemplate:
     runs-on: macos-latest
@@ -541,7 +559,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/scriptWithHelp
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/scriptWithHelp"
   macos_tests_scriptWithHelp:
     runs-on: macos-latest
@@ -558,7 +576,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /tests/secretsForGpgFromEnv
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /tests/secretsForGpgFromEnv"
   macos_tests_secretsForGpgFromEnv:
     runs-on: macos-latest
@@ -575,7 +593,7 @@ jobs:
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
         name: /testTerraform/module
         with:
-          set-safe-directory: "/github/workspace"
+          set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /testTerraform/module"
   macos_testTerraform_module:
     runs-on: macos-latest

@@ -42,6 +42,7 @@
     formatBash = import ./format-bash/default.nix self;
     formatNix = import ./format-nix/default.nix self;
     formatTerraform = import ./format-terraform/default.nix self;
+    formatYaml = import ./format-yaml/default.nix self;
     fromJson = builtins.fromJSON;
     fromJsonFile = path: builtins.fromJSON (builtins.readFile path);
     fromToml = builtins.fromTOML;

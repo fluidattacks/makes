@@ -1,1 +1,2 @@
-import-linter: "1.2.4"
+---
+import-linter: 1.2.4
