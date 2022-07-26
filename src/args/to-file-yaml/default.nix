@@ -5,7 +5,10 @@
   ...
 }: name: expr:
 makeDerivation {
-  builder = "yq -y < $envData > $out";
+  builder = ''
+    echo "---" > $out \
+      && yq -y < $envData >> $out
+  '';
   inherit name;
   env.envData = toFileJson name expr;
   local = true;
