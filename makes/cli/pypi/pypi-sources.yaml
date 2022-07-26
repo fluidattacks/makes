@@ -1,3 +1,4 @@
+---
 closure:
   colorama: 0.4.4
   commonmark: 0.9.1
@@ -20,4 +21,4 @@ links:
   - name: textual-0.1.12-py3-none-any.whl
     sha256: 0xr4cn53pv5skzk0h4vqp97y3caisx5wnvcq4l534lyg0v6fk59g
     url: https://files.pythonhosted.org/packages/12/95/330c20294045571906e2566fafbad2779f69e9605a05f70862cea7f81cec/textual-0.1.12-py3-none-any.whl
-python: "3.9"
+python: '3.9'

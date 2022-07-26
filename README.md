@@ -236,6 +236,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [formatNix](#formatnix)
         - [formatPython](#formatpython)
         - [formatTerraform](#formatterraform)
+        - [formatYaml](#formatyaml)
     - [Lint](#lint)
         - [lintBash](#lintbash)
         - [lintClojure](#lintclojure)
@@ -1042,6 +1043,37 @@ Example `makes.nix`:
 ```
 
 Example invocation: `$ m . /formatTerraform`
+
+### formatYaml
+
+Ensure that [YAML][YAML] code
+is formatted according to [yamlfix][YAMLFIX].
+
+Types:
+
+- formatYaml:
+    - enable (`boolean`): Optional.
+      Defaults to `false`.
+    - targets (`listOf str`): Optional.
+      Files or directories (relative to the project) to format.
+      Defaults to the entire project.
+
+Example `makes.nix`:
+
+```nix
+{
+  formatYaml = {
+    enable = true;
+    targets = [
+      "/" # Entire project
+      "/main.yaml" # A file
+      "/yamls/" # A directory within the project
+    ];
+  };
+}
+```
+
+Example invocation: `$ m . /formatYaml`
 
 ## Lint
 
@@ -5375,6 +5407,8 @@ Project leaders:
   [x86-64][X86_64]
 - [YAML]: https://yaml.org/
   [YAML][YAML]
+- [YAMLFIX]: https://github.com/lyz-code/yamlfix
+  [yamlfix][YAMLFIX]
 - [YQ]: https://github.com/mikefarah/yq
   [yq][YQ]
 - [YUM]: http://yum.baseurl.org/

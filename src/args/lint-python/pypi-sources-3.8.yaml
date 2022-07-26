@@ -1,3 +1,4 @@
+---
 closure:
   astroid: 2.8.0
   colorama: 0.4.4
@@ -7,7 +8,7 @@ closure:
   isort: 5.9.3
   lazy-object-proxy: 1.6.0
   mccabe: 0.6.1
-  mypy: "0.910"
+  mypy: '0.910'
   mypy-extensions: 0.4.3
   pep8-naming: 0.10.0
   platformdirs: 2.4.0
@@ -16,12 +17,12 @@ closure:
   pydocstyle: 6.1.1
   pyflakes: 2.3.1
   pylint: 2.11.1
-  pylint-celery: "0.3"
+  pylint-celery: '0.3'
   pylint-django: 2.4.4
-  pylint-flask: "0.6"
-  pylint-plugin-utils: "0.6"
+  pylint-flask: '0.6'
+  pylint-plugin-utils: '0.6'
   pyyaml: 5.4.1
-  requirements-detector: "0.7"
+  requirements-detector: '0.7'
   setoptconf-tmp: 0.3.1
   snowballstemmer: 2.1.0
   toml: 0.10.2
@@ -205,4 +206,4 @@ links:
   - name: wrapt-1.12.1.tar.gz
     sha256: 1mwpkdnqxf0yxj1a0hsnl06lf287qi5ap7309wm37x45zf0zlbxn
     url: https://files.pythonhosted.org/packages/82/f7/e43cefbe88c5fd371f4cf0cf5eb3feccd07515af9fd6cf7dbf1d1793a797/wrapt-1.12.1.tar.gz
-python: "3.8"
+python: '3.8'

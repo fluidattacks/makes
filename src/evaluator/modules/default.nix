@@ -26,6 +26,7 @@
     (import ./format-scala/default.nix args)
     (import ./format-javascript/default.nix args)
     (import ./format-terraform/default.nix args)
+    (import ./format-yaml/default.nix args)
     (import ./hello-world/default.nix args)
     (import ./inputs/default.nix)
     (import ./lint-bash/default.nix args)
