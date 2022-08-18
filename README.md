@@ -5412,4 +5412,5 @@ Project leaders:
 - [YQ]: https://github.com/mikefarah/yq
   [yq][YQ]
 - [YUM]: http://yum.baseurl.org/
+- [Python Tutorial](https://www.scaler.com/topics/python)
   [Yellowdog Updated Modified (yum)][YUM]
