@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
         - name: example
-          image: ghcr.io/fluidattacks/makes:22.08
+          image: ghcr.io/fluidattacks/makes:22.09
           command: [m]
           args:
             - github:fluidattacks/makes@main
@@ -492,7 +492,7 @@ In order to use Makes you'll need to:
 
 1. Install Makes by running:
 
-    `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.08.tar.gz`
+    `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.09.tar.gz`
 
     We will install two commands in your system:
     `$ m`, and `$ m-v22.05`.
@@ -598,7 +598,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "22.08";
+    ref = "22.09";
   };
 }
 ```
@@ -608,7 +608,7 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `22.08`.
+For example: `22.09`.
 
 # Configuring CI/CD
 
@@ -657,7 +657,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-    - uses: docker://ghcr.io/fluidattacks/makes:22.08
+    - uses: docker://ghcr.io/fluidattacks/makes:22.09
       # You can use any name you like here
       name: helloWorld
       # You can pass secrets (if required) as environment variables like this:
@@ -681,7 +681,7 @@ looks like this:
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
 /helloWorld:
-  image: ghcr.io/fluidattacks/makes:22.08
+  image: ghcr.io/fluidattacks/makes:22.09
   script:
     - m . /helloWorld 1 2 3
 
@@ -706,7 +706,7 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-install: nix-env -if https://github.com/fluidattacks/makes/archive/22.08.tar.gz
+install: nix-env -if https://github.com/fluidattacks/makes/archive/22.09.tar.gz
 env:
   global:
     # Encrypted environment variable
@@ -1683,7 +1683,7 @@ Types:
           #
           # If you need to run jobs on different container images,
           # simply  create many `aws_batch_job_definition`s
-          image = "ghcr.io/fluidattacks/makes:22.08"
+          image = "ghcr.io/fluidattacks/makes:22.09"
 
           # Below arguments can be parametrized later,
           # but they are required for the job definition to be created
@@ -2482,7 +2482,7 @@ for [makeNodeJsEnvironment](#makenodejsenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.08 /utils/makeNodeJsLock \
+m github:fluidattacks/makes@22.09 /utils/makeNodeJsLock \
   "${node_js_version}" \
   "${package_json}" \
   "${package_lock}"
@@ -2502,7 +2502,7 @@ for [makePythonPypiEnvironment](#makepythonpypienvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.08 /utils/makePythonLock \
+m github:fluidattacks/makes@22.09 /utils/makePythonLock \
   "${python_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}"
@@ -2527,7 +2527,7 @@ psycopg2: "2.9.1"
 You can generate an encrypted [Sops][SOPS] file like this:
 
 ```bash
-m github:fluidattacks/makes@22.08 /utils/makeSopsEncryptedFile \
+m github:fluidattacks/makes@22.09 /utils/makeSopsEncryptedFile \
   "${kms_key_arn}" \
   "${output}"
 ```
@@ -4105,7 +4105,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@22.08 /utils/makePythonLock \
+$ m github:fluidattacks/makes@22.09 /utils/makePythonLock \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -5049,7 +5049,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    rev = "22.08";
+    rev = "22.09";
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
