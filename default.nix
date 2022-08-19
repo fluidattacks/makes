@@ -1,14 +1,15 @@
 {system ? builtins.currentSystem}: let
   args = import ./src/args/agnostic.nix {inherit system;};
+  makesVersion = "22.09";
 
   inherit (args) __nixpkgs__;
   inherit (args) makeScript;
 in
   makeScript {
     aliases = [
-      "m-v22.05"
+      "m-v${makesVersion}"
       "makes"
-      "makes-v22.05"
+      "makes-v${makesVersion}"
     ];
     replace = {
       __argMakesSrc__ = ./.;
