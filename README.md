@@ -5361,7 +5361,7 @@ Project leaders:
   [PYTHONPATH Environment Variable][PYTHONPATH]
 - [PYTHON_PYPI]: https://pypi.org/
   [Python Packaging Index (PyPI)][PYTHON_PYPI]
-- [Python Tutorial](https://www.scaler.com/topics/python)
+- [Python Tutorial](https://www.scaler.com/topics/python/)
 - [RAKE]: https://github.com/ruby/rake
   [Rake][RAKE]
 - [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
