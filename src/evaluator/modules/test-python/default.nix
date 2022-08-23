@@ -35,7 +35,7 @@ in {
             type = lib.types.listOf lib.types.str;
           };
           python = lib.mkOption {
-            type = lib.types.enum ["3.7" "3.8" "3.9"];
+            type = lib.types.enum ["3.7" "3.8" "3.9" "3.10"];
           };
           searchPaths = lib.mkOption {
             default = {};

@@ -46,7 +46,7 @@
         })
         (listOptional config.cache.readAndWrite.enable {
           name = config.cache.readAndWrite.name;
-          url = "https://${config.cache.readAndWrite.name}.cachix.org";
+          url = "https://${config.cache.readAndWrite.name}.cachix.org/";
           pubKey = config.cache.readAndWrite.pubKey;
           type = "cachix";
         })
