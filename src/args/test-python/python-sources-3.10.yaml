@@ -1,0 +1,71 @@
+---
+closure:
+  atomicwrites: 1.4.1
+  attrs: 22.1.0
+  colorama: 0.4.5
+  iniconfig: 1.1.1
+  packaging: '21.3'
+  pluggy: 1.0.0
+  py: 1.11.0
+  pyparsing: 3.0.9
+  pytest: 7.1.2
+  tomli: 2.0.1
+links:
+  - name: atomicwrites-1.4.1.tar.gz
+    sha256: 04fgf66lmjp51k97735wzdy5crnbr3pfaw01fxzpldj9383wkcl1
+    url: https://files.pythonhosted.org/packages/87/c6/53da25344e3e3a9c01095a89f16dbcda021c609ddb42dd6d7c0528236fb2/atomicwrites-1.4.1.tar.gz
+  - name: attrs-22.1.0-py2.py3-none-any.whl
+    sha256: 072mv8qgvas8sagx7f021l9yrca6ry3m8cqsylsdzwkvyq1a9vw6
+    url: https://files.pythonhosted.org/packages/f2/bc/d817287d1aa01878af07c19505fafd1165cd6a119e9d0821ca1d1c20312d/attrs-22.1.0-py2.py3-none-any.whl
+  - name: attrs-22.1.0.tar.gz
+    sha256: 1di2kd18bc0sdq61sa24sdr9c7xjg3g8ymkw1qfikra7aikc5b99
+    url: https://files.pythonhosted.org/packages/1a/cb/c4ffeb41e7137b23755a45e1bfec9cbb76ecf51874c6f1d113984ecaa32c/attrs-22.1.0.tar.gz
+  - name: colorama-0.4.5-py2.py3-none-any.whl
+    sha256: 1nlriqsqjsilvxg6pm3086z2xkjviplw3gz79a1gadryjd2g8jw5
+    url: https://files.pythonhosted.org/packages/77/8b/7550e87b2d308a1b711725dfaddc19c695f8c5fa413c640b2be01662f4e6/colorama-0.4.5-py2.py3-none-any.whl
+  - name: colorama-0.4.5.tar.gz
+    sha256: 195pcxlhp4qz8pq496kvw6k7vdd056j8mffr76k8h2f59wrv9ip6
+    url: https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz
+  - name: iniconfig-1.1.1-py2.py3-none-any.whl
+    sha256: 1cx8kpp3akxwadzsmv2cdnifkyzj8fki5frmv3mzcivz9g3287h1
+    url: https://files.pythonhosted.org/packages/9b/dd/b3c12c6d707058fa947864b67f0c4e0c39ef8610988d7baea9578f3c48f3/iniconfig-1.1.1-py2.py3-none-any.whl
+  - name: iniconfig-1.1.1.tar.gz
+    sha256: 0ckzngs3scaa1mcfmsi1w40a1l8cxxnncscrxzjjwjyisx8z0fmw
+    url: https://files.pythonhosted.org/packages/23/a2/97899f6bd0e873fed3a7e67ae8d3a08b21799430fb4da15cfedf10d6e2c2/iniconfig-1.1.1.tar.gz
+  - name: packaging-21.3-py3-none-any.whl
+    sha256: 08nmbgmf38nnxr99d5nlnacrr2jh1wp4xsi4ms1wgk8ryl2kw47g
+    url: https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl
+  - name: packaging-21.3.tar.gz
+    sha256: 1sygirdrqgv4f1ckh9nhpcw1yfidrh3qjl86wq8vk6nq4wlw8iyx
+    url: https://files.pythonhosted.org/packages/df/9e/d1a7217f69310c1db8fdf8ab396229f55a699ce34a203691794c5d1cad0c/packaging-21.3.tar.gz
+  - name: pluggy-1.0.0-py2.py3-none-any.whl
+    sha256: 1lvvnc39v43v5jawq2wz0765rg9lkx8f25l4sqv1l0vz8nzln4vl
+    url: https://files.pythonhosted.org/packages/9e/01/f38e2ff29715251cf25532b9082a1589ab7e4f571ced434f98d0139336dc/pluggy-1.0.0-py2.py3-none-any.whl
+  - name: pluggy-1.0.0.tar.gz
+    sha256: 0n8iadlas2z1b4h0fc73b043c7iwfvx9rgvqm1azjmffmhxkf922
+    url: https://files.pythonhosted.org/packages/a1/16/db2d7de3474b6e37cbb9c008965ee63835bba517e22cdb8c35b5116b5ce1/pluggy-1.0.0.tar.gz
+  - name: py-1.11.0-py2.py3-none-any.whl
+    sha256: 0y5k0mjcr85i9xrd2wifc7gww596nq6dbz6d9bzpsr1jhwhm6z30
+    url: https://files.pythonhosted.org/packages/f6/f0/10642828a8dfb741e5f3fbaac830550a518a775c7fff6f04a007259b0548/py-1.11.0-py2.py3-none-any.whl
+  - name: py-1.11.0.tar.gz
+    sha256: 06c7m7sfcn7587xd4s2bng8m6q1gsfd3j93afhplfjq74r0mrisi
+    url: https://files.pythonhosted.org/packages/98/ff/fec109ceb715d2a6b4c4a85a61af3b40c723a961e8828319fbcb15b868dc/py-1.11.0.tar.gz
+  - name: pyparsing-3.0.9-py3-none-any.whl
+    sha256: 1g3b426kswh9ndjdlkpf9ba0fhwz5c2hjbxb3nvfzshfl7lvl9jh
+    url: https://files.pythonhosted.org/packages/6c/10/a7d0fa5baea8fe7b50f448ab742f26f52b80bfca85ac2be9d35cdd9a3246/pyparsing-3.0.9-py3-none-any.whl
+  - name: pyparsing-3.0.9.tar.gz
+    sha256: 1yvhdm0wdc1n20fzl0qly13llr0zcg9wl7mp37r8gdi1gp7hw0ib
+    url: https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz
+  - name: pytest-7.1.2-py3-none-any.whl
+    sha256: 0g2388y4v095wyzl753i5sipp9ibhf65ddhc02z2cvibzk6f7l0k
+    url: https://files.pythonhosted.org/packages/fb/d0/bae533985f2338c5d02184b4a7083b819f6b3fc101da792e0d96e6e5299d/pytest-7.1.2-py3-none-any.whl
+  - name: pytest-7.1.2.tar.gz
+    sha256: 0ifddvhgscd7wsshy8xlxy6l59rh6dw1zrs5piqa4r1q8ljh8sm0
+    url: https://files.pythonhosted.org/packages/4e/1f/34657c6ac56f3c58df650ba41f8ffb2620281ead8e11bcdc7db63cf72a78/pytest-7.1.2.tar.gz
+  - name: tomli-2.0.1-py3-none-any.whl
+    sha256: 1k0fqfdylinb57s2aqwprahwbrsk3babg4gghz4g06hnlvky77ck
+    url: https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl
+  - name: tomli-2.0.1.tar.gz
+    sha256: 0kwazq3i18rphcr8gak4fgzdcj5w5bbn4k4j2l6ma32gj496qlny
+    url: https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz
+python: '3.10'

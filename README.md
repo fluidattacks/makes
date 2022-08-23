@@ -1291,7 +1291,7 @@ Types:
       Definitions of python packages/modules to lint.
       Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" ]`):
+    - python (`enum [ "3.7" "3.8" "3.9" "3.10"]`):
       Python interpreter version that your package/module is designed for.
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.

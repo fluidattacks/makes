@@ -42,6 +42,7 @@ assert builtins.any (_: _) [
   is37 = sources.python == "3.7";
   is38 = sources.python == "3.8";
   is39 = sources.python == "3.9";
+  is310 = sources.python == "3.10";
   python = makePythonVersion sources.python;
 
   bootstraped = builtins.concatLists [
@@ -149,6 +150,7 @@ in
     pythonPackage37 = listOptional is37 pypiEnvironment;
     pythonPackage38 = listOptional is38 pypiEnvironment;
     pythonPackage39 = listOptional is39 pypiEnvironment;
+    pythonPackage310 = listOptional is310 pypiEnvironment;
     source = builtins.concatLists [
       bootstraped
       [(makeSearchPaths searchPathsRuntime)]

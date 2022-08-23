@@ -1,0 +1,14 @@
+---
+closure:
+  numpy: 1.21.2
+links:
+  - name: numpy-1.21.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 04yzacwcsvj9m2xlwgnnmw9panqlr23vyj1m8wxqzh3k68r699jj
+    url: https://files.pythonhosted.org/packages/64/1d/24b83eb738ce77eb014777c1ae6480ad82c7599361735f0cfcb0d4788e57/numpy-1.21.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.21.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0632yj9xxfv1yw99szqmsvrsi7gww2pwmnihv5646h991bdvk9si
+    url: https://files.pythonhosted.org/packages/52/0b/0bacc59bff3b52ecb276cec6674b751d9d403fc116a11306dc697b449c76/numpy-1.21.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: numpy-1.21.2.zip
+    sha256: 1p6n7pbc4s7qdqh28clyrhahs0xzadh7q0w6vwakp4n5mzc1ccj2
+    url: https://files.pythonhosted.org/packages/3a/be/650f9c091ef71cb01d735775d554e068752d3ff63d7943b26316dc401749/numpy-1.21.2.zip
+python: '3.10'

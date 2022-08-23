@@ -12,6 +12,7 @@
       "3.7" = __nixpkgs__.python37Packages.bandit;
       "3.8" = __nixpkgs__.python38Packages.bandit;
       "3.9" = __nixpkgs__.python39Packages.bandit;
+      "3.10" = __nixpkgs__.python310Packages.bandit;
     }
     .${python};
 in
