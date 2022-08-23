@@ -84,6 +84,7 @@
     makeScriptParallel = import ./make-script-parallel/default.nix self;
     makeSearchPaths = import ./make-search-paths/default.nix self;
     makeSecretForAwsFromEnv = import ./make-secret-for-aws-from-env/default.nix self;
+    makeSecretForAwsFromGitlab = import ./make-secret-for-aws-from-gitlab/default.nix self;
     makeSecretForEnvFromSops = import ./make-secret-for-env-from-sops/default.nix self;
     makeSecretForGpgFromEnv = import ./make-secret-for-gpg-from-env/default.nix self;
     makeSecretForKubernetesConfigFromAws = import ./make-secret-for-kubernetes-config-from-aws/default.nix self;

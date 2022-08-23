@@ -41,6 +41,7 @@
     (import ./lint-with-lizard/default.nix args)
     (import ./pipelines/default.nix args)
     (import ./secrets-for-aws-from-env/default.nix args)
+    (import ./secrets-for-aws-from-gitlab/default.nix args)
     (import ./secrets-for-env-from-sops/default.nix args)
     (import ./secrets-for-gpg-from-env/default.nix args)
     (import ./secrets-for-kubernetes-config-from-aws/default.nix args)

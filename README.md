@@ -266,6 +266,7 @@ Real life projects that run entirely on [Makes][MAKES]:
         - [envVarsForTerraform](#envvarsforterraform)
     - [Secrets](#secrets)
         - [secretsForAwsFromEnv](#secretsforawsfromenv)
+        - [secretsForAwsFromGitlab](#secretsforawsfromgitlab)
         - [secretsForEnvFromSops](#secretsforenvfromsops)
         - [secretsForGpgFromEnv](#secretsforgpgfromenv)
         - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
@@ -2230,6 +2231,8 @@ Example `makes.nix`:
 
 ```nix
 { outputs
+, lintTerraform
+, secretsForAwsFromEnv
 , ...
 }:
 {
@@ -2255,6 +2258,64 @@ Example `makes.nix`:
       moduleProd = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
+        ];
+        src = "/my/module2";
+        version = "0.14";
+      };
+    };
+  };
+}
+```
+
+### secretsForAwsFromGitlab
+
+Aquire an [Amazon Web Services (AWS)][AWS] session
+using [Gitlab CI OIDC][GITLAB_CI_OIDC].
+
+Types:
+
+- secretsForAwsFromGitlab (`attrsOf awsFromGitlabType`): Optional.
+  Defaults to `{ }`.
+- awsFromGitlabType (`submodule`):
+
+    - roleArn (`str`):
+      ARN of [AWS][AWS] role to be assumed.
+
+    - duration (`ints.positive`): Optional.
+      Duration in seconds of the session.
+      Defaults to `3600`.
+
+Example `makes.nix`:
+
+```nix
+{ outputs
+, lintTerraform
+, secretsForAwsFromGitlab
+, ...
+}:
+{
+  secretsForAwsFromGitlab = {
+    makesDev = {
+      roleArn = "arn:aws:iam::123456789012:role/dev";
+      duration = 3600;
+    };
+    makesProd = {
+      roleArn = "arn:aws:iam::123456789012:role/prod";
+      duration = 7200;
+    };
+  };
+  lintTerraform = {
+    modules = {
+      moduleDev = {
+        setup = [
+          outputs."/secretsForAwsFromGitlab/makesDev"
+        ];
+        src = "/my/module1";
+        version = "0.14";
+      };
+      moduleProd = {
+        setup = [
+          outputs."/secretsForAwsFromGitlab/makesProd"
         ];
         src = "/my/module2";
         version = "0.14";
@@ -5251,6 +5312,8 @@ Project leaders:
   [GitLab CI][GITLAB_CI]
 - [GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
   [GitLab CI configuration syntax][GITLAB_CI_REF]
+- [GITLAB_CI_OIDC]: https://docs.gitlab.com/ee/ci/cloud_services/aws/index.html
+  [GitLab CI OIDC][GITLAB_CI_OIDC]
 - [GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
   [GitLab Variables][GITLAB_VARS]
 - [GNU_MAKE]: https://www.gnu.org/software/make/
