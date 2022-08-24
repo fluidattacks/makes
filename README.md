@@ -146,7 +146,7 @@ Easy, isn't it?
 Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v22.05-linux
+Makes v22.09-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -496,7 +496,7 @@ In order to use Makes you'll need to:
     `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.09.tar.gz`
 
     We will install two commands in your system:
-    `$ m`, and `$ m-v22.05`.
+    `$ m`, and `$ m-v22.09`.
 
 Makes targets two kind of users:
 
@@ -1308,7 +1308,7 @@ Types:
     - src (`str`):
       Path to the package/module.
 - moduleType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" ]`):
+    - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
       Python interpreter version that your package/module is designed for.
     - searchPaths (`asIn makeSearchPaths`): Optional.
       Arguments here will be passed as-is to `makeSearchPaths`.
@@ -1492,7 +1492,7 @@ Types:
   Mapping of names to [pytest][PYTEST] targets.
   Defaults to `{ }`.
 - targetType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" ]`):
+    - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
       Python interpreter version that your package/module is designed for.
     - src (`str`):
       Path to the file or directory that contains the tests code.
@@ -1615,7 +1615,7 @@ Types:
   Definitions of directories of python packages/modules to lint.
   Defaults to `{ }`.
 - projectType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" ]`):
+    - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
       Python interpreter version that your package/module is designed for.
     - target (`str`):
       Relative path to the package/module.
@@ -2569,7 +2569,7 @@ m github:fluidattacks/makes@22.09 /utils/makePythonLock \
   "${sources_yaml}"
 ```
 
-- Supported `python_version`s are: `3.7`, `3.8` and `3.9`.
+- Supported `python_version`s are: `3.7`, `3.8`, `3.9` and `3.10`.
 - `dependencies_yaml` is the **absolute path** to a [YAML][YAML] file
   mapping [PyPI][PYTHON_PYPI] packages to version constraints.
 
@@ -3110,6 +3110,12 @@ Types specific to [Python][PYTHON]:
       to [MYPYPATH][MYPYPATH].
       Defaults to `[ ]`.
 
+    - `pythonMypy310` (`listOf coercibleToStr`): Optional.
+      Append `/lib/python3.10/site-packages`
+      of each element in the list
+      to [MYPYPATH][MYPYPATH].
+      Defaults to `[ ]`.
+
     - `pythonPackage` (`listOf coercibleToStr`): Optional.
       Append `/`
       of each element in the list
@@ -3130,6 +3136,12 @@ Types specific to [Python][PYTHON]:
 
     - `pythonPackage39` (`listOf coercibleToStr`): Optional.
       Append `/lib/python3.9/site-packages`
+      of each element in the list
+      to [PYTHONPATH][PYTHONPATH].
+      Defaults to `[ ]`.
+
+    - `pythonPackage310` (`listOf coercibleToStr`): Optional.
+      Append `/lib/python3.10/site-packages`
       of each element in the list
       to [PYTHONPATH][PYTHONPATH].
       Defaults to `[ ]`.
@@ -4051,7 +4063,7 @@ Types:
 
 - makePythonVersion (`function str -> package`):
 
-    - (`enum [ "3.7" "3.8" "3.9" ]`):
+    - (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
       [Python][PYTHON] version of the interpreter to return.
 
 Example:
