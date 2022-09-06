@@ -51,6 +51,7 @@ from typing import (
     Callable,
     Dict,
     List,
+    NamedTuple,
     Optional,
     Set,
     Tuple,
@@ -419,7 +420,12 @@ def _get_head(src: str) -> str:
     return head
 
 
-def _get_config(head: str) -> Dict[str, Any]:
+class Config(NamedTuple):
+    attrs: List[str]
+    cache: List[Dict[str, str]]
+
+
+def _get_config(head: str) -> Config:
     CON.out()
     CON.rule("Building project configuration")
     CON.out()
@@ -440,7 +446,9 @@ def _get_config(head: str) -> Dict[str, Any]:
 
     if code == 0:
         with open(out, encoding="utf-8") as file:
-            return json.load(file)
+            config: Dict[str, Any] = json.load(file)
+
+            return Config(attrs=config["outputs"], cache=config["cache"])
 
     raise SystemExit(code)
 
@@ -762,10 +770,25 @@ def cli(args: List[str]) -> None:
         _help_and_exit_base()
 
     head: str = _get_head(src)
-    config: Dict[str, Any] = _get_config(head)
-    attrs: List[str] = config["outputs"]
-    cache: List[Dict[str, str]] = config["cache"]
+    config: Config = _get_config(head)
 
+    args, attr = _cli_get_args_and_attr(args, config.attrs, src)
+
+    out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
+    code = _cli_build(attr, config, head, out, src)
+
+    if code == 0:
+        cache_push(config.cache, out)
+        execute_action(args[3:], head, out)
+
+    raise SystemExit(code)
+
+
+def _cli_get_args_and_attr(
+    args: List[str],
+    attrs: List[str],
+    src: str,
+) -> Tuple[List[str], str]:
     if args[2:]:
         attr: str = args[2]
     elif CON.is_terminal:
@@ -774,23 +797,32 @@ def cli(args: List[str]) -> None:
     else:
         _help_and_exit_with_src_no_tty(src, attrs)
 
+    return args, attr
+
+
+def _cli_build(
+    attr: str,
+    config: Config,
+    head: str,
+    out: str,
+    src: str,
+) -> int:
     CON.out()
     CON.rule(f"Building {attr}")
     CON.out()
-    if attr not in attrs:
+    if attr not in config.attrs:
         CON.print(f"We can't proceed with OUTPUT: {attr}", justify="center")
         CON.print("It is not a valid project output", justify="center")
         CON.print()
         CON.print("Please see the correct usage below", justify="center")
-        _help_and_exit_with_src_no_tty(src, attrs)
+        _help_and_exit_with_src_no_tty(src, config.attrs)
 
-    out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
     code = _run(
         args=_nix_build(
             attr=f'config.outputs."{attr}"'
             if NIX_STABLE
             else f'{head}#__makes__."config:outputs:{attr}"',
-            cache=cache,
+            cache=config.cache,
             head=head,
             out=out,
         ),
@@ -798,10 +830,8 @@ def cli(args: List[str]) -> None:
         stderr=None,
         stdout=None,
     )
-    if code == 0:
-        cache_push(cache, out)
-        execute_action(args[3:], head, out)
-    raise SystemExit(code)
+
+    return code
 
 
 def execute_action(args: List[str], head: str, out: str) -> None:
