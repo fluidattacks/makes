@@ -2285,6 +2285,11 @@ Types:
       Duration in seconds of the session.
       Defaults to `3600`.
 
+    - retries (`ints.positive`): Optional.
+      Number of login retries before failing.
+      One retry per second.
+      Defaults to `15`.
+
 Example `makes.nix`:
 
 ```nix
@@ -2298,10 +2303,12 @@ Example `makes.nix`:
     makesDev = {
       roleArn = "arn:aws:iam::123456789012:role/dev";
       duration = 3600;
+      retries = 30;
     };
     makesProd = {
       roleArn = "arn:aws:iam::123456789012:role/prod";
       duration = 7200;
+      retries = 30;
     };
   };
   lintTerraform = {
