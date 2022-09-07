@@ -5,6 +5,9 @@ from contextlib import (
 from functools import (
     partial,
 )
+from hashlib import (
+    sha256,
+)
 import io
 import json
 import operator
@@ -907,9 +910,12 @@ def execute_action(args: List[str], head: str, out: str) -> None:
 
 
 def cache_push(cache: List[Dict[str, str]], out: str) -> None:
+    once: bool = True
     for config in cache:
         if config["type"] == "cachix" and "CACHIX_AUTH_TOKEN" in environ:
-            CON.out("Pushing to cache")
+            if once:
+                CON.rule("Pushing to cache")
+                once = False
             _run(
                 args=["cachix", "push", "-c", "0", config["name"], out],
                 stderr=None,
@@ -943,6 +949,7 @@ def write_provenance(
     provenance: str,
     src: str,
 ) -> None:
+    CON.rule("Provenance")
     attestation: Dict[str, Any] = {}
     attestation["_type"] = "https://in-toto.io/Statement/v0.1"
     attestation["predicateType"] = "https://slsa.dev/provenance/v0.2"
@@ -984,8 +991,19 @@ def write_provenance(
         }
     ]
 
-    with open(provenance, encoding="utf-8", mode="w+") as attestation_file:
-        json.dump(attestation, attestation_file, indent=2, sort_keys=True)
+    attestation_bytes = json.dumps(
+        attestation,
+        indent=2,
+        sort_keys=True,
+    ).encode()
+
+    with open(provenance, mode="wb+") as attestation_file:
+        attestation_file.write(attestation_bytes)
+
+    integrity = sha256(attestation_bytes).hexdigest()
+
+    CON.out(f"Attestation: {provenance}")
+    CON.out(f"SHA-256: {integrity}")
 
 
 def main() -> None:
