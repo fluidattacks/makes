@@ -24,6 +24,7 @@ from os.path import (
     exists,
     getctime,
     join,
+    realpath,
 )
 from posixpath import (
     abspath,
@@ -832,7 +833,10 @@ def cli(args: List[str]) -> None:
     args, attr = _cli_get_args_and_attr(args, config.attrs, src)
 
     out: str = join(MAKES_DIR, f"out{attr.replace('/', '-')}")
-    provenance: str = join(MAKES_DIR, f"provenance{attr.replace('/', '-')}")
+    provenance: str = join(
+        MAKES_DIR,
+        f"provenance{attr.replace('/', '-')}.json",
+    )
     code = _cli_build(attr, config, head, out, src)
 
     if code == 0:
@@ -949,6 +953,27 @@ def write_provenance(
     provenance: str,
     src: str,
 ) -> None:
+    src_uri: str = (
+        # GitLab
+        (
+            f"git+https://{environ['CI_REPOSITORY_URL']}"
+            if "CI_REPOSITORY_URL" in environ
+            else ""
+        )
+        # GitHub
+        or (
+            f"git+https://{environ['GITHUB_SERVER_URL']}"
+            f"/{environ['GITHUB_REPOSITORY']}"
+            if "GITHUB_SERVER_URL" in environ
+            and "GITHUB_REPOSITORY" in environ
+            else ""
+        )
+        # Local
+        or (f"git+file://{abspath(src)}" if abspath(src) == CWD else "")
+        # Other
+        or src
+    )
+
     CON.rule("Provenance")
     attestation: Dict[str, Any] = {}
     attestation["_type"] = "https://in-toto.io/Statement/v0.1"
@@ -962,11 +987,11 @@ def write_provenance(
     )
     attestation["predicate"]["invocation"] = {}
     attestation["predicate"]["invocation"]["configSource"] = {
-        "uri": f"git+https://{src}",
+        "uri": src_uri,
         "digest": {"sha1": _clone_src_git_rev_parse(head, "HEAD")},
-        "entrypoint": args[0],
+        "entrypoint": args[2],
     }
-    attestation["predicate"]["invocation"]["parameters"] = args[1:]
+    attestation["predicate"]["invocation"]["parameters"] = args[3:]
     attestation["predicate"]["invocation"]["environment"] = {
         key: "" for key in environ
     }
@@ -986,7 +1011,7 @@ def write_provenance(
 
     attestation["subject"] = [
         {
-            "uri": out,
+            "uri": realpath(out),
             "hash": dict([_nix_hashes(out)[0].split(":")]),  # type: ignore
         }
     ]
