@@ -956,8 +956,8 @@ def write_provenance(
     src_uri: str = (
         # GitLab
         (
-            f"git+https://{environ['CI_REPOSITORY_URL']}"
-            if "CI_REPOSITORY_URL" in environ
+            f"git+{environ['CI_PROJECT_URL']}"
+            if "CI_PROJECT_URL" in environ
             else ""
         )
         # GitHub
