@@ -1,7 +1,3 @@
-[Introduction](./README.md)
-
-# Reference
-
-# Security
-
-- [Supply Chain Levels for Software Artifacts](./security/slsa.md)
+- [Introduction](./README.md)
+- [Security](./security/README.md)
+  - [SLSA](./security/slsa.md)

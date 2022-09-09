@@ -31,6 +31,9 @@ on each of the requirements:
 | Build - Parameter-less         |   4   |
 | Build - Hermetic               |   4   |
 | Build - Reproducible           |   4   |
+| Common - Security              |   4   |
+| Common - Access                |   4   |
+| Common - Superusers            |   3   |
 
 For clarity,
 this is how SLSA definitions map into our infrastructure:
@@ -259,6 +262,29 @@ All of our build scripts are intended to be reproducible.
 
 The reproducibility guarantees of our build scripts
 are that of the [Nix package manager][nix].
+
+## Common Requirements
+
+### Security
+
+Please read the [Security page](/security).
+
+### Access
+
+Our build service (GitHub Actions) is SaaS,
+and we use GitHub hosted runners.
+Only some GitHub employees
+may have access to the runners.
+We cannot access the build service infrastructure
+physically nor remotely.
+
+### Superusers
+
+Only a small number of platform admins may override the guarantees provided by SLSA.
+Particularly through disabling security options
+in the repository configuration page.
+Doing so does not currently require approval
+of a second platform admin.
 
 <!-- References -->
 
