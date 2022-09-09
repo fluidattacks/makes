@@ -1,0 +1,18 @@
+[book]
+authors = ["Fluid Attacks"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Makes"
+
+[output.html]
+default-theme = "light"
+edit-url-template = "https://github.com/fluidattacks/makes/edit/main/docs/{path}"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/fluidattacks/makes"
+git-repository-icon = "fa-github"
+site-url = "/"
+
+[output.html.fold]
+enable = false
+level = 0

@@ -44,7 +44,10 @@
       bin = [inputs.nixpkgs.hello];
     };
     makes = {
-      bin = [inputs.nixpkgs.just];
+      bin = [
+        inputs.nixpkgs.just
+        inputs.nixpkgs.mdbook
+      ];
       source = [outputs."/cli/pypi"];
     };
   };
