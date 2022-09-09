@@ -1,7 +1,7 @@
 # 🦄 Makes
 
 A software supply chain framework
-powered by [Nix][NIX].
+powered by [Nix][nix].
 
 Ever needed to run applications locally
 to try out your code?
@@ -13,7 +13,7 @@ against supply chain attacks?
 Know the exact dependency tree of your application?
 Well, we have!
 
-[Makes][MAKES] is an open-source, production-ready framework
+[Makes][makes] is an open-source, production-ready framework
 for building CI/CD pipelines
 and application environments.
 It cryptographically signs direct and indirect dependencies,
@@ -22,7 +22,7 @@ runs on Docker, VMs and any Linux-based OS,
 can be installed with just one command,
 and can be extended to work with any technology.
 
-The goal of [Makes][MAKES] is to provide
+The goal of [Makes][makes] is to provide
 an immutable software supply chain
 while keeping technical implementation
 as simple as possible.
@@ -50,7 +50,7 @@ Jump right into our [hands-on example](https://github.com/fluidattacks/makes-exa
 ### Cloud native applications with Kubernetes ☸
 
 This is how easy it is to deploy an application
-built with [Makes][MAKES] into [Kubernetes][KUBERNETES]:
+built with [Makes][makes] into [Kubernetes][kubernetes]:
 
 ```yaml
 apiVersion: apps/v1
@@ -71,8 +71,8 @@ spec:
 
 Not a problem!
 
-This is how running [Makes][MAKES]
-on [AWS Batch][AWS_BATCH] looks like:
+This is how running [Makes][makes]
+on [AWS Batch][aws_batch] looks like:
 
 ```nix
 { outputs
@@ -99,9 +99,9 @@ on [AWS Batch][AWS_BATCH] looks like:
 
 ### Declarative infra, declarative CI/CD, pure profit
 
-This is how creating a [CI/CD][CI_CD] pipeline
-for deploying infrastructure with [Terraform][TERRAFORM]
-and [Makes][MAKES] looks like:
+This is how creating a [CI/CD][ci_cd] pipeline
+for deploying infrastructure with [Terraform][terraform]
+and [Makes][makes] looks like:
 
 ```nix
 # /path/to/my/project/makes.nix
@@ -180,7 +180,7 @@ Live demo: [here](https://asciinema.org/a/479680)
 ### From dev to prod 🌟
 
 This is how your final users are going to interact
-with applications packaged with [Makes][MAKES]:
+with applications packaged with [Makes][makes]:
 
 `$ m github:org/repo@branch /yourAwesomeApplication arg1 arg2 ...`
 
@@ -192,11 +192,11 @@ It works on dev, it works on prod, :100:% reproducibility!
 
 ## Production ready
 
-Yes, [Makes][MAKES] is production ready.
+Yes, [Makes][makes] is production ready.
 
-Real life projects that run entirely on [Makes][MAKES]:
+Real life projects that run entirely on [Makes][makes]:
 
-- [Fluid Attacks][FLUID_ATTACKS] monorepo:
+- [Fluid Attacks][fluid_attacks] monorepo:
   https://gitlab.com/fluidattacks/product
 
 ### Demos
@@ -210,132 +210,133 @@ Real life projects that run entirely on [Makes][MAKES]:
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 # Contents
 
 - [Why](#why)
 - [Goal](#goal)
 - [Getting started](#getting-started)
-    - [Getting started as a final user](#getting-started-as-a-final-user)
-    - [Getting started as developer](#getting-started-as-developer)
-    - [Learning the language](#learning-the-language)
-    - [Versioning scheme](#versioning-scheme)
-        - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
-        - [Compatibility information](#compatibility-information)
+  - [Getting started as a final user](#getting-started-as-a-final-user)
+  - [Getting started as developer](#getting-started-as-developer)
+  - [Learning the language](#learning-the-language)
+  - [Versioning scheme](#versioning-scheme)
+    - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
+    - [Compatibility information](#compatibility-information)
 - [Configuring CI/CD](#configuring-cicd)
-    - [Providers comparison](#providers-comparison)
-        - [Configuring on GitHub Actions](#configuring-on-github-actions)
-        - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
-        - [Configuring on Travis CI](#configuring-on-travis-ci)
-    - [Configuring the cache](#configuring-the-cache)
+  - [Providers comparison](#providers-comparison)
+    - [Configuring on GitHub Actions](#configuring-on-github-actions)
+    - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
+    - [Configuring on Travis CI](#configuring-on-travis-ci)
+  - [Configuring the cache](#configuring-the-cache)
 - [Makes.nix reference](#makesnix-reference)
-    - [Development](#development)
-        - [dev](#dev)
-    - [Format](#format)
-        - [formatBash](#formatbash)
-        - [formatMarkdown](#formatmarkdown)
-        - [formatNix](#formatnix)
-        - [formatPython](#formatpython)
-        - [formatTerraform](#formatterraform)
-        - [formatYaml](#formatyaml)
-    - [Lint](#lint)
-        - [lintBash](#lintbash)
-        - [lintClojure](#lintclojure)
-        - [lintGitCommitMsg](#lintgitcommitmsg)
-        - [lintGitMailMap](#lintgitmailmap)
-        - [lintMarkdown](#lintmarkdown)
-        - [lintNix](#lintnix)
-        - [lintPython](#lintpython)
-        - [lintTerraform](#lintterraform)
-        - [lintWithAjv](#lintwithajv)
-        - [lintWithLizard](#lintwithlizard)
-    - [Test](#test)
-        - [testPython](#testpython)
-        - [testTerraform](#testterraform)
-    - [Security](#security)
-        - [securePythonWithBandit](#securepythonwithbandit)
-    - [Deploy](#deploy)
-        - [computeOnAwsBatch](#computeonawsbatch)
-        - [deployContainerImage](#deploycontainerimage)
-        - [deployTerraform](#deployterraform)
-        - [taintTerraform](#taintterraform)
-        - [deployNomad](#deploynomad)
-    - [Performance](#performance)
-        - [cache](#cache)
-    - [Environment](#environment)
-        - [envVars](#envvars)
-        - [envVarsForTerraform](#envvarsforterraform)
-    - [Secrets](#secrets)
-        - [secretsForAwsFromEnv](#secretsforawsfromenv)
-        - [secretsForAwsFromGitlab](#secretsforawsfromgitlab)
-        - [secretsForEnvFromSops](#secretsforenvfromsops)
-        - [secretsForGpgFromEnv](#secretsforgpgfromenv)
-        - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
-        - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
-    - [Utilities](#utilities)
-        - [makeNodeJsLock](#makenodejslock)
-        - [makePythonLock](#makepythonlock)
-        - [makeSopsEncryptedFile](#makesopsencryptedfile)
-    - [Framework Configuration](#framework-configuration)
-        - [extendingMakesDirs](#extendingmakesdirs)
-        - [inputs](#inputs)
-    - [Database](#database)
-        - [dynamoDb](#dynamodb)
-    - [Examples](#examples)
-        - [helloWorld](#helloworld)
-    - [Monitoring](#monitoring)
-        - [calculateScorecard](#calculatescorecard)
+  - [Development](#development)
+    - [dev](#dev)
+  - [Format](#format)
+    - [formatBash](#formatbash)
+    - [formatMarkdown](#formatmarkdown)
+    - [formatNix](#formatnix)
+    - [formatPython](#formatpython)
+    - [formatTerraform](#formatterraform)
+    - [formatYaml](#formatyaml)
+  - [Lint](#lint)
+    - [lintBash](#lintbash)
+    - [lintClojure](#lintclojure)
+    - [lintGitCommitMsg](#lintgitcommitmsg)
+    - [lintGitMailMap](#lintgitmailmap)
+    - [lintMarkdown](#lintmarkdown)
+    - [lintNix](#lintnix)
+    - [lintPython](#lintpython)
+    - [lintTerraform](#lintterraform)
+    - [lintWithAjv](#lintwithajv)
+    - [lintWithLizard](#lintwithlizard)
+  - [Test](#test)
+    - [testPython](#testpython)
+    - [testTerraform](#testterraform)
+  - [Security](#security)
+    - [securePythonWithBandit](#securepythonwithbandit)
+  - [Deploy](#deploy)
+    - [computeOnAwsBatch](#computeonawsbatch)
+    - [deployContainerImage](#deploycontainerimage)
+    - [deployTerraform](#deployterraform)
+    - [taintTerraform](#taintterraform)
+    - [deployNomad](#deploynomad)
+  - [Performance](#performance)
+    - [cache](#cache)
+  - [Environment](#environment)
+    - [envVars](#envvars)
+    - [envVarsForTerraform](#envvarsforterraform)
+  - [Secrets](#secrets)
+    - [secretsForAwsFromEnv](#secretsforawsfromenv)
+    - [secretsForAwsFromGitlab](#secretsforawsfromgitlab)
+    - [secretsForEnvFromSops](#secretsforenvfromsops)
+    - [secretsForGpgFromEnv](#secretsforgpgfromenv)
+    - [secretsForKubernetesConfigFromAws](#secretsforkubernetesconfigfromaws)
+    - [secretsForTerraformFromEnv](#secretsforterraformfromenv)
+  - [Utilities](#utilities)
+    - [makeNodeJsLock](#makenodejslock)
+    - [makePythonLock](#makepythonlock)
+    - [makeSopsEncryptedFile](#makesopsencryptedfile)
+  - [Framework Configuration](#framework-configuration)
+    - [extendingMakesDirs](#extendingmakesdirs)
+    - [inputs](#inputs)
+  - [Database](#database)
+    - [dynamoDb](#dynamodb)
+  - [Examples](#examples)
+    - [helloWorld](#helloworld)
+  - [Monitoring](#monitoring)
+    - [calculateScorecard](#calculatescorecard)
 - [Extending Makes](#extending-makes)
-    - [Main.nix format](#mainnix-format)
-        - [Derivations](#derivations)
-    - [Main.nix reference](#mainnix-reference)
-        - [Fundamentals](#fundamentals)
-            - [makeSearchPaths](#makesearchpaths)
-            - [makeDerivation](#makederivation)
-            - [makeTemplate](#maketemplate)
-            - [makeScript](#makescript)
-            - [projectPath](#projectpath)
-        - [Fetchers](#fetchers)
-            - [fetchUrl](#fetchurl)
-            - [fetchArchive](#fetcharchive)
-            - [fetchGithub](#fetchgithub)
-            - [fetchGitlab](#fetchgitlab)
-            - [fetchNixpkgs](#fetchnixpkgs)
-            - [fetchRubyGem](#fetchrubygem)
-        - [Git](#git)
-            - [libGit](#libgit)
-        - [Node.js](#nodejs)
-            - [makeNodeJsVersion](#makenodejsversion)
-            - [makeNodeJsModules](#makenodejsmodules)
-            - [makeNodeJsEnvironment](#makenodejsenvironment)
-        - [Python](#python)
-            - [makePythonVersion](#makepythonversion)
-            - [makePythonPypiEnvironment](#makepythonpypienvironment)
-        - [Ruby](#ruby)
-            - [makeRubyVersion](#makerubyversion)
-            - [makeRubyGemsInstall](#makerubygemsinstall)
-            - [makeRubyGemsEnvironment](#makerubygemsenvironment)
-        - [Containers](#containers)
-            - [makeContainerImage](#makecontainerimage)
-        - [Format conversion](#format-conversion)
-            - [fromJson](#fromjson)
-            - [fromToml](#fromtoml)
-            - [fromYaml](#fromyaml)
-            - [toBashArray](#tobasharray)
-            - [toBashMap](#tobashmap)
-            - [toFileJson](#tofilejson)
-            - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
-            - [toFileYaml](#tofileyaml)
-        - [Patchers](#patchers)
-            - [pathShebangs](#pathshebangs)
-        - [Others](#others)
-            - [calculateCvss3](#calculatecvss3)
-            - [makeSslCertificate](#makesslcertificate)
+  - [Main.nix format](#mainnix-format)
+    - [Derivations](#derivations)
+  - [Main.nix reference](#mainnix-reference)
+    - [Fundamentals](#fundamentals)
+      - [makeSearchPaths](#makesearchpaths)
+      - [makeDerivation](#makederivation)
+      - [makeTemplate](#maketemplate)
+      - [makeScript](#makescript)
+      - [projectPath](#projectpath)
+    - [Fetchers](#fetchers)
+      - [fetchUrl](#fetchurl)
+      - [fetchArchive](#fetcharchive)
+      - [fetchGithub](#fetchgithub)
+      - [fetchGitlab](#fetchgitlab)
+      - [fetchNixpkgs](#fetchnixpkgs)
+      - [fetchRubyGem](#fetchrubygem)
+    - [Git](#git)
+      - [libGit](#libgit)
+    - [Node.js](#nodejs)
+      - [makeNodeJsVersion](#makenodejsversion)
+      - [makeNodeJsModules](#makenodejsmodules)
+      - [makeNodeJsEnvironment](#makenodejsenvironment)
+    - [Python](#python)
+      - [makePythonVersion](#makepythonversion)
+      - [makePythonPypiEnvironment](#makepythonpypienvironment)
+    - [Ruby](#ruby)
+      - [makeRubyVersion](#makerubyversion)
+      - [makeRubyGemsInstall](#makerubygemsinstall)
+      - [makeRubyGemsEnvironment](#makerubygemsenvironment)
+    - [Containers](#containers)
+      - [makeContainerImage](#makecontainerimage)
+    - [Format conversion](#format-conversion)
+      - [fromJson](#fromjson)
+      - [fromToml](#fromtoml)
+      - [fromYaml](#fromyaml)
+      - [toBashArray](#tobasharray)
+      - [toBashMap](#tobashmap)
+      - [toFileJson](#tofilejson)
+      - [toFileJsonFromFileYaml](#tofilejsonfromfileyaml)
+      - [toFileYaml](#tofileyaml)
+    - [Patchers](#patchers)
+      - [pathShebangs](#pathshebangs)
+    - [Others](#others)
+      - [calculateCvss3](#calculatecvss3)
+      - [makeSslCertificate](#makesslcertificate)
 - [Migrating to Makes](#migrating-to-makes)
-    - [From a Nix project](#from-a-nix-project)
+  - [From a Nix project](#from-a-nix-project)
 - [Contact an expert](#contact-an-expert)
 - [Contributing to Makes](#contributing-to-makes)
-    - [Is easy](#is-easy)
-    - [Code contributions](#code-contributions)
+  - [Is easy](#is-easy)
+  - [Code contributions](#code-contributions)
 - [Contributors](#contributors)
 - [References](#references)
 
@@ -344,116 +345,117 @@ Real life projects that run entirely on [Makes][MAKES]:
 # Why
 
 Designing a fast, reliable, reproducible, easy-to-use
-[CI/CD][CI_CD] system **is no easy task**.
+[CI/CD][ci_cd] system **is no easy task**.
 
 While there are free and paid tools in the market like:
-[Ansible][ANSIBLE],
-[APT][APT],
-[Apache Ant][APACHE_ANT],
-[Apache Maven][APACHE_MAVEN],
-[Buck][BUCK],
-[Chef][CHEF],
-[Docker][DOCKER],
-[Gradle][GRADLE],
-[Grunt][GRUNT],
-[Gulp][GULP],
-[Maven][APACHE_MAVEN],
-[GNU Make][GNU_MAKE],
-[Leiningen][LEININGEN],
-[NPM][NPM],
-[pip][PIP],
-[Packer][PACKER],
-[Rake][Rake],
-[RPM][RPM],
-[sbt][SBT],
-[SCons][SCONS],
+[Ansible][ansible],
+[APT][apt],
+[Apache Ant][apache_ant],
+[Apache Maven][apache_maven],
+[Buck][buck],
+[Chef][chef],
+[Docker][docker],
+[Gradle][gradle],
+[Grunt][grunt],
+[Gulp][gulp],
+[Maven][apache_maven],
+[GNU Make][gnu_make],
+[Leiningen][leiningen],
+[NPM][npm],
+[pip][pip],
+[Packer][packer],
+[Rake][rake],
+[RPM][rpm],
+[sbt][sbt],
+[SCons][scons],
 and
-[yum][YUM]:
+[yum][yum]:
 
 1. Real world production systems are composed of several programming languages.
 
-    Tools normally focus only 1.
+   Tools normally focus only 1.
 
 1. Real world production systems contain hundreds of thousands of dependencies:
-    - Compilers
-    - Shared-Object libraries (.so)
-    - Runtime interpreters
-    - Configuration files
-    - Vendor artifacts
-    - Accounts / Credentials / Secrets
 
-    Tools normally cannot fetch, configure, or setup such dependencies
-    in an easy, automated, secure way.
-    They just build or install.
+   - Compilers
+   - Shared-Object libraries (.so)
+   - Runtime interpreters
+   - Configuration files
+   - Vendor artifacts
+   - Accounts / Credentials / Secrets
+
+   Tools normally cannot fetch, configure, or setup such dependencies
+   in an easy, automated, secure way.
+   They just build or install.
 
 1. Real world production systems have tens to hundreds of developers.
-    They work across the globe from different machines,
-    stacks and operative systems.
+   They work across the globe from different machines,
+   stacks and operative systems.
 
-    Tools normally cannot guarantee all of them
-    an exactly equal, comfortable developing environment.
-
-1. Real world production systems
-    have tens to thousands of production servers
-    that need to be deployed to.
-
-    Tools normally  cover the: How to build? and not the: How to deploy?
-    (or the other way around).
+   Tools normally cannot guarantee all of them
+   an exactly equal, comfortable developing environment.
 
 1. Real world production systems
-    are made of several micro-components
-    that one need to orchestrate correctly,
-    or fix sunday morning, instead of sharing with family :parasol_on_ground:.
+   have tens to thousands of production servers
+   that need to be deployed to.
+
+   Tools normally cover the: How to build? and not the: How to deploy?
+   (or the other way around).
 
 1. Real world production systems
-    need to be **reliable** and **100% available**.
+   are made of several micro-components
+   that one need to orchestrate correctly,
+   or fix sunday morning, instead of sharing with family :parasol_on_ground:.
 
-    But how with so much friction?
+1. Real world production systems
+   need to be **reliable** and **100% available**.
 
-You can use [Nix][NIX] instead, which features:
+   But how with so much friction?
+
+You can use [Nix][nix] instead, which features:
 
 1. A single build-tool for everything
 
 1. Easy, powerful, modular and expressive dependency declaration.
-    From compilers to vendor artifacts.
+   From compilers to vendor artifacts.
 
 1. Guarantees each developer an **exact**,
-    [reproducible][REPRODUCIBLE_BUILDS],
-    comfortable environment in which to build and run stuff.
-    Isolating as much as possible,
-    reducing a lot of bugs along the way.
+   [reproducible][reproducible_builds],
+   comfortable environment in which to build and run stuff.
+   Isolating as much as possible,
+   reducing a lot of bugs along the way.
 1. Defines a way for you to deploy software **perfectly**.
 
 1. And therefore helps you build **reliable** and **100% available** systems.
 
-So, if [Nix][NIX] is that powerful: Why [Makes][MAKES], then?
+So, if [Nix][nix] is that powerful: Why [Makes][makes], then?
 
-1. [Makes][MAKES] stands on the shoulders of [Nix][NIX].
+1. [Makes][makes] stands on the shoulders of [Nix][nix].
 
-1. [Makes][MAKES] is **specialized** on creating [CI/CD][CI_CD] systems
-    that deliver **reliable** software to your end-users.
+1. [Makes][makes] is **specialized** on creating [CI/CD][ci_cd] systems
+   that deliver **reliable** software to your end-users.
 
-1. [Makes][MAKES] incorporates common workflows
-    for formatting, linting, building, testing, managing infrastructure as code
-    with [Terraform][TERRAFORM],
-    deploying to [Kubernetes][KUBERNETES] clusters,
-    creating development environments, etc.
-    You can enable such workflows in a few clicks,
-    with as little code as possible, in many providers.
+1. [Makes][makes] incorporates common workflows
+   for formatting, linting, building, testing, managing infrastructure as code
+   with [Terraform][terraform],
+   deploying to [Kubernetes][kubernetes] clusters,
+   creating development environments, etc.
+   You can enable such workflows in a few clicks,
+   with as little code as possible, in many providers.
 
-1. [Makes][MAKES] hides unnecessary boilerplate and complexity
-    so you can focus in the business:
-    **Adding value** to your **customers**, daily!
+1. [Makes][makes] hides unnecessary boilerplate and complexity
+   so you can focus in the business:
+   **Adding value** to your **customers**, daily!
 
 # Goal
 
 - :star2: Simplicity: Easy setup with:
   a laptop, or
-  [Docker][DOCKER], or
-  [GitHub Actions][GITHUB_ACTIONS], or
-  [GitLab CI][GITLAB_CI], or
-  [Travis CI][TRAVIS_CI], or
-  [Circle CI][CIRCLE_CI],
+  [Docker][docker], or
+  [GitHub Actions][github_actions], or
+  [GitLab CI][gitlab_ci], or
+  [Travis CI][travis_ci], or
+  [Circle CI][circle_ci],
   and more!
 - :beers: Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
 - :dancers: Reproducibility: **Any member** of your team
@@ -469,34 +471,34 @@ So, if [Nix][NIX] is that powerful: Why [Makes][MAKES], then?
 
 # Getting started
 
-Makes is powered by [Nix][NIX].
+Makes is powered by [Nix][nix].
 This means that Makes is able to run
-on any of the [Nix's supported platforms][NIX_PLATFORMS].
+on any of the [Nix's supported platforms][nix_platforms].
 
 We have **thoroughly** tested it in
-[x86_64][X86_64] hardware architectures
+[x86_64][x86_64] hardware architectures
 running Linux and MacOS (darwin) machines.
 
 In order to use Makes you'll need to:
 
 1. Make sure that Nix is installed on your system.
-    If it is not, please follow [this tutorial][NIX_DOWNLOAD].
+   If it is not, please follow [this tutorial][nix_download].
 
-    If everything went well you should be able to run:
+   If everything went well you should be able to run:
 
-    ```bash
-    $ nix --version
-    ```
+   ```bash
+   $ nix --version
+   ```
 
-    Note: Makes is compatible with [Nix][NIX] `2.9`.
-    We recomend using [Nix][NIX] on its latest version
+   Note: Makes is compatible with [Nix][nix] `2.9`.
+   We recomend using [Nix][nix] on its latest version
 
 1. Install Makes by running:
 
-    `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.09.tar.gz`
+   `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.09.tar.gz`
 
-    We will install two commands in your system:
-    `$ m`, and `$ m-v22.09`.
+   We will install two commands in your system:
+   `$ m`, and `$ m-v22.09`.
 
 Makes targets two kind of users:
 
@@ -507,90 +509,91 @@ Makes targets two kind of users:
 
 1. List outputs of a [Makes] project:
 
-    - For GitHub [Makes][MAKES] projects, run:
+   - For GitHub [Makes][makes] projects, run:
 
-      `$ m github:owner/repo@rev`
+     `$ m github:owner/repo@rev`
 
-    - For GitLab [Makes][MAKES] projects, run:
+   - For GitLab [Makes][makes] projects, run:
 
-      `$ m gitlab:owner/repo@rev`
+     `$ m gitlab:owner/repo@rev`
 
 1. Build and run an output: `$ m github:fluidattacks/makes@main /helloWorld 1 2 3`
 
-    ```
-    [INFO] Hello from Makes! Jane Doe.
-    [INFO] You called us with CLI arguments: [ 1 2 3 ].
-    ```
+   ```
+   [INFO] Hello from Makes! Jane Doe.
+   [INFO] You called us with CLI arguments: [ 1 2 3 ].
+   ```
 
 ## Getting started as developer
 
 1. Locate in the root of your project:
 
-    `$ cd /path/to/my/project`
+   `$ cd /path/to/my/project`
 
 1. Create a configuration file named `makes.nix`
-    with the following contents:
+   with the following contents:
 
-    ```nix
-    # /path/to/my/project/makes.nix
-    {
-      helloWorld = {
-        enable = true;
-        name = "Jane Doe";
-      };
-    }
-    ```
+   ```nix
+   # /path/to/my/project/makes.nix
+   {
+     helloWorld = {
+       enable = true;
+       name = "Jane Doe";
+     };
+   }
+   ```
 
-    We have tens of [CI/CD][CI_CD] actions
-    that you can include in jour project as simple as this.
+   We have tens of [CI/CD][ci_cd] actions
+   that you can include in jour project as simple as this.
 
 1. Now run makes!
-    - List all available outputs: `$ m .`
 
-        ```
-        Outputs list for project: /path/to/my/project
-          /helloWorld
-        ```
+   - List all available outputs: `$ m .`
 
-    - Build and run an output: `$ m . /helloWorld 1 2 3`
+     ```txt
+     Outputs list for project: /path/to/my/project
+       /helloWorld
+     ```
 
-        ```
-        [INFO] Hello from Makes! Jane Doe.
-        [INFO] You called us with CLI arguments: [ 1 2 3 ].
-        ```
+   - Build and run an output: `$ m . /helloWorld 1 2 3`
+
+     ```
+     [INFO] Hello from Makes! Jane Doe.
+     [INFO] You called us with CLI arguments: [ 1 2 3 ].
+     ```
 
 ## Learning the language
 
-Most of [Makes][MAKES] syntax
-is written in [Bash][BASH]
-and the [Nix][NIX] expression language.
+Most of [Makes][makes] syntax
+is written in [Bash][bash]
+and the [Nix][nix] expression language.
 We highly recommend you the following resources:
 
-- [Bash][BASH]:
-    - [Shell Scripting Tutorial][BASH_TUTORIAL_SHELL_SCRIPTING]
-- [Nix][NIX] Expression Language:
-    - [Nix Pills][NIX_PILLS]
+- [Bash][bash]:
+  - [Shell Scripting Tutorial][bash_tutorial_shell_scripting]
+- [Nix][nix] Expression Language:
+  - [Nix Pills][nix_pills]
 
 ## Versioning scheme
 
-We use [calendar versioning][CALVER].
+We use [calendar versioning][calver].
 
 You can assume that the current month release is stable,
 for instance: `21.01` (if today were January 2021).
 The stable version is frozen. We don't touch it under any circumstances.
 
 Development/unstable releases are tagged with the next month
-[calendar version][CALVER], for instance `21.02` (if today were January 2021).
+[calendar version][calver], for instance `21.02` (if today were January 2021).
 Please don't use unstable releases in production.
 
-The [Makes][MAKES] ecosystem has two components:
+The [Makes][makes] ecosystem has two components:
 the framework itself, and the CLI (a.k.a. `$ m`).
 
 ### Versioning scheme for the framework
 
 You can ensure
 that your project is always evaluated
-with the same version of [Makes][MAKES]
+with the same version of [Makes][makes]
 by creating a `makes.lock.nix` in the root of your project,
 for instance:
 
@@ -620,16 +623,16 @@ below is a small table that clearly expresses their trade-offs.
 
 | Provider                         | Easy   | Config | Scale  | SaaS   | Security |
 | -------------------------------- | ------ | ------ | ------ | ------ | -------- |
-| [GitHub Actions][GITHUB_ACTIONS] | :star: | :star: |        | :star: |          |
-| [GitLab CI/CD][GITLAB_CI]        | :star: | :star: |        | :star: | :star:   |
-| [Travis CI][TRAVIS_CI]           |        |        | :star: | :star: | :star:   |
+| [GitHub Actions][github_actions] | :star: | :star: |        | :star: |          |
+| [GitLab CI/CD][gitlab_ci]        | :star: | :star: |        | :star: | :star:   |
+| [Travis CI][travis_ci]           |        |        | :star: | :star: | :star:   |
 
-If you are getting started in the world of [CI/CD][CI_CD]
-it's a good idea to try [GitHub Actions][GITHUB_ACTIONS].
+If you are getting started in the world of [CI/CD][ci_cd]
+it's a good idea to try [GitHub Actions][github_actions].
 
-If you want **serious** security try [GitLab CI/CD][GITLAB_CI].
+If you want **serious** security try [GitLab CI/CD][gitlab_ci].
 
-We didn't like [Travis CI][TRAVIS_CI]
+We didn't like [Travis CI][travis_ci]
 because managing encrypted secrets is ugly,
 and it does not support running custom container images.
 
@@ -642,11 +645,11 @@ Notes:
 
 ### Configuring on GitHub Actions
 
-[GitHub Actions][GITHUB_ACTIONS]
-is configured through [workflow files][GITHUB_WORKFLOWS]
+[GitHub Actions][github_actions]
+is configured through [workflow files][github_workflows]
 located in a `.github/workflows` directory in the root of the project.
 
-The smallest possible [workflow file][GITHUB_WORKFLOWS]
+The smallest possible [workflow file][github_workflows]
 looks like this:
 
 ```yaml
@@ -657,26 +660,26 @@ jobs:
   helloWorld:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-    - uses: docker://ghcr.io/fluidattacks/makes:22.09
-      # You can use any name you like here
-      name: helloWorld
-      # You can pass secrets (if required) as environment variables like this:
-      env:
-        SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
-      with:
-        args: m . /helloWorld 1 2 3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://ghcr.io/fluidattacks/makes:22.09
+        # You can use any name you like here
+        name: helloWorld
+        # You can pass secrets (if required) as environment variables like this:
+        env:
+          SECRET_NAME: ${{ secrets.SECRET_IN_YOUR_GITHUB }}
+        with:
+          args: m . /helloWorld 1 2 3
 
   # Add more jobs here, you can copy paste jobs.helloWorld and modify the `args`
 ```
 
 ### Configuring on GitLab CI/CD
 
-[GitLab CI/CD][GITLAB_CI]
-is configured through a [.gitlab-ci.yaml][GITLAB_CI_REF] file
+[GitLab CI/CD][gitlab_ci]
+is configured through a [.gitlab-ci.yaml][gitlab_ci_ref] file
 located in the root of the project.
 
-The smallest possible [.gitlab-ci.yaml][GITLAB_CI_REF]
+The smallest possible [.gitlab-ci.yaml][gitlab_ci_ref]
 looks like this:
 
 ```yaml
@@ -685,21 +688,20 @@ looks like this:
   image: ghcr.io/fluidattacks/makes:22.09
   script:
     - m . /helloWorld 1 2 3
-
 # Add more jobs here, you can copy paste /helloWorld and modify the `script`
 ```
 
-Secrets can be propagated to Makes through [GitLab Variables][GITLAB_VARS],
+Secrets can be propagated to Makes through [GitLab Variables][gitlab_vars],
 which are passed automatically to the running container
 as environment variables.
 
 ### Configuring on Travis CI
 
-[Travis CI][TRAVIS_CI]
-is configured through a [.travis.yml][TRAVIS_CI_REF] file
+[Travis CI][travis_ci]
+is configured through a [.travis.yml][travis_ci_ref] file
 located in the root of the project.
 
-The smallest possible [.travis.yml][TRAVIS_CI_REF]
+The smallest possible [.travis.yml][travis_ci_ref]
 looks like this:
 
 ```yaml
@@ -716,30 +718,30 @@ env:
     NAME: value
 jobs:
   include:
-  - script: m . /helloWorld 1 2 3
+    - script: m . /helloWorld 1 2 3
   # You can add more jobs like this:
   # - script: m . /formatBash
 ```
 
 Secrets can be propagated to Makes through
-[Travis Environment Variables][TRAVIS_ENV_VARS],
+[Travis Environment Variables][travis_env_vars],
 which are passed automatically to the running container
 as environment variables.
 We highly recommend you to use encrypted environment variables as
-explained in the [Travis Environment Variables Reference][TRAVIS_ENV_VARS].
+explained in the [Travis Environment Variables Reference][travis_env_vars].
 
 ## Configuring the cache
 
 If your CI/CD will run on different machines
 then it's a good idea
-to setup a distributed cache system with [Cachix][CACHIX].
+to setup a distributed cache system with [Cachix][cachix].
 
 In order to do this:
 
-1. Create or sign-up to your [Cachix][CACHIX] account.
+1. Create or sign-up to your [Cachix][cachix] account.
 1. Create a new cache with:
-    - Write access: `API token`.
-    - Read access: `Public` or `Private`.
+   - Write access: `API token`.
+   - Read access: `Public` or `Private`.
 1. Configure `makes.nix` as explained in the following sections
 
 # Makes.nix reference
@@ -788,7 +790,7 @@ Below we document all configuration options you can tweak in a `makes.nix`.
 
 Create declarative development environments.
 
-Can be used with [direnv][DIRENV]
+Can be used with [direnv][direnv]
 to make your shell automatically load
 the development environment and its required dependencies.
 
@@ -827,7 +829,7 @@ Example invocation: `$ m . /dev/example`
 
 ---
 
-Example usage with [direnv][DIRENV]
+Example usage with [direnv][direnv]
 on remote projects:
 
 ```bash
@@ -858,7 +860,7 @@ $ cd /path/to/some/dir
 
 ---
 
-Example usage with [direnv][DIRENV]
+Example usage with [direnv][direnv]
 on a local project:
 
 ```bash
@@ -894,16 +896,16 @@ Formatters help your code be consistent, beautiful and more maintainable.
 
 ### formatBash
 
-Ensure that Bash code is formatted according to [shfmt][SHFMT].
+Ensure that Bash code is formatted according to [shfmt][shfmt].
 
 Types:
 
 - formatBash:
-    - enable (`boolean`): Optional.
-      Defaults to false.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to format.
-      Defaults to the entire project.
+  - enable (`boolean`): Optional.
+    Defaults to false.
+  - targets (`listOf str`): Optional.
+    Files or directories (relative to the project) to format.
+    Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -926,18 +928,18 @@ Example invocation: `$ m . /formatBash`
 
 :warning: This function is only available on Linux at the moment.
 
-Ensure that Markdown code is formatted according to [doctoc][DOCTOC].
+Ensure that Markdown code is formatted according to [doctoc][doctoc].
 
 Types:
 
 - formatMarkdown:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - doctocArgs (`listOf str`): Optional.
-      Extra CLI flags to propagate to [doctoc][DOCTOC].
-      Defaults to `[ ]`.
-    - targets (`listOf str`):
-      Files (relative to the project) to format.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - doctocArgs (`listOf str`): Optional.
+    Extra CLI flags to propagate to [doctoc][doctoc].
+    Defaults to `[ ]`.
+  - targets (`listOf str`):
+    Files (relative to the project) to format.
 
 Example `makes.nix`:
 
@@ -955,16 +957,16 @@ Example invocation: `$ m . /formatMarkdown`
 
 ### formatNix
 
-Ensure that Nix code is formatted according to [Alejandra][ALEJANDRA].
+Ensure that Nix code is formatted according to [Alejandra][alejandra].
 
 Types:
 
 - formatNix:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to format.
-      Defaults to the entire project.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - targets (`listOf str`): Optional.
+    Files or directories (relative to the project) to format.
+    Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -985,17 +987,17 @@ Example invocation: `$ m . /formatNix`
 
 ### formatPython
 
-Ensure that Python code is formatted according to [Black][BLACK]
-and [isort][ISORT].
+Ensure that Python code is formatted according to [Black][black]
+and [isort][isort].
 
 Types:
 
 - formatPython:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to format.
-      Defaults to the entire project.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - targets (`listOf str`): Optional.
+    Files or directories (relative to the project) to format.
+    Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -1016,17 +1018,17 @@ Example invocation: `$ m . /formatPython`
 
 ### formatTerraform
 
-Ensure that [Terraform][TERRAFORM] code
-is formatted according to [Terraform FMT][TERRAFORM_FMT].
+Ensure that [Terraform][terraform] code
+is formatted according to [Terraform FMT][terraform_fmt].
 
 Types:
 
 - formatTerraform:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to format.
-      Defaults to the entire project.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - targets (`listOf str`): Optional.
+    Files or directories (relative to the project) to format.
+    Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -1047,17 +1049,17 @@ Example invocation: `$ m . /formatTerraform`
 
 ### formatYaml
 
-Ensure that [YAML][YAML] code
-is formatted according to [yamlfix][YAMLFIX].
+Ensure that [YAML][yaml] code
+is formatted according to [yamlfix][yamlfix].
 
 Types:
 
 - formatYaml:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to format.
-      Defaults to the entire project.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - targets (`listOf str`): Optional.
+    Files or directories (relative to the project) to format.
+    Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -1083,16 +1085,16 @@ best practices.
 
 ### lintBash
 
-Lints Bash code with [ShellCheck][SHELLCHECK].
+Lints Bash code with [ShellCheck][shellcheck].
 
 Types:
 
 - lintBash:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to lint.
-      Defaults to the entire project.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - targets (`listOf str`): Optional.
+    Files or directories (relative to the project) to lint.
+    Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -1113,7 +1115,7 @@ Example invocation: `$ m . /lintBash`
 
 ### lintClojure
 
-Lints clojure code with [clj-kondo][CLJ-KONDO].
+Lints clojure code with [clj-kondo][clj-kondo].
 
 Types:
 
@@ -1149,24 +1151,24 @@ It creates a commit diff
 between you current branch
 and the main branch of the repository.
 All commits included in the diff
-are linted using [Commitlint][COMMITLINT].
+are linted using [Commitlint][commitlint].
 
 Types:
 
 - lintGitCommitMsg:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - branch (`str`): Optional.
-      Name of the main branch.
-      Defaults to `main`.
-    - config (`str`): Optional.
-      Path to a configuration file for [Commitlint][COMMITLINT].
-      Defaults to
-      [config.js](./src/evaluator/modules/lint-git-commit-msg/config.js).
-    - parser (`str`): Optional.
-      [Commitlint][COMMITLINT] parser definitions.
-      Defaults to
-      [parser.js](./src/evaluator/modules/lint-git-commit-msg/parser.js).
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - branch (`str`): Optional.
+    Name of the main branch.
+    Defaults to `main`.
+  - config (`str`): Optional.
+    Path to a configuration file for [Commitlint][commitlint].
+    Defaults to
+    [config.js](./src/evaluator/modules/lint-git-commit-msg/config.js).
+  - parser (`str`): Optional.
+    [Commitlint][commitlint] parser definitions.
+    Defaults to
+    [parser.js](./src/evaluator/modules/lint-git-commit-msg/parser.js).
 
 Example `makes.nix`:
 
@@ -1186,14 +1188,14 @@ Example invocation: `$ m . /lintGitCommitMsg`
 
 ### lintGitMailMap
 
-Lint the [Git][GIT] [MailMap][GIT_MAILMAP] of the project
-with [MailMap Linter][MAILMAP_LINTER].
+Lint the [Git][git] [MailMap][git_mailmap] of the project
+with [MailMap Linter][mailmap_linter].
 
 Types:
 
 - lintGitMailmap:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
 
 Example `makes.nix`:
 
@@ -1209,7 +1211,7 @@ Example invocation: `$ m . /lintGitMailMap`
 
 ### lintMarkdown
 
-Lints Markdown code with [Markdown lint tool][MARKDOWN_LINT].
+Lints Markdown code with [Markdown lint tool][markdown_lint].
 
 Types:
 
@@ -1217,11 +1219,11 @@ Types:
   Definitions of config and associated paths to lint.
   Defaults to `{ }`.
 - moduleType (`submodule`):
-    - config (`str`): Optional.
-      Path to the config file.
-      Defaults to [config.rb](./src/evaluator/modules/lint-markdown/config.rb).
-    - targets (`listOf str`): Required.
-      paths to lint with `config`.
+  - config (`str`): Optional.
+    Path to the config file.
+    Defaults to [config.rb](./src/evaluator/modules/lint-markdown/config.rb).
+  - targets (`listOf str`): Required.
+    paths to lint with `config`.
 
 Example `makes.nix`:
 
@@ -1246,16 +1248,16 @@ Example invocation: `$ m . /lintMarkdown/others`
 
 ### lintNix
 
-Lints Nix code with [nix-linter][NIX_LINTER].
+Lints Nix code with [nix-linter][nix_linter].
 
 Types:
 
 - lintNix:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - targets (`listOf str`): Optional.
-      Files or directories (relative to the project) to lint.
-      Defaults to the entire project.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - targets (`listOf str`): Optional.
+    Files or directories (relative to the project) to lint.
+    Defaults to the entire project.
 
 Example `makes.nix`:
 
@@ -1276,45 +1278,45 @@ Example invocation: `$ m . /lintNix`
 
 ### lintPython
 
-Lints Python code with [mypy][MYPY], [Prospector][PROSPECTOR]
-and (if configured) [import-linter][IMPORT_LINTER].
+Lints Python code with [mypy][mypy], [Prospector][prospector]
+and (if configured) [import-linter][import_linter].
 
 Types:
 
 - lintPython:
-    - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
-      Definitions of directories of python packages/modules to lint.
-      Defaults to `{ }`.
-    - imports (`attrsOf importsType`): Optional.
-      Definitions of python packages whose imports will be linted.
-      Defaults to `{ }`.
-    - modules (`attrsOf moduleType`): Optional.
-      Definitions of python packages/modules to lint.
-      Defaults to `{ }`.
+  - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
+    Definitions of directories of python packages/modules to lint.
+    Defaults to `{ }`.
+  - imports (`attrsOf importsType`): Optional.
+    Definitions of python packages whose imports will be linted.
+    Defaults to `{ }`.
+  - modules (`attrsOf moduleType`): Optional.
+    Definitions of python packages/modules to lint.
+    Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" "3.10"]`):
-      Python interpreter version that your package/module is designed for.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - src (`str`):
-      Path to the directory that contains inside many packages/modules.
+  - python (`enum [ "3.7" "3.8" "3.9" "3.10"]`):
+    Python interpreter version that your package/module is designed for.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
+  - src (`str`):
+    Path to the directory that contains inside many packages/modules.
 - importsType (`submodule`):
-    - config (`str`):
-      Path to the [import-linter][IMPORT_LINTER] configuration file.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - src (`str`):
-      Path to the package/module.
+  - config (`str`):
+    Path to the [import-linter][import_linter] configuration file.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
+  - src (`str`):
+    Path to the package/module.
 - moduleType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
-      Python interpreter version that your package/module is designed for.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - src (`str`):
-      Path to the package/module.
+  - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+    Python interpreter version that your package/module is designed for.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
+  - src (`str`):
+    Path to the package/module.
 
 Example `makes.nix`:
 
@@ -1351,29 +1353,29 @@ Example invocation: `$ m . /lintPython/module/cliMain`
 
 ### lintTerraform
 
-Lint [Terraform][TERRAFORM] code
-with [TFLint][TFLINT].
+Lint [Terraform][terraform] code
+with [TFLint][tflint].
 
 Types:
 
 - lintTerraform:
-    - config (`str`): Optional.
-      Path to a [TFLint][TFLINT] configuration file.
-      Defaults to [config.hcl](./src/evaluator/modules/lint-terraform/config.hcl).
-    - modules (`attrsOf moduleType`): Optional.
-      Path to [Terraform][TERRAFORM] modules to lint.
-      Defaults to `{ }`.
+  - config (`str`): Optional.
+    Path to a [TFLint][tflint] configuration file.
+    Defaults to [config.hcl](./src/evaluator/modules/lint-terraform/config.hcl).
+  - modules (`attrsOf moduleType`): Optional.
+    Path to [Terraform][terraform] modules to lint.
+    Defaults to `{ }`.
 - moduleType (`submodule`):
-    - setup (`listOf package`): Optional.
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-      Defaults to `[ ]`.
-    - src (`str`):
-      Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "1.0" ]`):
-      [Terraform][TERRAFORM] version your module is built with.
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - src (`str`):
+    Path to the [Terraform][terraform] module.
+  - version (`enum [ "0.14" "0.15" "1.0" ]`):
+    [Terraform][terraform] version your module is built with.
 
 Example `makes.nix`:
 
@@ -1404,9 +1406,9 @@ Example invocation: `$ m . /lintTerraform/module2`
 
 :warning: This function is only available on Linux at the moment.
 
-Lints [JSON][JSON] and [YAML][YAML] data files
-with [JSON Schemas][JSON_SCHEMA].
-It uses [ajv-cli][AJV_CLI].
+Lints [JSON][json] and [YAML][yaml] data files
+with [JSON Schemas][json_schema].
+It uses [ajv-cli][ajv_cli].
 
 Types:
 
@@ -1414,11 +1416,11 @@ Types:
   Definitions of schema and associated data to lint.
   Defaults to `{ }`.
 - schemaType (`submodule`):
-    - schema (`str`): Required.
-      Path to the [JSON Schema][JSON_SCHEMA].
-    - targets (`listOf str`): Required.
-      [YAML][YAML] or [JSON][JSON]
-      data files to lint with `schema`.
+  - schema (`str`): Required.
+    Path to the [JSON Schema][json_schema].
+  - targets (`listOf str`): Required.
+    [YAML][yaml] or [JSON][json]
+    data files to lint with `schema`.
 
 Example `makes.nix`:
 
@@ -1449,9 +1451,9 @@ Example invocation: `$ m . /lintWithAjv/colors`
 
 ### lintWithLizard
 
-Using [Lizard][LIZARD] to check
+Using [Lizard][lizard] to check
 Ciclomatic Complexity and functions length
-in all supported languages by [Lizard][LIZARD]
+in all supported languages by [Lizard][lizard]
 
 Types:
 
@@ -1483,47 +1485,48 @@ Example invocation: `$ m . /lintWithLizard/example2`
 
 ### testPython
 
-Test [Python][PYTHON] code
-with [pytest][PYTEST].
+Test [Python][python] code
+with [pytest][pytest].
 
 Types:
 
 - testPython (`attrsOf targetType`): Optional.
-  Mapping of names to [pytest][PYTEST] targets.
+  Mapping of names to [pytest][pytest] targets.
   Defaults to `{ }`.
 - targetType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
-      Python interpreter version that your package/module is designed for.
-    - src (`str`):
-      Path to the file or directory that contains the tests code.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - extraFlags (`listOf str`): Optional.
-      Extra command line arguments to propagate to [pytest][PYTEST].
-      Defaults to `[ ]`.
-    - extraSrcs (`attrsOf package`): Optional.
-      Place extra sources at the same level of your project code
-      so you can reference them via relative paths.
 
-      The final test structure looks like this:
+  - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+    Python interpreter version that your package/module is designed for.
+  - src (`str`):
+    Path to the file or directory that contains the tests code.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
+  - extraFlags (`listOf str`): Optional.
+    Extra command line arguments to propagate to [pytest][pytest].
+    Defaults to `[ ]`.
+  - extraSrcs (`attrsOf package`): Optional.
+    Place extra sources at the same level of your project code
+    so you can reference them via relative paths.
 
-      ```bash
-      /tmp/some-random-unique-dir
-      ├── __project__  # The entire source code of your project
-      │   ├── ...
-      │   └── path/to/src
-      ... # repeat for all extraSrcs
-      ├── "${extraSrcName}"
-      │   └── "${extraSrcValue}"
-      ...
-      ```
+    The final test structure looks like this:
 
-      And we will run [pytest][PYTEST] like this:
+    ```bash
+    /tmp/some-random-unique-dir
+    ├── __project__  # The entire source code of your project
+    │   ├── ...
+    │   └── path/to/src
+    ... # repeat for all extraSrcs
+    ├── "${extraSrcName}"
+    │   └── "${extraSrcValue}"
+    ...
+    ```
 
-      `$ pytest /tmp/some-random-unique-dir/__project__/path/to/src`
+    And we will run [pytest][pytest] like this:
 
-      Defaults to `{ }`.
+    `$ pytest /tmp/some-random-unique-dir/__project__/path/to/src`
+
+    Defaults to `{ }`.
 
 Example `makes.nix`:
 
@@ -1554,31 +1557,31 @@ Example invocation: `$ m . /testPython/example`
 
 ### testTerraform
 
-Test [Terraform][TERRAFORM] code
+Test [Terraform][terraform] code
 by performing a `terraform plan`
-over the specified [Terraform][TERRAFORM] modules.
+over the specified [Terraform][terraform] modules.
 
 Types:
 
 - testTerraform:
-    - modules (`attrsOf moduleType`): Optional.
-      Path to [Terraform][TERRAFORM] modules to lint.
-      Defaults to `{ }`.
+  - modules (`attrsOf moduleType`): Optional.
+    Path to [Terraform][terraform] modules to lint.
+    Defaults to `{ }`.
 - moduleType (`submodule`):
-    - setup (`listOf package`): Optional.
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-      Defaults to `[ ]`.
-    - src (`str`):
-      Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "1.0" ]`):
-      [Terraform][TERRAFORM] version your module is built with.
-    - debug (`bool`): Optional.
-      Enable maximum level of debugging
-      and remove parallelism so logs are clean.
-      Defaults to `false`.
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - src (`str`):
+    Path to the [Terraform][terraform] module.
+  - version (`enum [ "0.14" "0.15" "1.0" ]`):
+    [Terraform][terraform] version your module is built with.
+  - debug (`bool`): Optional.
+    Enable maximum level of debugging
+    and remove parallelism so logs are clean.
+    Defaults to `false`.
 
 Example `makes.nix`:
 
@@ -1607,7 +1610,7 @@ Example invocation: `$ m . /testTerraform/module2`
 
 ### securePythonWithBandit
 
-Secure Python code with [Bandit][BANDIT].
+Secure Python code with [Bandit][bandit].
 
 Types:
 
@@ -1615,10 +1618,10 @@ Types:
   Definitions of directories of python packages/modules to lint.
   Defaults to `{ }`.
 - projectType (`submodule`):
-    - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
-      Python interpreter version that your package/module is designed for.
-    - target (`str`):
-      Relative path to the package/module.
+  - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+    Python interpreter version that your package/module is designed for.
+  - target (`str`):
+    Relative path to the package/module.
 
 Example `makes.nix`:
 
@@ -1639,7 +1642,7 @@ Example invocation: `$ m . /securePythonWithBandit/cli`
 
 ### computeOnAwsBatch
 
-Submit a job to an [AWS BATCH][AWS_BATCH] queue.
+Submit a job to an [AWS BATCH][aws_batch] queue.
 
 Types:
 
@@ -1647,82 +1650,83 @@ Types:
   Job groups to submit.
   Defaults to `{ }`.
 - jobType (`submodule`):
-    - allowDuplicates (`bool`): Optional.
-      Set to `false` in order to prevent submitting the job
-      if there is already a job in the queue with the same name.
-      Defaults to `false`.
-    - attempts (`ints.positive`): Optional.
-      If the value of attempts is greater than one,
-      the job is retried on failure the same number of attempts as the value.
-      Defaults to `1`.
-    - attemptDurationSeconds (`ints.positive`): Optional.
-      The time duration in seconds
-      (measured from the job attempt's startedAt timestamp)
-      after which [AWS Batch][AWS_BATCH] terminates your jobs
-      if they have not finished.
-    - command (`listOf str`):
-      The command to send to the container.
-      It overrides the one specified
-      in the [AWS Batch][AWS_BATCH] job definition.
-      Additional arguments can be propagated when running this module output.
-    - definition (`str`):
-      Name of the [AWS Batch][AWS_BATCH] job definition
-      that we will use as base for submitting the job.
-      In general an [AWS Batch][AWS_BATCH] job definition is required
-      in order to specify which container image
-      our job is going to run on.
 
-      The most basic [AWS Batch][AWS_BATCH] job definition
-      to run a [Makes][MAKES] job is (in [Terraform][TERRAFORM] syntax):
+  - allowDuplicates (`bool`): Optional.
+    Set to `false` in order to prevent submitting the job
+    if there is already a job in the queue with the same name.
+    Defaults to `false`.
+  - attempts (`ints.positive`): Optional.
+    If the value of attempts is greater than one,
+    the job is retried on failure the same number of attempts as the value.
+    Defaults to `1`.
+  - attemptDurationSeconds (`ints.positive`): Optional.
+    The time duration in seconds
+    (measured from the job attempt's startedAt timestamp)
+    after which [AWS Batch][aws_batch] terminates your jobs
+    if they have not finished.
+  - command (`listOf str`):
+    The command to send to the container.
+    It overrides the one specified
+    in the [AWS Batch][aws_batch] job definition.
+    Additional arguments can be propagated when running this module output.
+  - definition (`str`):
+    Name of the [AWS Batch][aws_batch] job definition
+    that we will use as base for submitting the job.
+    In general an [AWS Batch][aws_batch] job definition is required
+    in order to specify which container image
+    our job is going to run on.
 
-      ```tf
-      resource "aws_batch_job_definition" "makes" {
-        name = "makes"
-        type = "container"
-        container_properties = jsonencode({
-          # This image cannot be parametrized later.
-          #
-          # If you need to run jobs on different container images,
-          # simply  create many `aws_batch_job_definition`s
-          image = "ghcr.io/fluidattacks/makes:22.09"
+    The most basic [AWS Batch][aws_batch] job definition
+    to run a [Makes][makes] job is (in [Terraform][terraform] syntax):
 
-          # Below arguments can be parametrized later,
-          # but they are required for the job definition to be created
-          # so let's put some dummy values here
-          memory  = 512
-          vcpus   = 1
-        })
-      }
-      ```
+    ```tf
+    resource "aws_batch_job_definition" "makes" {
+      name = "makes"
+      type = "container"
+      container_properties = jsonencode({
+        # This image cannot be parametrized later.
+        #
+        # If you need to run jobs on different container images,
+        # simply  create many `aws_batch_job_definition`s
+        image = "ghcr.io/fluidattacks/makes:22.09"
 
-    - environment (`listOf str`): Optional.
-      Name of the environment variables
-      whose names and values should be copied from the machine running Makes
-      to the machine on [AWS Batch][AWS_BATCH] running the job.
-      Defaults to `[ ]`.
-    - includePositionalArgsInName (`bool`): Optional.
-      Enable to make positional arguments part of the job name.
-      This is useful for identifying jobs
-      in the [AWS Batch][AWS_BATCH] console
-      more easily.
-      Defaults to `true`.
-    - memory (`ints.positive`):
-      Amount of memory, in MiB that is reserved for the job.
-    - parallel (`ints.positive`): Optional.
-      Number of parallel jobs to trigger using
-      [Batch Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html).
-    - queue (`nullOr str`):
-      Name of the [AWS Batch][AWS_BATCH] queue we should submit the job to.
-      It can be set to `null`,
-      causing Makes to read
-      the `MAKES_COMPUTE_ON_AWS_BATCH_QUEUE` environment variable at runtime.
-    - setup (`listOf package`):
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-    - vcpus (`ints.positive`):
-      Amount of virtual CPUs that is reserved for the job.
+        # Below arguments can be parametrized later,
+        # but they are required for the job definition to be created
+        # so let's put some dummy values here
+        memory  = 512
+        vcpus   = 1
+      })
+    }
+    ```
+
+  - environment (`listOf str`): Optional.
+    Name of the environment variables
+    whose names and values should be copied from the machine running Makes
+    to the machine on [AWS Batch][aws_batch] running the job.
+    Defaults to `[ ]`.
+  - includePositionalArgsInName (`bool`): Optional.
+    Enable to make positional arguments part of the job name.
+    This is useful for identifying jobs
+    in the [AWS Batch][aws_batch] console
+    more easily.
+    Defaults to `true`.
+  - memory (`ints.positive`):
+    Amount of memory, in MiB that is reserved for the job.
+  - parallel (`ints.positive`): Optional.
+    Number of parallel jobs to trigger using
+    [Batch Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html).
+  - queue (`nullOr str`):
+    Name of the [AWS Batch][aws_batch] queue we should submit the job to.
+    It can be set to `null`,
+    causing Makes to read
+    the `MAKES_COMPUTE_ON_AWS_BATCH_QUEUE` environment variable at runtime.
+  - setup (`listOf package`):
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+  - vcpus (`ints.positive`):
+    Amount of virtual CPUs that is reserved for the job.
 
 Example `makes.nix`:
 
@@ -1756,46 +1760,46 @@ Example invocation: `$ m . /computeOnAwsBatch/helloWorld 1 2 3`
 
 Note that positional arguments (`[ "1" "2" "3" ]` in this case)
 will be appended to the end of `command`
-before sending the job to [AWS Batch][AWS_BATCH].
+before sending the job to [AWS Batch][aws_batch].
 
 ### deployContainerImage
 
-Deploy a set of container images in [OCI Format][OCI_FORMAT]
+Deploy a set of container images in [OCI Format][oci_format]
 to the specified container registries.
 
-For details on how to build container images in [OCI Format][OCI_FORMAT]
+For details on how to build container images in [OCI Format][oci_format]
 please read the `makeContainerImage` reference.
 
 Types:
 
 - deployContainerImage:
-    - images (`attrsOf imageType`): Optional.
-      Definitions of container images to deploy.
-      Defaults to `{ }`.
+  - images (`attrsOf imageType`): Optional.
+    Definitions of container images to deploy.
+    Defaults to `{ }`.
 - imageType (`submodule`):
-    - attempts (`ints.positive`): Optional.
-      If the value of attempts is greater than one,
-      the job is retried on failure the same number of attempts as the value.
-      Defaults to `1`.
-    - credentials:
-        - token (`str`):
-          Name of the [environment variable][ENV_VAR]
-          that stores the value of the registry token.
-        - user (`str`):
-          Name of the [environment variable][ENV_VAR]
-          that stores the value of the registry user.
-    - registry (`str`):
-      Registry in which the image will be copied to.
-    - setup (`listOf package`): Optional.
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-      Defaults to `[ ]`.
-    - src (`package`):
-      Derivation that contains the container image in [OCI Format][OCI_FORMAT].
-    - tag (`str`):
-      The tag under which the image will be stored in the registry.
+  - attempts (`ints.positive`): Optional.
+    If the value of attempts is greater than one,
+    the job is retried on failure the same number of attempts as the value.
+    Defaults to `1`.
+  - credentials:
+    - token (`str`):
+      Name of the [environment variable][env_var]
+      that stores the value of the registry token.
+    - user (`str`):
+      Name of the [environment variable][env_var]
+      that stores the value of the registry user.
+  - registry (`str`):
+    Registry in which the image will be copied to.
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - src (`package`):
+    Derivation that contains the container image in [OCI Format][oci_format].
+  - tag (`str`):
+    The tag under which the image will be stored in the registry.
 
 Example `makes.nix`:
 
@@ -1853,27 +1857,27 @@ Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deplo
 
 ### deployTerraform
 
-Deploy [Terraform][TERRAFORM] code
+Deploy [Terraform][terraform] code
 by performing a `terraform apply`
-over the specified [Terraform][TERRAFORM] modules.
+over the specified [Terraform][terraform] modules.
 
 Types:
 
 - deployTerraform:
-    - modules (`attrsOf moduleType`): Optional.
-      Path to [Terraform][TERRAFORM] modules to lint.
-      Defaults to `{ }`.
+  - modules (`attrsOf moduleType`): Optional.
+    Path to [Terraform][terraform] modules to lint.
+    Defaults to `{ }`.
 - moduleType (`submodule`):
-    - setup (`listOf package`): Optional.
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-      Defaults to `[ ]`.
-    - src (`str`):
-      Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "1.0" ]`):
-      [Terraform][TERRAFORM] version your module is built with.
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - src (`str`):
+    Path to the [Terraform][terraform] module.
+  - version (`enum [ "0.14" "0.15" "1.0" ]`):
+    [Terraform][terraform] version your module is built with.
 
 Example `makes.nix`:
 
@@ -1900,32 +1904,32 @@ Example invocation: `$ m . /deployTerraform/module2`
 
 ### taintTerraform
 
-Taint [Terraform][TERRAFORM] code
+Taint [Terraform][terraform] code
 by performing a `terraform taint $resource`
-over the specified [Terraform][TERRAFORM] modules.
+over the specified [Terraform][terraform] modules.
 
 Types:
 
 - taintTerraform:
-    - modules (`attrsOf moduleType`): Optional.
-      Path to [Terraform][TERRAFORM] modules to lint.
-      Defaults to `{ }`.
+  - modules (`attrsOf moduleType`): Optional.
+    Path to [Terraform][terraform] modules to lint.
+    Defaults to `{ }`.
 - moduleType (`submodule`):
-    - reDeploy (`bool`): Optional.
-      Perform a `terraform apply` after tainting resources.
-      Defaults to `false`.
-    - resources (`listOf str`):
-      Resources to taint.
-    - setup (`listOf package`): Optional.
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-      Defaults to `[ ]`.
-    - src (`str`):
-      Path to the [Terraform][TERRAFORM] module.
-    - version (`enum [ "0.14" "0.15" "1.0" ]`):
-      [Terraform][TERRAFORM] version your module is built with.
+  - reDeploy (`bool`): Optional.
+    Perform a `terraform apply` after tainting resources.
+    Defaults to `false`.
+  - resources (`listOf str`):
+    Resources to taint.
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - src (`str`):
+    Path to the [Terraform][terraform] module.
+  - version (`enum [ "0.14" "0.15" "1.0" ]`):
+    [Terraform][terraform] version your module is built with.
 
 Example `makes.nix`:
 
@@ -1947,45 +1951,45 @@ Example invocation: `$ m . /taintTerraform/module`
 
 ### deployNomad
 
-Deploy [Nomad][NOMAD] code
+Deploy [Nomad][nomad] code
 by performing a `nomad plan`
-over the specified [Nomad][NOMAD] jobs / namespaces.
+over the specified [Nomad][nomad] jobs / namespaces.
 
 Types:
 
 - deployNomad:
-    - jobs (`attrsOf jobsType`): Optional.
-      Path to [Nomad][NOMAD] jobs to deploy.
-      Defaults to `{ }`.
-    - namespaces (`attrsOf namespacesType`): Optional.
-      Path to [Nomad][NOMAD] namespaces to deploy.
-      Defaults to `{ }`.
+  - jobs (`attrsOf jobsType`): Optional.
+    Path to [Nomad][nomad] jobs to deploy.
+    Defaults to `{ }`.
+  - namespaces (`attrsOf namespacesType`): Optional.
+    Path to [Nomad][nomad] namespaces to deploy.
+    Defaults to `{ }`.
 - jobsType (`submodule`):
-    - setup (`listOf package`): Optional.
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-      Defaults to `[ ]`.
-    - src (`path`):
-      Path to the [Nomad][NOMAD] job (hcl or json).
-    - version (`enum [ "1.0" "1.1" ]`):
-      [Nomad][NOMAD] version your job is built with.
-      Defaults to `"1.1"`.
-    - namespace (`str`):
-      [Nomad][NOMAD] namespace to deploy the job into.
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - src (`path`):
+    Path to the [Nomad][nomad] job (hcl or json).
+  - version (`enum [ "1.0" "1.1" ]`):
+    [Nomad][nomad] version your job is built with.
+    Defaults to `"1.1"`.
+  - namespace (`str`):
+    [Nomad][nomad] namespace to deploy the job into.
 - namespacesType (`submodule`):
-    - setup (`listOf package`): Optional.
-      [Makes Environment][MAKES_ENVIRONMENT]
-      or [Makes Secrets][MAKES_SECRETS]
-      to `source` (as in Bash's `source`)
-      before anything else.
-      Defaults to `[ ]`.
-    - jobs (`attrOf path`):
-      Attributes of path to the [Nomad][NOMAD] jobs (hcl or json).
-    - version (`enum [ "1.0" "1.1" ]`):
-      [Nomad][NOMAD] version your jobs are built with.
-      Defaults to `"1.1"`.
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - jobs (`attrOf path`):
+    Attributes of path to the [Nomad][nomad] jobs (hcl or json).
+  - version (`enum [ "1.0" "1.1" ]`):
+    [Nomad][nomad] version your jobs are built with.
+    Defaults to `"1.1"`.
 
 Example `makes.nix`:
 
@@ -2025,37 +2029,37 @@ Example invocation: `$ m . /deployNomad/staging/job2`
 ### cache
 
 Configure caches to read,
-and optionally a [Cachix][CACHIX] cache for reading and writting.
+and optionally a [Cachix][cachix] cache for reading and writting.
 
 Types:
 
 - cache:
-    - readNixos (`bool`): Optional.
-      Set to `true` in order to add https://cache.nixos.org as a read cache.
-      Defaults to `true`.
-    - readExtra (`listOf readCacheType`): Optional.
-      Extra caches to read, if any.
-      Defaults to `[ ]`.
-    - readAndWrite:
-        - enable (`boolean`): Optional.
-          Defaults to `false`.
-        - name (`str`):
-          Name of the [Cachix][CACHIX] cache.
-        - pubKey (`str`):
-          Public key of the [Cachix][CACHIX] cache.
-- readCacheType (`submodule`):
-    - url (`str`):
-      URL of the cache.
+  - readNixos (`bool`): Optional.
+    Set to `true` in order to add https://cache.nixos.org as a read cache.
+    Defaults to `true`.
+  - readExtra (`listOf readCacheType`): Optional.
+    Extra caches to read, if any.
+    Defaults to `[ ]`.
+  - readAndWrite:
+    - enable (`boolean`): Optional.
+      Defaults to `false`.
+    - name (`str`):
+      Name of the [Cachix][cachix] cache.
     - pubKey (`str`):
-      Public key of the cache.
+      Public key of the [Cachix][cachix] cache.
+- readCacheType (`submodule`):
+  - url (`str`):
+    URL of the cache.
+  - pubKey (`str`):
+    Public key of the cache.
 
 Required environment variables:
 
-- `CACHIX_AUTH_TOKEN`: API token of the [Cachix][CACHIX] cache.
-    - For Public caches:
-      If not set the cache will be read, but not written to.
-    - For private caches:
-      If not set the cache won't be read, nor written to.
+- `CACHIX_AUTH_TOKEN`: API token of the [Cachix][cachix] cache.
+  - For Public caches:
+    If not set the cache will be read, but not written to.
+  - For private caches:
+    If not set the cache won't be read, nor written to.
 
 Example `makes.nix`:
 
@@ -2087,7 +2091,7 @@ Example `makes.nix`:
 ### envVars
 
 :warning: Do not propagate sensitive information here, it's not safe.
-Use [Makes Secrets][MAKES_SECRETS] instead.
+Use [Makes Secrets][makes_secrets] instead.
 
 Allows you to map environment variables from a name to a value.
 
@@ -2132,9 +2136,9 @@ Example invocation: `$ m . /envVars/otherExample`
 ### envVarsForTerraform
 
 :warning: Do not propagate sensitive information here, it's not safe.
-Use [Makes Secrets][MAKES_SECRETS] instead.
+Use [Makes Secrets][makes_secrets] instead.
 
-Allows you to map [Terraform][TERRAFORM] variables from a name to a value.
+Allows you to map [Terraform][terraform] variables from a name to a value.
 
 Types:
 
@@ -2186,12 +2190,12 @@ Managing secrets is critical for application security.
 
 The following functions are secure
 and allow you to re-use secrets
-across different [Makes][MAKES] components.
+across different [Makes][makes] components.
 
 ### secretsForAwsFromEnv
 
-Load [Amazon Web Services (AWS)][AWS] secrets
-from [Environment Variables][ENV_VAR].
+Load [Amazon Web Services (AWS)][aws] secrets
+from [Environment Variables][env_var].
 
 Types:
 
@@ -2199,33 +2203,33 @@ Types:
   Defaults to `{ }`.
 - awsFromEnvType (`submodule`):
 
-    - accessKeyId (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Access Key Id.
-      Defaults to `"AWS_ACCESS_KEY_ID"`.
+  - accessKeyId (`str`): Optional.
+    Name of the [environment variable][env_var]
+    that stores the value of the [AWS][aws] Access Key Id.
+    Defaults to `"AWS_ACCESS_KEY_ID"`.
 
-    - defaultRegion (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Default Region.
-      Defaults to `"AWS_DEFAULT_REGION"` (Which defaults to `"us-east-1"`).
+  - defaultRegion (`str`): Optional.
+    Name of the [environment variable][env_var]
+    that stores the value of the [AWS][aws] Default Region.
+    Defaults to `"AWS_DEFAULT_REGION"` (Which defaults to `"us-east-1"`).
 
-    - secretAccessKey (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Secret Access Key.
-      Defaults to `"AWS_SECRET_ACCESS_KEY"`.
+  - secretAccessKey (`str`): Optional.
+    Name of the [environment variable][env_var]
+    that stores the value of the [AWS][aws] Secret Access Key.
+    Defaults to `"AWS_SECRET_ACCESS_KEY"`.
 
-    - sessionToken (`str`): Optional.
-      Name of the [environment variable][ENV_VAR]
-      that stores the value of the [AWS][AWS] Session Token.
-      Defaults to `"AWS_SESSION_TOKEN"` (Which defaults to `""`).
+  - sessionToken (`str`): Optional.
+    Name of the [environment variable][env_var]
+    that stores the value of the [AWS][aws] Session Token.
+    Defaults to `"AWS_SESSION_TOKEN"` (Which defaults to `""`).
 
 Always available outputs:
 
 - `/secretsForAwsFromEnv/__default__`:
-    - accessKeyId: "AWS_ACCESS_KEY_ID";
-    - defaultRegion: "AWS_DEFAULT_REGION";
-    - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
-    - sessionToken: "AWS_SESSION_TOKEN";
+  - accessKeyId: "AWS_ACCESS_KEY_ID";
+  - defaultRegion: "AWS_DEFAULT_REGION";
+  - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
+  - sessionToken: "AWS_SESSION_TOKEN";
 
 Example `makes.nix`:
 
@@ -2269,8 +2273,8 @@ Example `makes.nix`:
 
 ### secretsForAwsFromGitlab
 
-Aquire an [Amazon Web Services (AWS)][AWS] session
-using [Gitlab CI OIDC][GITLAB_CI_OIDC].
+Aquire an [Amazon Web Services (AWS)][aws] session
+using [Gitlab CI OIDC][gitlab_ci_oidc].
 
 Types:
 
@@ -2278,17 +2282,17 @@ Types:
   Defaults to `{ }`.
 - awsFromGitlabType (`submodule`):
 
-    - roleArn (`str`):
-      ARN of [AWS][AWS] role to be assumed.
+  - roleArn (`str`):
+    ARN of [AWS][aws] role to be assumed.
 
-    - duration (`ints.positive`): Optional.
-      Duration in seconds of the session.
-      Defaults to `3600`.
+  - duration (`ints.positive`): Optional.
+    Duration in seconds of the session.
+    Defaults to `3600`.
 
-    - retries (`ints.positive`): Optional.
-      Number of login retries before failing.
-      One retry per second.
-      Defaults to `15`.
+  - retries (`ints.positive`): Optional.
+    Number of login retries before failing.
+    One retry per second.
+    Defaults to `15`.
 
 Example `makes.nix`:
 
@@ -2334,18 +2338,18 @@ Example `makes.nix`:
 
 ### secretsForEnvFromSops
 
-Export secrets from a [Sops][SOPS] encrypted manifest
-to [Environment Variables][ENV_VAR].
+Export secrets from a [Sops][sops] encrypted manifest
+to [Environment Variables][env_var].
 
 Types:
 
 - secretsForEnvFromSops (`attrsOf secretForEnvFromSopsType`): Optional.
   Defaults to `{ }`.
 - secretForEnvFromSopsType (`submodule`):
-    - manifest (`str`):
-      Relative path to the encrypted [Sops][SOPS] file.
-    - vars (`listOf str`):
-      Names of the values to export out of the manifest.
+  - manifest (`str`):
+    Relative path to the encrypted [Sops][sops] file.
+  - vars (`listOf str`):
+    Names of the values to export out of the manifest.
 
 Example `makes.nix`:
 
@@ -2379,13 +2383,13 @@ Example `makes.nix`:
 
 ### secretsForGpgFromEnv
 
-Load [GPG][GNU_GPG] public or private keys
-from [Environment Variables][ENV_VAR]
+Load [GPG][gnu_gpg] public or private keys
+from [Environment Variables][env_var]
 into an ephemeral key-ring.
 
 Each key content must be stored
 in a environment variable
-in [ASCII Armor][ASCII_ARMOR] format.
+in [ASCII Armor][ascii_armor] format.
 
 Types:
 
@@ -2454,11 +2458,11 @@ $ m . /example
 
 ### secretsForKubernetesConfigFromAws
 
-Create a [Kubernetes][KUBERNETES]
-config file out of an [AWS][AWS] EKS cluster
-and set it up in the [KUBECONFIG Environment Variable][KUBECONFIG].
+Create a [Kubernetes][kubernetes]
+config file out of an [AWS][aws] EKS cluster
+and set it up in the [KUBECONFIG Environment Variable][kubeconfig].
 
-We internally use the [AWS CLI][AWS_CLI]
+We internally use the [AWS CLI][aws_cli]
 so make sure you setup [AWS] secrets first.
 
 Types:
@@ -2467,10 +2471,10 @@ Types:
   (`attrsOf secretForKubernetesConfigFromAwsType`): Optional.
   Defaults to `{ }`.
 - secretForKubernetesConfigFromAwsType (`submodule`):
-    - cluster (`str`):
-      [AWS][AWS] EKS Cluster name.
-    - region (`str`):
-      [AWS][AWS] Region the EKS cluster is located in.
+  - cluster (`str`):
+    [AWS][aws] EKS Cluster name.
+  - region (`str`):
+    [AWS][aws] Region the EKS cluster is located in.
 
 Example `makes.nix`:
 
@@ -2501,14 +2505,14 @@ Example `makes.nix`:
 
 ### secretsForTerraformFromEnv
 
-Export secrets in a format suitable for [Terraform][TERRAFORM]
-from the given [Environment Variables][ENV_VAR].
+Export secrets in a format suitable for [Terraform][terraform]
+from the given [Environment Variables][env_var].
 
 Types:
 
 - secretsForTerraformFromEnv (`attrsOf (attrsOf str)`): Optional.
   Mapping of secrets group name
-  to a mapping of [Terraform][TERRAFORM] variable names
+  to a mapping of [Terraform][terraform] variable names
   to environment variable names.
   Defaults to `{ }`.
 
@@ -2577,8 +2581,8 @@ m github:fluidattacks/makes@22.09 /utils/makePythonLock \
 ```
 
 - Supported `python_version`s are: `3.7`, `3.8`, `3.9` and `3.10`.
-- `dependencies_yaml` is the **absolute path** to a [YAML][YAML] file
-  mapping [PyPI][PYTHON_PYPI] packages to version constraints.
+- `dependencies_yaml` is the **absolute path** to a [YAML][yaml] file
+  mapping [PyPI][python_pypi] packages to version constraints.
 
 Example:
 
@@ -2592,7 +2596,7 @@ psycopg2: "2.9.1"
 
 ### makeSopsEncryptedFile
 
-You can generate an encrypted [Sops][SOPS] file like this:
+You can generate an encrypted [Sops][sops] file like this:
 
 ```bash
 m github:fluidattacks/makes@22.09 /utils/makeSopsEncryptedFile \
@@ -2657,16 +2661,16 @@ Types:
   Mapping of names to multiple databases.
   Defaults to `{ }`.
 - targetType (`submodule`):
-    - name (`str`),
-    - host (`str`): Optional, defaults to `127.0.0.1`.
-    - port (`str`): Optional, defaults to `8022`.
-    - infra (`str`): Optional. Absolute path to the directory containing the
+  - name (`str`),
+  - host (`str`): Optional, defaults to `127.0.0.1`.
+  - port (`str`): Optional, defaults to `8022`.
+  - infra (`str`): Optional. Absolute path to the directory containing the
     terraform infraestructure.
-    - daemonMode (`boolean`): Optional, defaults to `false`.
-    - data (`listOf str`): Optional, defaults to []. Absolute paths with json documents,
+  - daemonMode (`boolean`): Optional, defaults to `false`.
+  - data (`listOf str`): Optional, defaults to []. Absolute paths with json documents,
     with the format defined for
     [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html#API_BatchWriteItem_RequestSyntax).
-    - dataDerivation (`listOf package`): Optional, defaults to `[]`.
+  - dataDerivation (`listOf package`): Optional, defaults to `[]`.
     Derivations where the output ($ out), are json documents,
     with the format defined for
     [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html#API_BatchWriteItem_RequestSyntax).
@@ -2714,10 +2718,10 @@ Small command for demo purposes, it greets the specified user:
 Types:
 
 - helloWorld:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - name (`string`):
-      Name of the user we should greet.
+  - enable (`boolean`): Optional.
+    Defaults to `false`.
+  - name (`string`):
+    Name of the user we should greet.
 
 Example `makes.nix`:
 
@@ -2736,8 +2740,8 @@ Example invocation: `$ m . /helloWorld 1 2 3`
 
 ### calculateScorecard
 
-Calculate your remote repository [Scorecard][Scorecard]. This module is only
-available for [GitHub][GITHUB] projects at the moment.
+Calculate your remote repository [Scorecard][scorecard]. This module is only
+available for [GitHub][github] projects at the moment.
 
 Pre-requisites:
 
@@ -2748,7 +2752,7 @@ Pre-requisites:
 Types:
 
 - checks (`listOf str`): Optional, defaults to all the checks available for
-  [Scorecard][Scorecard]:
+  [Scorecard][scorecard]:
 
   ```nix
   [
@@ -2773,9 +2777,9 @@ Types:
   ]
   ```
 
-- format (`str`): Optional, defaults to [JSON][JSON]. This is the format which
+- format (`str`): Optional, defaults to [JSON][json]. This is the format which
   the scorecard will be printed. Accepted values are: `"default"` which is an
-  `ASCII Table` and [JSON][JSON].
+  `ASCII Table` and [JSON][json].
 - target (`str`): Mandatory, this is the repository url where you want to run
   scorecard.
 
@@ -2836,46 +2840,46 @@ In order to do this:
 
 1. Locate in the root of your project:
 
-    `$ cd /path/to/my/project`
+   `$ cd /path/to/my/project`
 
 1. Create a directory structure. In this case: `makes/example`.
 
-    `$ mkdir -p makes/example`
+   `$ mkdir -p makes/example`
 
-    We will place in this directory
-    all the source code
-    for the custom workflow called `example`.
+   We will place in this directory
+   all the source code
+   for the custom workflow called `example`.
 
 1. Create a `main.nix` file inside `makes/example`.
 
-    Our goal is to create a bash script that prints `Hello from makes!`,
-    so we are going to write the following function:
+   Our goal is to create a bash script that prints `Hello from makes!`,
+   so we are going to write the following function:
 
-    ```nix
-    # /path/to/my/project/makes/example/main.nix
-    { makeScript
-    , ...
-    }:
-    makeScript {
-      entrypoint = "echo Hello from Makes!";
-      name = "hello-world";
-    }
-    ```
+   ```nix
+   # /path/to/my/project/makes/example/main.nix
+   { makeScript
+   , ...
+   }:
+   makeScript {
+     entrypoint = "echo Hello from Makes!";
+     name = "hello-world";
+   }
+   ```
 
 1. Now run makes!
 
-    - List all available outputs: `$ m .`
+   - List all available outputs: `$ m .`
 
-        ```
-        Outputs list for project: /path/to/my/project
-          /example
-        ```
+     ```
+     Outputs list for project: /path/to/my/project
+       /example
+     ```
 
-    - Build and run the output: `$ m . /example`
+   - Build and run the output: `$ m . /example`
 
-        ```
-        Hello from Makes!
-        ```
+     ```
+     Hello from Makes!
+     ```
 
 Makes will automatically recognize as outputs all `main.nix` files
 under the `makes/` directory in the root of the project.
@@ -2907,8 +2911,8 @@ doSomethingAndReturnADerivation
 
 ### Derivations
 
-On [Nix][NIX]
-a [derivation][NIX_DERIVATION]
+On [Nix][nix]
+a [derivation][nix_derivation]
 is the process of:
 
 - taking zero or more inputs
@@ -2920,14 +2924,14 @@ is the process of:
 Derivation outputs live in the `/nix/store`.
 Their locations in the filesystem are always in the form:
 `/nix/store/hash123-name` where
-`hash123` is computed by [hashing][HASH] the derivation's inputs.
+`hash123` is computed by [hashing][hash] the derivation's inputs.
 
 Derivation outputs are:
 
 - A regular file
 - A regular directory that contains arbitrary contents
 
-For instance the derivation output for [Bash][BASH] is:
+For instance the derivation output for [Bash][bash] is:
 `/nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23`
 which contains, among other files:
 
@@ -2949,7 +2953,7 @@ Let's start from the basics.
 
 #### makeSearchPaths
 
-On [Linux][LINUX]
+On [Linux][linux]
 software dependencies
 can be located anywhere in the file system.
 
@@ -2961,38 +2965,38 @@ through special environment variables.
 Below we describe shortly the purpose
 of the environment variables we currently support.
 
-- [CLASSPATH][CLASSPATH]:
+- [CLASSPATH][classpath]:
   Location of user-defined classes and packages.
 
-- [CRYSTAL_LIBRARY_PATH][CRYSTAL_LIBRARY_PATH]:
-  Location of [Crystal][CRYSTAL] libraries.
+- [CRYSTAL_LIBRARY_PATH][crystal_library_path]:
+  Location of [Crystal][crystal] libraries.
 
-- [GEM_PATH][GEM_PATH]:
-  Location of libraries for [Ruby][RUBY].
+- [GEM_PATH][gem_path]:
+  Location of libraries for [Ruby][ruby].
 
-- [LD_LIBRARY_PATH][RPATH]:
+- [LD_LIBRARY_PATH][rpath]:
   Location of libraries for Dynamic Linking Loaders.
 
-- [MYPYPATH][MYPYPATH]:
-  Location of library stubs and static types for [MyPy][MYPY].
+- [MYPYPATH][mypypath]:
+  Location of library stubs and static types for [MyPy][mypy].
 
-- [NODE_PATH][NODE_PATH]:
-  Location of [Node.js][NODE_JS] modules.
+- [NODE_PATH][node_path]:
+  Location of [Node.js][node_js] modules.
 
-- [OCAMLPATH][OCAMLPATH]:
-  Location of [OCaml][OCAML] libraries.
+- [OCAMLPATH][ocamlpath]:
+  Location of [OCaml][ocaml] libraries.
 
-- [CAML_LD_LIBRARY_PATH][CAML_LD_LIBRARY_PATH]:
-  Location of [OCaml][OCAML] stublibs.
+- [CAML_LD_LIBRARY_PATH][caml_ld_library_path]:
+  Location of [OCaml][ocaml] stublibs.
 
-- [PATH][PATH]:
+- [PATH][path]:
   Location of directories where executable programs are located.
 
-- [PKG_CONFIG_PATH][PKG_CONFIG_PATH]:
-  Location of [pkg-config][PKG_CONFIG] packages.
+- [PKG_CONFIG_PATH][pkg_config_path]:
+  Location of [pkg-config][pkg_config] packages.
 
-- [PYTHONPATH][PYTHONPATH]:
-  Location of [Python][PYTHON] modules and site-packages.
+- [PYTHONPATH][pythonpath]:
+  Location of [Python][python] modules and site-packages.
 
 `makeSearchPaths` helps you write code like this:
 
@@ -3012,227 +3016,227 @@ Types:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `bin` (`listOf coercibleToStr`): Optional.
-      Append `/bin`
-      of each element in the list
-      to [PATH][PATH].
-      Defaults to `[ ]`.
+  - `bin` (`listOf coercibleToStr`): Optional.
+    Append `/bin`
+    of each element in the list
+    to [PATH][path].
+    Defaults to `[ ]`.
 
-    - `rpath` (`listOf coercibleToStr`): Optional.
-      Append `/lib` and `/lib64`
-      of each element in the list
-      to [LD_LIBRARY_PATH][RPATH].
-      Defaults to `[ ]`.
+  - `rpath` (`listOf coercibleToStr`): Optional.
+    Append `/lib` and `/lib64`
+    of each element in the list
+    to [LD_LIBRARY_PATH][rpath].
+    Defaults to `[ ]`.
 
-    - `source` (`listOf coercibleToStr`): Optional.
-      Source (as in [Bash][BASH]'s `source` command)
-      each element in the list.
-      Defaults to `[ ]`.
+  - `source` (`listOf coercibleToStr`): Optional.
+    Source (as in [Bash][bash]'s `source` command)
+    each element in the list.
+    Defaults to `[ ]`.
 
-Types specific to [Crystal][CRYSTAL]:
+Types specific to [Crystal][crystal]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `crystalLib` (`listOf coercibleToStr`): Optional.
-      Append `/lib`
-      of each element in the list
-      to [CRYSTAL_LIBRARY_PATH][CRYSTAL_LIBRARY_PATH].
-      Defaults to `[ ]`.
+  - `crystalLib` (`listOf coercibleToStr`): Optional.
+    Append `/lib`
+    of each element in the list
+    to [CRYSTAL_LIBRARY_PATH][crystal_library_path].
+    Defaults to `[ ]`.
 
 Types specific to Java:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `javaClass` (`listOf coercibleToStr`): Optional.
-      Append each element in the list
-      to [CLASSPATH][CLASSPATH].
-      Defaults to `[ ]`.
+  - `javaClass` (`listOf coercibleToStr`): Optional.
+    Append each element in the list
+    to [CLASSPATH][classpath].
+    Defaults to `[ ]`.
 
-Types specific to [Kubernetes][KUBERNETES]:
-
-- makeSearchPaths (`function { ... } -> package`):
-
-    - `kubeConfig` (`listOf coercibleToStr`): Optional.
-      Append each element in the list
-      to [KUBECONFIG][KUBECONFIG].
-      Defaults to `[ ]`.
-
-Types specific to [pkg-config][PKG_CONFIG]:
+Types specific to [Kubernetes][kubernetes]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `pkgConfig` (`listOf coercibleToStr`): Optional.
-      Append `/lib/pkgconfig`
-      of each element in the list
-      to [PKG_CONFIG_PATH][PKG_CONFIG_PATH].
-      Defaults to `[ ]`.
+  - `kubeConfig` (`listOf coercibleToStr`): Optional.
+    Append each element in the list
+    to [KUBECONFIG][kubeconfig].
+    Defaults to `[ ]`.
 
-Types specific to [OCaml][OCAML]:
-
-- makeSearchPaths (`function { ... } -> package`):
-
-    - `ocamlBin` (`listOf coercibleToStr`): Optional.
-      Append `/bin`
-      of each element in the list
-      to [PATH][PATH].
-      Defaults to `[ ]`.
-
-    - `ocamlLib` (`listOf coercibleToStr`): Optional.
-      Append `/`
-      of each element in the list
-      to [OCAMLPATH][OCAMLPATH].
-      Defaults to `[ ]`.
-
-    - `ocamlStublib` (`listOf coercibleToStr`): Optional.
-      Append `/stublib`
-      of each element in the list
-      to [CAML_LD_LIBRARY_PATH][CAML_LD_LIBRARY_PATH].
-      Defaults to `[ ]`
-
-Types specific to [Python][PYTHON]:
+Types specific to [pkg-config][pkg_config]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `pythonMypy` (`listOf coercibleToStr`): Optional.
-      Append `/`
-      of each element in the list
-      to [MYPYPATH][MYPYPATH].
-      Defaults to `[ ]`.
+  - `pkgConfig` (`listOf coercibleToStr`): Optional.
+    Append `/lib/pkgconfig`
+    of each element in the list
+    to [PKG_CONFIG_PATH][pkg_config_path].
+    Defaults to `[ ]`.
 
-    - `pythonMypy37` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.7/site-packages`
-      of each element in the list
-      to [MYPYPATH][MYPYPATH].
-      Defaults to `[ ]`.
-
-    - `pythonMypy38` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.8/site-packages`
-      of each element in the list
-      to [MYPYPATH][MYPYPATH].
-      Defaults to `[ ]`.
-
-    - `pythonMypy39` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.9/site-packages`
-      of each element in the list
-      to [MYPYPATH][MYPYPATH].
-      Defaults to `[ ]`.
-
-    - `pythonMypy310` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.10/site-packages`
-      of each element in the list
-      to [MYPYPATH][MYPYPATH].
-      Defaults to `[ ]`.
-
-    - `pythonPackage` (`listOf coercibleToStr`): Optional.
-      Append `/`
-      of each element in the list
-      to [PYTHONPATH][PYTHONPATH].
-      Defaults to `[ ]`.
-
-    - `pythonPackage37` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.7/site-packages`
-      of each element in the list
-      to [PYTHONPATH][PYTHONPATH].
-      Defaults to `[ ]`.
-
-    - `pythonPackage38` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.8/site-packages`
-      of each element in the list
-      to [PYTHONPATH][PYTHONPATH].
-      Defaults to `[ ]`.
-
-    - `pythonPackage39` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.9/site-packages`
-      of each element in the list
-      to [PYTHONPATH][PYTHONPATH].
-      Defaults to `[ ]`.
-
-    - `pythonPackage310` (`listOf coercibleToStr`): Optional.
-      Append `/lib/python3.10/site-packages`
-      of each element in the list
-      to [PYTHONPATH][PYTHONPATH].
-      Defaults to `[ ]`.
-
-Types specific to [Node.js][NODE_JS]:
+Types specific to [OCaml][ocaml]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `nodeBin` (`listOf coercibleToStr`): Optional.
-      Append `/.bin`
-      of each element in the list
-      to [PATH][PATH].
-      Defaults to `[ ]`.
+  - `ocamlBin` (`listOf coercibleToStr`): Optional.
+    Append `/bin`
+    of each element in the list
+    to [PATH][path].
+    Defaults to `[ ]`.
 
-    - `nodeModule` (`listOf coercibleToStr`): Optional.
-      Append `/`
-      of each element in the list
-      to [NODE_PATH][NODE_PATH].
-      Defaults to `[ ]`.
+  - `ocamlLib` (`listOf coercibleToStr`): Optional.
+    Append `/`
+    of each element in the list
+    to [OCAMLPATH][ocamlpath].
+    Defaults to `[ ]`.
 
-Types specific to [Ruby][RUBY]:
+  - `ocamlStublib` (`listOf coercibleToStr`): Optional.
+    Append `/stublib`
+    of each element in the list
+    to [CAML_LD_LIBRARY_PATH][caml_ld_library_path].
+    Defaults to `[ ]`
+
+Types specific to [Python][python]:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `rubyBin` (`listOf coercibleToStr`): Optional.
-      Append `/bin`
-      of each element in the list
-      to [PATH][PATH].
-      Defaults to `[ ]`.
+  - `pythonMypy` (`listOf coercibleToStr`): Optional.
+    Append `/`
+    of each element in the list
+    to [MYPYPATH][mypypath].
+    Defaults to `[ ]`.
 
-    - `rubyGemPath` (`listOf coercibleToStr`): Optional.
-      Append `/`
-      of each element in the list
-      to [GEM_PATH][GEM_PATH].
-      Defaults to `[ ]`.
+  - `pythonMypy37` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.7/site-packages`
+    of each element in the list
+    to [MYPYPATH][mypypath].
+    Defaults to `[ ]`.
+
+  - `pythonMypy38` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.8/site-packages`
+    of each element in the list
+    to [MYPYPATH][mypypath].
+    Defaults to `[ ]`.
+
+  - `pythonMypy39` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.9/site-packages`
+    of each element in the list
+    to [MYPYPATH][mypypath].
+    Defaults to `[ ]`.
+
+  - `pythonMypy310` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.10/site-packages`
+    of each element in the list
+    to [MYPYPATH][mypypath].
+    Defaults to `[ ]`.
+
+  - `pythonPackage` (`listOf coercibleToStr`): Optional.
+    Append `/`
+    of each element in the list
+    to [PYTHONPATH][pythonpath].
+    Defaults to `[ ]`.
+
+  - `pythonPackage37` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.7/site-packages`
+    of each element in the list
+    to [PYTHONPATH][pythonpath].
+    Defaults to `[ ]`.
+
+  - `pythonPackage38` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.8/site-packages`
+    of each element in the list
+    to [PYTHONPATH][pythonpath].
+    Defaults to `[ ]`.
+
+  - `pythonPackage39` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.9/site-packages`
+    of each element in the list
+    to [PYTHONPATH][pythonpath].
+    Defaults to `[ ]`.
+
+  - `pythonPackage310` (`listOf coercibleToStr`): Optional.
+    Append `/lib/python3.10/site-packages`
+    of each element in the list
+    to [PYTHONPATH][pythonpath].
+    Defaults to `[ ]`.
+
+Types specific to [Node.js][node_js]:
+
+- makeSearchPaths (`function { ... } -> package`):
+
+  - `nodeBin` (`listOf coercibleToStr`): Optional.
+    Append `/.bin`
+    of each element in the list
+    to [PATH][path].
+    Defaults to `[ ]`.
+
+  - `nodeModule` (`listOf coercibleToStr`): Optional.
+    Append `/`
+    of each element in the list
+    to [NODE_PATH][node_path].
+    Defaults to `[ ]`.
+
+Types specific to [Ruby][ruby]:
+
+- makeSearchPaths (`function { ... } -> package`):
+
+  - `rubyBin` (`listOf coercibleToStr`): Optional.
+    Append `/bin`
+    of each element in the list
+    to [PATH][path].
+    Defaults to `[ ]`.
+
+  - `rubyGemPath` (`listOf coercibleToStr`): Optional.
+    Append `/`
+    of each element in the list
+    to [GEM_PATH][gem_path].
+    Defaults to `[ ]`.
 
 Types for non covered cases:
 
 - makeSearchPaths (`function { ... } -> package`):
 
-    - `export` (`listOf (tuple [ str coercibleToStr str ])`): Optional.
-        Export (as in [Bash][BASH]'s `export` command)
-        each tuple in the list.
-        Defaults to `[ ]`.
+  - `export` (`listOf (tuple [ str coercibleToStr str ])`): Optional.
+    Export (as in [Bash][bash]'s `export` command)
+    each tuple in the list.
+    Defaults to `[ ]`.
 
-        Tuples elements are:
+    Tuples elements are:
 
-        - Name of the environment variable to export.
-        - Base package to export from.
-        - Relative path with respect to the package that should be appended.
+    - Name of the environment variable to export.
+    - Base package to export from.
+    - Relative path with respect to the package that should be appended.
 
-        Example:
+    Example:
 
-        ```bash
-        # /path/to/my/project/makes/example/template
-        echo "${@}"
-        ```
+    ```bash
+    # /path/to/my/project/makes/example/template
+    echo "${@}"
+    ```
 
-        ```nix
-        # /path/to/my/project/makes/example/main.nix
-        makeSearchPaths {
-          source = [
-            [ ./template "a" "b" "c" ]
-            # add more as you need ...
-          ];
-          export = [
-            [ "PATH" inputs.nixpkgs.bash "/bin"]
-            [ "CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0"]
-            # add more as you need ...
-          ];
-        }
-        ```
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    makeSearchPaths {
+      source = [
+        [ ./template "a" "b" "c" ]
+        # add more as you need ...
+      ];
+      export = [
+        [ "PATH" inputs.nixpkgs.bash "/bin"]
+        [ "CPATH" inputs.nixpkgs.glib.dev "/include/glib-2.0"]
+        # add more as you need ...
+      ];
+    }
+    ```
 
-        Is equivalent to:
+    Is equivalent to:
 
-        ```bash
-        export PATH="/nix/store/...-bash/bin${PATH:+:}${PATH:-}"
-        export CPATH="/nix/store/...-glib-dev/include/glib-2.0${CPATH:+:}${CPATH:-}"
+    ```bash
+    export PATH="/nix/store/...-bash/bin${PATH:+:}${PATH:-}"
+    export CPATH="/nix/store/...-glib-dev/include/glib-2.0${CPATH:+:}${CPATH:-}"
 
-        if test -e "/nix/store/...-template/template"
-        then source "/nix/store/...-template/template" '1' '2' '3'
-        else source "/nix/store/...-template" '1' '2' '3'
-        fi
-        ```
+    if test -e "/nix/store/...-template/template"
+    then source "/nix/store/...-template/template" '1' '2' '3'
+    else source "/nix/store/...-template" '1' '2' '3'
+    fi
+    ```
 
 Example:
 
@@ -3253,51 +3257,52 @@ Perform a build step in an **isolated** environment:
   This means you **can't** use secrets here.
 - Search Paths as in `makeSearchPaths` are completely empty.
 - The `HOME` environment variable is set to `/homeless-shelter`.
-- Only [GNU coreutils][GNU_COREUTILS] commands (cat, echo, ls, ...)
+- Only [GNU coreutils][gnu_coreutils] commands (cat, echo, ls, ...)
   are present by default.
 - An environment variable called `out` is present
   and represents the derivation's output.
   The derivation **must** produce an output,
   may be a file, or a directory.
 - Convenience bash functions are exported:
-    - `echo_stderr`: Like `echo` but to standard error.
-    - `debug`: Like `echo_stderr` but with a `[DEBUG]` prefix.
-    - `info`: Like `echo_stderr` but with a `[INFO]` prefix.
-    - `warn`: Like `echo_stderr` but with a `[WARNING]` prefix.
-    - `error`: Like `echo_stderr` but with a `[ERROR]` prefix.
-      Returns exit code 1 to signal failure.
-    - `critical`: Like `echo_stderr` but with a `[CRITICAL]` prefix.
-      Exits immediately with exit code 1, aborting the entire execution.
-    - `copy`: Like `cp` but making paths writeable after copying them.
-    - `require_env_var`: `error`s when the specified env var is not set,
-      or set to an empty value.
 
-      ```bash
-      require_env_var USERNAME
-      ```
+  - `echo_stderr`: Like `echo` but to standard error.
+  - `debug`: Like `echo_stderr` but with a `[DEBUG]` prefix.
+  - `info`: Like `echo_stderr` but with a `[INFO]` prefix.
+  - `warn`: Like `echo_stderr` but with a `[WARNING]` prefix.
+  - `error`: Like `echo_stderr` but with a `[ERROR]` prefix.
+    Returns exit code 1 to signal failure.
+  - `critical`: Like `echo_stderr` but with a `[CRITICAL]` prefix.
+    Exits immediately with exit code 1, aborting the entire execution.
+  - `copy`: Like `cp` but making paths writeable after copying them.
+  - `require_env_var`: `error`s when the specified env var is not set,
+    or set to an empty value.
+
+    ```bash
+    require_env_var USERNAME
+    ```
 
 - After the build, for all paths in `$out`:
-    - User and group ownership are removed
-    - Last-modified timestamps are reset to `1970-01-01T00:00:00+00:00`.
+  - User and group ownership are removed
+  - Last-modified timestamps are reset to `1970-01-01T00:00:00+00:00`.
 
 Types:
 
 - makeDerivation (`function { ... } -> package`):
-    - builder (`either str package`):
-      A [Bash][BASH] script that performs the build step.
-    - env (`attrsOf str`): Optional.
-      Environment variables that will be propagated to the `builder`.
-      Variable names must start with `env`.
-      Defaults to `{ }`.
-    - local (`bool`): Optional.
-      Should we always build locally this step?
-      Thus effectively ignoring any configured binary caches.
-      Defaults to `false`.
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
+  - builder (`either str package`):
+    A [Bash][bash] script that performs the build step.
+  - env (`attrsOf str`): Optional.
+    Environment variables that will be propagated to the `builder`.
+    Variable names must start with `env`.
+    Defaults to `{ }`.
+  - local (`bool`): Optional.
+    Should we always build locally this step?
+    Thus effectively ignoring any configured binary caches.
+    Defaults to `false`.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
@@ -3347,20 +3352,20 @@ in a file of any format.
 Types:
 
 - makeTemplate (`function { ... } -> package`):
-    - local (`bool`): Optional.
-      Should we always build locally this step?
-      Thus effectively ignoring any configured binary caches.
-      Defaults to `true`.
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - replace (`attrsOf strLike`): Optional.
-      Placeholders will be replaced in the script with their respective value.
-      Variable names must start with `__arg`, end with `__`
-      and have at least 6 characters long.
-      Defaults to `{ }`.
-    - template (`either str package`):
-      A string, file, output or package
-      in which placeholders will be replaced.
+  - local (`bool`): Optional.
+    Should we always build locally this step?
+    Thus effectively ignoring any configured binary caches.
+    Defaults to `true`.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - replace (`attrsOf strLike`): Optional.
+    Placeholders will be replaced in the script with their respective value.
+    Variable names must start with `__arg`, end with `__`
+    and have at least 6 characters long.
+    Defaults to `{ }`.
+  - template (`either str package`):
+    A string, file, output or package
+    in which placeholders will be replaced.
 
 Example:
 
@@ -3392,7 +3397,7 @@ $ m . /example
 
 #### makeScript
 
-Wrap a [Bash][BASH] script
+Wrap a [Bash][bash] script
 that runs in a **almost-isolated** environment.
 
 - The file system is **not** isolated, the script runs in user-space.
@@ -3401,78 +3406,79 @@ that runs in a **almost-isolated** environment.
 - Search Paths as in `makeSearchPaths` are completely empty.
 - The `HOME_IMPURE` environment variable is set to the user's home directory.
 - The `HOME` environment variable is set to a temporary directory.
-- Only [GNU coreutils][GNU_COREUTILS] commands (cat, echo, ls, ...)
+- Only [GNU coreutils][gnu_coreutils] commands (cat, echo, ls, ...)
   are present by default.
 - An environment variable called `STATE` points to a directory
   that can be used to store the script's state (if any).
   That state can be optionally persisted.
   That state can be optionally shared across repositories.
 - Convenience bash functions are exported:
-    - `running_in_ci_cd_provider`:
-        Detects if we are running on the CI/CD provider (gitlab/github/etc).
 
-        ```bash
-        if running_in_ci_cd_provider; then
-          # ci/cd logic
-        else
-          # non ci/cd logic
-        fi
-        ```
+  - `running_in_ci_cd_provider`:
+    Detects if we are running on the CI/CD provider (gitlab/github/etc).
 
-    - `prompt_user_for_confirmation`:
-      Warns the user about a possibly destructive action
-      that will be executed soon
-      and aborts if the user does not confirm aproppriately.
+    ```bash
+    if running_in_ci_cd_provider; then
+      # ci/cd logic
+    else
+      # non ci/cd logic
+    fi
+    ```
 
-      This function assumes a positive answer
-      when running on the CI/CD provider
-      because there is no human interaction.
+  - `prompt_user_for_confirmation`:
+    Warns the user about a possibly destructive action
+    that will be executed soon
+    and aborts if the user does not confirm aproppriately.
 
-    - `prompt_user_for_input`:
-      Ask the user to type information
-      or optionally use a default value by pressing ENTER.
+    This function assumes a positive answer
+    when running on the CI/CD provider
+    because there is no human interaction.
 
-      This function assumes the default value
-      when running on the CI/CD provider
-      because there is no human interaction.
+  - `prompt_user_for_input`:
+    Ask the user to type information
+    or optionally use a default value by pressing ENTER.
 
-      ```bash
-      user_supplied_input="$(prompt_user_for_input "default123123")"
+    This function assumes the default value
+    when running on the CI/CD provider
+    because there is no human interaction.
 
-      info Supplied input: "${user_supplied_input}"
-      ```
+    ```bash
+    user_supplied_input="$(prompt_user_for_input "default123123")"
+
+    info Supplied input: "${user_supplied_input}"
+    ```
 
 - After the build, the script is executed.
 
 Types:
 
 - makeScript (`function { ... } -> package`):
-    - entrypoint (`either str package`):
-      A [Bash][BASH] script that performs the build step.
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - replace (`attrsOf strLike`): Optional.
-      Placeholders will be replaced in the script with their respective value.
-      Variable names must start with `__arg`, end with `__`
-      and have at least 6 characters long.
-      Defaults to `{ }`.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - persistState (`bool`): Optional.
-      If true, state will _not_ be cleared before each script run.
-      Defaults to `false`.
-    - globalState (`bool`): Optional.
-      If true, script state will be written to `globalStateDir` and
-      to `projectStateDir` otherwise.
-      Defaults to `false`, if `projectStateDir` is specified or derived.
-      Note:
-        - It is implicitly `true`, if `projectStateDir == globalStateDir`.
-        - `projectStateDir == globalStateDir` is the default if
-          `projectIdentifier` is not configured.
-        - Hence, generally enable project local state by
-            - either setting `projectIdentifier`
-            - or `projectStateDir` different from `globalStateDir`.
+  - entrypoint (`either str package`):
+    A [Bash][bash] script that performs the build step.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - replace (`attrsOf strLike`): Optional.
+    Placeholders will be replaced in the script with their respective value.
+    Variable names must start with `__arg`, end with `__`
+    and have at least 6 characters long.
+    Defaults to `{ }`.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
+  - persistState (`bool`): Optional.
+    If true, state will _not_ be cleared before each script run.
+    Defaults to `false`.
+  - globalState (`bool`): Optional.
+    If true, script state will be written to `globalStateDir` and
+    to `projectStateDir` otherwise.
+    Defaults to `false`, if `projectStateDir` is specified or derived.
+    Note:
+    - It is implicitly `true`, if `projectStateDir == globalStateDir`.
+    - `projectStateDir == globalStateDir` is the default if
+      `projectIdentifier` is not configured.
+    - Hence, generally enable project local state by
+      - either setting `projectIdentifier`
+      - or `projectStateDir` different from `globalStateDir`.
 
 Example:
 
@@ -3517,16 +3523,16 @@ $ m . /example
 
 #### projectPath
 
-Copy a path from the current [Makes][MAKES] project
-being evaluated to the [Nix][NIX] store
+Copy a path from the current [Makes][makes] project
+being evaluated to the [Nix][nix] store
 in the **most** pure and reproducible way possible.
 
 Types:
 
 - projectPath (`function str -> package`):
 
-    - (`str`):
-      Absolute path, assumming the repository is located at `"/"`.
+  - (`str`):
+    Absolute path, assumming the repository is located at `"/"`.
 
 Example:
 
@@ -3569,13 +3575,13 @@ Types:
 
 - fetchUrl (`function { ... } -> package`):
 
-    - url (`str`):
-      URL to download.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes,
-      Makes will tell you the correct SHA256 on failure.
+  - url (`str`):
+    URL to download.
+  - sha256 (`str`):
+    SHA256 of the expected output,
+    In order to get the SHA256
+    you can omit this parameter and execute Makes,
+    Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -3600,18 +3606,18 @@ Types:
 
 - fetchArchive (`function { ... } -> package`):
 
-    - url (`str`):
-      URL to download.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes,
-      Makes will tell you the correct SHA256 on failure.
-    - stripRoot (`bool`): Optional.
-      Most archives have a symbolic top-level directory
-      that is discarded during unpack phase.
-      If this is not the case you can set this flag to `false`.
-      Defaults to `true`.
+  - url (`str`):
+    URL to download.
+  - sha256 (`str`):
+    SHA256 of the expected output,
+    In order to get the SHA256
+    you can omit this parameter and execute Makes,
+    Makes will tell you the correct SHA256 on failure.
+  - stripRoot (`bool`): Optional.
+    Most archives have a symbolic top-level directory
+    that is discarded during unpack phase.
+    If this is not the case you can set this flag to `false`.
+    Defaults to `true`.
 
 Example:
 
@@ -3629,23 +3635,23 @@ fetchArchive {
 
 #### fetchGithub
 
-Fetch a commit from the specified Git repository at [GitHub][GITHUB].
+Fetch a commit from the specified Git repository at [GitHub][github].
 
 Types:
 
 - fetchGithub (`function { ... } -> package`):
 
-    - owner (`str`):
-      Owner of the repository.
-    - repo (`str`):
-      Name of the repository.
-    - rev (`str`):
-      Commit, branch or tag to fetch.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes,
-      Makes will tell you the correct SHA256 on failure.
+  - owner (`str`):
+    Owner of the repository.
+  - repo (`str`):
+    Name of the repository.
+  - rev (`str`):
+    Commit, branch or tag to fetch.
+  - sha256 (`str`):
+    SHA256 of the expected output,
+    In order to get the SHA256
+    you can omit this parameter and execute Makes,
+    Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -3664,23 +3670,23 @@ fetchGithub {
 
 #### fetchGitlab
 
-Fetch a commit from the specified Git repository at [Gitlab][GITLAB].
+Fetch a commit from the specified Git repository at [Gitlab][gitlab].
 
 Types:
 
 - fetchGitlab (`function { ... } -> package`):
 
-    - owner (`str`):
-      Owner of the repository.
-    - repo (`str`):
-      Name of the repository.
-    - rev (`str`):
-      Commit, branch or tag to fetch.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes,
-      Makes will tell you the correct SHA256 on failure.
+  - owner (`str`):
+    Owner of the repository.
+  - repo (`str`):
+    Name of the repository.
+  - rev (`str`):
+    Commit, branch or tag to fetch.
+  - sha256 (`str`):
+    SHA256 of the expected output,
+    In order to get the SHA256
+    you can omit this parameter and execute Makes,
+    Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -3699,7 +3705,7 @@ fetchGitlab {
 
 #### fetchNixpkgs
 
-Fetch a commit from the [Nixpkgs][NIXPKGS] repository.
+Fetch a commit from the [Nixpkgs][nixpkgs] repository.
 
 :warning: By default all licenses in the Nixpkgs repository are accepted.
 Options to decline individual licenses are provided below.
@@ -3707,22 +3713,22 @@ Options to decline individual licenses are provided below.
 Types:
 
 - fetchNixpkgs (`function { ... } -> anything`):
-    - rev (`str`):
-      Commit, branch or tag to fetch.
-    - allowUnfree (`bool`): Optional.
-      Allow software that do not respect the freedom of its users.
-      Defaults to `true`.
-    - acceptAndroidSdkLicense (`bool`): Optional.
-      Accept the Android SDK license.
-      Defaults to `true`.
-    - overalys (`listOf overlayType`): Optional.
-      Overlays to apply to the [Nixpkgs][NIXPKGS] set.
-      Defaults to `[ ]`.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes,
-      Makes will tell you the correct SHA256 on failure.
+  - rev (`str`):
+    Commit, branch or tag to fetch.
+  - allowUnfree (`bool`): Optional.
+    Allow software that do not respect the freedom of its users.
+    Defaults to `true`.
+  - acceptAndroidSdkLicense (`bool`): Optional.
+    Accept the Android SDK license.
+    Defaults to `true`.
+  - overalys (`listOf overlayType`): Optional.
+    Overlays to apply to the [Nixpkgs][nixpkgs] set.
+    Defaults to `[ ]`.
+  - sha256 (`str`):
+    SHA256 of the expected output,
+    In order to get the SHA256
+    you can omit this parameter and execute Makes,
+    Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -3741,20 +3747,20 @@ nixpkgs.awscli
 
 #### fetchRubyGem
 
-Fetch a [Ruby][RUBY] gem from [Ruby community’s gem hosting service][RUBYGEMS].
+Fetch a [Ruby][ruby] gem from [Ruby community’s gem hosting service][rubygems].
 
 Types:
 
 - fetchRubyGem (`function { ... } -> package`):
-    - name (`str`):
-      Name of the gem to download.
-    - version (`str`):
-      Version of the gem to download.
-    - sha256 (`str`):
-      SHA256 of the expected output,
-      In order to get the SHA256
-      you can omit this parameter and execute Makes,
-      Makes will tell you the correct SHA256 on failure.
+  - name (`str`):
+    Name of the gem to download.
+  - version (`str`):
+    Version of the gem to download.
+  - sha256 (`str`):
+    SHA256 of the expected output,
+    In order to get the SHA256
+    you can omit this parameter and execute Makes,
+    Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -3782,40 +3788,40 @@ Types:
   A package that can be sourced to setup functions in the current scope.
   The list of available functions is documented below:
 
-    - `is_git_repository`:
-      Return 0 if the provided path is a git repository.
+  - `is_git_repository`:
+    Return 0 if the provided path is a git repository.
 
-      ```bash
-      if is_git_repository /path/to/anywhere; then
-        # custom logic
-      fi
-      ```
+    ```bash
+    if is_git_repository /path/to/anywhere; then
+      # custom logic
+    fi
+    ```
 
-    - `require_git_repository`:
-      Stops the execution
-      if the provided path is not a git repository.
+  - `require_git_repository`:
+    Stops the execution
+    if the provided path is not a git repository.
 
-      ```bash
-      require_git_repository /path/to/anywhere
-      ```
+    ```bash
+    require_git_repository /path/to/anywhere
+    ```
 
-    - `get_abbrev_rev`:
-      If available, returns an abbreviated name for the provided revision.
-      Otherwise returns the revision unchanged.
+  - `get_abbrev_rev`:
+    If available, returns an abbreviated name for the provided revision.
+    Otherwise returns the revision unchanged.
 
-      ```bash
-      # Would return main, trunk, develop, etc
-      get_abbrev_rev /path/to/anywhere HEAD
-      ```
+    ```bash
+    # Would return main, trunk, develop, etc
+    get_abbrev_rev /path/to/anywhere HEAD
+    ```
 
-    - `get_commit_from_rev`:
-      If available, returns the full commit of the provided revision.
-      Otherwise returns an error.
+  - `get_commit_from_rev`:
+    If available, returns the full commit of the provided revision.
+    Otherwise returns an error.
 
-      ```bash
-      # Would return the full commit (e026a413...)
-      get_commit_from_rev /path/to/anywhere HEAD
-      ```
+    ```bash
+    # Would return the full commit (e026a413...)
+    get_commit_from_rev /path/to/anywhere HEAD
+    ```
 
 Example:
 
@@ -3848,14 +3854,14 @@ $ m . /example
 
 #### makeNodeJsVersion
 
-Get a specific [Node.js][NODE_JS] version interpreter.
+Get a specific [Node.js][node_js] version interpreter.
 
 Types:
 
 - makeNodeJsVersion (`function str -> package`):
 
-    - (`enum [ "14" "16" "18" ]`):
-      [Node.js][NODE_JS] version to use.
+  - (`enum [ "14" "16" "18" ]`):
+    [Node.js][node_js] version to use.
 
 Example:
 
@@ -3887,26 +3893,26 @@ $ m . /example
 :warning: This function is only available on Linux at the moment.
 
 Cook the `node_modules` directory
-for the given [NPM][NPM] project.
+for the given [NPM][npm] project.
 
 Types:
 
 - makeNodeJsModules (`function { ... } -> package`):
 
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
-      [Node.js][NODE_JS] version to use.
-    - packageJson (`package`):
-      Path to the `package.json` of your project.
-    - packageLockJson (`package`):
-      Path to the `package-lock.json` of your project.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - shouldIgnoreScripts (`bool`): Optional.
-      Enable to propagate the `--ignore-scripts true` flag to npm.
-      Defaults to `false`.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - nodeJsVersion (`enum [ "14" "16" "18" ]`):
+    [Node.js][node_js] version to use.
+  - packageJson (`package`):
+    Path to the `package.json` of your project.
+  - packageLockJson (`package`):
+    Path to the `package-lock.json` of your project.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
+  - shouldIgnoreScripts (`bool`): Optional.
+    Enable to propagate the `--ignore-scripts true` flag to npm.
+    Defaults to `false`.
 
 Example:
 
@@ -3978,7 +3984,7 @@ It appends:
 
 - `node` to `PATH`.
 - `node_modules/.bin` to `PATH`.
-- `node_modules` to [NODE_PATH][NODE_PATH].
+- `node_modules` to [NODE_PATH][node_path].
 
 Pre-requisites: [Generating a package-lock.json](#makenodejslock)
 
@@ -3986,20 +3992,20 @@ Types:
 
 - makeNodeJsEnvironment (`function { ... } -> package`):
 
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
-      [Node.js][NODE_JS] version to use.
-    - packageJson (`package`):
-      Path to the `package.json` of your project.
-    - packageLockJson (`package`):
-      Path to the `package-lock.json` of your project.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
-    - shouldIgnoreScripts (`bool`): Optional.
-      Enable to propagate the `--ignore-scripts true` flag to npm.
-      Defaults to `false`.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - nodeJsVersion (`enum [ "14" "16" "18" ]`):
+    [Node.js][node_js] version to use.
+  - packageJson (`package`):
+    Path to the `package.json` of your project.
+  - packageLockJson (`package`):
+    Path to the `package-lock.json` of your project.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
+  - shouldIgnoreScripts (`bool`): Optional.
+    Enable to propagate the `--ignore-scripts true` flag to npm.
+    Defaults to `false`.
 
 Example:
 
@@ -4064,14 +4070,14 @@ $ m . /example
 
 #### makePythonVersion
 
-Get a specific [Python][PYTHON] interpreter.
+Get a specific [Python][python] interpreter.
 
 Types:
 
 - makePythonVersion (`function str -> package`):
 
-    - (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
-      [Python][PYTHON] version of the interpreter to return.
+  - (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+    [Python][python] version of the interpreter to return.
 
 Example:
 
@@ -4101,8 +4107,8 @@ $ m . /example
 #### makePythonPypiEnvironment
 
 Create a virtual environment
-where the provided set of [Python][PYTHON] packages
-from the [Python Packaging Index (PyPI)][PYTHON_PYPI]
+where the provided set of [Python][python] packages
+from the [Python Packaging Index (PyPI)][python_pypi]
 are installed.
 
 Pre-requisites: [Generating a sourcesYaml](#makepythonlock)
@@ -4111,42 +4117,42 @@ Types:
 
 - makePythonPypiEnvironment (`function { ... } -> package`):
 
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - searchPathsBuild (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`
-      and used while installing the Python dependencies.
-      Defaults to `makeSearchPaths`'s defaults.
-    - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`
-      and propagated to the runtime environment.
-      Defaults to `makeSearchPaths`'s defaults.
-    - sourcesYaml (`package`):
-      `sources.yaml` file
-      computed as explained in the pre-requisites section.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - searchPathsBuild (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`
+    and used while installing the Python dependencies.
+    Defaults to `makeSearchPaths`'s defaults.
+  - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`
+    and propagated to the runtime environment.
+    Defaults to `makeSearchPaths`'s defaults.
+  - sourcesYaml (`package`):
+    `sources.yaml` file
+    computed as explained in the pre-requisites section.
 
-    For building a few special packages you may need to boostrap
-    dependencies in the build environment.
-    The following flags are available for convenience:
+  For building a few special packages you may need to boostrap
+  dependencies in the build environment.
+  The following flags are available for convenience:
 
-    - withCython_0_29_24 (`bool`): Optional.
-      Should we bootstrap cython 0.29.24 in the environment?
-      Defaults to `false`.
-    - withNumpy_1_21_2 (`bool`): Optional.
-      Should we bootstrap numpy 1.21.2 in the environment?
-      Defaults to `false`.
-    - withSetuptools_57_4_0 (`bool`): Optional.
-      Should we bootstrap setuptools 57.4.0 in the environment?
-      Defaults to `false`.
-    - withSetuptoolsScm_5_0_2 (`bool`) Optional.
-      Should we bootstrap setuptools-scm 5.0.2 in the environment?
-      Defaults to `false`.
-    - withSetuptoolsScm_6_0_1 (`bool`) Optional.
-      Should we bootstrap setuptools-scm 6.0.1 in the environment?
-      Defaults to `false`.
-    - withWheel_0_37_0 (`bool`): Optional.
-      Should we bootstrap wheel 0.37.0 in the environment?
-      Defaults to `false`.
+  - withCython_0_29_24 (`bool`): Optional.
+    Should we bootstrap cython 0.29.24 in the environment?
+    Defaults to `false`.
+  - withNumpy_1_21_2 (`bool`): Optional.
+    Should we bootstrap numpy 1.21.2 in the environment?
+    Defaults to `false`.
+  - withSetuptools_57_4_0 (`bool`): Optional.
+    Should we bootstrap setuptools 57.4.0 in the environment?
+    Defaults to `false`.
+  - withSetuptoolsScm_5_0_2 (`bool`) Optional.
+    Should we bootstrap setuptools-scm 5.0.2 in the environment?
+    Defaults to `false`.
+  - withSetuptoolsScm_6_0_1 (`bool`) Optional.
+    Should we bootstrap setuptools-scm 6.0.1 in the environment?
+    Defaults to `false`.
+  - withWheel_0_37_0 (`bool`): Optional.
+    Should we bootstrap wheel 0.37.0 in the environment?
+    Defaults to `false`.
 
 Example:
 
@@ -4231,14 +4237,14 @@ $ cat /path/to/my/project/makes/example/sources.yaml
 
 #### makeRubyVersion
 
-Get a specific [Ruby][RUBY] interpreter.
+Get a specific [Ruby][ruby] interpreter.
 
 Types:
 
 - makeRubyVersion (`function str -> package`):
 
-    - (`enum [ "2.6" "2.7" "3.0" ]`):
-      Version of the [Ruby][RUBY] interpreter.
+  - (`enum [ "2.6" "2.7" "3.0" ]`):
+    Version of the [Ruby][ruby] interpreter.
 
 Example:
 
@@ -4267,22 +4273,22 @@ $ m . /example
 
 #### makeRubyGemsInstall
 
-Fetch and install the specified [Ruby][RUBY] gems
-from the [Ruby community’s gem hosting service][RUBYGEMS].
+Fetch and install the specified [Ruby][ruby] gems
+from the [Ruby community’s gem hosting service][rubygems].
 
 Types:
 
 - makeRubyGemsInstall (`function { ... } -> package`):
 
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - ruby (`enum [ "2.7" "3.0" ]`):
-      Version of the [Ruby][RUBY] interpreter.
-    - rubyGems (`listOf (asIn fetchRubyGem)`):
-      Ruby gems specification that should be fetched and installed.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`.
-      Defaults to `makeSearchPaths`'s defaults.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - ruby (`enum [ "2.7" "3.0" ]`):
+    Version of the [Ruby][ruby] interpreter.
+  - rubyGems (`listOf (asIn fetchRubyGem)`):
+    Ruby gems specification that should be fetched and installed.
+  - searchPaths (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`.
+    Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
@@ -4316,28 +4322,28 @@ makeRubyGemsInstall {
 
 #### makeRubyGemsEnvironment
 
-Create an environment where the specified [Ruby][RUBY] gems
-from the [Ruby community’s gem hosting service][RUBYGEMS]
+Create an environment where the specified [Ruby][ruby] gems
+from the [Ruby community’s gem hosting service][rubygems]
 are available.
 
 Types:
 
 - makeRubyGemsEnvironment (`function { ... } -> package`):
 
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - ruby (`enum [ "2.7" "3.0" ]`):
-      Version of the [Ruby][RUBY] interpreter.
-    - rubyGems (`listOf (asIn fetchRubyGem)`):
-      Ruby gems specification that should be fetched and installed.
-    - searchPathsBuild (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`
-      and used while installing gems.
-      Defaults to `makeSearchPaths`'s defaults.
-    - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
-      Arguments here will be passed as-is to `makeSearchPaths`
-      and propagated to the runtime environment.
-      Defaults to `makeSearchPaths`'s defaults.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - ruby (`enum [ "2.7" "3.0" ]`):
+    Version of the [Ruby][ruby] interpreter.
+  - rubyGems (`listOf (asIn fetchRubyGem)`):
+    Ruby gems specification that should be fetched and installed.
+  - searchPathsBuild (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`
+    and used while installing gems.
+    Defaults to `makeSearchPaths`'s defaults.
+  - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
+    Arguments here will be passed as-is to `makeSearchPaths`
+    and propagated to the runtime environment.
+    Defaults to `makeSearchPaths`'s defaults.
 
 Example:
 
@@ -4392,17 +4398,17 @@ $ m . /example
 
 #### makeContainerImage
 
-Build a container image in [OCI Format][OCI_FORMAT].
+Build a container image in [OCI Format][oci_format].
 
 A container image is composed of:
 
 - 0 or more layers (binary blobs).
-    - Each layer contains a snapshot of the root file system (`/`),
-      they represent portions of it.
-    - When the container is executed
-      all layers are squashed together
-      to compose the root
-      of the file system (`/`).
+  - Each layer contains a snapshot of the root file system (`/`),
+    they represent portions of it.
+  - When the container is executed
+    all layers are squashed together
+    to compose the root
+    of the file system (`/`).
 - A JSON manifest (metadata)
   that describes important aspects of the container,
   for instance its layers, environment variables, entrypoint, etc.
@@ -4414,16 +4420,16 @@ Resources:
 Types:
 
 - makeContainerImage (`function { ... } -> package`):
-    - layers (`listOf package`): Optional.
-      Layers of the container.
-      Defaults to `[ ]`.
-    - maxLayers (`ints.positive`): Optional.
-      Maximum number of layers the container can have.
-      Defaults to `65`.
-    - config (`attrsOf anything`): Optional.
-      Configuration manifest as described in
-      [OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
-      Defaults to `{ }`.
+  - layers (`listOf package`): Optional.
+    Layers of the container.
+    Defaults to `[ ]`.
+  - maxLayers (`ints.positive`): Optional.
+    Maximum number of layers the container can have.
+    Defaults to `65`.
+  - config (`attrsOf anything`): Optional.
+    Configuration manifest as described in
+    [OCI Runtime Configuration Manifest][oci_runtime_config]
+    Defaults to `{ }`.
 
 Example:
 
@@ -4513,15 +4519,15 @@ $ docker run container-image:latest ls /
 
 #### fromJson
 
-Convert a [JSON][JSON] formatted string
-to a [Nix][NIX] expression.
+Convert a [JSON][json] formatted string
+to a [Nix][nix] expression.
 
 Types:
 
 - fromJson (`function str -> anything`):
 
-    - (`str`):
-      [JSON][JSON] formatted string to convert.
+  - (`str`):
+    [JSON][json] formatted string to convert.
 
 Examples:
 
@@ -4565,15 +4571,15 @@ $ m . /example
 
 #### fromToml
 
-Convert a [TOML][TOML] formatted string
-to a [Nix][NIX] expression.
+Convert a [TOML][toml] formatted string
+to a [Nix][nix] expression.
 
 Types:
 
 - fromToml (`function str -> anything`):
 
-    - (`str`):
-      [TOML][TOML] formatted string to convert.
+  - (`str`):
+    [TOML][toml] formatted string to convert.
 
 Examples:
 
@@ -4616,15 +4622,15 @@ $ m . /example
 
 #### fromYaml
 
-Convert a [YAML][YAML] formatted string
-to a [Nix][NIX] expression.
+Convert a [YAML][yaml] formatted string
+to a [Nix][nix] expression.
 
 Types:
 
 - fromYaml (`function str -> anything`):
 
-    - (`str`):
-      [YAML][YAML] formatted string to convert.
+  - (`str`):
+    [YAML][yaml] formatted string to convert.
 
 Examples:
 
@@ -4667,18 +4673,18 @@ $ m . /example
 #### toBashArray
 
 Transform a list of arguments
-into a [Bash][BASH] array.
+into a [Bash][bash] array.
 It can be used for passing
-several arguments from [Nix][NIX]
-to [Bash][BASH].
+several arguments from [Nix][nix]
+to [Bash][bash].
 
 Types:
 
 - toBashArray (`function (listOf strLike) -> package`):
 
-    - (`listOf strLike`):
-      list of arguments
-      to transform.
+  - (`listOf strLike`):
+    list of arguments
+    to transform.
 
 Examples:
 
@@ -4716,19 +4722,19 @@ $ m . /example
 
 #### toBashMap
 
-Transform a [Nix][NIX] `attrsOf strLike` expression
-into a [Bash][BASH] associative array (map).
+Transform a [Nix][nix] `attrsOf strLike` expression
+into a [Bash][bash] associative array (map).
 It can be used for passing
-several arguments from [Nix][NIX]
-to [Bash][BASH].
+several arguments from [Nix][nix]
+to [Bash][bash].
 You can combine with toBashArray for more complex structures.
 
 Types:
 
 - toBashMap (`function (attrsOf strLike) -> package`):
 
-    - (`attrsOf strLike`):
-      expression to transform.
+  - (`attrsOf strLike`):
+    expression to transform.
 
 Examples:
 
@@ -4770,17 +4776,17 @@ $ m . /example
 
 #### toFileJson
 
-Convert a [Nix][NIX] expression
-into a [JSON][JSON] file.
+Convert a [Nix][nix] expression
+into a [JSON][json] file.
 
 Types:
 
 - toFileJson (`function str anything -> package`):
 
-    - (`str`):
-      Name of the created file.
-    - (`anything`):
-      Nix expression to convert.
+  - (`str`):
+    Name of the created file.
+  - (`anything`):
+    Nix expression to convert.
 
 Examples:
 
@@ -4809,17 +4815,17 @@ $ m . /example
 
 #### toFileJsonFromFileYaml
 
-Use [yq][YQ] to
-transform a [YAML][YAML] file
-into its [JSON][JSON]
+Use [yq][yq] to
+transform a [YAML][yaml] file
+into its [JSON][json]
 equivalent.
 
 Types:
 
 - toFileJsonFromFileYaml (`function package -> package`):
 
-    - (`package`):
-      [YAML][YAML] file to transform.
+  - (`package`):
+    [YAML][yaml] file to transform.
 
 Examples:
 
@@ -4863,17 +4869,17 @@ $ m . /example
 
 #### toFileYaml
 
-Convert a [Nix][NIX] expression
-into a [YAML][YAML] file.
+Convert a [Nix][nix] expression
+into a [YAML][yaml] file.
 
 Types:
 
 - toFileYaml (`function str anything -> package`):
 
-    - (`str`):
-      Name of the created file.
-    - (`anything`):
-      Nix expression to convert.
+  - (`str`):
+    Name of the created file.
+  - (`anything`):
+    Nix expression to convert.
 
 Examples:
 
@@ -4904,7 +4910,7 @@ $ m . /example
 
 #### pathShebangs
 
-Replace common [shebangs][SHEBANG] for its [Nix][NIX] equivalent.
+Replace common [shebangs][shebang] for its [Nix][nix] equivalent.
 
 For example:
 
@@ -4916,7 +4922,7 @@ Types:
 
 - pathShebangs (`package`):
   When sourced,
-  it exports a [Bash][BASH] function called `patch_shebangs`
+  it exports a [Bash][bash] function called `patch_shebangs`
   into the evaluation context.
   This function receives one or more files or directories as arguments
   and replace shebangs of the executable files in-place.
@@ -4968,17 +4974,17 @@ $ m . /example
 
 #### calculateCvss3
 
-Calculate [CVSS3][CVSS3]
+Calculate [CVSS3][cvss3]
 score and severity
-for a [CVSS3 Vector String][CVSS3_VECTOR_STRING].
+for a [CVSS3 Vector String][cvss3_vector_string].
 
 Types:
 
 - calculateCvss3 (`function str -> package`):
 
-    - (`str`):
-      [CVSS3 Vector String][CVSS3_VECTOR_STRING]
-      to calculate.
+  - (`str`):
+    [CVSS3 Vector String][cvss3_vector_string]
+    to calculate.
 
 Example:
 
@@ -5008,7 +5014,7 @@ $ m . /example
 
 #### makeSslCertificate
 
-Self sign certificates by using [OpenSSL][OPENSSL]
+Self sign certificates by using [OpenSSL][openssl]
 `openssl req` command, then using `openssl x509` to
 print out the certificate in text form.
 
@@ -5016,19 +5022,19 @@ Types:
 
 - makeSslCertificate (`function { ... } -> package`):
 
-    - days (`ints.positive`): Optional.
-      Ammount of days to certify the certificate for.
-      Defaults to `30`.
-    - keyType (`str`): Optional.
-      Defines the key type for the certificate
-      (option used for the `-newkey` option on the `req` command).
-      It uses the form `rsa:nbits`, where `nbits` is the number of bits.
-      Defaults to `rsa:4096`.
-    - name (`str`):
-      Custom name to assign to the build step, be creative, it helps in debugging.
-    - options (`listOf (listOf str)`):
-      Contains a list of options to create the certificate with your own needs.
-      Here you can use the same options used with `openssl req`.
+  - days (`ints.positive`): Optional.
+    Ammount of days to certify the certificate for.
+    Defaults to `30`.
+  - keyType (`str`): Optional.
+    Defines the key type for the certificate
+    (option used for the `-newkey` option on the `req` command).
+    It uses the form `rsa:nbits`, where `nbits` is the number of bits.
+    Defaults to `rsa:4096`.
+  - name (`str`):
+    Custom name to assign to the build step, be creative, it helps in debugging.
+  - options (`listOf (listOf str)`):
+    Contains a list of options to create the certificate with your own needs.
+    Here you can use the same options used with `openssl req`.
 
 Example:
 
@@ -5120,8 +5126,8 @@ $ m . /example
 
 ## From a Nix project
 
-If your project currently uses [Nix][NIX]
-and you want to start using [Makes][MAKES] features
+If your project currently uses [Nix][nix]
+and you want to start using [Makes][makes] features
 you can do the following:
 
 ```nix
@@ -5139,37 +5145,37 @@ makes.makePythonPypiEnvironment {
 }
 ```
 
-Most functions documented in the [Extending Makes][MAKES_EXTENDING] section
+Most functions documented in the [Extending Makes][makes_extending] section
 are available.
 For a defailed list checkout:
 [/src/args/agnostic.nix](./src/args/agnostic.nix).
 
 # Contact an expert
 
-- [Makes][MAKES] support: help@fluidattacks.com
-- Cyber**security**: [Fluid Attacks][FLUID_ATTACKS]
+- [Makes][makes] support: help@fluidattacks.com
+- Cyber**security**: [Fluid Attacks][fluid_attacks]
 
 # Contributing to Makes
 
 ## Is easy
 
-- Bug reports: [here][MAKES_ISSUES]
-- Feature requests: [here][MAKES_ISSUES]
-- Give us a :star:: [here][MAKES]
-- Feedback: [here][MAKES_ISSUES]
+- Bug reports: [here][makes_issues]
+- Feature requests: [here][makes_issues]
+- Give us a :star:: [here][makes]
+- Feedback: [here][makes_issues]
 
 ## Code contributions
 
 We accept anything that benefits the community,
 thanks for sharing your work with the world.
-We can discuss implementation details [here][MAKES_ISSUES].
+We can discuss implementation details [here][makes_issues].
 
-1. Write your idea: [here][MAKES_ISSUES]
-1. Fork [Makes on GitHub][MAKES]
-1. [Git][GIT]-clone your fork
+1. Write your idea: [here][makes_issues]
+1. Fork [Makes on GitHub][makes]
+1. [Git][git]-clone your fork
 1. Hack as much as you like!
-1. [Git][GIT]-push changes to your fork
-1. Create a **Pull Request** from your fork to [Makes][MAKES]
+1. [Git][git]-push changes to your fork
+1. Create a **Pull Request** from your fork to [Makes][makes]
 
 Guidelines:
 
@@ -5179,22 +5185,16 @@ Guidelines:
 - Write a module (if applies): `/src/evaluator/modules`
 - Write docs: `/README.md`
 - Write a test: `/makes.nix` or `/makes/**/main.nix`
-- Write a test [GitHub workflow][GITHUB_WORKFLOWS]: `/.github/workflows/dev.yml`
+- Write a test [GitHub workflow][github_workflows]: `/.github/workflows/dev.yml`
 
 Examples:
 
-- [feat(build): #262 lint git mailmap](
-  https://github.com/fluidattacks/makes/commit/01fcd5790dd54b117da63bcc2480437135da8bb3)
-- [feat(build): #232 lint terraform](
-  https://github.com/fluidattacks/makes/commit/081835b563c712b7650dbc5bf1e306d4aff159cf)
-- [feat(build): #232 test terraform](
-  https://github.com/fluidattacks/makes/commit/571cf059b521cb97396210f9fe4659ee74f675b4)
-- [feat(build): #232 deploy terraform](
-  https://github.com/fluidattacks/makes/commit/f827da16b685b07d7f987c668c0fe089aefa7931)
-- [feat(build): #252 aws secrets from env](
-  https://github.com/fluidattacks/makes/commit/1c9f06a809bd92d56939d5809ce46058856fdf0a)
-- [feat(build): #232 make parallel utils](
-  https://github.com/fluidattacks/makes/commit/99e9f77482a6cbc9858a7a928a91a8a8aa9ff353)
+- [feat(build): #262 lint git mailmap](https://github.com/fluidattacks/makes/commit/01fcd5790dd54b117da63bcc2480437135da8bb3)
+- [feat(build): #232 lint terraform](https://github.com/fluidattacks/makes/commit/081835b563c712b7650dbc5bf1e306d4aff159cf)
+- [feat(build): #232 test terraform](https://github.com/fluidattacks/makes/commit/571cf059b521cb97396210f9fe4659ee74f675b4)
+- [feat(build): #232 deploy terraform](https://github.com/fluidattacks/makes/commit/f827da16b685b07d7f987c668c0fe089aefa7931)
+- [feat(build): #252 aws secrets from env](https://github.com/fluidattacks/makes/commit/1c9f06a809bd92d56939d5809ce46058856fdf0a)
+- [feat(build): #232 make parallel utils](https://github.com/fluidattacks/makes/commit/99e9f77482a6cbc9858a7a928a91a8a8aa9ff353)
 
 # Contributors
 
@@ -5249,249 +5249,249 @@ Project leaders:
 
 # References
 
-- [AJV_CLI]: https://github.com/ajv-validator/ajv-cli
-  [ajv-cli][AJV_CLI]
-- [ALEJANDRA]: https://github.com/kamadorueda/alejandra
-  [Alejandra][ALEJANDRA]
-- [Ansible]: https://www.ansible.com/
-  [Ansible][ANSIBLE]
-- [APACHE_ANT]: https://ant.apache.org/
-  [Apache Ant][APACHE_ANT]
-- [APACHE_MAVEN]: https://maven.apache.org/
-  [Apache Maven][APACHE_MAVEN]
-- [APT]: https://en.wikipedia.org/wiki/APT_(software)
-  [Advanced Package Tool][APT]
-- [ASCII_ARMOR]: https://www.techopedia.com/definition/23150/ascii-armor
-  [ASCII Armor][ASCII_ARMOR]
-- [AWS]: https://aws.amazon.com/
-  [Amazon Web Services (AWS)][AWS]
-- [AWS_BATCH]: https://aws.amazon.com/batch/
-  [AWS Batch][AWS_BATCH]
-- [AWS_CLI]: https://aws.amazon.com/cli/
-  [AWS CLI][AWS_CLI]
-- [BANDIT]: https://github.com/PyCQA/bandit
-  [Bandit][BANDIT]
-- [BASH]: https://www.gnu.org/software/bash/
-  [Bash][BASH]
-- [BASH_TUTORIAL_SHELL_SCRIPTING]: https://www.tutorialspoint.com/unix/shell_scripting.htm
-  [Shell Scripting Tutorial][BASH_TUTORIAL_SHELL_SCRIPTING]
-- [BLACK]: https://github.com/psf/black
-  [Black][BLACK]
-- [BUCK]: https://buck.build/
-  [Buck][BUCK]
-- [CACHIX]: https://cachix.org/
-  [Cachix][CACHIX]
-- [CALVER]: https://calver.org/
-  [Calendar Versioning][CALVER]
-- [CHEF]: https://www.chef.io/
-  [Chef][CHEF]
-- [CI_CD]: https://en.wikipedia.org/wiki/CI/CD
-  [CI/CD][CI_CD]
-- [CIRCLE_CI]: https://circleci.com/
-  [Circle CI][CIRCLE_CI]
-- [CLASSPATH]: https://en.wikipedia.org/wiki/Classpath
-  [CLASSPATH Environment Variable][CLASSPATH]
-- [CLJ-KONDO]: https://github.com/clj-kondo/clj-kondo
-  [clj-kondo][CLJ-KONDO]
-- [CLI_COMPLETION]: https://en.wikipedia.org/wiki/Command-line_completion
-  [Command-line Completion][CLI_COMPLETION]
-- [COMMITLINT]: https://commitlint.js.org/#/
-  [commitlint][COMMITLINT]
-- [CRYSTAL]: https://crystal-lang.org/
-  [Crystal Programming Language][CRYSTAL]
-- [CRYSTAL_LIBRARY_PATH]: https://crystal-lang.org/reference/guides/static_linking.html
-  [CRYSTAL_LIBRARY_PATH Environment Variable][CRYSTAL_LIBRARY_PATH]
-- [CVSS3]: https://www.first.org/cvss/v3.0/specification-document
-  [CVSS3][CVSS3]
-- [CVSS3_VECTOR_STRING]: https://www.first.org/cvss/v3.0/specification-document#Vector-String
-  [CVSS3 Vector String][CVSS3_VECTOR_STRING]
-- [DIRENV]: https://direnv.net/
-  [direnv][DIRENV]
-- [DOCKER]: https://www.docker.com/
-  [Docker][DOCKER]
-- [DOCTOC]: https://github.com/thlorenz/doctoc
-  [DocToc][DOCTOC]
-- [ENV_VAR]: https://en.wikipedia.org/wiki/Environment_variable
-  [Environment Variable][ENV_VAR]
-- [FLUID_ATTACKS]: https://fluidattacks.com
-  [Fluid Attacks][FLUID_ATTACKS]
-- [GEM_PATH]: https://guides.rubygems.org/command-reference
-  [GEM_PATH Environment Variable][GEM_PATH]
-- [GIT]: https://git-scm.com/
-  [Git][GIT]
-- [GIT_MAILMAP]: https://git-scm.com/docs/gitmailmap
-  [Git Mailmap][GIT_MAILMAP]
-- [GITHUB]: https://github.com
-  [GitHub][GITHUB]
-- [GITHUB_ACTIONS]: https://github.com/features/actions
-  [GitHub Actions][GITHUB_ACTIONS]
-- [GITHUB_WORKFLOWS]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-  [GitHub Workflows][GITHUB_WORKFLOWS]
-- [GITLAB_CI]: https://docs.gitlab.com/ee/ci/
-  [GitLab CI][GITLAB_CI]
-- [GITLAB_CI_REF]: https://docs.gitlab.com/ee/ci/yaml/
-  [GitLab CI configuration syntax][GITLAB_CI_REF]
-- [GITLAB_CI_OIDC]: https://docs.gitlab.com/ee/ci/cloud_services/aws/index.html
-  [GitLab CI OIDC][GITLAB_CI_OIDC]
-- [GITLAB_VARS]: https://docs.gitlab.com/ee/ci/variables/
-  [GitLab Variables][GITLAB_VARS]
-- [GNU_MAKE]: https://www.gnu.org/software/make/
-  [GNU Make][GNU_MAKE]
-- [GNU_COREUTILS]: https://www.gnu.org/software/coreutils/
-  [GNU Coreutils][GNU_COREUTILS]
-- [GNU_GPG]: https://gnupg.org/
-  [Gnu Privacy Guard][GNU_GPG]
-- [GRADLE]: https://gradle.org/
-  [Gradle][GRADLE]
-- [GRUNT]: https://gruntjs.com/
-  [Grunt][GRUNT]
-- [GULP]: https://gulpjs.com/
-  [Gulp][GULP]
-- [HASH]: https://en.wikipedia.org/wiki/Hash_function
-  [Hash Function][HASH]
-- [IMPORT_LINTER]: https://import-linter.readthedocs.io/en/stable/
-  [import-linter][IMPORT_LINTER]
-- [ISORT]: https://github.com/PyCQA/isort
-  [isort][ISORT]
-- [JSON]: https://www.json.org/json-en.html
-  [JSON][JSON]
-- [JSON_SCHEMA]: https://json-schema.org/
-  [JSON Schema][JSON_SCHEMA]
-- [KUBECONFIG]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#the-kubeconfig-environment-variable
-  [KUBECONFIG Environment Variable][KUBECONFIG]
-- [KUBERNETES]: https://kubernetes.io/
-  [Kubernetes][KUBERNETES]
-- [LEININGEN]: https://leiningen.org/
-  [Leiningen][LEININGEN]
-- [LINUX]: https://en.wikipedia.org/wiki/Linux
-  [Linux][LINUX]
-- [LIZARD]: https://github.com/terryyin/lizard
-  [Lizard][LIZARD]
-- [MAILMAP_LINTER]: https://github.com/kamadorueda/mailmap-linter
-  [Mailmap Linter][MAILMAP_LINTER]
-- [MAKES]: https://github.com/fluidattacks/makes
-  [Makes][MAKES]
-- [MAKES_COMMITS]: https://github.com/fluidattacks/makes/commits/main
-  [Makes Commits][MAKES_COMMITS]
-- [MAKES_ENVIRONMENT]: #environment
-  [Makes Environment][MAKES_ENVIRONMENT]
-- [MAKES_EXTENDING]: #extending-makes
-  [Makes - Extending][MAKES_EXTENDING]
-- [MAKES_ISSUES]: https://github.com/fluidattacks/makes/issues
-  [Makes issues][MAKES_ISSUES]
-- [MAKES_RELEASES]: https://github.com/fluidattacks/makes/releases
-  [Makes Releases][MAKES_RELEASES]
-- [MAKES_SECRETS]: #secrets
-  [Makes Secrets][MAKES_SECRETS]
-- [MARKDOWN_LINT]: https://github.com/markdownlint/markdownlint
-  [Markdown lint tool][MARKDOWN_LINT]
-- [MYPY]: https://mypy.readthedocs.io/en/stable/
-  [MyPy][MYPY]
-- [MYPYPATH]: https://mypy.readthedocs.io/en/stable/running_mypy.html
-  [MYPYPATH Environment Variable][MYPYPATH]
-- [NIX]: https://nixos.org
-  [Nix][NIX]
-- [NIX_DERIVATION]: https://nixos.org/manual/nix/unstable/expressions/derivations.html
-  [Nix Derivation][NIX_DERIVATION]
-- [NIX_DOWNLOAD]: https://nixos.org/download
-  [Nix Download Page][NIX_DOWNLOAD]
-- [NIX_FLAKES]: https://www.tweag.io/blog/2020-05-25-flakes/
-  [Nix Flakes][NIX_FLAKES]
-- [NIX_PLATFORMS]: https://nixos.org/manual/nix/unstable/installation/supported-platforms.html
-  [Nix Supported Platforms][NIX_PLATFORMS]
-- [NIX_LINTER]: https://github.com/Synthetica9/nix-linter'
-  [nix-linter][NIX_LINTER]
-- [NIX_PILLS]: https://nixos.org/guides/nix-pills/
-  [Nix Pills][NIX_PILLS]
-- [NODE_JS]: https://nodejs.org/en/
-  [NODE_JS][NODE_JS]
-- [NODE_PATH]: https://nodejs.org/api/modules.html
-  [NODE_PATH][NODE_PATH]
-- [NOMAD]: https://www.nomad.io/
-  [nomad][NOMAD]
-- [NPM]: https://www.npmjs.com/
-  [Node Package Manager (NPM)][NPM]
-- [OCAML]: https://ocaml.org/
-  [OCaml][OCAML]
-- [OCAMLPATH]: https://github.com/ocaml/ocaml/issues/8898
-  [OCAMLPATH Environment Variable][OCAMLPATH]
-- [CAML_LD_LIBRARY_PATH]: https://ocaml.org/manual/runtime.html
-  [CAML_LD_LIBRARY_PATH Environment Variable][CAML_LD_LIBRARY_PATH]
-- [OCI_FORMAT]: https://github.com/opencontainers/image-spec
-  [Open Container Image specification][OCI_FORMAT]
-- [OCI_RUNTIME_CONFIG]: https://github.com/moby/moby/blob/master/image/spec/v1.2.md#container-runconfig-field-descriptions
-  [OCI Runtime Configuration Manifest][OCI_RUNTIME_CONFIG]
-- [OPENSSL]: https://www.openssl.org/docs/
-  [OpenSSL][OPENSSL]
-- [PACKER]: https://www.packer.io/
-  [Packer][PACKER]
-- [PATH]: https://en.wikipedia.org/wiki/PATH_(variable)
-  [PATH Environment Variable][PATH]
-- [PIP]: https://pypi.org/project/pip/
-  [Package Installer for Python (pip)][PIP]
-- [PKG_CONFIG]: https://www.freedesktop.org/wiki/Software/pkg-config/
-  [pkg-config][PKG_CONFIG]
-- [PKG_CONFIG_PATH]: https://linux.die.net/man/1/pkg-config
-  [PKG_CONFIG_PATH Environment Variable][PKG_CONFIG_PATH]
-- [PROSPECTOR]: http://prospector.landscape.io/en/master/
-  [Prospector][PROSPECTOR]
-- [PYTEST]: https://docs.pytest.org/
-  [pytest][PYTEST]
-- [PYTHON]: https://www.python.org/
-  [Python][PYTHON]
-- [PYTHONPATH]: https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
-  [PYTHONPATH Environment Variable][PYTHONPATH]
-- [PYTHON_PYPI]: https://pypi.org/
-  [Python Packaging Index (PyPI)][PYTHON_PYPI]
-- [RAKE]: https://github.com/ruby/rake
-  [Rake][RAKE]
-- [REPRODUCIBLE_BUILDS]: https://reproducible-builds.org/
-  [Reproducible Builds][REPRODUCIBLE_BUILDS]
-- [RPATH]: https://en.wikipedia.org/wiki/Rpath
-  [RPath][RPATH]
-- [RPM]: https://rpm.org/
-  [RPM Package Manager][RPM]
-- [RUBY]: https://www.ruby-lang.org/en/
-  [Ruby Language][RUBY]
-- [RUBYGEMS]: https://rubygems.org/gems/slim
-  [Ruby community’s gem hosting service][RUBYGEMS]
-- [SBT]: https://www.scala-sbt.org/
-  [sbt][SBT]
-- [SCONS]: https://scons.org/
-  [SCons][SCONS]
-- [Scorecard]: https://github.com/ossf/scorecard
-  [Scorecard][Scorecard]
-- [SHEBANG]: https://en.wikipedia.org/wiki/Shebang_(Unix)
-  [Shebang][SHEBANG]
-- [SHELLCHECK]: https://github.com/koalaman/shellcheck
-  [ShellCheck][SHELLCHECK]
-- [SHFMT]: https://github.com/mvdan/sh
-  [SHFMT][SHFMT]
-- [SOPS]: https://github.com/mozilla/sops
-  [Mozilla's Sops][SOPS]
-- [TERRAFORM]: https://www.terraform.io/
-  [Terraform][TERRAFORM]
-- [TERRAFORM_FMT]: https://www.terraform.io/docs/cli/commands/fmt.html
-  [Terraform FMT][TERRAFORM_FMT]
-- [TFLINT]: https://github.com/terraform-linters/tflint
-  [TFLint][TFLINT]
-- [TOML]: https://github.com/toml-lang/toml
-  [TOML][TOML]
-- [TRAVIS_CI]: https://travis-ci.org/
-  [Travis CI][TRAVIS_CI]
-- [TRAVIS_CI_REF]: https://config.travis-ci.com/
-  [Travis CI reference][TRAVIS_CI_REF]
-- [TRAVIS_ENV_VARS]: https://docs.travis-ci.com/user/environment-variables
-  [Travis Environment Variables][TRAVIS_ENV_VARS]
-- [VULNIX]: https://github.com/flyingcircusio/vulnix
-  [Vulnix][VULNIX]
-- [X86_64]: https://en.wikipedia.org/wiki/X86-64
-  [x86-64][X86_64]
-- [YAML]: https://yaml.org/
-  [YAML][YAML]
-- [YAMLFIX]: https://github.com/lyz-code/yamlfix
-  [yamlfix][YAMLFIX]
-- [YQ]: https://github.com/mikefarah/yq
-  [yq][YQ]
-- [YUM]: http://yum.baseurl.org/
-  [Yellowdog Updated Modified (yum)][YUM]
+- [ajv_cli]: https://github.com/ajv-validator/ajv-cli
+  [ajv-cli][ajv_cli]
+- [alejandra]: https://github.com/kamadorueda/alejandra
+  [Alejandra][alejandra]
+- [ansible]: https://www.ansible.com/
+  [Ansible][ansible]
+- [apache_ant]: https://ant.apache.org/
+  [Apache Ant][apache_ant]
+- [apache_maven]: https://maven.apache.org/
+  [Apache Maven][apache_maven]
+- [apt]: https://en.wikipedia.org/wiki/APT_(software)
+  [Advanced Package Tool][apt]
+- [ascii_armor]: https://www.techopedia.com/definition/23150/ascii-armor
+  [ASCII Armor][ascii_armor]
+- [aws]: https://aws.amazon.com/
+  [Amazon Web Services (AWS)][aws]
+- [aws_batch]: https://aws.amazon.com/batch/
+  [AWS Batch][aws_batch]
+- [aws_cli]: https://aws.amazon.com/cli/
+  [AWS CLI][aws_cli]
+- [bandit]: https://github.com/PyCQA/bandit
+  [Bandit][bandit]
+- [bash]: https://www.gnu.org/software/bash/
+  [Bash][bash]
+- [bash_tutorial_shell_scripting]: https://www.tutorialspoint.com/unix/shell_scripting.htm
+  [Shell Scripting Tutorial][bash_tutorial_shell_scripting]
+- [black]: https://github.com/psf/black
+  [Black][black]
+- [buck]: https://buck.build/
+  [Buck][buck]
+- [cachix]: https://cachix.org/
+  [Cachix][cachix]
+- [calver]: https://calver.org/
+  [Calendar Versioning][calver]
+- [chef]: https://www.chef.io/
+  [Chef][chef]
+- [ci_cd]: https://en.wikipedia.org/wiki/CI/CD
+  [CI/CD][ci_cd]
+- [circle_ci]: https://circleci.com/
+  [Circle CI][circle_ci]
+- [classpath]: https://en.wikipedia.org/wiki/Classpath
+  [CLASSPATH Environment Variable][classpath]
+- [clj-kondo]: https://github.com/clj-kondo/clj-kondo
+  [clj-kondo][clj-kondo]
+- [cli_completion]: https://en.wikipedia.org/wiki/Command-line_completion
+  [Command-line Completion][cli_completion]
+- [commitlint]: https://commitlint.js.org/#/
+  [commitlint][commitlint]
+- [crystal]: https://crystal-lang.org/
+  [Crystal Programming Language][crystal]
+- [crystal_library_path]: https://crystal-lang.org/reference/guides/static_linking.html
+  [CRYSTAL_LIBRARY_PATH Environment Variable][crystal_library_path]
+- [cvss3]: https://www.first.org/cvss/v3.0/specification-document
+  [CVSS3][cvss3]
+- [cvss3_vector_string]: https://www.first.org/cvss/v3.0/specification-document#Vector-String
+  [CVSS3 Vector String][cvss3_vector_string]
+- [direnv]: https://direnv.net/
+  [direnv][direnv]
+- [docker]: https://www.docker.com/
+  [Docker][docker]
+- [doctoc]: https://github.com/thlorenz/doctoc
+  [DocToc][doctoc]
+- [env_var]: https://en.wikipedia.org/wiki/Environment_variable
+  [Environment Variable][env_var]
+- [fluid_attacks]: https://fluidattacks.com
+  [Fluid Attacks][fluid_attacks]
+- [gem_path]: https://guides.rubygems.org/command-reference
+  [GEM_PATH Environment Variable][gem_path]
+- [git]: https://git-scm.com/
+  [Git][git]
+- [git_mailmap]: https://git-scm.com/docs/gitmailmap
+  [Git Mailmap][git_mailmap]
+- [github]: https://github.com
+  [GitHub][github]
+- [github_actions]: https://github.com/features/actions
+  [GitHub Actions][github_actions]
+- [github_workflows]: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+  [GitHub Workflows][github_workflows]
+- [gitlab_ci]: https://docs.gitlab.com/ee/ci/
+  [GitLab CI][gitlab_ci]
+- [gitlab_ci_ref]: https://docs.gitlab.com/ee/ci/yaml/
+  [GitLab CI configuration syntax][gitlab_ci_ref]
+- [gitlab_ci_oidc]: https://docs.gitlab.com/ee/ci/cloud_services/aws/index.html
+  [GitLab CI OIDC][gitlab_ci_oidc]
+- [gitlab_vars]: https://docs.gitlab.com/ee/ci/variables/
+  [GitLab Variables][gitlab_vars]
+- [gnu_make]: https://www.gnu.org/software/make/
+  [GNU Make][gnu_make]
+- [gnu_coreutils]: https://www.gnu.org/software/coreutils/
+  [GNU Coreutils][gnu_coreutils]
+- [gnu_gpg]: https://gnupg.org/
+  [Gnu Privacy Guard][gnu_gpg]
+- [gradle]: https://gradle.org/
+  [Gradle][gradle]
+- [grunt]: https://gruntjs.com/
+  [Grunt][grunt]
+- [gulp]: https://gulpjs.com/
+  [Gulp][gulp]
+- [hash]: https://en.wikipedia.org/wiki/Hash_function
+  [Hash Function][hash]
+- [import_linter]: https://import-linter.readthedocs.io/en/stable/
+  [import-linter][import_linter]
+- [isort]: https://github.com/PyCQA/isort
+  [isort][isort]
+- [json]: https://www.json.org/json-en.html
+  [JSON][json]
+- [json_schema]: https://json-schema.org/
+  [JSON Schema][json_schema]
+- [kubeconfig]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#the-kubeconfig-environment-variable
+  [KUBECONFIG Environment Variable][kubeconfig]
+- [kubernetes]: https://kubernetes.io/
+  [Kubernetes][kubernetes]
+- [leiningen]: https://leiningen.org/
+  [Leiningen][leiningen]
+- [linux]: https://en.wikipedia.org/wiki/Linux
+  [Linux][linux]
+- [lizard]: https://github.com/terryyin/lizard
+  [Lizard][lizard]
+- [mailmap_linter]: https://github.com/kamadorueda/mailmap-linter
+  [Mailmap Linter][mailmap_linter]
+- [makes]: https://github.com/fluidattacks/makes
+  [Makes][makes]
+- [makes_commits]: https://github.com/fluidattacks/makes/commits/main
+  [Makes Commits][makes_commits]
+- [makes_environment]: #environment
+  [Makes Environment][makes_environment]
+- [makes_extending]: #extending-makes
+  [Makes - Extending][makes_extending]
+- [makes_issues]: https://github.com/fluidattacks/makes/issues
+  [Makes issues][makes_issues]
+- [makes_releases]: https://github.com/fluidattacks/makes/releases
+  [Makes Releases][makes_releases]
+- [makes_secrets]: #secrets
+  [Makes Secrets][makes_secrets]
+- [markdown_lint]: https://github.com/markdownlint/markdownlint
+  [Markdown lint tool][markdown_lint]
+- [mypy]: https://mypy.readthedocs.io/en/stable/
+  [MyPy][mypy]
+- [mypypath]: https://mypy.readthedocs.io/en/stable/running_mypy.html
+  [MYPYPATH Environment Variable][mypypath]
+- [nix]: https://nixos.org
+  [Nix][nix]
+- [nix_derivation]: https://nixos.org/manual/nix/unstable/expressions/derivations.html
+  [Nix Derivation][nix_derivation]
+- [nix_download]: https://nixos.org/download
+  [Nix Download Page][nix_download]
+- [nix_flakes]: https://www.tweag.io/blog/2020-05-25-flakes/
+  [Nix Flakes][nix_flakes]
+- [nix_platforms]: https://nixos.org/manual/nix/unstable/installation/supported-platforms.html
+  [Nix Supported Platforms][nix_platforms]
+- [nix_linter]: https://github.com/Synthetica9/nix-linter'
+  [nix-linter][nix_linter]
+- [nix_pills]: https://nixos.org/guides/nix-pills/
+  [Nix Pills][nix_pills]
+- [node_js]: https://nodejs.org/en/
+  [NODE_JS][node_js]
+- [node_path]: https://nodejs.org/api/modules.html
+  [NODE_PATH][node_path]
+- [nomad]: https://www.nomad.io/
+  [nomad][nomad]
+- [npm]: https://www.npmjs.com/
+  [Node Package Manager (NPM)][npm]
+- [ocaml]: https://ocaml.org/
+  [OCaml][ocaml]
+- [ocamlpath]: https://github.com/ocaml/ocaml/issues/8898
+  [OCAMLPATH Environment Variable][ocamlpath]
+- [caml_ld_library_path]: https://ocaml.org/manual/runtime.html
+  [CAML_LD_LIBRARY_PATH Environment Variable][caml_ld_library_path]
+- [oci_format]: https://github.com/opencontainers/image-spec
+  [Open Container Image specification][oci_format]
+- [oci_runtime_config]: https://github.com/moby/moby/blob/master/image/spec/v1.2.md#container-runconfig-field-descriptions
+  [OCI Runtime Configuration Manifest][oci_runtime_config]
+- [openssl]: https://www.openssl.org/docs/
+  [OpenSSL][openssl]
+- [packer]: https://www.packer.io/
+  [Packer][packer]
+- [path]: https://en.wikipedia.org/wiki/PATH_(variable)
+  [PATH Environment Variable][path]
+- [pip]: https://pypi.org/project/pip/
+  [Package Installer for Python (pip)][pip]
+- [pkg_config]: https://www.freedesktop.org/wiki/Software/pkg-config/
+  [pkg-config][pkg_config]
+- [pkg_config_path]: https://linux.die.net/man/1/pkg-config
+  [PKG_CONFIG_PATH Environment Variable][pkg_config_path]
+- [prospector]: http://prospector.landscape.io/en/master/
+  [Prospector][prospector]
+- [pytest]: https://docs.pytest.org/
+  [pytest][pytest]
+- [python]: https://www.python.org/
+  [Python][python]
+- [pythonpath]: https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
+  [PYTHONPATH Environment Variable][pythonpath]
+- [python_pypi]: https://pypi.org/
+  [Python Packaging Index (PyPI)][python_pypi]
+- [rake]: https://github.com/ruby/rake
+  [Rake][rake]
+- [reproducible_builds]: https://reproducible-builds.org/
+  [Reproducible Builds][reproducible_builds]
+- [rpath]: https://en.wikipedia.org/wiki/Rpath
+  [RPath][rpath]
+- [rpm]: https://rpm.org/
+  [RPM Package Manager][rpm]
+- [ruby]: https://www.ruby-lang.org/en/
+  [Ruby Language][ruby]
+- [rubygems]: https://rubygems.org/gems/slim
+  [Ruby community’s gem hosting service][rubygems]
+- [sbt]: https://www.scala-sbt.org/
+  [sbt][sbt]
+- [scons]: https://scons.org/
+  [SCons][scons]
+- [scorecard]: https://github.com/ossf/scorecard
+  [Scorecard][scorecard]
+- [shebang]: https://en.wikipedia.org/wiki/Shebang_(Unix)
+  [Shebang][shebang]
+- [shellcheck]: https://github.com/koalaman/shellcheck
+  [ShellCheck][shellcheck]
+- [shfmt]: https://github.com/mvdan/sh
+  [SHFMT][shfmt]
+- [sops]: https://github.com/mozilla/sops
+  [Mozilla's Sops][sops]
+- [terraform]: https://www.terraform.io/
+  [Terraform][terraform]
+- [terraform_fmt]: https://www.terraform.io/docs/cli/commands/fmt.html
+  [Terraform FMT][terraform_fmt]
+- [tflint]: https://github.com/terraform-linters/tflint
+  [TFLint][tflint]
+- [toml]: https://github.com/toml-lang/toml
+  [TOML][toml]
+- [travis_ci]: https://travis-ci.org/
+  [Travis CI][travis_ci]
+- [travis_ci_ref]: https://config.travis-ci.com/
+  [Travis CI reference][travis_ci_ref]
+- [travis_env_vars]: https://docs.travis-ci.com/user/environment-variables
+  [Travis Environment Variables][travis_env_vars]
+- [vulnix]: https://github.com/flyingcircusio/vulnix
+  [Vulnix][vulnix]
+- [x86_64]: https://en.wikipedia.org/wiki/X86-64
+  [x86-64][x86_64]
+- [yaml]: https://yaml.org/
+  [YAML][yaml]
+- [yamlfix]: https://github.com/lyz-code/yamlfix
+  [yamlfix][yamlfix]
+- [yq]: https://github.com/mikefarah/yq
+  [yq][yq]
+- [yum]: http://yum.baseurl.org/
+  [Yellowdog Updated Modified (yum)][yum]

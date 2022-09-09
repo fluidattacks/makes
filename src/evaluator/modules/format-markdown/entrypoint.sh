@@ -11,7 +11,8 @@ function main {
       info Formatting "${path}" \
         && copy "${path}" "${tmp}" \
         && doctoc "${doctoc_args[@]}" "${path}" \
-        && sed -ri '/<!-- START doctoc/,/<!-- END doctoc/s/^( *)/\1\1/' "${path}" \
+        && sed -ri '/<!-- START doctoc/,/<!-- END doctoc/s/^( *)/\1/' "${path}" \
+        && sed -ri 's/(UPDATE -->)/\1\n/g' "${path}" \
         && info Checking differences \
         && if git --no-pager diff --no-index "${tmp}" "${path}"; then
           info Table of contents is ok
