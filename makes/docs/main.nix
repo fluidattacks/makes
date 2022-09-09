@@ -1,12 +1,10 @@
 {
   inputs,
-  makeDerivation,
-  projectPath,
+  makeScript,
   ...
 }:
-makeDerivation {
+makeScript {
   name = "docs";
-  env.envDocs = projectPath "/docs";
-  builder = ./builder.sh;
+  entrypoint = ./entrypoint.sh;
   searchPaths.bin = [inputs.nixpkgs.mdbook];
 }
