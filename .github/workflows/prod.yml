@@ -119,6 +119,28 @@ jobs:
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
+  linux_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
+        name: /docs
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /docs"
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          force_orphan: true
+          full_commit_message: ${{ github.event.head_commit.message }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: docs
+          publish_dir: ~/.makes/out-docs/
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+
   linux_envVars_example:
     runs-on: ubuntu-latest
     steps:
