@@ -2,7 +2,7 @@
   __nixpkgs__,
   fetchGithub,
   fetchUrl,
-  isLinux,
+  makeDerivation,
   makeScript,
   ...
 }: {
@@ -11,18 +11,22 @@
   severity,
   ...
 }: let
-  bin =
-    if isLinux
-    then
-      fetchUrl {
+  bin = makeDerivation {
+    name = "make-rbac-police-binary";
+    env = {
+      envGlibc = __nixpkgs__.glibc;
+      envUnpatchedBin = fetchUrl {
         url = "https://github.com/PaloAltoNetworks/rbac-police/releases/download/v1.0.1/rbac-police_v1.0.1_linux_amd64";
         sha256 = "0k4dvc9r165q9lwidnks0vm7kqzi55l29p6iw9xy9l3982saihvi";
-      }
-    else
-      fetchUrl {
-        url = "https://github.com/PaloAltoNetworks/rbac-police/releases/download/v1.0.1/rbac-police_v1.0.1_darwin_amd64";
-        sha256 = "16bi40pj2gq22w3b04bsfmh2iy2ax4jh8349lvpwm9rckkhrkg91";
       };
+    };
+    searchPaths.bin = [__nixpkgs__.patchelf];
+    builder = ''
+      copy "$envUnpatchedBin" "$out"
+      chmod +x "$out"
+      patchelf --set-interpreter "$envGlibc/lib/ld-linux-x86-64.so.2" "$out"
+    '';
+  };
   repo = fetchGithub {
     owner = "PaloAltoNetworks";
     repo = "rbac-police";

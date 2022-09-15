@@ -1611,6 +1611,8 @@ Example invocation: `$ m . /testTerraform/module2`
 
 ### secureKubernetesWithRbacPolice
 
+:warning: This function is only available on Linux at the moment.
+
 Secure Kubernetes clusters with [rbac-police][rbac-police].
 
 Types:
