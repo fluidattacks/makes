@@ -19,15 +19,11 @@ function evaluate {
 }
 
 function main {
-  local bin
   local output
 
   : \
-    && bin="$(mktemp)" \
-    && copy "__argBin__" "${bin}" \
-    && chmod +x "${bin}" \
     && pushd "__argRepo__" \
-    && output="$("${bin}" "eval" "lib/" -s "__argSeverity__" 2>&1)" \
+    && output="$("__argBin__" "eval" "lib/" -s "__argSeverity__" 2>&1)" \
     && popd \
     && evaluate "${output}" \
     || return 1
