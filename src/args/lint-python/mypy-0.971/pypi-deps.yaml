@@ -1,0 +1,4 @@
+---
+mypy: '0.971'
+prospector: 1.5.1
+pylint: 2.11.1

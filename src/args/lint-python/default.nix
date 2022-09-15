@@ -7,6 +7,7 @@
   makeSearchPaths,
   ...
 }: {
+  mypyVersion ? "0.910",
   name,
   python,
   searchPaths,
@@ -31,13 +32,14 @@ makeDerivation {
           bin = listOptional isDarwin __nixpkgs__.clang;
         };
         sourcesYaml =
-          {
-            "3.7" = ./pypi-sources-3.7.yaml;
-            "3.8" = ./pypi-sources-3.8.yaml;
-            "3.9" = ./pypi-sources-3.9.yaml;
-            "3.10" = ./pypi-sources-3.10.yaml;
-          }
-          .${python};
+          ./.
+          + ({
+              "3.7" = "/mypy-${mypyVersion}/pypi-sources-3.7.yaml";
+              "3.8" = "/mypy-${mypyVersion}/pypi-sources-3.8.yaml";
+              "3.9" = "/mypy-${mypyVersion}/pypi-sources-3.9.yaml";
+              "3.10" = "/mypy-${mypyVersion}/pypi-sources-3.10.yaml";
+            }
+            .${python});
         withSetuptools_57_4_0 = true;
         withSetuptoolsScm_5_0_2 = true;
         withWheel_0_37_0 = true;
