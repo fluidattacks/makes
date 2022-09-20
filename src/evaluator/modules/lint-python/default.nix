@@ -25,14 +25,12 @@
     };
   };
   makeModule = name: {
-    mypyVersion,
     searchPaths,
     python,
     src,
   }: {
     name = "/lintPython/module/${name}";
     value = lintPython {
-      inherit mypyVersion;
       inherit searchPaths;
       inherit name;
       inherit python;
@@ -42,7 +40,6 @@
     };
   };
   makeDirOfModules = name: {
-    mypyVersion,
     searchPaths,
     python,
     src,
@@ -53,7 +50,6 @@
         name = "/lintPython/dirOfModules/${name}/${moduleName}";
         value =
           (makeModule moduleName {
-            inherit mypyVersion;
             inherit searchPaths;
             inherit python;
             src = "${src}/${moduleName}";
@@ -78,10 +74,6 @@ in {
         default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
-            mypyVersion = lib.mkOption {
-              default = "0.910";
-              type = lib.types.enum ["0.910" "0.971"];
-            };
             python = lib.mkOption {
               type = lib.types.enum ["3.7" "3.8" "3.9" "3.10"];
             };
@@ -116,10 +108,6 @@ in {
         default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
-            mypyVersion = lib.mkOption {
-              default = "0.910";
-              type = lib.types.enum ["0.910" "0.971"];
-            };
             python = lib.mkOption {
               type = lib.types.enum ["3.7" "3.8" "3.9" "3.10"];
             };
