@@ -661,7 +661,7 @@ class TuiOutputs(textual.widget.Widget):
                 text.append("\n")
         else:
             text = rich.text.Text("(none)")
-        return rich.align.Align(text, align="center")
+        return rich.align.Align(text, align="center")  # type: ignore
 
 
 class TuiOutputsTitle(textual.widget.Widget):
@@ -1004,7 +1004,7 @@ def write_provenance(
     attestation["predicate"]["materials"] = [
         {
             "uri": requisite,
-            "hash": dict([hash_.split(":")]),  # type: ignore
+            "hash": dict([hash_.split(":")]),
         }
         for requisite, hash_ in _nix_build_requisites(out)
     ]
@@ -1012,7 +1012,7 @@ def write_provenance(
     attestation["subject"] = [
         {
             "uri": realpath(out),
-            "hash": dict([_nix_hashes(out)[0].split(":")]),  # type: ignore
+            "hash": dict([_nix_hashes(out)[0].split(":")]),
         }
     ]
 
