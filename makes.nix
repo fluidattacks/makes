@@ -27,7 +27,7 @@
         };
         registry = "ghcr.io";
         src = outputs."/container-image";
-        tag = "fluidattacks/makes:22.09";
+        tag = "fluidattacks/makes:22.10";
       };
     };
   };
