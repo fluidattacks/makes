@@ -1,6 +1,6 @@
 {system ? builtins.currentSystem}: let
   args = import ./src/args/agnostic.nix {inherit system;};
-  makesVersion = "22.09";
+  makesVersion = "22.10";
 
   inherit (args) __nixpkgs__;
   inherit (args) makeScript;
