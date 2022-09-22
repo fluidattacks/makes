@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+#
+# SPDX-License-Identifier: MIT
 {__nixpkgs__, ...}: version:
 {
   "3.7" = __nixpkgs__.python37;

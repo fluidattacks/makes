@@ -5,7 +5,6 @@
 # shellcheck shell=bash
 
 function main {
-  local success=false
   local license=(
     reuse addheader
     --copyright 'Fluid Attacks and Makes contributors'
@@ -29,7 +28,7 @@ function main {
       --year="$(date +%Y)"
     ) \
     && if reuse lint; then
-      sucess=true
+      return 0
     fi \
     && for extension in "${!languages[@]}"; do
       find . -type f -name "*.${extension}" \

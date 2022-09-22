@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+#
+# SPDX-License-Identifier: MIT
 {
   __nixpkgs__,
   fetchNixpkgs,
@@ -47,6 +50,7 @@
       bin = [
         inputs.nixpkgs.just
         inputs.nixpkgs.mdbook
+        inputs.nixpkgs.reuse
       ];
       source = [outputs."/cli/pypi"];
     };

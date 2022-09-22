@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+
+SPDX-License-Identifier: MIT
+-->
+
 # Supply Chain Levels for Software Artifacts
 
 The [SLSA framework](https://slsa.dev/)

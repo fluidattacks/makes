@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+#
+# SPDX-License-Identifier: MIT
 {system ? builtins.currentSystem}: let
   args = import ./src/args/agnostic.nix {inherit system;};
   makesVersion = "22.10";

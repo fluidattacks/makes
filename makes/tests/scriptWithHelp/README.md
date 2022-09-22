@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+
+SPDX-License-Identifier: MIT
+-->
+
 # A Script With a Help
 
 - This is `makes/tests/scriptWithHelp/README.md`
