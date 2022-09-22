@@ -205,6 +205,23 @@ jobs:
       - name: /helloWorld
         run: nix-env -if . && m . /helloWorld
 
+  linux_license:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
+        name: /license
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /license"
+  macos_license:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: cachix/install-nix-action@451e61183802597c1febd6ca3cf18aa163f93a06
+      - name: /license
+        run: nix-env -if . && m . /license
+
   linux_lintBash:
     runs-on: ubuntu-latest
     steps:
