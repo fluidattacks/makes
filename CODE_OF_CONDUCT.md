@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+
+SPDX-License-Identifier: MIT
+-->
+
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge

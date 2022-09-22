@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+#
+# SPDX-License-Identifier: MIT
 # https://grahamc.com/blog/nix-and-layered-docker-images
 # https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions
 {__nixpkgs__, ...}: {

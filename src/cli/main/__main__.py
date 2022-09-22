@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+#
+# SPDX-License-Identifier: MIT
+
 # pylint: disable=too-many-lines
 from contextlib import (
     suppress,

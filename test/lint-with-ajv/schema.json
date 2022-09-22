@@ -5,7 +5,7 @@
   "description": "Test Schema",
   "type": "object",
   "additionalProperties": false,
-  "required": [ "name", "color" ],
+  "required": ["name", "color"],
   "properties": {
     "name": { "type": "string" },
     "color": {
