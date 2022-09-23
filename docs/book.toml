@@ -9,6 +9,7 @@ src = "src"
 title = "Makes"
 
 [output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
 default-theme = "ayu"
 edit-url-template = "https://github.com/fluidattacks/makes/edit/main/docs/{path}"
 preferred-dark-theme = "ayu"
@@ -19,3 +20,6 @@ site-url = "/makes"
 [output.html.fold]
 enable = false
 level = 0
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
