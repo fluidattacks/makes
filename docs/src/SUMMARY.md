@@ -5,6 +5,7 @@ SPDX-License-Identifier: MIT
 -->
 
 - [Introduction](./README.md)
+- [Contributing](./contributing/README.md)
 - [Governance](./governance/README.md)
 - [Security](./security/README.md)
   - [SLSA](./security/slsa.md)
