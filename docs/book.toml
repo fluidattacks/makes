@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
 #
 # SPDX-License-Identifier: MIT
-
 [book]
 authors = ["Fluid Attacks"]
 language = "en"
@@ -10,7 +9,7 @@ src = "src"
 title = "Makes"
 
 [output.html]
-default-theme = "light"
+default-theme = "ayu"
 edit-url-template = "https://github.com/fluidattacks/makes/edit/main/docs/{path}"
 preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/fluidattacks/makes"
