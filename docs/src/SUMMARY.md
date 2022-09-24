@@ -11,3 +11,4 @@ SPDX-License-Identifier: MIT
 - [Security](./security/README.md)
   - [Software Assurance](./security/assurance.md)
   - [SLSA](./security/slsa.md)
+  - [Threat Model](./security/threat-model.md)
