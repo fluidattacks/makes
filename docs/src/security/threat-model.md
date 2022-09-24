@@ -38,6 +38,21 @@ SPDX-License-Identifier: MIT
 
 ## Tampering
 
+- The Nix Store can be tampered with
+  if no good installation measures are taken by the user.
+
+  Mitigation:
+
+  - The Nix installation is responsibility of the user,
+    but in general,
+    a user could bind mount `/nix` as a read-only file system,
+    and make the `/nix/store` only accessible by root
+    and the `nixbld` group users,
+    reducing an attack vector to the physical or local layer,
+    which can be further protected
+    by the use of frameworks like [SLSA](https://slsa.dev/),
+    and full disk encryption using [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup).
+
 ## Repudiation
 
 ## Information Disclosure
