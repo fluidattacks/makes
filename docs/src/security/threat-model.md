@@ -51,9 +51,32 @@ SPDX-License-Identifier: MIT
     reducing an attack vector to the physical or local layer,
     which can be further protected
     by the use of frameworks like [SLSA](https://slsa.dev/),
-    and full disk encryption using [LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup).
+    and full disk encryption using [LUKS](https://en.wikipedia.org/wiki/LUKS).
 
 ## Repudiation
+
+- In single tenant setups,
+  for instance when developers run Makes in their laptops,
+  there is nothing to repudiate,
+  there is only one user performing builds (the developer).
+  However,
+  in multi-tenant setups,
+  for instance when Makes is run in a shared CI/CD system,
+  a user could deny running a build.
+
+  Mitigation:
+
+  - Makes produces
+    [SLSA Provenance Attestations](https://slsa.dev/provenance/v0.2),
+    which identify the builder and the built artifact.
+  - Most CI/CD systems
+    (and particularly the ones supported by Makes)
+    offer logs collection,
+    so it would be easy to associate a build
+    with the identity that triggered it.
+    It is responsibility of the users
+    to configure such CI/CD systems
+    in a secure way and to protect (and backup) the logs.
 
 ## Information Disclosure
 
