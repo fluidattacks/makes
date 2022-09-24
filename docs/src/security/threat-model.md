@@ -80,6 +80,34 @@ SPDX-License-Identifier: MIT
 
 ## Information Disclosure
 
+- Although the `/nix/store` is individual per user,
+  a user may write secrets to it,
+  and then those secrets can be published to a binary cache
+  that is publicly accessible.
+
+  Mitigation:
+
+  - Makes has utilities for working with secrets in a way
+    that they are only copied to the `/nix/store`
+    in encrypted form,
+    and then decrypted at runtime,
+    where there are safe from disclosure.
+  - Makes copies the contents of the git repository
+    into a trusted control plane,
+    and excludes all of the files
+    that are not tracked by Git
+    from this checkout.
+  - Nothing from the `/nix/store`
+    is pushed to a binary cache by default.
+    A user would need to configure the cache explicitly,
+    and expose the corresponding secret
+    in an environment variable.
+  - Makes has support for binary caches
+    that are not publicly accessible as well,
+    so a user may chose to use this instead
+    as an extra layer of prevention.
+    Please see <https://cachix.org/> for more information.
+
 ## Denial of Service
 
 ## Elevation of Privileges
