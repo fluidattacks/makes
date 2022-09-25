@@ -350,7 +350,7 @@ have strong knowledge of their existence.
 
 ### Security
 
-Please read the [Security page](/security).
+Please read the [Security page](/security/).
 
 ### Access
 

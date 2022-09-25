@@ -15,11 +15,16 @@ edit-url-template = "https://github.com/fluidattacks/makes/edit/main/docs/{path}
 preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/fluidattacks/makes"
 git-repository-icon = "fa-github"
-site-url = "/makes"
+no-section-label = false
+site-url = "/makes/"
 
 [output.html.fold]
 enable = false
 level = 0
+
+[output.html.print]
+enable = true
+page-break = true
 
 [preprocessor.mermaid]
 command = "mdbook-mermaid"
