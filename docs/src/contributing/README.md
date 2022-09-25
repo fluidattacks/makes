@@ -44,7 +44,7 @@ Examples:
 - [feat(build): #252 aws secrets from env](https://github.com/fluidattacks/makes/commit/1c9f06a809bd92d56939d5809ce46058856fdf0a)
 - [feat(build): #232 make parallel utils](https://github.com/fluidattacks/makes/commit/99e9f77482a6cbc9858a7a928a91a8a8aa9ff353)
 
-## The legal side of contributions
+### The legal side of contributions
 
 All of the code
 that you submit to our code repository
@@ -56,6 +56,44 @@ to the terms of the following
 [Developer Certificate of Origin](https://developercertificate.org/).
 
 Thank you!
+
+### Review process
+
+Once a pull request is opened in the repository,
+a maintainer must follow the following steps
+to review it:
+
+1. Check that the proposed change has an associated issue,
+   enough discussion has happened on it,
+   and there is consensus in the implementation details,
+   and if we agree that implement it is a good idea.
+1. Check if the change modifies the [Architecture](/architecture/)
+   in any way, and that it has been updated.
+1. Check if the implementation follows the
+   [Secure Design Principles](/security/design-principles/),
+   and documents there
+   any new interactions,
+   or updates the documentation accordingly.
+1. Check if the implementation introduces new threats,
+   or changes/removes an existing threat,
+   and if the [Threat Model](/security/threat-model/)
+   documentation has been updated to reflect it.
+1. Check if the change adds or modifies
+   an existing security property of the system,
+   and if the [Software Assurance](/security/assurance/)
+   documentation has been updated to reflect it.
+1. Check if the CI/CD succeeded.
+   No job should fail
+   unless something unrelated to the pull request happened.
+1. The _Developer Certificate of Origin_ was accepted,
+   normally through checking
+   that the job in the CI/CD that verifies it succeeded.
+1. The steps mentioned in the sections above were followed,
+   particularly check if the code is readable,
+   maintainable,
+   proper tests were added or updated,
+   the corresponding docs were added or updated,
+   and the architecture and design seems to be of good quality.
 
 <!--  -->
 
