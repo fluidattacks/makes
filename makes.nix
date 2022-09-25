@@ -53,7 +53,7 @@
         inputs.nixpkgs.mdbook-mermaid
         inputs.nixpkgs.reuse
       ];
-      source = [outputs."/cli/pypi"];
+      source = [outputs."/cli/env/runtime"];
     };
   };
   envVars = {
@@ -134,7 +134,7 @@
   };
   lintPython = let
     searchPaths = {
-      source = [outputs."/cli/pypi"];
+      source = [outputs."/cli/env/runtime/pypi"];
     };
   in {
     dirsOfModules = {

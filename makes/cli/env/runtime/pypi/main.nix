@@ -3,6 +3,6 @@
 # SPDX-License-Identifier: MIT
 {makePythonPypiEnvironment, ...}:
 makePythonPypiEnvironment {
-  name = "cli-pypi";
+  name = "cli-env-runtime-pypi";
   sourcesYaml = ./pypi-sources.yaml;
 }
