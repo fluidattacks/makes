@@ -40,11 +40,7 @@ function main {
     done \
     && find . "${remaining[@]}" -type f \
       -exec "${license[@]}" --explicit-license {} \+ \
-    && :
-
-  if test "${success}" != "true"; then
-    critical "Some files are missing licensing information. When this command fails it adds the propper licensing notices to the files that need it, please commit those changes."
-  fi
+    && critical "Some files are missing licensing information. When this command fails it adds the propper licensing notices to the files that need it, please commit those changes."
 }
 
 main "${@}"
