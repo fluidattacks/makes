@@ -6,6 +6,7 @@
   fetchNixpkgs,
   inputs,
   outputs,
+  projectPath,
   ...
 }: {
   projectIdentifier = "makes-repo";
@@ -133,9 +134,7 @@
     targets = ["/"];
   };
   lintPython = let
-    searchPaths = {
-      source = [outputs."/cli/env/runtime/pypi"];
-    };
+    searchPaths.source = [outputs."/cli/env/runtime"];
   in {
     dirsOfModules = {
       makes = {
@@ -210,7 +209,7 @@
   securePythonWithBandit = {
     cli = {
       python = "3.9";
-      target = "/src/cli";
+      target = "/src/cli/main";
     };
   };
   taintTerraform = {
@@ -226,6 +225,28 @@
     example = {
       python = "3.9";
       src = "/test/test-python";
+    };
+    cliMain = {
+      python = "3.9";
+      extraFlags = [
+        "--cov=main"
+        "--cov-branch"
+        "--cov-report=term-missing"
+        "--capture=no"
+      ];
+      searchPaths = {
+        bin = [
+          inputs.nixpkgs.git
+        ];
+        pythonPackage = [
+          (projectPath "/src/cli/main")
+        ];
+        source = [
+          outputs."/cli/env/test"
+          outputs."/cli/env/runtime"
+        ];
+      };
+      src = "/src/cli";
     };
   };
   testTerraform = {
