@@ -108,9 +108,6 @@ if not NIX_STABLE:
     CON.out("Using feature flag: MAKES_NIX_UNSTABLE")
 
 
-# Constants
-
-
 def _if(condition: Any, *value: Any) -> List[Any]:
     return list(value) if condition else []
 
