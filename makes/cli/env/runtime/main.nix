@@ -14,6 +14,7 @@ makeSearchPaths {
     __nixpkgs__.gnutar
     __nixpkgs__.gzip
     __nixpkgs__.nixStable
+    __nixpkgs__.openssh
   ];
   source = [
     outputs."/cli/env/runtime/pypi"

@@ -85,28 +85,67 @@ SPDX-License-Identifier: MIT
   and then those secrets can be published to a binary cache
   that is publicly accessible.
 
+  Examples of this include Nix idioms like:
+
+  ```nix
+  [
+    // Nix would load the secrets in plain-text to the `/nix/store`
+    ./file-with-secrets-in-plain-text.txt
+
+    // Nix would load the git repository to the `/nix/store`
+    // This also applies to other builtins.fetch* that could
+    // fetch private information
+    (builtins.fetchGit {
+      // Private repository (with potential intellectual property)
+      url = "git@github.com:company/secrets.git";
+    })
+  ]
+  ```
+
   Mitigation:
 
-  - Makes has utilities for working with secrets in a way
-    that they are only copied to the `/nix/store`
-    in encrypted form,
-    and then decrypted at runtime,
-    where there are safe from disclosure.
-  - Makes copies the contents of the git repository
-    into a trusted control plane,
-    and excludes all of the files
-    that are not tracked by Git
-    from this checkout.
   - Nothing from the `/nix/store`
     is pushed to a binary cache by default.
     A user would need to configure the cache explicitly,
     and expose the corresponding secret
     in an environment variable.
   - Makes has support for binary caches
-    that are not publicly accessible as well,
+    that require a secret for reading and writting,
     so a user may chose to use this instead
-    as an extra layer of prevention.
+    as an extra layer of prevention
+    if loading secrets to the `/nix/store` is mandatory.
     Please see <https://cachix.org/> for more information.
+  - Makes has utilities for working with secrets in a way
+    that they are only copied to the `/nix/store`
+    in encrypted form,
+    and then decrypted at runtime,
+    where there are safe from disclosure.
+
+    For example:
+    `secretsForAwsFromEnv`,
+    `secretsForAwsFromGitlab`,
+    `secretsForEnvFromSops`,
+    `secretsForGpgFromEnv`,
+    `secretsForKubernetesConfigFromAws`, and
+    `secretsForTerraformFromEnv`.
+
+    However, we don't currently have a way to protect the user
+    from using `builtins.fetch*`.
+    If your workflow needs this,
+    please avoid pushing artifacts to a public binary cache,
+    or use a private binary cache instead.
+
+  - Makes copies the contents of the git repository
+    into a trusted control plane,
+    and excludes all of the files
+    that are not tracked by Git
+    from this checkout.
+    This means that if the file with secrets is inside the repository,
+    but included in the `.gitignore`
+    such that a `git fetch` of the given remote and revision
+    would ignore it,
+    Makes would not copy it into the trusted control plane,
+    and therefore Nix wouldn't load it into the `/nix/store`.
 
 ## Denial of Service
 
