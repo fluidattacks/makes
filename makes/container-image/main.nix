@@ -9,14 +9,15 @@
 inputs.nixpkgs.dockerTools.buildImage {
   config = {
     Env = [
-      "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
-      "HOME=/home/makes"
-      "NIX_PATH=/nix/var/nix/profiles/per-user/makes/channels"
-      "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
+      "HOME=/home/root"
       "PATH=/bin:/nix/var/nix/profiles/default/bin"
+      "USER=root"
+
+      # Certificate authorities
+      "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
+      "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "SYSTEM_CERTIFICATE_PATH=/etc/ssl/certs/ca-bundle.crt"
-      "USER=makes"
     ];
     User = "root:root";
     WorkingDir = "/";
