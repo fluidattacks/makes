@@ -5,12 +5,15 @@
 # shellcheck shell=bash
 
 function configure_nix {
-  mkdir -p "${out}/home/makes/.config/nix" \
+  : \
+    && mkdir -p "${out}/home/makes/.config/nix" \
+    && mkdir -p "${out}/home/root/.config/nix" \
     && mkdir -p "${out}/etc/nix" \
     && mkdir -p "${out}/nix/store/.links" \
-    && mkdir -p "${out}/nix/var" \
+    && mkdir -p "${out}/nix/var/nix" \
     && echo 'build-users-group =' | tee \
       "${out}/home/makes/.config/nix/nix.conf" \
+      "${out}/home/root/.config/nix/nix.conf" \
       "${out}/etc/nix/nix.conf"
 }
 

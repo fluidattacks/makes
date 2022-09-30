@@ -20,17 +20,19 @@ makeContainerImage {
       "SYSTEM_CERTIFICATE_PATH=/etc/ssl/certs/ca-bundle.crt"
       "USER=makes"
     ];
-    User = "makes:makes";
-    WorkingDir = "/makes";
+    User = "root:root";
+    WorkingDir = "/";
   };
   layers = [
     (makeDerivation {
       env = {
         envEtcGroup = ''
-          makes:x:0:
+          root:x:0:
+          makes:x:48:
           nobody:x:65534:
         '';
         envEtcGshadow = ''
+          root:*::
           makes:*::
           nobody:*::
         '';
@@ -41,10 +43,12 @@ makeContainerImage {
           session required pam_unix.so
         '';
         envEtcPasswd = ''
-          makes:x:0:0::/home/makes:${inputs.nixpkgs.bash}/bin/bash
+          root:x:0:0:root:/home/root:${inputs.nixpkgs.bash}/bin/bash
+          makes:x:48:48:makes:/home/makes:${inputs.nixpkgs.bash}/bin/bash
           nobody:x:65534:65534:nobody:/homeless:/bin/false
         '';
         envEtcShadow = ''
+          root:!x:::::::
           makes:!x:::::::
           nobody:!x:::::::
         '';
@@ -61,7 +65,27 @@ makeContainerImage {
     inputs.nixpkgs.gzip
     inputs.nixpkgs.nix
 
-    outputs."/"
+    (inputs.nixpkgs.writeShellScriptBin "m" ''
+      if test -z "''${MAKES_NON_ROOT:-}"; then
+        ${outputs."/"}/bin/m "$@"
+      else
+        echo Using feature flag: MAKES_NON_ROOT
+
+        chown -R makes:makes /nix
+
+        chmod u+w /home/makes
+        chmod u+w /tmp
+        chown makes:makes /home/makes
+        chown makes:makes /tmp
+
+        {
+          echo permit nopass keepenv makes
+          echo permit nopass keepenv root
+        } > /etc/doas.conf
+
+        ${inputs.nixpkgs.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
+      fi
+    '')
   ];
   maxLayers = 20;
 }
