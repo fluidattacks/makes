@@ -2,13 +2,11 @@
 #
 # SPDX-License-Identifier: MIT
 {
-  makeContainerImage,
-  makeDerivation,
   inputs,
   outputs,
   ...
 }:
-makeContainerImage {
+inputs.nixpkgs.dockerTools.buildImage {
   config = {
     Env = [
       "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
@@ -23,69 +21,139 @@ makeContainerImage {
     User = "root:root";
     WorkingDir = "/";
   };
-  layers = [
-    (makeDerivation {
-      env = {
-        envEtcGroup = ''
+  name = "container-image";
+  tag = "latest";
+  contents = [
+    (inputs.nixpkgs.buildEnv {
+      name = "root-file-system";
+      ignoreCollisions = true;
+      paths = [
+        # Basic dependencies
+        inputs.nixpkgs.bashInteractive
+        inputs.nixpkgs.cacert
+        inputs.nixpkgs.coreutils
+        inputs.nixpkgs.git
+        inputs.nixpkgs.gnutar
+        inputs.nixpkgs.gzip
+        inputs.nixpkgs.nix
+
+        # Add /usr/bin/env pointing to /bin/env
+        (inputs.nixpkgs.runCommand "user-bin-env" {} ''
+          mkdir -p $out/usr/bin
+          ln -s $(command -v env) $out/usr/bin/env
+        '')
+
+        # Create home directories
+        (inputs.nixpkgs.runCommand "home" {} ''
+          mkdir -p $out/home/makes
+          mkdir -p $out/home/root
+        '')
+        # Create empty temporary directories
+        (inputs.nixpkgs.runCommand "tmp" {} ''
+          mkdir -p $out/tmp
+          mkdir -p $out/var/tmp
+        '')
+
+        # Configure Nix
+        (inputs.nixpkgs.writeTextDir "home/makes/.config/nix/nix.conf" ''
+          build-users-group =
+        '')
+        (inputs.nixpkgs.writeTextDir "home/root/.config/nix/nix.conf" ''
+          build-users-group =
+        '')
+        (inputs.nixpkgs.writeTextDir "etc/nix/nix.conf" ''
+          build-users-group =
+        '')
+
+        # Configure SSH
+        (inputs.nixpkgs.writeTextFile {
+          name = "home-makes-ssh-config";
+          destination = "/home/makes/.ssh/config";
+          text = ''
+            Host *
+              StrictHostKeyChecking no
+          '';
+          checkPhase = ''
+            chmod 400 $out$destination
+          '';
+        })
+        (inputs.nixpkgs.writeTextFile {
+          name = "home-root-ssh-config";
+          destination = "/home/root/.ssh/config";
+          text = ''
+            Host *
+              StrictHostKeyChecking no
+          '';
+          checkPhase = ''
+            chmod 400 $out$destination
+          '';
+        })
+
+        # Configure doas
+        (inputs.nixpkgs.writeTextDir "etc/doas.conf" ''
+          permit nopass keepenv root as makes
+        '')
+
+        # Add 3 groups
+        (inputs.nixpkgs.writeTextDir "etc/group" ''
           root:x:0:
           makes:x:48:
           nobody:x:65534:
-        '';
-        envEtcGshadow = ''
+        '')
+        (inputs.nixpkgs.writeTextDir "etc/gshadow" ''
           root:*::
           makes:*::
           nobody:*::
-        '';
-        envEtcPamdOther = ''
+        '')
+
+        # Add 3 users, mapped to groups with their own name
+        (inputs.nixpkgs.writeTextDir "etc/passwd" ''
+          root:x:0:0:root:/home/root:/bin/bash
+          makes:x:48:48:makes:/home/makes:/bin/bash
+          nobody:x:65534:65534:nobody:/homeless:/bin/false
+        '')
+        (inputs.nixpkgs.writeTextDir "etc/shadow" ''
+          root:!x:::::::
+          makes:!x:::::::
+          nobody:!x:::::::
+        '')
+
+        # Miscelaneous configurations
+        (inputs.nixpkgs.writeTextDir "etc/login.defs" "")
+        (inputs.nixpkgs.writeTextDir "etc/nsswitch.conf" ''
+          hosts: dns files
+        '')
+        (inputs.nixpkgs.writeTextDir "etc/pam.d/other" ''
           account sufficient pam_unix.so
           auth sufficient pam_rootok.so
           password requisite pam_unix.so nullok sha512
           session required pam_unix.so
-        '';
-        envEtcPasswd = ''
-          root:x:0:0:root:/home/root:${inputs.nixpkgs.bash}/bin/bash
-          makes:x:48:48:makes:/home/makes:${inputs.nixpkgs.bash}/bin/bash
-          nobody:x:65534:65534:nobody:/homeless:/bin/false
-        '';
-        envEtcShadow = ''
-          root:!x:::::::
-          makes:!x:::::::
-          nobody:!x:::::::
-        '';
-      };
-      builder = ./builder.sh;
-      name = "makes-container-images-customization";
+        '')
+
+        # Add Makes:
+        # - By default, it runs as root (uid 0).
+        # - If `MAKES_NON_ROOT` is in the environment and non-empty,
+        #   makes will run as the makes user (uid > 0).
+        (inputs.nixpkgs.writeShellScriptBin "m" ''
+          if test -z "''${MAKES_NON_ROOT:-}"; then
+            ${outputs."/"}/bin/m "$@"
+          else
+            echo Using feature flag: MAKES_NON_ROOT
+
+            set -x
+            mkdir -p /nix/var/nix
+            chmod u+w /nix/store
+            chown makes:makes --recursive /nix
+            chown root:root $(realpath /etc/doas.conf)
+
+            chmod u+w /home/makes /tmp
+            chown makes:makes /home/makes /tmp
+            set +x
+
+            ${inputs.nixpkgs.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
+          fi
+        '')
+      ];
     })
-
-    inputs.nixpkgs.bash
-    inputs.nixpkgs.cacert
-    inputs.nixpkgs.coreutils
-    inputs.nixpkgs.git
-    inputs.nixpkgs.gnutar
-    inputs.nixpkgs.gzip
-    inputs.nixpkgs.nix
-
-    (inputs.nixpkgs.writeShellScriptBin "m" ''
-      if test -z "''${MAKES_NON_ROOT:-}"; then
-        ${outputs."/"}/bin/m "$@"
-      else
-        echo Using feature flag: MAKES_NON_ROOT
-
-        chown -R makes:makes /nix
-
-        chmod u+w /home/makes
-        chmod u+w /tmp
-        chown makes:makes /home/makes
-        chown makes:makes /tmp
-
-        {
-          echo permit nopass keepenv makes
-          echo permit nopass keepenv root
-        } > /etc/doas.conf
-
-        ${inputs.nixpkgs.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
-      fi
-    '')
   ];
-  maxLayers = 20;
 }
