@@ -66,7 +66,7 @@ spec:
     spec:
       containers:
         - name: example
-          image: ghcr.io/fluidattacks/makes:22.10
+          image: ghcr.io/fluidattacks/makes:22.11
           command: [m]
           args:
             - github:fluidattacks/makes@main
@@ -152,7 +152,7 @@ Easy, isn't it?
 Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v22.10-linux
+Makes v22.11-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -499,10 +499,10 @@ In order to use Makes you'll need to:
 
 1. Install Makes by running:
 
-   `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.10.tar.gz`
+   `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz`
 
    We will install two commands in your system:
-   `$ m`, and `$ m-v22.10`.
+   `$ m`, and `$ m-v22.11`.
 
 Makes targets two kind of users:
 
@@ -606,7 +606,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/22.10";
+    ref = "refs/tags/22.11";
     rev = ""  # Add a commit here
   };
 }
@@ -617,7 +617,7 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `22.10`.
+For example: `22.11`.
 
 # Configuring CI/CD
 
@@ -666,7 +666,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - uses: docker://ghcr.io/fluidattacks/makes:22.10
+      - uses: docker://ghcr.io/fluidattacks/makes:22.11
         # You can use any name you like here
         name: helloWorld
         # You can pass secrets (if required) as environment variables like this:
@@ -690,7 +690,7 @@ looks like this:
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
 /helloWorld:
-  image: ghcr.io/fluidattacks/makes:22.10
+  image: ghcr.io/fluidattacks/makes:22.11
   script:
     - m . /helloWorld 1 2 3
 # Add more jobs here, you can copy paste /helloWorld and modify the `script`
@@ -714,7 +714,7 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-install: nix-env -if https://github.com/fluidattacks/makes/archive/22.10.tar.gz
+install: nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz
 env:
   global:
     # Encrypted environment variable
@@ -1753,7 +1753,7 @@ Types:
         #
         # If you need to run jobs on different container images,
         # simply  create many `aws_batch_job_definition`s
-        image = "ghcr.io/fluidattacks/makes:22.10"
+        image = "ghcr.io/fluidattacks/makes:22.11"
 
         # Below arguments can be parametrized later,
         # but they are required for the job definition to be created
@@ -2620,7 +2620,7 @@ for [makeNodeJsEnvironment](#makenodejsenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.10 /utils/makeNodeJsLock \
+m github:fluidattacks/makes@22.11 /utils/makeNodeJsLock \
   "${node_js_version}" \
   "${package_json}" \
   "${package_lock}"
@@ -2640,7 +2640,7 @@ for [makePythonPypiEnvironment](#makepythonpypienvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.10 /utils/makePythonLock \
+m github:fluidattacks/makes@22.11 /utils/makePythonLock \
   "${python_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}"
@@ -2665,7 +2665,7 @@ psycopg2: "2.9.1"
 You can generate an encrypted [Sops][sops] file like this:
 
 ```bash
-m github:fluidattacks/makes@22.10 /utils/makeSopsEncryptedFile \
+m github:fluidattacks/makes@22.11 /utils/makeSopsEncryptedFile \
   "${kms_key_arn}" \
   "${output}"
 ```
@@ -4257,7 +4257,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@22.10 /utils/makePythonLock \
+$ m github:fluidattacks/makes@22.11 /utils/makePythonLock \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -5201,7 +5201,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/22.10";
+    ref = "refs/tags/22.11";
     rev = ""  # Add a commit here
   }}/src/args/agnostic.nix" { };
 in

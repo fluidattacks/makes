@@ -8,7 +8,7 @@
   projectPath,
   ...
 }: let
-  makesVersion = "22.10";
+  makesVersion = "22.11";
 in
   makeScript {
     aliases = [
