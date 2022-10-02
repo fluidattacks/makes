@@ -20,13 +20,7 @@ makeScript {
   searchPaths = {
     bin = [
       __nixpkgs__.findutils
-      __nixpkgs__.git
-    ];
-    source = [
-      (makePythonPypiEnvironment {
-        name = "yamlfix";
-        sourcesYaml = ./sources.yaml;
-      })
+      __nixpkgs__.nodePackages.prettier
     ];
   };
   entrypoint = ./entrypoint.sh;
