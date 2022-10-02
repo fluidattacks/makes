@@ -80,7 +80,7 @@ MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
 makedirs(join(MAKES_DIR, "cache"), exist_ok=True)
 SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
 ON_EXIT: List[Callable[[], None]] = []
-VERSION: str = "22.10"
+VERSION: str = "22.11"
 
 # Environment
 __MAKES_SRC__: str = environ["__MAKES_SRC__"]
