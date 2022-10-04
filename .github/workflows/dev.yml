@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
+#
+# SPDX-License-Identifier: MIT
+
 ---
 permissions: read-all
 concurrency:
@@ -565,7 +569,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - uses: cachix/install-nix-action@v15
+      - uses: cachix/install-nix-action@5f45af07a1f451c75a4ce84e1514200195a1f279
       - name: /tests/makeSearchPaths
         run: nix-env -if . && m . /tests/makeSearchPaths
 
@@ -582,7 +586,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - uses: cachix/install-nix-action@v15
+      - uses: cachix/install-nix-action@5f45af07a1f451c75a4ce84e1514200195a1f279
       - name: /tests/makeTemplate
         run: nix-env -if . && m . /tests/makeTemplate
 
@@ -599,7 +603,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - uses: cachix/install-nix-action@v15
+      - uses: cachix/install-nix-action@5f45af07a1f451c75a4ce84e1514200195a1f279
       - name: /tests/scriptWithHelp
         run: nix-env -if . && m . /tests/scriptWithHelp
 
