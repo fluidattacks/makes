@@ -21,6 +21,8 @@ function main {
     [sh]=python
     [tf]=python
     [toml]=python
+    [yaml]=python
+    [yml]=python
   )
 
   : \
