@@ -59,7 +59,7 @@ class TuiCommand(textual.widget.Widget):
 
 class TuiOutputs(textual.widget.Widget):
     output = textual.reactive.Reactive("")
-    outputs = textual.reactive.Reactive([])
+    outputs: textual.reactive.Reactive = textual.reactive.Reactive([])
 
     def render(self) -> rich.text.Text:
         if self.outputs:
@@ -102,7 +102,7 @@ class TextUserInterface(textual.app.App):
         self.command = TuiCommand(src=src)
         self.header = TuiHeader()
         self.outputs = TuiOutputs()
-        self.outputs_scroll = None
+        self.outputs_scroll: Any = None
         self.outputs_title = TuiOutputsTitle()
         self.usage = TuiUsage(src=src)
 
@@ -126,9 +126,9 @@ class TextUserInterface(textual.app.App):
                 self.input = self.input[:-1]
             self.propagate_data()
         elif event.key == textual.keys.Keys.Down:
-            self.outputs_scroll.scroll_up()  # type: ignore
+            self.outputs_scroll.scroll_up()
         elif event.key == textual.keys.Keys.Up:
-            self.outputs_scroll.scroll_down()  # type: ignore
+            self.outputs_scroll.scroll_down()
         elif event.key in {
             textual.keys.Keys.ControlI,
             textual.keys.Keys.Tab,
@@ -141,7 +141,7 @@ class TextUserInterface(textual.app.App):
         else:
             self.input += event.key
             self.propagate_data(autocomplete=True)
-        await self.outputs_scroll.update(self.outputs)  # type: ignore
+        await self.outputs_scroll.update(self.outputs)
 
     def propagate_data(self, autocomplete: bool = False) -> None:
         tokens = self.input.split(" ")

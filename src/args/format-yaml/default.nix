@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MIT
 {
   __nixpkgs__,
-  makePythonPypiEnvironment,
   makeScript,
   toBashArray,
   ...

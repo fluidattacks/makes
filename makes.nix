@@ -138,7 +138,7 @@
   in {
     dirsOfModules = {
       makes = {
-        python = "3.9";
+        python = "3.10";
         inherit searchPaths;
         src = "/src/cli";
       };
@@ -151,7 +151,7 @@
     };
     modules = {
       cliMain = {
-        python = "3.9";
+        python = "3.10";
         inherit searchPaths;
         src = "/src/cli/main";
       };
@@ -208,7 +208,7 @@
   };
   securePythonWithBandit = {
     cli = {
-      python = "3.9";
+      python = "3.10";
       target = "/src/cli/main";
     };
   };
@@ -223,11 +223,11 @@
   };
   testPython = {
     example = {
-      python = "3.9";
+      python = "3.10";
       src = "/test/test-python";
     };
     cliMain = {
-      python = "3.9";
+      python = "3.10";
       extraFlags = [
         "--cov=main"
         "--cov-branch"
