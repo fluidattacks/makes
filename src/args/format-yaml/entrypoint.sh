@@ -6,7 +6,6 @@
 
 function main {
   source __argTargets__/template local targets
-  local exit_code="0"
   local pattern=(
     "${targets[@]}"
     -name '*.yaml'
