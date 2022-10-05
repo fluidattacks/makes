@@ -20,7 +20,7 @@ inputs.nixpkgs.dockerTools.buildImage {
       "SYSTEM_CERTIFICATE_PATH=/etc/ssl/certs/ca-bundle.crt"
     ];
     User = "root:root";
-    WorkingDir = "/";
+    WorkingDir = "/working-dir";
   };
   name = "container-image";
   tag = "latest";
@@ -53,6 +53,10 @@ inputs.nixpkgs.dockerTools.buildImage {
         (inputs.nixpkgs.runCommand "tmp" {} ''
           mkdir -p $out/tmp
           mkdir -p $out/var/tmp
+        '')
+        # Create the working directory
+        (inputs.nixpkgs.runCommand "working-directory" {} ''
+          mkdir -p $out/working-dir
         '')
 
         # Configure Nix
@@ -147,8 +151,8 @@ inputs.nixpkgs.dockerTools.buildImage {
             chown makes:makes --recursive /nix
             chown root:root $(realpath /etc/doas.conf)
 
-            chmod u+w /home/makes /tmp
-            chown makes:makes /home/makes /tmp
+            chmod u+w /home/makes /tmp /working-dir
+            chown makes:makes /home/makes /tmp /working-dir
             chown makes:makes --recursive "$PWD"
 
             ${inputs.nixpkgs.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
