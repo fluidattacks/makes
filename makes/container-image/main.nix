@@ -149,6 +149,7 @@ inputs.nixpkgs.dockerTools.buildImage {
 
             chmod u+w /home/makes /tmp
             chown makes:makes /home/makes /tmp
+            git config --global --add safe.directory '*'
             set +x
 
             ${inputs.nixpkgs.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
