@@ -156,7 +156,6 @@ inputs.nixpkgs.dockerTools.buildImage {
             chown makes:makes --recursive "$PWD"
 
             ${inputs.nixpkgs.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
-            set +x
           fi
         '')
       ];
