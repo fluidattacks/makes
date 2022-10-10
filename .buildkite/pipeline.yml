@@ -4,5 +4,35 @@
 
 ---
 steps:
-  - label: Example Test
-    command: echo "Hello!!!"
+  - label: step-1
+    plugins:
+      - docker#v5.2.0:
+          image: "ghcr.io/fluidattacks/makes:22.11"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["m", ".", "/helloWorld", "1"]
+  - label: step-2
+    plugins:
+      - docker#v5.2.0:
+          image: "ghcr.io/fluidattacks/makes:22.11"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["m", ".", "/helloWorld", "2"]
+  - label: step-3
+    plugins:
+      - docker#v5.2.0:
+          image: "ghcr.io/fluidattacks/makes:22.11"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["m", ".", "/helloWorld", "3"]
+  - label: step-4
+    plugins:
+      - docker#v5.2.0:
+          image: "ghcr.io/fluidattacks/makes:22.11"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["m", ".", "/helloWorld", "4"]
