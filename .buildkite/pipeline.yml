@@ -4,5 +4,9 @@
 
 ---
 steps:
-  - label: Example Test
-    command: echo "Hello!!!"
+  - label: step-1
+    command: echo "step-1"
+  - label: step-2
+    command: echo "step-2"
+  - label: step-3
+    command: echo "step-3"
