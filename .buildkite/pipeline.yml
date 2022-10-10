@@ -4,35 +4,311 @@
 
 ---
 steps:
-  - label: step-1
+  - label: __all__
     plugins:
       - docker#v5.2.0:
-          image: "ghcr.io/fluidattacks/makes:22.11"
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
           always-pull: true
           propagate-environment: true
           privileged: false
-          command: ["m", ".", "/helloWorld", "1"]
-  - label: step-2
+          command: ["sh", "-c", "nix-env -if . && m . __all__"]
+  - label: /deployTerraform/module
     plugins:
       - docker#v5.2.0:
-          image: "ghcr.io/fluidattacks/makes:22.11"
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
           always-pull: true
           propagate-environment: true
           privileged: false
-          command: ["m", ".", "/helloWorld", "2"]
-  - label: step-3
+          command: ["sh", "-c", "nix-env -if . && m . /deployTerraform/module"]
+  - label: /dev/example
     plugins:
       - docker#v5.2.0:
-          image: "ghcr.io/fluidattacks/makes:22.11"
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
           always-pull: true
           propagate-environment: true
           privileged: false
-          command: ["m", ".", "/helloWorld", "3"]
-  - label: step-4
+          command: ["sh", "-c", "nix-env -if . && m . /dev/example"]
+  - label: /envVars/example
     plugins:
       - docker#v5.2.0:
-          image: "ghcr.io/fluidattacks/makes:22.11"
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
           always-pull: true
           propagate-environment: true
           privileged: false
-          command: ["m", ".", "/helloWorld", "4"]
+          command: ["sh", "-c", "nix-env -if . && m . /envVars/example"]
+  - label: /formatBash
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /formatBash"]
+  - label: /formatMarkdown
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /formatMarkdown"]
+  - label: /formatNix
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /formatNix"]
+  - label: /formatPython
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /formatPython"]
+  - label: /formatTerraform
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /formatTerraform"]
+  - label: /formatYaml
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /formatYaml"]
+  - label: /helloWorld
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /helloWorld"]
+  - label: /license
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /license"]
+  - label: /lintClojure/test
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintClojure/test"]
+  - label: /lintGitCommitMsg
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintGitCommitMsg"]
+  - label: /lintGitMailMap
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintGitMailMap"]
+  - label: /lintMarkdown/all
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintMarkdown/all"]
+  - label: /lintNix
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintNix"]
+  - label: /lintPython/dirOfModules/makes
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            ["sh", "-c", "nix-env -if . && m . /lintPython/dirOfModules/makes"]
+  - label: /lintPython/dirOfModules/makes/main
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            [
+              "sh",
+              "-c",
+              "nix-env -if . && m . /lintPython/dirOfModules/makes/main",
+            ]
+  - label: /lintPython/imports/makes
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            ["sh", "-c", "nix-env -if . && m . /lintPython/imports/makes"]
+  - label: /lintPython/module/cliMain
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            ["sh", "-c", "nix-env -if . && m . /lintPython/module/cliMain"]
+  - label: /lintTerraform/module
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintTerraform/module"]
+  - label: /lintTerraform/module
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintTerraform/module"]
+  - label: /lintWithAjv/test
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintWithAjv/test"]
+  - label: /lintWithLizard/all
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /lintWithLizard/all"]
+  - label: /secretsForEnvFromSops/example
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            ["sh", "-c", "nix-env -if . && m . /secretsForEnvFromSops/example"]
+  - label: /secretsForGpgFromEnv/example
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            ["sh", "-c", "nix-env -if . && m . /secretsForGpgFromEnv/example"]
+  - label: /securePythonWithBandit/cli
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            ["sh", "-c", "nix-env -if . && m . /securePythonWithBandit/cli"]
+  - label: /taintTerraform/module
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /taintTerraform/module"]
+  - label: /testPython/cliMain
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /testPython/cliMain"]
+  - label: /testPython/example
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /testPython/example"]
+  - label: /tests/calculateCvss3
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /tests/calculateCvss3"]
+  - label: /tests/makeSearchPaths
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /tests/makeSearchPaths"]
+  - label: /tests/makeTemplate
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /tests/makeTemplate"]
+  - label: /tests/scriptWithHelp
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /tests/scriptWithHelp"]
+  - label: /tests/secretsForGpgFromEnv
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command:
+            ["sh", "-c", "nix-env -if . && m . /tests/secretsForGpgFromEnv"]
+  - label: /testTerraform/module
+    plugins:
+      - docker#v5.2.0:
+          image: "docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac"
+          always-pull: true
+          propagate-environment: true
+          privileged: false
+          command: ["sh", "-c", "nix-env -if . && m . /testTerraform/module"]
