@@ -48,8 +48,8 @@ function main {
         && case "${bin_type}" in
           object)
             info Generating binaries from "${package_json}" \
-              && jq -er '.bin | to_entries[].key' < "${package_json}" > bins.lst \
-              && jq -er '.bin | to_entries[].value' < "${package_json}" > bin_locations.lst \
+              && jq -r '.bin | to_entries[].key' < "${package_json}" > bins.lst \
+              && jq -r '.bin | to_entries[].value' < "${package_json}" > bin_locations.lst \
               && mapfile -t bins < bins.lst \
               && mapfile -t bin_locations < bin_locations.lst \
               && for ((index = 0; index < "${#bins[@]}"; index++)); do
