@@ -19,6 +19,7 @@
   queue,
   name,
   setup,
+  tags,
   vcpus,
 }:
 makeScript {
@@ -65,6 +66,13 @@ makeScript {
     __argName__ = name;
     __argParallel__ = parallel;
     __argQueue__ = queue;
+    __argTags__ = let
+      tag_names = builtins.attrNames tags;
+      encode_tag = key: "${key}=${tags."${key}"}";
+      encoded = map encode_tag tag_names;
+      encoded_tags = builtins.concatStringsSep "," encoded;
+    in
+      encoded_tags;
   };
   searchPaths = {
     bin = [
