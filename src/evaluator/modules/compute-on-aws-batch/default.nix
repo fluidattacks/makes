@@ -25,6 +25,7 @@
       inherit (config) parallel;
       inherit (config) queue;
       inherit (config) setup;
+      inherit (config) tags;
       inherit (config) vcpus;
     };
   };
@@ -72,6 +73,10 @@ in {
           setup = lib.mkOption {
             default = [];
             type = lib.types.listOf lib.types.package;
+          };
+          tags = lib.mkOption {
+            default = {};
+            type = lib.types.attrsOf lib.types.str;
           };
           vcpus = lib.mkOption {
             type = lib.types.ints.positive;

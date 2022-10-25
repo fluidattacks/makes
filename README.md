@@ -1724,6 +1724,9 @@ Types:
     If the value of attempts is greater than one,
     the job is retried on failure the same number of attempts as the value.
     Defaults to `1`.
+  - tags (`attrsOf str`): Optional.
+    Tags to apply to the batch job.
+    Defaults to `{ }`.
   - attemptDurationSeconds (`ints.positive`): Optional.
     The time duration in seconds
     (measured from the job attempt's startedAt timestamp)
