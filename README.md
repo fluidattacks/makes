@@ -1724,9 +1724,6 @@ Types:
     If the value of attempts is greater than one,
     the job is retried on failure the same number of attempts as the value.
     Defaults to `1`.
-  - tags (`attrsOf str`): Optional.
-    Tags to apply to the batch job.
-    Defaults to `{ }`.
   - attemptDurationSeconds (`ints.positive`): Optional.
     The time duration in seconds
     (measured from the job attempt's startedAt timestamp)
@@ -1783,6 +1780,9 @@ Types:
   - parallel (`ints.positive`): Optional.
     Number of parallel jobs to trigger using
     [Batch Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html).
+  - propagateTags (`bool`): Optional.
+    Enable tags to be propagated into the ECS tasks.
+    Defaults to `true`.
   - queue (`nullOr str`):
     Name of the [AWS Batch][aws_batch] queue we should submit the job to.
     It can be set to `null`,
@@ -1794,6 +1794,9 @@ Types:
     to `source` (as in Bash's `source`)
     before anything else.
     Defaults to `[ ]`.
+  - tags (`attrsOf str`): Optional.
+    Tags to apply to the batch job.
+    Defaults to `{ }`.
   - vcpus (`ints.positive`):
     Amount of virtual CPUs that is reserved for the job.
 
@@ -1817,6 +1820,9 @@ Example `makes.nix`:
         # Use default authentication for AWS
         outputs."/secretsForAwsFromEnv/__default__"
       ];
+      tags = {
+        "Management:Product" = "awesome_app";
+      }
       vcpus = 1;
     };
   };
