@@ -23,6 +23,7 @@
       inherit (config) memory;
       inherit name;
       inherit (config) parallel;
+      inherit (config) propagateTags;
       inherit (config) queue;
       inherit (config) setup;
       inherit (config) tags;
@@ -66,6 +67,10 @@ in {
           parallel = lib.mkOption {
             default = 1;
             type = lib.types.ints.positive;
+          };
+          propagateTags = lib.mkOption {
+            default = true;
+            type = lib.types.bool;
           };
           queue = lib.mkOption {
             type = lib.types.nullOr lib.types.str;

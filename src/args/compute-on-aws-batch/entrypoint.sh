@@ -22,6 +22,7 @@ function main {
   local name="__argName__"
   local queue="__argQueue__"
   local parallel="__argParallel__"
+  local propagate="__argPropagate__"
   local tags="__argTags__"
   local submit_job_args
 
@@ -79,6 +80,9 @@ function main {
       --timeout "attemptDurationSeconds=${attempt_duration_seconds}"
       --tags "${tags}"
     ) \
+    && if test -n "${propagate}"; then
+      submit_job_args+=(--propagate-tags)
+    fi \
     && if [ "${parallel}" -gt "1" ]; then
       submit_job_args+=(--array-properties "size=${parallel}")
     fi \
