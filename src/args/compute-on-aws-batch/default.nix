@@ -16,6 +16,7 @@
   includePositionalArgsInName,
   memory,
   parallel,
+  propagateTags,
   queue,
   name,
   setup,
@@ -65,6 +66,7 @@ makeScript {
     };
     __argName__ = name;
     __argParallel__ = parallel;
+    __argPropagate__ = propagateTags;
     __argQueue__ = queue;
     __argTags__ = let
       tag_names = builtins.attrNames tags;
