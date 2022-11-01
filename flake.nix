@@ -4,52 +4,29 @@
 {
   description = "A DevSecOps framework powered by Nix!";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
-  };
+  inputs.nixpkgs.url = "github:nix-community/nixpkgs.lib";
 
   outputs = {
     self,
     nixpkgs,
     ...
   } @ inputs: let
-    makes = import ./default.nix {system = "x86_64-linux";};
-
-    lib.flakes.evaluate = {
-      inputs,
-      system,
-    }: let
-      evaluated = import ./src/evaluator/default.nix {
-        flakeInputs = inputs;
-        makesSrc = inputs.makes.outPath;
-        projectSrc = inputs.self.sourceInfo.outPath;
-        inherit system;
+    makeOutputsForSystem = system: {
+      apps.${system}.default = {
+        program = "${inputs.self.packages.${system}.default}/bin/m";
+        type = "app";
       };
-      evaluatedOutputs =
-        nixpkgs.lib.mapAttrs'
-        (output: value: {
-          name = "config:outputs:${output}";
-          inherit value;
-        })
-        evaluated.config.outputs;
-    in {
-      __makes__ =
-        evaluatedOutputs
-        // {
-          "config:configAsJson" = evaluated.config.configAsJson;
-        };
+
+      lib.${system} = import ./src/args/agnostic.nix {inherit system;};
+
+      packages.${system}.default = import ./default.nix {inherit system;};
     };
   in
-    (lib.flakes.evaluate {
-      inputs = inputs // {makes = self;};
-      system = "x86_64-linux";
-    })
-    // {
-      inherit lib;
-
-      defaultPackage.x86_64-linux = makes;
-
-      defaultApp.x86_64-linux.program = "${makes}/bin/m";
-      defaultApp.x86_64-linux.type = "app";
-    };
+    builtins.foldl' nixpkgs.lib.recursiveUpdate {}
+    (builtins.map makeOutputsForSystem [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "x86_64-linux"
+    ]);
 }
