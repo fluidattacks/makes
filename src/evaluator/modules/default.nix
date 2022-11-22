@@ -54,6 +54,7 @@
     (import ./taint-terraform/default.nix args)
     (import ./test-python/default.nix args)
     (import ./test-terraform/default.nix args)
+    (import ./workspace-for-terraform-from-env args)
   ];
   options = {
     globalStateDir = lib.mkOption {
