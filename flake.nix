@@ -6,11 +6,7 @@
 
   inputs.nixpkgs.url = "github:nix-community/nixpkgs.lib";
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
     makeOutputsForSystem = system: {
       apps.${system}.default = {
         program = "${inputs.self.packages.${system}.default}/bin/m";

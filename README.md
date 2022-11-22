@@ -283,6 +283,7 @@ Real life projects that run entirely on [Makes][makes]:
     - [makeNodeJsLock](#makenodejslock)
     - [makePythonLock](#makepythonlock)
     - [makeSopsEncryptedFile](#makesopsencryptedfile)
+    - [workspaceForTerraformFromEnv](#workspaceforterraformfromenv)
   - [Framework Configuration](#framework-configuration)
     - [extendingMakesDirs](#extendingmakesdirs)
     - [inputs](#inputs)
@@ -2681,6 +2682,61 @@ m github:fluidattacks/makes@22.11 /utils/makeSopsEncryptedFile \
 
 - `kms_key_arn` is the arn of the key you will use for encrypting the file.
 - `output` is the path for your resulting encrypted file.
+
+### workspaceForTerraformFromEnv
+
+Sets a [Terraform Workspace][terraform_workspaces]
+specified via environment variable.
+
+Types:
+
+- workspaceForTerraformFromEnv:
+  - modules (`attrsOf moduleType`): Optional.
+    [Terraform][terraform] modules to switch workspace.
+    Defaults to `{ }`.
+- moduleType (`submodule`):
+  - setup (`listOf package`): Optional.
+    [Makes Environment][makes_environment]
+    or [Makes Secrets][makes_secrets]
+    to `source` (as in Bash's `source`)
+    before anything else.
+    Defaults to `[ ]`.
+  - src (`str`):
+    Path to the [Terraform][terraform] module.
+  - variable (`str`): Optional.
+    Name of the environment variable that contains
+    the name of the workspace you want to use.
+    Defaults to `""`.
+    When `""` provided, workspace is `default`.
+  - version (`enum [ "0.14" "0.15" "1.0" ]`):
+    [Terraform][terraform] version your module is built with.
+
+Example `makes.nix`:
+
+```nix
+{
+  testTerraform = {
+    modules = {
+      module1 = {
+        setup = [
+          outputs."/workspaceForTerraformFromEnv/module1"
+        ];
+        src = "/my/module1";
+        version = "0.14";
+      };
+    };
+  };
+  workspaceForTerraformFromEnv = {
+    modules = {
+      module1 = {
+        src = "/my/module1";
+        variable = "CI_COMMIT_REF_NAME";
+        version = "0.14";
+      };
+    };
+  };
+}
+```
 
 ## Framework Configuration
 
@@ -5510,6 +5566,8 @@ Project leaders:
   [Terraform][terraform]
 - [terraform_fmt]: https://www.terraform.io/docs/cli/commands/fmt.html
   [Terraform FMT][terraform_fmt]
+- [terraform_workspaces]: https://developer.hashicorp.com/terraform/language/state/workspaces
+  [Terraform Workspaces][terraform_workspaces]
 - [tflint]: https://github.com/terraform-linters/tflint
   [TFLint][tflint]
 - [toml]: https://github.com/toml-lang/toml
