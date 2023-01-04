@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
-
 # You can find rules here:
 # https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md
 

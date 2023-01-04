@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
-
----
 inherits:
   - full_pep8
   - strictness_veryhigh

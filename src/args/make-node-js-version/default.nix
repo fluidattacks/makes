@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
 {__nixpkgs__, ...}: version:
 if version == "14"
 then __nixpkgs__.nodejs-14_x

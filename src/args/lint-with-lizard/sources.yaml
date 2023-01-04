@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
-
----
 closure:
   lizard: 1.17.3
 links:
@@ -12,4 +7,4 @@ links:
   - name: lizard-1.17.3.tar.gz
     sha256: 1578q2vgnlm9bxwmbap3ffkhb551ml13yq5ffc4yhya9q3zlx691
     url: https://files.pythonhosted.org/packages/e5/f0/95d5032d687418436a29c7e7a19ecba1256faab21add64df8dd4144256b0/lizard-1.17.3.tar.gz
-python: '3.8'
+python: "3.8"
