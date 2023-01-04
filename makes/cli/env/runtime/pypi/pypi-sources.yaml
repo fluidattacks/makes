@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
-
 closure:
   commonmark: 0.9.1
   pygments: 2.13.0

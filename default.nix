@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
 {system ? builtins.currentSystem}: let
   agnostic = import ./src/args/agnostic.nix {inherit system;};
 

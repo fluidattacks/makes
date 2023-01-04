@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
-
 # shellcheck shell=bash
 
 function main {
@@ -9,14 +5,14 @@ function main {
 
   : \
     && "${cmd[@]}" 3.8 \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/dependencies.yaml" \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/sources-38.yaml" \
+      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/dependencies.yaml" \
+      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/sources-38.yaml" \
     && "${cmd[@]}" 3.9 \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/dependencies.yaml" \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/sources-39.yaml" \
+      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/dependencies.yaml" \
+      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/sources-39.yaml" \
     && "${cmd[@]}" 3.10 \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/dependencies.yaml" \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/sources-310.yaml"
+      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/dependencies.yaml" \
+      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/sources-310.yaml"
 
   : \
     && "${cmd[@]}" 3.8 \
@@ -30,14 +26,14 @@ function main {
 
   : \
     && "${cmd[@]}" 3.8 \
-      "${PWD}/src/evaluator/modules/lint-python/dependencies.yaml" \
-      "${PWD}/src/evaluator/modules/lint-python/sources-3.8.yaml" \
+      "${PWD}/src/args/lint-python/pypi-deps.yaml" \
+      "${PWD}/src/args/lint-python/pypi-sources-3.8.yaml" \
     && "${cmd[@]}" 3.9 \
-      "${PWD}/src/evaluator/modules/lint-python/dependencies.yaml" \
-      "${PWD}/src/evaluator/modules/lint-python/sources-3.9.yaml" \
+      "${PWD}/src/args/lint-python/pypi-deps.yaml" \
+      "${PWD}/src/args/lint-python/pypi-sources-3.9.yaml" \
     && "${cmd[@]}" 3.10 \
-      "${PWD}/src/evaluator/modules/lint-python/dependencies.yaml" \
-      "${PWD}/src/evaluator/modules/lint-python/sources-3.10.yaml"
+      "${PWD}/src/args/lint-python/pypi-deps.yaml" \
+      "${PWD}/src/args/lint-python/pypi-sources-3.10.yaml"
 
 }
 

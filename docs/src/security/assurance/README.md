@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-
-SPDX-License-Identifier: MIT
--->
-
 # Software Assurance
 
 This is what user can expect from Makes in terms of security,

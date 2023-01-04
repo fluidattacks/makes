@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
 # Arguments that can be used outside of a Makes project
 # and therefore are agnostic to the framework.
 {

@@ -3,8 +3,10 @@ Upstream-Name: Makes
 Upstream-Contact: Fluid Attacks <development@fluidattacks.com>
 Source: https://github.com/fluidattacks/makes
 
-# Sample paragraph, commented out:
-#
-# Files: src/*
-# Copyright: $YEAR $NAME <$CONTACT>
-# License: ...
+Files: **
+Copyright: 2023 Fluid Attacks <development@fluidattacks.com>
+License: MIT
+
+Files: **/**
+Copyright: 2023 Fluid Attacks <development@fluidattacks.com>
+License: MIT

@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
 {
   __nixpkgs__,
   attrsMapToList,
@@ -22,7 +19,7 @@
   sourcesRaw ? null,
   sourcesYaml ? null,
   withCython_0_29_24 ? false,
-  withNumpy_1_21_2 ? false,
+  withNumpy_1_24_0 ? false,
   withSetuptools_57_4_0 ? false,
   withSetuptoolsScm_5_0_2 ? false,
   withSetuptoolsScm_6_0_1 ? false,
@@ -62,12 +59,13 @@ assert builtins.any (_: _) [
         python = sources.python;
       };
     }))
-    (listOptional withNumpy_1_21_2 (makePythonPypiEnvironment {
-      name = "numpy-1.21.2";
+    (listOptional withNumpy_1_24_0 (makePythonPypiEnvironment {
+      name = "numpy-1.24.0";
       sourcesYaml =
         {
-          "3.8" = ./sources/numpy-1.21.2/sources-38.yaml;
-          "3.9" = ./sources/numpy-1.21.2/sources-39.yaml;
+          "3.8" = ./sources/numpy-1.24.0/sources-38.yaml;
+          "3.9" = ./sources/numpy-1.24.0/sources-39.yaml;
+          "3.10" = ./sources/numpy-1.24.0/sources-310.yaml;
         }
         .${sources.python};
       withCython_0_29_24 = true;

@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-
-SPDX-License-Identifier: MIT
--->
-
 # 🦄 Makes
 
 A software supply chain framework
@@ -4255,22 +4249,22 @@ Types:
   The following flags are available for convenience:
 
   - withCython_0_29_24 (`bool`): Optional.
-    Should we bootstrap cython 0.29.24 in the environment?
+    Bootstrap cython 0.29.24 to the environment
     Defaults to `false`.
-  - withNumpy_1_21_2 (`bool`): Optional.
-    Should we bootstrap numpy 1.21.2 in the environment?
+  - withNumpy_1_24_0 (`bool`): Optional.
+    Bootstrap numpy 1.24.0 to the environment
     Defaults to `false`.
   - withSetuptools_57_4_0 (`bool`): Optional.
-    Should we bootstrap setuptools 57.4.0 in the environment?
+    Bootstrap setuptools 57.4.0 to the environment
     Defaults to `false`.
   - withSetuptoolsScm_5_0_2 (`bool`) Optional.
-    Should we bootstrap setuptools-scm 5.0.2 in the environment?
+    Bootstrap setuptools-scm 5.0.2 to the environment
     Defaults to `false`.
   - withSetuptoolsScm_6_0_1 (`bool`) Optional.
-    Should we bootstrap setuptools-scm 6.0.1 in the environment?
+    Bootstrap setuptools-scm 6.0.1 to the environment
     Defaults to `false`.
   - withWheel_0_37_0 (`bool`): Optional.
-    Should we bootstrap wheel 0.37.0 in the environment?
+    Bootstrap wheel 0.37.0 to the environment
     Defaults to `false`.
 
 Example:

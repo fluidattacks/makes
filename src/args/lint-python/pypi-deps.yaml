@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
-
----
-mypy: '0.971'
+mypy: "0.971"
 prospector: 1.5.1
 pylint: 2.11.1

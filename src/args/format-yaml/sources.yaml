@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-#
-# SPDX-License-Identifier: MIT
-
----
 closure:
   click: 8.1.3
   colorama: 0.4.5
@@ -40,4 +35,4 @@ links:
   - name: yamlfix-0.10.0.tar.gz
     sha256: 12i72f8g6zpbklzy5awx1g8vpq7lm3yj9z88hldxasrs71c7kzsn
     url: https://files.pythonhosted.org/packages/99/47/cb2d70d4d0b8612748f6a8957b63cb34410208bf3742f768d2c6c120c1af/yamlfix-0.10.0.tar.gz
-python: '3.9'
+python: "3.9"

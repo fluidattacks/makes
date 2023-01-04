@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2022 Fluid Attacks and Makes contributors
-//
-// SPDX-License-Identifier: MIT
-
 const HEADERLENGTHMAX = 60;
 const LINELENGTHMAX = 72;
 const BODYLENGTHMIN = 15;
