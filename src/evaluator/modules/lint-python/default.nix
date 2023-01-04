@@ -78,7 +78,7 @@ in {
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             python = lib.mkOption {
-              type = lib.types.enum ["3.7" "3.8" "3.9" "3.10"];
+              type = lib.types.enum ["3.8" "3.9" "3.10"];
             };
             searchPaths = lib.mkOption {
               default = {};
@@ -112,7 +112,7 @@ in {
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             python = lib.mkOption {
-              type = lib.types.enum ["3.7" "3.8" "3.9" "3.10"];
+              type = lib.types.enum ["3.8" "3.9" "3.10"];
             };
             searchPaths = lib.mkOption {
               default = {};

@@ -1300,7 +1300,7 @@ Types:
     Definitions of python packages/modules to lint.
     Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
-  - python (`enum [ "3.7" "3.8" "3.9" "3.10"]`):
+  - python (`enum ["3.8" "3.9" "3.10"]`):
     Python interpreter version that your package/module is designed for.
   - searchPaths (`asIn makeSearchPaths`): Optional.
     Arguments here will be passed as-is to `makeSearchPaths`.
@@ -1316,7 +1316,7 @@ Types:
   - src (`str`):
     Path to the package/module.
 - moduleType (`submodule`):
-  - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+  - python (`enum ["3.8" "3.9" "3.10"]`):
     Python interpreter version that your package/module is designed for.
   - searchPaths (`asIn makeSearchPaths`): Optional.
     Arguments here will be passed as-is to `makeSearchPaths`.
@@ -1501,7 +1501,7 @@ Types:
   Defaults to `{ }`.
 - targetType (`submodule`):
 
-  - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+  - python (`enum ["3.8" "3.9" "3.10"]`):
     Python interpreter version that your package/module is designed for.
   - src (`str`):
     Path to the file or directory that contains the tests code.
@@ -1684,7 +1684,7 @@ Types:
   Definitions of directories of python packages/modules to lint.
   Defaults to `{ }`.
 - projectType (`submodule`):
-  - python (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+  - python (`enum ["3.8" "3.9" "3.10"]`):
     Python interpreter version that your package/module is designed for.
   - target (`str`):
     Relative path to the package/module.
@@ -2656,7 +2656,7 @@ m github:fluidattacks/makes@22.11 /utils/makePythonLock \
   "${sources_yaml}"
 ```
 
-- Supported `python_version`s are: `3.7`, `3.8`, `3.9` and `3.10`.
+- Supported `python_version`s are: `3.8`, `3.9` and `3.10`.
 - `dependencies_yaml` is the **absolute path** to a [YAML][yaml] file
   mapping [PyPI][python_pypi] packages to version constraints.
 
@@ -3234,12 +3234,6 @@ Types specific to [Python][python]:
     to [MYPYPATH][mypypath].
     Defaults to `[ ]`.
 
-  - `pythonMypy37` (`listOf coercibleToStr`): Optional.
-    Append `/lib/python3.7/site-packages`
-    of each element in the list
-    to [MYPYPATH][mypypath].
-    Defaults to `[ ]`.
-
   - `pythonMypy38` (`listOf coercibleToStr`): Optional.
     Append `/lib/python3.8/site-packages`
     of each element in the list
@@ -3260,12 +3254,6 @@ Types specific to [Python][python]:
 
   - `pythonPackage` (`listOf coercibleToStr`): Optional.
     Append `/`
-    of each element in the list
-    to [PYTHONPATH][pythonpath].
-    Defaults to `[ ]`.
-
-  - `pythonPackage37` (`listOf coercibleToStr`): Optional.
-    Append `/lib/python3.7/site-packages`
     of each element in the list
     to [PYTHONPATH][pythonpath].
     Defaults to `[ ]`.
@@ -4207,7 +4195,7 @@ Types:
 
 - makePythonVersion (`function str -> package`):
 
-  - (`enum [ "3.7" "3.8" "3.9" "3.10" ]`):
+  - (`enum ["3.8" "3.9" "3.10"]`):
     [Python][python] version of the interpreter to return.
 
 Example:

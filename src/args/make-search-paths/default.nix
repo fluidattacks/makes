@@ -20,12 +20,10 @@
   ocamlStublib ? [],
   pkgConfig ? [],
   pythonMypy ? [],
-  pythonMypy37 ? [],
   pythonMypy38 ? [],
   pythonMypy39 ? [],
   pythonMypy310 ? [],
   pythonPackage ? [],
-  pythonPackage37 ? [],
   pythonPackage38 ? [],
   pythonPackage39 ? [],
   pythonPackage310 ? [],
@@ -124,10 +122,6 @@ in
           generator = makeExport "MYPYPATH" "";
         }
         {
-          derivations = pythonMypy37;
-          generator = makeExport "MYPYPATH" "/lib/python3.7/site-packages";
-        }
-        {
           derivations = pythonMypy38;
           generator = makeExport "MYPYPATH" "/lib/python3.8/site-packages";
         }
@@ -142,10 +136,6 @@ in
         {
           derivations = pythonPackage;
           generator = makeExport "PYTHONPATH" "";
-        }
-        {
-          derivations = pythonPackage37;
-          generator = makeExport "PYTHONPATH" "/lib/python3.7/site-packages";
         }
         {
           derivations = pythonPackage38;

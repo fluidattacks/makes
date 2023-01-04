@@ -8,9 +8,6 @@ function main {
   local cmd=(just m . /utils/makePythonLock)
 
   : \
-    && "${cmd[@]}" 3.7 \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/dependencies.yaml" \
-      "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/sources-37.yaml" \
     && "${cmd[@]}" 3.8 \
       "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/dependencies.yaml" \
       "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.21.2/sources-38.yaml" \
@@ -32,9 +29,6 @@ function main {
       "${PWD}/src/args/lint-with-lizard/sources.yaml"
 
   : \
-    && "${cmd[@]}" 3.7 \
-      "${PWD}/src/evaluator/modules/lint-python/dependencies.yaml" \
-      "${PWD}/src/evaluator/modules/lint-python/sources-3.7.yaml" \
     && "${cmd[@]}" 3.8 \
       "${PWD}/src/evaluator/modules/lint-python/dependencies.yaml" \
       "${PWD}/src/evaluator/modules/lint-python/sources-3.8.yaml" \
