@@ -205,7 +205,7 @@
   };
   securePythonWithBandit = {
     cli = {
-      python = "3.10";
+      python = "3.11";
       target = "/src/cli/main";
     };
   };

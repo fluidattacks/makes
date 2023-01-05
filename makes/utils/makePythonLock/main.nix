@@ -11,6 +11,7 @@ makeScript {
     __argPy38__ = makePythonVersion "3.8";
     __argPy39__ = makePythonVersion "3.9";
     __argPy310__ = makePythonVersion "3.10";
+    __argPy311__ = makePythonVersion "3.11";
   };
   searchPaths.bin = [
     __nixpkgs__.curl

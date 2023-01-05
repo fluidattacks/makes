@@ -42,6 +42,7 @@ assert builtins.any (_: _) [
   is38 = sources.python == "3.8";
   is39 = sources.python == "3.9";
   is310 = sources.python == "3.10";
+  is311 = sources.python == "3.11";
   python = makePythonVersion sources.python;
 
   bootstraped = builtins.concatLists [
@@ -66,6 +67,7 @@ assert builtins.any (_: _) [
           "3.8" = ./sources/numpy-1.24.0/sources-38.yaml;
           "3.9" = ./sources/numpy-1.24.0/sources-39.yaml;
           "3.10" = ./sources/numpy-1.24.0/sources-310.yaml;
+          "3.11" = ./sources/numpy-1.24.0/sources-311.yaml;
         }
         .${sources.python};
       withCython_0_29_24 = true;
@@ -149,6 +151,7 @@ in
     pythonPackage38 = listOptional is38 pypiEnvironment;
     pythonPackage39 = listOptional is39 pypiEnvironment;
     pythonPackage310 = listOptional is310 pypiEnvironment;
+    pythonPackage311 = listOptional is311 pypiEnvironment;
     source = builtins.concatLists [
       bootstraped
       [(makeSearchPaths searchPathsRuntime)]
