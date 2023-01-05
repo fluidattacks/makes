@@ -1,0 +1,19 @@
+closure:
+  numpy: 1.24.0
+links:
+  - name: numpy-1.24.0-cp311-cp311-macosx_10_9_x86_64.whl
+    sha256: 00gmi936rjldkzr1cg6c5b50kavsrdgbp7y09i8xdjj6n9rg8ia4
+    url: https://files.pythonhosted.org/packages/1e/8a/2e23dd804191f725ff18a30468f316267be41ad07148a97eac5f48aa1d1d/numpy-1.24.0-cp311-cp311-macosx_10_9_x86_64.whl
+  - name: numpy-1.24.0-cp311-cp311-macosx_11_0_arm64.whl
+    sha256: 1mdsjmx023m9255p810v2i4i7i1lhi53shp7qbrs99m0fa0mwgpc
+    url: https://files.pythonhosted.org/packages/6c/90/c4a8a771b87fd7d1c9d6648fd08927825d31d80d98201149df14c9787214/numpy-1.24.0-cp311-cp311-macosx_11_0_arm64.whl
+  - name: numpy-1.24.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 14axq45z7gd0gma7rc2hpm9zgzpyafrlfl6gwgc7m4cz2j88f5pr
+    url: https://files.pythonhosted.org/packages/f4/e1/2ec4b9476bde1e0a9878fdde5fd122241007bf361eec3fb4ab08be3aecd0/numpy-1.24.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.24.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0wkaca9wpbi6xwdza5haas2wwfmp12jyw78f0bvxmslcc3lw39md
+    url: https://files.pythonhosted.org/packages/b0/26/8fbdd09f9926dffc272cbb266f7079963f774190ba0b5fddf72097b2c728/numpy-1.24.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: numpy-1.24.0.tar.gz
+    sha256: 0lqqa14a380y4iimpd1wkbansah93d6afz28hrg26szy26bpray4
+    url: https://files.pythonhosted.org/packages/5f/c7/5ca7c100dcc85b5ef1b176bdf87be5e4392c2c3018e13cc7cdef828c6a09/numpy-1.24.0.tar.gz
+python: "3.11"

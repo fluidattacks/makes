@@ -1,20 +1,20 @@
 closure:
   astroid: 2.8.6
-  colorama: 0.4.5
+  colorama: 0.4.6
   dodgy: 0.2.1
   flake8: 2.3.0
   flake8-polyfill: 1.0.2
-  isort: 5.10.1
-  lazy-object-proxy: 1.7.1
+  isort: 5.11.4
+  lazy-object-proxy: 1.9.0
   mccabe: 0.6.1
   mypy: "0.971"
   mypy-extensions: 0.4.3
   pep8: 1.7.1
   pep8-naming: 0.10.0
-  platformdirs: 2.5.2
+  platformdirs: 2.6.2
   prospector: 1.5.1
   pycodestyle: 2.8.0
-  pydocstyle: 6.1.1
+  pydocstyle: 6.2.2
   pyflakes: 2.3.1
   pylint: 2.11.1
   pylint-celery: "0.3"
@@ -27,7 +27,7 @@ closure:
   snowballstemmer: 2.2.0
   toml: 0.10.2
   tomli: 2.0.1
-  typing-extensions: 4.3.0
+  typing-extensions: 4.4.0
   wrapt: 1.13.3
 links:
   - name: astroid-2.8.6-py3-none-any.whl
@@ -36,12 +36,12 @@ links:
   - name: astroid-2.8.6.tar.gz
     sha256: 15d46n1r4gi0yip41pjc52167yabbglzv7bgnmrhwa8mbzj7avsz
     url: https://files.pythonhosted.org/packages/c6/fb/6cbda9ecf67d29753e5caeb83ca2ea29aa1519d66ed48b66ab56e920d5c8/astroid-2.8.6.tar.gz
-  - name: colorama-0.4.5-py2.py3-none-any.whl
-    sha256: 1nlriqsqjsilvxg6pm3086z2xkjviplw3gz79a1gadryjd2g8jw5
-    url: https://files.pythonhosted.org/packages/77/8b/7550e87b2d308a1b711725dfaddc19c695f8c5fa413c640b2be01662f4e6/colorama-0.4.5-py2.py3-none-any.whl
-  - name: colorama-0.4.5.tar.gz
-    sha256: 195pcxlhp4qz8pq496kvw6k7vdd056j8mffr76k8h2f59wrv9ip6
-    url: https://files.pythonhosted.org/packages/2b/65/24d033a9325ce42ccbfa3ca2d0866c7e89cc68e5b9d92ecaba9feef631df/colorama-0.4.5.tar.gz
+  - name: colorama-0.4.6-py2.py3-none-any.whl
+    sha256: 1ijz53xpmxds2qf02l9yf0rnp7bznwh3ci4xkw8wmh5cyn8rj7ag
+    url: https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl
+  - name: colorama-0.4.6.tar.gz
+    sha256: 0i3fpq0w5mbfdpy3z9p5raw4fg17jxr6jwh5l8qhavpdnxf5ys88
+    url: https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz
   - name: dodgy-0.2.1-py3-none-any.whl
     sha256: 19j20ly712smfb2qpww4z428rlr9yhclndbz71a3iyl6v07lrxai
     url: https://files.pythonhosted.org/packages/22/f4/65b8a29adab331611259b86cf1d87a64f523fed52aba5d4bbdb2be2aed43/dodgy-0.2.1-py3-none-any.whl
@@ -60,30 +60,30 @@ links:
   - name: flake8-polyfill-1.0.2.tar.gz
     sha256: 1nlf1mkqw856vi6782qcglqhaacb23khk9wkcgn55npnjxshhjz4
     url: https://files.pythonhosted.org/packages/e6/67/1c26634a770db5c442e361311bee73cb3a177adb2eb3f7af8953cfd9f553/flake8-polyfill-1.0.2.tar.gz
-  - name: isort-5.10.1-py3-none-any.whl
-    sha256: 19qv6lgilj8c79fgf9vz49ad4345j0baiqqg105m1d495y7dfqkg
-    url: https://files.pythonhosted.org/packages/b8/5b/f18e227df38b94b4ee30d2502fd531bebac23946a2497e5595067a561274/isort-5.10.1-py3-none-any.whl
-  - name: isort-5.10.1.tar.gz
-    sha256: 0l99pr8fapq9ynfby672qwxwp2y82z6xkmzijxzrs3h2g9g3li78
-    url: https://files.pythonhosted.org/packages/ab/e9/964cb0b2eedd80c92f5172f1f8ae0443781a9d461c1372a3ce5762489593/isort-5.10.1.tar.gz
-  - name: lazy_object_proxy-1.7.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1pnk4b208s3yv9krv7v9prwkb2kp9gchjkmwm554jv5vkm1dfznx
-    url: https://files.pythonhosted.org/packages/61/08/2b64bc9c9807e9f996f9562f43d6737cf5a5ecc5be2081a13fe50b9479c0/lazy_object_proxy-1.7.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: lazy_object_proxy-1.7.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1b9nyscw7jwz6lkcw1rb5pcspw2jzhjx8g7gpn529dhf70mhrvbh
-    url: https://files.pythonhosted.org/packages/79/18/c13e90a35cc6bba07ff53ae9c6f7da739a2e143eddc487ff1c92686bf595/lazy_object_proxy-1.7.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: lazy_object_proxy-1.7.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 1q8vc7mldqwlca4llmngln75ai51a42dggdg84kchphiq7hab5kh
-    url: https://files.pythonhosted.org/packages/69/b8/b97b53de2c3f62cecf8f79ae64f209714034cb888a3b76a0c8fc10728161/lazy_object_proxy-1.7.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: lazy_object_proxy-1.7.1-cp39-cp39-musllinux_1_1_aarch64.whl
-    sha256: 1j3dwl580y5b4if9y0488qlwwz8f25qbq66id0whf0wlcdx4asgp
-    url: https://files.pythonhosted.org/packages/be/0d/b34afd15214c7a70b246d9de36cf912dab5bac0c34d84ab1e8ab21d49239/lazy_object_proxy-1.7.1-cp39-cp39-musllinux_1_1_aarch64.whl
-  - name: lazy_object_proxy-1.7.1-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 028vkjsxa561kj7y4lcj9yw27aypz6gaichszibkf0n54mky5c1r
-    url: https://files.pythonhosted.org/packages/28/25/a4c87ad33bf3fcc9f3b30a23ddd08fa31974c66509f2684e51e0af04c767/lazy_object_proxy-1.7.1-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: lazy-object-proxy-1.7.1.tar.gz
-    sha256: 1958nnbg6gh1frnzcpwwvahsbx2kfpjfbsyd8dkp1vvdk1dwf2fn
-    url: https://files.pythonhosted.org/packages/75/93/3fc1cc28f71dd10b87a53b9d809602d7730e84cc4705a062def286232a9c/lazy-object-proxy-1.7.1.tar.gz
+  - name: isort-5.11.4-py3-none-any.whl
+    sha256: 0yzv99r87gddh76dsxra6ac8z1r1ag3yazsj15zhl04ivc7gscy0
+    url: https://files.pythonhosted.org/packages/91/3b/a63bafb8141b67c397841b36ad46e7469716af2b2d00cb0be2dfb9667130/isort-5.11.4-py3-none-any.whl
+  - name: isort-5.11.4.tar.gz
+    sha256: 1dk1lbq5wj9mix6nyjgdbz9ws2rnbbwc411cjc9xh5cqxmfhrcvd
+    url: https://files.pythonhosted.org/packages/76/46/004e2dd6c312e8bb7cb40a6c01b770956e0ef137857e82d47bd9c829356b/isort-5.11.4.tar.gz
+  - name: lazy_object_proxy-1.9.0-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 16w9csbdh5a70k72m4rx5dh70h0wdwvfwlvl8k0xkpiaich52xcy
+    url: https://files.pythonhosted.org/packages/a8/32/c1a67f76ec6923a8a8b1bc006b7cb3d195e386e03fe56e20fe38fce0321e/lazy_object_proxy-1.9.0-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: lazy_object_proxy-1.9.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1x1yaa3i4zjiyg40jqvljf5d83g3av9mww9xd0bv02pghd6sr0sz
+    url: https://files.pythonhosted.org/packages/18/1b/04ac4490a62ae1916f88e629e74192ada97d74afc927453d005f003e5a8f/lazy_object_proxy-1.9.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: lazy_object_proxy-1.9.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 01nh6jjkkmb73rjdsrzfr8iq27jzjm3myihswpqlwvbny7bc68kk
+    url: https://files.pythonhosted.org/packages/4c/a4/cdd6f41a675a89ab584c78019a24adc533829764bcc85b0e24ed2678020c/lazy_object_proxy-1.9.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: lazy_object_proxy-1.9.0-cp39-cp39-musllinux_1_1_aarch64.whl
+    sha256: 15040b33yk260bbdxn6x27nv3cd3875w3sf0zngbdgnv7v48xdqq
+    url: https://files.pythonhosted.org/packages/82/ac/d079d3ad377ba72e29d16ac077f8626ad4d3f55369c93168d0b81153d9a2/lazy_object_proxy-1.9.0-cp39-cp39-musllinux_1_1_aarch64.whl
+  - name: lazy_object_proxy-1.9.0-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 10j37qqb5s5j6vk447mg8lgzs1ax5kfghh49d2ch4312rs8k8xh9
+    url: https://files.pythonhosted.org/packages/5c/76/0b16dc53e9ee5b24c621d808f46cca11e5e86c602b6bcd6dc27f9504af5b/lazy_object_proxy-1.9.0-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: lazy-object-proxy-1.9.0.tar.gz
+    sha256: 1bpbqhd0s09y7fjxv2dkzckfyyzwkik6y4653a59nqm4ky0bb7v5
+    url: https://files.pythonhosted.org/packages/20/c0/8bab72a73607d186edad50d0168ca85bd2743cfc55560c9d721a94654b20/lazy-object-proxy-1.9.0.tar.gz
   - name: mccabe-0.6.1-py2.py3-none-any.whl
     sha256: 0hhdp0srgrv4bmzlzvmk67zrqr9cvkjjzgd4gmkvd90dhrc652mb
     url: https://files.pythonhosted.org/packages/87/89/479dc97e18549e21354893e4ee4ef36db1d237534982482c3681ee6e7b57/mccabe-0.6.1-py2.py3-none-any.whl
@@ -126,12 +126,12 @@ links:
   - name: pep8-naming-0.10.0.tar.gz
     sha256: 0fmzccbmr0jn9ynamdb9ly2ai8qs5qfk8alfgnzr3fbjvpwsbd7k
     url: https://files.pythonhosted.org/packages/06/af/1e182d83519eb3fca41befaa2b671f1dcb4c4280e830aa0908c038b1de67/pep8-naming-0.10.0.tar.gz
-  - name: platformdirs-2.5.2-py3-none-any.whl
-    sha256: 122pn8db8avjgr3pkl55gqyqcay04ghgfpjfmjxhdpnpla1qwz82
-    url: https://files.pythonhosted.org/packages/ed/22/967181c94c3a4063fe64e15331b4cb366bdd7dfbf46fcb8ad89650026fec/platformdirs-2.5.2-py3-none-any.whl
-  - name: platformdirs-2.5.2.tar.gz
-    sha256: 06ggzv3s7ci7dfzbg65b8kwkhq45mkq8s7diwip1wi6bgnqapj2q
-    url: https://files.pythonhosted.org/packages/ff/7b/3613df51e6afbf2306fc2465671c03390229b55e3ef3ab9dd3f846a53be6/platformdirs-2.5.2.tar.gz
+  - name: platformdirs-2.6.2-py3-none-any.whl
+    sha256: 1424b3inp0pigv4g38har9xqi5wn8f1cdw5nr7kms5l98g8gdj43
+    url: https://files.pythonhosted.org/packages/c1/c7/9be9d651b93efce682b45142a6267034fc4215972780748618c02e236361/platformdirs-2.6.2-py3-none-any.whl
+  - name: platformdirs-2.6.2.tar.gz
+    sha256: 1llbk5g12hpmzxmkp3crlkp3xxg4gp5z77925qrzi7qv8zza3zp1
+    url: https://files.pythonhosted.org/packages/cf/4d/198b7e6c6c2b152f4f9f4cdf975d3590e33e63f1920f2d89af7f0390e6db/platformdirs-2.6.2.tar.gz
   - name: prospector-1.5.1-py3-none-any.whl
     sha256: 05db0dn9mn54a0i2bl60cvmbv9q0nchcm4mkgsb7dqkasczzzy27
     url: https://files.pythonhosted.org/packages/92/cf/d4fd1fbfd6442576d3c1b0cd7613da31959878dd18a4fdf2f8a9cdffa65e/prospector-1.5.1-py3-none-any.whl
@@ -144,12 +144,12 @@ links:
   - name: pycodestyle-2.8.0.tar.gz
     sha256: 0zxyrg8029lzjhima6l5nk6y0z6lm5wfp9qchz3s33j3xx3mipgd
     url: https://files.pythonhosted.org/packages/08/dc/b29daf0a202b03f57c19e7295b60d1d5e1281c45a6f5f573e41830819918/pycodestyle-2.8.0.tar.gz
-  - name: pydocstyle-6.1.1-py3-none-any.whl
-    sha256: 1i2d2iq7ywiniss4jcfnf4ypxk08bkpvwh80jhwnh1bmcxnq51v9
-    url: https://files.pythonhosted.org/packages/87/67/4df10786068766000518c6ad9c4a614e77585a12ab8f0654c776757ac9dc/pydocstyle-6.1.1-py3-none-any.whl
-  - name: pydocstyle-6.1.1.tar.gz
-    sha256: 1p4jvxr3z4llgrpmr3586dslmcfa4zl9mszj8p1yc3msb72bfh8x
-    url: https://files.pythonhosted.org/packages/4c/30/4cdea3c8342ad343d41603afc1372167c224a04dc5dc0bf4193ccb39b370/pydocstyle-6.1.1.tar.gz
+  - name: pydocstyle-6.2.2-py3-none-any.whl
+    sha256: 0qfbwc30icsjyqnk8lkb2jccp0l0qfa5cwf2d523pd17b59366q2
+    url: https://files.pythonhosted.org/packages/96/ac/b1c2fd6df55ef83435a1dd31530a918faa2b4cf7f38f0cdb10a084929301/pydocstyle-6.2.2-py3-none-any.whl
+  - name: pydocstyle-6.2.2.tar.gz
+    sha256: 1pbba9mpqzlzm7c0v7v06dvqcr1ikzl83x9m3j589kkfdyly652p
+    url: https://files.pythonhosted.org/packages/41/dd/4bb3fdb78755cd7ab4ae176c443f23ac7e4a81ce4b4f5b3aa5b2c6095945/pydocstyle-6.2.2.tar.gz
   - name: pyflakes-2.3.1-py2.py3-none-any.whl
     sha256: 1hzgabzbyaxj0n4zlp6rxvjriw2gv3adzmvjvl8ria5q04ypi4vq
     url: https://files.pythonhosted.org/packages/6c/11/2a745612f1d3cbbd9c69ba14b1b43a35a2f5c3c81cd0124508c52c64307f/pyflakes-2.3.1-py2.py3-none-any.whl
@@ -225,12 +225,12 @@ links:
   - name: tomli-2.0.1.tar.gz
     sha256: 0kwazq3i18rphcr8gak4fgzdcj5w5bbn4k4j2l6ma32gj496qlny
     url: https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz
-  - name: typing_extensions-4.3.0-py3-none-any.whl
-    sha256: 00napxpwhjn40q2hxh3z8rfpwvg0n5mdvp4ylid0m4j9c2ajqr15
-    url: https://files.pythonhosted.org/packages/ed/d6/2afc375a8d55b8be879d6b4986d4f69f01115e795e36827fd3a40166028b/typing_extensions-4.3.0-py3-none-any.whl
-  - name: typing_extensions-4.3.0.tar.gz
-    sha256: 19n4l57qazwrbvxjrbxw2vvfyd0zbk8ivnwm4zmwfzzl69x6glp6
-    url: https://files.pythonhosted.org/packages/9e/1d/d128169ff58c501059330f1ad96ed62b79114a2eb30b8238af63a2e27f70/typing_extensions-4.3.0.tar.gz
+  - name: typing_extensions-4.4.0-py3-none-any.whl
+    sha256: 17j8jbywq5cjgh6354wyh9y47cvrbyw1hqj9xhsmsrcg81j4iyhn
+    url: https://files.pythonhosted.org/packages/0b/8e/f1a0a5a76cfef77e1eb6004cb49e5f8d72634da638420b9ea492ce8305e8/typing_extensions-4.4.0-py3-none-any.whl
+  - name: typing_extensions-4.4.0.tar.gz
+    sha256: 1al7634rq9zqw1s7d1nbry0l23c05s0wrc8jihcxvy1bp55l648m
+    url: https://files.pythonhosted.org/packages/e3/a7/8f4e456ef0adac43f452efc2d0e4b242ab831297f1bac60ac815d37eb9cf/typing_extensions-4.4.0.tar.gz
   - name: wrapt-1.13.3-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 1jzjwqni04rk0qnqb77802kbg2yzrqi2j7k0l13r5fxy49ks47cq
     url: https://files.pythonhosted.org/packages/d6/4a/0a9b71f13be3b5c7616365913a89e601f1d152c1b60b268358685ea94f09/wrapt-1.13.3-cp39-cp39-macosx_10_9_x86_64.whl

@@ -35,6 +35,7 @@ makeDerivation {
             "3.8" = ./pypi-sources-3.8.yaml;
             "3.9" = ./pypi-sources-3.9.yaml;
             "3.10" = ./pypi-sources-3.10.yaml;
+            "3.11" = ./pypi-sources-3.11.yaml;
           }
           .${python};
         withSetuptools_57_4_0 = true;
