@@ -331,8 +331,10 @@ Real life projects that run entirely on [Makes][makes]:
     - [Patchers](#patchers)
       - [pathShebangs](#pathshebangs)
     - [Others](#others)
+      - [chunks](#chunks)
       - [calculateCvss3](#calculatecvss3)
       - [makeSslCertificate](#makesslcertificate)
+      - [sublist](#sublist)
 - [Migrating to Makes](#migrating-to-makes)
   - [From a Nix project](#from-a-nix-project)
 - [Contact an expert](#contact-an-expert)
@@ -5097,6 +5099,47 @@ $ m . /example
 
 ### Others
 
+#### chunks
+
+Split a given list into N chunks
+for workload distributed parallelization.
+
+Types:
+
+- chunks (`function list, ints.positive -> listOf (listOf Any)`):
+
+  - (`list`):
+    List to split into chunks.
+  - (`ints.positive`):
+    Number of chunks to create from list.
+
+Example:
+
+```nix
+{
+  chunks,
+  inputs,
+  makeDerivation,
+  makeDerivationParallel,
+}: let
+numbers = [0 1 2 3 4 5 6 7 8 9];
+myChunks =  chunks numbers 3; # [[0 1 2 3] [4 5 6] [7 8 9]]
+
+buildNumber = n: makeDerivation {
+  name = "build-number-${n}";
+  env.envNumber = n;
+  builder = ''
+    echo "$envNumber"
+    touch "$out"
+  '';
+};
+in
+  makeDerivationParallel {
+    dependencies = builtins.map buildNumber (inputs.nixpkgs.lib.lists.elemAt myChunks 0);
+    name = "build-numbers-0";
+  }
+```
+
 #### calculateCvss3
 
 Calculate [CVSS3][cvss3]
@@ -5245,6 +5288,34 @@ $ m . /example
     mSjLja2l8YqKkXqV6P3R6wVLMvCoCao=
     -----END PRIVATE KEY-----
 
+```
+
+#### sublist
+
+Return a sublist of a given list using a starting and an ending index.
+
+Types:
+
+- sublist (`function list, ints.positive, ints.positive -> listOf Any`):
+
+  - (`list`):
+    List to get sublist from.
+  - (`ints.positive`):
+    Starting list index.
+  - (`ints.positive`):
+    Ending list index.
+
+Example:
+
+```nix
+{
+  sublist,
+}: let
+  list = [0 1 2 3 4 5 6 7 8 9];
+  sublist = sublist list 3 5; # [3 4]
+in {
+  inherit sublist;
+}
 ```
 
 # Migrating to Makes
