@@ -6,15 +6,15 @@
 }: {
   name,
   ruby,
-  rubyGems,
   searchPathsBuild ? {},
   searchPathsRuntime ? {},
+  sourcesYaml,
 }: let
   installation = makeRubyGemsInstall {
     inherit name;
     inherit ruby;
-    inherit rubyGems;
     searchPaths = searchPathsBuild;
+    inherit sourcesYaml;
   };
 in
   makeSearchPaths {

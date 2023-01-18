@@ -3907,15 +3907,13 @@ Fetch a [Ruby][ruby] gem from [Ruby community’s gem hosting service][rubygems]
 Types:
 
 - fetchRubyGem (`function { ... } -> package`):
-  - name (`str`):
-    Name of the gem to download.
-  - version (`str`):
-    Version of the gem to download.
   - sha256 (`str`):
     SHA256 of the expected output,
     In order to get the SHA256
     you can omit this parameter and execute Makes,
     Makes will tell you the correct SHA256 on failure.
+  - url (`str`):
+    url of the gem to download.
 
 Example:
 
@@ -3925,9 +3923,8 @@ Example:
 , ...
 }:
 fetchRubyGem {
-  name = "slim";
-  version = "4.1.0";
-  sha256 = "0gjx30g84c82qzg32bd7giscvb4206v7mvg56kc839w9wjagn36n";
+  sha256 = "04nc8x27hlzlrr5c2gn7mar4vdr0apw5xg22wp6m8dx3wqr04a0y";
+  url = "https://rubygems.org/downloads/ast-2.4.2.gem";
 }
 ```
 
@@ -4431,6 +4428,8 @@ $ m . /example
 Fetch and install the specified [Ruby][ruby] gems
 from the [Ruby community’s gem hosting service][rubygems].
 
+Pre-requisites: [Generating a sourcesYaml](#makerubylock)
+
 Types:
 
 - makeRubyGemsInstall (`function { ... } -> package`):
@@ -4439,11 +4438,12 @@ Types:
     Custom name to assign to the build step, be creative, it helps in debugging.
   - ruby (`enum [ "2.7" "3.0" ]`):
     Version of the [Ruby][ruby] interpreter.
-  - rubyGems (`listOf (asIn fetchRubyGem)`):
-    Ruby gems specification that should be fetched and installed.
   - searchPaths (`asIn makeSearchPaths`): Optional.
     Arguments here will be passed as-is to `makeSearchPaths`.
     Defaults to `makeSearchPaths`'s defaults.
+  - sourcesYaml (`package`):
+    `sources.yaml` file
+    computed as explained in the pre-requisites section.
 
 Example:
 
@@ -4455,23 +4455,7 @@ Example:
 makeRubyGemsInstall {
   name = "example";
   ruby = "3.0";
-  rubyGems = [
-    {
-      name = "tilt";
-      version = "2.0.10";
-      sha256 = "0rn8z8hda4h41a64l0zhkiwz2vxw9b1nb70gl37h1dg2k874yrlv";
-    }
-    {
-      name = "slim";
-      version = "4.1.0";
-      sha256 = "0gjx30g84c82qzg32bd7giscvb4206v7mvg56kc839w9wjagn36n";
-    }
-    {
-      name = "temple";
-      version = "0.8.2";
-      sha256 = "060zzj7c2kicdfk6cpnn40n9yjnhfrr13d0rsbdhdij68chp2861";
-    }
-  ];
+  sourcesYaml = projectPath "/makes/example/sources.yaml";
 }
 ```
 
@@ -4481,6 +4465,8 @@ Create an environment where the specified [Ruby][ruby] gems
 from the [Ruby community’s gem hosting service][rubygems]
 are available.
 
+Pre-requisites: [Generating a sourcesYaml](#makerubylock)
+
 Types:
 
 - makeRubyGemsEnvironment (`function { ... } -> package`):
@@ -4489,8 +4475,6 @@ Types:
     Custom name to assign to the build step, be creative, it helps in debugging.
   - ruby (`enum [ "2.7" "3.0" ]`):
     Version of the [Ruby][ruby] interpreter.
-  - rubyGems (`listOf (asIn fetchRubyGem)`):
-    Ruby gems specification that should be fetched and installed.
   - searchPathsBuild (`asIn makeSearchPaths`): Optional.
     Arguments here will be passed as-is to `makeSearchPaths`
     and used while installing gems.
@@ -4499,6 +4483,9 @@ Types:
     Arguments here will be passed as-is to `makeSearchPaths`
     and propagated to the runtime environment.
     Defaults to `makeSearchPaths`'s defaults.
+  - sourcesYaml (`package`):
+    `sources.yaml` file
+    computed as explained in the pre-requisites section.
 
 Example:
 
@@ -4513,25 +4500,9 @@ let
   env = makeRubyGemsEnvironment {
     name = "example";
     ruby = "3.0";
-    rubyGems = [
-      {
-        name = "slim";
-        sha256 = "0gjx30g84c82qzg32bd7giscvb4206v7mvg56kc839w9wjagn36n";
-        version = "4.1.0";
-      }
-      {
-        name = "temple";
-        sha256 = "060zzj7c2kicdfk6cpnn40n9yjnhfrr13d0rsbdhdij68chp2861";
-        version = "0.8.2";
-      }
-      {
-        name = "tilt";
-        sha256 = "0rn8z8hda4h41a64l0zhkiwz2vxw9b1nb70gl37h1dg2k874yrlv";
-        version = "2.0.10";
-      }
-    ];
     searchPathsBuild.bin = [ inputs.nixpkgs.gcc ];
     searchPathsRuntime.rpath = [ inputs.nixpkgs.gcc.cc.lib ];
+    sourcesYaml = projectPath "/makes/example/sources.yaml";
   };
 in
 makeScript {
