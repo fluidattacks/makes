@@ -276,6 +276,7 @@ Real life projects that run entirely on [Makes][makes]:
   - [Utilities](#utilities)
     - [makeNodeJsLock](#makenodejslock)
     - [makePythonLock](#makepythonlock)
+    - [makeRubyLock](#makerubylock)
     - [makeSopsEncryptedFile](#makesopsencryptedfile)
     - [workspaceForTerraformFromEnv](#workspaceforterraformfromenv)
   - [Framework Configuration](#framework-configuration)
@@ -604,7 +605,7 @@ for instance:
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
     ref = "refs/tags/22.11";
-    rev = ""  # Add a commit here
+    rev = ""; # Add a commit here
   };
 }
 ```
@@ -2666,6 +2667,33 @@ psycopg2: "2.9.1"
 - `sources_yaml` is the **absolute path**
   to a file were the script will output results.
 
+### makeRubyLock
+
+You can generate a `sourcesYaml`
+for [makeRubyGemsEnvironment](#makerubygemsenvironment)
+like this:
+
+```bash
+m github:fluidattacks/makes@22.11 /utils/makeRubyLock \
+  "${ruby_version}" \
+  "${dependencies_yaml}" \
+  "${sources_yaml}"
+```
+
+- Supported `ruby_version`s are: `2.7`, `3.0` and `3.1`.
+- `dependencies_yaml` is the **absolute path** to a [YAML][yaml] file
+  mapping [RubyGems][rubygems] gems to version constraints.
+
+Example:
+
+```yaml
+rubocop: "1.43.0"
+slim: "~> 4.1"
+```
+
+- `sources_yaml` is the **absolute path**
+  to a file were the script will output results.
+
 ### makeSopsEncryptedFile
 
 You can generate an encrypted [Sops][sops] file like this:
@@ -4370,7 +4398,7 @@ Types:
 
 - makeRubyVersion (`function str -> package`):
 
-  - (`enum [ "2.6" "2.7" "3.0" ]`):
+  - (`enum [ "2.7" "3.0" "3.1" ]`):
     Version of the [Ruby][ruby] interpreter.
 
 Example:
@@ -4387,7 +4415,7 @@ makeScript {
   '';
   name = "example";
   searchPaths = {
-    bin = [ (makeRubyVersion "2.6") ];
+    bin = [ (makeRubyVersion "2.7") ];
   };
 }
 ```
@@ -5332,7 +5360,7 @@ let
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
     ref = "refs/tags/22.11";
-    rev = ""  # Add a commit here
+    rev = ""; # Add a commit here
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
