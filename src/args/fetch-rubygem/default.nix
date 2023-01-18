@@ -3,11 +3,11 @@
   fetchUrl,
   ...
 }: {
-  name,
   sha256 ? fakeSha256,
-  version,
+  url,
+  ...
 }:
 fetchUrl {
-  url = "https://rubygems.org/downloads/${name}-${version}.gem";
   inherit sha256;
+  inherit url;
 }

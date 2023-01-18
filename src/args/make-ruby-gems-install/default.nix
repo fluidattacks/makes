@@ -1,6 +1,7 @@
 {
   __nixpkgs__,
   fetchRubyGem,
+  fromYamlFile,
   makeDerivation,
   makeRubyVersion,
   makeSearchPaths,
@@ -10,9 +11,10 @@
 }: {
   name,
   ruby,
-  rubyGems,
   searchPaths ? {},
+  sourcesYaml,
 }: let
+  sources = fromYamlFile sourcesYaml;
   gems =
     builtins.map
     (
@@ -23,9 +25,9 @@
         path = gem;
       }
     )
-    rubyGems;
+    sources.links;
 
-  gemsSpec = builtins.map (gem: "${gem.name}:${gem.version}") rubyGems;
+  gemsSpec = __nixpkgs__.lib.attrsets.mapAttrsToList (name: version: "${name}:${version}") sources.closure;
 in
   makeDerivation {
     builder = ./builder.sh;
