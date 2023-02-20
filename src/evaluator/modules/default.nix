@@ -10,6 +10,7 @@
 } @ args: {
   imports = [
     (import ./cache/default.nix args)
+    (import ./cache-with-attic/default.nix args)
     (import ./calculate-scorecard/default.nix args)
     (import ./compute-on-aws-batch/default.nix args)
     (import ./dev/default.nix args)
