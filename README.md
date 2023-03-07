@@ -595,14 +595,14 @@ the framework itself, and the CLI (a.k.a. `$ m`).
 
 Stable releases are the ones that **do not have** the `Pre-release` label.
 they are frozen.
-We don't touch it under any circumstances.
+We don't touch them under any circumstances.
 
 ### Unstable releases
 
 Unstable releases are the ones
-that **have** the `Pre-release` label.
-These releases have the latest Makes features
-but can also have unexpected behavior.
+that **do have** the `Pre-release` label.
+These releases have the latest [Makes][makes] features
+but can also come with breaking changes or bugs.
 
 ### Versioning scheme for the framework
 
