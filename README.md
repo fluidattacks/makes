@@ -2120,24 +2120,22 @@ and optionally a [Cachix][cachix] cache for reading and writting.
 Types:
 
 - cache:
+  - extra: (attrsOf (cacheExtra))
   - readNixos (`bool`): Optional.
     Set to `true` in order to add https://cache.nixos.org as a read cache.
     Defaults to `true`.
-  - readExtra (`listOf readCacheType`): Optional.
-    Extra caches to read, if any.
-    Defaults to `[ ]`.
-  - readAndWrite:
-    - enable (`boolean`): Optional.
-      Defaults to `false`.
-    - name (`str`):
-      Name of the [Cachix][cachix] cache.
-    - pubKey (`str`):
-      Public key of the [Cachix][cachix] cache.
-- readCacheType (`submodule`):
+- cacheExtra:
+  - enable (`str`): Read from cache.
+    is read on the server.
+  - pubKey (`str`): Public key of the cache server.
+  - token (`str`): The name of the environment variable that contains the
+    token to push the cache.
+  - type: (`enum [cachix | attic]`): Binary cache type.
+    Can be [Cachix](https://docs.cachix.org/)
+    or [Attic](https://docs.attic.rs/introduction.html).
   - url (`str`):
     URL of the cache.
-  - pubKey (`str`):
-    Public key of the cache.
+  - write (`bool`): Enable pushing derivations to the cache. Requires `token`.
 
 Required environment variables:
 
@@ -2153,20 +2151,23 @@ Example `makes.nix`:
 {
   cache = {
     readNixos = true;
-    readExtra = [
-      {
-        url = "https://example.com";
-        pubKey = "example.example.org-1:123...";
-      }
-      {
-        url = "https://example2.com";
-        pubKey = "example2.example2.org-1:123...";
-      }
-    ];
-    readAndWrite = {
-      enable = true;
-      name = "makes";
-      pubKey = "makes.cachix.org-1:HbCQcdlYyT/mYuOx6rlgkNkonTGUjVr3D+YpuGRmO+Y=";
+    extra = {
+      local = {
+        enable = true;
+        pubKey = "local:nKOS5sOc0MKPoBJZmY4qWjbcXvoJFaO2S/zN6aUztII=";
+        token = "ATTIC_AUTH_TOKEN";
+        type = "attic";
+        url = "http://192.168.1.8:8085/local?priority=1";
+        write = true;
+      };
+      main = {
+        enable = true;
+        pubKey = "makes.cachix.org-1:zO7UjWLTRR8Vfzkgsu1PESjmb6ymy1e4OE9YfMmCQR4=";
+        token = "CACHIX_AUTH_TOKEN";
+        type = "nixos";
+        url = "https://makes.cachix.org?priority=2";
+        write = true;
+      };
     };
   };
 }

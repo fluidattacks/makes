@@ -12,6 +12,7 @@ makeSearchPaths {
     __nixpkgs__.gzip
     __nixpkgs__.nixStable
     __nixpkgs__.openssh
+    # it is necessary to inject the attic client
   ];
   source = [
     outputs."/cli/env/runtime/pypi"

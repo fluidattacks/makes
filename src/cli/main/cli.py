@@ -10,7 +10,6 @@ from hashlib import (
 )
 import io
 import json
-import operator
 import os
 from os import (
     environ,
@@ -265,6 +264,41 @@ def _clone_src_cache_refresh(head: str, cache_key: str) -> None:
         shutil.copytree(head, cached)
 
 
+def _attic_login(caches: List[Dict[str, Any]]) -> None:
+    for config in caches:
+        if config["type"] == "attic" and config["token"] in environ:
+            _run(
+                args=[
+                    "attic",
+                    "login",
+                    "local",
+                    config["url"],
+                    environ[config["token"]],
+                ],
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
+            _run(
+                args=[
+                    "attic",
+                    "cache",
+                    "create",
+                    config["name"],
+                ],
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
+            _run(
+                args=[
+                    "attic",
+                    "use",
+                    config["name"],
+                ],
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
+
+
 def _nix_build(
     *,
     attr: str,
@@ -278,9 +312,21 @@ def _nix_build(
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         )
     else:
-        substituters = " ".join(map(operator.itemgetter("url"), cache))
-        trusted_pub_keys = " ".join(map(operator.itemgetter("pubKey"), cache))
-
+        _attic_login(cache)
+        substituters = " ".join(
+            [
+                item["url"]
+                for item in cache
+                if "url" in item and "pubKey" in item and item["url"]
+            ]
+        )
+        trusted_pub_keys = " ".join(
+            [
+                item["pubKey"]
+                for item in cache
+                if "url" in item and "pubKey" in item and item["pubKey"]
+            ]
+        )
     return [
         *_if(NIX_STABLE, f"{__NIX_STABLE__}/bin/nix-build"),
         *_if(not NIX_STABLE, f"{__NIX_UNSTABLE__}/bin/nix"),
@@ -642,18 +688,55 @@ def execute_action(args: List[str], head: str, out: str) -> None:
 
 
 def cache_push(cache: List[Dict[str, str]], out: str) -> None:
-    once: bool = True
-    for config in cache:
-        if config["type"] == "cachix" and "CACHIX_AUTH_TOKEN" in environ:
-            if once:
-                CON.rule("Pushing to cache")
-                once = False
+    once = True
+    for config in [item for item in cache if item.get("token", "") in environ]:
+        if once:
+            CON.rule("Pushing to cache")
+            once = False
+        if config["type"] in "cachix":
+            _run(
+                args=["cachix", "authtoken", environ[config["token"]]],
+                stderr=None,
+                stdout=sys.stderr.fileno(),
+            )
             _run(
                 args=["cachix", "push", "-c", "0", config["name"], out],
                 stderr=None,
                 stdout=sys.stderr.fileno(),
             )
-            return
+        elif config["type"] == "attic":
+            _run(
+                args=[
+                    "attic",
+                    "login",
+                    "local",
+                    config["url"],
+                    environ[config["token"]],
+                ],
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
+            _run(
+                args=[
+                    "attic",
+                    "cache",
+                    "create",
+                    config["name"],
+                ],
+                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+            )
+            _run(
+                args=[
+                    "attic",
+                    "push",
+                    "--ignore-upstream-cache-filter",
+                    config["name"],
+                    out,
+                ],
+                stderr=sys.stderr.fileno(),
+                stdout=sys.stderr.fileno(),
+            )
 
 
 def _get_sys_id() -> str:

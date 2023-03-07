@@ -5,27 +5,31 @@
 }: {
   options = {
     cache = {
-      readAndWrite = {
-        enable = lib.mkOption {
-          default = false;
-          type = lib.types.bool;
-        };
-        name = lib.mkOption {
-          type = lib.types.str;
-        };
-        pubKey = lib.mkOption {
-          type = lib.types.str;
-        };
-      };
-      readExtra = lib.mkOption {
-        default = [];
-        type = lib.types.listOf (lib.types.submodule (_: {
+      extra = lib.mkOption {
+        default = {};
+        type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            enable = lib.mkOption {
+              default = false;
+              type = lib.types.bool;
+            };
             pubKey = lib.mkOption {
+              default = "";
               type = lib.types.str;
+            };
+            token = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
+            type = lib.mkOption {
+              type = lib.types.enum ["cachix"];
             };
             url = lib.mkOption {
               type = lib.types.str;
+            };
+            write = lib.mkOption {
+              default = false;
+              type = lib.types.bool;
             };
           };
         }));
@@ -44,19 +48,19 @@
           pubKey = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
           type = "other";
         })
-        (listOptional config.cache.readAndWrite.enable {
-          name = config.cache.readAndWrite.name;
-          url = "https://${config.cache.readAndWrite.name}.cachix.org/";
-          pubKey = config.cache.readAndWrite.pubKey;
-          type = "cachix";
-        })
-        (builtins.map
-          (cache: {
-            inherit (cache) url;
-            inherit (cache) pubKey;
-            type = "other";
-          })
-          config.cache.readExtra)
+        (
+          builtins.filter
+          (cache: cache.enable)
+          (builtins.map (name: {
+            inherit (config.cache.extra.${name}) enable;
+            inherit (config.cache.extra.${name}) pubKey;
+            inherit (config.cache.extra.${name}) token;
+            inherit (config.cache.extra.${name}) type;
+            inherit (config.cache.extra.${name}) url;
+            inherit (config.cache.extra.${name}) write;
+            inherit name;
+          }) (builtins.attrNames config.cache.extra))
+        )
       ];
     };
   };
