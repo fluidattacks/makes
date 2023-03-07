@@ -3,6 +3,8 @@
 A software supply chain framework
 powered by [Nix][nix].
 
+![Makes example](/static/makes.svg "Makes example")
+
 Ever needed to run applications locally
 to try out your code?
 Execute CI/CD pipelines locally
@@ -22,11 +24,6 @@ runs on Docker, VMs and any Linux-based OS,
 can be installed with just one command,
 and can be extended to work with any technology.
 
-The goal of [Makes][makes] is to provide
-an immutable software supply chain
-while keeping technical implementation
-as simple as possible.
-
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5703/badge)](https://bestpractices.coreinfrastructure.org/projects/5703)
 ![Linux](https://img.shields.io/badge/Linux-blue)
 ![MacOS](https://img.shields.io/badge/MacOS-blue)
@@ -41,180 +38,42 @@ as simple as possible.
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/fluidattacks/makes?color=blueviolet&label=Commits&labelColor=blueviolet)
 ![Contributors](https://img.shields.io/github/contributors/fluidattacks/makes?color=blueviolet&label=Contributors&labelColor=blueviolet)
 
+## Goal
+
+The goal of [Makes][makes] is to provide
+an immutable software supply chain
+while keeping technical implementation
+as simple as possible.
+
+- :star2: Simplicity: Easy setup with:
+  a laptop, or
+  [Docker][docker], or
+  [GitHub Actions][github_actions], or
+  [GitLab CI][gitlab_ci], or
+  [Travis CI][travis_ci], or
+  [Circle CI][circle_ci],
+  and more!
+- :beers: Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
+- :dancers: Reproducibility: **Any member** of your team
+  builds and get **exactly the same results**.
+- :woman_technologist: Dev environments:
+  **Any member** of your team
+  with the required secrets
+  **can execute the entire CI/CD pipeline**.
+- :horse_racing: Performance:
+  A highly granular **caching** system
+  so you only have to **build things once**.
+- :shipit: Extendibility: You can add custom workflows, easily.
+
 ## Want to get your hands dirty?
 
 Jump right into our [hands-on example](https://github.com/fluidattacks/makes-example)!
-
-## At a glance
-
-### Cloud native applications with Kubernetes ☸
-
-This is how easy it is to deploy an application
-built with [Makes][makes] into [Kubernetes][kubernetes]:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-spec:
-  template:
-    spec:
-      containers:
-        - name: example
-          image: ghcr.io/fluidattacks/makes:23.04
-          command: [m]
-          args:
-            - github:fluidattacks/makes@main
-            - /helloWorld
-```
-
-### Large scale computing on the cloud 🏋
-
-Not a problem!
-
-This is how running [Makes][makes]
-on [AWS Batch][aws_batch] looks like:
-
-```nix
-{ outputs
-, ...
-}:
-{
-  computeOnAwsBatch = {
-    helloWorld = {
-      attemptDurationSeconds = 43200;
-      command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
-      definition = "makes";
-      environment = [ "ENV_VAR_FOR_MY_JOB" ];
-      memory = 1800;
-      queue = "ec2_spot";
-      setup = [
-        # Use default authentication for AWS
-        outputs."/secretsForAwsFromEnv/__default__"
-      ];
-      vcpus = 1;
-    };
-  };
-}
-```
-
-### Declarative infra, declarative CI/CD, pure profit
-
-This is how creating a [CI/CD][ci_cd] pipeline
-for deploying infrastructure with [Terraform][terraform]
-and [Makes][makes] looks like:
-
-```nix
-# /path/to/my/project/makes.nix
-{ outputs
-, ...
-}:
-{
-  # Authenticate securely 🛡 through environment variables
-  secretsForTerraformFromEnv = {
-    myAwesomeMicroService = {
-      githubToken = "ENV_VAR_FOR_GITHUB_API_TOKEN";
-      salesforceApiToken = "ENV_VAR_FOR_SALESFORCE_API_TOKEN";
-    };
-  };
-
-  # Authenticate securely 🛡 to AWS with environment variables
-  secretsForAwsFromEnv = {
-    myAwesomeMicroService = {
-      accessKeyId = "ENV_VAR_FOR_MY_APP_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "ENV_VAR_FOR_MY_APP_AWS_SECRET_ACCESS_KEY";
-    };
-  };
-
-  # Deploy to production 🚀 !!
-  deployTerraform = {
-    modules = {
-      myAwesomeMicroService = {
-        setup = [
-          outputs."/secretsForTerraformFromEnv/myAwesomeMicroService"
-          outputs."/secretsForAwsFromEnv/myAwesomeMicroService"
-        ];
-        src = "/infra/microServices/myAwesomeMicroService";
-        version = "0.14";
-      };
-    };
-  };
-}
-```
-
-Easy, isn't it?
-
-Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
-
-```text
-Makes v23.04-linux
-
-[INFO] Making environment variables for Terraform for myAwesomeMicroService:
-[INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
-[INFO] - TF_VAR_salesforceApiToken from SALESFORCE_API_TOKEN
-
-[INFO] Making secrets for AWS from environment variables for myAwesomeMicroService:
-[INFO] - AWS_ACCESS_KEY_ID from MAKES_PROD_AWS_ACCESS_KEY_ID
-[INFO] - AWS_CONFIG_FILE=/tmp/tmp.mSVQ2KvnaB
-[INFO] - AWS_DEFAULT_REGION=us-east-1
-[INFO] - AWS_SECRET_ACCESS_KEY from MAKES_PROD_AWS_SECRET_ACCESS_KEY
-[INFO] - AWS_SESSION_TOKEN from AWS_SESSION_TOKEN
-[INFO] - AWS_SHARED_CREDENTIALS_FILE=/tmp/tmp.ZMLtadaKhZ
-
-[INFO] Initializing /nix/store/lwcrnykdfidang01ahnpwa8ylh1ihwxs-infra
-
-Initializing the backend...
-...
-
-Initializing provider plugins...
-- Installed hashicorp/aws v3.23.0 (signed by HashiCorp)
-...
-
-Terraform has been successfully initialized!
-...
-
-Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
-```
-
-Live demo: [here](https://asciinema.org/a/479680)
-
-### From dev to prod 🌟
-
-This is how your final users are going to interact
-with applications packaged with [Makes][makes]:
-
-`$ m github:org/repo@branch /yourAwesomeApplication arg1 arg2 ...`
-
-And how your developers are going to develop `yourAwesomeApplication` locally:
-
-`$ m . /yourAwesomeApplication arg1 arg2 ...`
-
-It works on dev, it works on prod, :100:% reproducibility!
-
-## Production ready
-
-Yes, [Makes][makes] is production ready.
-
-Real life projects that run entirely on [Makes][makes]:
-
-- [Fluid Attacks][fluid_attacks] monorepo:
-  https://gitlab.com/fluidattacks/product
-
-### Demos
-
-- Running Makes on GitHub Actions:
-  click [here](/static/makes_on_github_actions.png)
-- Running Makes GitLab:
-  click [here](/static/makes_on_gitlab.png)
-- Makes CLI:
-  click [here](https://asciinema.org/a/478175)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 # Contents
 
-- [Why](#why)
-- [Goal](#goal)
 - [Getting started](#getting-started)
   - [Getting started as a final user](#getting-started-as-a-final-user)
   - [Getting started as developer](#getting-started-as-developer)
@@ -345,133 +204,6 @@ Real life projects that run entirely on [Makes][makes]:
 - [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Why
-
-Designing a fast, reliable, reproducible, easy-to-use
-[CI/CD][ci_cd] system **is no easy task**.
-
-While there are free and paid tools in the market like:
-[Ansible][ansible],
-[APT][apt],
-[Apache Ant][apache_ant],
-[Apache Maven][apache_maven],
-[Buck][buck],
-[Chef][chef],
-[Docker][docker],
-[Gradle][gradle],
-[Grunt][grunt],
-[Gulp][gulp],
-[Maven][apache_maven],
-[GNU Make][gnu_make],
-[Leiningen][leiningen],
-[NPM][npm],
-[pip][pip],
-[Packer][packer],
-[Rake][rake],
-[RPM][rpm],
-[sbt][sbt],
-[SCons][scons],
-and
-[yum][yum]:
-
-1. Real world production systems are composed of several programming languages.
-
-   Tools normally focus only 1.
-
-1. Real world production systems contain hundreds of thousands of dependencies:
-
-   - Compilers
-   - Shared-Object libraries (.so)
-   - Runtime interpreters
-   - Configuration files
-   - Vendor artifacts
-   - Accounts / Credentials / Secrets
-
-   Tools normally cannot fetch, configure, or setup such dependencies
-   in an easy, automated, secure way.
-   They just build or install.
-
-1. Real world production systems have tens to hundreds of developers.
-   They work across the globe from different machines,
-   stacks and operative systems.
-
-   Tools normally cannot guarantee all of them
-   an exactly equal, comfortable developing environment.
-
-1. Real world production systems
-   have tens to thousands of production servers
-   that need to be deployed to.
-
-   Tools normally cover the: How to build? and not the: How to deploy?
-   (or the other way around).
-
-1. Real world production systems
-   are made of several micro-components
-   that one need to orchestrate correctly,
-   or fix sunday morning, instead of sharing with family :parasol_on_ground:.
-
-1. Real world production systems
-   need to be **reliable** and **100% available**.
-
-   But how with so much friction?
-
-You can use [Nix][nix] instead, which features:
-
-1. A single build-tool for everything
-
-1. Easy, powerful, modular and expressive dependency declaration.
-   From compilers to vendor artifacts.
-
-1. Guarantees each developer an **exact**,
-   [reproducible][reproducible_builds],
-   comfortable environment in which to build and run stuff.
-   Isolating as much as possible,
-   reducing a lot of bugs along the way.
-1. Defines a way for you to deploy software **perfectly**.
-
-1. And therefore helps you build **reliable** and **100% available** systems.
-
-So, if [Nix][nix] is that powerful: Why [Makes][makes], then?
-
-1. [Makes][makes] stands on the shoulders of [Nix][nix].
-
-1. [Makes][makes] is **specialized** on creating [CI/CD][ci_cd] systems
-   that deliver **reliable** software to your end-users.
-
-1. [Makes][makes] incorporates common workflows
-   for formatting, linting, building, testing, managing infrastructure as code
-   with [Terraform][terraform],
-   deploying to [Kubernetes][kubernetes] clusters,
-   creating development environments, etc.
-   You can enable such workflows in a few clicks,
-   with as little code as possible, in many providers.
-
-1. [Makes][makes] hides unnecessary boilerplate and complexity
-   so you can focus in the business:
-   **Adding value** to your **customers**, daily!
-
-# Goal
-
-- :star2: Simplicity: Easy setup with:
-  a laptop, or
-  [Docker][docker], or
-  [GitHub Actions][github_actions], or
-  [GitLab CI][gitlab_ci], or
-  [Travis CI][travis_ci], or
-  [Circle CI][circle_ci],
-  and more!
-- :beers: Sensible defaults: **Good for all** projects of any size, **out-of-the-box**.
-- :dancers: Reproducibility: **Any member** of your team
-  builds and get **exactly the same results**.
-- :woman_technologist: Dev environments:
-  **Any member** of your team
-  with the required secrets
-  **can execute the entire CI/CD pipeline**.
-- :horse_racing: Performance:
-  A highly granular **caching** system
-  so you only have to **build things once**.
-- :shipit: Extendibility: You can add custom workflows, easily.
 
 # Getting started
 
