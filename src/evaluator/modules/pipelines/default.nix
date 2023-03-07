@@ -92,7 +92,7 @@
     name = toJobName output args;
     value = attrsMerge [
       {
-        image = "ghcr.io/fluidattacks/makes:22.11";
+        image = "ghcr.io/fluidattacks/makes:23.04";
         interruptible = true;
         needs = [];
         script =

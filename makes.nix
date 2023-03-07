@@ -20,7 +20,7 @@
   };
   deployContainerImage = {
     images = {
-      makesGitHub = {
+      makesLatest = {
         attempts = 3;
         credentials = {
           token = "GITHUB_TOKEN";
@@ -28,7 +28,17 @@
         };
         registry = "ghcr.io";
         src = outputs."/container-image";
-        tag = "fluidattacks/makes:22.11";
+        tag = "fluidattacks/makes:latest";
+      };
+      makesPinned = {
+        attempts = 3;
+        credentials = {
+          token = "GITHUB_TOKEN";
+          user = "GITHUB_ACTOR";
+        };
+        registry = "ghcr.io";
+        src = outputs."/container-image";
+        tag = "fluidattacks/makes:23.04";
       };
     };
   };
@@ -176,7 +186,7 @@
   };
   pipelines = {
     example = {
-      gitlabPath = "/.gitlab-ci.yaml";
+      gitlabPath = "/test/pipelines/.gitlab-ci.yaml";
       jobs = [
         {
           output = "/lintNix";
