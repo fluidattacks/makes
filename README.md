@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
         - name: example
-          image: ghcr.io/fluidattacks/makes:22.11
+          image: ghcr.io/fluidattacks/makes:23.04
           command: [m]
           args:
             - github:fluidattacks/makes@main
@@ -146,7 +146,7 @@ Easy, isn't it?
 Now 🔥 it up with: `$ m . /deployTerraform/myAwesomeMicroService`
 
 ```text
-Makes v22.11-linux
+Makes v23.04-linux
 
 [INFO] Making environment variables for Terraform for myAwesomeMicroService:
 [INFO] - TF_VAR_githubToken from GITHUB_API_TOKEN
@@ -220,6 +220,8 @@ Real life projects that run entirely on [Makes][makes]:
   - [Getting started as developer](#getting-started-as-developer)
   - [Learning the language](#learning-the-language)
   - [Versioning scheme](#versioning-scheme)
+    - [Stable releases](#stable-releases)
+    - [Unstable releases](#unstable-releases)
     - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
     - [Compatibility information](#compatibility-information)
 - [Configuring CI/CD](#configuring-cicd)
@@ -497,10 +499,10 @@ In order to use Makes you'll need to:
 
 1. Install Makes by running:
 
-   `$ nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz`
+   `$ nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz`
 
    We will install two commands in your system:
-   `$ m`, and `$ m-v22.11`.
+   `$ m`, and `$ m-v23.04`.
 
 Makes targets two kind of users:
 
@@ -578,18 +580,29 @@ We highly recommend you the following resources:
 
 ## Versioning scheme
 
-We use [calendar versioning][calver].
+We use [calendar versioning][calver] for stable releases.
 
-You can assume that the current month release is stable,
-for instance: `21.01` (if today were January 2021).
-The stable version is frozen. We don't touch it under any circumstances.
+Versioning is the same for both GitHub tags and Containers.
 
-Development/unstable releases are tagged with the next month
-[calendar version][calver], for instance `21.02` (if today were January 2021).
-Please don't use unstable releases in production.
+You can find
+the full list of versions
+[here](https://github.com/fluidattacks/makes/releases).
 
 The [Makes][makes] ecosystem has two components:
 the framework itself, and the CLI (a.k.a. `$ m`).
+
+### Stable releases
+
+Stable releases are the ones that **do not have** the `Pre-release` label.
+they are frozen.
+We don't touch it under any circumstances.
+
+### Unstable releases
+
+Unstable releases are the ones
+that **have** the `Pre-release` label.
+These releases have the latest Makes features
+but can also have unexpected behavior.
 
 ### Versioning scheme for the framework
 
@@ -604,7 +617,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/22.11";
+    ref = "refs/tags/23.04";
     rev = ""; # Add a commit here
   };
 }
@@ -615,7 +628,7 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `22.11`.
+For example: `23.04`.
 
 # Configuring CI/CD
 
@@ -664,7 +677,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-      - uses: docker://ghcr.io/fluidattacks/makes:22.11
+      - uses: docker://ghcr.io/fluidattacks/makes:23.04
         # You can use any name you like here
         name: helloWorld
         # You can pass secrets (if required) as environment variables like this:
@@ -688,7 +701,7 @@ looks like this:
 ```yaml
 # /path/to/my/project/.gitlab-ci.yaml
 /helloWorld:
-  image: ghcr.io/fluidattacks/makes:22.11
+  image: ghcr.io/fluidattacks/makes:23.04
   script:
     - m . /helloWorld 1 2 3
 # Add more jobs here, you can copy paste /helloWorld and modify the `script`
@@ -712,7 +725,7 @@ looks like this:
 os: linux
 language: nix
 nix: 2.3.12
-install: nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz
+install: nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
 env:
   global:
     # Encrypted environment variable
@@ -1751,7 +1764,7 @@ Types:
         #
         # If you need to run jobs on different container images,
         # simply  create many `aws_batch_job_definition`s
-        image = "ghcr.io/fluidattacks/makes:22.11"
+        image = "ghcr.io/fluidattacks/makes:23.04"
 
         # Below arguments can be parametrized later,
         # but they are required for the job definition to be created
@@ -1924,7 +1937,7 @@ Example `makes.nix`:
 
 Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainerImage/nginxDockerHub`
 
-Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerImage/makesGitHub`
+Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerImage/makesLatest`
 
 Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainerImage/makesGitLab`
 
@@ -2627,7 +2640,7 @@ for [makeNodeJsEnvironment](#makenodejsenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.11 /utils/makeNodeJsLock \
+m github:fluidattacks/makes@23.04 /utils/makeNodeJsLock \
   "${node_js_version}" \
   "${package_json}" \
   "${package_lock}"
@@ -2647,7 +2660,7 @@ for [makePythonPypiEnvironment](#makepythonpypienvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.11 /utils/makePythonLock \
+m github:fluidattacks/makes@23.04 /utils/makePythonLock \
   "${python_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}"
@@ -2674,7 +2687,7 @@ for [makeRubyGemsEnvironment](#makerubygemsenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@22.11 /utils/makeRubyLock \
+m github:fluidattacks/makes@23.04 /utils/makeRubyLock \
   "${ruby_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}"
@@ -2699,7 +2712,7 @@ slim: "~> 4.1"
 You can generate an encrypted [Sops][sops] file like this:
 
 ```bash
-m github:fluidattacks/makes@22.11 /utils/makeSopsEncryptedFile \
+m github:fluidattacks/makes@23.04 /utils/makeSopsEncryptedFile \
   "${kms_key_arn}" \
   "${output}"
 ```
@@ -4343,7 +4356,7 @@ $ cat /path/to/my/project/makes/example/dependencies.yaml
 
   Django: "3.2.6"
 
-$ m github:fluidattacks/makes@22.11 /utils/makePythonLock \
+$ m github:fluidattacks/makes@23.04 /utils/makePythonLock \
     3.8 \
     /path/to/my/project/makes/example/dependencies.yaml \
     /path/to/my/project/makes/example/sources.yaml
@@ -5330,7 +5343,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/22.11";
+    ref = "refs/tags/23.04";
     rev = ""; # Add a commit here
   }}/src/args/agnostic.nix" { };
 in

@@ -2,7 +2,7 @@ concurrency:
   cancel-in-progress: true
   group: ${{ github.actor }}
 jobs:
-  deployContainerImage_makesGitHub:
+  deployContainerImage_makesLatest:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     steps:
@@ -13,8 +13,19 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           set-safe-directory: /github/workspace
-          args: sh -c "nix-env -if . && m . /deployContainerImage/makesGitHub"
-
+          args: sh -c "nix-env -if . && m . /deployContainerImage/makesLatest"
+  deployContainerImage_makesPinned:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /deployContainerImage/makesPinned"
   releaseGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
@@ -22,15 +33,27 @@ jobs:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
         with:
-          tag_name: "22.11"
+          tag_name: "latest"
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - uses: johnwbyrd/update-release@1d5ec4791e40507e5eca3b4dbf90f0b27e7e4979
         with:
           files: README.md
-          release: "22.11"
+          release: "latest"
           prerelease: true
-          tag: "22.11"
+          tag: "latest"
+          token: ${{ github.token }}
+      - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
+        with:
+          tag_name: "23.04"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - uses: johnwbyrd/update-release@1d5ec4791e40507e5eca3b4dbf90f0b27e7e4979
+        with:
+          files: README.md
+          release: "23.04"
+          prerelease: true
+          tag: "23.04"
           token: ${{ github.token }}
   linux_all:
     runs-on: ubuntu-latest
