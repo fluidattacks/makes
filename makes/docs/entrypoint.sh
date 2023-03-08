@@ -1,4 +1,7 @@
 # shellcheck shell=bash
 
-mdbook-mermaid install docs/
-mdbook build docs
+function main {
+  mkdocs build -f docs/mkdocs.yml
+}
+
+main "${@}"
