@@ -264,41 +264,6 @@ def _clone_src_cache_refresh(head: str, cache_key: str) -> None:
         shutil.copytree(head, cached)
 
 
-def _attic_login(caches: List[Dict[str, Any]]) -> None:
-    for config in caches:
-        if config["type"] == "attic" and config["token"] in environ:
-            _run(
-                args=[
-                    "attic",
-                    "login",
-                    "local",
-                    config["url"],
-                    environ[config["token"]],
-                ],
-                stderr=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-            )
-            _run(
-                args=[
-                    "attic",
-                    "cache",
-                    "create",
-                    config["name"],
-                ],
-                stderr=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-            )
-            _run(
-                args=[
-                    "attic",
-                    "use",
-                    config["name"],
-                ],
-                stderr=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-            )
-
-
 def _nix_build(
     *,
     attr: str,
@@ -312,7 +277,6 @@ def _nix_build(
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         )
     else:
-        _attic_login(cache)
         substituters = " ".join(
             [
                 item["url"]
@@ -702,39 +666,6 @@ def cache_push(cache: List[Dict[str, str]], out: str) -> None:
             _run(
                 args=["cachix", "push", "-c", "0", config["name"], out],
                 stderr=None,
-                stdout=sys.stderr.fileno(),
-            )
-        elif config["type"] == "attic":
-            _run(
-                args=[
-                    "attic",
-                    "login",
-                    "local",
-                    config["url"],
-                    environ[config["token"]],
-                ],
-                stderr=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-            )
-            _run(
-                args=[
-                    "attic",
-                    "cache",
-                    "create",
-                    config["name"],
-                ],
-                stderr=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-            )
-            _run(
-                args=[
-                    "attic",
-                    "push",
-                    "--ignore-upstream-cache-filter",
-                    config["name"],
-                    out,
-                ],
-                stderr=sys.stderr.fileno(),
                 stdout=sys.stderr.fileno(),
             )
 

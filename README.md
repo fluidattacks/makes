@@ -1789,9 +1789,8 @@ Types:
   - pubKey (`str`): Public key of the cache server.
   - token (`str`): The name of the environment variable that contains the
     token to push the cache.
-  - type: (`enum [cachix | attic]`): Binary cache type.
-    Can be [Cachix](https://docs.cachix.org/)
-    or [Attic](https://docs.attic.rs/introduction.html).
+  - type: (`enum [cachix]`): Binary cache type.
+    Can be [Cachix](https://docs.cachix.org/).
   - url (`str`):
     URL of the cache.
   - write (`bool`): Enable pushing derivations to the cache. Requires `token`.
@@ -1811,14 +1810,6 @@ Example `makes.nix`:
   cache = {
     readNixos = true;
     extra = {
-      local = {
-        enable = true;
-        pubKey = "local:nKOS5sOc0MKPoBJZmY4qWjbcXvoJFaO2S/zN6aUztII=";
-        token = "ATTIC_AUTH_TOKEN";
-        type = "attic";
-        url = "http://192.168.1.8:8085/local?priority=1";
-        write = true;
-      };
       main = {
         enable = true;
         pubKey = "makes.cachix.org-1:zO7UjWLTRR8Vfzkgsu1PESjmb6ymy1e4OE9YfMmCQR4=";
