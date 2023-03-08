@@ -65,30 +65,26 @@ as simple as possible.
   so you only have to **build things once**.
 - :shipit: Extendibility: You can add custom workflows, easily.
 
-## Want to get your hands dirty?
-
-Jump right into our [hands-on example](https://github.com/fluidattacks/makes-example)!
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 # Contents
 
 - [Getting started](#getting-started)
-  - [Getting started as a final user](#getting-started-as-a-final-user)
-  - [Getting started as developer](#getting-started-as-developer)
-  - [Learning the language](#learning-the-language)
-  - [Versioning scheme](#versioning-scheme)
-    - [Stable releases](#stable-releases)
-    - [Unstable releases](#unstable-releases)
-    - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
-    - [Compatibility information](#compatibility-information)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Want to get your hands dirty?](#want-to-get-your-hands-dirty)
+- [Versioning scheme](#versioning-scheme)
+  - [Stable releases](#stable-releases)
+  - [Unstable releases](#unstable-releases)
+  - [Versioning scheme for the framework](#versioning-scheme-for-the-framework)
+  - [Compatibility information](#compatibility-information)
 - [Configuring CI/CD](#configuring-cicd)
-  - [Providers comparison](#providers-comparison)
-    - [Configuring on GitHub Actions](#configuring-on-github-actions)
-    - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
-    - [Configuring on Travis CI](#configuring-on-travis-ci)
+  - [Configuring on GitHub Actions](#configuring-on-github-actions)
+  - [Configuring on GitLab CI/CD](#configuring-on-gitlab-cicd)
+  - [Configuring on Travis CI](#configuring-on-travis-ci)
   - [Configuring the cache](#configuring-the-cache)
+    - [Configuring trusted-users](#configuring-trusted-users)
 - [Makes.nix reference](#makesnix-reference)
   - [Development](#development)
     - [dev](#dev)
@@ -207,110 +203,54 @@ Jump right into our [hands-on example](https://github.com/fluidattacks/makes-exa
 
 # Getting started
 
-Makes is powered by [Nix][nix].
-This means that Makes is able to run
+## Installation
+
+1. [Install Nix][nix_download].
+   > **Note**
+   > We recommend getting the Single-user installation
+   > if you're new to [Nix][nix].
+1. Install [Makes][makes]:
+
+   ```bash
+   $ nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
+   ```
+
+## Usage
+
+The [Makes][makes] command has the following syntax:
+
+```bash
+$ m <repo> <job>
+```
+
+where:
+
+- `<repo>` is a GitHub, GitLab or local repository.
+- `<job>` is a [Makes][makes] job
+  that exists within the referenced repository.
+  If no job is specified,
+  [Makes][makes] displays all available jobs.
+
+You can try:
+
+- `$ m github:fluidattacks/makes@main`
+- `$ m github:fluidattacks/makes@main /helloWorld`
+- `$ m gitlab:fluidattacks/makes-example-2@main`
+- `$ m /path/to/local/repo`
+
+[Makes][makes] is powered by [Nix][nix].
+This means that it is able to run
 on any of the [Nix's supported platforms][nix_platforms].
 
 We have **thoroughly** tested it in
 [x86_64][x86_64] hardware architectures
 running Linux and MacOS (darwin) machines.
 
-In order to use Makes you'll need to:
+## Want to get your hands dirty?
 
-1. Make sure that Nix is installed on your system.
-   If it is not, please follow [this tutorial][nix_download].
+Jump right into our [hands-on example](https://github.com/fluidattacks/makes-example)!
 
-   If everything went well you should be able to run:
-
-   ```bash
-   $ nix --version
-   ```
-
-   Note: Makes is compatible with [Nix][nix] `2.9`.
-   We recomend using [Nix][nix] on its latest version
-
-1. Install Makes by running:
-
-   `$ nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz`
-
-   We will install two commands in your system:
-   `$ m`, and `$ m-v23.04`.
-
-Makes targets two kind of users:
-
-- Final users: People that want to use projects built with Makes.
-- Developers: People who develop projects with Makes.
-
-## Getting started as a final user
-
-1. List outputs of a [Makes] project:
-
-   - For GitHub [Makes][makes] projects, run:
-
-     `$ m github:owner/repo@rev`
-
-   - For GitLab [Makes][makes] projects, run:
-
-     `$ m gitlab:owner/repo@rev`
-
-1. Build and run an output: `$ m github:fluidattacks/makes@main /helloWorld 1 2 3`
-
-   ```
-   [INFO] Hello from Makes! Jane Doe.
-   [INFO] You called us with CLI arguments: [ 1 2 3 ].
-   ```
-
-## Getting started as developer
-
-1. Locate in the root of your project:
-
-   `$ cd /path/to/my/project`
-
-1. Create a configuration file named `makes.nix`
-   with the following contents:
-
-   ```nix
-   # /path/to/my/project/makes.nix
-   {
-     helloWorld = {
-       enable = true;
-       name = "Jane Doe";
-     };
-   }
-   ```
-
-   We have tens of [CI/CD][ci_cd] actions
-   that you can include in jour project as simple as this.
-
-1. Now run makes!
-
-   - List all available outputs: `$ m .`
-
-     ```txt
-     Outputs list for project: /path/to/my/project
-       /helloWorld
-     ```
-
-   - Build and run an output: `$ m . /helloWorld 1 2 3`
-
-     ```
-     [INFO] Hello from Makes! Jane Doe.
-     [INFO] You called us with CLI arguments: [ 1 2 3 ].
-     ```
-
-## Learning the language
-
-Most of [Makes][makes] syntax
-is written in [Bash][bash]
-and the [Nix][nix] expression language.
-We highly recommend you the following resources:
-
-- [Bash][bash]:
-  - [Shell Scripting Tutorial][bash_tutorial_shell_scripting]
-- [Nix][nix] Expression Language:
-  - [Nix Pills][nix_pills]
-
-## Versioning scheme
+# Versioning scheme
 
 We use [calendar versioning][calver] for stable releases.
 
@@ -323,20 +263,20 @@ the full list of versions
 The [Makes][makes] ecosystem has two components:
 the framework itself, and the CLI (a.k.a. `$ m`).
 
-### Stable releases
+## Stable releases
 
 Stable releases are the ones that **do not have** the `Pre-release` label.
 they are frozen.
 We don't touch them under any circumstances.
 
-### Unstable releases
+## Unstable releases
 
 Unstable releases are the ones
 that **do have** the `Pre-release` label.
 These releases have the latest [Makes][makes] features
 but can also come with breaking changes or bugs.
 
-### Versioning scheme for the framework
+## Versioning scheme for the framework
 
 You can ensure
 that your project is always evaluated
@@ -355,7 +295,7 @@ for instance:
 }
 ```
 
-### Compatibility information
+## Compatibility information
 
 For the whole ecosystem to work
 you need to use the **same version**
@@ -364,34 +304,7 @@ For example: `23.04`.
 
 # Configuring CI/CD
 
-## Providers comparison
-
-We've thoroughly tested these providers throughout the years,
-below is a small table that clearly expresses their trade-offs.
-
-| Provider                         | Easy   | Config | Scale  | SaaS   | Security |
-| -------------------------------- | ------ | ------ | ------ | ------ | -------- |
-| [GitHub Actions][github_actions] | :star: | :star: |        | :star: |          |
-| [GitLab CI/CD][gitlab_ci]        | :star: | :star: |        | :star: | :star:   |
-| [Travis CI][travis_ci]           |        |        | :star: | :star: | :star:   |
-
-If you are getting started in the world of [CI/CD][ci_cd]
-it's a good idea to try [GitHub Actions][github_actions].
-
-If you want **serious** security try [GitLab CI/CD][gitlab_ci].
-
-We didn't like [Travis CI][travis_ci]
-because managing encrypted secrets is ugly,
-and it does not support running custom container images.
-
-Notes:
-
-- By deploying multiple runner agents (bastions)
-  you can make of GitLab a highly scalable and cost-effective solution.
-
-  This is not the out-of-the box behavior.
-
-### Configuring on GitHub Actions
+## Configuring on GitHub Actions
 
 [GitHub Actions][github_actions]
 is configured through [workflow files][github_workflows]
@@ -421,7 +334,7 @@ jobs:
   # Add more jobs here, you can copy paste jobs.helloWorld and modify the `args`
 ```
 
-### Configuring on GitLab CI/CD
+## Configuring on GitLab CI/CD
 
 [GitLab CI/CD][gitlab_ci]
 is configured through a [.gitlab-ci.yaml][gitlab_ci_ref] file
@@ -443,7 +356,7 @@ Secrets can be propagated to Makes through [GitLab Variables][gitlab_vars],
 which are passed automatically to the running container
 as environment variables.
 
-### Configuring on Travis CI
+## Configuring on Travis CI
 
 [Travis CI][travis_ci]
 is configured through a [.travis.yml][travis_ci_ref] file
@@ -491,6 +404,20 @@ In order to do this:
    - Write access: `API token`.
    - Read access: `Public` or `Private`.
 1. Configure `makes.nix` as explained in the following sections
+
+### Configuring trusted-users
+
+If you decided to go
+with a Multi-user installation
+when installing Nix,
+you will have to take additional steps
+in order to make the cache work.
+
+As the Multi-user installation
+does not trust your user by default,
+you will have to add yourself
+to the `trusted-users` in the
+[Nix Configuration File][nix_conf].
 
 # Makes.nix reference
 
@@ -5292,6 +5219,8 @@ Project leaders:
   [MYPYPATH Environment Variable][mypypath]
 - [nix]: https://nixos.org
   [Nix][nix]
+- [nix_conf]: https://www.mankier.com/5/nix.conf
+  [Nix Configuration File][nix_conf]
 - [nix_derivation]: https://nixos.org/manual/nix/unstable/expressions/derivations.html
   [Nix Derivation][nix_derivation]
 - [nix_download]: https://nixos.org/download
