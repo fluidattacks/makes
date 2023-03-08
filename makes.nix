@@ -63,8 +63,6 @@
     makes = {
       bin = [
         inputs.nixpkgs.just
-        inputs.nixpkgs.mdbook
-        inputs.nixpkgs.mdbook-mermaid
         inputs.nixpkgs.reuse
       ];
       source = [outputs."/cli/env/runtime"];

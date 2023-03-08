@@ -1,0 +1,18 @@
+site_name: Makes Documentation
+site_url: https://fluidattacks.github.io/makes/
+site_description: Documentation for Makes
+site_author: Fluid Attacks
+repo_url: https://github.com/fluidattacks/makes
+repo_name: Makes
+copyright: Copyright © 2023 Fluid Attacks, We hack your software. All rights reserved.
+
+docs_dir: src
+strict: true
+theme:
+  name: material
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
