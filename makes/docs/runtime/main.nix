@@ -5,7 +5,10 @@
   ...
 }:
 makeSearchPaths {
-  bin = [inputs.nixpkgs.mkdocs];
+  bin = [
+    inputs.nixpkgs.git
+    inputs.nixpkgs.mkdocs
+  ];
   source = [
     (makePythonPypiEnvironment {
       name = "docs-runtime-pypi";
