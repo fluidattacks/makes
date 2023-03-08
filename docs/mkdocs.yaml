@@ -6,8 +6,8 @@ repo_url: https://github.com/fluidattacks/makes
 repo_name: Makes
 copyright: Copyright © 2023 Fluid Attacks, We hack your software. All rights reserved.
 
-docs_dir: src
 strict: true
+docs_dir: src
 theme:
   name: material
 markdown_extensions:
