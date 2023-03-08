@@ -1,4 +1,4 @@
-site_name: Makes Documentation
+site_name: 🦄 Makes
 site_url: https://fluidattacks.github.io/makes/
 site_description: Documentation for Makes
 site_author: Fluid Attacks
@@ -6,10 +6,27 @@ repo_url: https://github.com/fluidattacks/makes
 repo_name: Makes
 copyright: Copyright © 2023 Fluid Attacks, We hack your software. All rights reserved.
 
+nav:
+  - index.md
+  - configuring-ci-cd.md
+  - versioning.md
+  - architecture.md
+  - contributing.md
+  - governance.md
+  - Security:
+      - security/introduction.md
+      - security/assurance.md
+      - security/design-principles.md
+      - security/slsa.md
+      - security/threat-model.md
+
 strict: true
 docs_dir: src
 theme:
   name: material
+  features:
+    - content.code.copy
+    - navigation.instant
 markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
