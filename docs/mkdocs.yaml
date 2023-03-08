@@ -8,7 +8,6 @@ copyright: Copyright © 2023 Fluid Attacks, We hack your software. All rights re
 
 strict: true
 docs_dir: src
-remote_branch: docs
 theme:
   name: material
 markdown_extensions:
