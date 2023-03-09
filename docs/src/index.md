@@ -1,49 +1,37 @@
-# Getting started
+# Overview
 
-## Installation
+A software supply chain framework
+powered by [Nix](https://nixos.org/).
 
-1. [Install Nix](https://nixos.org/download).
-   > **Note**
-   > We recommend getting the Single-user installation
-   > if you're new to Nix.
-1. Install Makes:
+![Makes demo](assets/demo.svg "Makes demo")
 
-   ```bash
-   $ nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
-   ```
+## Why
 
-## Usage
+Ever needed to
 
-The Makes command has the following syntax:
+- run applications locally
+  to try out your code?
+- Execute CI/CD pipelines locally
+  to make sure jobs are being passed?
+- Keep execution environments frozen
+  for strict dependency control
+  against supply chain attacks?
+- Know the exact dependency tree of your application?
 
-```bash
-$ m <repo> <job>
-```
+Well, we have!
 
-where:
+## What
 
-- `<repo>` is a GitHub, GitLab or local repository.
-- `<job>` is a Makes job
-  that exists within the referenced repository.
-  If no job is specified,
-  Makes displays all available jobs.
+Makes is an open-source, production-ready framework
+for building CI/CD pipelines
+and application environments.
 
-You can try:
+It is
 
-- `$ m github:fluidattacks/makes@main`
-- `$ m github:fluidattacks/makes@main /helloWorld`
-- `$ m gitlab:fluidattacks/makes-example-2@main`
-- `$ m /path/to/local/repo`
-
-Makes is powered by [Nix](https://nixos.org).
-This means that it is able to run
-on any of the
-[Nix's supported platforms](https://nixos.org/manual/nix/unstable/installation/supported-platforms.html).
-
-We have **thoroughly** tested it in
-x86_64 hardware architectures
-running Linux and MacOS (darwin) machines.
-
-## Want to get your hands dirty?
-
-Jump right into our [hands-on example](https://github.com/fluidattacks/makes-example)!
+| Attribute                                                                                         | Description                                                                      |
+| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| [<img src="https://img.shields.io/badge/attr-secure-brightgreen.svg" alt="secure">](#secure)      | Cryptographically signed dependencies for apps and CI/CD pipelines               |
+| [<img src="https://img.shields.io/badge/attr-easy-orange.svg" alt="easy">](#easy)                 | Can be installed with just one command and has dozens of generic CI/CD builtins. |
+| [<img src="https://img.shields.io/badge/attr-fast-blueviolet.svg" alt="fast">](#fast)             | Supports a distributed and completely granular cache.                            |
+| [<img src="https://img.shields.io/badge/attr-portable-violet.svg" alt="portable">](#portable)     | Runs on Docker, VMs, and any Linux-based OS.                                     |
+| [<img src="https://img.shields.io/badge/attr-extensible-blue.svg" alt="extensible">](#extensible) | can be extended to work with any technology.                                     |
