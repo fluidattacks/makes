@@ -14,8 +14,7 @@ doSomethingAndReturnADerivation
 
 ## Derivations
 
-On Nix
-a [derivation](https://nixos.org/manual/nix/unstable/expressions/derivations.html)
+A [Nix derivation](https://nixos.org/manual/nix/unstable/expressions/derivations.html)
 is the process of:
 
 - taking zero or more inputs

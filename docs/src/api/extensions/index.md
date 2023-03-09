@@ -3,8 +3,6 @@
 You can create custom workflows
 not covered by the builtin `makes.nix` configuration options.
 
-In order to do this:
-
 Locate in the root of your project:
 
 `$ cd /path/to/my/project`
