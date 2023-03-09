@@ -3,7 +3,7 @@
 A software supply chain framework
 powered by [Nix][nix].
 
-![Makes example](/static/makes.svg "Makes example")
+![Makes demo](/docs/src/assets/demo.svg "Makes demo")
 
 Ever needed to run applications locally
 to try out your code?
