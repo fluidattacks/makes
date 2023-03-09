@@ -64,7 +64,7 @@ m github:fluidattacks/makes@23.04 /utils/makeRubyLock \
 
 - Supported `ruby_version`s are: `2.7`, `3.0` and `3.1`.
 - `dependencies_yaml` is the **absolute path** to a YAML file
-  mapping [RubyGems](https://rubygems.org/gems/slim) gems to version constraints.
+  mapping [RubyGems](https://rubygems.org/) gems to version constraints.
 
 Example:
 

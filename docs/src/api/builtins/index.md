@@ -40,6 +40,6 @@ In the next sections
 we document all configuration options
 you can tweak in a `makes.nix`.
 
-- [makes_environment]: #environment
-- [makes_secrets]: #secrets
-- [sops]: https://github.com/mozilla/sops
+[makes_environment]: #environment
+[makes_secrets]: #secrets
+[sops]: https://github.com/mozilla/sops
