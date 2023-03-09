@@ -10,7 +10,23 @@ nav:
   - index.md
   - configuring-ci-cd.md
   - versioning.md
-  - makes-nix-reference.md
+  - API:
+      - makes.nix:
+          - api/makes.nix/index.md
+          - api/makes.nix/database.md
+          - api/makes.nix/deploy.md
+          - api/makes.nix/development.md
+          - api/makes.nix/environment.md
+          - api/makes.nix/examples.md
+          - api/makes.nix/format.md
+          - api/makes.nix/framework-configuration.md
+          - api/makes.nix/lint.md
+          - api/makes.nix/monitoring.md
+          - api/makes.nix/performance.md
+          - api/makes.nix/secrets.md
+          - api/makes.nix/security.md
+          - api/makes.nix/test.md
+          - api/makes.nix/utilities.md
   - architecture.md
   - contributing.md
   - governance.md
