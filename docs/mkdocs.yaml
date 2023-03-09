@@ -1,4 +1,4 @@
-site_name: 🦄 Makes
+site_name: Makes Documentation
 site_url: https://fluidattacks.github.io/makes/
 site_description: Documentation for Makes
 site_author: Fluid Attacks
@@ -41,6 +41,11 @@ strict: true
 docs_dir: src
 theme:
   name: material
+  logo: assets/favicon.svg
+  favicon: assets/favicon.svg
+  palette:
+    primary: deep purple
+    accent: purple
   features:
     - content.code.copy
     - navigation.instant
