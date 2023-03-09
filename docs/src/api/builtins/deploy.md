@@ -393,5 +393,5 @@ Example invocation: `$ m . /deployNomad/default/job1`
 
 Example invocation: `$ m . /deployNomad/staging/job2`
 
-- [makes_environment]: ./environment.md
-- [makes_secrets]: ./secrets.md
+[makes_environment]: ./environment.md
+[makes_secrets]: ./secrets.md

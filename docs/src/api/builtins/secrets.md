@@ -86,7 +86,7 @@ Example `makes.nix`:
 ## secretsForAwsFromGitlab
 
 Aquire an AWS session
-using [Gitlab CI OIDC](https://docs.gitlab.com/ee/ci/cloud_services/aws/index.html).
+using [GitLab CI OIDC](https://docs.gitlab.com/ee/ci/cloud_services/aws/index.html).
 
 Types:
 

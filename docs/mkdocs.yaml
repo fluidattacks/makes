@@ -11,22 +11,34 @@ nav:
   - configuring-ci-cd.md
   - versioning.md
   - API:
-      - makes.nix:
-          - api/makes.nix/index.md
-          - api/makes.nix/database.md
-          - api/makes.nix/deploy.md
-          - api/makes.nix/development.md
-          - api/makes.nix/environment.md
-          - api/makes.nix/examples.md
-          - api/makes.nix/format.md
-          - api/makes.nix/framework-configuration.md
-          - api/makes.nix/lint.md
-          - api/makes.nix/monitoring.md
-          - api/makes.nix/performance.md
-          - api/makes.nix/secrets.md
-          - api/makes.nix/security.md
-          - api/makes.nix/test.md
-          - api/makes.nix/utilities.md
+      - builtins:
+          - api/builtins/index.md
+          - api/builtins/database.md
+          - api/builtins/deploy.md
+          - api/builtins/development.md
+          - api/builtins/environment.md
+          - api/builtins/examples.md
+          - api/builtins/format.md
+          - api/builtins/framework-configuration.md
+          - api/builtins/lint.md
+          - api/builtins/monitoring.md
+          - api/builtins/performance.md
+          - api/builtins/secrets.md
+          - api/builtins/security.md
+          - api/builtins/test.md
+          - api/builtins/utilities.md
+      - extensions:
+          - api/extensions/index.md
+          - api/extensions/fundamentals.md
+          - api/extensions/containers.md
+          - api/extensions/fetchers.md
+          - api/extensions/format-conversion.md
+          - api/extensions/git.md
+          - api/extensions/node.js.md
+          - api/extensions/others.md
+          - api/extensions/patchers.md
+          - api/extensions/python.md
+          - api/extensions/ruby.md
   - architecture.md
   - contributing.md
   - governance.md

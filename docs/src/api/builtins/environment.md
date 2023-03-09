@@ -94,4 +94,4 @@ Example invocation: `$ m . /envVarsForTerraform/example`
 
 Example invocation: `$ m . /envVarsForTerraform/otherExample`
 
-- [makes_secrets]: ./secrets.md
+[makes_secrets]: ./secrets.md
