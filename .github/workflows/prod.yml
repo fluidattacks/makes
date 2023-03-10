@@ -167,10 +167,10 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
-        name: /docs/gh-deploy
+        name: /docs/deploy
         with:
           set-safe-directory: /github/workspace
-          args: sh -c "nix-env -if . && m . /docs gh-deploy --force --no-history"
+          args: sh -c "nix-env -if . && m . /docs/deploy prod"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 

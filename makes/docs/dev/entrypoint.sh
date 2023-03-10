@@ -3,7 +3,7 @@
 function main {
   : \
     && pushd docs \
-    && mkdocs "${@}"
+    && mkdocs serve
 }
 
 main "${@}"

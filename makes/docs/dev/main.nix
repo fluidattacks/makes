@@ -4,7 +4,7 @@
   ...
 }:
 makeScript {
-  name = "docs";
+  name = "docs-dev";
   entrypoint = ./entrypoint.sh;
   searchPaths.source = [outputs."/docs/runtime"];
 }
