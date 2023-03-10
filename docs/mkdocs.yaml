@@ -1,10 +1,90 @@
-site_name: Makes Documentation
+site_name: Makes
 site_url: https://fluidattacks.github.io/makes/
 site_description: Documentation for Makes
 site_author: Fluid Attacks
 repo_url: https://github.com/fluidattacks/makes
 repo_name: Makes
-copyright: Copyright © 2023 Fluid Attacks, We hack your software. All rights reserved.
+copyright: >
+  Copyright &copy 2023 Fluid Attacks, We hack your software -
+  <a href="#__consent">Change cookie settings</a>
+
+strict: true
+docs_dir: src
+theme:
+  name: material
+  logo: assets/favicon.svg
+  favicon: assets/favicon.svg
+  language: en
+  font:
+    text: Fira Code
+    code: Fira Code Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.tabs.link
+    - navigation.footer
+    - navigation.top
+    - search.highlight
+    - search.share
+extra:
+  analytics:
+    provider: google
+    property: G-257369351
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback!
+            Help us improve this page
+            by opening an
+            <a href="https://github.com/fluidattacks/makes/issues/new" target="_blank" rel="noopener">issue</a>.
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/fluidattacks/
+    - icon: fontawesome/brands/gitlab
+      link: https://gitlab.com/fluidattacks/
+    - icon: fontawesome/brands/github
+      link: https://github.com/fluidattacks
+    - icon: fontawesome/solid/blog
+      link: https://fluidattacks.com/blog
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+plugins:
+  - search:
+      lang: en
 
 nav:
   - index.md
@@ -49,34 +129,3 @@ nav:
       - security/design-principles.md
       - security/slsa.md
       - security/threat-model.md
-
-strict: true
-docs_dir: src
-theme:
-  name: material
-  logo: assets/favicon.svg
-  favicon: assets/favicon.svg
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: deep purple
-      accent: purple
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: deep purple
-      accent: purple
-      toggle:
-        icon: material/weather-night
-        name: Switch to light mode
-  features:
-    - content.code.copy
-    - navigation.instant
-markdown_extensions:
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
