@@ -38,13 +38,12 @@ m github:fluidattacks/makes@23.04 /utils/makePythonLock \
 - Supported `python_version`s are: `3.8`, `3.9`, `3.10` and `3.11`.
 - `dependencies_yaml` is the **absolute path** to a YAML file
   mapping [PyPI](https://pypi.org/) packages to version constraints.
+  Example:
 
-Example:
-
-```yaml
-Django: "3.2.*"
-psycopg2: "2.9.1"
-```
+      ```yaml
+      Django: "3.2.*"
+      psycopg2: "2.9.1"
+      ```
 
 - `sources_yaml` is the **absolute path**
   to a file were the script will output results.
@@ -65,13 +64,12 @@ m github:fluidattacks/makes@23.04 /utils/makeRubyLock \
 - Supported `ruby_version`s are: `2.7`, `3.0` and `3.1`.
 - `dependencies_yaml` is the **absolute path** to a YAML file
   mapping [RubyGems](https://rubygems.org/) gems to version constraints.
+  Example:
 
-Example:
-
-```yaml
-rubocop: "1.43.0"
-slim: "~> 4.1"
-```
+      ```yaml
+      rubocop: "1.43.0"
+      slim: "~> 4.1"
+      ```
 
 - `sources_yaml` is the **absolute path**
   to a file were the script will output results.
@@ -117,29 +115,31 @@ Types:
   - version (`enum [ "0.14" "0.15" "1.0" ]`):
     Terraform version your module is built with.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  testTerraform = {
-    modules = {
-      module1 = {
-        setup = [
-          outputs."/workspaceForTerraformFromEnv/module1"
-        ];
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      testTerraform = {
+        modules = {
+          module1 = {
+            setup = [
+              outputs."/workspaceForTerraformFromEnv/module1"
+            ];
+            src = "/my/module1";
+            version = "0.14";
+          };
+        };
       };
-    };
-  };
-  workspaceForTerraformFromEnv = {
-    modules = {
-      module1 = {
-        src = "/my/module1";
-        variable = "CI_COMMIT_REF_NAME";
-        version = "0.14";
+      workspaceForTerraformFromEnv = {
+        modules = {
+          module1 = {
+            src = "/my/module1";
+            variable = "CI_COMMIT_REF_NAME";
+            version = "0.14";
+          };
+        };
       };
-    };
-  };
-}
-```
+    }
+    ```

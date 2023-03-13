@@ -14,26 +14,34 @@ Types:
     Files or directories (relative to the project) to format.
     Defaults to the entire project.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  formatBash = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.sh" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /formatBash`
+    ```nix
+    {
+      formatBash = {
+        enable = true;
+        targets = [
+          "/" # Entire project
+          "/file.sh" # A file
+          "/directory" # A directory within the project
+        ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /formatBash
+    ```
 
 ## formatMarkdown
 
-:warning: This function is only available on Linux at the moment.
+???+ warning
+
+    This function is only available on Linux at the moment.
 
 Ensure that Markdown code is formatted
 according to [doctoc](https://github.com/thlorenz/doctoc).
@@ -49,19 +57,25 @@ Types:
   - targets (`listOf str`):
     Files (relative to the project) to format.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  formatMarkdown = {
-    enable = true;
-    doctocArgs = [ "--title" "# Contents" ];
-    targets = [ "/README.md" ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /formatMarkdown`
+    ```nix
+    {
+      formatMarkdown = {
+        enable = true;
+        doctocArgs = [ "--title" "# Contents" ];
+        targets = [ "/README.md" ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /formatMarkdown
+    ```
 
 ## formatNix
 
@@ -77,22 +91,28 @@ Types:
     Files or directories (relative to the project) to format.
     Defaults to the entire project.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  formatNix = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.nix" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /formatNix`
+    ```nix
+    {
+      formatNix = {
+        enable = true;
+        targets = [
+          "/" # Entire project
+          "/file.nix" # A file
+          "/directory" # A directory within the project
+        ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /formatNix
+    ```
 
 ## formatPython
 
@@ -109,22 +129,28 @@ Types:
     Files or directories (relative to the project) to format.
     Defaults to the entire project.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  formatPython = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.py" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /formatPython`
+    ```nix
+    {
+      formatPython = {
+        enable = true;
+        targets = [
+          "/" # Entire project
+          "/file.py" # A file
+          "/directory" # A directory within the project
+        ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /formatPython
+    ```
 
 ## formatTerraform
 
@@ -140,22 +166,28 @@ Types:
     Files or directories (relative to the project) to format.
     Defaults to the entire project.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  formatTerraform = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/main.tf" # A file
-      "/terraform/module" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /formatTerraform`
+    ```nix
+    {
+      formatTerraform = {
+        enable = true;
+        targets = [
+          "/" # Entire project
+          "/main.tf" # A file
+          "/terraform/module" # A directory within the project
+        ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /formatTerraform
+    ```
 
 ## formatYaml
 
@@ -171,19 +203,25 @@ Types:
     Files or directories (relative to the project) to format.
     Defaults to the entire project.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  formatYaml = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/main.yaml" # A file
-      "/yamls/" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /formatYaml`
+    ```nix
+    {
+      formatYaml = {
+        enable = true;
+        targets = [
+          "/" # Entire project
+          "/main.yaml" # A file
+          "/yamls/" # A directory within the project
+        ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /formatYaml
+    ```

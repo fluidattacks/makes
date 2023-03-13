@@ -30,22 +30,24 @@ Required environment variables:
   - For private caches:
     If not set the cache won't be read, nor written to.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  cache = {
-    readNixos = true;
-    extra = {
-      main = {
-        enable = true;
-        pubKey = "makes.cachix.org-1:zO7UjWLTRR8Vfzkgsu1PESjmb6ymy1e4OE9YfMmCQR4=";
-        token = "CACHIX_AUTH_TOKEN";
-        type = "nixos";
-        url = "https://makes.cachix.org?priority=2";
-        write = true;
+=== "makes.nix"
+
+    ```nix
+    {
+      cache = {
+        readNixos = true;
+        extra = {
+          main = {
+            enable = true;
+            pubKey = "makes.cachix.org-1:zO7UjWLTRR8Vfzkgsu1PESjmb6ymy1e4OE9YfMmCQR4=";
+            token = "CACHIX_AUTH_TOKEN";
+            type = "nixos";
+            url = "https://makes.cachix.org?priority=2";
+            write = true;
+          };
+        };
       };
-    };
-  };
-}
-```
+    }
+    ```

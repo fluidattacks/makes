@@ -44,50 +44,54 @@ Types:
 - target (`str`): Mandatory, this is the repository url where you want to run
   scorecard.
 
-Example usage:
+Example:
 
-```nix
-{
-  calculateScorecard = {
-    checks = [ "SAST" ];
-    enable = true;
-    format = "json"
-    target = "github.com/fluidattacks/makes";
-  };
-}
-```
+=== "makes.nix"
 
-Example output:
+    ```nix
+    {
+      calculateScorecard = {
+        checks = [ "SAST" ];
+        enable = true;
+        format = "json"
+        target = "github.com/fluidattacks/makes";
+      };
+    }
+    ```
 
-```bash
-  [INFO] Calculating Scorecard
-  {
-    "date": "2022-02-28",
-    "repo": {
-      "name": "github.com/fluidattacks/makes",
-      "commit": "739dcdc0513c29de67406e543e1392ea194b3452"
-    },
-    "scorecard": {
-      "version": "4.0.1",
-      "commit": "c60b66bbc8b85286416d6ab9ae9324a095e66c94"
-    },
-    "score": 5,
-    "checks": [
-      {
-        "details": [
-          "Warn: 16 commits out of 30 are checked with a SAST tool",
-          "Warn: CodeQL tool not detected"
-        ],
-        "score": 5,
-        "reason": "SAST tool is not run on all commits -- score normalized to 5",
-        "name": "SAST",
-        "documentation": {
-          "url": "https://github.com/ossf/scorecard/blob/c60b66bbc8b85286416d6ab9ae9324a095e66c94/docs/checks.md#sast",
-          "short": "Determines if the project uses static code analysis."
+=== "Invocation"
+
+    ```bash
+    m . /calculateScorecard
+    ...
+    [INFO] Calculating Scorecard
+    {
+      "date": "2022-02-28",
+      "repo": {
+        "name": "github.com/fluidattacks/makes",
+        "commit": "739dcdc0513c29de67406e543e1392ea194b3452"
+      },
+      "scorecard": {
+        "version": "4.0.1",
+        "commit": "c60b66bbc8b85286416d6ab9ae9324a095e66c94"
+      },
+      "score": 5,
+      "checks": [
+        {
+          "details": [
+            "Warn: 16 commits out of 30 are checked with a SAST tool",
+            "Warn: CodeQL tool not detected"
+          ],
+          "score": 5,
+          "reason": "SAST tool is not run on all commits -- score normalized to 5",
+          "name": "SAST",
+          "documentation": {
+            "url": "https://github.com/ossf/scorecard/blob/c60b66bbc8b85286416d6ab9ae9324a095e66c94/docs/checks.md#sast",
+            "short": "Determines if the project uses static code analysis."
+          }
         }
-      }
-    ],
-    "metadata": null
-  }
-  [INFO] Aggregate score: 5
-```
+      ],
+      "metadata": null
+    }
+    [INFO] Aggregate score: 5
+    ```
