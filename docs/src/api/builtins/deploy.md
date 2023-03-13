@@ -1,6 +1,6 @@
 ## computeOnAwsBatch
 
-Submit a job to an [AWS BATCH](https://aws.amazon.com/batch/) queue.
+Submit a job to a [AWS BATCH](https://aws.amazon.com/batch/) queue.
 
 Types:
 
@@ -33,30 +33,6 @@ Types:
     In general an Batch job definition is required
     in order to specify which container image
     our job is going to run on.
-
-    The most basic Batch job definition
-    to run a Makes job is (in Terraform syntax):
-
-    ```tf
-    resource "aws_batch_job_definition" "makes" {
-      name = "makes"
-      type = "container"
-      container_properties = jsonencode({
-        # This image cannot be parametrized later.
-        #
-        # If you need to run jobs on different container images,
-        # simply  create many `aws_batch_job_definition`s
-        image = "ghcr.io/fluidattacks/makes:23.04"
-
-        # Below arguments can be parametrized later,
-        # but they are required for the job definition to be created
-        # so let's put some dummy values here
-        memory  = 512
-        vcpus   = 1
-      })
-    }
-    ```
-
   - environment (`listOf str`): Optional.
     Name of the environment variables
     whose names and values should be copied from the machine running Makes
@@ -93,38 +69,42 @@ Types:
   - vcpus (`ints.positive`):
     Amount of virtual CPUs that is reserved for the job.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ outputs
-, ...
-}:
-{
-  computeOnAwsBatch = {
-    helloWorld = {
-      attempts = 1;
-      attemptDurationSeconds = 43200;
-      command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
-      definition = "makes";
-      environment = [ "ENV_VAR_FOR_WHATEVER" ];
-      memory = 1800;
-      queue = "ec2_spot";
-      setup = [
-        # Use default authentication for AWS
-        outputs."/secretsForAwsFromEnv/__default__"
-      ];
-      tags = {
-        "Management:Product" = "awesome_app";
-      }
-      vcpus = 1;
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /computeOnAwsBatch/helloWorld`
+    ```nix
+    {
+      outputs,
+      ...
+    }: {
+      computeOnAwsBatch = {
+        helloWorld = {
+          attempts = 1;
+          attemptDurationSeconds = 43200;
+          command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
+          definition = "makes";
+          environment = [ "ENV_VAR_FOR_WHATEVER" ];
+          memory = 1800;
+          queue = "ec2_spot";
+          setup = [
+            # Use default authentication for AWS
+            outputs."/secretsForAwsFromEnv/__default__"
+          ];
+          tags = {
+            "Management:Product" = "awesome_app";
+          }
+          vcpus = 1;
+        };
+      };
+    }
+    ```
 
-Example invocation: `$ m . /computeOnAwsBatch/helloWorld 1 2 3`
+=== "Invocation"
+
+    ```bash
+    m . /computeOnAwsBatch/helloWorld 1 2 3
+    ```
 
 Note that positional arguments (`[ "1" "2" "3" ]` in this case)
 will be appended to the end of `command`
@@ -170,59 +150,74 @@ Types:
   - tag (`str`):
     The tag under which the image will be stored in the registry.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ inputs
-, outputs
-, ...
-}:
-{
-  inputs = {
-    nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
-    };
-  };
+=== "makes.nix"
 
-  deployContainerImage = {
-    images = {
-      nginxDockerHub = {
-        credentials = {
-          token = "DOCKER_HUB_PASS";
-          user = "DOCKER_HUB_USER";
+    ```nix
+    {
+      inputs,
+      outputs,
+      ...
+    }: {
+      inputs = {
+        nixpkgs = fetchNixpkgs {
+          rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+          sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
         };
-        src = inputs.nixpkgs.dockerTools.examples.nginx;
-        registry = "docker.io";
-        tag = "fluidattacks/nginx:latest";
       };
-      redisGitHub = {
-        credentials = {
-          token = "GITHUB_TOKEN";
-          user = "GITHUB_ACTOR";
+
+      deployContainerImage = {
+        images = {
+          nginxDockerHub = {
+            credentials = {
+              token = "DOCKER_HUB_PASS";
+              user = "DOCKER_HUB_USER";
+            };
+            src = inputs.nixpkgs.dockerTools.examples.nginx;
+            registry = "docker.io";
+            tag = "fluidattacks/nginx:latest";
+          };
+          redisGitHub = {
+            credentials = {
+              token = "GITHUB_TOKEN";
+              user = "GITHUB_ACTOR";
+            };
+            src = inputs.nixpkgs.dockerTools.examples.redis;
+            registry = "ghcr.io";
+            tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
+          };
+          makesGitLab = {
+            credentials = {
+              token = "CI_REGISTRY_PASSWORD";
+              user = "CI_REGISTRY_USER";
+            };
+            src = outputs."/containerImage";
+            registry = "registry.gitlab.com";
+            tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var
+          };
         };
-        src = inputs.nixpkgs.dockerTools.examples.redis;
-        registry = "ghcr.io";
-        tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
       };
-      makesGitLab = {
-        credentials = {
-          token = "CI_REGISTRY_PASSWORD";
-          user = "CI_REGISTRY_USER";
-        };
-        src = outputs."/containerImage";
-        registry = "registry.gitlab.com";
-        tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var
-      };
-    };
-  };
-```
+    }
+    ```
 
-Example invocation: `$ DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainerImage/nginxDockerHub`
+=== "Invocation DockerHub"
 
-Example invocation: `$ GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerImage/makesLatest`
+    ```bash
+    DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainerImage/nginxDockerHub
+    ```
 
-Example invocation: `$ CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainerImage/makesGitLab`
+=== "Invocation GitHub"
+
+    ```bash
+    GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerImage/makesLatest
+    ```
+
+=== "Invocation GitLab"
+
+    ```bash
+    CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainerImage/makesGitLab
+    ```
 
 ## deployTerraform
 
@@ -248,28 +243,32 @@ Types:
   - version (`enum [ "0.14" "0.15" "1.0" ]`):
     Terraform version your module is built with.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  deployTerraform = {
-    modules = {
-      module1 = {
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      deployTerraform = {
+        modules = {
+          module1 = {
+            src = "/my/module1";
+            version = "0.14";
+          };
+          module2 = {
+            src = "/my/module2";
+            version = "1.0";
+          };
+        };
       };
-      module2 = {
-        src = "/my/module2";
-        version = "1.0";
-      };
-    };
-  };
-}
-```
+    }
+    ```
 
-Example invocation: `$ m . /deployTerraform/module1`
+=== "Invocation"
 
-Example invocation: `$ m . /deployTerraform/module2`
+    ```bash
+    m . /deployTerraform/module1
+    ```
 
 ## taintTerraform
 
@@ -300,23 +299,29 @@ Types:
   - version (`enum [ "0.14" "0.15" "1.0" ]`):
     Terraform version your module is built with.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  taintTerraform = {
-    modules = {
-      module = {
-        resources = [ "null_resource.example" ];
-        src = "/test/terraform/module";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      taintTerraform = {
+        modules = {
+          module = {
+            resources = [ "null_resource.example" ];
+            src = "/test/terraform/module";
+            version = "0.14";
+          };
+        };
       };
-    };
-  };
-}
-```
+    }
+    ```
 
-Example invocation: `$ m . /taintTerraform/module`
+=== "Invocation"
+
+    ```bash
+    m . /taintTerraform/module
+    ```
 
 ## deployNomad
 
@@ -360,38 +365,42 @@ Types:
     Nomad version your jobs are built with.
     Defaults to `"1.1"`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  deployNomad = {
-    jobs = {
-      job1 = {
-        src = ./my/job1.hcl;
-        namespace = "default";
-      };
-      job2 = {
-        src = ./my/job2.json;
-        namespace = "default";
-      };
-    };
-    namespaces = {
-      dev.jobs = {
-        job1 = ./my/dev/job1.hcl;
-        job2 = ./my/dev/job2.json;
-      };
-      staging.jobs = {
-        job1 = ./my/staging/job1.hcl;
-        job2 = ./my/staging/job2.json;
-      };
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /deployNomad/default/job1`
+    ```nix
+    {
+      deployNomad = {
+        jobs = {
+          job1 = {
+            src = ./my/job1.hcl;
+            namespace = "default";
+          };
+          job2 = {
+            src = ./my/job2.json;
+            namespace = "default";
+          };
+        };
+        namespaces = {
+          dev.jobs = {
+            job1 = ./my/dev/job1.hcl;
+            job2 = ./my/dev/job2.json;
+          };
+          staging.jobs = {
+            job1 = ./my/staging/job1.hcl;
+            job2 = ./my/staging/job2.json;
+          };
+        };
+      };
+    }
+    ```
 
-Example invocation: `$ m . /deployNomad/staging/job2`
+=== "Invocation"
+
+    ```bash
+    m . /deployNomad/default/job1
+    ```
 
 [makes_environment]: ./environment.md
 [makes_secrets]: ./secrets.md

@@ -23,31 +23,32 @@ Types:
     [BatchWriteItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html#API_BatchWriteItem_RequestSyntax).
     This is useful if you want to perform transformations on your data.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ projectPath
-, ...
-}:
-{
-  dynamoDb = {
-    usersdb = {
-      host = "localhost";
-      infra = projectPath "/test/database/infra";
-      data = [
-        projectPath "/test/database/data"
-      ];
-      daemonMode = true;
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /dyanmoDb/usersdb`
+    ```nix
+    { projectPath,
+    ...
+    }: {
+      dynamoDb = {
+        usersdb = {
+          host = "localhost";
+          infra = projectPath "/test/database/infra";
+          data = [
+            projectPath "/test/database/data"
+          ];
+          daemonMode = true;
+        };
+      };
+    }
+    ```
 
-You can also overwrite the parameters with environment variables.
+=== "Invocation"
 
-Example: `$ DAEMON=false m . /dyanmoDb/usersdb`
+    ``` bash
+    DAEMON=false m . /dyanmoDb/usersdb
+    ```
 
 The following variables are available:
 

@@ -14,22 +14,28 @@ Types:
     Files or directories (relative to the project) to lint.
     Defaults to the entire project.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintBash = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.sh" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintBash`
+    ```nix
+    {
+      lintBash = {
+        enable = true;
+        targets = [
+          "/" # Entire project
+          "/file.sh" # A file
+          "/directory" # A directory within the project
+        ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /lintBash
+    ```
 
 ## lintClojure
 
@@ -41,29 +47,35 @@ Types:
   Mapping of custom names to lists of paths (relative to the project) to lint.
   Defaults to `{ }`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintClojure = {
-    example1 = [
-      "/" # Entire project
-      "/file.clj" # A file
-    ];
-    example2 = [
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintClojure/example1`
+    ```nix
+    {
+      lintClojure = {
+        example1 = [
+          "/" # Entire project
+          "/file.clj" # A file
+        ];
+        example2 = [
+          "/directory" # A directory within the project
+        ];
+      };
+    }
+    ```
 
-Example invocation: `$ m . /lintClojure/example2`
+=== "Invocation"
+
+    ```bash
+    m . /lintClojure/example1`
+    ```
 
 ## lintGitCommitMsg
 
-:warning: This function is only available on Linux at the moment.
+???+ warning
+
+    This function is only available on Linux at the moment.
 
 It creates a commit diff
 between you current branch
@@ -88,21 +100,27 @@ Types:
     Defaults to
     [parser.js](/src/evaluator/modules/lint-git-commit-msg/parser.js).
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintGitCommitMsg = {
-    enable = true;
-    branch = "my-branch-name";
-    # If you want to use custom configs or parsers you can do it like this:
-    # config = "/src/config/config.js";
-    # parser = "/src/config/parser.js";
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintGitCommitMsg`
+    ```nix
+    {
+      lintGitCommitMsg = {
+        enable = true;
+        branch = "my-branch-name";
+        # If you want to use custom configs or parsers you can do it like this:
+        # config = "/src/config/config.js";
+        # parser = "/src/config/parser.js";
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /lintGitCommitMsg
+    ```
 
 ## lintGitMailMap
 
@@ -116,17 +134,23 @@ Types:
   - enable (`boolean`): Optional.
     Defaults to `false`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintGitMailMap = {
-    enable = true;
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintGitMailMap`
+    ```nix
+    {
+      lintGitMailMap = {
+        enable = true;
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /lintGitMailMap
+    ```
 
 ## lintMarkdown
 
@@ -144,26 +168,30 @@ Types:
   - targets (`listOf str`): Required.
     paths to lint with `config`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintMarkdown = {
-    all = {
-      # You can pass custom configs like this:
-      # config = "/src/config/markdown.rb";
-      targets = [ "/" ];
-    };
-    others = {
-      targets = [ "/others" ];
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintMarkdown/all`
+    ```nix
+    {
+      lintMarkdown = {
+        all = {
+          # You can pass custom configs like this:
+          # config = "/src/config/markdown.rb";
+          targets = [ "/" ];
+        };
+        others = {
+          targets = [ "/others" ];
+        };
+      };
+    }
+    ```
 
-Example invocation: `$ m . /lintMarkdown/others`
+=== "Invocation"
+
+    ```bash
+      m . /lintMarkdown/all
+    ```
 
 ## lintNix
 
@@ -178,22 +206,28 @@ Types:
     Files or directories (relative to the project) to lint.
     Defaults to the entire project.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintNix = {
-    enable = true;
-    targets = [
-      "/" # Entire project
-      "/file.nix" # A file
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintNix`
+    ```nix
+    {
+      lintNix = {
+        enable = true;
+        targets = [
+          "/" # Entire project
+          "/file.nix" # A file
+          "/directory" # A directory within the project
+        ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /lintNix
+    ```
 
 ## lintPython
 
@@ -238,38 +272,46 @@ Types:
   - src (`str`):
     Path to the package/module.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintPython = {
-    dirsOfModules = {
-      makes = {
-        python = "3.8";
-        src = "/src/cli";
+=== "makes.nix"
+
+    ```nix
+    {
+      lintPython = {
+        dirsOfModules = {
+          makes = {
+            python = "3.8";
+            src = "/src/cli";
+          };
+        };
+        imports = {
+          cli = {
+            config = "/src/cli/imports.cfg";
+            src = "/src/cli";
+          };
+        };
+        modules = {
+          cliMain = {
+            python = "3.8";
+            src = "/src/cli/main";
+          };
+        };
       };
-    };
-    imports = {
-      cli = {
-        config = "/src/cli/imports.cfg";
-        src = "/src/cli";
-      };
-    };
-    modules = {
-      cliMain = {
-        python = "3.8";
-        src = "/src/cli/main";
-      };
-    };
-  };
-}
-```
+    }
+    ```
 
-Example invocation: `$ m . /lintPython/dirOfModules/makes`
+=== "Invocation dirOfModules"
 
-Example invocation: `$ m . /lintPython/dirOfModules/makes/main`
+    ```bash
+    m . /lintPython/dirOfModules/makes/main
+    ```
 
-Example invocation: `$ m . /lintPython/module/cliMain`
+=== "Invocation module"
+
+    ```bash
+    m . /lintPython/module/cliMain
+    ```
 
 ## lintTerraform
 
@@ -297,30 +339,34 @@ Types:
   - version (`enum [ "0.14" "0.15" "1.0" ]`):
     Terraform version your module is built with.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintTerraform = {
-    # You can use a custom configuration like this:
-    # config = "/src/config/tflint.hcl";
-    modules = {
-      module1 = {
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      lintTerraform = {
+        # You can use a custom configuration like this:
+        # config = "/src/config/tflint.hcl";
+        modules = {
+          module1 = {
+            src = "/my/module1";
+            version = "0.14";
+          };
+          module2 = {
+            src = "/my/module2";
+            version = "0.15";
+          };
+        };
       };
-      module2 = {
-        src = "/my/module2";
-        version = "0.15";
-      };
-    };
-  };
-}
-```
+    }
+    ```
 
-Example invocation: `$ m . /lintTerraform/module1`
+=== "Invocation"
 
-Example invocation: `$ m . /lintTerraform/module2`
+    ```bash
+    m . /lintTerraform/module1
+    ```
 
 ## lintWithAjv
 
@@ -342,32 +388,36 @@ Types:
     YAML or JSON
     data files to lint with `schema`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintWithAjv = {
-    users = {
-      schema = "/users/schema.json";
-      targets = [
-        "/users/data1.json"
-        "/users/data.yaml"
-      ];
-    };
-    colors = {
-      schema = "/colors/schema.json";
-      targets = [
-        "/colors/data1.json"
-        "/colors/data2.yaml"
-      ];
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintWithAjv/users`
+    ```nix
+    {
+      lintWithAjv = {
+        users = {
+          schema = "/users/schema.json";
+          targets = [
+            "/users/data1.json"
+            "/users/data.yaml"
+          ];
+        };
+        colors = {
+          schema = "/colors/schema.json";
+          targets = [
+            "/colors/data1.json"
+            "/colors/data2.yaml"
+          ];
+        };
+      };
+    }
+    ```
 
-Example invocation: `$ m . /lintWithAjv/colors`
+=== "Invocation"
+
+    ```bash
+    m . /lintWithAjv/users
+    ```
 
 ## lintWithLizard
 
@@ -381,22 +431,26 @@ Types:
   Mapping of custom names to lists of paths (relative to the project) to lint.
   Defaults to `{ }`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  lintWithLizard = {
-    example1 = [
-      "/" # Entire project
-      "/file.py" # A file
-    ];
-    example2 = [
-      "/directory" # A directory within the project
-    ];
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /lintWithLizard/example1`
+    ```nix
+    {
+      lintWithLizard = {
+        example1 = [
+          "/" # Entire project
+          "/file.py" # A file
+        ];
+        example2 = [
+          "/directory" # A directory within the project
+        ];
+      };
+    }
+    ```
 
-Example invocation: `$ m . /lintWithLizard/example2`
+=== "Invocation"
+
+    ```bash
+    $ m . /lintWithLizard/example1
+    ```

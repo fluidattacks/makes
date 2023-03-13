@@ -10,15 +10,21 @@ Types:
   - name (`string`):
     Name of the user we should greet.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  helloWorld = {
-    enable = true;
-    name = "Jane Doe";
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /helloWorld 1 2 3`
+    ```nix
+    {
+      helloWorld = {
+        enable = true;
+        name = "Jane Doe";
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /helloWorld 1 2 3
+    ```

@@ -25,8 +25,7 @@ A `makes.nix` file should be:
   { argA
   , argB
   , ...
-  }:
-  {
+  }: {
     configOption1 = {
       # ...
     };

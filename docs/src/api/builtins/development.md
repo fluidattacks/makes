@@ -12,92 +12,96 @@ Types:
   Mapping of environment name to searchPaths.
   Defaults to `{ }`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ inputs
-, ...
-}:
-{
-  inputs = {
-    nixpkgs = fetchNixpkgs {
-      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
-    };
-  };
+=== "makes.nix"
 
-  dev = {
-    example = {
-      # A development environment with `hello` package
-      bin = [
-        inputs.nixpkgs.hello
-      ];
-    };
-  };
-}
-```
+    ```nix
+    {
+      inputs,
+      ...
+    }: {
+      inputs = {
+        nixpkgs = fetchNixpkgs {
+          rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+          sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+        };
+      };
 
-Example invocation: `$ m . /dev/example`
+      dev = {
+        example = {
+          # A development environment with `hello` package
+          bin = [
+            inputs.nixpkgs.hello
+          ];
+        };
+      };
+    }
+    ```
 
----
+=== "Invocation"
 
-Example usage with direnv
-on remote projects:
-
-```bash
-$ cat /path/to/some/dir/.envrc
-
-    source "$(m github:fluidattacks/makes@main /dev/example)/template"
-
-# Now every time you enter /path/to/some/dir
-# the shell will automatically load the environment
-$ cd /path/to/some/dir
-
-    direnv: loading /path/to/some/dir/.envrc
-    direnv: export ~PATH
-
-/path/to/some/dir $ hello
-
-    Hello, world!
-
-# If you exit the directory, the development environment is unloaded
-/path/to/some/dir $ cd ..
-
-    direnv: unloading
-
-/path/to/some $ hello
-
-    hello: command not found
-```
+    ```bash
+    m . /dev/example
+    ```
 
 ---
 
-Example usage with direnv
-on a local project:
+Example usage with direnv:
 
-```bash
-$ cat /path/to/some/dir/.envrc
+=== "On a remote project"
 
-    cd /path/to/my/project
-    source "$(m . /dev/example)/template"
+    ```bash
+    $ cat /path/to/some/dir/.envrc
 
-# Now every time you enter /path/to/some/dir
-# the shell will automatically load the environment
-$ cd /path/to/some/dir
+        source "$(m github:fluidattacks/makes@main /dev/example)/template"
 
-    direnv: loading /path/to/some/dir/.envrc
-    direnv: export ~PATH
+    # Now every time you enter /path/to/some/dir
+    # the shell will automatically load the environment
+    $ cd /path/to/some/dir
 
-/path/to/some/dir $ hello
+        direnv: loading /path/to/some/dir/.envrc
+        direnv: export ~PATH
 
-    Hello, world!
+    /path/to/some/dir $ hello
 
-# If you exit the directory, the development environment is unloaded
-/path/to/some/dir $ cd ..
+        Hello, world!
 
-    direnv: unloading
+    # If you exit the directory, the development environment is unloaded
+    /path/to/some/dir $ cd ..
 
-/path/to/some $ hello
+        direnv: unloading
 
-    hello: command not found
-```
+    /path/to/some $ hello
+
+        hello: command not found
+    ```
+
+=== "On a local project"
+
+    ```bash
+    $ cat /path/to/some/dir/.envrc
+
+        cd /path/to/my/project
+        source "$(m . /dev/example)/template"
+
+    # Now every time you enter /path/to/some/dir
+    # the shell will automatically load the environment
+    $ cd /path/to/some/dir
+
+        direnv: loading /path/to/some/dir/.envrc
+        direnv: export ~PATH
+
+    /path/to/some/dir $ hello
+
+        Hello, world!
+
+    # If you exit the directory, the development environment is unloaded
+    /path/to/some/dir $ cd ..
+
+        direnv: unloading
+
+    /path/to/some $ hello
+
+        hello: command not found
+    ```

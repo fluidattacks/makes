@@ -11,7 +11,7 @@
 
 1.  Install Makes:
 
-    ```bash
+    ```{ .bash, linenums=0}
     nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
     ```
 
@@ -21,8 +21,8 @@
 
 The Makes command has the following syntax:
 
-```bash
-$ m <repo> <job>
+```{ .bash, linenums=0}
+m <repo> <job>
 ```
 
 where:
@@ -72,7 +72,7 @@ makes.makePythonPypiEnvironment {
 Most functions documented in the [api/extensions](api/extensions/) section
 are available.
 
-For a defailed list check out
+For a detailed list check out
 [Makes' agnostic args](https://github.com/fluidattacks/makes/blob/main/src/args/agnostic.nix).
 
 ## Want to get your hands dirty?

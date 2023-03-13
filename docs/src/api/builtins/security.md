@@ -22,42 +22,48 @@ Types:
     before anything else.
     Defaults to `[ ]`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ outputs
-, secretsForAwsFromGitlab
-, secretsForKubernetesConfigFromAws
-, secureKubernetesWithRbacPolice
-, ...
-}:
-{
-  secretsForAwsFromGitlab = {
-    makesProd = {
-      roleArn = "arn:aws:iam::123456789012:role/prod";
-      duration = 7200;
-      retries = 30;
-    };
-  };
-  secretsForKubernetesConfigFromAws = {
-    makes = {
-      cluster = "makes-k8s";
-      region = "us-east-1";
-    };
-  };
-  secureKubernetesWithRbacPolice = {
-    makes = {
-      severity = "Low";
-      setup = [
-        outputs."/secretsForAwsFromGitlab/makesProd"
-        outputs."/secretsForKubernetesConfigFromAws/makes"
-      ];
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /secureKubernetesWithRbacPolice/makes`
+    ```nix
+    {
+      outputs,
+      secretsForAwsFromGitlab,
+      secretsForKubernetesConfigFromAws,
+      secureKubernetesWithRbacPolice,
+      ...
+    }: {
+      secretsForAwsFromGitlab = {
+        makesProd = {
+          roleArn = "arn:aws:iam::123456789012:role/prod";
+          duration = 7200;
+          retries = 30;
+        };
+      };
+      secretsForKubernetesConfigFromAws = {
+        makes = {
+          cluster = "makes-k8s";
+          region = "us-east-1";
+        };
+      };
+      secureKubernetesWithRbacPolice = {
+        makes = {
+          severity = "Low";
+          setup = [
+            outputs."/secretsForAwsFromGitlab/makesProd"
+            outputs."/secretsForKubernetesConfigFromAws/makes"
+          ];
+        };
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /secureKubernetesWithRbacPolice/makes
+    ```
 
 ## securePythonWithBandit
 
@@ -75,17 +81,23 @@ Types:
   - target (`str`):
     Relative path to the package/module.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  securePythonWithBandit = {
-    cli = {
-      python = "3.8";
-      target = "/src/cli";
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example invocation: `$ m . /securePythonWithBandit/cli`
+    ```nix
+    {
+      securePythonWithBandit = {
+        cli = {
+          python = "3.8";
+          target = "/src/cli";
+        };
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /securePythonWithBandit/cli
+    ```

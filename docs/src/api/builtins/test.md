@@ -39,36 +39,46 @@ Types:
 
     And we will run pytest like this:
 
-    `$ pytest /tmp/some-random-unique-dir/__project__/path/to/src`
+    ```{ .bash, linenums=0}
+    pytest /tmp/some-random-unique-dir/__project__/path/to/src
+    ```
 
     Defaults to `{ }`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  testPython = {
-    example = {
-      python = "3.9";
-      src = "/test/test-python";
-    };
-  };
-}
-```
+=== "makes.nix"
 
-```bash
-$ tree test/test-python/
+    ```nix
+    {
+      testPython = {
+        example = {
+          python = "3.9";
+          src = "/test/test-python";
+        };
+      };
+    }
+    ```
 
-  test/test-python/
-  └── test_something.py
+=== "Invocation"
 
-$ cat test/test-python/test_something.py
+    ```bash
+    m . /testPython/example
+    ```
 
-  1 def test_one_plus_one_equals_two() -> None:
-  2     assert (1 + 1) == 2
-```
+=== "Directory"
 
-Example invocation: `$ m . /testPython/example`
+    ```bash
+    $ tree test/test-python/
+
+      test/test-python/
+      └── test_something.py
+
+    $ cat test/test-python/test_something.py
+
+      1 def test_one_plus_one_equals_two() -> None:
+      2     assert (1 + 1) == 2
+    ```
 
 ## testTerraform
 
@@ -98,25 +108,29 @@ Types:
     and remove parallelism so logs are clean.
     Defaults to `false`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{
-  testTerraform = {
-    modules = {
-      module1 = {
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      testTerraform = {
+        modules = {
+          module1 = {
+            src = "/my/module1";
+            version = "0.14";
+          };
+          module2 = {
+            src = "/my/module2";
+            version = "1.0";
+          };
+        };
       };
-      module2 = {
-        src = "/my/module2";
-        version = "1.0";
-      };
-    };
-  };
-}
-```
+    }
+    ```
 
-Example invocation: `$ m . /testTerraform/module1`
+=== "Invocation"
 
-Example invocation: `$ m . /testTerraform/module2`
+    ```bash
+    $ m . /testTerraform/module1
+    ```

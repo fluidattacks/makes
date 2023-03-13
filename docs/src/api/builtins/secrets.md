@@ -43,45 +43,47 @@ Always available outputs:
   - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
   - sessionToken: "AWS_SESSION_TOKEN";
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ outputs
-, lintTerraform
-, secretsForAwsFromEnv
-, ...
-}:
-{
-  secretsForAwsFromEnv = {
-    makesDev = {
-      accessKeyId = "ENV_VAR_FOR_MAKES_DEV_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "ENV_VAR_FOR_MAKES_DEV_AWS_SECRET_ACCESS_KEY";
-    };
-    makesProd = {
-      accessKeyId = "ENV_VAR_FOR_MAKES_PROD_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "ENV_VAR_FOR_MAKES_PROD_AWS_SECRET_ACCESS_KEY";
-    };
-  };
-  lintTerraform = {
-    modules = {
-      moduleDev = {
-        setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
-        ];
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      outputs,
+      lintTerraform,
+      secretsForAwsFromEnv,
+      ...
+    }: {
+      secretsForAwsFromEnv = {
+        makesDev = {
+          accessKeyId = "ENV_VAR_FOR_MAKES_DEV_AWS_ACCESS_KEY_ID";
+          secretAccessKey = "ENV_VAR_FOR_MAKES_DEV_AWS_SECRET_ACCESS_KEY";
+        };
+        makesProd = {
+          accessKeyId = "ENV_VAR_FOR_MAKES_PROD_AWS_ACCESS_KEY_ID";
+          secretAccessKey = "ENV_VAR_FOR_MAKES_PROD_AWS_SECRET_ACCESS_KEY";
+        };
       };
-      moduleProd = {
-        setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
-        ];
-        src = "/my/module2";
-        version = "0.14";
+      lintTerraform = {
+        modules = {
+          moduleDev = {
+            setup = [
+              outputs."/secretsForAwsFromEnv/makesDev"
+            ];
+            src = "/my/module1";
+            version = "0.14";
+          };
+          moduleProd = {
+            setup = [
+              outputs."/secretsForAwsFromEnv/makesProd"
+            ];
+            src = "/my/module2";
+            version = "0.14";
+          };
+        };
       };
-    };
-  };
-}
-```
+    }
+    ```
 
 ## secretsForAwsFromGitlab
 
@@ -106,47 +108,49 @@ Types:
     One retry per second.
     Defaults to `15`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ outputs
-, lintTerraform
-, secretsForAwsFromGitlab
-, ...
-}:
-{
-  secretsForAwsFromGitlab = {
-    makesDev = {
-      roleArn = "arn:aws:iam::123456789012:role/dev";
-      duration = 3600;
-      retries = 30;
-    };
-    makesProd = {
-      roleArn = "arn:aws:iam::123456789012:role/prod";
-      duration = 7200;
-      retries = 30;
-    };
-  };
-  lintTerraform = {
-    modules = {
-      moduleDev = {
-        setup = [
-          outputs."/secretsForAwsFromGitlab/makesDev"
-        ];
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      outputs,
+      lintTerraform,
+      secretsForAwsFromGitlab,
+      ...
+    }: {
+      secretsForAwsFromGitlab = {
+        makesDev = {
+          roleArn = "arn:aws:iam::123456789012:role/dev";
+          duration = 3600;
+          retries = 30;
+        };
+        makesProd = {
+          roleArn = "arn:aws:iam::123456789012:role/prod";
+          duration = 7200;
+          retries = 30;
+        };
       };
-      moduleProd = {
-        setup = [
-          outputs."/secretsForAwsFromGitlab/makesProd"
-        ];
-        src = "/my/module2";
-        version = "0.14";
+      lintTerraform = {
+        modules = {
+          moduleDev = {
+            setup = [
+              outputs."/secretsForAwsFromGitlab/makesDev"
+            ];
+            src = "/my/module1";
+            version = "0.14";
+          };
+          moduleProd = {
+            setup = [
+              outputs."/secretsForAwsFromGitlab/makesProd"
+            ];
+            src = "/my/module2";
+            version = "0.14";
+          };
+        };
       };
-    };
-  };
-}
-```
+    }
+    ```
 
 ## secretsForEnvFromSops
 
@@ -163,35 +167,37 @@ Types:
   - vars (`listOf str`):
     Names of the values to export out of the manifest.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ outputs
-, ...
-}:
-{
-  secretsForEnvFromSops = {
-    cloudflare = {
-      # Manifest contains inside:
-      #   CLOUDFLARE_ACCOUNT_ID: ... ciphertext ...
-      #   CLOUDFLARE_API_TOKEN: ... ciphertext ...
-      manifest = "/infra/secrets/prod.yaml";
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
-    };
-  };
-  lintTerraform = {
-    modules = {
-      moduleProd = {
-        setup = [
-          outputs."/secretsForEnvFromSops/cloudflare"
-        ];
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      outputs,
+      ...
+    }: {
+      secretsForEnvFromSops = {
+        cloudflare = {
+          # Manifest contains inside:
+          #   CLOUDFLARE_ACCOUNT_ID: ... ciphertext ...
+          #   CLOUDFLARE_API_TOKEN: ... ciphertext ...
+          manifest = "/infra/secrets/prod.yaml";
+          vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
+        };
       };
-    };
-  };
-}
-```
+      lintTerraform = {
+        modules = {
+          moduleProd = {
+            setup = [
+              outputs."/secretsForEnvFromSops/cloudflare"
+            ];
+            src = "/my/module1";
+            version = "0.14";
+          };
+        };
+      };
+    }
+    ```
 
 ## secretsForGpgFromEnv
 
@@ -213,60 +219,69 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes.nix
-{ outputs
-, ...
-}:
-{
-  # Load keys into an ephemeral GPG keyring
-  secretsForGpgFromEnv = {
-    example = [
-      "ENV_VAR_FOR_PRIVATE_KEY_CONTENT"
-      "ENV_VAR_FOR_PUB_KEY_CONTENT"
-    ];
-  };
-  # Use sops to decrypt an encrypted file
-  secretsForEnvFromSops = {
-    example = {
-      manifest = "/secrets.yaml";
-      vars = [ "password" ];
-    };
-  };
-}
-```
+=== "secrets.yaml"
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makeScript
-, outputs
-, ...
-}:
-makeScript {
-  name = "example";
-  searchPaths.source = [
-    # First setup an ephemeral GPG keyring
-    outputs."/secretsForGpgFromEnv/example"
-    # Now sops will decrypt secrets using the GPG keys in the ring
-    outputs."/secretsForEnvFromSops/example"
-  ];
-  entrypoint = ''
-    echo Decrypted password: $password
-  '';
-}
-```
+    ```yaml
+    # /path/to/my/project/secrets.yaml
+    password: ENC[AES256_GCM,data:cLbgzNHgBN5drfsDAS+RTV5fL6I=,iv:2YHhHxKg+lbGqdB5nhhG2YemeKB6XWvthGfNNkVgytQ=,tag:cj/el3taq1w7UOp/JQSNwA==,type:str]
+    # ...
+    ```
 
-```yaml
-# /path/to/my/project/secrets.yaml
-password: ENC[AES256_GCM,data:cLbgzNHgBN5drfsDAS+RTV5fL6I=,iv:2YHhHxKg+lbGqdB5nhhG2YemeKB6XWvthGfNNkVgytQ=,tag:cj/el3taq1w7UOp/JQSNwA==,type:str]
-# ...
-```
+=== "makes.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes.nix
+    {
+      outputs,
+      ...
+    }: {
+      # Load keys into an ephemeral GPG keyring
+      secretsForGpgFromEnv = {
+        example = [
+          "ENV_VAR_FOR_PRIVATE_KEY_CONTENT"
+          "ENV_VAR_FOR_PUB_KEY_CONTENT"
+        ];
+      };
+      # Use sops to decrypt an encrypted file
+      secretsForEnvFromSops = {
+        example = {
+          manifest = "/secrets.yaml";
+          vars = [ "password" ];
+        };
+      };
+    }
+    ```
 
-  Decrypted password: 123
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeScript,
+      outputs,
+      ...
+    }:
+    makeScript {
+      name = "example";
+      searchPaths.source = [
+        # First setup an ephemeral GPG keyring
+        outputs."/secretsForGpgFromEnv/example"
+        # Now sops will decrypt secrets using the GPG keys in the ring
+        outputs."/secretsForEnvFromSops/example"
+      ];
+      entrypoint = ''
+        echo Decrypted password: $password
+      '';
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+      Decrypted password: 123
+    ```
 
 ## secretsForKubernetesConfigFromAws
 
@@ -286,32 +301,34 @@ Types:
   - region (`str`):
     AWS Region the EKS cluster is located in.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ outputs
-, ...
-}:
-{
-  secretsForKubernetesConfigFromAws = {
-    myCluster = {
-      cluster = "makes-k8s";
-      region = "us-east-1";
-    };
-  };
-  deployTerraform = {
-    modules = {
-      moduleProd = {
-        setup = [
-          outputs."/secretsForKubernetesConfigFromAws/myCluster"
-        ];
-        src = "/my/module1";
-        version = "0.14";
+=== "makes.nix"
+
+    ```nix
+    {
+      outputs,
+      ...
+    }: {
+      secretsForKubernetesConfigFromAws = {
+        myCluster = {
+          cluster = "makes-k8s";
+          region = "us-east-1";
+        };
       };
-    };
-  };
-}
-```
+      deployTerraform = {
+        modules = {
+          moduleProd = {
+            setup = [
+              outputs."/secretsForKubernetesConfigFromAws/myCluster"
+            ];
+            src = "/my/module1";
+            version = "0.14";
+          };
+        };
+      };
+    }
+    ```
 
 ## secretsForTerraformFromEnv
 
@@ -326,27 +343,29 @@ Types:
   to environment variable names.
   Defaults to `{ }`.
 
-Example `makes.nix`:
+Example:
 
-```nix
-{ outputs
-, ...
-}:
-{
-  secretsForTerraformFromEnv = {
-    example = {
-      # Equivalent in Bash to:
-      #   export TF_VAR_cloudflareAccountId=$ENV_VAR_FOR_CLOUDFLARE_ACCOUNT_ID
-      #   export TF_VAR_cloudflareApiToken=$ENV_VAR_FOR_CLOUDFLARE_API_TOKEN
-      cloudflareAccountId = "ENV_VAR_FOR_CLOUDFLARE_ACCOUNT_ID";
-      cloudflareApiToken = "ENV_VAR_FOR_CLOUDFLARE_API_TOKEN";
-    };
-  };
-}
-```
+=== "makes.nix"
 
-Example `main.tf`:
+    ```nix
+    {
+      outputs,
+      ...
+    }: {
+      secretsForTerraformFromEnv = {
+        example = {
+          # Equivalent in Bash to:
+          #   export TF_VAR_cloudflareAccountId=$ENV_VAR_FOR_CLOUDFLARE_ACCOUNT_ID
+          #   export TF_VAR_cloudflareApiToken=$ENV_VAR_FOR_CLOUDFLARE_API_TOKEN
+          cloudflareAccountId = "ENV_VAR_FOR_CLOUDFLARE_ACCOUNT_ID";
+          cloudflareApiToken = "ENV_VAR_FOR_CLOUDFLARE_API_TOKEN";
+        };
+      };
+    }
+    ```
 
-```tf
-variable "cloudflareAccountId" {}
-```
+=== "main.tf"
+
+    ```tf
+    variable "cloudflareAccountId" {}
+    ```
