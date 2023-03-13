@@ -2,15 +2,18 @@
 
 ## Installation
 
-1. [Install Nix](https://nixos.org/download).
-   > **Note**
-   > We recommend getting the Single-user installation
-   > if you're new to Nix.
-1. Install Makes:
+1.  [Install Nix](https://nixos.org/download).
 
-   ```bash
-   $ nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
-   ```
+    ???+ tip
+
+        We recommend getting the Single-user installation
+        if you're new to Nix.
+
+1.  Install Makes:
+
+    ```bash
+    nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
+    ```
 
 ## Usage
 

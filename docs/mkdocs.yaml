@@ -34,6 +34,7 @@ theme:
         icon: material/weather-night
         name: Switch to light mode
   features:
+    - content.code.annotate
     - content.code.copy
     - content.tabs.link
     - navigation.footer
@@ -68,20 +69,33 @@ extra:
       find what they're searching for. With your consent, you're helping us to
       make our documentation better.
   social:
+    - icon: fontawesome/solid/globe
+      link: https://fluidattacks.com/
+    - icon: fontawesome/solid/blog
+      link: https://fluidattacks.com/blog
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/fluidattacks/
     - icon: fontawesome/brands/gitlab
       link: https://gitlab.com/fluidattacks/
     - icon: fontawesome/brands/github
       link: https://github.com/fluidattacks
-    - icon: fontawesome/solid/blog
-      link: https://fluidattacks.com/blog
 markdown_extensions:
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
 plugins:
   - search:
       lang: en
