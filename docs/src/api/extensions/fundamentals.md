@@ -5,9 +5,10 @@ should be a function that receives one or more arguments
 and returns a derivation:
 
 ```nix
-{ argA
-, argB
-, ...
+{
+  argA,
+  argB,
+  ...
 }:
 doSomethingAndReturnADerivation
 ```
@@ -298,18 +299,19 @@ Types for non covered cases:
     - Base package to export from.
     - Relative path with respect to the package that should be appended.
 
-    Example:
+Example:
 
-    ```bash
-    # /path/to/my/project/makes/example/template
-    echo "${@}"
-    ```
+=== "main.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    {
+      makeSearchPaths,
+      ...
+    }:
     makeSearchPaths {
+      bin = [ inputs.nixpkgs.git ];
       source = [
-        [ ./template "a" "b" "c" ]
+        [ ./template.sh "a" "b" "c" ]
         # add more as you need ...
       ];
       export = [
@@ -320,9 +322,17 @@ Types for non covered cases:
     }
     ```
 
-    Is equivalent to:
+=== "template.sh"
 
     ```bash
+    # /path/to/my/project/makes/example/template
+    echo "${@}"
+    ```
+
+=== "Equals to"
+
+    ```bash
+    export PATH"/nix/store/...-git/bin${PATH:+:}${PATH:-}"
     export PATH="/nix/store/...-bash/bin${PATH:+:}${PATH:-}"
     export CPATH="/nix/store/...-glib-dev/include/glib-2.0${CPATH:+:}${CPATH:-}"
 
@@ -331,17 +341,6 @@ Types for non covered cases:
     else source "/nix/store/...-template" '1' '2' '3'
     fi
     ```
-
-Example:
-
-```nix
-{ makeSearchPaths
-, ...
-}:
-makeSearchPaths {
-  bin = [ inputs.nixpkgs.git ];
-}
-```
 
 ## makeDerivation
 
@@ -400,43 +399,48 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ inputs
-, makeDerivation
-, ...
-}:
-makeDerivation {
-  env = {
-    envVersion = "1.0";
-  };
-  builder = ''
-    debug Version is $envVersion
-    info Running tree command on $PWD
-    mkdir dir
-    touch dir/file
-    tree dir > $out
-  '';
-  name = "example";
-  searchPaths = {
-    bin = [ inputs.nixpkgs.tree ];
-  };
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      inputs,
+      makeDerivation,
+      ...
+    }:
+    makeDerivation {
+      env = {
+        envVersion = "1.0";
+      };
+      builder = ''
+        debug Version is $envVersion
+        info Running tree command on $PWD
+        mkdir dir
+        touch dir/file
+        tree dir > $out
+      '';
+      name = "example";
+      searchPaths = {
+        bin = [ inputs.nixpkgs.tree ];
+      };
+    }
+    ```
 
-    [DEBUG] Version is 1.0
-    [INFO] Running tree command on /tmp/nix-build-example.drv-0
-    /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
+=== "Invocation"
 
-$ cat /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
-    dir
-    `-- file
+    ```bash
+    $ m . /example
 
-    0 directories, 1 file
-```
+        [DEBUG] Version is 1.0
+        [INFO] Running tree command on /tmp/nix-build-example.drv-0
+        /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
+
+    $ cat /nix/store/30hg7hzn6d3zmfva1bl4zispqilbh3nm-example
+        dir
+        `-- file
+
+        0 directories, 1 file
+    ```
 
 ## makeTemplate
 
@@ -463,31 +467,36 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ inputs
-, makeTemplate
-, ...
-}:
-makeTemplate {
-  name = "example";
-  replace = {
-    __argBash__ = inputs.nixpkgs.bash;
-    __argVersion__ = "1.0";
-  };
-  template = ''
-    Bash is: __argBash__
-    Version is: __argVersion__
-  '';
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      inputs,
+      makeTemplate,
+      ...
+    }:
+    makeTemplate {
+      name = "example";
+      replace = {
+        __argBash__ = inputs.nixpkgs.bash;
+        __argVersion__ = "1.0";
+      };
+      template = ''
+        Bash is: __argBash__
+        Version is: __argVersion__
+      '';
+    }
+    ```
 
-    Bash is: /nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23
-    Version is: 1.0
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        Bash is: /nix/store/kxj6cblcsd1qcbbxlmbswwrn89zcmgd6-bash-4.4-p23
+        Version is: 1.0
+    ```
 
 ## makeScript
 
@@ -576,44 +585,49 @@ Types:
 
 Example:
 
-```nix
+=== "main.nix"
 
-# /path/to/my/project/makes/example/main.nix
-{ inputs
-, makeScript
-, ...
-}:
-makeScript {
-  replace = {
-    __argVersion__ = "1.0";
-  };
-  entrypoint = ''
-    debug Version is __argVersion__
-    info pwd is $PWD
-    info Running tree command on $STATE
-    mkdir $STATE/dir
-    touch $STATE/dir/file
-    tree $STATE
-  '';
-  name = "example";
-  searchPaths = {
-    bin = [ inputs.nixpkgs.tree ];
-  };
-}
-```
+    ```nix
 
-```bash
-$ m . /example
+    # /path/to/my/project/makes/example/main.nix
+    {
+      inputs,
+      makeScript,
+      ...
+    }:
+    makeScript {
+      replace = {
+        __argVersion__ = "1.0";
+      };
+      entrypoint = ''
+        debug Version is __argVersion__
+        info pwd is $PWD
+        info Running tree command on $STATE
+        mkdir $STATE/dir
+        touch $STATE/dir/file
+        tree $STATE
+      '';
+      name = "example";
+      searchPaths = {
+        bin = [ inputs.nixpkgs.tree ];
+      };
+    }
+    ```
 
-    [DEBUG] Version is 1.0
-    [INFO] pwd is /data/github/fluidattacks/makes
-    [INFO] Running tree command on /home/user/.makes/state/example
-    /home/user/.makes/state/example
-    └── dir
-        └── file
+=== "Invocation"
 
-    1 directory, 1 file
-```
+    ```bash
+    $ m . /example
+
+        [DEBUG] Version is 1.0
+        [INFO] pwd is /data/github/fluidattacks/makes
+        [INFO] Running tree command on /home/user/.makes/state/example
+        /home/user/.makes/state/example
+        └── dir
+            └── file
+
+        1 directory, 1 file
+    ```
 
 ## projectPath
 
@@ -630,33 +644,38 @@ Types:
 
 Example:
 
-```nix
-# Consider the following path within the repository: /src/nix
+=== "main.nix"
 
-# /path/to/my/project/makes/example/main.nix
-{ makeScript
-, projectPath
-, ...
-}:
-makeScript {
-  replace = {
-    __argPath__ = projectPath "/src/nix";
-  };
-  entrypoint = ''
-    info Path is: __argPath__
-    info Path contents are:
-    ls __argPath__
-  '';
-  name = "example";
-}
-```
+    ```nix
+    # Consider the following path within the repository: /src/nix
 
-```bash
-$ m . /example
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeScript,
+      projectPath,
+      ...
+    }:
+    makeScript {
+      replace = {
+        __argPath__ = projectPath "/src/nix";
+      };
+      entrypoint = ''
+        info Path is: __argPath__
+        info Path contents are:
+        ls __argPath__
+      '';
+      name = "example";
+    }
+    ```
 
-    [INFO] Path is: <nix-store-path>
-    [INFO] Path contents are:
-    packages.nix  sources.json  sources.nix
-```
+=== "Invocation"
 
-[GNU Coreutils][gnu_coreutils]
+    ```bash
+    $ m . /example
+
+        [INFO] Path is: <nix-store-path>
+        [INFO] Path contents are:
+        packages.nix  sources.json  sources.nix
+    ```
+
+[gnu_coreutils]: https://wiki.debian.org/coreutils

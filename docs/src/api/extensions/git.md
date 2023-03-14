@@ -45,27 +45,32 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ libGit
-, makeScript
-, ...
-}:
-makeScript {
-  entrypoint = ''
-    require_git_repository /some-path-that-do-not-exists
+=== "main.nix"
 
-    echo other business logic goes here ...
-  '';
-  name = "example";
-  searchPaths = {
-    source = [ libGit ];
-  };
-}
-```
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      libGit,
+      makeScript,
+      ...
+    }:
+    makeScript {
+      entrypoint = ''
+        require_git_repository /some-path-that-do-not-exists
 
-```bash
-$ m . /example
+        echo other business logic goes here ...
+      '';
+      name = "example";
+      searchPaths = {
+        source = [ libGit ];
+      };
+    }
+    ```
 
-    [CRITICAL] We require a git repository, but this one is not: /some-path-that-do-not-exists
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        [CRITICAL] We require a git repository, but this one is not: /some-path-that-do-not-exists
+    ```

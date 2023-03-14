@@ -16,17 +16,19 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fetchUrl
-, ...
-}:
-fetchUrl {
-  url = "https://github.com/fluidattacks/makes/blob/16aafa1e3ed4cc99eb354842341fbf6f478a211c/README.md";
-  sha256 = "18scrymrar0bv7s92hfqfb01bv5pibyjw6dxp3i8nylmnh6gjv15";
-}
+=== "main.nix"
 
-```
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fetchUrl,
+      ...
+    }:
+    fetchUrl {
+      url = "https://github.com/fluidattacks/makes/blob/16aafa1e3ed4cc99eb354842341fbf6f478a211c/README.md";
+      sha256 = "18scrymrar0bv7s92hfqfb01bv5pibyjw6dxp3i8nylmnh6gjv15";
+    }
+    ```
 
 ## fetchArchive
 
@@ -52,17 +54,19 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fetchArchive
-, ...
-}:
-fetchArchive {
-  url = "https://github.com/fluidattacks/makes/archive/16aafa1e3ed4cc99eb354842341fbf6f478a211c.zip";
-  sha256 = "16zx89lzv5n048h5l9f8dgpvdj0l38hx7aapc7h1d1mjc1ca2i6a";
-}
+=== "main.nix"
 
-```
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fetchArchive,
+      ...
+    }:
+    fetchArchive {
+      url = "https://github.com/fluidattacks/makes/archive/16aafa1e3ed4cc99eb354842341fbf6f478a211c.zip";
+      sha256 = "16zx89lzv5n048h5l9f8dgpvdj0l38hx7aapc7h1d1mjc1ca2i6a";
+    }
+    ```
 
 ## fetchGithub
 
@@ -86,18 +90,21 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fetchGithub
-, ...
-}:
-fetchGithub {
-  owner = "kamadorueda";
-  repo = "mailmap-linter";
-  rev = "e0799aa47ac5ce6776ca8581ba50ace362e5d0ce";
-  sha256 = "02nr39rn4hicfam1rccbqhn6w6pl25xq7fl2kw0s0ahxzvfk24mh";
-}
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fetchGithub,
+      ...
+    }:
+    fetchGithub {
+      owner = "kamadorueda";
+      repo = "mailmap-linter";
+      rev = "e0799aa47ac5ce6776ca8581ba50ace362e5d0ce";
+      sha256 = "02nr39rn4hicfam1rccbqhn6w6pl25xq7fl2kw0s0ahxzvfk24mh";
+    }
+    ```
 
 ## fetchGitlab
 
@@ -121,26 +128,31 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fetchGitlab
-, ...
-}:
-fetchGitlab {
-  owner = "fluidattacks";
-  repo = "product";
-  rev = "ff231a9bf8aa3f0807f3431b402e7af08d136341";
-  sha256 = "1sfbif0bchdpw4rlfpv9gs4l4bmg8l24fqh2hg6m39msrvh1w6h3";
-}
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fetchGitlab,
+      ...
+    }:
+    fetchGitlab {
+      owner = "fluidattacks";
+      repo = "product";
+      rev = "ff231a9bf8aa3f0807f3431b402e7af08d136341";
+      sha256 = "1sfbif0bchdpw4rlfpv9gs4l4bmg8l24fqh2hg6m39msrvh1w6h3";
+    }
+    ```
 
 ## fetchNixpkgs
 
 Fetch a commit from the
 [Nixpkgs](https://github.com/NixOS/nixpkgs) repository.
 
-:warning: By default all licenses in the Nixpkgs repository are accepted.
-Options to decline individual licenses are provided below.
+???+ warning
+
+    By default all licenses in the Nixpkgs repository are accepted.
+    Options to decline individual licenses are provided below.
 
 Types:
 
@@ -164,18 +176,21 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fetchNixpkgs
-, ...
-}:
-let nixpkgs = fetchNixpkgs {
-  rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-  sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
-};
-in
-nixpkgs.awscli
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fetchNixpkgs,
+      ...
+    }:
+    let nixpkgs = fetchNixpkgs {
+      rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
+      sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
+    };
+    in
+    nixpkgs.awscli
+    ```
 
 ## fetchRubyGem
 
@@ -195,13 +210,16 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fetchRubyGem
-, ...
-}:
-fetchRubyGem {
-  sha256 = "04nc8x27hlzlrr5c2gn7mar4vdr0apw5xg22wp6m8dx3wqr04a0y";
-  url = "https://rubygems.org/downloads/ast-2.4.2.gem";
-}
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fetchRubyGem,
+      ...
+    }:
+    fetchRubyGem {
+      sha256 = "04nc8x27hlzlrr5c2gn7mar4vdr0apw5xg22wp6m8dx3wqr04a0y";
+      url = "https://rubygems.org/downloads/ast-2.4.2.gem";
+    }
+    ```

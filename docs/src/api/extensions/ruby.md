@@ -11,35 +11,38 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makeRubyVersion
-, makeScript
-, ...
-}:
-makeScript {
-  entrypoint = ''
-    ruby --version
-  '';
-  name = "example";
-  searchPaths = {
-    bin = [ (makeRubyVersion "2.7") ];
-  };
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeRubyVersion,
+      makeScript,
+      ...
+    }:
+    makeScript {
+      entrypoint = ''
+        ruby --version
+      '';
+      name = "example";
+      searchPaths = {
+        bin = [ (makeRubyVersion "2.7") ];
+      };
+    }
+    ```
 
-    ruby 2.6.8p205 (2021-07-07) [x86_64-linux]
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        ruby 2.6.8p205 (2021-07-07) [x86_64-linux]
+    ```
 
 ## makeRubyGemsInstall
 
 Fetch and install the specified Ruby gems
 from the [RubyGems][rubygems].
-
-Pre-requisites: [Generating a sourcesYaml](#makerubylock)
 
 Types:
 
@@ -58,25 +61,31 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makeRubyGemsInstall
-, ...
-}:
-makeRubyGemsInstall {
-  name = "example";
-  ruby = "3.0";
-  sourcesYaml = projectPath "/makes/example/sources.yaml";
-}
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeRubyGemsInstall,
+      ...
+    }:
+    makeRubyGemsInstall {
+      name = "example";
+      ruby = "3.0";
+      sourcesYaml = projectPath "/makes/example/sources.yaml";
+    }
+    ```
+
+???+ tip
+
+    Refer to [makeRubyLock](/api/builtins/utilities/#makerubylock)
+    to learn how to generate a `sourcesYaml`.
 
 ## makeRubyGemsEnvironment
 
 Create an environment where the specified Ruby gems
 from [RubyGems][rubygems]
 are available.
-
-Pre-requisites: [Generating a sourcesYaml](#makerubylock)
 
 Types:
 
@@ -100,35 +109,45 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ inputs
-, makeRubyGemsEnvironment
-, makeScript
-, ...
-}:
-let
-  env = makeRubyGemsEnvironment {
-    name = "example";
-    ruby = "3.0";
-    searchPathsBuild.bin = [ inputs.nixpkgs.gcc ];
-    searchPathsRuntime.rpath = [ inputs.nixpkgs.gcc.cc.lib ];
-    sourcesYaml = projectPath "/makes/example/sources.yaml";
-  };
-in
-makeScript {
-  entrypoint = ''
-    slimrb --version
-  '';
-  name = "example";
-  searchPaths.source = [ env ];
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      inputs,
+      makeRubyGemsEnvironment,
+      makeScript,
+      ...
+    }:
+    let
+      env = makeRubyGemsEnvironment {
+        name = "example";
+        ruby = "3.0";
+        searchPathsBuild.bin = [ inputs.nixpkgs.gcc ];
+        searchPathsRuntime.rpath = [ inputs.nixpkgs.gcc.cc.lib ];
+        sourcesYaml = projectPath "/makes/example/sources.yaml";
+      };
+    in
+    makeScript {
+      entrypoint = ''
+        slimrb --version
+      '';
+      name = "example";
+      searchPaths.source = [ env ];
+    }
+    ```
 
-    Slim 4.1.0
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        Slim 4.1.0
+    ```
+
+???+ tip
+
+    Refer to [makeRubyLock](/api/builtins/utilities/#makerubylock)
+    to learn how to generate a `sourcesYaml`.
 
 [rubygems]: https://rubygems.org/
