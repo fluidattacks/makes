@@ -16,7 +16,8 @@ Example:
 
     ```nix
     # /path/to/my/project/makes/example/main.nix
-    { fromJson,
+    {
+      fromJson,
       makeDerivation,
       ...
     }:

@@ -22,9 +22,10 @@ A `makes.nix` file should be:
   and returns an attribute set of configuration options:
 
   ```nix
-  { argA
-  , argB
-  , ...
+  {
+    argA,
+    argB,
+    ...
   }: {
     configOption1 = {
       # ...
