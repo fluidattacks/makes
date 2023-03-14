@@ -17,7 +17,7 @@ function main {
       : \
         && echo "${domain}" > "${cname_path}" \
         && args+=(
-          --github-remote
+          --remote-name
           "https://${GITHUB_TOKEN}@github.com/fluidattacks/makes.git"
         )
     fi \
