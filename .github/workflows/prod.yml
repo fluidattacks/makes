@@ -172,6 +172,7 @@ jobs:
           set-safe-directory: /github/workspace
           args: sh -c "nix-env -if . && m . /docs/deploy prod"
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
   linux_envVars_example:

@@ -28,8 +28,9 @@ Example:
 === "makes.nix"
 
     ```nix
-    { projectPath,
-    ...
+    {
+      projectPath,
+      ...
     }: {
       dynamoDb = {
         usersdb = {
