@@ -11,7 +11,7 @@
 
 1. Install Makes:
 
-    ```{ .bash, linenums=0}
+    ```bash
     nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
     ```
 
@@ -21,7 +21,7 @@
 
 The Makes command has the following syntax:
 
-```{ .bash, linenums=0}
+```bash
 m <repo> <job>
 ```
 

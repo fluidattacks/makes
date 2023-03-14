@@ -20,43 +20,48 @@ Types:
   Note that only shebangs that resolve to executables in the `"${PATH}"`
   (a.k.a. `searchPaths.bin`) will be taken into account.
 
-Examples:
+Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ __nixpkgs__
-, makeDerivation
-, patchShebangs
-, ...
-}:
-makeDerivation {
-  env = {
-    envFile = builtins.toFile "my_file.sh" ''
-      #! /usr/bin/env bash
+=== "main.nix"
 
-      echo Hello!
-    '';
-  };
-  builder = ''
-    copy $envFile $out
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      __nixpkgs__,
+      makeDerivation,
+      patchShebangs,
+      ...
+    }:
+    makeDerivation {
+      env = {
+        envFile = builtins.toFile "my_file.sh" ''
+          #! /usr/bin/env bash
 
-    chmod +x $out
-    patch_shebangs $out
+          echo Hello!
+        '';
+      };
+      builder = ''
+        copy $envFile $out
 
-    cat $out
-  '';
-  name = "example";
-  searchPaths = {
-    bin = [ __nixpkgs__.bash ]; # Propagate bash so `patch_shebangs` "sees" it
-    source = [ patchShebangs ];
-  };
-}
-```
+        chmod +x $out
+        patch_shebangs $out
 
-```bash
-$ m . /example
+        cat $out
+      '';
+      name = "example";
+      searchPaths = {
+        bin = [ __nixpkgs__.bash ]; # Propagate bash so `patch_shebangs` "sees" it
+        source = [ patchShebangs ];
+      };
+    }
+    ```
 
-    #! /nix/store/dpjnjrqbgbm8a5wvi1hya01vd8wyvsq4-bash-4.4-p23/bin/bash
+=== "Invocation"
 
-    echo Hello!
-```
+    ```bash
+    $ m . /example
+
+        #! /nix/store/dpjnjrqbgbm8a5wvi1hya01vd8wyvsq4-bash-4.4-p23/bin/bash
+
+        echo Hello!
+    ```

@@ -39,7 +39,7 @@ Types:
 
     And we will run pytest like this:
 
-    ```{ .bash, linenums=0}
+    ```bash
     pytest /tmp/some-random-unique-dir/__project__/path/to/src
     ```
 

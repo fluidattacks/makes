@@ -12,43 +12,47 @@ Types:
 
 Examples:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fromJson
-, makeDerivation
-, ...
-}:
-let
-  data = fromJson ''
-    {
-      "name": "John",
-      "lastName": "Doe",
-      "tickets": 3
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    { fromJson,
+      makeDerivation,
+      ...
+    }:
+    let
+      data = fromJson ''
+        {
+          "name": "John",
+          "lastName": "Doe",
+          "tickets": 3
+        }
+      '';
+    in
+    makeDerivation {
+      env = {
+        envName = data.name;
+        envLastName = data.lastName;
+        envTickets = data.tickets;
+      };
+      builder = ''
+        info "Name is: $envName"
+        info "Last name is: $envLastName"
+        info "Tickets is: $envTickets"
+      '';
+      name = "example";
     }
-  '';
-in
-makeDerivation {
-  env = {
-    envName = data.name;
-    envLastName = data.lastName;
-    envTickets = data.tickets;
-  };
-  builder = ''
-    info "Name is: $envName"
-    info "Last name is: $envLastName"
-    info "Tickets is: $envTickets"
-  '';
-  name = "example";
-}
-```
+    ```
 
-```bash
-$ m . /example
+=== "Invocation"
 
-    [INFO] Name is: John
-    [INFO] Last name is: Doe
-    [INFO] Tickets is: 3
-```
+    ```bash
+    $ m . /example
+
+        [INFO] Name is: John
+        [INFO] Last name is: Doe
+        [INFO] Tickets is: 3
+    ```
 
 ## fromToml
 
@@ -64,42 +68,47 @@ Types:
 
 Examples:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fromToml
-, makeDerivation
-, ...
-}:
-let
-  data = fromToml ''
-    [example]
-    name = "John"
-    lastName = "Doe"
-    tickets = 3
-  '';
-in
-makeDerivation {
-  env = {
-    envName = data.example.name;
-    envLastName = data.example.lastName;
-    envTickets = data.example.tickets;
-  };
-  builder = ''
-    info "Name is: $envName"
-    info "Last name is: $envLastName"
-    info "Tickets is: $envTickets"
-  '';
-  name = "example";
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fromToml,
+      makeDerivation,
+      ...
+    }:
+    let
+      data = fromToml ''
+        [example]
+        name = "John"
+        lastName = "Doe"
+        tickets = 3
+      '';
+    in
+    makeDerivation {
+      env = {
+        envName = data.example.name;
+        envLastName = data.example.lastName;
+        envTickets = data.example.tickets;
+      };
+      builder = ''
+        info "Name is: $envName"
+        info "Last name is: $envLastName"
+        info "Tickets is: $envTickets"
+      '';
+      name = "example";
+    }
+    ```
 
-    [INFO] Name is: John
-    [INFO] Last name is: Doe
-    [INFO] Tickets is: 3
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        [INFO] Name is: John
+        [INFO] Last name is: Doe
+        [INFO] Tickets is: 3
+    ```
 
 ## fromYaml
 
@@ -115,41 +124,46 @@ Types:
 
 Examples:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ fromYaml
-, makeDerivation
-, ...
-}:
-let
-  data = fromYaml ''
-    name: "John"
-    lastName: "Doe"
-    tickets: 3
-  '';
-in
-makeDerivation {
-  env = {
-    envName = data.name;
-    envLastName = data.lastName;
-    envTickets = data.tickets;
-  };
-  builder = ''
-    info "Name is: $envName"
-    info "Last name is: $envLastName"
-    info "Tickets is: $envTickets"
-  '';
-  name = "example";
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      fromYaml,
+      makeDerivation,
+      ...
+    }:
+    let
+      data = fromYaml ''
+        name: "John"
+        lastName: "Doe"
+        tickets: 3
+      '';
+    in
+    makeDerivation {
+      env = {
+        envName = data.name;
+        envLastName = data.lastName;
+        envTickets = data.tickets;
+      };
+      builder = ''
+        info "Name is: $envName"
+        info "Last name is: $envLastName"
+        info "Tickets is: $envTickets"
+      '';
+      name = "example";
+    }
+    ```
 
-    [INFO] Name is: John
-    [INFO] Last name is: Doe
-    [INFO] Tickets is: 3
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        [INFO] Name is: John
+        [INFO] Last name is: Doe
+        [INFO] Tickets is: 3
+    ```
 
 ## toBashArray
 
@@ -169,37 +183,42 @@ Types:
 
 Examples:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ toBashArray
-, makeDerivation
-, ...
-}:
-makeDerivation {
-  env = {
-    envTargets = toBashArray [ "first" "second" "third" ];
-  };
-  builder = ''
-    source "$envTargets/template" export targets
-    for target in "''${targets[@]}"; do
-      info "$target"
-      info ---
-    done
-  '';
-  name = "example";
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      toBashArray,
+      makeDerivation,
+      ...
+    }:
+    makeDerivation {
+      env = {
+        envTargets = toBashArray [ "first" "second" "third" ];
+      };
+      builder = ''
+        source "$envTargets/template" export targets
+        for target in "''${targets[@]}"; do
+          info "$target"
+          info ---
+        done
+      '';
+      name = "example";
+    }
+    ```
 
-    [INFO] first
-    [INFO] ---
-    [INFO] second
-    [INFO] ---
-    [INFO] third
-    [INFO] ----
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        [INFO] first
+        [INFO] ---
+        [INFO] second
+        [INFO] ---
+        [INFO] third
+        [INFO] ----
+    ```
 
 ## toBashMap
 
@@ -219,41 +238,46 @@ Types:
 
 Examples:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ toBashMap
-, makeDerivation
-, ...
-}:
-makeDerivation {
-  env = {
-    envData = toBashMap {
-      name = "Makes";
-      tags = "ci/cd, framework, nix";
-    };
-  };
-  builder = ''
-    source "$envData/template" data
+=== "main.nix"
 
-    for target in "''${!targets[@]}"; do
-      info "$target"
-      info ---
-    done
-  '';
-  name = "example";
-}
-```
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      toBashMap,
+      makeDerivation,
+      ...
+    }:
+    makeDerivation {
+      env = {
+        envData = toBashMap {
+          name = "Makes";
+          tags = "ci/cd, framework, nix";
+        };
+      };
+      builder = ''
+        source "$envData/template" data
 
-```bash
-$ m . /example
+        for target in "''${!targets[@]}"; do
+          info "$target"
+          info ---
+        done
+      '';
+      name = "example";
+    }
+    ```
 
-  [INFO] key: tags
-  [INFO] value: ci/cd, framework, nix
-  [INFO] ---
-  [INFO] key: name
-  [INFO] value: Makes
-  [INFO] ---
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+      [INFO] key: tags
+      [INFO] value: ci/cd, framework, nix
+      [INFO] ---
+      [INFO] key: name
+      [INFO] value: Makes
+      [INFO] ---
+    ```
 
 ## toFileJson
 
@@ -271,28 +295,33 @@ Types:
 
 Examples:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ toFileJson
-, makeDerivation
-, ...
-}:
-makeDerivation {
-  env = {
-    envFile = toFileJson "example.json" { name = "value"; };
-  };
-  builder = ''
-    cat $envFile
-  '';
-  name = "example";
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      toFileJson,
+      makeDerivation,
+      ...
+    }:
+    makeDerivation {
+      env = {
+        envFile = toFileJson "example.json" { name = "value"; };
+      };
+      builder = ''
+        cat $envFile
+      '';
+      name = "example";
+    }
+    ```
 
-    {"name": "value"}
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        {"name": "value"}
+    ```
 
 ## toFileJsonFromFileYaml
 
@@ -308,45 +337,52 @@ Types:
   - (`package`):
     YAML file to transform.
 
-Examples:
+Example:
 
-```yaml
-# /path/to/my/project/makes/example/test.yaml
+=== "test.yaml"
 
-name: "John"
-lastName: "Doe"
-tickets: 3
-```
+    ```yaml
+    # /path/to/my/project/makes/example/test.yaml
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makeDerivation
-, projectPath
-, toFileJsonFromFileYaml
-, ...
-}:
-makeDerivation {
-  env = {
-    envJson =
-      toFileJsonFromFileYaml
-        (projectPath "/makes/example/test.yaml");
-  };
-  builder = ''
-    cat "$envJson"
-  '';
-  name = "example";
-}
-```
+    name: "John"
+    lastName: "Doe"
+    tickets: 3
+    ```
 
-```bash
-$ m . /example
+=== "main.nix"
 
-{
-  "name": "John",
-  "lastName": "Doe",
-  "tickets": 3
-}
-```
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeDerivation,
+      projectPath,
+      toFileJsonFromFileYaml,
+      ...
+    }:
+    makeDerivation {
+      env = {
+        envJson =
+          toFileJsonFromFileYaml
+            (projectPath "/makes/example/test.yaml");
+      };
+      builder = ''
+        cat "$envJson"
+      '';
+      name = "example";
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+    {
+      "name": "John",
+      "lastName": "Doe",
+      "tickets": 3
+    }
+    ```
 
 ## toFileYaml
 
@@ -362,27 +398,32 @@ Types:
   - (`anything`):
     Nix expression to convert.
 
-Examples:
+Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ toFileYaml
-, makeDerivation
-, ...
-}:
-makeDerivation {
-  env = {
-    envFile = toFileYaml "example.yaml" { name = "value"; };
-  };
-  builder = ''
-    cat $envFile
-  '';
-  name = "example";
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      toFileYaml,
+      makeDerivation,
+      ...
+    }:
+    makeDerivation {
+      env = {
+        envFile = toFileYaml "example.yaml" { name = "value"; };
+      };
+      builder = ''
+        cat $envFile
+      '';
+      name = "example";
+    }
+    ```
 
-    name: value
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        name: value
+    ```

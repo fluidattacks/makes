@@ -22,8 +22,9 @@ so we are going to write the following function:
 
 ```nix
 # /path/to/my/project/makes/example/main.nix
-{ makeScript
-, ...
+{
+  makeScript,
+  ...
 }:
 makeScript {
   entrypoint = "echo Hello from Makes!";

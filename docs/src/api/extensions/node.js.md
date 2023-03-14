@@ -11,32 +11,39 @@ Types:
 
 Example:
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makeNodeJsVersion
-, makeScript
-, ...
-}:
-makeScript {
-  entrypoint = ''
-    node --version
-  '';
-  name = "example";
-  searchPaths = {
-    bin = [ (makeNodeJsVersion "16") ];
-  };
-}
-```
+=== "main.nix"
 
-```bash
-$ m . /example
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeNodeJsVersion,
+      makeScript,
+      ...
+    }:
+    makeScript {
+      entrypoint = ''
+        node --version
+      '';
+      name = "example";
+      searchPaths = {
+        bin = [ (makeNodeJsVersion "16") ];
+      };
+    }
+    ```
 
-    v16.2.0
-```
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        v16.2.0
+    ```
 
 ## makeNodeJsModules
 
-:warning: This function is only available on Linux at the moment.
+???+ warning
+
+    This function is only available on Linux at the moment.
 
 Cook the `node_modules` directory
 for the given Node.js project.
@@ -62,67 +69,78 @@ Types:
 
 Example:
 
-```json
-# /path/to/my/project/makes/example/package.json
-{
-  "dependencies": {
-    "hello-world-npm": "*"
-  }
-}
-```
+=== "package.json"
 
-```json
-# /path/to/my/project/makes/example/package-lock.json
-{
-  "requires": true,
-  "lockfileVersion": 1,
-  "dependencies": {
-    "hello-world-npm": {
-      "version": "1.1.1",
-      "resolved": "https://registry.npmjs.org/hello-world-npm/-/hello-world-npm-1.1.1.tgz",
-      "integrity": "sha1-JQgw7wAItDftk+a+WZk0ua0Lkwg="
+    ```json
+    # /path/to/my/project/makes/example/package.json
+    {
+      "dependencies": {
+        "hello-world-npm": "*"
+      }
     }
-  }
-}
-```
+    ```
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makeNodeJsModules
-, makeScript
-, projectPath
-, ...
-}:
-let
-  hello = makeNodeJsModules {
-    name = "hello-world-npm";
-    nodeJsVersion = "16";
-    packageJson =
-      projectPath "/path/to/my/project/makes/example/package.json";
-    packageLockJson =
-      projectPath "/path/to/my/project/makes/example/package-lock.json";
-  };
-in
-makeScript {
-  replace = {
-    __argHello__ = hello;
-  };
-  entrypoint = ''
-    ls __argHello__
-  '';
-  name = "example";
-}
-```
+=== "package-lock.json"
 
-```bash
-$ m . /example
+    ```json
+    # /path/to/my/project/makes/example/package-lock.json
+    {
+      "requires": true,
+      "lockfileVersion": 1,
+      "dependencies": {
+        "hello-world-npm": {
+          "version": "1.1.1",
+          "resolved": "https://registry.npmjs.org/hello-world-npm/-/hello-world-npm-1.1.1.tgz",
+          "integrity": "sha1-JQgw7wAItDftk+a+WZk0ua0Lkwg="
+        }
+      }
+    }
+    ```
 
-    hello-world-npm
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeNodeJsModules,
+      makeScript,
+      projectPath,
+      ...
+    }:
+    let
+      hello = makeNodeJsModules {
+        name = "hello-world-npm";
+        nodeJsVersion = "16";
+        packageJson =
+          projectPath "/path/to/my/project/makes/example/package.json";
+        packageLockJson =
+          projectPath "/path/to/my/project/makes/example/package-lock.json";
+      };
+    in
+    makeScript {
+      replace = {
+        __argHello__ = hello;
+      };
+      entrypoint = ''
+        ls __argHello__
+      '';
+      name = "example";
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        hello-world-npm
+    ```
 
 ## makeNodeJsEnvironment
 
-:warning: This function is only available on Linux at the moment.
+???+ warning
+
+    This function is only available on Linux at the moment.
 
 Setup a `makeNodeJsModules` in the environment
 using `makeSearchPaths`.
@@ -155,59 +173,68 @@ Types:
 
 Example:
 
-```json
-# /path/to/my/project/makes/example/package.json
-{
-  "dependencies": {
-    "hello-world-npm": "*"
-  }
-}
-```
+=== "package.json"
 
-```json
-# /path/to/my/project/makes/example/package-lock.json
-{
-  "requires": true,
-  "lockfileVersion": 1,
-  "dependencies": {
-    "hello-world-npm": {
-      "version": "1.1.1",
-      "resolved": "https://registry.npmjs.org/hello-world-npm/-/hello-world-npm-1.1.1.tgz",
-      "integrity": "sha1-JQgw7wAItDftk+a+WZk0ua0Lkwg="
+    ```json
+    # /path/to/my/project/makes/example/package.json
+    {
+      "dependencies": {
+        "hello-world-npm": "*"
+      }
     }
-  }
-}
-```
+    ```
 
-```nix
-# /path/to/my/project/makes/example/main.nix
-{ makeNodeJsEnvironment
-, makeScript
-, ...
-}:
-let
-  hello = makeNodeJsEnvironment {
-    name = "hello-world-npm";
-    nodeJsVersion = "16";
-    packageJson =
-      projectPath "/path/to/my/project/makes/example/package.json";
-    packageLockJson =
-      projectPath "/path/to/my/project/makes/example/package-lock.json";
-  };
-in
-makeScript {
-  entrypoint = ''
-    hello-world-npm
-  '';
-  name = "example";
-  searchPaths = {
-    source = [ hello ];
-  };
-}
-```
+=== "package-lock.json"
 
-```bash
-$ m . /example
+    ```json
+    # /path/to/my/project/makes/example/package-lock.json
+    {
+      "requires": true,
+      "lockfileVersion": 1,
+      "dependencies": {
+        "hello-world-npm": {
+          "version": "1.1.1",
+          "resolved": "https://registry.npmjs.org/hello-world-npm/-/hello-world-npm-1.1.1.tgz",
+          "integrity": "sha1-JQgw7wAItDftk+a+WZk0ua0Lkwg="
+        }
+      }
+    }
+    ```
 
-    Hello World NPM
-```
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makeNodeJsEnvironment,
+      makeScript,
+      ...
+    }:
+    let
+      hello = makeNodeJsEnvironment {
+        name = "hello-world-npm";
+        nodeJsVersion = "16";
+        packageJson =
+          projectPath "/path/to/my/project/makes/example/package.json";
+        packageLockJson =
+          projectPath "/path/to/my/project/makes/example/package-lock.json";
+      };
+    in
+    makeScript {
+      entrypoint = ''
+        hello-world-npm
+      '';
+      name = "example";
+      searchPaths = {
+        source = [ hello ];
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        Hello World NPM
+    ```
