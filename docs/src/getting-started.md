@@ -33,12 +33,25 @@ where:
   If no job is specified,
   Makes displays all available jobs.
 
-You can try:
+Example:
 
-- `$ m github:fluidattacks/makes@main`
-- `$ m github:fluidattacks/makes@main /helloWorld`
-- `$ m gitlab:fluidattacks/makes-example-2@main`
-- `$ m /path/to/local/repo`
+=== "GitHub"
+
+    ```bash
+    m github:fluidattacks/makes@main
+    ```
+
+=== "GitLab"
+
+    ```bash
+    m gitlab:fluidattacks/makes-example-2@main
+    ```
+
+=== "Local"
+
+    ```bash
+    m /path/to/local/repo
+    ```
 
 Makes is powered by [Nix](https://nixos.org).
 This means that it is able to run
