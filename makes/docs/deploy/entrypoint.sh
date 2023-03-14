@@ -4,24 +4,14 @@ function main {
   local env="${1:-}"
   local domain="makes.fluidattacks.com"
   local cname_path="src/CNAME"
-  local args=(
-    gh-deploy
-    --force
-    --no-history
-  )
 
   : \
     && pushd docs \
     && rm -rf "${cname_path}" \
     && if [ "${env}" == "prod" ]; then
-      : \
-        && echo "${domain}" > "${cname_path}" \
-        && args+=(
-          --remote-name
-          "https://${GITHUB_TOKEN}@github.com/fluidattacks/makes.git"
-        )
+      echo "${domain}" > "${cname_path}"
     fi \
-    && mkdocs "${args[@]}"
+    && mkdocs gh-deploy --force --no-history
 }
 
 main "${@}"
