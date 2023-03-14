@@ -10,7 +10,7 @@ Types:
   - (`str`):
     JSON formatted string to convert.
 
-Examples:
+Example:
 
 === "main.nix"
 
@@ -66,7 +66,7 @@ Types:
   - (`str`):
     TOML formatted string to convert.
 
-Examples:
+Example:
 
 === "main.nix"
 
@@ -122,7 +122,7 @@ Types:
   - (`str`):
     YAML formatted string to convert.
 
-Examples:
+Example:
 
 === "main.nix"
 
@@ -181,7 +181,7 @@ Types:
     list of arguments
     to transform.
 
-Examples:
+Example:
 
 === "main.nix"
 
@@ -236,7 +236,7 @@ Types:
   - (`attrsOf strLike`):
     expression to transform.
 
-Examples:
+Example:
 
 === "main.nix"
 
@@ -293,7 +293,7 @@ Types:
   - (`anything`):
     Nix expression to convert.
 
-Examples:
+Example:
 
 === "main.nix"
 
