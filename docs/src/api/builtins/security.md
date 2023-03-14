@@ -1,6 +1,8 @@
 ## secureKubernetesWithRbacPolice
 
-:warning: This function is only available on Linux at the moment.
+???+ warning
+
+    This function is only available on Linux at the moment.
 
 Secure Kubernetes clusters
 with [rbac-police](https://github.com/PaloAltoNetworks/rbac-police).

@@ -370,7 +370,9 @@ Example:
 
 ## lintWithAjv
 
-:warning: This function is only available on Linux at the moment.
+???+ warning
+
+    This function is only available on Linux at the moment.
 
 Lints JSON and YAML data files
 with [JSON Schemas](https://json-schema.org/).
