@@ -1,4 +1,4 @@
-# Contributing to Makes
+# Contributing
 
 - Bug reports: [here][makes_issues]
 - Feature requests: [here][makes_issues]
