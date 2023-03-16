@@ -62,6 +62,58 @@ We have **thoroughly** tested it in
 x86_64 hardware architectures
 running Linux and MacOS (darwin) machines.
 
+### Using the container
+
+A Makes container can be found
+in the [container registry](https://github.com/fluidattacks/makes/pkgs/container/makes).
+
+You can use it
+to run Makes on any service
+that supports containers,
+including most CI/CD providers.
+
+Example:
+
+=== "GitHub Actions"
+
+    ```yaml
+    # .github/workflows/dev.yml
+    name: Makes CI
+    on: [push, pull_request]
+    jobs:
+      helloWorld:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+          - uses: docker://ghcr.io/fluidattacks/makes:23.04
+            name: helloWorld
+            with:
+              args: m . /helloWorld 1 2 3
+    ```
+
+=== "GitLab CI"
+
+    ```yaml
+    # .gitlab-ci.yml
+    /helloWorld:
+      image: ghcr.io/fluidattacks/makes:23.04
+      script:
+        - m . /helloWorld 1 2 3
+    ```
+
+=== "Travis CI"
+
+    ```yaml
+    # .travis.yml
+    os: linux
+    language: nix
+    nix: 2.3.12
+    install: nix-env -if https://github.com/fluidattacks/makes/archive/23.04.tar.gz
+    jobs:
+      include:
+        - script: m . /helloWorld 1 2 3
+    ```
+
 ### Importing via Nix
 
 You can also import Makes from Nix:
