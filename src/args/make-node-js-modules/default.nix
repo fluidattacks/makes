@@ -2,7 +2,6 @@
   __nixpkgs__,
   attrsGet,
   fromJsonFile,
-  isLinux,
   makeDerivation,
   makeNodeJsVersion,
   makeSearchPaths,
@@ -17,7 +16,7 @@
   searchPaths ? {},
   shouldIgnoreScripts ? false,
 }:
-assert isLinux; let
+let
   nodeJs = makeNodeJsVersion nodeJsVersion;
   packageLock = fromJsonFile packageLockJson;
 
