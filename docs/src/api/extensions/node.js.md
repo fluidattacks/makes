@@ -41,10 +41,6 @@ Example:
 
 ## makeNodeJsModules
 
-???+ warning
-
-    This function is only available on Linux at the moment.
-
 Cook the `node_modules` directory
 for the given Node.js project.
 
@@ -137,10 +133,6 @@ Example:
     ```
 
 ## makeNodeJsEnvironment
-
-???+ warning
-
-    This function is only available on Linux at the moment.
 
 Setup a `makeNodeJsModules` in the environment
 using `makeSearchPaths`.
