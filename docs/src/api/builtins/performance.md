@@ -51,3 +51,17 @@ Example:
       };
     }
     ```
+
+### Configuring trusted-users
+
+If you decided to go
+with a Multi-user installation
+when installing Nix,
+you will have to take additional steps
+in order to make the cache work.
+
+As the Multi-user installation
+does not trust your user by default,
+you will have to add yourself
+to the `trusted-users` in the
+[Nix Configuration File](https://www.mankier.com/5/nix.conf).

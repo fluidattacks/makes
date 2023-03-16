@@ -107,8 +107,6 @@ plugins:
 nav:
   - index.md
   - getting-started.md
-  - configuring-ci-cd.md
-  - versioning.md
   - API:
       - builtins:
           - api/builtins/index.md
@@ -138,6 +136,7 @@ nav:
           - api/extensions/patchers.md
           - api/extensions/python.md
           - api/extensions/ruby.md
+  - versioning.md
   - architecture.md
   - contributing.md
   - governance.md
