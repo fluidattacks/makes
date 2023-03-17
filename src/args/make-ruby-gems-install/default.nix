@@ -21,7 +21,7 @@
       rubyGem: let
         gem = fetchRubyGem rubyGem;
       in {
-        name = gem.name;
+        inherit (gem) name;
         path = gem;
       }
     )
