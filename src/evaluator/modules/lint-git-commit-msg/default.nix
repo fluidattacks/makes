@@ -30,7 +30,7 @@
       };
     };
   };
-  config = attrsOptional isLinux {
+  config = {
     outputs = {
       "/lintGitCommitMsg" =
         lib.mkIf
