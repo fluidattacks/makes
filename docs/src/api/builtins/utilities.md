@@ -4,8 +4,8 @@ without having to specify them on any file.
 
 ## makeNodeJsLock
 
-You can generate a `package-lock.json`
-for [makeNodeJsEnvironment](#makenodejsenvironment)
+You can generate a `package-lock.json` for
+[makeNodeJsEnvironment](/api/extensions/node.js/#makenodejsenvironment)
 like this:
 
 ```bash
@@ -17,15 +17,15 @@ m github:fluidattacks/makes@23.04 /utils/makeNodeJsLock \
 
 - Supported `node_js_version`s are: `14`, `16` and `18`.
 - `package_json` is the **absolute path** to the `package.json` file in your
-  project.
+    project.
 - `package_lock` is the **absolute path**
-  to the `package-lock.json` file in your project, this file can be an empty
-  file.
+    to the `package-lock.json` file in your project, this file can be an empty
+    file.
 
 ## makePythonLock
 
-You can generate a `sourcesYaml`
-for [makePythonPypiEnvironment](#makepythonpypienvironment)
+You can generate a `sourcesYaml` for
+[makePythonPypiEnvironment](/api/extensions/python/#makepythonpypienvironment)
 like this:
 
 ```bash
@@ -37,21 +37,21 @@ m github:fluidattacks/makes@23.04 /utils/makePythonLock \
 
 - Supported `python_version`s are: `3.8`, `3.9`, `3.10` and `3.11`.
 - `dependencies_yaml` is the **absolute path** to a YAML file
-  mapping [PyPI](https://pypi.org/) packages to version constraints.
-  Example:
+    mapping [PyPI](https://pypi.org/) packages to version constraints.
+    Example:
 
-      ```yaml
-      Django: "3.2.*"
-      psycopg2: "2.9.1"
-      ```
+    ```yaml
+    Django: "3.2.*"
+    psycopg2: "2.9.1"
+    ```
 
 - `sources_yaml` is the **absolute path**
-  to a file were the script will output results.
+    to a file were the script will output results.
 
 ## makeRubyLock
 
-You can generate a `sourcesYaml`
-for [makeRubyGemsEnvironment](#makerubygemsenvironment)
+You can generate a `sourcesYaml` for
+[makeRubyGemsEnvironment](/api/extensions/ruby/#makerubygemsenvironment)
 like this:
 
 ```bash
@@ -63,16 +63,16 @@ m github:fluidattacks/makes@23.04 /utils/makeRubyLock \
 
 - Supported `ruby_version`s are: `2.7`, `3.0` and `3.1`.
 - `dependencies_yaml` is the **absolute path** to a YAML file
-  mapping [RubyGems](https://rubygems.org/) gems to version constraints.
-  Example:
+    mapping [RubyGems](https://rubygems.org/) gems to version constraints.
+    Example:
 
-      ```yaml
-      rubocop: "1.43.0"
-      slim: "~> 4.1"
-      ```
+    ```yaml
+    rubocop: "1.43.0"
+    slim: "~> 4.1"
+    ```
 
 - `sources_yaml` is the **absolute path**
-  to a file were the script will output results.
+    to a file were the script will output results.
 
 ## makeSopsEncryptedFile
 
@@ -95,25 +95,25 @@ specified via environment variable.
 Types:
 
 - workspaceForTerraformFromEnv:
-  - modules (`attrsOf moduleType`): Optional.
-    Terraform modules to switch workspace.
-    Defaults to `{ }`.
+    - modules (`attrsOf moduleType`): Optional.
+        Terraform modules to switch workspace.
+        Defaults to `{ }`.
 - moduleType (`submodule`):
-  - setup (`listOf package`): Optional.
-    [Makes Environment](./environment.md)
-    or [Makes Secrets](./secrets.md)
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - src (`str`):
-    Path to the Terraform module.
-  - variable (`str`): Optional.
-    Name of the environment variable that contains
-    the name of the workspace you want to use.
-    Defaults to `""`.
-    When `""` provided, workspace is `default`.
-  - version (`enum [ "0.14" "0.15" "1.0" ]`):
-    Terraform version your module is built with.
+    - setup (`listOf package`): Optional.
+        [Makes Environment](./environment.md)
+        or [Makes Secrets](./secrets.md)
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - src (`str`):
+        Path to the Terraform module.
+    - variable (`str`): Optional.
+        Name of the environment variable that contains
+        the name of the workspace you want to use.
+        Defaults to `""`.
+        When `""` provided, workspace is `default`.
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
+        Terraform version your module is built with.
 
 Example:
 

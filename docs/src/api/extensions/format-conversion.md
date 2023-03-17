@@ -6,9 +6,8 @@ to a Nix expression.
 Types:
 
 - fromJson (`function str -> anything`):
-
-  - (`str`):
-    JSON formatted string to convert.
+    - (`str`):
+        JSON formatted string to convert.
 
 Example:
 
@@ -63,9 +62,8 @@ to a Nix expression.
 Types:
 
 - fromToml (`function str -> anything`):
-
-  - (`str`):
-    TOML formatted string to convert.
+    - (`str`):
+        TOML formatted string to convert.
 
 Example:
 
@@ -119,9 +117,8 @@ to a Nix expression.
 Types:
 
 - fromYaml (`function str -> anything`):
-
-  - (`str`):
-    YAML formatted string to convert.
+    - (`str`):
+        YAML formatted string to convert.
 
 Example:
 
@@ -177,10 +174,9 @@ to Bash.
 Types:
 
 - toBashArray (`function (listOf strLike) -> package`):
-
-  - (`listOf strLike`):
-    list of arguments
-    to transform.
+    - (`listOf strLike`):
+        list of arguments
+        to transform.
 
 Example:
 
@@ -233,9 +229,8 @@ You can combine with toBashArray for more complex structures.
 Types:
 
 - toBashMap (`function (attrsOf strLike) -> package`):
-
-  - (`attrsOf strLike`):
-    expression to transform.
+    - (`attrsOf strLike`):
+        expression to transform.
 
 Example:
 
@@ -288,11 +283,10 @@ into a JSON file.
 Types:
 
 - toFileJson (`function str anything -> package`):
-
-  - (`str`):
-    Name of the created file.
-  - (`anything`):
-    Nix expression to convert.
+    - (`str`):
+        Name of the created file.
+    - (`anything`):
+        Nix expression to convert.
 
 Example:
 
@@ -334,9 +328,8 @@ equivalent.
 Types:
 
 - toFileJsonFromFileYaml (`function package -> package`):
-
-  - (`package`):
-    YAML file to transform.
+    - (`package`):
+        YAML file to transform.
 
 Example:
 
@@ -393,11 +386,10 @@ into a YAML file.
 Types:
 
 - toFileYaml (`function str anything -> package`):
-
-  - (`str`):
-    Name of the created file.
-  - (`anything`):
-    Nix expression to convert.
+    - (`str`):
+        Name of the created file.
+    - (`anything`):
+        Nix expression to convert.
 
 Example:
 

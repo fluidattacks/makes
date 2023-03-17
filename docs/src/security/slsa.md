@@ -44,25 +44,25 @@ For clarity,
 this is how SLSA definitions map into our infrastructure:
 
 - **Source**: Git repository at:
-  [github.com/fluidattacks/makes][makes].
+    [github.com/fluidattacks/makes][makes].
 - **Platform**: [GitHub Actions][github_actions],
-  [Makes][makes],
-  and the [Nix package manager][nix].
+    [Makes][makes],
+    and the [Nix package manager][nix].
 - **Build service**:
-  [GitHub Actions][github_actions],
-  using GitHub hosted runners.
+    [GitHub Actions][github_actions],
+    using GitHub hosted runners.
 - **Build**: A Nix derivation.
 - **Environment**: A sandbox
-  that [Chroot](https://en.wikipedia.org/wiki/Chroot)s
-  into an empty temporary directory,
-  provides private versions
-  of `/proc`, `/dev`, `/dev/shm`, and `/dev/pts`,
-  and uses a private PID, mount, network, IPC, and UTS namespace
-  to isolate itself from other processes in the system.
+    that [Chroot](https://en.wikipedia.org/wiki/Chroot)s
+    into an empty temporary directory,
+    provides private versions
+    of `/proc`, `/dev`, `/dev/shm`, and `/dev/pts`,
+    and uses a private PID, mount, network, IPC, and UTS namespace
+    to isolate itself from other processes in the system.
 - **Steps**: Instructions declared
-  in the corresponding Makes configuration files
-  written using the Nix programming language
-  and shell scripting, versioned as-code in the _source_.
+    in the corresponding Makes configuration files
+    written using the Nix programming language
+    and shell scripting, versioned as-code in the _source_.
 
 ## Source Requirements
 
@@ -72,22 +72,22 @@ Every change to the source is tracked on GitHub,
 using the Git version control system.
 
 - **Change history**: There exists a record
-  of the history of changes
-  that went into the revision.
-  Each change contains:
-  the identities of the uploader and reviewers (if any),
-  timestamps of the reviews (if any) and submission,
-  the change description/justification,
-  the content of the change,
-  and the parent revisions.
+    of the history of changes
+    that went into the revision.
+    Each change contains:
+    the identities of the uploader and reviewers (if any),
+    timestamps of the reviews (if any) and submission,
+    the change description/justification,
+    the content of the change,
+    and the parent revisions.
 
-  For example: [PR 649](https://github.com/fluidattacks/makes/pull/649).
+    For example: [PR 649](https://github.com/fluidattacks/makes/pull/649).
 
 - **Immutable reference**:
-  There exists a way to indefinitely reference a particular,
-  immutable revision.
-  For example:
-  [c61feb1be11abc4d7ffed52c660a45c57f06599c](https://github.com/fluidattacks/makes/commit/c61feb1be11abc4d7ffed52c660a45c57f06599c).
+    There exists a way to indefinitely reference a particular,
+    immutable revision.
+    For example:
+    [c61feb1be11abc4d7ffed52c660a45c57f06599c](https://github.com/fluidattacks/makes/commit/c61feb1be11abc4d7ffed52c660a45c57f06599c).
 
 ### Verified history
 
@@ -177,18 +177,18 @@ For example:
 According to the [GitHub Actions documentation](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners),
 
 - "Each GitHub-hosted runner
-  is a new virtual machine (VM)
-  hosted by GitHub with the runner application
-  and other tools preinstalled."
+    is a new virtual machine (VM)
+    hosted by GitHub with the runner application
+    and other tools preinstalled."
 - "When the job begins,
-  GitHub automatically provisions a new VM for that job.
-  All steps in the job execute on the VM,
-  allowing the steps in that job to share information
-  using the runner's filesystem.
-  You can run workflows directly on the VM
-  or in a Docker container.
-  When the job has finished,
-  the VM is automatically decommissioned."
+    GitHub automatically provisions a new VM for that job.
+    All steps in the job execute on the VM,
+    allowing the steps in that job to share information
+    using the runner's filesystem.
+    You can run workflows directly on the VM
+    or in a Docker container.
+    When the job has finished,
+    the VM is automatically decommissioned."
 
 Additionally,
 the [Nix package manager][nix]
@@ -251,14 +251,14 @@ For example:
 The [Nix package manager][nix]:
 
 - Fetches all of the declared artifacts
-  into a trusted control plane (the /nix/store).
+    into a trusted control plane (the /nix/store).
 - Mounts into the build sandbox
-  the specific /nix/store paths required by it.
+    the specific /nix/store paths required by it.
 - Allows a build to fetch artifacts over the network
-  if and only if the expected artifact integrity is specified.
+    if and only if the expected artifact integrity is specified.
 - Validates the integrity of each artifact
-  before allowing a build to use it,
-  and fails the build if the verification fails.
+    before allowing a build to use it,
+    and fails the build if the verification fails.
 - Denies network connectivity if no expected hash is specified.
 
 ### Reproducible
@@ -313,18 +313,18 @@ The provenance
 cannot be falsified by the build service's users:
 
 - There is no secret material
-  to demonstrate the non-falsifiable nature of the provenance
-  (see _Provenance - Authenticated_).
+    to demonstrate the non-falsifiable nature of the provenance
+    (see _Provenance - Authenticated_).
 - Even if such secret material existed,
-  builds are run in an hermetic environment,
-  and therefore they wouldn't be available to the build steps
-  (see _Build - Hermetic_).
+    builds are run in an hermetic environment,
+    and therefore they wouldn't be available to the build steps
+    (see _Build - Hermetic_).
 - Every field in the provenance is generated
-  by the build service in a trusted control plane,
-  which is fully defined by the build configuration,
-  which comes directly from the Source,
-  and therefore is as secure as the Source is
-  (see _Source - Verified History_).
+    by the build service in a trusted control plane,
+    which is fully defined by the build configuration,
+    which comes directly from the Source,
+    and therefore is as secure as the Source is
+    (see _Source - Verified History_).
 
 ### Dependencies Complete
 

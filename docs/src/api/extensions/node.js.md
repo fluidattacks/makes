@@ -5,9 +5,8 @@ Get a specific Node.js version interpreter.
 Types:
 
 - makeNodeJsVersion (`function str -> package`):
-
-  - (`enum [ "14" "16" "18" ]`):
-    Node.js version to use.
+    - (`enum [ "14" "16" "18" ]`):
+        Node.js version to use.
 
 Example:
 
@@ -47,21 +46,20 @@ for the given Node.js project.
 Types:
 
 - makeNodeJsModules (`function { ... } -> package`):
-
-  - name (`str`):
-    Custom name to assign to the build step, be creative, it helps in debugging.
-  - nodeJsVersion (`enum [ "14" "16" "18" ]`):
-    Node.js version to use.
-  - packageJson (`package`):
-    Path to the `package.json` of your project.
-  - packageLockJson (`package`):
-    Path to the `package-lock.json` of your project.
-  - searchPaths (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`.
-    Defaults to `makeSearchPaths`'s defaults.
-  - shouldIgnoreScripts (`bool`): Optional.
-    Enable to propagate the `--ignore-scripts true` flag to npm.
-    Defaults to `false`.
+    - name (`str`):
+        Custom name to assign to the build step, be creative, it helps in debugging.
+    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
+        Node.js version to use.
+    - packageJson (`package`):
+        Path to the `package.json` of your project.
+    - packageLockJson (`package`):
+        Path to the `package-lock.json` of your project.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`.
+        Defaults to `makeSearchPaths`'s defaults.
+    - shouldIgnoreScripts (`bool`): Optional.
+        Enable to propagate the `--ignore-scripts true` flag to npm.
+        Defaults to `false`.
 
 Example:
 
@@ -142,26 +140,26 @@ It appends:
 - `node_modules/.bin` to `PATH`.
 - `node_modules` to [NODE_PATH](https://nodejs.org/api/modules.html).
 
-Pre-requisites: [Generating a package-lock.json](#makenodejslock)
+Pre-requisites:
+[Generating a package-lock.json](/api/builtins/utilities#makenodejslock)
 
 Types:
 
 - makeNodeJsEnvironment (`function { ... } -> package`):
-
-  - name (`str`):
-    Custom name to assign to the build step, be creative, it helps in debugging.
-  - nodeJsVersion (`enum [ "14" "16" "18" ]`):
-    Node.js version to use.
-  - packageJson (`package`):
-    Path to the `package.json` of your project.
-  - packageLockJson (`package`):
-    Path to the `package-lock.json` of your project.
-  - searchPaths (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`.
-    Defaults to `makeSearchPaths`'s defaults.
-  - shouldIgnoreScripts (`bool`): Optional.
-    Enable to propagate the `--ignore-scripts true` flag to npm.
-    Defaults to `false`.
+    - name (`str`):
+        Custom name to assign to the build step, be creative, it helps in debugging.
+    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
+        Node.js version to use.
+    - packageJson (`package`):
+        Path to the `package.json` of your project.
+    - packageLockJson (`package`):
+        Path to the `package-lock.json` of your project.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`.
+        Defaults to `makeSearchPaths`'s defaults.
+    - shouldIgnoreScripts (`bool`): Optional.
+        Enable to propagate the `--ignore-scripts true` flag to npm.
+        Defaults to `false`.
 
 Example:
 

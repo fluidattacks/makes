@@ -10,19 +10,17 @@ with [rbac-police](https://github.com/PaloAltoNetworks/rbac-police).
 Types:
 
 - secureKubernetesWithRbacPolice (`attrsOf kubernetesWithRbacPolice`): Optional.
-  Defaults to `{ }`.
+    Defaults to `{ }`.
 - kubernetesWithRbacPolice (`submodule`):
-
-  - severity (`str`):
-    Only evaluate policies with severity >= threshold.
-    Defaults to `Low`.
-
-  - setup (`listOf package`):
-    [Makes Environment](./environment.md)
-    or [Makes Secrets](./secrets.md)
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
+    - severity (`str`):
+        Only evaluate policies with severity >= threshold.
+        Defaults to `Low`.
+    - setup (`listOf package`):
+        [Makes Environment](./environment.md)
+        or [Makes Secrets](./secrets.md)
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
 
 Example:
 
@@ -75,13 +73,13 @@ with [Bandit](https://github.com/PyCQA/bandit).
 Types:
 
 - securePythonWithBandit (`attrsOf projectType`): Optional.
-  Definitions of directories of python packages/modules to lint.
-  Defaults to `{ }`.
+    Definitions of directories of python packages/modules to lint.
+    Defaults to `{ }`.
 - projectType (`submodule`):
-  - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
-    Python interpreter version that your package/module is designed for.
-  - target (`str`):
-    Relative path to the package/module.
+    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+        Python interpreter version that your package/module is designed for.
+    - target (`str`):
+        Relative path to the package/module.
 
 Example:
 

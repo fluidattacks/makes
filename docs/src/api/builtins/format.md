@@ -8,11 +8,11 @@ according to [shfmt](https://github.com/mvdan/sh).
 Types:
 
 - formatBash:
-  - enable (`boolean`): Optional.
-    Defaults to false.
-  - targets (`listOf str`): Optional.
-    Files or directories (relative to the project) to format.
-    Defaults to the entire project.
+    - enable (`boolean`): Optional.
+        Defaults to false.
+    - targets (`listOf str`): Optional.
+        Files or directories (relative to the project) to format.
+        Defaults to the entire project.
 
 Example:
 
@@ -49,13 +49,13 @@ according to [doctoc](https://github.com/thlorenz/doctoc).
 Types:
 
 - formatMarkdown:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - doctocArgs (`listOf str`): Optional.
-    Extra CLI flags to propagate to doctoc.
-    Defaults to `[ ]`.
-  - targets (`listOf str`):
-    Files (relative to the project) to format.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - doctocArgs (`listOf str`): Optional.
+        Extra CLI flags to propagate to doctoc.
+        Defaults to `[ ]`.
+    - targets (`listOf str`):
+        File  s (relative to the project) to format.
 
 Example:
 
@@ -85,11 +85,11 @@ according to [Alejandra](https://github.com/kamadorueda/alejandra).
 Types:
 
 - formatNix:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - targets (`listOf str`): Optional.
-    Files or directories (relative to the project) to format.
-    Defaults to the entire project.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - targets (`listOf str`): Optional.
+        Files or directories (relative to the project) to format.
+        Defaults to the entire project.
 
 Example:
 
@@ -123,11 +123,11 @@ and [isort](https://github.com/PyCQA/isort).
 Types:
 
 - formatPython:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - targets (`listOf str`): Optional.
-    Files or directories (relative to the project) to format.
-    Defaults to the entire project.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - targets (`listOf str`): Optional.
+        Files or directories (relative to the project) to format.
+        Defaults to the entire project.
 
 Example:
 
@@ -160,11 +160,11 @@ according to [Terraform FMT](https://www.terraform.io/docs/cli/commands/fmt.html
 Types:
 
 - formatTerraform:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - targets (`listOf str`): Optional.
-    Files or directories (relative to the project) to format.
-    Defaults to the entire project.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - targets (`listOf str`): Optional.
+        Files or directories (relative to the project) to format.
+        Defaults to the entire project.
 
 Example:
 
@@ -197,11 +197,11 @@ is formatted according to [yamlfix](https://github.com/lyz-code/yamlfix).
 Types:
 
 - formatYaml:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - targets (`listOf str`): Optional.
-    Files or directories (relative to the project) to format.
-    Defaults to the entire project.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - targets (`listOf str`): Optional.
+        Files or directories (relative to the project) to format.
+        Defaults to the entire project.
 
 Example:
 

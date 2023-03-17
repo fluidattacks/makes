@@ -7,34 +7,34 @@ A `makes.nix` file should be:
 
 - An attribute set of configuration options:
 
-  ```nix
-  {
-    configOption1 = {
-      # ...
-    };
-    configOption2 = {
-      # ...
-    };
-  }
-  ```
+    ```nix
+    {
+      configOption1 = {
+        # ...
+      };
+      configOption2 = {
+        # ...
+      };
+    }
+    ```
 
 - A function that receives one or more arguments
   and returns an attribute set of configuration options:
 
-  ```nix
-  {
-    argA,
-    argB,
-    ...
-  }: {
-    configOption1 = {
-      # ...
-    };
-    configOption2 = {
-      # ...
-    };
-  }
-  ```
+    ```nix
+    {
+      argA,
+      argB,
+      ...
+    }: {
+      configOption1 = {
+        # ...
+      };
+      configOption2 = {
+        # ...
+      };
+    }
+    ```
 
 In the next sections
 we document all configuration options

@@ -5,69 +5,68 @@ Submit a job to a [AWS BATCH](https://aws.amazon.com/batch/) queue.
 Types:
 
 - computeOnAwsBatch (`attrsOf jobType`): Optional.
-  Job groups to submit.
-  Defaults to `{ }`.
-- jobType (`submodule`):
-
-  - allowDuplicates (`bool`): Optional.
-    Set to `false` in order to prevent submitting the job
-    if there is already a job in the queue with the same name.
-    Defaults to `false`.
-  - attempts (`ints.positive`): Optional.
-    If the value of attempts is greater than one,
-    the job is retried on failure the same number of attempts as the value.
-    Defaults to `1`.
-  - attemptDurationSeconds (`ints.positive`): Optional.
-    The time duration in seconds
-    (measured from the job attempt's startedAt timestamp)
-    after which Batch terminates your jobs
-    if they have not finished.
-  - command (`listOf str`):
-    The command to send to the container.
-    It overrides the one specified
-    in the Batch job definition.
-    Additional arguments can be propagated when running this module output.
-  - definition (`str`):
-    Name of the Batch job definition
-    that we will use as base for submitting the job.
-    In general an Batch job definition is required
-    in order to specify which container image
-    our job is going to run on.
-  - environment (`listOf str`): Optional.
-    Name of the environment variables
-    whose names and values should be copied from the machine running Makes
-    to the machine on Batch running the job.
-    Defaults to `[ ]`.
-  - includePositionalArgsInName (`bool`): Optional.
-    Enable to make positional arguments part of the job name.
-    This is useful for identifying jobs
-    in the Batch console
-    more easily.
-    Defaults to `true`.
-  - memory (`ints.positive`):
-    Amount of memory, in MiB that is reserved for the job.
-  - parallel (`ints.positive`): Optional.
-    Number of parallel jobs to trigger using
-    [Batch Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html).
-  - propagateTags (`bool`): Optional.
-    Enable tags to be propagated into the ECS tasks.
-    Defaults to `true`.
-  - queue (`nullOr str`):
-    Name of the Batch queue we should submit the job to.
-    It can be set to `null`,
-    causing Makes to read
-    the `MAKES_COMPUTE_ON_AWS_BATCH_QUEUE` environment variable at runtime.
-  - setup (`listOf package`):
-    [Makes Environment][makes_environment]
-    or [Makes Secrets][makes_secrets]
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - tags (`attrsOf str`): Optional.
-    Tags to apply to the batch job.
+    Job groups to submit.
     Defaults to `{ }`.
-  - vcpus (`ints.positive`):
-    Amount of virtual CPUs that is reserved for the job.
+- jobType (`submodule`):
+    - allowDuplicates (`bool`): Optional.
+        Set to `false` in order to prevent submitting the job
+        if there is already a job in the queue with the same name.
+        Defaults to `false`.
+    - attempts (`ints.positive`): Optional.
+        If the value of attempts is greater than one,
+        the job is retried on failure the same number of attempts as the value.
+        Defaults to `1`.
+    - attemptDurationSeconds (`ints.positive`): Optional.
+        The time duration in seconds
+        (measured from the job attempt's startedAt timestamp)
+        after which Batch terminates your jobs
+        if they have not finished.
+    - command (`listOf str`):
+        The command to send to the container.
+        It overrides the one specified
+        in the Batch job definition.
+        Additional arguments can be propagated when running this module output.
+    - definition (`str`):
+        Name of the Batch job definition
+        that we will use as base for submitting the job.
+        In general an Batch job definition is required
+        in order to specify which container image
+        our job is going to run on.
+    - environment (`listOf str`): Optional.
+        Name of the environment variables
+        whose names and values should be copied from the machine running Makes
+        to the machine on Batch running the job.
+        Defaults to `[ ]`.
+    - includePositionalArgsInName (`bool`): Optional.
+        Enable to make positional arguments part of the job name.
+        This is useful for identifying jobs
+        in the Batch console
+        more easily.
+        Defaults to `true`.
+    - memory (`ints.positive`):
+        Amount of memory, in MiB that is reserved for the job.
+    - parallel (`ints.positive`): Optional.
+        Number of parallel jobs to trigger using
+        [Batch Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html).
+    - propagateTags (`bool`): Optional.
+        Enable tags to be propagated into the ECS tasks.
+        Defaults to `true`.
+    - queue (`nullOr str`):
+        Name of the Batch queue we should submit the job to.
+        It can be set to `null`,
+        causing Makes to read
+        the `MAKES_COMPUTE_ON_AWS_BATCH_QUEUE` environment variable at runtime.
+    - setup (`listOf package`):
+        [Makes Environment][makes_environment]
+        or [Makes Secrets][makes_secrets]
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - tags (`attrsOf str`): Optional.
+        Tags to apply to the batch job.
+        Defaults to `{ }`.
+    - vcpus (`ints.positive`):
+        Amount of virtual CPUs that is reserved for the job.
 
 Example:
 
@@ -122,33 +121,33 @@ please read the `makeContainerImage` reference.
 Types:
 
 - deployContainerImage:
-  - images (`attrsOf imageType`): Optional.
-    Definitions of container images to deploy.
-    Defaults to `{ }`.
+    - images (`attrsOf imageType`): Optional.
+        Definitions of container images to deploy.
+        Defaults to `{ }`.
 - imageType (`submodule`):
-  - attempts (`ints.positive`): Optional.
-    If the value of attempts is greater than one,
-    the job is retried on failure the same number of attempts as the value.
-    Defaults to `1`.
-  - credentials:
-    - token (`str`):
-      Name of the environment variable
-      that stores the value of the registry token.
-    - user (`str`):
-      Name of the environment variable
-      that stores the value of the registry user.
-  - registry (`str`):
-    Registry in which the image will be copied to.
-  - setup (`listOf package`): Optional.
-    [Makes Environment][makes_environment]
-    or [Makes Secrets][makes_secrets]
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - src (`package`):
-    Derivation that contains the container image in OCI Format.
-  - tag (`str`):
-    The tag under which the image will be stored in the registry.
+    - attempts (`ints.positive`): Optional.
+        If the value of attempts is greater than one,
+        the job is retried on failure the same number of attempts as the value.
+        Defaults to `1`.
+    - credentials:
+        - token (`str`):
+            Name of the environment variable
+            that stores the value of the registry token.
+        - user (`str`):
+            Name of the environment variable
+            that stores the value of the registry user.
+    - registry (`str`):
+        Registry in which the image will be copied to.
+    - setup (`listOf package`): Optional.
+        [Makes Environment][makes_environment]
+        or [Makes Secrets][makes_secrets]
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - src (`package`):
+        Derivation that contains the container image in OCI Format.
+    - tag (`str`):
+        The tag under which the image will be stored in the registry.
 
 Example:
 
@@ -228,20 +227,20 @@ over the specified Terraform modules.
 Types:
 
 - deployTerraform:
-  - modules (`attrsOf moduleType`): Optional.
-    Path to Terraform modules to lint.
-    Defaults to `{ }`.
+    - modules (`attrsOf moduleType`): Optional.
+        Path to Terraform modules to lint.
+        Defaults to `{ }`.
 - moduleType (`submodule`):
-  - setup (`listOf package`): Optional.
-    [Makes Environment][makes_environment]
-    or [Makes Secrets][makes_secrets]
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - src (`str`):
-    Path to the Terraform module.
-  - version (`enum [ "0.14" "0.15" "1.0" ]`):
-    Terraform version your module is built with.
+    - setup (`listOf package`): Optional.
+        [Makes Environment][makes_environment]
+        or [Makes Secrets][makes_secrets]
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - src (`str`):
+        Path to the Terraform module.
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
+        Terraform version your module is built with.
 
 Example:
 
@@ -279,25 +278,25 @@ over the specified Terraform modules.
 Types:
 
 - taintTerraform:
-  - modules (`attrsOf moduleType`): Optional.
-    Path to Terraform modules to lint.
-    Defaults to `{ }`.
+    - modules (`attrsOf moduleType`): Optional.
+        Path to Terraform modules to lint.
+        Defaults to `{ }`.
 - moduleType (`submodule`):
-  - reDeploy (`bool`): Optional.
-    Perform a `terraform apply` after tainting resources.
-    Defaults to `false`.
-  - resources (`listOf str`):
-    Resources to taint.
-  - setup (`listOf package`): Optional.
-    [Makes Environment][makes_environment]
-    or [Makes Secrets][makes_secrets]
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - src (`str`):
-    Path to the Terraform module.
-  - version (`enum [ "0.14" "0.15" "1.0" ]`):
-    Terraform version your module is built with.
+    - reDeploy (`bool`): Optional.
+        Perform a `terraform apply` after tainting resources.
+        Defaults to `false`.
+    - resources (`listOf str`):
+        Resources to taint.
+    - setup (`listOf package`): Optional.
+        [Makes Environment][makes_environment]
+        or [Makes Secrets][makes_secrets]
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - src (`str`):
+        Path to the Terraform module.
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
+        Terraform version your module is built with.
 
 Example:
 
@@ -332,38 +331,38 @@ over the specified Nomad jobs / namespaces.
 Types:
 
 - deployNomad:
-  - jobs (`attrsOf jobsType`): Optional.
-    Path to Nomad jobs to deploy.
-    Defaults to `{ }`.
-  - namespaces (`attrsOf namespacesType`): Optional.
-    Path to Nomad namespaces to deploy.
-    Defaults to `{ }`.
+    - jobs (`attrsOf jobsType`): Optional.
+        Path to Nomad jobs to deploy.
+        Defaults to `{ }`.
+    - namespaces (`attrsOf namespacesType`): Optional.
+        Path to Nomad namespaces to deploy.
+        Defaults to `{ }`.
 - jobsType (`submodule`):
-  - setup (`listOf package`): Optional.
-    [Makes Environment][makes_environment]
-    or [Makes Secrets][makes_secrets]
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - src (`path`):
-    Path to the Nomad job (hcl or json).
-  - version (`enum [ "1.0" "1.1" ]`):
-    Nomad version your job is built with.
-    Defaults to `"1.1"`.
-  - namespace (`str`):
-    Nomad namespace to deploy the job into.
+    - setup (`listOf package`): Optional.
+        [Makes Environment][makes_environment]
+        or [Makes Secrets][makes_secrets]
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - src (`path`):
+        Path to the Nomad job (hcl or json).
+    - version (`enum [ "1.0" "1.1" ]`):
+        Nomad version your job is built with.
+        Defaults to `"1.1"`.
+    - namespace (`str`):
+        Nomad namespace to deploy the job into.
 - namespacesType (`submodule`):
-  - setup (`listOf package`): Optional.
-    Makes Environment
-    or Makes Secrets
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - jobs (`attrOf path`):
-    Attributes of path to the Nomad jobs (hcl or json).
-  - version (`enum [ "1.0" "1.1" ]`):
-    Nomad version your jobs are built with.
-    Defaults to `"1.1"`.
+    - setup (`listOf package`): Optional.
+        Makes Environment
+        or Makes Secrets
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - jobs (`attrOf path`):
+        Attributes of path to the Nomad jobs (hcl or json).
+    - version (`enum [ "1.0" "1.1" ]`):
+        Nomad version your jobs are built with.
+        Defaults to `"1.1"`.
 
 Example:
 

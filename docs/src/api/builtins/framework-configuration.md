@@ -5,7 +5,19 @@ Paths to magic directories where Makes extensions will be loaded from.
 Types:
 
 - extendingMakesDirs (`listOf str`): Optional.
-  Defaults to `["/makes"]`.
+
+    Defaults to `["/makes"]`.
+
+Example:
+
+=== "makes.nix"
+
+    ```nix
+    {
+      # Look for main.nix files everywhere in the repo.
+      extendingMakesDirs = ["/"];
+    }
+    ```
 
 ## inputs
 
@@ -15,7 +27,8 @@ Inputs can be anything.
 Types:
 
 - inputs (`attrOf anything`): Optional.
-  Defaults to `{ }`.
+
+    Defaults to `{ }`.
 
 Example:
 

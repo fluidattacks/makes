@@ -9,8 +9,8 @@ the development environment and its required dependencies.
 Types:
 
 - dev (`attrsOf (asIn makeSearchPaths)`): Optional.
-  Mapping of environment name to searchPaths.
-  Defaults to `{ }`.
+    Mapping of environment name to searchPaths.
+    Defaults to `{ }`.
 
 Example:
 

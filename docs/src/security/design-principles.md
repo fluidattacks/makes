@@ -1,20 +1,20 @@
 # Design Principles
 
-## Principle of Least Privilege
+## Least Privilege
 
 - The Makes CLI is a python application that runs in user-space.
   The privileges required are:
 
-  - Write access to the `${HOME}`,
-    which is normally owned by the user,
-    so no extra privileges
-    other than what the user already has are required.
-  - Creating temporary files/directories,
-    which respects the `${TMPDIR}` environment variable,
-    which is a functionality normally available to a user,
-    so no extra privileges are required.
-  - A system with Nix installed.
-  - (optional) privileges to create Kernel namespaces.
+    - Write access to the `${HOME}`,
+      which is normally owned by the user,
+      so no extra privileges
+      other than what the user already has are required.
+    - Creating temporary files/directories,
+      which respects the `${TMPDIR}` environment variable,
+      which is a functionality normally available to a user,
+      so no extra privileges are required.
+    - A system with Nix installed.
+    - (optional) privileges to create Kernel namespaces.
 
 - The Makes framework is simply a library
   that aids the developer in creating build scripts,
@@ -29,7 +29,7 @@
   They are generated as any other build (hermetic, pure, etc)
   using information from the Nix Store.
 
-## Principle of Fail-Safe Defaults
+## Fail-Safe Defaults
 
 - By default, builds are run in a sandbox
   that uses kernel namespaces
@@ -63,7 +63,7 @@
   and no write binary cache
   is the default configuration,
 
-## Principle of Economy of Mechanism
+## Economy of Mechanism
 
 - The Makes CLI is essentially a wrapper over Nix,
   so the surface is as small as possible (~1000 loc).
@@ -72,28 +72,28 @@
   saving the user the work of writing that functionality themselves
   which would require the same amount of code anyway.
 
-## Principle of Complete Mediation
+## Complete Mediation
 
-## Principle of Open Design
+## Open Design
 
 - Makes is Free and Open Source Software,
-  anyone can read its internals:
-  https://github.com/fluidattacks/makes
+    anyone can read its internals:
+    https://github.com/fluidattacks/makes
 
-## Principle of Separation of Privilege
+## Separation of Privilege
 
-## Principle of Least Common Mechanism
+## Least Common Mechanism
 
 - In the most common case
-  each user of Makes has a personal `/nix/store`
-  and a personal installation of Nix.
-  The `/nix/store` contents are not shared between users by default,
-  unless the user configures a read+write binary cache
-  and sets the corresponding binary cache secret.
+    each user of Makes has a personal `/nix/store`
+    and a personal installation of Nix.
+    The `/nix/store` contents are not shared between users by default,
+    unless the user configures a read+write binary cache
+    and sets the corresponding binary cache secret.
 
-## Principle of Psychological Acceptability
+## Psychological Acceptability
 
 - The Makes CLI is easy to use.
-  Performing an installation using the default values
-  yields a sufficiently secure version of the system.
-  Users familiar with other build tools would feel at home.
+    Performing an installation using the default values
+    yields a sufficiently secure version of the system.
+    Users familiar with other build tools would feel at home.

@@ -6,15 +6,15 @@ in [OCI Format](https://github.com/opencontainers/image-spec).
 A container image is composed of:
 
 - 0 or more layers (binary blobs).
-  - Each layer contains a snapshot of the root file system (`/`),
-    they represent portions of it.
-  - When the container is executed
-    all layers are squashed together
-    to compose the root
-    of the file system (`/`).
+    - Each layer contains a snapshot of the root file system (`/`),
+        they represent portions of it.
+    - When the container is executed
+        all layers are squashed together
+        to compose the root
+        of the file system (`/`).
 - A JSON manifest (metadata)
-  that describes important aspects of the container,
-  for instance its layers, environment variables, entrypoint, etc.
+    that describes important aspects of the container,
+    for instance its layers, environment variables, entrypoint, etc.
 
 Resources:
 
@@ -23,16 +23,16 @@ Resources:
 Types:
 
 - makeContainerImage (`function { ... } -> package`):
-  - layers (`listOf package`): Optional.
-    Layers of the container.
-    Defaults to `[ ]`.
-  - maxLayers (`ints.positive`): Optional.
-    Maximum number of layers the container can have.
-    Defaults to `65`.
-  - config (`attrsOf anything`): Optional.
-    Configuration manifest as described in
-    [OCI Runtime Configuration Manifest](https://github.com/moby/moby/blob/master/image/spec/v1.2.)
-    Defaults to `{ }`.
+    - layers (`listOf package`): Optional.
+        Layers of the container.
+        Defaults to `[ ]`.
+    - maxLayers (`ints.positive`): Optional.
+        Maximum number of layers the container can have.
+        Defaults to `65`.
+    - config (`attrsOf anything`): Optional.
+        Configuration manifest as described in
+        [OCI Runtime Configuration Manifest](https://github.com/moby/moby/blob/master/image/spec/v1.2.)
+        Defaults to `{ }`.
 
 Example:
 
