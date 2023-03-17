@@ -48,16 +48,18 @@
       builtins.map
       (moduleName: {
         name = "/lintPython/dirOfModules/${name}/${moduleName}";
-        value =
-          (makeModule moduleName {
+        inherit
+          ((makeModule moduleName {
             inherit searchPaths;
             inherit python;
             src = "${src}/${moduleName}";
-          })
-          .value;
+          }))
+          value
+          ;
       })
       (projectPathLsDirs src);
-  in (modules
+  in
+    modules
     ++ [
       {
         name = "/lintPython/dirOfModules/${name}";
@@ -66,7 +68,7 @@
           name = "lint-python-dir-of-modules-for-${name}";
         };
       }
-    ]);
+    ];
 in {
   options = {
     lintPython = {

@@ -34,9 +34,9 @@
     outputs = {
       "/lintGitCommitMsg" =
         lib.mkIf
-        (config.lintGitCommitMsg.enable)
+        config.lintGitCommitMsg.enable
         (lintGitCommitMsg {
-          branch = config.lintGitCommitMsg.branch;
+          inherit (config.lintGitCommitMsg) branch;
           config =
             if config.lintGitCommitMsg.config == null
             then ./config.js

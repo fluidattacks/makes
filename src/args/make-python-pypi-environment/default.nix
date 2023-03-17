@@ -57,7 +57,7 @@ assert builtins.any (_: _) [
             url = "https://files.pythonhosted.org/packages/ec/30/8707699ea6e1c1cbe79c37e91f5b06a6266de24f699a5e19b8c0a63c4b65/Cython-0.29.24-py2.py3-none-any.whl";
           }
         ];
-        python = sources.python;
+        inherit (sources) python;
       };
     }))
     (listOptional withNumpy_1_24_0 (makePythonPypiEnvironment {
@@ -83,7 +83,7 @@ assert builtins.any (_: _) [
             url = "https://pypi.org/packages/py2.py3/w/wheel/wheel-0.37.0-py2.py3-none-any.whl";
           }
         ];
-        python = sources.python;
+        inherit (sources) python;
       };
     }))
   ];
@@ -108,7 +108,7 @@ assert builtins.any (_: _) [
           };
         })
         (builtins.concatLists [
-          (sources.links)
+          sources.links
           (listOptional withSetuptools_57_4_0 {
             name = "setuptools-57.4.0-py3-none-any.whl";
             sha256 = "1mhq6jw21sglccqmimydqi2rjvh3g5xjykb16gcvkkx6gabk14m4";

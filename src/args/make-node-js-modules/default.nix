@@ -15,8 +15,7 @@
   packageLockJson,
   searchPaths ? {},
   shouldIgnoreScripts ? false,
-}:
-let
+}: let
   nodeJs = makeNodeJsVersion nodeJsVersion;
   packageLock = fromJsonFile packageLockJson;
 
@@ -57,7 +56,7 @@ let
     // (attrsGet packageLock "devDependencies" {})
   );
   dependenciesGrouped =
-    __nixpkgs__.lib.lists.groupBy
+    builtins.groupBy
     (dep: dep.name)
     dependenciesFlat;
 
@@ -77,7 +76,7 @@ let
                 dist.tarball = versionAttrs.resolvedName;
               };
             })
-            (dependenciesGrouped.${name}));
+            dependenciesGrouped.${name});
       };
     })
     (builtins.attrNames dependenciesGrouped);

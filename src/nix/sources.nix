@@ -37,13 +37,14 @@ let
 
   fetch_git = name: spec: let
     ref =
-      if spec ? ref
-      then spec.ref
-      else if spec ? branch
-      then "refs/heads/${spec.branch}"
-      else if spec ? tag
-      then "refs/tags/${spec.tag}"
-      else abort "In git source '${name}': Please specify `ref`, `tag` or `branch`!";
+      spec.ref
+      or (
+        if spec ? branch
+        then "refs/heads/${spec.branch}"
+        else if spec ? tag
+        then "refs/tags/${spec.tag}"
+        else abort "In git source '${name}': Please specify `ref`, `tag` or `branch`!"
+      );
   in
     builtins.fetchGit {
       url = spec.repo;
@@ -119,7 +120,7 @@ let
   # the path directly as opposed to the fetched source.
   replace = name: let
     saneName = stringAsChars (c:
-      if isNull (builtins.match "[a-zA-Z0-9]" c)
+      if ((builtins.match "[a-zA-Z0-9]" c) == null)
       then "_"
       else c)
     name;
@@ -178,7 +179,7 @@ let
     inherit (builtins) lessThan nixVersion fetchTarball;
   in
     if lessThan nixVersion "1.12"
-    then fetchTarball ({inherit url;} // (optionalAttrs (!isNull name) {inherit name;}))
+    then fetchTarball ({inherit url;} // (optionalAttrs (name != null) {inherit name;}))
     else fetchTarball attrs;
 
   # fetchurl version that is compatible between all the versions of Nix
@@ -190,7 +191,7 @@ let
     inherit (builtins) lessThan nixVersion fetchurl;
   in
     if lessThan nixVersion "1.12"
-    then fetchurl ({inherit url;} // (optionalAttrs (!isNull name) {inherit name;}))
+    then fetchurl ({inherit url;} // (optionalAttrs (name != null) {inherit name;}))
     else fetchurl attrs;
 
   # Create the final "sources" from the config
@@ -213,7 +214,7 @@ let
       then ./sources.json
       else null,
     sources ?
-      if isNull sourcesFile
+      if (sourcesFile == null)
       then {}
       else builtins.fromJSON (builtins.readFile sourcesFile),
     system ? builtins.currentSystem,

@@ -34,7 +34,7 @@
         name = "lint-nix";
         searchPaths = {
           bin = [
-            __nixpkgs__.nix-linter
+            __nixpkgs__.statix
           ];
         };
         builder = ./builder.sh;

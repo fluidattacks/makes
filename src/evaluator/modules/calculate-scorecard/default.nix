@@ -35,8 +35,8 @@
             if config.calculateScorecard.checks == []
             then config.calculateScorecard.checks
             else builtins.concatStringsSep "," config.calculateScorecard.checks;
-          format = config.calculateScorecard.format;
-          target = config.calculateScorecard.target;
+          inherit (config.calculateScorecard) format;
+          inherit (config.calculateScorecard) target;
         }
       );
     };

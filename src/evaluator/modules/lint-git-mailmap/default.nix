@@ -15,7 +15,7 @@
     outputs = {
       "/lintGitMailMap" =
         lib.mkIf
-        (config.lintGitMailMap.enable)
+        config.lintGitMailMap.enable
         (lintGitMailMap {
           name = "lint-git-mailmap";
           src = ".";

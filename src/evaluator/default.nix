@@ -40,8 +40,8 @@
 
   args = import "${makesSrcOverriden}/src/args/default.nix" {
     inputs = flakeInputs // result.config.inputs;
-    outputs = result.config.outputs;
-    projectIdentifier = result.config.projectIdentifier;
+    inherit (result.config) outputs;
+    inherit (result.config) projectIdentifier;
     inherit projectSrc;
     stateDirs = {
       global = result.config.globalStateDir;
