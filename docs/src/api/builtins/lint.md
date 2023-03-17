@@ -74,10 +74,6 @@ Example:
 
 ## lintGitCommitMsg
 
-???+ warning
-
-    This function is only available on Linux at the moment.
-
 It creates a commit diff
 between you current branch
 and the main branch of the repository.
