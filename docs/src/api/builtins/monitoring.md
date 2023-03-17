@@ -7,42 +7,42 @@ available for [GitHub](https://github.com) projects at the moment.
 Pre-requisites:
 
 1. To run this module you need to set up a valid `GITHUB_AUTH_TOKEN` on your
-   target repository. You can set this up in your CI or locally to run this
-   check on your machine.
+    target repository. You can set this up in your CI or locally to run this
+    check on your machine.
 
 Types:
 
 - checks (`listOf str`): Optional,
-  defaults to all the checks available for Scorecard:
+    defaults to all the checks available for Scorecard:
 
-  ```nix
-  [
-    "Branch-Protection"
-    "Fuzzing"
-    "License"
-    "SAST"
-    "Binary-Artifacts"
-    "Dependency-Update-Tool"
-    "Pinned-Dependencies"
-    "CI-Tests"
-    "Code-Review"
-    "Contributors"
-    "Maintained"
-    "Token-Permissions"
-    "Security-Policy"
-    "CII-Best-Practices"
-    "Dangerous-Workflow"
-    "Packaging"
-    "Signed-Releases"
-    "Vulnerabilities"
-  ]
-  ```
+    ```nix
+    [
+      "Branch-Protection"
+      "Fuzzing"
+      "License"
+      "SAST"
+      "Binary-Artifacts"
+      "Dependency-Update-Tool"
+      "Pinned-Dependencies"
+      "CI-Tests"
+      "Code-Review"
+      "Contributors"
+      "Maintained"
+      "Token-Permissions"
+      "Security-Policy"
+      "CII-Best-Practices"
+      "Dangerous-Workflow"
+      "Packaging"
+      "Signed-Releases"
+      "Vulnerabilities"
+    ]
+    ```
 
 - format (`str`): Optional, defaults to JSON. This is the format which
-  the scorecard will be printed. Accepted values are: `"default"` which is an
-  `ASCII Table` and JSON.
+    the scorecard will be printed. Accepted values are: `"default"` which is an
+    `ASCII Table` and JSON.
 - target (`str`): Mandatory, this is the repository url where you want to run
-  scorecard.
+    scorecard.
 
 Example:
 

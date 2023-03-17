@@ -8,11 +8,11 @@ Lints Bash code with [ShellCheck](https://github.com/koalaman/shellcheck).
 Types:
 
 - lintBash:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - targets (`listOf str`): Optional.
-    Files or directories (relative to the project) to lint.
-    Defaults to the entire project.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - targets (`listOf str`): Optional.
+        Files or directories (relative to the project) to lint.
+        Defaults to the entire project.
 
 Example:
 
@@ -44,8 +44,9 @@ Lints clojure code with [clj-kondo](https://github.com/clj-kondo/clj-kondo).
 Types:
 
 - lintClojure (`attrsOf (listOf str)`): Optional.
-  Mapping of custom names to lists of paths (relative to the project) to lint.
-  Defaults to `{ }`.
+    Mapping of custom names to lists of paths (relative to the project) to lint.
+
+    Defaults to `{ }`.
 
 Example:
 
@@ -86,19 +87,19 @@ are linted using [Commitlint](https://commitlint.js.org/#/).
 Types:
 
 - lintGitCommitMsg:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - branch (`str`): Optional.
-    Name of the main branch.
-    Defaults to `main`.
-  - config (`str`): Optional.
-    Path to a configuration file for Commitlint.
-    Defaults to
-    [config.js](/src/evaluator/modules/lint-git-commit-msg/config.js).
-  - parser (`str`): Optional.
-    Commitlint parser definitions.
-    Defaults to
-    [parser.js](/src/evaluator/modules/lint-git-commit-msg/parser.js).
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - branch (`str`): Optional.
+        Name of the main branch.
+        Defaults to `main`.
+    - config (`str`): Optional.
+        Path to a configuration file for Commitlint.
+        Defaults to
+        [config.js](/src/evaluator/modules/lint-git-commit-msg/config.js).
+    - parser (`str`): Optional.
+        Commitlint parser definitions.
+        Defaults to
+        [parser.js](/src/evaluator/modules/lint-git-commit-msg/parser.js).
 
 Example:
 
@@ -131,8 +132,8 @@ of the project with
 Types:
 
 - lintGitMailmap:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
 
 Example:
 
@@ -159,14 +160,14 @@ Lints Markdown code with [Markdown lint tool](https://github.com/markdownlint/ma
 Types:
 
 - lintMarkdown (`attrsOf moduleType`): Optional.
-  Definitions of config and associated paths to lint.
-  Defaults to `{ }`.
+    Definitions of config and associated paths to lint.
+    Defaults to `{ }`.
 - moduleType (`submodule`):
-  - config (`str`): Optional.
-    Path to the config file.
-    Defaults to [config.rb](/src/evaluator/modules/lint-markdown/config.rb).
-  - targets (`listOf str`): Required.
-    paths to lint with `config`.
+    - config (`str`): Optional.
+        Path to the config file.
+        Defaults to [config.rb](/src/evaluator/modules/lint-markdown/config.rb).
+    - targets (`listOf str`): Required.
+        paths to lint with `config`.
 
 Example:
 
@@ -200,11 +201,11 @@ Lints Nix code with [nix-linter](https://github.com/Synthetica9/nix-linter).
 Types:
 
 - lintNix:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - targets (`listOf str`): Optional.
-    Files or directories (relative to the project) to lint.
-    Defaults to the entire project.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - targets (`listOf str`): Optional.
+        Files or directories (relative to the project) to lint.
+        Defaults to the entire project.
 
 Example:
 
@@ -238,39 +239,39 @@ and (if configured) [import-linter](https://import-linter.readthedocs.io/en/stab
 Types:
 
 - lintPython:
-  - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
-    Definitions of directories of python packages/modules to lint.
-    Defaults to `{ }`.
-  - imports (`attrsOf importsType`): Optional.
-    Definitions of python packages whose imports will be linted.
-    Defaults to `{ }`.
-  - modules (`attrsOf moduleType`): Optional.
-    Definitions of python packages/modules to lint.
-    Defaults to `{ }`.
+    - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
+        Definitions of directories of python packages/modules to lint.
+        Defaults to `{ }`.
+    - imports (`attrsOf importsType`): Optional.
+        Definitions of python packages whose imports will be linted.
+        Defaults to `{ }`.
+    - modules (`attrsOf moduleType`): Optional.
+        Definitions of python packages/modules to lint.
+        Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
-  - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
-    Python interpreter version that your package/module is designed for.
-  - searchPaths (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`.
-    Defaults to `makeSearchPaths`'s defaults.
-  - src (`str`):
-    Path to the directory that contains inside many packages/modules.
+    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+        Python interpreter version that your package/module is designed for.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`.
+        Defaults to `makeSearchPaths`'s defaults.
+    - src (`str`):
+        Path to the directory that contains inside many packages/modules.
 - importsType (`submodule`):
-  - config (`str`):
-    Path to the import-linter configuration file.
-  - searchPaths (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`.
-    Defaults to `makeSearchPaths`'s defaults.
-  - src (`str`):
-    Path to the package/module.
+    - config (`str`):
+        Path to the import-linter configuration file.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`.
+        Defaults to `makeSearchPaths`'s defaults.
+    - src (`str`):
+        Path to the package/module.
 - moduleType (`submodule`):
-  - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
-    Python interpreter version that your package/module is designed for.
-  - searchPaths (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`.
-    Defaults to `makeSearchPaths`'s defaults.
-  - src (`str`):
-    Path to the package/module.
+    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+        Python interpreter version that your package/module is designed for.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`.
+        Defaults to `makeSearchPaths`'s defaults.
+    - src (`str`):
+        Path to the package/module.
 
 Example:
 
@@ -321,23 +322,23 @@ with [TFLint](https://github.com/terraform-linters/tflint).
 Types:
 
 - lintTerraform:
-  - config (`str`): Optional.
-    Path to a TFLint configuration file.
-    Defaults to [config.hcl](/src/evaluator/modules/lint-terraform/config.hcl).
-  - modules (`attrsOf moduleType`): Optional.
-    Path to Terraform modules to lint.
-    Defaults to `{ }`.
+    - config (`str`): Optional.
+        Path to a TFLint configuration file.
+        Defaults to [config.hcl](/src/evaluator/modules/lint-terraform/config.hcl).
+    - modules (`attrsOf moduleType`): Optional.
+        Path to Terraform modules to lint.
+        Defaults to `{ }`.
 - moduleType (`submodule`):
-  - setup (`listOf package`): Optional.
-    [Makes Environment](./environment.md)
-    or [Makes Secrets](./secrets.md)
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - src (`str`):
-    Path to the Terraform module.
-  - version (`enum [ "0.14" "0.15" "1.0" ]`):
-    Terraform version your module is built with.
+    - setup (`listOf package`): Optional.
+        [Makes Environment](./environment.md)
+        or [Makes Secrets](./secrets.md)
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - src (`str`):
+        Path to the Terraform module.
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
+        Terraform version your module is built with.
 
 Example:
 
@@ -381,14 +382,14 @@ It uses [ajv-cli](https://github.com/ajv-validator/ajv-cli).
 Types:
 
 - lintWithAjv (`attrsOf schemaType`): Optional.
-  Definitions of schema and associated data to lint.
-  Defaults to `{ }`.
+    Definitions of schema and associated data to lint.
+    Defaults to `{ }`.
 - schemaType (`submodule`):
-  - schema (`str`): Required.
-    Path to the JSON Schema.
-  - targets (`listOf str`): Required.
-    YAML or JSON
-    data files to lint with `schema`.
+    - schema (`str`): Required.
+        Path to the JSON Schema.
+    - targets (`listOf str`): Required.
+        YAML or JSON
+        data files to lint with `schema`.
 
 Example:
 
@@ -430,8 +431,9 @@ in all supported languages
 Types:
 
 - lintWithLizard (`attrsOf (listOf str)`): Optional.
-  Mapping of custom names to lists of paths (relative to the project) to lint.
-  Defaults to `{ }`.
+    Mapping of custom names to lists of paths (relative to the project) to lint.
+
+    Defaults to `{ }`.
 
 Example:
 

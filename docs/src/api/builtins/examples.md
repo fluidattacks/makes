@@ -5,10 +5,10 @@ Small command for demo purposes, it greets the specified user:
 Types:
 
 - helloWorld:
-  - enable (`boolean`): Optional.
-    Defaults to `false`.
-  - name (`string`):
-    Name of the user we should greet.
+    - enable (`boolean`): Optional.
+        Defaults to `false`.
+    - name (`string`):
+        Name of the user we should greet.
 
 Example:
 

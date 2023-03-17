@@ -5,64 +5,62 @@ the notation is that of a _Structured Assurance Case Model_[^1].
 
 - The Makes CLI application is free of known security vulnerabilities.
 
-  - The Python code of the Makes CLI application
-    is free of known security vulnerabilities.
+    - The Python code of the Makes CLI application
+        is free of known security vulnerabilities.
 
-    - [SonarCloud](https://sonarcloud.io/)
-      reviews every pull request.
+        - [SonarCloud](https://sonarcloud.io/)
+            reviews every pull request.
 
-      Proof:
+            Proof:
 
-      - You can check the
-        [SonarCloud pull requests list for Makes](https://sonarcloud.io/project/pull_requests_list?id=fluidattacks_makes)
+            - You can check the
+                [SonarCloud pull requests list for Makes](https://sonarcloud.io/project/pull_requests_list?id=fluidattacks_makes)
 
-      - You can check the
-        [pull requests history](https://github.com/fluidattacks/makes/pulls)
-        and see if the latest pull requests
-        have a comment
-        from SonarCloud.
-        For example:
-        [PR 925, Comment 1256837172](https://github.com/fluidattacks/makes/pull/925#issuecomment-1256837172)
+            - You can check the
+                [pull requests history](https://github.com/fluidattacks/makes/pulls)
+                and see if the latest pull requests
+                have a comment
+                from SonarCloud.
+                For example:
+                [PR 925, Comment 1256837172](https://github.com/fluidattacks/makes/pull/925#issuecomment-1256837172)
 
-    - Vulnerabilities count on [SonarCloud](https://sonarcloud.io/) is zero.
+        - Vulnerabilities count on [SonarCloud](https://sonarcloud.io/) is zero.
 
-      Proof:
+            Proof:
 
-      - Visit the [SonarCloud dashboard](https://sonarcloud.io/project/overview?id=fluidattacks_makes).
-        The vulnerabilities count should be zero.
+            - Visit the [SonarCloud dashboard](https://sonarcloud.io/project/overview?id=fluidattacks_makes).
+                The vulnerabilities count should be zero.
 
-  - The dependencies of the Makes CLI application
-    are free of known security vulnerabilities.
+    - The dependencies of the Makes CLI application
+        are free of known security vulnerabilities.
 
-    - [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)
-      are enabled for the repository.
+        - [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)
+            are enabled for the repository.
 
-      Proof:
+            Proof:
 
-      - As a project maintainer,
-        you can see if Dependabot is enabled
-        [here](https://github.com/fluidattacks/makes/security/dependabot).
-      - As an external user,
-        there is no way to verify
-        if Dependabot is enabled
-        because the configuration page for this
-        is only available to repository maintainers.
-        However,
-        it is possible to see the pull requests created by the bot,
-        for example:
-        [PR 927](https://github.com/fluidattacks/makes/pull/927).
-        Additionally,
-        an external user could check
-        if there has been Dependabot pull requests recently
-        by checking the
-        [pull requests history](https://github.com/fluidattacks/makes/pulls).
-        It is important to note
-        that if no recent pull requests exist
-        it may mean
-        that no known security vulnerabilities have been found,
-        and not necessarily that this claim is false.
-
-<!--  -->
+            - As a project maintainer,
+                you can see if Dependabot is enabled
+                [here](https://github.com/fluidattacks/makes/security/dependabot).
+            - As an external user,
+                there is no way to verify
+                if Dependabot is enabled
+                because the configuration page for this
+                is only available to repository maintainers.
+                However,
+                it is possible to see the pull requests created by the bot,
+                for example:
+                [PR 927](https://github.com/fluidattacks/makes/pull/927).
+                Additionally,
+                an external user could check
+                if there has been Dependabot pull requests recently
+                by checking the
+                [pull requests history](https://github.com/fluidattacks/makes/pulls).
+                It is important to note
+                that if no recent pull requests exist
+                it may mean
+                that no known security vulnerabilities have been found,
+                and not necessarily that this claim is false.
 
 ## References
 

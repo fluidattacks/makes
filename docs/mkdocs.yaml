@@ -130,10 +130,8 @@ nav:
           - api/extensions/containers.md
           - api/extensions/fetchers.md
           - api/extensions/format-conversion.md
-          - api/extensions/git.md
           - api/extensions/node.js.md
           - api/extensions/others.md
-          - api/extensions/patchers.md
           - api/extensions/python.md
           - api/extensions/ruby.md
   - versioning.md
@@ -141,7 +139,7 @@ nav:
   - contributing.md
   - governance.md
   - Security:
-      - security/introduction.md
+      - security/index.md
       - security/assurance.md
       - security/design-principles.md
       - security/slsa.md

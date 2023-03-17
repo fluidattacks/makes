@@ -10,13 +10,13 @@ powered by [Nix](https://nixos.org/).
 Ever needed to
 
 - run applications locally
-  to try out your code?
-- Execute CI/CD pipelines locally
-  to make sure jobs are being passed?
-- Keep execution environments frozen
-  for strict dependency control
-  against supply chain attacks?
-- Know the exact dependency tree of your application?
+    to try out your code;
+- execute CI/CD pipelines locally
+    to make sure jobs are being passed;
+- keep execution environments frozen
+    for strict dependency control
+    against supply chain attacks;
+- know the exact dependency tree of your application.
 
 Well, we have!
 

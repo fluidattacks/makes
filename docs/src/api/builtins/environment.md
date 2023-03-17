@@ -10,7 +10,8 @@ Allows you to map environment variables from a name to a value.
 Types:
 
 - envVars (`attrsOf (attrsOf str)`): Optional.
-  Defaults to `{ }`.
+
+    Defaults to `{ }`.
 
 Example:
 
@@ -61,7 +62,8 @@ Allows you to map Terraform variables from a name to a value.
 Types:
 
 - envVarsForTerraform (`attrsOf (attrsOf str)`): Optional.
-  Defaults to `{ }`.
+
+    Defaults to `{ }`.
 
 Example:
 

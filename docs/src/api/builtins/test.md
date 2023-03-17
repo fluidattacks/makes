@@ -6,23 +6,22 @@ with [pytest](https://docs.pytest.org/).
 Types:
 
 - testPython (`attrsOf targetType`): Optional.
-  Mapping of names to pytest targets.
-  Defaults to `{ }`.
+    Mapping of names to pytest targets.
+    Defaults to `{ }`.
 - targetType (`submodule`):
-
-  - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
-    Python interpreter version that your package/module is designed for.
-  - src (`str`):
-    Path to the file or directory that contains the tests code.
-  - searchPaths (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`.
-    Defaults to `makeSearchPaths`'s defaults.
-  - extraFlags (`listOf str`): Optional.
-    Extra command line arguments to propagate to pytest.
-    Defaults to `[ ]`.
-  - extraSrcs (`attrsOf package`): Optional.
-    Place extra sources at the same level of your project code
-    so you can reference them via relative paths.
+    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+        Python interpreter version that your package/module is designed for.
+    - src (`str`):
+        Path to the file or directory that contains the tests code.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`.
+        Defaults to `makeSearchPaths`'s defaults.
+    - extraFlags (`listOf str`): Optional.
+        Extra command line arguments to propagate to pytest.
+        Defaults to `[ ]`.
+    - extraSrcs (`attrsOf package`): Optional.
+        Place extra sources at the same level of your project code
+        so you can reference them via relative paths.
 
     The final test structure looks like this:
 
@@ -89,24 +88,24 @@ over the specified Terraform modules.
 Types:
 
 - testTerraform:
-  - modules (`attrsOf moduleType`): Optional.
-    Path to Terraform modules to lint.
-    Defaults to `{ }`.
+    - modules (`attrsOf moduleType`): Optional.
+        Path to Terraform modules to lint.
+        Defaults to `{ }`.
 - moduleType (`submodule`):
-  - setup (`listOf package`): Optional.
-    [Makes Environment](./environment.md)
-    or [Makes Secrets](./secrets.md)
-    to `source` (as in Bash's `source`)
-    before anything else.
-    Defaults to `[ ]`.
-  - src (`str`):
-    Path to the Terraform module.
-  - version (`enum [ "0.14" "0.15" "1.0" ]`):
-    Terraform version your module is built with.
-  - debug (`bool`): Optional.
-    Enable maximum level of debugging
-    and remove parallelism so logs are clean.
-    Defaults to `false`.
+    - setup (`listOf package`): Optional.
+        [Makes Environment](./environment.md)
+        or [Makes Secrets](./secrets.md)
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - src (`str`):
+        Path to the Terraform module.
+    - version (`enum [ "0.14" "0.15" "1.0" ]`):
+        Terraform version your module is built with.
+    - debug (`bool`): Optional.
+        Enable maximum level of debugging
+        and remove parallelism so logs are clean.
+        Defaults to `false`.
 
 Example:
 

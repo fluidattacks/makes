@@ -5,14 +5,13 @@ Fetch a file from the specified URL.
 Types:
 
 - fetchUrl (`function { ... } -> package`):
-
-  - url (`str`):
-    URL to download.
-  - sha256 (`str`):
-    SHA256 of the expected output,
-    In order to get the SHA256
-    you can omit this parameter and execute Makes,
-    Makes will tell you the correct SHA256 on failure.
+    - url (`str`):
+        URL to download.
+    - sha256 (`str`):
+        SHA256 of the expected output,
+        In order to get the SHA256
+        you can omit this parameter and execute Makes,
+        Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -38,19 +37,18 @@ and unpack it.
 Types:
 
 - fetchArchive (`function { ... } -> package`):
-
-  - url (`str`):
-    URL to download.
-  - sha256 (`str`):
-    SHA256 of the expected output,
-    In order to get the SHA256
-    you can omit this parameter and execute Makes,
-    Makes will tell you the correct SHA256 on failure.
-  - stripRoot (`bool`): Optional.
-    Most archives have a symbolic top-level directory
-    that is discarded during unpack phase.
-    If this is not the case you can set this flag to `false`.
-    Defaults to `true`.
+    - url (`str`):
+        URL to download.
+    - sha256 (`str`):
+        SHA256 of the expected output,
+        In order to get the SHA256
+        you can omit this parameter and execute Makes,
+        Makes will tell you the correct SHA256 on failure.
+    - stripRoot (`bool`): Optional.
+        Most archives have a symbolic top-level directory
+        that is discarded during unpack phase.
+        If this is not the case you can set this flag to `false`.
+        Defaults to `true`.
 
 Example:
 
@@ -75,18 +73,17 @@ Fetch a commit from the specified Git repository at GitHub.
 Types:
 
 - fetchGithub (`function { ... } -> package`):
-
-  - owner (`str`):
-    Owner of the repository.
-  - repo (`str`):
-    Name of the repository.
-  - rev (`str`):
-    Commit, branch or tag to fetch.
-  - sha256 (`str`):
-    SHA256 of the expected output,
-    In order to get the SHA256
-    you can omit this parameter and execute Makes,
-    Makes will tell you the correct SHA256 on failure.
+    - owner (`str`):
+        Owner of the repository.
+    - repo (`str`):
+        Name of the repository.
+    - rev (`str`):
+        Commit, branch or tag to fetch.
+    - sha256 (`str`):
+        SHA256 of the expected output,
+        In order to get the SHA256
+        you can omit this parameter and execute Makes,
+        Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -113,18 +110,17 @@ Fetch a commit from the specified Git repository at GitLab.
 Types:
 
 - fetchGitlab (`function { ... } -> package`):
-
-  - owner (`str`):
-    Owner of the repository.
-  - repo (`str`):
-    Name of the repository.
-  - rev (`str`):
-    Commit, branch or tag to fetch.
-  - sha256 (`str`):
-    SHA256 of the expected output,
-    In order to get the SHA256
-    you can omit this parameter and execute Makes,
-    Makes will tell you the correct SHA256 on failure.
+    - owner (`str`):
+        Owner of the repository.
+    - repo (`str`):
+        Name of the repository.
+    - rev (`str`):
+        Commit, branch or tag to fetch.
+    - sha256 (`str`):
+        SHA256 of the expected output,
+        In order to get the SHA256
+        you can omit this parameter and execute Makes,
+        Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -157,22 +153,22 @@ Fetch a commit from the
 Types:
 
 - fetchNixpkgs (`function { ... } -> anything`):
-  - rev (`str`):
-    Commit, branch or tag to fetch.
-  - allowUnfree (`bool`): Optional.
-    Allow software that do not respect the freedom of its users.
-    Defaults to `true`.
-  - acceptAndroidSdkLicense (`bool`): Optional.
-    Accept the Android SDK license.
-    Defaults to `true`.
-  - overalys (`listOf overlayType`): Optional.
-    Overlays to apply to the Nixpkgs set.
-    Defaults to `[ ]`.
-  - sha256 (`str`):
-    SHA256 of the expected output,
-    In order to get the SHA256
-    you can omit this parameter and execute Makes,
-    Makes will tell you the correct SHA256 on failure.
+    - rev (`str`):
+        Commit, branch or tag to fetch.
+    - allowUnfree (`bool`): Optional.
+        Allow software that do not respect the freedom of its users.
+        Defaults to `true`.
+    - acceptAndroidSdkLicense (`bool`): Optional.
+        Accept the Android SDK license.
+        Defaults to `true`.
+    - overalys (`listOf overlayType`): Optional.
+        Overlays to apply to the Nixpkgs set.
+        Defaults to `[ ]`.
+    - sha256 (`str`):
+        SHA256 of the expected output,
+        In order to get the SHA256
+        you can omit this parameter and execute Makes,
+        Makes will tell you the correct SHA256 on failure.
 
 Example:
 
@@ -200,13 +196,13 @@ from [RubyGems](https://rubygems.org/).
 Types:
 
 - fetchRubyGem (`function { ... } -> package`):
-  - sha256 (`str`):
-    SHA256 of the expected output,
-    In order to get the SHA256
-    you can omit this parameter and execute Makes,
-    Makes will tell you the correct SHA256 on failure.
-  - url (`str`):
-    url of the gem to download.
+    - sha256 (`str`):
+        SHA256 of the expected output,
+        In order to get the SHA256
+        you can omit this parameter and execute Makes,
+        Makes will tell you the correct SHA256 on failure.
+    - url (`str`):
+        url of the gem to download.
 
 Example:
 

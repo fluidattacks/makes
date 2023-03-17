@@ -1,5 +1,10 @@
 # Architecture
 
+Below you will find a high-level diagram
+of the Makes architecture
+
+---
+
 ```mermaid
 flowchart TB
 

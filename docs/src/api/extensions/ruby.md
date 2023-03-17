@@ -5,9 +5,8 @@ Get a specific Ruby interpreter.
 Types:
 
 - makeRubyVersion (`function str -> package`):
-
-  - (`enum [ "2.7" "3.0" "3.1" ]`):
-    Version of the Ruby interpreter.
+    - (`enum [ "2.7" "3.0" "3.1" ]`):
+        Version of the Ruby interpreter.
 
 Example:
 
@@ -47,17 +46,16 @@ from the [RubyGems][rubygems].
 Types:
 
 - makeRubyGemsInstall (`function { ... } -> package`):
-
-  - name (`str`):
-    Custom name to assign to the build step, be creative, it helps in debugging.
-  - ruby (`enum [ "2.7" "3.0" ]`):
-    Version of the Ruby interpreter.
-  - searchPaths (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`.
-    Defaults to `makeSearchPaths`'s defaults.
-  - sourcesYaml (`package`):
-    `sources.yaml` file
-    computed as explained in the pre-requisites section.
+    - name (`str`):
+        Custom name to assign to the build step, be creative, it helps in debugging.
+    - ruby (`enum [ "2.7" "3.0" ]`):
+        Version of the Ruby interpreter.
+    - searchPaths (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`.
+        Defaults to `makeSearchPaths`'s defaults.
+    - sourcesYaml (`package`):
+        `sources.yaml` file
+        computed as explained in the pre-requisites section.
 
 Example:
 
@@ -90,22 +88,21 @@ are available.
 Types:
 
 - makeRubyGemsEnvironment (`function { ... } -> package`):
-
-  - name (`str`):
-    Custom name to assign to the build step, be creative, it helps in debugging.
-  - ruby (`enum [ "2.7" "3.0" ]`):
-    Version of the Ruby interpreter.
-  - searchPathsBuild (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`
-    and used while installing gems.
-    Defaults to `makeSearchPaths`'s defaults.
-  - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
-    Arguments here will be passed as-is to `makeSearchPaths`
-    and propagated to the runtime environment.
-    Defaults to `makeSearchPaths`'s defaults.
-  - sourcesYaml (`package`):
-    `sources.yaml` file
-    computed as explained in the pre-requisites section.
+    - name (`str`):
+        Custom name to assign to the build step, be creative, it helps in debugging.
+    - ruby (`enum [ "2.7" "3.0" ]`):
+        Version of the Ruby interpreter.
+    - searchPathsBuild (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`
+        and used while installing gems.
+        Defaults to `makeSearchPaths`'s defaults.
+    - searchPathsRuntime (`asIn makeSearchPaths`): Optional.
+        Arguments here will be passed as-is to `makeSearchPaths`
+        and propagated to the runtime environment.
+        Defaults to `makeSearchPaths`'s defaults.
+    - sourcesYaml (`package`):
+        `sources.yaml` file
+        computed as explained in the pre-requisites section.
 
 Example:
 

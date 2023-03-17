@@ -29,9 +29,9 @@ where:
 
 - `<repo>` is a GitHub, GitLab or local repository.
 - `<job>` is a Makes job
-  that exists within the referenced repository.
-  If no job is specified,
-  Makes displays all available jobs.
+    that exists within the referenced repository.
+    If no job is specified,
+    Makes displays all available jobs.
 
 Example:
 

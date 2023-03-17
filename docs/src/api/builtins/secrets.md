@@ -12,36 +12,32 @@ from environment variables.
 Types:
 
 - secretsForAwsFromEnv (`attrsOf awsFromEnvType`): Optional.
-  Defaults to `{ }`.
+    Defaults to `{ }`.
 - awsFromEnvType (`submodule`):
-
-  - accessKeyId (`str`): Optional.
-    Name of the environment variable
-    that stores the value of the AWS Access Key Id.
-    Defaults to `"AWS_ACCESS_KEY_ID"`.
-
-  - defaultRegion (`str`): Optional.
-    Name of the environment variable
-    that stores the value of the AWS Default Region.
-    Defaults to `"AWS_DEFAULT_REGION"` (Which defaults to `"us-east-1"`).
-
-  - secretAccessKey (`str`): Optional.
-    Name of the environment variable
-    that stores the value of the AWS Secret Access Key.
-    Defaults to `"AWS_SECRET_ACCESS_KEY"`.
-
-  - sessionToken (`str`): Optional.
-    Name of the environment variable
-    that stores the value of the AWS Session Token.
-    Defaults to `"AWS_SESSION_TOKEN"` (Which defaults to `""`).
+    - accessKeyId (`str`): Optional.
+        Name of the environment variable
+        that stores the value of the AWS Access Key Id.
+        Defaults to `"AWS_ACCESS_KEY_ID"`.
+    - defaultRegion (`str`): Optional.
+        Name of the environment variable
+        that stores the value of the AWS Default Region.
+        Defaults to `"AWS_DEFAULT_REGION"` (Which defaults to `"us-east-1"`).
+    - secretAccessKey (`str`): Optional.
+        Name of the environment variable
+        that stores the value of the AWS Secret Access Key.
+        Defaults to `"AWS_SECRET_ACCESS_KEY"`.
+    - sessionToken (`str`): Optional.
+        Name of the environment variable
+        that stores the value of the AWS Session Token.
+        Defaults to `"AWS_SESSION_TOKEN"` (Which defaults to `""`).
 
 Always available outputs:
 
 - `/secretsForAwsFromEnv/__default__`:
-  - accessKeyId: "AWS_ACCESS_KEY_ID";
-  - defaultRegion: "AWS_DEFAULT_REGION";
-  - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
-  - sessionToken: "AWS_SESSION_TOKEN";
+    - accessKeyId: "AWS_ACCESS_KEY_ID";
+    - defaultRegion: "AWS_DEFAULT_REGION";
+    - secretAccessKey: "AWS_SECRET_ACCESS_KEY";
+    - sessionToken: "AWS_SESSION_TOKEN";
 
 Example:
 
@@ -93,20 +89,17 @@ using [GitLab CI OIDC](https://docs.gitlab.com/ee/ci/cloud_services/aws/index.ht
 Types:
 
 - secretsForAwsFromGitlab (`attrsOf awsFromGitlabType`): Optional.
-  Defaults to `{ }`.
+    Defaults to `{ }`.
 - awsFromGitlabType (`submodule`):
-
-  - roleArn (`str`):
-    ARN of AWS role to be assumed.
-
-  - duration (`ints.positive`): Optional.
-    Duration in seconds of the session.
-    Defaults to `3600`.
-
-  - retries (`ints.positive`): Optional.
-    Number of login retries before failing.
-    One retry per second.
-    Defaults to `15`.
+    - roleArn (`str`):
+        ARN of AWS role to be assumed.
+    - duration (`ints.positive`): Optional.
+        Duration in seconds of the session.
+        Defaults to `3600`.
+    - retries (`ints.positive`): Optional.
+        Number of login retries before failing.
+        One retry per second.
+        Defaults to `15`.
 
 Example:
 
@@ -160,12 +153,12 @@ to environment variables.
 Types:
 
 - secretsForEnvFromSops (`attrsOf secretForEnvFromSopsType`): Optional.
-  Defaults to `{ }`.
+    Defaults to `{ }`.
 - secretForEnvFromSopsType (`submodule`):
-  - manifest (`str`):
-    Relative path to the encrypted Sops file.
-  - vars (`listOf str`):
-    Names of the values to export out of the manifest.
+    - manifest (`str`):
+        Relative path to the encrypted Sops file.
+    - vars (`listOf str`):
+        Names of the values to export out of the manifest.
 
 Example:
 
@@ -212,10 +205,10 @@ in [ASCII Armor](https://www.techopedia.com/definition/23150/ascii-armor) format
 Types:
 
 - secretsForGpgFromEnv (`attrsOf (listOf str)`): Optional.
-  Mapping of name
-  to a list of environment variable names
-  where the GPG key contents are stored.
-  Defaults to `{ }`.
+    Mapping of name
+    to a list of environment variable names
+    where the GPG key contents are stored.
+    Defaults to `{ }`.
 
 Example:
 
@@ -293,13 +286,13 @@ and set it up in the
 Types:
 
 - secretsForKubernetesConfigFromAws
-  (`attrsOf secretForKubernetesConfigFromAwsType`): Optional.
-  Defaults to `{ }`.
+    (`attrsOf secretForKubernetesConfigFromAwsType`): Optional.
+    Defaults to `{ }`.
 - secretForKubernetesConfigFromAwsType (`submodule`):
-  - cluster (`str`):
-    AWS EKS Cluster name.
-  - region (`str`):
-    AWS Region the EKS cluster is located in.
+    - cluster (`str`):
+        AWS EKS Cluster name.
+    - region (`str`):
+        AWS Region the EKS cluster is located in.
 
 Example:
 
@@ -338,10 +331,10 @@ from the given environment variables.
 Types:
 
 - secretsForTerraformFromEnv (`attrsOf (attrsOf str)`): Optional.
-  Mapping of secrets group name
-  to a mapping of Terraform variable names
-  to environment variable names.
-  Defaults to `{ }`.
+    Mapping of secrets group name
+    to a mapping of Terraform variable names
+    to environment variable names.
+    Defaults to `{ }`.
 
 Example:
 

@@ -36,16 +36,16 @@ Now run makes!
 
 - List all available outputs: `$ m .`
 
-  ```
-  Outputs list for project: /path/to/my/project
-    /example
-  ```
+    ```
+    Outputs list for project: /path/to/my/project
+      /example
+    ```
 
 - Build and run the output: `$ m . /example`
 
-  ```
-  Hello from Makes!
-  ```
+    ```
+    Hello from Makes!
+    ```
 
 Makes will automatically recognize as outputs all `main.nix` files
 under the `makes/` directory in the root of the project.
