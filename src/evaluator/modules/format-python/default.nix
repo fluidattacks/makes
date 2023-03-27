@@ -35,10 +35,10 @@
           bin = [
             __nixpkgs__.black
             __nixpkgs__.git
-            __nixpkgs__.python38Packages.isort
+            __nixpkgs__.python39Packages.isort
           ];
-          pythonPackage38 = [
-            __nixpkgs__.python38Packages.colorama
+          pythonPackage39 = [
+            __nixpkgs__.python39Packages.colorama
           ];
         };
         entrypoint = ./entrypoint.sh;
