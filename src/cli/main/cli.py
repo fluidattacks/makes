@@ -664,7 +664,7 @@ def cache_push(cache: List[Dict[str, str]], out: str) -> None:
                 stdout=sys.stderr.fileno(),
             )
             _run(
-                args=["cachix", "push", "-c", "0", config["name"], out],
+                args=["cachix", "push", config["name"], out],
                 stderr=None,
                 stdout=sys.stderr.fileno(),
             )
