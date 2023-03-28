@@ -25,8 +25,8 @@ in
       __argPort__ = port;
       __argHost__ = host;
       __argDynamoZip__ = fetchUrl {
-        url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2021-02-08.zip";
-        sha256 = "01xgqk2crrnpvzr3xkd3mwiwcs6bfxqhbbyard6y8c0jgibm31pk";
+        url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2023-02-02.zip";
+        sha256 = "0qbn0wldcb2mnblsawfavzhklfrlmrka5nmhqf3l047yfmf6vj03";
       };
       __argData__ = toBashArray dbData;
       __argShouldPopulate__ = builtins.length dbData > 0;
