@@ -192,7 +192,7 @@ Example:
 
 ## lintNix
 
-Lints Nix code with [nix-linter](https://github.com/Synthetica9/nix-linter).
+Lints Nix code with [statix](https://github.com/nerdypepper/statix).
 
 Types:
 

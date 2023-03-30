@@ -60,6 +60,7 @@
     lintGitCommitMsg = import ./lint-git-commit-msg/default.nix self;
     lintGitMailMap = import ./lint-git-mailmap/default.nix self;
     lintMarkdown = import ./lint-markdown/default.nix self;
+    lintNix = import ./lint-nix/default.nix self;
     lintPython = import ./lint-python/default.nix self;
     lintPythonImports = import ./lint-python-imports/default.nix self;
     lintTerraform = import ./lint-terraform/default.nix self;

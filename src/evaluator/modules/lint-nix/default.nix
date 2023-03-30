@@ -1,8 +1,5 @@
 {
-  __nixpkgs__,
-  toBashArray,
-  makeDerivation,
-  projectPath,
+  lintNix,
   ...
 }: {
   config,
@@ -23,21 +20,9 @@
   };
   config = {
     outputs = {
-      "/lintNix" = lib.mkIf config.lintNix.enable (makeDerivation {
-        env = {
-          envTargets =
-            toBashArray
-            (builtins.map
-              projectPath
-              config.lintNix.targets);
-        };
-        name = "lint-nix";
-        searchPaths = {
-          bin = [
-            __nixpkgs__.statix
-          ];
-        };
-        builder = ./builder.sh;
+      "/lintNix" = lib.mkIf config.lintNix.enable (lintNix {
+        name = "builtin";
+        targets = builtins.map (rel: "." + rel) config.lintNix.targets;
       });
     };
   };
