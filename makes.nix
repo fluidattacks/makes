@@ -34,6 +34,7 @@
         };
         registry = "ghcr.io";
         src = outputs."/container-image";
+        sign = true;
         tag = "fluidattacks/makes:latest";
       };
       makesPinned = {
@@ -44,6 +45,7 @@
         };
         registry = "ghcr.io";
         src = outputs."/container-image";
+        sign = true;
         tag = "fluidattacks/makes:23.04";
       };
     };

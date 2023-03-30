@@ -11,7 +11,7 @@ function main {
       update-kubeconfig \
       --name '__argCluster__' \
       --kubeconfig "${config}" \
-    && export KUBECONFIG="${config}${KUBECONFIG:+:}${KUBECONFIG:-}"
+    && export KUBECONFIG="${config}${KUBECONFIG:+:}${KUBECONFIG-}"
 }
 
 main "${@}"

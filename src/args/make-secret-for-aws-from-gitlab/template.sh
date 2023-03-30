@@ -51,7 +51,7 @@ function login {
 function main {
   : \
     && info "Making secrets for aws from gitlab for __argName__:" \
-    && if test -n "${CI_JOB_JWT_V2:-}"; then
+    && if test -n "${CI_JOB_JWT_V2-}"; then
       info "Logging in as '__argName__' using GitLab OIDC." \
         && login "__argRoleArn__" "__argDuration__"
     else

@@ -49,7 +49,7 @@ function serve {
         && terraform init \
         && terraform apply -auto-approve \
         && popd \
-        && if { test '__argShouldPopulate__' == '1' || test "${POPULATE:-}" = 'true'; } && test "${POPULATE:-}" != 'false'; then
+        && if { test '__argShouldPopulate__' == '1' || test "${POPULATE-}" = 'true'; } && test "${POPULATE-}" != 'false'; then
           populate
         fi
     fi \
@@ -72,7 +72,7 @@ function main {
   STATE_PATH="$(mktemp -d)"
   export STATE_PATH
 
-  if { test "${DAEMON:-}" = "true" || test '__argDaemonMode__' == 1; } && test "${DAEMON:-}" != "false"; then
+  if { test "${DAEMON-}" = "true" || test '__argDaemonMode__' == 1; } && test "${DAEMON-}" != "false"; then
     serve_daemon "${@}"
   else
     serve "${@}"

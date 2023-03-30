@@ -34,7 +34,7 @@ function copy {
 function require_env_var {
   local var_name="${1}"
 
-  if test -z "${!var_name:-}"; then
+  if test -z "${!var_name-}"; then
     critical Env var is required but is empty or not present: "${var_name}"
   fi
 }

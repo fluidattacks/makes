@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local env="${1:-}"
+  local env="${1-}"
   local domain="makes.fluidattacks.com"
   local cname_path="src/CNAME"
 
