@@ -144,6 +144,12 @@ Types:
         to `source` (as in Bash's `source`)
         before anything else.
         Defaults to `[ ]`.
+    - sign (`bool`): Optional.
+        Sign container image
+        with [Cosign](https://docs.sigstore.dev/cosign/overview/)
+        by using a
+        [OIDC keyless approach](https://docs.sigstore.dev/cosign/keyless/).
+        Defaults to `false`.
     - src (`package`):
         Derivation that contains the container image in OCI Format.
     - tag (`str`):
@@ -174,6 +180,7 @@ Example:
               user = "DOCKER_HUB_USER";
             };
             src = inputs.nixpkgs.dockerTools.examples.nginx;
+            sign = false;
             registry = "docker.io";
             tag = "fluidattacks/nginx:latest";
           };
@@ -183,6 +190,7 @@ Example:
               user = "GITHUB_ACTOR";
             };
             src = inputs.nixpkgs.dockerTools.examples.redis;
+            sign = true;
             registry = "ghcr.io";
             tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
           };
@@ -192,6 +200,7 @@ Example:
               user = "CI_REGISTRY_USER";
             };
             src = outputs."/containerImage";
+            sign = false;
             registry = "registry.gitlab.com";
             tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var
           };

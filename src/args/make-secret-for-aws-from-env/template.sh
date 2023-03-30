@@ -18,7 +18,7 @@ function main {
     && info - AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION}" \
     && export AWS_SECRET_ACCESS_KEY="${!secret_access_key_name}" \
     && info - AWS_SECRET_ACCESS_KEY from "${secret_access_key_name}" \
-    && export AWS_SESSION_TOKEN="${!session_token_name:-}" \
+    && export AWS_SESSION_TOKEN="${!session_token_name-}" \
     && info - AWS_SESSION_TOKEN from "${session_token_name}" \
     && export AWS_SHARED_CREDENTIALS_FILE \
     && AWS_SHARED_CREDENTIALS_FILE="$(mktemp)" \

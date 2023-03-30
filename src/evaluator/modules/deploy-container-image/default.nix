@@ -16,6 +16,7 @@
       inherit name;
       inherit (args) registry;
       inherit (args) setup;
+      inherit (args) sign;
       inherit (args) tag;
     };
   };
@@ -44,6 +45,10 @@ in {
             setup = lib.mkOption {
               default = [];
               type = lib.types.listOf lib.types.package;
+            };
+            sign = lib.mkOption {
+              default = false;
+              type = lib.types.bool;
             };
             src = lib.mkOption {
               type = lib.types.package;

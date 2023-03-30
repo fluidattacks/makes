@@ -5,6 +5,9 @@ jobs:
   deployContainerImage_makesLatest:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      id-token: write
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
@@ -17,6 +20,9 @@ jobs:
   deployContainerImage_makesPinned:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      id-token: write
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac

@@ -8,7 +8,7 @@ function running_in_ci_cd_provider {
   # Non-empty on Gitlab, Github, Travis
   export CI
 
-  test -n "${CI:-}"
+  test -n "${CI-}"
 }
 
 function prompt_user_for_confirmation {
@@ -51,8 +51,8 @@ function setup {
 
   source __argSearchPathsEmpty__/template \
     && source __argSearchPathsBase__/template \
-    && if test -z "${HOME_IMPURE:-}"; then
-      HOME_IMPURE="${HOME:-}" \
+    && if test -z "${HOME_IMPURE-}"; then
+      HOME_IMPURE="${HOME-}" \
         && HOME="$(mktemp -d)"
     fi \
     && if test __argGlobalState__ -eq "0"; then
