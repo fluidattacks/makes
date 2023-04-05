@@ -1,7 +1,4 @@
-{
-  lintNix,
-  ...
-}: {
+{lintNix, ...}: {
   config,
   lib,
   ...
