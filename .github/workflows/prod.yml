@@ -2,7 +2,7 @@ concurrency:
   cancel-in-progress: true
   group: ${{ github.actor }}
 jobs:
-  deployContainerImage_makesLatest:
+  deployContainerImage_makesLatestAmd64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     permissions:
@@ -16,8 +16,23 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           set-safe-directory: /github/workspace
-          args: sh -c "nix-env -if . && m . /deployContainerImage/makesLatest"
-  deployContainerImage_makesPinned:
+          args: sh -c "nix-env -if . && m . /deployContainerImage/makesLatestAmd64"
+  deployContainerImage_makesLatestArm64:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
+    runs-on: buildjet-2vcpu-ubuntu-2204-arm
+    permissions:
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /deployContainerImage/makesLatestArm64"
+  deployContainerImage_makesPinnedAmd64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     permissions:
@@ -31,7 +46,22 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           set-safe-directory: /github/workspace
-          args: sh -c "nix-env -if . && m . /deployContainerImage/makesPinned"
+          args: sh -c "nix-env -if . && m . /deployContainerImage/makesPinnedAmd64"
+  deployContainerImage_makesPinnedArm64:
+    if: ${{ github.repository == 'fluidattacks/makes' }}
+    runs-on: buildjet-2vcpu-ubuntu-2204-arm
+    permissions:
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: docker://docker.io/nixos/nix@sha256:1d13ae379fb8caf3f859c5ce7ec6002643d60cf8b7b6147b949cc34880c93bac
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /deployContainerImage/makesPinnedArm64"
   releaseGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest

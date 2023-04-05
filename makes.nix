@@ -1,5 +1,4 @@
 {
-  __nixpkgs__,
   fetchNixpkgs,
   inputs,
   outputs,
@@ -26,7 +25,7 @@
   };
   deployContainerImage = {
     images = {
-      makesLatest = {
+      makesLatestAmd64 = {
         attempts = 3;
         credentials = {
           token = "GITHUB_TOKEN";
@@ -35,9 +34,9 @@
         registry = "ghcr.io";
         src = outputs."/container-image";
         sign = true;
-        tag = "fluidattacks/makes:latest";
+        tag = "fluidattacks/makes/amd64:latest";
       };
-      makesPinned = {
+      makesLatestArm64 = {
         attempts = 3;
         credentials = {
           token = "GITHUB_TOKEN";
@@ -46,7 +45,29 @@
         registry = "ghcr.io";
         src = outputs."/container-image";
         sign = true;
-        tag = "fluidattacks/makes:23.04";
+        tag = "fluidattacks/makes/arm64:latest";
+      };
+      makesPinnedAmd64 = {
+        attempts = 3;
+        credentials = {
+          token = "GITHUB_TOKEN";
+          user = "GITHUB_ACTOR";
+        };
+        registry = "ghcr.io";
+        src = outputs."/container-image";
+        sign = true;
+        tag = "fluidattacks/makes/amd64:23.04";
+      };
+      makesPinnedArm64 = {
+        attempts = 3;
+        credentials = {
+          token = "GITHUB_TOKEN";
+          user = "GITHUB_ACTOR";
+        };
+        registry = "ghcr.io";
+        src = outputs."/container-image";
+        sign = true;
+        tag = "fluidattacks/makes/arm64:23.04";
       };
     };
   };
