@@ -44,7 +44,7 @@
         };
         registry = "ghcr.io";
         src = outputs."/container-image";
-        sign = true;
+        sign = false;
         tag = "fluidattacks/makes/arm64:latest";
       };
       makesPinnedAmd64 = {
@@ -66,7 +66,7 @@
         };
         registry = "ghcr.io";
         src = outputs."/container-image";
-        sign = true;
+        sign = false;
         tag = "fluidattacks/makes/arm64:23.04";
       };
     };
