@@ -84,7 +84,7 @@ Example:
       helloWorld:
         runs-on: ubuntu-latest
         steps:
-          - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+          - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
           - uses: docker://ghcr.io/fluidattacks/makes:23.04
             name: helloWorld
             with:
