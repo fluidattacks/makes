@@ -19,7 +19,7 @@ jobs:
           args: sh -c "nix-env -if . && m . /deployContainerImage/makesLatestAmd64"
   deployContainerImage_makesLatestArm64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
-    runs-on: buildjet-4vcpu-ubuntu-2204-arm
+    runs-on: buildjet-2vcpu-ubuntu-2204-arm
     permissions:
       packages: write
       id-token: write
@@ -49,7 +49,7 @@ jobs:
           args: sh -c "nix-env -if . && m . /deployContainerImage/makesPinnedAmd64"
   deployContainerImage_makesPinnedArm64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
-    runs-on: buildjet-4vcpu-ubuntu-2204-arm
+    runs-on: buildjet-2vcpu-ubuntu-2204-arm
     permissions:
       packages: write
       id-token: write

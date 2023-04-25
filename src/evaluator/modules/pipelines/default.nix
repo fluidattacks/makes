@@ -32,6 +32,10 @@
         default = {};
         type = lib.types.attrsOf lib.types.anything;
       };
+      image = lib.mkOption {
+        default = "ghcr.io/fluidattacks/makes/amd64:23.04";
+        type = lib.types.str;
+      };
       output = lib.mkOption {
         type = lib.types.str;
       };
@@ -86,13 +90,14 @@
     args,
     gitDepth,
     gitlabExtra,
+    image,
     output,
     ...
   }: {
     name = toJobName output args;
     value = attrsMerge [
       {
-        image = "ghcr.io/fluidattacks/makes:23.04";
+        inherit image;
         interruptible = true;
         needs = [];
         script =
