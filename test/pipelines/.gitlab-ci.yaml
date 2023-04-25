@@ -1,5 +1,5 @@
 /helloWorld__1__2__3:
-  image: ghcr.io/fluidattacks/makes:23.04
+  image: ghcr.io/fluidattacks/makes/amd64:23.04
   interruptible: true
   needs: []
   script:
@@ -8,7 +8,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintNix:
-  image: ghcr.io/fluidattacks/makes:23.04
+  image: ghcr.io/fluidattacks/makes/amd64:23.04
   interruptible: true
   needs: []
   script:
