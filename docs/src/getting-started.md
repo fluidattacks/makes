@@ -65,7 +65,7 @@ running Linux and MacOS (darwin) machines.
 ### Using the container
 
 A Makes container can be found
-in the [container registry](https://github.com/fluidattacks/makes/pkgs/container/makes).
+in the [container registry](https://github.com/orgs/fluidattacks/packages?repo_name=makes).
 
 You can use it
 to run Makes on any service
