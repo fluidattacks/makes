@@ -21,9 +21,9 @@ makeDerivation {
     (makePythonPypiEnvironment {
       name = "lint-python-imports";
       sourcesYaml = ./pypi-sources.yaml;
-      withSetuptools_57_4_0 = true;
-      withSetuptoolsScm_6_0_1 = true;
-      withWheel_0_37_0 = true;
+      withSetuptools_67_7_2 = true;
+      withSetuptoolsScm_7_1_0 = true;
+      withWheel_0_40_0 = true;
     })
   ];
 }

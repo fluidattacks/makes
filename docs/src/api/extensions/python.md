@@ -75,17 +75,14 @@ Types:
     - withNumpy_1_24_0 (`bool`): Optional.
         Bootstrap numpy 1.24.0 to the environment
         Defaults to `false`.
-    - withSetuptools_57_4_0 (`bool`): Optional.
-        Bootstrap setuptools 57.4.0 to the environment
+    - withSetuptools_67_7_2 (`bool`): Optional.
+        Bootstrap setuptools 67.7.2 to the environment
         Defaults to `false`.
-    - withSetuptoolsScm_5_0_2 (`bool`) Optional.
-        Bootstrap setuptools-scm 5.0.2 to the environment
+    - withSetuptoolsScm_7_1_0 (`bool`) Optional.
+        Bootstrap setuptools-scm 7.1.0 to the environment
         Defaults to `false`.
-    - withSetuptoolsScm_6_0_1 (`bool`) Optional.
-        Bootstrap setuptools-scm 6.0.1 to the environment
-        Defaults to `false`.
-    - withWheel_0_37_0 (`bool`): Optional.
-        Bootstrap wheel 0.37.0 to the environment
+    - withWheel_0_40_0 (`bool`): Optional.
+        Bootstrap wheel 0.40.0 to the environment
         Defaults to `false`.
 
 Example:
@@ -115,9 +112,9 @@ Example:
       # Other packages require a few bootstrapped dependencies,
       # enable them like this:
       withCython_0_29_24 = true;
-      withSetuptools_57_4_0 = true;
-      withSetuptoolsScm_6_0_1 = true;
-      withWheel_0_37_0 = true;
+      withSetuptools_67_7_2 = true;
+      withSetuptoolsScm_7_1_0 = true;
+      withWheel_0_40_0 = true;
     }
     ```
 
