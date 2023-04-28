@@ -20,10 +20,9 @@
   sourcesYaml ? null,
   withCython_0_29_24 ? false,
   withNumpy_1_24_0 ? false,
-  withSetuptools_57_4_0 ? false,
-  withSetuptoolsScm_5_0_2 ? false,
-  withSetuptoolsScm_6_0_1 ? false,
-  withWheel_0_37_0 ? false,
+  withSetuptools_67_7_2 ? false,
+  withSetuptoolsScm_7_1_0 ? false,
+  withWheel_0_40_0 ? false,
 }:
 assert builtins.any (_: _) [
   (sourcesJson == null && sourcesRaw != null && sourcesYaml == null)
@@ -72,15 +71,15 @@ assert builtins.any (_: _) [
         .${sources.python};
       withCython_0_29_24 = true;
     }))
-    (listOptional withWheel_0_37_0 (makePythonPypiEnvironment {
-      name = "wheel-0.37.0";
+    (listOptional withWheel_0_40_0 (makePythonPypiEnvironment {
+      name = "wheel-0.40.0";
       sourcesYaml = toFileYaml "sources.yaml" {
-        closure.wheel = "0.37.0";
+        closure.wheel = "0.40.0";
         links = [
           {
-            name = "wheel-0.37.0-py2.py3-none-any.whl";
-            sha256 = "1za6c4s0yjy1dzprmib3kph40hr8xgj3apdsnqs00v9wv4mln091";
-            url = "https://pypi.org/packages/py2.py3/w/wheel/wheel-0.37.0-py2.py3-none-any.whl";
+            name = "wheel-0.40.0-py3-none-any.whl";
+            sha256 = "0izjbcsxh6nawadg540g34q5q758xralra0g77rdl8mmgh7b4dnj";
+            url = "https://pypi.org/packages/py3/w/wheel/wheel-0.40.0-py3-none-any.whl";
           }
         ];
         inherit (sources) python;
@@ -109,25 +108,20 @@ assert builtins.any (_: _) [
         })
         (builtins.concatLists [
           sources.links
-          (listOptional withSetuptools_57_4_0 {
-            name = "setuptools-57.4.0-py3-none-any.whl";
-            sha256 = "1mhq6jw21sglccqmimydqi2rjvh3g5xjykb16gcvkkx6gabk14m4";
-            url = "https://pypi.org/packages/py3/s/setuptools/setuptools-57.4.0-py3-none-any.whl";
+          (listOptional withSetuptools_67_7_2 {
+            name = "setuptools-67.7.2-py3-none-any.whl";
+            sha256 = "0awmhw9a3z21qqhrd0xgaqjpnlbp5pqh69yk06wcwlnahmmziai3";
+            url = "https://pypi.org/packages/py3/s/setuptools/setuptools-67.7.2-py3-none-any.whl";
           })
-          (listOptional withSetuptoolsScm_6_0_1 {
-            name = "setuptools_scm-6.0.1-py3-none-any.whl";
-            sha256 = "0p4i5nypfdqzjlmlkwvy45107y7kpq3x9s5zq2jl9vwd3iq5zgf3";
-            url = "https://files.pythonhosted.org/packages/py3/s/setuptools_scm/setuptools_scm-6.0.1-py3-none-any.whl";
+          (listOptional withSetuptoolsScm_7_1_0 {
+            name = "setuptools_scm-7.1.0-py3-none-any.whl";
+            sha256 = "13ix4l2q4w34h1kpalyaryxr55d2dsc8r91a2jpy42c7hinqp63k";
+            url = "https://files.pythonhosted.org/packages/py3/s/setuptools_scm/setuptools_scm-7.1.0-py3-none-any.whl";
           })
-          (listOptional withSetuptoolsScm_5_0_2 {
-            name = "setuptools_scm-5.0.2-py2.py3-none-any.whl";
-            sha256 = "0d3by5bk5l57s63gfba2lv28hi147kmrmy29fl8kw42cywvlwp5x";
-            url = "https://files.pythonhosted.org/packages/6a/18/23ad8654c5c8d91d1238b2d52882e50152473f2bd2db0da60215b51f401b/setuptools_scm-5.0.2-py2.py3-none-any.whl";
-          })
-          (listOptional withWheel_0_37_0 {
-            name = "wheel-0.37.0-py2.py3-none-any.whl";
-            sha256 = "1za6c4s0yjy1dzprmib3kph40hr8xgj3apdsnqs00v9wv4mln091";
-            url = "https://pypi.org/packages/py2.py3/w/wheel/wheel-0.37.0-py2.py3-none-any.whl";
+          (listOptional withWheel_0_40_0 {
+            name = "wheel-0.40.0-py3-none-any.whl";
+            sha256 = "0izjbcsxh6nawadg540g34q5q758xralra0g77rdl8mmgh7b4dnj";
+            url = "https://pypi.org/packages/py3/w/wheel/wheel-0.40.0-py3-none-any.whl";
           })
           (listOptional true {
             name = "pip-21.2.4-py3-none-any.whl";

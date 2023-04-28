@@ -38,9 +38,9 @@ makeDerivation {
             "3.11" = ./pypi-sources-3.11.yaml;
           }
           .${python};
-        withSetuptools_57_4_0 = true;
-        withSetuptoolsScm_5_0_2 = true;
-        withWheel_0_37_0 = true;
+        withSetuptools_67_7_2 = true;
+        withSetuptoolsScm_7_1_0 = true;
+        withWheel_0_40_0 = true;
       })
     ];
   };
