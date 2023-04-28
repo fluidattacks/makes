@@ -30,6 +30,7 @@ inputs.nixpkgs.dockerTools.buildImage {
         inputs.nixpkgs.bashInteractive
         inputs.nixpkgs.cacert
         inputs.nixpkgs.coreutils
+        inputs.nixpkgs.getconf
         inputs.nixpkgs.git
         inputs.nixpkgs.gnugrep
         inputs.nixpkgs.gnutar
