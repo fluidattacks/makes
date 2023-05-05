@@ -108,6 +108,11 @@ assert builtins.any (_: _) [
         })
         (builtins.concatLists [
           sources.links
+          (listOptional withCython_0_29_24 {
+            name = "Cython-0.29.24-py2.py3-none-any.whl";
+            sha256 = "11c3fwfhaby3xpd24rdlwjdp1y1ahz9arai3754awp0b2bq12r7r";
+            url = "https://files.pythonhosted.org/packages/ec/30/8707699ea6e1c1cbe79c37e91f5b06a6266de24f699a5e19b8c0a63c4b65/Cython-0.29.24-py2.py3-none-any.whl";
+          })
           (listOptional withSetuptools_67_7_2 {
             name = "setuptools-67.7.2-py3-none-any.whl";
             sha256 = "0awmhw9a3z21qqhrd0xgaqjpnlbp5pqh69yk06wcwlnahmmziai3";
