@@ -161,9 +161,12 @@ Types:
 - moduleType (`submodule`):
     - config (`str`): Optional.
         Path to the config file.
-        Defaults to [config.rb](/src/evaluator/modules/lint-markdown/config.rb).
+        Defaults to [config.rb](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-markdown/config.rb).
     - targets (`listOf str`): Required.
         paths to lint with `config`.
+    - rulesets (`str`): Optional.
+        Path to the custom rulesets file.
+        Defaults to [rulesets.rb](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-markdown/rulesets.rb).
 
 Example:
 
@@ -175,6 +178,8 @@ Example:
         all = {
           # You can pass custom configs like this:
           # config = "/src/config/markdown.rb";
+          # You can pass custom rules like this:
+          # rulesets = "/src/config/rulesets.rb";
           targets = [ "/" ];
         };
         others = {
