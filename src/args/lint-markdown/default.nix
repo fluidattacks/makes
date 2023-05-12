@@ -7,11 +7,13 @@
   name,
   config,
   targets,
+  rulesets,
 }:
 makeDerivation {
   env = {
     envConfig = config;
     envTargets = toBashArray targets;
+    envRulesets = rulesets;
   };
   name = "lint-markdown-for-${name}";
   searchPaths = {

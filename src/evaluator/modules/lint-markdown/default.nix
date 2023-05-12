@@ -11,6 +11,7 @@
   makeOutput = name: {
     config,
     targets,
+    rulesets,
   }: {
     name = "/lintMarkdown/${name}";
     value = lintMarkdown {
@@ -20,6 +21,10 @@
         then ./config.rb
         else projectPath config;
       targets = builtins.map projectPath targets;
+      rulesets =
+        if rulesets == null
+        then ./rulesets.rb
+        else projectPath rulesets;
     };
   };
 in {
@@ -34,6 +39,10 @@ in {
           };
           targets = lib.mkOption {
             type = lib.types.listOf lib.types.str;
+          };
+          rulesets = lib.mkOption {
+            default = null;
+            type = lib.types.nullOr lib.types.str;
           };
         };
       }));
