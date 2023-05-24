@@ -1,3 +1,64 @@
+## testPullRequest
+
+Test a pull request
+on any of the [supported platforms](https://danger.systems/js/guides/getting_started.html#setting-up-danger-to-run-on-your-ci)
+using [Danger.js](https://danger.systems/js/guides/getting_started.html).
+
+For more information
+on how to use Danger.js,
+please refer to its
+[Gettings started guide](https://danger.systems/js/guides/getting_started.html).
+
+Types:
+
+- testPullRequest:
+    - modules (`attrsOf moduleType`): Optional.
+        Danger configurations to use.
+        Defaults to `{ }`.
+- moduleType (`submodule`):
+    - dangerfile (`path`):
+        Path to a Javascript or Typescript dangerfile.
+    - extraArgs (`listOf str`):
+        Extra arguments to pass
+        to the danger executable.
+    - setup (`listOf package`): Optional.
+        [Makes Environment](./environment.md)
+        or [Makes Secrets](./secrets.md)
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+
+Example:
+
+=== "makes.nix"
+
+    ```nix
+    {
+      testPullRequest = {
+        modules = {
+          github = {
+            dangerfile = projectPath "/dangerfiles/github.ts";
+            extraArgs = [
+              # Extra arguments for my dangerfile
+              "--config"
+              "strict"
+            ];
+          };
+          gitlab = {
+            dangerfile = projectPath "/dangerfiles/gitlab.ts";
+          };
+        };
+      };
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    $ m . /testPullRequest/github
+    ```
+
+
 ## testPython
 
 Test Python code
