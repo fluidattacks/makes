@@ -7,7 +7,7 @@ using [Danger.js](https://danger.systems/js/guides/getting_started.html).
 For more information
 on how to use Danger.js,
 please refer to its
-[Gettings started guide](https://danger.systems/js/guides/getting_started.html).
+[Getting started guide](https://danger.systems/js/guides/getting_started.html).
 
 Types:
 
@@ -34,6 +34,10 @@ Example:
 
     ```nix
     {
+      projectPath,
+      ...
+    }:
+    {
       testPullRequest = {
         modules = {
           github = {
@@ -56,6 +60,27 @@ Example:
 
     ```bash
     $ m . /testPullRequest/github
+    ```
+
+=== "/dangerfiles/github.ts"
+
+    ```typescript
+    import { argv } from "node:process";
+
+    import { danger, fail, warn } from "danger";
+
+    const nCommits = danger.git.commits.length;
+    const strict = argv[6] === "strict";
+
+    if (nCommits > 1) {
+      msg = ["Only one commit per PR:\n", `Commits: ${nCommits}`].join("\n")
+      if (strict) {
+        fail(msg);
+      }
+      else {
+        warn(msg);
+      }
+    }
     ```
 
 
