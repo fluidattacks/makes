@@ -56,13 +56,7 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    $ m . /testPullRequest/github
-    ```
-
-=== "/dangerfiles/github.ts"
+=== "dangerfiles/github.ts"
 
     ```typescript
     import { argv } from "node:process";
@@ -73,7 +67,7 @@ Example:
     const strict = argv[6] === "strict";
 
     if (nCommits > 1) {
-      msg = ["Only one commit per PR:\n", `Commits: ${nCommits}`].join("\n")
+      msg = `Only one commit per PR - Commits: ${nCommits}`
       if (strict) {
         fail(msg);
       }
@@ -83,6 +77,11 @@ Example:
     }
     ```
 
+=== "Invocation"
+
+    ```bash
+    $ m . /testPullRequest/github
+    ```
 
 ## testPython
 
