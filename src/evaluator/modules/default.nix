@@ -89,7 +89,14 @@
       outputs = builtins.attrNames config.outputs;
     };
     configAsJson = toFileJson "config.json" config.config;
+    
     outputs = let
+      convertToCamelCase = derivation:
+        let
+          parts = lib.splitStringList ["-" "_"] derivation;
+        in
+          lib.concatStringsSep "" (lib.map lib.camelCase parts);
+          
       # Load an attr set distributed across many files and directories
       attrsFromPath = path: position:
         builtins.foldl'
@@ -99,7 +106,7 @@
           (attrsMapToList
             (name: type:
               if type == "directory"
-              then attrsFromPath "${path}/${name}" (position ++ [name])
+              then attrsFromPath "${path}/${convertToCamelCase name}" (position ++ [name])
               else if name == "main.nix"
               then {
                 "/${builtins.concatStringsSep "/" position}" =
