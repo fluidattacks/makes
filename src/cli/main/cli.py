@@ -5,6 +5,9 @@ import emojis
 from functools import (
     partial,
 )
+from glob import (
+    glob,
+)
 from hashlib import (
     sha256,
 )
@@ -264,9 +267,16 @@ def _clone_src_cache_refresh(head: str, cache_key: str) -> None:
         shutil.copytree(head, cached)
 
 
+def _get_attr_paths(head: str) -> str:
+    rel_paths: list[str] = glob("**/main.nix", root_dir=head, recursive=True)
+    abs_paths: list[str] = [f"/{path}" for path in rel_paths]
+    return json.dumps({"attrs": abs_paths}, separators=(",", ":"))
+
+
 def _nix_build(
     *,
     attr: str,
+    attr_paths: str,
     cache: Optional[List[Dict[str, str]]],
     head: str,
     out: str = "",
@@ -298,6 +308,7 @@ def _nix_build(
         *_if(not NIX_STABLE, "build"),
         *_if(NIX_STABLE, "--argstr", "makesSrc", __MAKES_SRC__),
         *_if(NIX_STABLE, "--argstr", "projectSrc", head),
+        *["--argstr", "attrPaths", attr_paths],
         *_if(NIX_STABLE, "--attr", attr),
         *["--option", "cores", "0"],
         *_if(not NIX_STABLE, "--impure"),
@@ -400,7 +411,7 @@ class Config(NamedTuple):
     cache: List[Dict[str, str]]
 
 
-def _get_config(head: str) -> Config:
+def _get_config(head: str, attr_paths: str) -> Config:
     CON.out()
     CON.rule("Building project configuration")
     CON.out()
@@ -410,6 +421,7 @@ def _get_config(head: str) -> Config:
             attr="config.configAsJson"
             if NIX_STABLE
             else f'{head}#__makes__."config:configAsJson"',
+            attr_paths=attr_paths,
             cache=None,
             head=head,
             out=out,
@@ -566,7 +578,8 @@ def cli(args: List[str]) -> None:
         _help_and_exit_base()
 
     head: str = _get_head(src)
-    config: Config = _get_config(head)
+    attr_paths: str = _get_attr_paths(head)
+    config: Config = _get_config(head, attr_paths)
 
     args, attr = _cli_get_args_and_attr(args, config.attrs, src)
 
@@ -575,7 +588,7 @@ def cli(args: List[str]) -> None:
         MAKES_DIR,
         f"provenance{attr.replace('/', '-')}.json",
     )
-    code = _cli_build(attr, config, head, out, src)
+    code = _cli_build(attr, attr_paths, config, head, out, src)
 
     if code == 0:
         write_provenance(args, head, out, provenance, src)
@@ -601,8 +614,9 @@ def _cli_get_args_and_attr(
     return args, attr
 
 
-def _cli_build(
+def _cli_build(  # pylint: disable=too-many-arguments
     attr: str,
+    attr_paths: str,
     config: Config,
     head: str,
     out: str,
@@ -623,6 +637,7 @@ def _cli_build(
             attr=f'config.outputs."{attr}"'
             if NIX_STABLE
             else f'{head}#__makes__."config:outputs:{attr}"',
+            attr_paths=attr_paths,
             cache=config.cache,
             head=head,
             out=out,

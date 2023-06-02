@@ -10,6 +10,8 @@
 # You better avoid changing this function signature...
 # Ask a maintainer first.
 {
+  # JSON String containing complete list of main.nix files found within projectSrc
+  attrPaths,
   # flake inputs to inject, if any
   flakeInputs ? {},
   # Source code of makes, can be overriden by the user.
@@ -56,7 +58,7 @@
       "${makesSrcOverriden}/src/evaluator/modules/default.nix"
       makesNix
     ];
-    specialArgs = args;
+    specialArgs = args // {inherit attrPaths;};
   };
 in
   result

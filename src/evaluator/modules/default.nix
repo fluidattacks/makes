@@ -1,8 +1,9 @@
 {
-  attrsMapToList,
-  config,
-  lib,
   attrsOptional,
+  attrPaths,
+  config,
+  fromJson,
+  lib,
   projectPath,
   projectSrc,
   toFileJson,
@@ -91,34 +92,37 @@
     configAsJson = toFileJson "config.json" config.config;
     outputs = let
       # Load an attr set distributed across many files and directories
-      attrsFromPath = path: position:
+      attrs = let
+        pathInConfig = dir:
+          builtins.any
+          (makesDir: lib.hasInfix makesDir dir)
+          config.extendingMakesDirs;
+        pathExists = dir: builtins.pathExists (projectSrc + dir);
+        attrName = dir: let
+          makesDirsNoRoot = lib.remove "/" config.extendingMakesDirs;
+          from = makesDirsNoRoot ++ ["/main.nix"];
+          to = builtins.genList (_: "") ((builtins.length makesDirsNoRoot) + 1);
+          replaced = builtins.replaceStrings from to dir;
+        in
+          if replaced != ""
+          then replaced
+          else "/";
+      in
         builtins.foldl'
         lib.mergeAttrs
         {}
-        (lib.lists.flatten
-          (attrsMapToList
-            (name: type:
-              if type == "directory"
-              then attrsFromPath "${path}/${name}" (position ++ [name])
-              else if name == "main.nix"
-              then {
-                "/${builtins.concatStringsSep "/" position}" =
-                  import "${path}/main.nix" args;
-              }
-              else {})
-            (builtins.readDir path)));
+        (
+          builtins.map
+          (
+            dir:
+              attrsOptional
+              (pathInConfig dir && pathExists dir)
+              {"${attrName dir}" = import (projectSrc + dir) args;}
+          )
+          (fromJson attrPaths).attrs
+        );
     in
-      (
-        builtins.foldl'
-        lib.mergeAttrs
-        {}
-        (builtins.map
-          (dir:
-            attrsOptional
-            (builtins.pathExists (projectSrc + dir))
-            (attrsFromPath (projectPath dir) []))
-          config.extendingMakesDirs)
-      )
+      attrs
       // {
         __all__ =
           toFileJson "all"
