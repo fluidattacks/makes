@@ -37,7 +37,7 @@ for instance:
 {
   makesSrc = builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/23.04";
+    ref = "refs/tags/23.06";
     rev = ""; # Add a commit here
   };
 }
@@ -48,4 +48,4 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `23.04`.
+For example: `23.06`.
