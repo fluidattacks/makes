@@ -1,48 +1,45 @@
 {
-  __nixpkgs__,
-  toBashArray,
-  makeScript,
+  __toModuleOutputs__,
+  formatPython,
   ...
 }: {
   config,
   lib,
   ...
-}: {
+}: let
+  makeOutput = name: args: {
+    name = "/formatPython/${name}";
+    value = formatPython {
+      inherit name;
+      inherit (args) config;
+      inherit (args) targets;
+    };
+  };
+in {
   options = {
-    formatPython = {
-      enable = lib.mkOption {
-        default = false;
-        type = lib.types.bool;
-      };
-      targets = lib.mkOption {
-        default = ["/"];
-        type = lib.types.listOf lib.types.str;
-      };
+    formatPython = lib.mkOption {
+      default = {};
+      type = lib.types.attrsOf (lib.types.submodule (_: {
+        options = {
+          config = {
+            black = lib.mkOption {
+              default = ./settings-black.toml;
+              type = lib.types.path;
+            };
+            isort = lib.mkOption {
+              default = ./settings-isort.toml;
+              type = lib.types.path;
+            };
+          };
+          targets = lib.mkOption {
+            default = ["/"];
+            type = lib.types.listOf lib.types.str;
+          };
+        };
+      }));
     };
   };
   config = {
-    outputs = {
-      "/formatPython" = lib.mkIf config.formatPython.enable (makeScript {
-        replace = {
-          __argSettingsBlack__ = ./settings-black.toml;
-          __argSettingsIsort__ = ./settings-isort.toml;
-          __argTargets__ =
-            toBashArray
-            (builtins.map (rel: "." + rel) config.formatPython.targets);
-        };
-        name = "format-python";
-        searchPaths = {
-          bin = [
-            __nixpkgs__.black
-            __nixpkgs__.git
-            __nixpkgs__.python39Packages.isort
-          ];
-          pythonPackage39 = [
-            __nixpkgs__.python39Packages.colorama
-          ];
-        };
-        entrypoint = ./entrypoint.sh;
-      });
-    };
+    outputs = __toModuleOutputs__ makeOutput config.formatPython;
   };
 }
