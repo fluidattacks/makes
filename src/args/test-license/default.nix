@@ -1,13 +1,13 @@
 {
-  inputs,
+  __nixpkgs__,
   makeScript,
   ...
 }:
 makeScript {
+  name = "test-license";
   entrypoint = ./entrypoint.sh;
-  name = "license";
   searchPaths.bin = [
-    inputs.nixpkgs.git
-    inputs.nixpkgs.reuse
+    __nixpkgs__.git
+    __nixpkgs__.reuse
   ];
 }

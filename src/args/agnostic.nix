@@ -107,6 +107,7 @@
     stringCapitalize = import ./string-capitalize/default.nix self;
     sublist = import ./sublist/default.nix self;
     taintTerraform = import ./taint-terraform/default.nix self;
+    testLicense = import ./test-license/default.nix self;
     testTerraform = import ./test-terraform/default.nix self;
     testPullRequest = import ./test-pull-request/default.nix self;
     testPython = import ./test-python/default.nix self;

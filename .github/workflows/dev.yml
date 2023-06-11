@@ -194,23 +194,6 @@ jobs:
       - name: /helloWorld
         run: nix-env -if . && m . /helloWorld
 
-  linux_license:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /license
-        with:
-          set-safe-directory: /github/workspace
-          args: sh -c "nix-env -if . && m . /license"
-  macos_license:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
-      - name: /license
-        run: nix-env -if . && m . /license
-
   linux_lintBash:
     runs-on: ubuntu-latest
     steps:
@@ -489,6 +472,23 @@ jobs:
       - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
       - name: /taintTerraform/module
         run: nix-env -if . && m . /taintTerraform/module
+
+  linux_testLicense:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
+        name: /testLicense
+        with:
+          set-safe-directory: /github/workspace
+          args: sh -c "nix-env -if . && m . /testLicense"
+  macos_testLicense:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - name: /testLicense
+        run: nix-env -if . && m . /testLicense
 
   linux_testPython_cliMain:
     runs-on: ubuntu-latest
