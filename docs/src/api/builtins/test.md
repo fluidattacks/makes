@@ -1,3 +1,27 @@
+## testLicense
+
+Test the license of a project using [reuse](https://reuse.software/).
+
+Types:
+
+- testLicense: Empty attribute set.
+
+Example:
+
+=== "makes.nix"
+
+    ```nix
+    {
+      testLicense = {};
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    m . /testLicense
+    ```
+
 ## testPullRequest
 
 Test a pull request
