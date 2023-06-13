@@ -122,9 +122,17 @@ and [isort](https://github.com/PyCQA/isort).
 
 Types:
 
-- formatPython:
-    - enable (`boolean`): Optional.
-        Defaults to `false`.
+- formatPython (`attrsOf targetType`): Optional.
+    Mapping of names to format targets.
+    Defaults to `{ }`.
+- targetType (`submodule`):
+    - config (`atrrs`): Optional.
+        - black (`path`): Optional.
+            Path to the Black configuration file.
+            Defaults to `./settings-black.toml`.
+        - isort (`path`): Optional.
+            Path to the isort configuration file.
+            Defaults to `./settings-isort.toml`.
     - targets (`listOf str`): Optional.
         Files or directories (relative to the project) to format.
         Defaults to the entire project.
@@ -136,12 +144,10 @@ Example:
     ```nix
     {
       formatPython = {
-        enable = true;
-        targets = [
-          "/" # Entire project
-          "/file.py" # A file
-          "/directory" # A directory within the project
-        ];
+        my-config = {
+          targets = ["/"];
+          config = {};
+        };
       };
     }
     ```
@@ -149,7 +155,7 @@ Example:
 === "Invocation"
 
     ```bash
-    m . /formatPython
+    m . /formatPython/my-config
     ```
 
 ## formatTerraform

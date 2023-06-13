@@ -119,8 +119,9 @@
     targets = ["/"];
   };
   formatPython = {
-    enable = true;
-    targets = ["/"];
+    default = {
+      targets = ["/"];
+    };
   };
   formatTerraform = {
     enable = true;

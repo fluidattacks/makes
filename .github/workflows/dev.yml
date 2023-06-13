@@ -131,17 +131,17 @@ jobs:
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
       - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /formatPython
+        name: /formatPython/default
         with:
           set-safe-directory: /github/workspace
-          args: sh -c "nix-env -if . && m . /formatPython"
+          args: sh -c "nix-env -if . && m . /formatPython/default"
   macos_formatPython:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
       - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
-      - name: /formatPython
-        run: nix-env -if . && m . /formatPython
+      - name: /formatPython/default
+        run: nix-env -if . && m . /formatPython/default
 
   linux_formatTerraform:
     runs-on: ubuntu-latest
