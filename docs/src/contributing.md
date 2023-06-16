@@ -11,6 +11,8 @@ We accept anything that benefits the community,
 thanks for sharing your work with the world.
 We can discuss implementation details [here][makes_issues].
 
+### Guidelines
+
 1. Write your idea: [here][makes_issues]
 1. Fork [Makes on GitHub][makes]
 1. [Git][git]-clone your fork
@@ -19,17 +21,50 @@ We can discuss implementation details [here][makes_issues].
 1. [Git][git]-push changes to your fork
 1. Create a **Pull Request** from your fork to [Makes][makes]
 
-Guidelines:
+#### Testing your local changes
 
-- Keep it simple
-- Remember we write code for humans, not machines
-- Write an argument: `/src/args`
-- Write a module (if applies): `/src/evaluator/modules`
-- Write docs: `/README.md` or `/docs`
-- Write a test: `/makes.nix` or `/makes/**/main.nix`
-- Write a test [GitHub workflow][github_workflows]: `/.github/workflows/dev.yml`
+You can run local changes by simply running `m . <job>`.
+If you're adding new files, make sure to `git add` them first.
 
-Examples:
+#### Adding documentation
+
+- All changes must be documented in the same PR.
+- You can run `m . /docs/dev` to serve the [docs site](https://makes.fluidattacks.com)
+  on localhost.
+- Make sure you lint the documentation with `m . /lintMarkdown/all`.
+
+#### Adding tests
+
+- All new [builtins](https://makes.fluidattacks.com/api/builtins/) must be
+  tested.
+- You can add tests to either `/makes.nix` or `/makes/your-builtin/main.nix`
+  depending on the nature of the builtin.
+- Make sure to add such tests
+  to the [GitHub Actions pipelines](https://github.com/fluidattacks/makes/tree/main/.github/workflows)
+  as well.
+
+#### Adding yourself to the mailmap
+
+You must add yourself to the
+[.mailmap](https://github.com/fluidattacks/makes/blob/main/.mailmap) file.
+Make sure to test it with `m . /lintGitMailMap`.
+
+#### Writing a valid commit message
+
+- Your commit message must follow this [syntax](https://github.com/fluidattacks/makes/tree/main/test/lint-commit-msg).
+- You must sign your commits by adding a `Signed-off-by` line at the end of your
+  commit message.
+- You can take a look at other commits [here](https://github.com/fluidattacks/makes/commits/main).
+- Make sure to test it with `m . /lintGitCommitMsg`.
+
+#### Other PR rules
+
+A PR must:
+
+- Only be one commit ahead of main.
+- Have a title and body equal to its commmit message.
+
+#### Examples
 
 - [feat(build): #262 lint git mailmap](https://github.com/fluidattacks/makes/commit/01fcd5790dd54b117da63bcc2480437135da8bb3)
 - [feat(build): #232 lint terraform](https://github.com/fluidattacks/makes/commit/081835b563c712b7650dbc5bf1e306d4aff159cf)
