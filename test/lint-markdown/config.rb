@@ -9,7 +9,7 @@ rule 'MD009'
 rule 'MD010'
 rule 'MD011'
 rule 'MD012'
-rule 'MD013', :tables => false, :code_blocks => false
+rule 'MD013', :tables => false, :ignore_code_blocks => true
 rule 'MD018'
 rule 'MD019'
 rule 'MD020'
