@@ -426,7 +426,7 @@ def _get_config(head: str, attr_paths: str) -> Config:
             head=head,
             out=out,
         ),
-        env=None if NIX_STABLE else dict(HOME=environ["HOME_IMPURE"]),
+        env=None if NIX_STABLE else {"HOME": environ["HOME_IMPURE"]},
         stderr=None,
         stdout=sys.stderr.fileno(),
     )
@@ -642,7 +642,7 @@ def _cli_build(  # pylint: disable=too-many-arguments
             head=head,
             out=out,
         ),
-        env=None if NIX_STABLE else dict(HOME=environ["HOME_IMPURE"]),
+        env=None if NIX_STABLE else {"HOME": environ["HOME_IMPURE"]},
         stderr=None,
         stdout=None,
     )

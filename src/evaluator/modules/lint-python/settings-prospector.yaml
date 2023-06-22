@@ -13,4 +13,8 @@ pep8:
   disable:
     - E203
     - W503
+
+ruff:
+  run: true
+
 test-warnings: true
