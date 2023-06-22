@@ -92,18 +92,19 @@
     };
     configAsJson = toFileJson "config.json" config.config;
     outputs = let
+      # Trivial
+      makesDirsNoRoot = lib.remove "/" config.extendingMakesDirs;
+      makesDirsToReplace = makesDirsNoRoot ++ ["/main.nix"];
+      emptyList = builtins.map (_: "") makesDirsToReplace;
+
       # Load an attr set distributed across many files and directories
       attrs = let
         pathInConfig = dir:
           builtins.any
           (makesDir: lib.hasInfix makesDir dir)
           config.extendingMakesDirs;
-        pathExists = dir: builtins.pathExists (projectSrc + dir);
         attrName = dir: let
-          makesDirsNoRoot = lib.remove "/" config.extendingMakesDirs;
-          from = makesDirsNoRoot ++ ["/main.nix"];
-          to = builtins.genList (_: "") ((builtins.length makesDirsNoRoot) + 1);
-          replaced = builtins.replaceStrings from to dir;
+          replaced = builtins.replaceStrings makesDirsToReplace emptyList dir;
         in
           if replaced != ""
           then replaced
@@ -117,7 +118,7 @@
           (
             dir:
               attrsOptional
-              (pathInConfig dir && pathExists dir)
+              (pathInConfig dir)
               {"${attrName dir}" = import (projectSrc + dir) args;}
           )
           (fromJson attrPaths).attrs
