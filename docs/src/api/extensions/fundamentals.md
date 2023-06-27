@@ -584,8 +584,8 @@ Example:
 
         [DEBUG] Version is 1.0
         [INFO] pwd is /data/github/fluidattacks/makes
-        [INFO] Running tree command on /home/user/.makes/state/example
-        /home/user/.makes/state/example
+        [INFO] Running tree command on /home/user/.cache/makes/state/example
+        /home/user/.cache/makes/state/example
         └── dir
             └── file
 

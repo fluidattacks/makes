@@ -2,8 +2,8 @@
 # and therefore are agnostic to the framework.
 {
   stateDirs ? {
-    global = "$HOME_IMPURE/.makes/state";
-    project = "$HOME_IMPURE/.makes/state/__default__";
+    global = "$HOME_IMPURE/.cache/makes/state";
+    project = "$HOME_IMPURE/.cache/makes/state/__default__";
   },
   system ? builtins.currentSystem,
 }: let
