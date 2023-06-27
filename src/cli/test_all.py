@@ -48,7 +48,7 @@ def test_dot_hello_world() -> None:
 def test_remote_hello_world() -> None:
     cache = (
         os.environ["HOME_IMPURE"]
-        + "/.makes/cache/sources/github-fluidattacks-makes-main"
+        + "/.cache/makes/sources/github-fluidattacks-makes-main"
     )
 
     shutil.rmtree(cache, ignore_errors=True)

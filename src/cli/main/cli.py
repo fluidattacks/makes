@@ -74,9 +74,9 @@ CON: rich.console.Console = rich.console.Console(
     highlight=False,
     file=io.TextIOWrapper(sys.stderr.buffer, write_through=True),
 )
-MAKES_DIR: str = join(environ["HOME_IMPURE"], ".makes")
-makedirs(join(MAKES_DIR, "cache"), exist_ok=True)
-SOURCES_CACHE: str = join(MAKES_DIR, "cache", "sources")
+MAKES_DIR: str = join(environ["HOME_IMPURE"], ".cache/makes")
+makedirs(MAKES_DIR, exist_ok=True)
+SOURCES_CACHE: str = join(MAKES_DIR, "sources")
 ON_EXIT: List[Callable[[], None]] = []
 VERSION: str = "23.06"
 
@@ -544,7 +544,7 @@ def _help_and_exit_with_src_no_tty(src: str, attrs: List[str]) -> None:
 
 
 def _help_picking_attr(src: str, attrs: List[str]) -> List[str]:
-    cache = join(MAKES_DIR, "cache", "last.json")
+    cache = join(MAKES_DIR, "last.json")
     initial_input = "/"
     if exists(cache):
         with open(cache, encoding="utf-8") as file:

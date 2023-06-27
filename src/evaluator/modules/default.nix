@@ -59,7 +59,7 @@
   options = {
     globalStateDir = lib.mkOption {
       type = lib.types.str;
-      default = "$HOME_IMPURE/.makes/state";
+      default = "$HOME_IMPURE/.cache/makes/state";
       apply = lib.removeSuffix "/"; # canonicalize
     };
     projectStateDir = lib.mkOption {
