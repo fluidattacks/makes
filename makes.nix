@@ -252,7 +252,9 @@
       };
     };
   };
-  testLicense = {};
+  testLicense = {
+    enable = true;
+  };
   testPython = {
     example = {
       python = "3.11";
