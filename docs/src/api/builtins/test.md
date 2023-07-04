@@ -4,7 +4,9 @@ Test the license of a project using [reuse](https://reuse.software/).
 
 Types:
 
-- testLicense: Empty attribute set.
+- testLicense:
+    - enable (`bool`): Optional.
+        Defaults to `false`.
 
 Example:
 
@@ -12,7 +14,9 @@ Example:
 
     ```nix
     {
-      testLicense = {};
+      testLicense = {
+        enable = true;
+      };
     }
     ```
 

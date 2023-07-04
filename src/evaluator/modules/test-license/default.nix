@@ -4,11 +4,16 @@
   ...
 }: {
   options = {
-    testLicense = {};
+    testLicense = {
+      enable = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+      };
+    };
   };
   config = {
     outputs = {
-      "/testLicense" = testLicense;
+      "/testLicense" = lib.mkIf config.testLicense.enable testLicense;
     };
   };
 }
