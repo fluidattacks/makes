@@ -1,9 +1,13 @@
 {
   __nixpkgs__,
   makeTemplate,
+  __shellCommands__,
   ...
 }:
 makeTemplate {
+  replace = {
+    __argShellCommands__ = __shellCommands__;
+  };
   name = "manage-ports";
   searchPaths = {
     bin = [
