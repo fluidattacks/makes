@@ -25,7 +25,7 @@
       then
         abort ''
 
-          Ivalid placeholder: ${k}
+          Invalid placeholder: ${k}
           Placeholders must match: ${argumentRegex}
           For example: __argExample123__
 

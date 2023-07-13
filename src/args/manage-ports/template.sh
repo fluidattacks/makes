@@ -1,23 +1,25 @@
 # shellcheck shell=bash
 
+source __argShellCommands__
+
 function _kill_port {
   local pids
   local port="${1}"
 
   pids="$(mktemp)" \
     && if ! lsof -t "-i:${port}" > "${pids}"; then
-      info "Nothing listening on port: ${port}" \
+      info "No process was found listening on port ${port}" \
         && return 0
     fi \
     && while read -r pid; do
       if kill -9 "${pid}"; then
         if timeout 5 tail --pid="${pid}" -f /dev/null; then
-          info "Killed pid: ${pid}, listening on port: ${port}"
+          info "Process listening on port ${port} with PID ${pid} was successfully killed"
         else
-          warn "kill timeout pid: ${pid}, listening on port: ${port}"
+          warn "Timeout while attempting to kill process with PID ${pid} listening on port ${port}"
         fi
       else
-        error "Unable to kill pid: ${pid}, listening on port: ${port}"
+        error "Unable to kill process with PID ${pid} listening on port ${port}"
       fi
     done < "${pids}"
 }
@@ -50,7 +52,7 @@ function wait_for_tcp {
       error "Timeout while waiting for ${host}:${port} to open" \
         && return 1
     else
-      info "Waiting 1 second for ${host}:${port} to open, ${elapsed} seconds in total" \
+      info "Waiting 1 second for ${host}:${port} to open: ${elapsed} seconds in total" \
         && sleep 1 \
         && elapsed="$(("${elapsed}" + 1))" \
         && continue
