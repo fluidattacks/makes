@@ -13,6 +13,7 @@
   nodeJsVersion,
   packageJson,
   packageLockJson,
+  registryTokens ? {},
   searchPaths ? {},
   shouldIgnoreScripts ? false,
 }: let
@@ -22,17 +23,27 @@
   collectDependencies = deps:
     builtins.foldl'
     (all: name: let
+      url =
+        # If `resolved` exists it is a tarball
+        if builtins.hasAttr "resolved" depAttrs
+        then depAttrs.resolved
+        # Otherwise `version` likely points to a tarball
+        else if builtins.hasAttr "version" depAttrs
+        then depAttrs.version
+        # Something pending to implement?
+        else abort "Unable to fetch: ${name}";
+      registryHost = builtins.elemAt (__nixpkgs__.lib.strings.splitString "/" url) 2;
+      registryToken =
+        if builtins.hasAttr registryHost registryTokens
+        then registryTokens.${registryHost}
+        else null;
       tarball = __nixpkgs__.fetchurl {
         hash = depAttrs.integrity;
-        url =
-          # If `resolved` exists it is a tarball
-          if builtins.hasAttr "resolved" depAttrs
-          then depAttrs.resolved
-          # Otherwise `version` likely points to a tarball
-          else if builtins.hasAttr "version" depAttrs
-          then depAttrs.version
-          # Something pending to implement?
-          else abort "Unable to fetch: ${name}";
+        url = url;
+        curlOptsList =
+          if registryToken == null
+          then []
+          else ["-v" "--header" "Authorization: Bearer ${registryToken}"];
       };
       dep =
         depAttrs

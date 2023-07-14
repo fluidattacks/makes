@@ -60,6 +60,9 @@ Types:
     - shouldIgnoreScripts (`bool`): Optional.
         Enable to propagate the `--ignore-scripts true` flag to npm.
         Defaults to `false`.
+    - registryTokens (`attrsOf str`): Optional.
+        Provide auth tokens for private NPM registries from environment variables.
+        Defaults to `{ }`.
 
 Example:
 
@@ -128,6 +131,83 @@ Example:
     $ m . /example
 
         hello-world-npm
+    ```
+
+Example with private registries:
+
+=== "package.json"
+
+    ```json
+    # /path/to/my/project/makes/example/package.json
+    {
+      "dependencies": {
+        "@fortawesome/fontawesome-pro": "*"
+      }
+    }
+    ```
+
+=== "package-lock.json"
+
+    ```json
+    # /path/to/my/project/makes/example/package-lock.json
+    {
+      "requires": true,
+      "lockfileVersion": 1,
+      "dependencies": {
+        "@fortawesome/fontawesome-pro": {
+          "version": "6.4.0",
+          "resolved": "https://npm.fontawesome.com/@fortawesome/fontawesome-pro/-/6.4.0/fontawesome-pro-6.4.0.tgz",
+          "integrity": "sha512-VtoAOuV0KAjdO979RHGko5krp3UsKMnXH1SaHnQvlz4PcgErcsk5ZPugoMhc3sW5lkrRl8NnaGwkGzB3gzVSxQ=="
+        }
+      }
+    }
+    ```
+
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/main.nix
+    {
+      makeNodeJsModules,
+      makeScript,
+      makeSecretForEnvFromSops,
+      projectPath,
+      ...
+    }:
+    let
+      secrets = makeSecretForEnvFromSops {
+        manifest = "/path/to/my/project/secrets.yaml";
+        name = "example-secrets";
+        vars = ["FONTAWESOME_NPM_AUTH_TOKEN"];
+      }
+      fontawesome = makeNodeJsModules {
+        name = "fontawesome-pro-example";
+        nodeJsVersion = "18";
+        packageJson = projectPath "/path/to/my/project/package.json";
+        packageLockJson = projectPath "/path/to/my/project/package-lock.json";
+        registryTokens = {
+          "npm.fontawesome.com": "FONTAWESOME_NPM_AUTH_TOKEN"
+        };
+        searchPaths.source = [ secrets ];
+      };
+    in
+    makeScript {
+      replace = {
+        __argFontawesome__ = fontawesome;
+      };
+      entrypoint = ''
+        ls __argFontawesome__
+      '';
+      name = "example";
+    }
+    ```
+
+=== "Invocation"
+
+    ```bash
+    $ m . /example
+
+        @fortawesome
     ```
 
 ## makeNodeJsEnvironment
