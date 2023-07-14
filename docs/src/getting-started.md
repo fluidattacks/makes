@@ -12,7 +12,7 @@
 1. Install Makes:
 
     ```bash
-    nix-env -if https://github.com/fluidattacks/makes/archive/23.06.tar.gz
+    nix-env -if https://github.com/fluidattacks/makes/archive/23.07.tar.gz
     ```
 
 ## Usage
@@ -85,7 +85,7 @@ Example:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-          - uses: docker://ghcr.io/fluidattacks/makes/amd64:23.06
+          - uses: docker://ghcr.io/fluidattacks/makes/amd64:23.07
             name: helloWorld
             with:
               args: m . /helloWorld 1 2 3
@@ -96,7 +96,7 @@ Example:
     ```yaml
     # .gitlab-ci.yml
     /helloWorld:
-      image: ghcr.io/fluidattacks/makes/amd64:23.06
+      image: ghcr.io/fluidattacks/makes/amd64:23.07
       script:
         - m . /helloWorld 1 2 3
     ```
@@ -108,7 +108,7 @@ Example:
     os: linux
     language: nix
     nix: 2.3.12
-    install: nix-env -if https://github.com/fluidattacks/makes/archive/23.06.tar.gz
+    install: nix-env -if https://github.com/fluidattacks/makes/archive/23.07.tar.gz
     jobs:
       include:
         - script: m . /helloWorld 1 2 3
@@ -123,7 +123,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchGit {
     url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/23.06";
+    ref = "refs/tags/23.07";
     rev = ""; # Add a commit here
   }}/src/args/agnostic.nix" { };
 in
