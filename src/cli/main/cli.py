@@ -326,14 +326,14 @@ def _nix_build(
     ]
 
 
-def _nix_hashes(*paths: str) -> List[str]:
+def _nix_hashes(paths: bytes) -> List[str]:
     cmd = [
+        "xargs",
         f"{__NIX_STABLE__}/bin/nix-store",
         "--query",
         "--hash",
-        *paths,
     ]
-    out, stdout, _ = _run_outputs(cmd, stderr=None)
+    out, stdout, _ = _run_outputs(cmd, stdin=paths, stderr=None)
     if out != 0:
         raise SystemExit(out)
 
@@ -360,7 +360,7 @@ def _nix_build_requisites(path: str) -> List[Tuple[str, str]]:
 
     requisites: List[str] = stdout.decode().splitlines()
 
-    hashes: List[str] = _nix_hashes(*requisites)
+    hashes: List[str] = _nix_hashes(stdout)
 
     return list(zip(requisites, hashes))
 
@@ -769,7 +769,7 @@ def write_provenance(
     attestation["subject"] = [
         {
             "uri": realpath(out),
-            "hash": dict([_nix_hashes(out)[0].split(":")]),
+            "hash": dict([_nix_hashes(out.encode())[0].split(":")]),
         }
     ]
 
