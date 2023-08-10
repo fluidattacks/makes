@@ -7,6 +7,7 @@
 makeSearchPaths {
   bin = [
     __nixpkgs__.cachix
+    __nixpkgs__.findutils
     __nixpkgs__.git
     __nixpkgs__.gnutar
     __nixpkgs__.gzip
