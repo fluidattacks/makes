@@ -134,7 +134,7 @@ makes.makePythonPypiEnvironment {
 }
 ```
 
-Most functions documented in the [api/extensions](api/extensions/) section
+Most functions documented in the [api/extensions](/api/extensions/) section
 are available.
 
 For a detailed list check out
