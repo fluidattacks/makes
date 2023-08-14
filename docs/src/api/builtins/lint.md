@@ -325,7 +325,7 @@ Types:
 - lintTerraform:
     - config (`str`): Optional.
         Path to a TFLint configuration file.
-        Defaults to [config.hcl](/src/evaluator/modules/lint-terraform/config.hcl).
+        Defaults to [config.hcl](https://github.com/fluidattacks/makes/blob/23.06/src/evaluator/modules/lint-terraform/config.hcl).
     - modules (`attrsOf moduleType`): Optional.
         Path to Terraform modules to lint.
         Defaults to `{ }`.
