@@ -25,6 +25,7 @@
     };
   };
   makeModule = name: {
+    config,
     searchPaths,
     python,
     src,
@@ -34,12 +35,13 @@
       inherit searchPaths;
       inherit name;
       inherit python;
-      settingsMypy = ./settings-mypy.cfg;
-      settingsProspector = ./settings-prospector.yaml;
+      settingsMypy = config.mypy;
+      settingsProspector = config.prospector;
       src = projectPath src;
     };
   };
   makeDirOfModules = name: {
+    config,
     searchPaths,
     python,
     src,
@@ -50,6 +52,7 @@
         name = "/lintPython/dirOfModules/${name}/${moduleName}";
         inherit
           ((makeModule moduleName {
+            inherit config;
             inherit searchPaths;
             inherit python;
             src = "${src}/${moduleName}";
@@ -76,6 +79,16 @@ in {
         default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            config = {
+              mypy = lib.mkOption {
+                default = ./settings-mypy.cfg;
+                type = lib.types.path;
+              };
+              prospector = lib.mkOption {
+                default = ./settings-prospector.yaml;
+                type = lib.types.path;
+              };
+            };
             python = lib.mkOption {
               type = lib.types.enum ["3.8" "3.9" "3.10" "3.11"];
             };
@@ -110,6 +123,16 @@ in {
         default = {};
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
+            config = {
+              mypy = lib.mkOption {
+                default = ./settings-mypy.cfg;
+                type = lib.types.path;
+              };
+              prospector = lib.mkOption {
+                default = ./settings-prospector.yaml;
+                type = lib.types.path;
+              };
+            };
             python = lib.mkOption {
               type = lib.types.enum ["3.8" "3.9" "3.10" "3.11"];
             };

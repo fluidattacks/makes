@@ -250,6 +250,13 @@ Types:
         Definitions of python packages/modules to lint.
         Defaults to `{ }`.
 - dirOfModulesType (`submodule`):
+    - config (`atrrs`): Optional.
+        - mypy (`path`): Optional.
+            Path to the Mypy configuration file.
+            Defaults to [./settings-mypy.cfg](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-python/settings-mypy.cfg).
+        - prospector (`path`): Optional.
+            Path to the Prospector configuration file.
+            Defaults to [./settings-prospector.yaml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-python/settings-prospector.yaml).
     - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
         Python interpreter version that your package/module is designed for.
     - searchPaths (`asIn makeSearchPaths`): Optional.
@@ -266,6 +273,13 @@ Types:
     - src (`str`):
         Path to the package/module.
 - moduleType (`submodule`):
+    - config (`atrrs`): Optional.
+        - mypy (`path`): Optional.
+            Path to the Mypy configuration file.
+            Defaults to [./settings-mypy.cfg](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-python/settings-mypy.cfg).
+        - prospector (`path`): Optional.
+            Path to the Prospector configuration file.
+            Defaults to [./settings-prospector.yaml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-python/settings-prospector.yaml).
     - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
         Python interpreter version that your package/module is designed for.
     - searchPaths (`asIn makeSearchPaths`): Optional.
@@ -283,6 +297,7 @@ Example:
       lintPython = {
         dirsOfModules = {
           makes = {
+            config = {};
             python = "3.8";
             src = "/src/cli";
           };
@@ -295,6 +310,7 @@ Example:
         };
         modules = {
           cliMain = {
+            config = {};
             python = "3.8";
             src = "/src/cli/main";
           };

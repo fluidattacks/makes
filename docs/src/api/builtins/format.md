@@ -129,10 +129,10 @@ Types:
     - config (`atrrs`): Optional.
         - black (`path`): Optional.
             Path to the Black configuration file.
-            Defaults to `./settings-black.toml`.
+            Defaults to [./settings-black.toml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/format-python/settings-black.toml).
         - isort (`path`): Optional.
             Path to the isort configuration file.
-            Defaults to `./settings-isort.toml`.
+            Defaults to [./settings-isort.toml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/format-python/settings-isort.toml).
     - targets (`listOf str`): Optional.
         Files or directories (relative to the project) to format.
         Defaults to the entire project.
