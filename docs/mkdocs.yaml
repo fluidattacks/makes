@@ -12,6 +12,7 @@ strict: true
 docs_dir: src
 theme:
   name: material
+  custom_dir: overrides
   logo: assets/favicon.svg
   favicon: assets/favicon.svg
   language: en
