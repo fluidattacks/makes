@@ -2,10 +2,22 @@ from cvss import (
     CVSS3,
 )
 import json
+import logging
 import sys
 from typing import (
     Tuple,
 )
+
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
+
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+
+formatter = logging.Formatter("[%(levelname)s] %(message)s")
+
+console_handler.setFormatter(formatter)
+LOGGER.addHandler(console_handler)
 
 
 def _str(scores: Tuple[float, float, float]) -> Tuple[str, str, str]:
@@ -17,7 +29,7 @@ def main(vector: str) -> None:
     scores: Tuple[str, str, str] = _str(result.scores())
     severities: Tuple[str, str, str] = result.severities()
 
-    print(
+    LOGGER.info(
         json.dumps(
             {
                 "score": {
