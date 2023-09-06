@@ -1,13 +1,13 @@
 {
-  inputs,
   makePythonPypiEnvironment,
   makeSearchPaths,
+  __nixpkgs__,
   ...
 }:
 makeSearchPaths {
   bin = [
-    inputs.nixpkgs.git
-    inputs.nixpkgs.mkdocs
+    __nixpkgs__.git
+    __nixpkgs__.mkdocs
   ];
   source = [
     (makePythonPypiEnvironment {
