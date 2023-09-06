@@ -1,9 +1,9 @@
 {
-  inputs,
   outputs,
+  __nixpkgs__,
   ...
 }:
-inputs.nixpkgs.dockerTools.buildImage {
+__nixpkgs__.dockerTools.buildImage {
   config = {
     Env = [
       "HOME=/home/root"
@@ -21,142 +21,140 @@ inputs.nixpkgs.dockerTools.buildImage {
   };
   name = "container-image";
   tag = "latest";
-  contents = [
-    (inputs.nixpkgs.buildEnv {
-      name = "root-file-system";
-      ignoreCollisions = true;
-      paths = [
-        # Basic dependencies
-        inputs.nixpkgs.bashInteractive
-        inputs.nixpkgs.cacert
-        inputs.nixpkgs.coreutils
-        inputs.nixpkgs.git
-        inputs.nixpkgs.gnugrep
-        inputs.nixpkgs.gnutar
-        inputs.nixpkgs.gzip
-        inputs.nixpkgs.nix
+  copyToRoot = __nixpkgs__.buildEnv {
+    name = "root-file-system";
+    ignoreCollisions = false;
+    paths = [
+      # Basic dependencies
+      __nixpkgs__.bashInteractive
+      __nixpkgs__.cacert
+      __nixpkgs__.coreutils
+      __nixpkgs__.git
+      __nixpkgs__.gnugrep
+      __nixpkgs__.gnutar
+      __nixpkgs__.gzip
+      __nixpkgs__.nix
 
-        # Add /usr/bin/env pointing to /bin/env
-        (inputs.nixpkgs.runCommand "user-bin-env" {} ''
-          mkdir -p $out/usr/bin
-          ln -s $(command -v env) $out/usr/bin/env
-        '')
+      # Add /usr/bin/env pointing to /bin/env
+      (__nixpkgs__.runCommand "user-bin-env" {} ''
+        mkdir -p $out/usr/bin
+        ln -s $(command -v env) $out/usr/bin/env
+      '')
 
-        # Create home directories
-        (inputs.nixpkgs.runCommand "home" {} ''
-          mkdir -p $out/home/makes
-          mkdir -p $out/home/root
-        '')
-        # Create empty temporary directories
-        (inputs.nixpkgs.runCommand "tmp" {} ''
-          mkdir -p $out/tmp
-          mkdir -p $out/var/tmp
-        '')
-        # Create the working directory
-        (inputs.nixpkgs.runCommand "working-directory" {} ''
-          mkdir -p $out/working-dir
-        '')
+      # Create home directories
+      (__nixpkgs__.runCommand "home" {} ''
+        mkdir -p $out/home/makes
+        mkdir -p $out/home/root
+      '')
+      # Create empty temporary directories
+      (__nixpkgs__.runCommand "tmp" {} ''
+        mkdir -p $out/tmp
+        mkdir -p $out/var/tmp
+      '')
+      # Create the working directory
+      (__nixpkgs__.runCommand "working-directory" {} ''
+        mkdir -p $out/working-dir
+      '')
 
-        # Configure Nix
-        (inputs.nixpkgs.writeTextDir "home/makes/.config/nix/nix.conf" ''
-          build-users-group =
-        '')
-        (inputs.nixpkgs.writeTextDir "home/root/.config/nix/nix.conf" ''
-          build-users-group =
-        '')
-        (inputs.nixpkgs.writeTextDir "etc/nix/nix.conf" ''
-          build-users-group =
-        '')
+      # Configure Nix
+      (__nixpkgs__.writeTextDir "/home/makes/.config/nix/nix.conf" ''
+        build-users-group =
+      '')
+      (__nixpkgs__.writeTextDir "/home/root/.config/nix/nix.conf" ''
+        build-users-group =
+      '')
+      (__nixpkgs__.writeTextDir "/etc/nix/nix.conf" ''
+        build-users-group =
+      '')
 
-        # Configure SSH
-        (inputs.nixpkgs.writeTextFile {
-          name = "home-makes-ssh-config";
-          destination = "/home/makes/.ssh/config";
-          text = ''
-            Host *
-              StrictHostKeyChecking no
-          '';
-          checkPhase = ''
-            chmod 400 $out$destination
-          '';
-        })
-        (inputs.nixpkgs.writeTextFile {
-          name = "home-root-ssh-config";
-          destination = "/home/root/.ssh/config";
-          text = ''
-            Host *
-              StrictHostKeyChecking no
-          '';
-          checkPhase = ''
-            chmod 400 $out$destination
-          '';
-        })
+      # Configure SSH
+      (__nixpkgs__.writeTextFile {
+        name = "home-makes-ssh-config";
+        destination = "/home/makes/.ssh/config";
+        text = ''
+          Host *
+            StrictHostKeyChecking no
+        '';
+        checkPhase = ''
+          chmod 400 $out/home/makes/.ssh/config
+        '';
+      })
+      (__nixpkgs__.writeTextFile {
+        name = "home-root-ssh-config";
+        destination = "/home/root/.ssh/config";
+        text = ''
+          Host *
+            StrictHostKeyChecking no
+        '';
+        checkPhase = ''
+          chmod 400 $out/home/root/.ssh/config
+        '';
+      })
 
-        # Configure doas
-        (inputs.nixpkgs.writeTextDir "etc/doas.conf" ''
-          permit nopass keepenv root as makes
-        '')
+      # Configure doas
+      (__nixpkgs__.writeTextDir "etc/doas.conf" ''
+        permit nopass keepenv root as makes
+      '')
 
-        # Add 3 groups
-        (inputs.nixpkgs.writeTextDir "etc/group" ''
-          root:x:0:
-          makes:x:48:
-          nobody:x:65534:
-        '')
-        (inputs.nixpkgs.writeTextDir "etc/gshadow" ''
-          root:*::
-          makes:*::
-          nobody:*::
-        '')
+      # Add 3 groups
+      (__nixpkgs__.writeTextDir "etc/group" ''
+        root:x:0:
+        makes:x:48:
+        nobody:x:65534:
+      '')
+      (__nixpkgs__.writeTextDir "etc/gshadow" ''
+        root:*::
+        makes:*::
+        nobody:*::
+      '')
 
-        # Add 3 users, mapped to groups with their own name
-        (inputs.nixpkgs.writeTextDir "etc/passwd" ''
-          root:x:0:0:root:/home/root:/bin/bash
-          makes:x:48:48:makes:/home/makes:/bin/bash
-          nobody:x:65534:65534:nobody:/homeless:/bin/false
-        '')
-        (inputs.nixpkgs.writeTextDir "etc/shadow" ''
-          root:!x:::::::
-          makes:!x:::::::
-          nobody:!x:::::::
-        '')
+      # Add 3 users, mapped to groups with their own name
+      (__nixpkgs__.writeTextDir "etc/passwd" ''
+        root:x:0:0:root:/home/root:/bin/bash
+        makes:x:48:48:makes:/home/makes:/bin/bash
+        nobody:x:65534:65534:nobody:/homeless:/bin/false
+      '')
+      (__nixpkgs__.writeTextDir "etc/shadow" ''
+        root:!x:::::::
+        makes:!x:::::::
+        nobody:!x:::::::
+      '')
 
-        # Miscelaneous configurations
-        (inputs.nixpkgs.writeTextDir "etc/login.defs" "")
-        (inputs.nixpkgs.writeTextDir "etc/nsswitch.conf" ''
-          hosts: dns files
-        '')
-        (inputs.nixpkgs.writeTextDir "etc/pam.d/other" ''
-          account sufficient pam_unix.so
-          auth sufficient pam_rootok.so
-          password requisite pam_unix.so nullok sha512
-          session required pam_unix.so
-        '')
+      # Miscelaneous configurations
+      (__nixpkgs__.writeTextDir "etc/login.defs" "")
+      (__nixpkgs__.writeTextDir "etc/nsswitch.conf" ''
+        hosts: dns files
+      '')
+      (__nixpkgs__.writeTextDir "etc/pam.d/other" ''
+        account sufficient pam_unix.so
+        auth sufficient pam_rootok.so
+        password requisite pam_unix.so nullok sha512
+        session required pam_unix.so
+      '')
 
-        # Add Makes:
-        # - By default, it runs as root (uid 0).
-        # - If `MAKES_NON_ROOT` is in the environment and non-empty,
-        #   makes will run as the makes user (uid > 0).
-        (inputs.nixpkgs.writeShellScriptBin "m" ''
-          if test -z "''${MAKES_NON_ROOT:-}"; then
-            ${outputs."/"}/bin/m "$@"
-          else
-            echo Using feature flag: MAKES_NON_ROOT
+      # Add Makes:
+      # - By default, it runs as root (uid 0).
+      # - If `MAKES_NON_ROOT` is in the environment and non-empty,
+      #   makes will run as the makes user (uid > 0).
+      (__nixpkgs__.writeShellScriptBin "m" ''
+        if test -z "''${MAKES_NON_ROOT:-}"; then
+          ${outputs."/"}/bin/m "$@"
+        else
+          echo Using feature flag: MAKES_NON_ROOT
 
-            set -x
-            mkdir -p /nix/var/nix
-            chmod u+w /nix/store
-            chown makes:makes --recursive /nix
-            chown root:root $(realpath /etc/doas.conf)
+          set -x
+          mkdir -p /nix/var/nix
+          chmod u+w /nix/store
+          chown makes:makes --recursive /nix
+          chown root:root $(realpath /etc/doas.conf)
 
-            chmod u+w /home/makes /tmp /working-dir
-            chown makes:makes /home/makes /tmp /working-dir
-            chown makes:makes --recursive "$PWD"
+          chmod u+w /home/makes /tmp /working-dir
+          chown makes:makes /home/makes /tmp /working-dir
+          chown makes:makes --recursive "$PWD"
 
-            ${inputs.nixpkgs.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
-          fi
-        '')
-      ];
-    })
-  ];
+          ${__nixpkgs__.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
+        fi
+      '')
+    ];
+  };
 }
