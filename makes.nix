@@ -1,9 +1,9 @@
 {
   fetchNixpkgs,
   fetchUrl,
-  inputs,
   outputs,
   projectPath,
+  __nixpkgs__,
   ...
 }: {
   projectIdentifier = "makes-repo";
@@ -82,12 +82,12 @@
   };
   dev = {
     example = {
-      bin = [inputs.nixpkgs.hello];
+      bin = [__nixpkgs__.hello];
     };
     makes = {
       bin = [
-        inputs.nixpkgs.just
-        inputs.nixpkgs.reuse
+        __nixpkgs__.just
+        __nixpkgs__.reuse
       ];
       source = [outputs."/cli/env/runtime"];
     };
@@ -270,7 +270,7 @@
       ];
       searchPaths = {
         bin = [
-          inputs.nixpkgs.git
+          __nixpkgs__.git
         ];
         pythonPackage = [
           (projectPath "/src/cli/main")
