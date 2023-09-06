@@ -8,9 +8,11 @@
   system ? builtins.currentSystem,
 }: let
   fix' = __unfix__: let x = __unfix__ x // {inherit __unfix__;}; in x;
-
-  args = fix' (self: {
+  sources = import ../nix/sources.nix;
+  args = fix' (self: let
     __nixpkgs__ = import sources.nixpkgs {inherit system;};
+  in {
+    inherit __nixpkgs__;
     __nixpkgsSrc__ = sources.nixpkgs;
     __shellCommands__ = ./shell-commands/template.sh;
     __shellOptions__ = ./shell-options/template.sh;
@@ -19,9 +21,9 @@
     __toModuleOutputs__ = import ./to-module-outputs/default.nix self;
     asContent = import ./as-content/default.nix;
     attrsGet = import ./attrs-get/default.nix;
-    attrsMapToList = self.__nixpkgs__.lib.mapAttrsToList;
-    attrsMerge = builtins.foldl' self.__nixpkgs__.lib.recursiveUpdate {};
-    attrsOptional = self.__nixpkgs__.lib.optionalAttrs;
+    attrsMapToList = __nixpkgs__.lib.mapAttrsToList;
+    attrsMerge = builtins.foldl' __nixpkgs__.lib.recursiveUpdate {};
+    attrsOptional = __nixpkgs__.lib.optionalAttrs;
     calculateCvss3 = import ./calculate-cvss-3/default.nix self;
     calculateScorecard = import ./calculate-scorecard/default.nix self;
     chunks = import ./chunks/default.nix self;
@@ -29,17 +31,17 @@
     deployContainerImage = import ./deploy-container-image/default.nix self;
     deployNomad = import ./deploy-nomad/default.nix self;
     deployTerraform = import ./deploy-terraform/default.nix self;
-    inherit (self.__nixpkgs__.lib.strings) escapeShellArg;
-    inherit (self.__nixpkgs__.lib.strings) escapeShellArgs;
-    inherit (self.__nixpkgs__.lib) fakeSha256;
+    inherit (__nixpkgs__.lib.strings) escapeShellArg;
+    inherit (__nixpkgs__.lib.strings) escapeShellArgs;
+    inherit (__nixpkgs__.lib) fakeSha256;
     fetchArchive = import ./fetch-archive/default.nix self;
     fetchGithub = import ./fetch-github/default.nix self;
     fetchGitlab = import ./fetch-gitlab/default.nix self;
     fetchNixpkgs = import ./fetch-nixpkgs/default.nix self;
     fetchRubyGem = import ./fetch-rubygem/default.nix self;
     fetchUrl = import ./fetch-url/default.nix self;
-    inherit (self.__nixpkgs__.lib) filterAttrs;
-    inherit (self.__nixpkgs__.lib.lists) flatten;
+    inherit (__nixpkgs__.lib) filterAttrs;
+    inherit (__nixpkgs__.lib.lists) flatten;
     formatBash = import ./format-bash/default.nix self;
     formatNix = import ./format-nix/default.nix self;
     formatPython = import ./format-python/default.nix self;
@@ -51,12 +53,12 @@
     fromYaml = import ./from-yaml/default.nix self;
     fromYamlFile = path: self.fromYaml (builtins.readFile path);
     gitlabCi = import ./gitlab-ci/default.nix;
-    inherit (self.__nixpkgs__.lib.strings) hasPrefix;
-    inherit (self.__nixpkgs__.lib.strings) hasSuffix;
-    inherit (self.__nixpkgs__.stdenv) isDarwin;
-    inherit (self.__nixpkgs__.stdenv) isLinux;
+    inherit (__nixpkgs__.lib.strings) hasPrefix;
+    inherit (__nixpkgs__.lib.strings) hasSuffix;
+    inherit (__nixpkgs__.stdenv) isDarwin;
+    inherit (__nixpkgs__.stdenv) isLinux;
     libGit = import ./lib-git/default.nix self;
-    listOptional = self.__nixpkgs__.lib.lists.optional;
+    listOptional = __nixpkgs__.lib.lists.optional;
     lintClojure = import ./lint-clojure/default.nix self;
     lintGitCommitMsg = import ./lint-git-commit-msg/default.nix self;
     lintGitMailMap = import ./lint-git-mailmap/default.nix self;
@@ -67,7 +69,7 @@
     lintTerraform = import ./lint-terraform/default.nix self;
     lintWithAjv = import ./lint-with-ajv/default.nix self;
     lintWithLizard = import ./lint-with-lizard/default.nix self;
-    inherit (self.__nixpkgs__.lib.filesystem) listFilesRecursive;
+    inherit (__nixpkgs__.lib.filesystem) listFilesRecursive;
     makeContainerImage = import ./make-container-image/default.nix self;
     makeDerivation = import ./make-derivation/default.nix self;
     makeDerivationParallel = import ./make-derivation-parallel/default.nix self;
@@ -79,6 +81,7 @@
     makeNodeJsVersion = import ./make-node-js-version/default.nix self;
     makeNomadEnvironment = import ./make-nomad-environment/default.nix self;
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix self;
+    makePythonPyprojectPackage = import ./make-python-pyproject-package/default.nix;
     makePythonVersion = import ./make-python-version/default.nix self;
     makeRubyGemsEnvironment = import ./make-ruby-gems-environment/default.nix self;
     makeRubyGemsInstall = import ./make-ruby-gems-install/default.nix self;
@@ -99,11 +102,12 @@
     makeWorkspaceForTerraformFromEnv = import ./make-workspace-for-terraform-from-env/default.nix self;
     managePorts = import ./manage-ports/default.nix self;
     patchShebangs = import ./patch-shebangs/default.nix self;
-    inherit (self.__nixpkgs__.lib) removePrefix;
+    pythonOverrideUtils = import ./python-override-utils/default.nix;
+    inherit (__nixpkgs__.lib) removePrefix;
     secureKubernetesWithRbacPolice = import ./secure-kubernetes-with-rbac-police/default.nix self;
     securePythonWithBandit = import ./secure-python-with-bandit/default.nix self;
     sortAscii = builtins.sort (a: b: a < b);
-    sortAsciiCaseless = builtins.sort (a: b: self.__nixpkgs__.lib.toLower a < self.__nixpkgs__.lib.toLower b);
+    sortAsciiCaseless = builtins.sort (a: b: __nixpkgs__.lib.toLower a < __nixpkgs__.lib.toLower b);
     stringCapitalize = import ./string-capitalize/default.nix self;
     sublist = import ./sublist/default.nix self;
     taintTerraform = import ./taint-terraform/default.nix self;
@@ -111,7 +115,7 @@
     testTerraform = import ./test-terraform/default.nix self;
     testPullRequest = import ./test-pull-request/default.nix self;
     testPython = import ./test-python/default.nix self;
-    toDerivationName = self.__nixpkgs__.lib.strings.sanitizeDerivationName;
+    toDerivationName = __nixpkgs__.lib.strings.sanitizeDerivationName;
     toBashArray = import ./to-bash-array/default.nix self;
     toBashMap = import ./to-bash-map/default.nix self;
     toFileJson = import ./to-file-json/default.nix self;
@@ -120,7 +124,5 @@
     toFileJsonFromFileYaml = import ./to-file-json-from-file-yaml/default.nix self;
     toFileLst = import ./to-file-lst/default.nix;
   });
-
-  sources = import ../nix/sources.nix;
 in
   assert args.isDarwin || args.isLinux; args

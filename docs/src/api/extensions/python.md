@@ -122,3 +122,114 @@ Example:
 
     Refer to [makePythonLock](/api/builtins/utilities/#makepythonlock)
     to learn how to generate a `sourcesYaml`.
+
+## makePythonPyprojectPackage
+
+Create a python package bundle using nixpkgs build functions.
+This bundle includes the package itself, some modifications
+over the tests and its python environments.
+
+Types:
+
+- makePythonPypiEnvironment: (`function Input -> Bundle`):
+  - Input: `AttrsOf`
+    - buildEnv: `function {...} -> Derivation`
+      The nixpkgs buildEnv.override function.
+      Commonly found at `nixpkgs."${python_version}".buildEnv.override`
+    - buildPythonPackage: `function {...} -> Derivation`
+      The nixpkgs buildPythonPackage function.
+      Commonly found at `nixpkgs."${python_version}".pkgs.buildPythonPackage`
+    - pkgDeps: `AttrsOf`
+      The package dependencies.
+      Usually other python packages build with nix,
+      but can be also a nix derivation of a binary.
+      - runtime_deps: `List[Derivation]`
+      - build_deps: `List[Derivation]`
+      - test_deps: `List[Derivation]`
+    - src: `NixPath`
+      The nix path to the source code of the python package.
+      i.e. not only be the package itself, it should also contain
+      a tests folder/module, the pyproject conf and any other meta-package
+      data that the build or tests requires (e.g. custom mypy conf).
+  - Bundle: `AttrsOf`
+    - check: `AttrsOf`
+      Builds of the package only including one test.
+      - tests:`Derivation`
+      - types: `Derivation`
+    - env: `AttrsOf`
+      - dev: `Derivation`
+        The python environment containing only
+        runtime_deps and test_deps
+      - runtime: `Derivation`
+        The python environment containing only
+        the package itself and its runtime_deps.
+    - pkg: `Derivation`
+      The output of the nixpkgs buildPythonPackage function
+      i.e. the python package
+
+???+ tip
+
+    The default implemented tests require `mypy` and `pytest` as `test_deps`.
+    If you do not want the default, you can override the checkPhase
+    of the package i.e. using `pythonOverrideUtils` or using the
+    `overridePythonAttrs` function included on the derivation of
+    nix built python packages.
+
+Example:
+
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      inputs,
+      makeScript,
+      makePythonPyprojectPackage,
+      ...
+    }: let
+      nixpkgs = inputs.nixpkgs;
+      python_version = "python311";
+      python_pkgs = nixpkgs."${python_version}Packages";
+      bundle = makePythonPyprojectPackage {
+        src = ./.;
+        buildEnv = nixpkgs."${python_version}".buildEnv.override;
+        buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
+        pkgDeps = {
+          runtime_deps = with python_pkgs; [click];
+          build_deps = with python_pkgs; [flit-core];
+          test_deps = with python_pkgs; [
+            mypy
+            pytest
+          ];
+        };
+      };
+      env = bundle.env.runtime;
+    in
+      makeScript {
+        name = "my-cli";
+        searchPaths = {
+          bin = [
+            env
+          ];
+        };
+        entrypoint = "my-cli \"\${@}\"";
+        # Assuming that the pyproject conf has
+        # a definition of `my-cli` as a cli entrypoint
+      }
+    ```
+
+???+ tip
+
+    Because env.runtime include the package,
+    all tests are triggered when building the environment.
+    If is desirable only to trigger an specific check phase,
+    then use the check derivations that override this phase.
+
+???+ tip
+
+    To avoid performance issues use a shared cache
+    system (e.g. cachix) or an override over the package
+    to skip tests (unsafe way) to ensure that tests are
+    executed only once (or never).
+    This can also help on performance over heavy
+    compilation/build processes.
