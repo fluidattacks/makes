@@ -1,10 +1,10 @@
 {
-  inputs,
   makeSearchPaths,
+  __nixpkgs__,
   ...
 }:
 makeSearchPaths {
   bin = [
-    inputs.nixpkgs.git
+    __nixpkgs__.git
   ];
 }
