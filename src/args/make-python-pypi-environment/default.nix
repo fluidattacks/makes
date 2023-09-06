@@ -104,7 +104,7 @@ assert builtins.any (_: _) [
             inherit name;
             inherit sha256;
             inherit url;
-            curlOptsList = ["--retry" "3"];
+            curlOptsList = ["--retry" "3" "--fail"];
           };
         })
         (builtins.concatLists [
