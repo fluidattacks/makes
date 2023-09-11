@@ -106,7 +106,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: __all__
         run: nix-env -if . && m . __all__
         env:
@@ -128,7 +128,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /calculateScorecard
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -150,7 +150,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /deployTerraform/module
         run: nix-env -if . && m . /deployTerraform/module
         env:
@@ -171,7 +171,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /dev/cliMain
         run: nix-env -if . && m . /dev/cliMain
         env:
@@ -192,7 +192,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /dev/example
         run: nix-env -if . && m . /dev/example
         env:
@@ -225,7 +225,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /envVars/example
         run: nix-env -if . && m . /envVars/example
         env:
@@ -246,7 +246,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /formatBash
         run: nix-env -if . && m . /formatBash
         env:
@@ -267,7 +267,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /formatNix
         run: nix-env -if . && m . /formatNix
         env:
@@ -288,7 +288,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /formatPython
         run: nix-env -if . && m . /formatPython
         env:
@@ -309,7 +309,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /formatTerraform
         run: nix-env -if . && m . /formatTerraform
         env:
@@ -330,7 +330,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /formatYaml
         run: nix-env -if . && m . /formatYaml
         env:
@@ -351,7 +351,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /helloWorld
         run: nix-env -if . && m . /helloWorld
         env:
@@ -372,7 +372,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintBash
         run: nix-env -if . && m . /lintBash
         env:
@@ -393,7 +393,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintClojure
         run: nix-env -if . && m . /lintClojure/test
         env:
@@ -430,7 +430,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintGitMailMap
         run: nix-env -if . && m . /lintGitMailMap
         env:
@@ -451,7 +451,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintMarkdown/all
         run: nix-env -if . && m . /lintMarkdown/all
         env:
@@ -472,7 +472,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintNix
         run: nix-env -if . && m . /lintNix
         env:
@@ -493,7 +493,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintPython/dirOfModules/makes
         run: nix-env -if . && m . /lintPython/dirOfModules/makes
         env:
@@ -514,7 +514,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintPython/dirOfModules/makes/main
         run: nix-env -if . && m . /lintPython/dirOfModules/makes/main
         env:
@@ -535,7 +535,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintPython/imports/makes
         run: nix-env -if . && m . /lintPython/imports/makes
         env:
@@ -556,7 +556,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintPython/module/cliMain
         run: nix-env -if . && m . /lintPython/module/cliMain
         env:
@@ -577,7 +577,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintTerraform/module
         run: nix-env -if . && m . /lintTerraform/module
         env:
@@ -610,7 +610,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /lintWithLizard/all
         run: nix-env -if . && m . /lintWithLizard/all
         env:
@@ -631,7 +631,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /secretsForEnvFromSops/example
         run: nix-env -if . && m . /secretsForEnvFromSops/example
         env:
@@ -652,7 +652,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /secretsForGpgFromEnv/example
         run: nix-env -if . && m . /secretsForGpgFromEnv/example
         env:
@@ -673,7 +673,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /securePythonWithBandit/cli
         run: nix-env -if . && m . /securePythonWithBandit/cli
         env:
@@ -694,7 +694,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /taintTerraform/module
         run: nix-env -if . && m . /taintTerraform/module
         env:
@@ -713,7 +713,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /testLicense
         run: nix-env -if . && m . /testLicense
 
@@ -732,7 +732,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /testPython/example
         run: nix-env -if . && m . /testPython/example
         env:
@@ -753,7 +753,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /tests/calculateCvss3
         run: nix-env -if . && m . /tests/calculateCvss3
         env:
@@ -837,7 +837,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /tests/secretsForGpgFromEnv
         run: nix-env -if . && m . /tests/secretsForGpgFromEnv
         env:
@@ -858,7 +858,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@67e9fd765dbe63fabe0ce2bd72f56f9a417696a0
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /testTerraform/module
         run: nix-env -if . && m . /testTerraform/module
         env:
