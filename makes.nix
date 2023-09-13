@@ -91,6 +91,9 @@
       ];
       source = [outputs."/cli/env/runtime"];
     };
+    batchClient = {
+      source = [outputs."/envs/compute-on-aws-batch"];
+    };
   };
   envVars = {
     example = {

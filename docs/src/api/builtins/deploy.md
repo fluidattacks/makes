@@ -2,70 +2,80 @@
 
 Submit a job to a [AWS BATCH](https://aws.amazon.com/batch/) queue.
 
+When used as a Makes declaration (at makes.nix attrs):
+
+- computeOnAwsBatch: `AttrsOf[JobType]` (Optional Attr)
+
 Types:
 
-- computeOnAwsBatch (`attrsOf jobType`): Optional.
+- computeOnAwsBatch: `JobType -> SourceAble`
     Job groups to submit.
     Defaults to `{ }`.
-- jobType (`submodule`):
-    - allowDuplicates (`bool`): Optional.
+
+- `JobType` = `Attrs`
+    - allowDuplicates: `bool` (Optional Attr)
         Set to `false` in order to prevent submitting the job
         if there is already a job in the queue with the same name.
         Defaults to `false`.
-    - attempts (`ints.positive`): Optional.
+    - attempts: `PositiveInt` (Optional Attr)
         If the value of attempts is greater than one,
         the job is retried on failure the same number of attempts as the value.
         Defaults to `1`.
-    - attemptDurationSeconds (`ints.positive`): Optional.
+    - attemptDurationSeconds: `PositiveInt`
         The time duration in seconds
         (measured from the job attempt's startedAt timestamp)
         after which Batch terminates your jobs
         if they have not finished.
-    - command (`listOf str`):
+    - command: `List[str]`
         The command to send to the container.
         It overrides the one specified
         in the Batch job definition.
         Additional arguments can be propagated when running this module output.
-    - definition (`str`):
+    - definition: `str`
         Name of the Batch job definition
         that we will use as base for submitting the job.
         In general an Batch job definition is required
         in order to specify which container image
         our job is going to run on.
-    - environment (`listOf str`): Optional.
+    - environment: `List[str]` (Optional Attr)
         Name of the environment variables
         whose names and values should be copied from the machine running Makes
         to the machine on Batch running the job.
         Defaults to `[ ]`.
-    - includePositionalArgsInName (`bool`): Optional.
+    - includePositionalArgsInName: `bool` (Optional Attr).
         Enable to make positional arguments part of the job name.
         This is useful for identifying jobs
         in the Batch console
         more easily.
         Defaults to `true`.
-    - memory (`ints.positive`):
+    - nextJob: `Attrs` (Optional Attr)
+        The next job that will be executed after its parent finish.
+        You must provide a `name` attribute and all the required
+        attrs of `JobType`.
+        Defaults to `{ }`.
+    - memory: `PositiveInt`
         Amount of memory, in MiB that is reserved for the job.
-    - parallel (`ints.positive`): Optional.
+    - parallel: `PositiveInt` (Optional Attr)
         Number of parallel jobs to trigger using
         [Batch Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html).
-    - propagateTags (`bool`): Optional.
+        Defaults to `1`.
+    - propagateTags: `bool` (Optional Attr)
         Enable tags to be propagated into the ECS tasks.
         Defaults to `true`.
-    - queue (`nullOr str`):
+    - queue: `str | null`
         Name of the Batch queue we should submit the job to.
-        It can be set to `null`,
-        causing Makes to read
+        If `null` then queue is fetch from
         the `MAKES_COMPUTE_ON_AWS_BATCH_QUEUE` environment variable at runtime.
-    - setup (`listOf package`):
+    - setup: `List[Source-able]`
         [Makes Environment][makes_environment]
         or [Makes Secrets][makes_secrets]
         to `source` (as in Bash's `source`)
         before anything else.
         Defaults to `[ ]`.
-    - tags (`attrsOf str`): Optional.
+    - tags: `AttrsOf[str]` (Optional Attr).
         Tags to apply to the batch job.
         Defaults to `{ }`.
-    - vcpus (`ints.positive`):
+    - vcpus: `PositiveInt`
         Amount of virtual CPUs that is reserved for the job.
 
 Example:

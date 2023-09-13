@@ -1,11 +1,7 @@
-# python override utils,
-# useful when overriding pkgs from an environment to ensure no collisions
-# PythonOverride = PythonPkgDerivation -> PythonPkgDerivation
 let
   recursive_python_pkg_override = is_pkg: override: let
     # is_pkg: Derivation -> Bool
-    # override: PythonPkgDerivation -> PythonPkgDerivation
-    # return: PythonOverride
+    # override: Derivation -> Derivation
     self = recursive_python_pkg_override is_pkg override;
   in
     pkg:
@@ -21,7 +17,7 @@ let
         )
       else pkg;
 
-  # no_check_override: PythonOverride
+  # no_check_override: Derivation -> Derivation
   no_check_override = recursive_python_pkg_override (pkg: pkg ? overridePythonAttrs && pkg ? pname) (
     pkg:
       pkg.overridePythonAttrs (
@@ -39,7 +35,7 @@ let
       )
   );
 
-  # replace_pkg: List[str] -> PythonPkgDerivation -> PythonOverride
+  # replace_pkg: List[str] -> Derivation -> Derivation
   replace_pkg = names: new_pkg:
     recursive_python_pkg_override (
       x: x ? overridePythonAttrs && x ? pname && builtins.elem x.pname names
