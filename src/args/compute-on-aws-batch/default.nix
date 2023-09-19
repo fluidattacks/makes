@@ -1,5 +1,6 @@
 {
   __nixpkgs__,
+  makePythonPyprojectPackage,
   makeScript,
   toFileJson,
   ...
@@ -11,77 +12,82 @@
   definition,
   environment,
   includePositionalArgsInName,
+  name,
+  nextJob,
   memory,
   parallel,
   propagateTags,
   queue,
-  name,
   setup,
   tags,
   vcpus,
-}:
-makeScript {
-  name = "compute-on-aws-batch-for-${name}";
-  replace = {
-    __argAllowDuplicates__ = allowDuplicates;
-    __argAttempts__ = attempts;
-    __argAttemptDurationSeconds__ = attemptDurationSeconds;
-    __argCommand__ = toFileJson "command.json" command;
-    __argDefinition__ = definition;
-    __argIncludePositionalArgsInName__ = includePositionalArgsInName;
-    __argManifest__ = toFileJson "manifest.json" {
-      environment = builtins.concatLists [
-        [
-          {
-            name = "CI";
-            value = "true";
-          }
-        ]
-        [
-          {
-            name = "MAKES_AWS_BATCH_COMPAT";
-            value = "true";
-          }
-        ]
-        (builtins.map
-          (name: {
-            inherit name;
-            value = "\${${name}}";
-          })
-          environment)
-      ];
-      resourceRequirements = [
-        {
-          type = "VCPU";
-          value = toString vcpus;
-        }
-        {
-          type = "MEMORY";
-          value = toString memory;
-        }
-      ];
-    };
-    __argName__ = name;
-    __argParallel__ = parallel;
-    __argPropagate__ = propagateTags;
-    __argQueue__ = queue;
-    __argTags__ = let
-      tag_names = builtins.attrNames tags;
-      encode_tag = key: "${key}=${tags."${key}"}";
-      encoded = map encode_tag tag_names;
-      encoded_tags = builtins.concatStringsSep "," encoded;
-    in
-      encoded_tags;
+} @ self: let
+  batch-client = import ./batch-client/entrypoint.nix {
+    inherit makePythonPyprojectPackage;
+    nixpkgs = __nixpkgs__;
   };
-  searchPaths = {
-    bin = [
-      __nixpkgs__.awscli
-      __nixpkgs__.gnugrep
-      __nixpkgs__.envsubst
-      __nixpkgs__.gnused
-      __nixpkgs__.jq
+
+  ci_env_var = {
+    name = "CI";
+    value = "true";
+  };
+  compat_env_var = {
+    name = "MAKES_AWS_BATCH_COMPAT";
+    value = "true";
+  };
+  encode_envs = envs:
+    builtins.concatLists [
+      [ci_env_var]
+      [compat_env_var]
+      (builtins.map (name: {inherit name;}) envs)
+      # An env var that does not have a value represents a reference to it,
+      # which will then be recovered during execution
     ];
-    source = setup;
+
+  # This should match the declared defaults on module options
+  apply_defaults = {
+    allowDuplicates ? false,
+    attempts ? 1,
+    attemptDurationSeconds,
+    command,
+    definition,
+    environment ? [],
+    includePositionalArgsInName ? true,
+    name,
+    nextJob ? {},
+    memory,
+    parallel ? 1,
+    propagateTags ? true,
+    queue,
+    tags ? {},
+    vcpus,
+  } @ result: {
+    inherit allowDuplicates attempts attemptDurationSeconds command definition environment;
+    inherit includePositionalArgsInName name nextJob memory parallel propagateTags queue tags vcpus;
   };
-  entrypoint = ./entrypoint.sh;
-}
+  encode_draft = _draft: let
+    draft = apply_defaults (removeAttrs _draft ["setup"]);
+  in {
+    inherit (draft) allowDuplicates attempts attemptDurationSeconds command;
+    inherit (draft) definition includePositionalArgsInName memory parallel;
+    inherit (draft) propagateTags queue name tags vcpus;
+    environment = encode_envs draft.environment;
+    nextJob =
+      if draft.nextJob == {}
+      then {}
+      else encode_draft draft.nextJob;
+  };
+in
+  makeScript {
+    name = "compute-on-aws-batch-for-${name}";
+    replace = {
+      __argJobs__ = toFileJson "jobs.json" (encode_draft self);
+    };
+    searchPaths = {
+      bin = [
+        batch-client.env.runtime
+      ];
+      source = setup;
+    };
+    entrypoint = ./entrypoint.sh;
+  }

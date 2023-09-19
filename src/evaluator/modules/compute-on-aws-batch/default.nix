@@ -25,6 +25,7 @@
       inherit (config) setup;
       inherit (config) tags;
       inherit (config) vcpus;
+      inherit (config) nextJob;
     };
   };
 in {
@@ -57,6 +58,10 @@ in {
           includePositionalArgsInName = lib.mkOption {
             default = true;
             type = lib.types.bool;
+          };
+          nextJob = lib.mkOption {
+            default = {};
+            type = lib.types.attrs;
           };
           memory = lib.mkOption {
             type = lib.types.ints.positive;
