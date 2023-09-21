@@ -49,6 +49,7 @@ import sys
 import tempfile
 import textwrap
 from time import (
+    sleep,
     time,
 )
 from tui import (
@@ -411,11 +412,33 @@ class Config(NamedTuple):
     cache: List[Dict[str, str]]
 
 
+def _get_named_temporary_file_name() -> str:
+    attempts = 0
+    file_name = ""
+    success = False
+    while attempts < 5 and not success:
+        try:
+            with tempfile.NamedTemporaryFile(delete=True) as file:
+                file_name = file.name
+                success = True
+        except FileExistsError as error:
+            CON.print(
+                f"Failed to create {error.filename}, retrying in 1 second..."
+            )
+            attempts += 1
+            sleep(1)
+
+    if not success:
+        raise FileExistsError("Could not create file after 5 attempts.")
+    return file_name
+
+
 def _get_config(head: str, attr_paths: str) -> Config:
     CON.out()
     CON.rule("Building project configuration")
     CON.out()
-    out: str = tempfile.mktemp()  # nosec
+
+    out: str = _get_named_temporary_file_name()
     code = _run(
         args=_nix_build(
             attr="config.configAsJson"
