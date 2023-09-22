@@ -49,7 +49,6 @@ import sys
 import tempfile
 import textwrap
 from time import (
-    sleep,
     time,
 )
 from tui import (
@@ -120,13 +119,11 @@ def _clone_src(src: str) -> str:
 
     if abspath(src) == CWD:  # `m .` ?
         if NIX_STABLE:
-            _add_safe_directory()
             _clone_src_git_worktree_add(src, head)
         else:
             # Nix with Flakes already ensures a pristine git repo
             head = src
     else:
-        _add_safe_directory()
         if (
             (match := _clone_src_github(src))
             or (match := _clone_src_gitlab(src))
@@ -147,20 +144,6 @@ def _clone_src(src: str) -> str:
         _clone_src_cache_refresh(head, cache_key)
 
     return head
-
-
-def _add_safe_directory() -> None:
-    cmd = [
-        "git",
-        "config",
-        "--global",
-        "--add",
-        "safe.directory",
-        "/github/workspace",
-    ]
-    out = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
-    if out != 0:
-        raise SystemExit(out)
 
 
 def _clone_src_git_init(head: str) -> None:
@@ -413,23 +396,9 @@ class Config(NamedTuple):
 
 
 def _get_named_temporary_file_name() -> str:
-    attempts = 0
     file_name = ""
-    success = False
-    while attempts < 5 and not success:
-        try:
-            with tempfile.NamedTemporaryFile(delete=True) as file:
-                file_name = file.name
-                success = True
-        except FileExistsError as error:
-            CON.print(
-                f"Failed to create {error.filename}, retrying in 1 second..."
-            )
-            attempts += 1
-            sleep(1)
-
-    if not success:
-        raise FileExistsError("Could not create file after 5 attempts.")
+    with tempfile.NamedTemporaryFile(delete=True) as file:
+        file_name = file.name
     return file_name
 
 
