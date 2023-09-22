@@ -71,6 +71,26 @@ jobs:
       - name: /dev/example
         run: nix-env -if . && m . /dev/example
 
+  linux_dev_makes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
+        name: /dev/makes
+        with:
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /dev/makes"
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+  macos_dev_makes:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
+      - name: /dev/makes
+        run: nix-env -if . && m . /dev/makes
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
   linux_envVars_example:
     runs-on: ubuntu-latest
     steps:
