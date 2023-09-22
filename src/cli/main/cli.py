@@ -49,6 +49,7 @@ import sys
 import tempfile
 import textwrap
 from time import (
+    sleep,
     time,
 )
 from tui import (
@@ -119,13 +120,11 @@ def _clone_src(src: str) -> str:
 
     if abspath(src) == CWD:  # `m .` ?
         if NIX_STABLE:
-            _add_safe_directory()
             _clone_src_git_worktree_add(src, head)
         else:
             # Nix with Flakes already ensures a pristine git repo
             head = src
     else:
-        _add_safe_directory()
         if (
             (match := _clone_src_github(src))
             or (match := _clone_src_gitlab(src))
@@ -146,20 +145,6 @@ def _clone_src(src: str) -> str:
         _clone_src_cache_refresh(head, cache_key)
 
     return head
-
-
-def _add_safe_directory() -> None:
-    cmd = [
-        "git",
-        "config",
-        "--global",
-        "--add",
-        "safe.directory",
-        "/github/workspace",
-    ]
-    out = _run(cmd, stderr=None, stdout=sys.stderr.fileno())
-    if out != 0:
-        raise SystemExit(out)
 
 
 def _clone_src_git_init(head: str) -> None:
@@ -411,11 +396,19 @@ class Config(NamedTuple):
     cache: List[Dict[str, str]]
 
 
+def _get_named_temporary_file_name() -> str:
+    file_name = ""
+    with tempfile.NamedTemporaryFile(delete=True) as file:
+        file_name = file.name
+    return file_name
+
+
 def _get_config(head: str, attr_paths: str) -> Config:
     CON.out()
     CON.rule("Building project configuration")
     CON.out()
-    out: str = tempfile.mktemp()  # nosec
+
+    out: str = _get_named_temporary_file_name()
     code = _run(
         args=_nix_build(
             attr="config.configAsJson"
