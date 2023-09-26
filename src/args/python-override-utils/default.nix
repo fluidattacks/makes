@@ -1,9 +1,11 @@
 # python override utils,
 # useful when overriding pkgs from an environment to ensure no collisions
+# PythonOverride = PythonPkgDerivation -> PythonPkgDerivation
 let
   recursive_python_pkg_override = is_pkg: override: let
     # is_pkg: Derivation -> Bool
-    # override: Derivation -> Derivation
+    # override: PythonPkgDerivation -> PythonPkgDerivation
+    # return: PythonOverride
     self = recursive_python_pkg_override is_pkg override;
   in
     pkg:
@@ -19,7 +21,7 @@ let
         )
       else pkg;
 
-  # no_check_override: Derivation -> Derivation
+  # no_check_override: PythonOverride
   no_check_override = recursive_python_pkg_override (pkg: pkg ? overridePythonAttrs && pkg ? pname) (
     pkg:
       pkg.overridePythonAttrs (
@@ -37,12 +39,16 @@ let
       )
   );
 
-  # replace_pkg: List[str] -> Derivation -> Derivation
+  # replace_pkg: List[str] -> PythonPkgDerivation -> PythonOverride
   replace_pkg = names: new_pkg:
     recursive_python_pkg_override (
       x: x ? overridePythonAttrs && x ? pname && builtins.elem x.pname names
     ) (_: new_pkg);
+
+  compose = let
+    # definition from nixpkgs.lib.reverseList
+    reverseList = xs: let l = builtins.length xs; in builtins.genList (n: builtins.elemAt xs (l - n - 1)) l;
+  in functions: val: builtins.foldl' (x: f: f x) val (reverseList functions);
 in {
-  inherit recursive_python_pkg_override no_check_override replace_pkg;
-  compose = functions: val: builtins.foldl' (x: f: f x) val functions;
+  inherit compose recursive_python_pkg_override no_check_override replace_pkg;
 }
