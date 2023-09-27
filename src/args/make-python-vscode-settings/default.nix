@@ -2,8 +2,7 @@
   __nixpkgs__,
   makeTemplate,
   ...
-}:
-{
+}: {
   name,
   env,
   bins,

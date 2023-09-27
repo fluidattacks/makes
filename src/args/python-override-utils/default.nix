@@ -48,7 +48,8 @@ let
   compose = let
     # definition from nixpkgs.lib.reverseList
     reverseList = xs: let l = builtins.length xs; in builtins.genList (n: builtins.elemAt xs (l - n - 1)) l;
-  in functions: val: builtins.foldl' (x: f: f x) val (reverseList functions);
+  in
+    functions: val: builtins.foldl' (x: f: f x) val (reverseList functions);
 in {
   inherit compose recursive_python_pkg_override no_check_override replace_pkg;
 }
