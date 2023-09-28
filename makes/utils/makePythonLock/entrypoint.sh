@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function main {
+  declare -A depWithLinks
   local python_version="${1}"
   local deps_yaml="${2}"
   local sources_yaml="${3:-sources.yaml}"
@@ -71,6 +72,7 @@ function main {
               *.exe) continue ;;
               *-win32.whl) continue ;;
               *-win_amd64.whl) continue ;;
+              *-win_arm64.whl) continue ;;
               *) ;;
             esac \
             && if ! in_array "${python_versions[${index}]}" "${implementations[@]}"; then
@@ -93,9 +95,17 @@ function main {
               sources.json \
               > sources2.json \
             && mv sources2.json sources.json \
+            && IFS='/' read -ra ADDR <<< "$endpoint" \
+            && depWithLinks["${ADDR[-3]}"]="" \
             || critical Unable to download "${file}"
         done
     done \
+    && jq -erS \
+      --argjson depsWithLinks "$(echo "${!depWithLinks[@]}" | jq -Rc \
+        'split(" ") | map({(.): .}) | add')" \
+      '.closure |= with_entries(select(.key as $k | $depsWithLinks | has($k)))' \
+      sources.json > sources_filtered.json \
+    && mv sources_filtered.json sources.json \
     && yj -jy < sources.json > "${sources_yaml}" \
     && info Generated a sources file at "${sources_yaml}"
 }
