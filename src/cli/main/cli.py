@@ -543,9 +543,9 @@ def _help_picking_attr(src: str, attrs: List[str]) -> List[str]:
             initial_input = file.read()
 
     state: Dict[str, Any] = {}
-    TextUserInterface.run(
+    TextUserInterface(
         attrs=attrs, initial_input=initial_input, state=state, src=src
-    )
+    ).run()
 
     if "return" in state:
         with open(cache, encoding="utf-8", mode="w") as file:

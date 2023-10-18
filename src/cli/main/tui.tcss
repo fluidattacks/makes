@@ -1,0 +1,10 @@
+Screen {
+    background: transparent;
+    layout: grid;
+    grid-size: 1 6;
+    grid-rows: 2fr 3fr 3fr 1fr 2fr
+}
+
+.column {
+    height: 1fr;
+}

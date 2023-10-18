@@ -9,9 +9,15 @@ import rich.table
 import rich.text
 import shlex
 import textual.app
+from textual.app import (
+    ComposeResult,
+)
 import textual.events
 import textual.keys
 import textual.reactive
+from textual.scroll_view import (
+    ScrollView,
+)
 import textual.widget
 import textual.widgets
 from typing import (
@@ -82,6 +88,9 @@ class TuiOutputsTitle(textual.widget.Widget):
 
 class TextUserInterface(textual.app.App):
     # pylint: disable=too-many-instance-attributes
+
+    CSS_PATH = "tui.tcss"
+
     def __init__(
         self,
         *args: Any,
@@ -170,31 +179,20 @@ class TextUserInterface(textual.app.App):
 
         valid = valid and (self.output in self.attrs)
 
-        self.command.style = "green" if valid else "red"
+        self.command.styles.color = "green" if valid else "red"
 
         return valid
 
-    async def on_mount(self) -> None:
-        self.outputs_scroll = textual.widgets.ScrollView(self.outputs)
-        grid = await self.view.dock_grid(edge="left")
-        grid.add_column(fraction=1, name="c0")
-        grid.add_row(size=2, name="r0")
-        grid.add_row(size=3, name="r1")
-        grid.add_row(size=3, name="r2")
-        grid.add_row(size=1, name="r3")
-        grid.add_row(size=2, name="r4")
-        grid.add_row(fraction=1, name="r5")
-        grid.add_areas(
-            command="c0,r2",
-            header="c0,r0",
-            usage="c0,r1",
-            outputs="c0,r5",
-            outputs_title="c0,r4",
-        )
-        grid.place(
-            command=self.command,
-            header=self.header,
-            outputs=self.outputs_scroll,
-            outputs_title=self.outputs_title,
-            usage=self.usage,
-        )
+    def compose(self) -> ComposeResult:
+        self.outputs_scroll = ScrollView(self.outputs)
+
+        elements = [
+            self.header,
+            self.usage,
+            self.command,
+            self.outputs_title,
+            self.outputs_scroll,
+        ]
+
+        for element in elements:
+            yield element
