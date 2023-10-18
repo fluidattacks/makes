@@ -1,8 +1,11 @@
 closure:
   commonmark: 0.9.1
-  pygments: 2.13.0
+  importlib-metadata: 4.13.0
+  nanoid: 2.0.0
+  pygments: 2.16.1
   rich: 12.6.0
-  textual: 0.1.18
+  textual: 0.2.0
+  zipp: 3.17.0
 links:
   - name: commonmark-0.9.1-py2.py3-none-any.whl
     sha256: 1nbgsvb73ad93cjzjdggkpp4zizvxay3q6ms23j3vy4h4p4khbys
@@ -10,22 +13,40 @@ links:
   - name: commonmark-0.9.1.tar.gz
     sha256: 0q7d39lm8kcingpmykk5r959hrwwj6v2icyw3mihczxyb749sbs5
     url: https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz
-  - name: Pygments-2.13.0-py3-none-any.whl
-    sha256: 0hjcs4h4fmx0k7gfykng2zqr8vmwvaif8bi1i6fkrfjpmcqz6hzn
-    url: https://files.pythonhosted.org/packages/4f/82/672cd382e5b39ab1cd422a672382f08a1fb3d08d9e0c0f3707f33a52063b/Pygments-2.13.0-py3-none-any.whl
-  - name: Pygments-2.13.0.tar.gz
-    sha256: 1ha0pqk3f27zlb2h4gmlb3w8lz9zmvjnnfprpnwy562zx6551a2n
-    url: https://files.pythonhosted.org/packages/e0/ef/5905cd3642f2337d44143529c941cc3a02e5af16f0f65f81cbef7af452bb/Pygments-2.13.0.tar.gz
+  - name: importlib_metadata-4.13.0-py3-none-any.whl
+    sha256: 05j16f8407yi79f490px43msg0m3xb9nplgh8vp4zrwnz6y832la
+    url: https://files.pythonhosted.org/packages/d0/98/c277899f5aa21f6e6946e1c83f2af650cbfee982763ffb91db07ff7d3a13/importlib_metadata-4.13.0-py3-none-any.whl
+  - name: importlib_metadata-4.13.0.tar.gz
+    sha256: 0v9lfihzrqki1klxykb4yjd0f3sb87v59lwg15g83mjhy7l760fx
+    url: https://files.pythonhosted.org/packages/55/12/ab288357b884ebc807e3f4eff63ce5ba6b941ba61499071bf19f1bbc7f7f/importlib_metadata-4.13.0.tar.gz
+  - name: nanoid-2.0.0-py3-none-any.whl
+    sha256: 1fskns3k2g65xhjvbl7jq65w8i7xdhilrg9vi6qgz31j1rjzmblh
+    url: https://files.pythonhosted.org/packages/2e/0d/8630f13998638dc01e187fadd2e5c6d42d127d08aeb4943d231664d6e539/nanoid-2.0.0-py3-none-any.whl
+  - name: nanoid-2.0.0.tar.gz
+    sha256: 0s7s9rp4c8wxpn18yp9a1d1cpxw9w55b6bzs84xaxsf6x7awm02s
+    url: https://files.pythonhosted.org/packages/b7/9d/0250bf5935d88e214df469d35eccc0f6ff7e9db046fc8a9aeb4b2a192775/nanoid-2.0.0.tar.gz
+  - name: Pygments-2.16.1-py3-none-any.whl
+    sha256: 14inclsjknq46hgqc7g8mqz38jrw63my2iyjlrqqd3dwcgx0kz0k
+    url: https://files.pythonhosted.org/packages/43/88/29adf0b44ba6ac85045e63734ae0997d3c58d8b1a91c914d240828d0d73d/Pygments-2.16.1-py3-none-any.whl
+  - name: Pygments-2.16.1.tar.gz
+    sha256: 0abfx7n0mgpxk05f2kini3p78wsp1yi7lh0yjk49pii0914z1bqx
+    url: https://files.pythonhosted.org/packages/d6/f7/4d461ddf9c2bcd6a4d7b2b139267ca32a69439387cc1f02a924ff8883825/Pygments-2.16.1.tar.gz
   - name: rich-12.6.0-py3-none-any.whl
     sha256: 0pmvh5xhk8pkkg6h85lzv0liw2q15b9p6z51v6dmi0ic9x42dsx4
     url: https://files.pythonhosted.org/packages/32/60/81ac2e7d1e3b861ab478a72e3b20fc91c4302acd2274822e493758941829/rich-12.6.0-py3-none-any.whl
   - name: rich-12.6.0.tar.gz
     sha256: 1l1zr5g2k7qyl5bqcsdhrv2nbzgl2v0z4h8ischw41a1jxskffms
     url: https://files.pythonhosted.org/packages/11/23/814edf09ec6470d52022b9e95c23c1bef77f0bc451761e1504ebd09606d3/rich-12.6.0.tar.gz
-  - name: textual-0.1.18-py3-none-any.whl
-    sha256: 13k3i7mkcpn49xsac759a6fvbmcsg7bdyvl7a0f7qncc84shj4ar
-    url: https://files.pythonhosted.org/packages/28/f7/4b9d17a2b53a46a95781106ffe29a7414dc8760d542bd430196d201d1a91/textual-0.1.18-py3-none-any.whl
-  - name: textual-0.1.18.tar.gz
-    sha256: 08yg5a51hz1axfj5hx28hx31gq5apcj6vpkkmawmiplisa73z25j
-    url: https://files.pythonhosted.org/packages/8c/d1/c228993e8a21e24bb43a0376b2901b6f3f2033dae13e7f76d1103bb9b8a3/textual-0.1.18.tar.gz
+  - name: textual-0.2.0-py3-none-any.whl
+    sha256: 0dr7r58x61a2xi0mm4hh2m8c5kw0db41gk7xlm86phvfnqmr31lw
+    url: https://files.pythonhosted.org/packages/23/ff/e7b7e4b92df611e1a2ae4d2aa8e37886cc9194ac6e08a9f694cee38eb869/textual-0.2.0-py3-none-any.whl
+  - name: textual-0.2.0.tar.gz
+    sha256: 1jzhawnq8y9p1q44w29rd3amawiaf6x0wn86m0vz96q7lir65mk4
+    url: https://files.pythonhosted.org/packages/ee/76/d222d05e46be50fc94c9244e490f32f8d5352dc739018db4bb6409f766d4/textual-0.2.0.tar.gz
+  - name: zipp-3.17.0-py3-none-any.whl
+    sha256: 0ccz81b8bf26gizhrq3jwnwbpxrz92nmjg651772v4klc5r3x4hf
+    url: https://files.pythonhosted.org/packages/d9/66/48866fc6b158c81cc2bfecc04c480f105c6040e8b077bc54c634b4a67926/zipp-3.17.0-py3-none-any.whl
+  - name: zipp-3.17.0.tar.gz
+    sha256: 1w5sra87d544gf6nq2a2d6vikjsrqb48rfvq43nr2zng50f4mrl4
+    url: https://files.pythonhosted.org/packages/58/03/dd5ccf4e06dec9537ecba8fcc67bbd4ea48a2791773e469e73f94c3ba9a6/zipp-3.17.0.tar.gz
 python: "3.10"
