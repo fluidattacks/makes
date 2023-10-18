@@ -1,0 +1,24 @@
+Screen {
+    background: #282d35;
+}
+
+#app-grid {
+    layout: grid;
+    grid-size: 1 6;
+    grid-rows: 2fr 3fr 3fr 1fr 4fr;
+}
+
+#vertical-scroll-center {
+    align: center middle;
+    scrollbar-size-vertical: 1;
+    scrollbar-background: #444444;
+    scrollbar-background-active: #444444;
+    scrollbar-background-hover: #444444;
+    scrollbar-color: #d290e3;
+    scrollbar-color-active: #d290e3;
+    scrollbar-color-hover: #d290e3;
+}
+
+.text-box {
+    width: auto;
+}

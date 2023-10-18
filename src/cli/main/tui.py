@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from os.path import (
     commonprefix,
 )
@@ -9,11 +12,18 @@ import rich.table
 import rich.text
 import shlex
 import textual.app
+from textual.containers import (
+    Container,
+    VerticalScroll,
+)
 import textual.events
 import textual.keys
 import textual.reactive
 import textual.widget
 import textual.widgets
+from textual.widgets import (
+    Static,
+)
 from typing import (
     Any,
     Dict,
@@ -82,6 +92,9 @@ class TuiOutputsTitle(textual.widget.Widget):
 
 class TextUserInterface(textual.app.App):
     # pylint: disable=too-many-instance-attributes
+
+    CSS_PATH = "tui.tcss"
+
     def __init__(
         self,
         *args: Any,
@@ -113,6 +126,23 @@ class TextUserInterface(textual.app.App):
 
         super().__init__(*args, **kwargs)
 
+    def get_outputs_scroll_widgets(self) -> List[Static]:
+        outputs_scroll_widgets = []
+
+        if self.outputs.outputs:
+            longest = max(map(len, self.outputs.outputs))
+            for output in self.outputs.outputs:
+                text = rich.text.Text()
+                text.append(self.outputs.output, style="yellow")
+                text.append(output[len(self.outputs.output) :])
+                text.append(" " * (longest - len(output)))
+                outputs_scroll_widgets.append(Static(text, classes="text-box"))
+
+        if not outputs_scroll_widgets:
+            outputs_scroll_widgets.append(Static("(none)", classes="text-box"))
+
+        return outputs_scroll_widgets
+
     async def on_key(self, event: textual.events.Key) -> None:
         if event.key in {
             textual.keys.Keys.ControlH,
@@ -121,10 +151,6 @@ class TextUserInterface(textual.app.App):
             if len(self.input) >= 2:
                 self.input = self.input[:-1]
             self.propagate_data()
-        elif event.key == textual.keys.Keys.Down:
-            self.outputs_scroll.scroll_up()
-        elif event.key == textual.keys.Keys.Up:
-            self.outputs_scroll.scroll_down()
         elif event.key in {
             textual.keys.Keys.ControlI,
             textual.keys.Keys.Tab,
@@ -134,10 +160,12 @@ class TextUserInterface(textual.app.App):
             if self.validate():
                 self.state["return"] = [self.output, *self.args]
                 await self.action_quit()
-        else:
-            self.input += event.key
+        elif event.character is not None:
+            self.input += event.character
             self.propagate_data(autocomplete=True)
-        await self.outputs_scroll.update(self.outputs)
+        outputs_scroll_widgets = self.get_outputs_scroll_widgets()
+        self.outputs_scroll.remove_children()
+        self.outputs_scroll.mount_all(outputs_scroll_widgets)
 
     def propagate_data(self, autocomplete: bool = False) -> None:
         tokens = self.input.split(" ")
@@ -170,31 +198,19 @@ class TextUserInterface(textual.app.App):
 
         valid = valid and (self.output in self.attrs)
 
-        self.command.style = "green" if valid else "red"
+        self.command.styles.color = "green" if valid else "red"
 
         return valid
 
-    async def on_mount(self) -> None:
-        self.outputs_scroll = textual.widgets.ScrollView(self.outputs)
-        grid = await self.view.dock_grid(edge="left")
-        grid.add_column(fraction=1, name="c0")
-        grid.add_row(size=2, name="r0")
-        grid.add_row(size=3, name="r1")
-        grid.add_row(size=3, name="r2")
-        grid.add_row(size=1, name="r3")
-        grid.add_row(size=2, name="r4")
-        grid.add_row(fraction=1, name="r5")
-        grid.add_areas(
-            command="c0,r2",
-            header="c0,r0",
-            usage="c0,r1",
-            outputs="c0,r5",
-            outputs_title="c0,r4",
+    def compose(self) -> Iterator[textual.widget.Widget]:
+        outputs_scroll_widgets = self.get_outputs_scroll_widgets()
+        self.outputs_scroll = VerticalScroll(
+            *outputs_scroll_widgets, id="vertical-scroll-center"
         )
-        grid.place(
-            command=self.command,
-            header=self.header,
-            outputs=self.outputs_scroll,
-            outputs_title=self.outputs_title,
-            usage=self.usage,
-        )
+
+        with Container(id="app-grid"):
+            yield self.header
+            yield self.usage
+            yield self.command
+            yield self.outputs_title
+            yield self.outputs_scroll
