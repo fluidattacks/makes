@@ -13,6 +13,7 @@ powered by [Nix](https://nixos.org/).
 ![Local](https://img.shields.io/badge/Local-brightgreen)
 ![Docker](https://img.shields.io/badge/Docker-brightgreen)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-brightgreen)
+[![Scc Count Badge](https://sloc.xyz/github/fluidattacks/makes/?category=lines)](https://github.com/fluidattacks/makes/)
 ![Nomad](https://img.shields.io/badge/Nomad-brightgreen)
 ![AWS Batch](https://img.shields.io/badge/AWS%20Batch-brightgreen)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/fluidattacks/makes?color=blueviolet&label=Commits&labelColor=blueviolet)
