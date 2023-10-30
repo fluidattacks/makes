@@ -6,8 +6,8 @@
 
     ???+ tip
 
-        We recommend getting the Single-user installation
-        if you're new to Nix.
+        We recommend getting the Multi-user installation
+        for compatibility.
 
 1. Install Makes:
 
