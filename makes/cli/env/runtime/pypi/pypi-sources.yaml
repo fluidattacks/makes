@@ -1,31 +1,80 @@
 closure:
-  commonmark: 0.9.1
-  pygments: 2.13.0
-  rich: 12.6.0
-  textual: 0.1.18
+  importlib-metadata: 6.8.0
+  linkify-it-py: 2.0.2
+  markdown-it-py: 3.0.0
+  mdit-py-plugins: 0.4.0
+  mdurl: 0.1.2
+  pygments: 2.16.1
+  rich: 13.6.0
+  textual: 0.40.0
+  typing-extensions: 4.8.0
+  uc-micro-py: 1.0.2
+  zipp: 3.17.0
 links:
-  - name: commonmark-0.9.1-py2.py3-none-any.whl
-    sha256: 1nbgsvb73ad93cjzjdggkpp4zizvxay3q6ms23j3vy4h4p4khbys
-    url: https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl
-  - name: commonmark-0.9.1.tar.gz
-    sha256: 0q7d39lm8kcingpmykk5r959hrwwj6v2icyw3mihczxyb749sbs5
-    url: https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz
-  - name: Pygments-2.13.0-py3-none-any.whl
-    sha256: 0hjcs4h4fmx0k7gfykng2zqr8vmwvaif8bi1i6fkrfjpmcqz6hzn
-    url: https://files.pythonhosted.org/packages/4f/82/672cd382e5b39ab1cd422a672382f08a1fb3d08d9e0c0f3707f33a52063b/Pygments-2.13.0-py3-none-any.whl
-  - name: Pygments-2.13.0.tar.gz
-    sha256: 1ha0pqk3f27zlb2h4gmlb3w8lz9zmvjnnfprpnwy562zx6551a2n
-    url: https://files.pythonhosted.org/packages/e0/ef/5905cd3642f2337d44143529c941cc3a02e5af16f0f65f81cbef7af452bb/Pygments-2.13.0.tar.gz
-  - name: rich-12.6.0-py3-none-any.whl
-    sha256: 0pmvh5xhk8pkkg6h85lzv0liw2q15b9p6z51v6dmi0ic9x42dsx4
-    url: https://files.pythonhosted.org/packages/32/60/81ac2e7d1e3b861ab478a72e3b20fc91c4302acd2274822e493758941829/rich-12.6.0-py3-none-any.whl
-  - name: rich-12.6.0.tar.gz
-    sha256: 1l1zr5g2k7qyl5bqcsdhrv2nbzgl2v0z4h8ischw41a1jxskffms
-    url: https://files.pythonhosted.org/packages/11/23/814edf09ec6470d52022b9e95c23c1bef77f0bc451761e1504ebd09606d3/rich-12.6.0.tar.gz
-  - name: textual-0.1.18-py3-none-any.whl
-    sha256: 13k3i7mkcpn49xsac759a6fvbmcsg7bdyvl7a0f7qncc84shj4ar
-    url: https://files.pythonhosted.org/packages/28/f7/4b9d17a2b53a46a95781106ffe29a7414dc8760d542bd430196d201d1a91/textual-0.1.18-py3-none-any.whl
-  - name: textual-0.1.18.tar.gz
-    sha256: 08yg5a51hz1axfj5hx28hx31gq5apcj6vpkkmawmiplisa73z25j
-    url: https://files.pythonhosted.org/packages/8c/d1/c228993e8a21e24bb43a0376b2901b6f3f2033dae13e7f76d1103bb9b8a3/textual-0.1.18.tar.gz
+  - name: importlib_metadata-6.8.0-py3-none-any.whl
+    sha256: 1fv8pr56ksxklidj8yacv4y0arwxbnbmn0j5h9lxf1d8hkgpifry
+    url: https://files.pythonhosted.org/packages/cc/37/db7ba97e676af155f5fcb1a35466f446eadc9104e25b83366e8088c9c926/importlib_metadata-6.8.0-py3-none-any.whl
+  - name: importlib_metadata-6.8.0.tar.gz
+    sha256: 0hs7cpafk8qn63amnm64yij4w7c35win4rh9mp0ll34c5n4ygb6v
+    url: https://files.pythonhosted.org/packages/33/44/ae06b446b8d8263d712a211e959212083a5eda2bf36d57ca7415e03f6f36/importlib_metadata-6.8.0.tar.gz
+  - name: linkify_it_py-2.0.2-py3-none-any.whl
+    sha256: 0hb53cgifcw2cpc6h38rwmxh22dyq0m1vrkz1lvjfvy9yql498m3
+    url: https://files.pythonhosted.org/packages/1f/1a/16b0d2f66601ba3081f1d4177087c79fd1f11d17706ee01d373e4ba8e00d/linkify_it_py-2.0.2-py3-none-any.whl
+  - name: linkify-it-py-2.0.2.tar.gz
+    sha256: 1lka1nds59x1hw4i9237633x4j8cr1jx96cfh162ab444w3hdwqr
+    url: https://files.pythonhosted.org/packages/8d/fd/73bb30ec2b3cd952fe139a79a40ce5f5fd0280dd2cc1de94c93ea6a714d2/linkify-it-py-2.0.2.tar.gz
+  - name: markdown_it_py-3.0.0-py3-none-any.whl
+    sha256: 1cfam2hw2bfjiwxf9038yj3cqrcpiw7c9n6q5hirdgb0bj21clim
+    url: https://files.pythonhosted.org/packages/42/d7/1ec15b46af6af88f19b8e5ffea08fa375d433c998b8a7639e76935c14f1f/markdown_it_py-3.0.0-py3-none-any.whl
+  - name: markdown-it-py-3.0.0.tar.gz
+    sha256: 1swgvyiavak0nmfb31lq5zck5chwhmyf6qb6qwpcav86zaa0mxp3
+    url: https://files.pythonhosted.org/packages/38/71/3b932df36c1a044d397a1f92d1cf91ee0a503d91e470cbd670aa66b07ed0/markdown-it-py-3.0.0.tar.gz
+  - name: mdit_py_plugins-0.4.0-py3-none-any.whl
+    sha256: 1yfyqa7g4nya8inrwaijdyrr6yl50xqkczi59sbpzxci0svkn6xm
+    url: https://files.pythonhosted.org/packages/e5/3c/fe85f19699a7b40c8f9ce8ecee7e269b9b3c94099306df6f9891bdefeedd/mdit_py_plugins-0.4.0-py3-none-any.whl
+  - name: mdit_py_plugins-0.4.0.tar.gz
+    sha256: 06rc3pxr1kz1m22s3y2mb5qpb8jww7yyv7w12skqmhynmvljgayq
+    url: https://files.pythonhosted.org/packages/b4/db/61960d68d5c39ff0dd48cb799a39ae4e297f6e9b96bf2f8da29d897fba0c/mdit_py_plugins-0.4.0.tar.gz
+  - name: mdurl-0.1.2-py3-none-any.whl
+    sha256: 1y5qjqhmq2nm7xj6w5rrp503r7jhj7zr2qcnr6gs858nwm0ql044
+    url: https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl
+  - name: mdurl-0.1.2.tar.gz
+    sha256: 1fn1hy35h9grggwqax90zcb52inlfxrxsm27vlqqz8zfyllkshdv
+    url: https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz
+  - name: Pygments-2.16.1-py3-none-any.whl
+    sha256: 14inclsjknq46hgqc7g8mqz38jrw63my2iyjlrqqd3dwcgx0kz0k
+    url: https://files.pythonhosted.org/packages/43/88/29adf0b44ba6ac85045e63734ae0997d3c58d8b1a91c914d240828d0d73d/Pygments-2.16.1-py3-none-any.whl
+  - name: Pygments-2.16.1.tar.gz
+    sha256: 0abfx7n0mgpxk05f2kini3p78wsp1yi7lh0yjk49pii0914z1bqx
+    url: https://files.pythonhosted.org/packages/d6/f7/4d461ddf9c2bcd6a4d7b2b139267ca32a69439387cc1f02a924ff8883825/Pygments-2.16.1.tar.gz
+  - name: rich-13.6.0-py3-none-any.whl
+    sha256: 0ifjsyqygqbnp9gf67zg2070sy9wqqh2s6ha2w09lb57kkzf4f1b
+    url: https://files.pythonhosted.org/packages/be/2a/4e62ff633612f746f88618852a626bbe24226eba5e7ac90e91dcfd6a414e/rich-13.6.0-py3-none-any.whl
+  - name: rich-13.6.0.tar.gz
+    sha256: 1vsbcixxqffar2hk0nj50fs6ac9nskan46vpyi70img66wkx452w
+    url: https://files.pythonhosted.org/packages/b1/0e/e5aa3ab6857a16dadac7a970b2e1af21ddf23f03c99248db2c01082090a3/rich-13.6.0.tar.gz
+  - name: textual-0.40.0-py3-none-any.whl
+    sha256: 076px5f999hvxd4i2np43kfjgy88lz2ky3n0fwq1sdm9r74z161y
+    url: https://files.pythonhosted.org/packages/88/fe/54edc5b1e740921271473160ca8aa8334becae85a0a1cc0a127edc73a87a/textual-0.40.0-py3-none-any.whl
+  - name: textual-0.40.0.tar.gz
+    sha256: 0bl1yxkpj9f92hfji5w5dc0v665i2phr0by8cy0xixmpzbwi9l0g
+    url: https://files.pythonhosted.org/packages/01/22/99db4365d3f883c73d02135a1f312f146a59d18cf72e6462aed014339897/textual-0.40.0.tar.gz
+  - name: typing_extensions-4.8.0-py3-none-any.whl
+    sha256: 187s0lvblj64kf66gxn0mbph3m245fiqscd5x90vd9pr0s4gr4lg
+    url: https://files.pythonhosted.org/packages/24/21/7d397a4b7934ff4028987914ac1044d3b7d52712f30e2ac7a2ae5bc86dd0/typing_extensions-4.8.0-py3-none-any.whl
+  - name: typing_extensions-4.8.0.tar.gz
+    sha256: 1vxpx1d0aw0hbvqyxlb1z16720y36g5cxnybb1skaxybx4wl73nz
+    url: https://files.pythonhosted.org/packages/1f/7a/8b94bb016069caa12fc9f587b28080ac33b4fbb8ca369b98bc0a4828543e/typing_extensions-4.8.0.tar.gz
+  - name: uc_micro_py-1.0.2-py3-none-any.whl
+    sha256: 1q1xbzksgrs4smf3iaw81n9p09qmqg94lbrf623rx7fv171i14cc
+    url: https://files.pythonhosted.org/packages/d1/1c/5aeb94aa980da111e4fd0c0fbe5ad95ed5bf9bd957f8e2a6178b85ff4da8/uc_micro_py-1.0.2-py3-none-any.whl
+  - name: uc-micro-py-1.0.2.tar.gz
+    sha256: 0m2cjmf7k5lkrmsgm5d0djqp9dfjzj3x2fvlrrnsqfczqk4jmbih
+    url: https://files.pythonhosted.org/packages/75/db/241444fe6df6970a4c18d227193cad77fab7cec55d98e296099147de017f/uc-micro-py-1.0.2.tar.gz
+  - name: zipp-3.17.0-py3-none-any.whl
+    sha256: 0ccz81b8bf26gizhrq3jwnwbpxrz92nmjg651772v4klc5r3x4hf
+    url: https://files.pythonhosted.org/packages/d9/66/48866fc6b158c81cc2bfecc04c480f105c6040e8b077bc54c634b4a67926/zipp-3.17.0-py3-none-any.whl
+  - name: zipp-3.17.0.tar.gz
+    sha256: 1w5sra87d544gf6nq2a2d6vikjsrqb48rfvq43nr2zng50f4mrl4
+    url: https://files.pythonhosted.org/packages/58/03/dd5ccf4e06dec9537ecba8fcc67bbd4ea48a2791773e469e73f94c3ba9a6/zipp-3.17.0.tar.gz
 python: "3.10"
