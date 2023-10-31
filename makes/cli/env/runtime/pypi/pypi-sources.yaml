@@ -1,5 +1,6 @@
 closure:
   commonmark: 0.9.1
+  # NOFLUID This report is irrelevant, the way Makes uses pygments is not affected.
   pygments: 2.13.0
   rich: 12.6.0
   textual: 0.1.18
