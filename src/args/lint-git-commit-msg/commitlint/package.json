@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@commitlint/cli": "17.6.5"
+    "@commitlint/cli": "18.2.0"
   }
 }
