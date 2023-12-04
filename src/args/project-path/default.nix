@@ -13,7 +13,7 @@ then
     name =
       if rel == "/"
       then "src"
-      else builtins.baseNameOf rel;
+      else builtins.replaceStrings ["/"] ["-"] rel;
     path = (builtins.unsafeDiscardStringContext projectSrc) + rel;
   })
 else abort "projectPath arguments must start with: /, currently it is: ${rel}"
