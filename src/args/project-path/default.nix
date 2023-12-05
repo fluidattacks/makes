@@ -1,6 +1,7 @@
 {
   hasPrefix,
   projectSrc,
+  removePrefix,
   ...
 }: rel:
 if hasPrefix "/" rel
@@ -13,7 +14,7 @@ then
     name =
       if rel == "/"
       then "src"
-      else builtins.replaceStrings ["/"] ["-"] rel;
+      else removePrefix "." (builtins.baseNameOf rel);
     path = (builtins.unsafeDiscardStringContext projectSrc) + rel;
   })
 else abort "projectPath arguments must start with: /, currently it is: ${rel}"
