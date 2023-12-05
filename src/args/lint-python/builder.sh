@@ -12,7 +12,7 @@ function main {
   local python_dirs
   local python_dir
 
-  package_name="$(basename "${envSrc##*-}")" \
+  package_name="$(basename "${envSrc#*-}")" \
     && info Running mypy over: "${package_path}", package "${package_name}" \
     && if ! test -e "${package_path}/py.typed"; then
       error This is not a mypy package, py.typed missing
