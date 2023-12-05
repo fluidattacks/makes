@@ -1,13 +1,5 @@
 # shellcheck shell=bash
 
-function get_package_name {
-  local package_path="${1}"
-  local package_dir
-
-  : && package_dir="$(basename "${envSrc#*--}")" \
-    && echo "${package_dir//-/_}"
-}
-
 function main {
   # If you do `import XXX` in your python code and the structure is like this:
   #   /path/to/XXX
@@ -20,7 +12,7 @@ function main {
   local python_dirs
   local python_dir
 
-  package_name="$(get_package_name "${envSrc}")" \
+  package_name="$(basename "${envSrc##*-}")" \
     && info Running mypy over: "${package_path}", package "${package_name}" \
     && if ! test -e "${package_path}/py.typed"; then
       error This is not a mypy package, py.typed missing
