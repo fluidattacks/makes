@@ -10,7 +10,10 @@
   fix' = __unfix__: let x = __unfix__ x // {inherit __unfix__;}; in x;
   sources = import ../nix/sources.nix;
   args = fix' (self: let
-    __nixpkgs__ = import sources.nixpkgs {inherit system;};
+    __nixpkgs__ = import sources.nixpkgs {
+      inherit system;
+      config = {allowUnfree = true;};
+    };
   in {
     inherit __nixpkgs__;
     __nixpkgsSrc__ = sources.nixpkgs;
