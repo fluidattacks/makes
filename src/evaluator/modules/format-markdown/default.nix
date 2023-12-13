@@ -47,7 +47,7 @@
           source = [
             (makeNodeJsEnvironment {
               name = "doctoc";
-              nodeJsVersion = "16";
+              nodeJsVersion = "18";
               packageJson = ./doctoc/package.json;
               packageLockJson = ./doctoc/package-lock.json;
             })
