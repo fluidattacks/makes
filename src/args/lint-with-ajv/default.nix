@@ -18,7 +18,7 @@ makeDerivation {
     source = [
       (makeNodeJsEnvironment {
         name = "ajv-cli";
-        nodeJsVersion = "16";
+        nodeJsVersion = "18";
         packageJson = ./ajv-cli/package.json;
         packageLockJson = ./ajv-cli/package-lock.json;
       })
