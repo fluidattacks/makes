@@ -14,7 +14,7 @@ m github:fluidattacks/makes@23.07 /utils/makeNodeJsLock \
   "${package_json_dir}"
 ```
 
-- Supported `node_js_version`s are: `14`, `16` and `18`.
+- Supported `node_js_version`s are: `18`, `20` and `21`.
 - `package_json_dir` is the **absolute path** to the directory that contains
     the `package.json` file in your project.
 - The `package-lock.json` file will be generated in the same directory that
@@ -59,7 +59,7 @@ m github:fluidattacks/makes@23.07 /utils/makeRubyLock \
   "${sources_yaml}"
 ```
 
-- Supported `ruby_version`s are: `2.7`, `3.0` and `3.1`.
+- Supported `ruby_version`s are: `3.1`, `3.2` and `3.3`.
 - `dependencies_yaml` is the **absolute path** to a YAML file
     mapping [RubyGems](https://rubygems.org/) gems to version constraints.
     Example:

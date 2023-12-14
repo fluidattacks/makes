@@ -8,14 +8,14 @@ function main {
 
   : \
     && case "${ruby_version}" in
-      2.7) ruby=__argRuby27__ ;;
-      3.0) ruby=__argRuby30__ ;;
-      3.1) ruby=__argRuby31__ ;;
+      3.1) ruby=__argRuby31__/bin/ruby ;;
+      3.2) ruby=__argRuby32__/bin/ruby ;;
+      3.3) ruby=__argRuby33__/bin/ruby ;;
       *) critical Ruby version not supported: "${ruby_version}" ;;
     esac \
     && info "Generating manifest:" \
     && pushd "$(mktemp -d)" \
-    && "__argRuby27__/bin/ruby" \
+    && "${ruby}" \
       "__argParser__" \
       "${ruby_version}" \
       "${ruby}" \

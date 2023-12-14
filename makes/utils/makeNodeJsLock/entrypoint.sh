@@ -9,11 +9,11 @@ function main {
   )
 
   : && case "${node_js_version}" in
-      14) npm=__argNode14__/bin/npm ;;
-      16) npm=__argNode16__/bin/npm ;;
-      18) npm=__argNode18__/bin/npm ;;
-      *) critical NodeJs version not supported: "${node_js_version}" ;;
-    esac \
+    18) npm=__argNode18__/bin/npm ;;
+    20) npm=__argNode20__/bin/npm ;;
+    21) npm=__argNode21__/bin/npm ;;
+    *) critical NodeJs version not supported: "${node_js_version}" ;;
+  esac \
     && pushd "${package_json_dir}" \
     && "${npm}" install "${npm_install_args[@]}" \
     && popd || return 1
