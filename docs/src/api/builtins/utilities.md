@@ -11,16 +11,14 @@ like this:
 ```bash
 m github:fluidattacks/makes@23.07 /utils/makeNodeJsLock \
   "${node_js_version}" \
-  "${package_json}" \
-  "${package_lock}"
+  "${package_json_dir}"
 ```
 
 - Supported `node_js_version`s are: `14`, `16` and `18`.
-- `package_json` is the **absolute path** to the `package.json` file in your
-    project.
-- `package_lock` is the **absolute path**
-    to the `package-lock.json` file in your project, this file can be an empty
-    file.
+- `package_json_dir` is the **absolute path** to the directory that contains
+    the `package.json` file in your project.
+- The `package-lock.json` file will be generated in the same directory that
+    contains the `package.json` file.
 
 ## makePythonLock
 
