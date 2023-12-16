@@ -12,6 +12,8 @@
 {
   # JSON String containing complete list of main.nix files found within projectSrc
   attrPaths,
+  # flake inputs to inject, if any
+  flakeInputs ? {},
   # Source code of makes, can be overriden by the user.
   makesSrc,
   # Path to the user's project, inside a sandbox.
@@ -39,7 +41,7 @@
     else makesSrc;
 
   args = import "${makesSrcOverriden}/src/args/default.nix" {
-    inherit (result.config) inputs;
+    inputs = flakeInputs // result.config.inputs;
     inherit (result.config) outputs;
     inherit (result.config) projectIdentifier;
     inherit projectSrc;
