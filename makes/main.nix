@@ -15,13 +15,11 @@ in
     ];
     replace = {
       __argMakesSrc__ = projectPath "/";
-      __argNixStable__ = __nixpkgs__.nixStable;
-      __argNixUnstable__ = __nixpkgs__.nixUnstable;
+      __argNix__ = __nixpkgs__.nixVersions.nix_2_15;
     };
     entrypoint = ''
       __MAKES_SRC__=__argMakesSrc__ \
-      __NIX_STABLE__=__argNixStable__ \
-      __NIX_UNSTABLE__=__argNixUnstable__ \
+      __NIX__=__argNix__ \
       python -u __argMakesSrc__/src/cli/main/__main__.py "$@"
     '';
     searchPaths.source = [
