@@ -85,6 +85,7 @@ Example:
 
     ```nix
     {
+      computeOnAwsBatch,
       outputs,
       ...
     }: {
@@ -103,7 +104,7 @@ Example:
           ];
           tags = {
             "Management:Product" = "awesome_app";
-          }
+          };
           vcpus = 1;
         };
       };

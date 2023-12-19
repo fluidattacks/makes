@@ -121,10 +121,9 @@ You can also import Makes from Nix:
 ```nix
 let
   # Import the framework
-  makes = import "${builtins.fetchGit {
-    url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/24.01";
-    rev = ""; # Add a commit here
+  makes = import "${builtins.fetchTarball {
+    sha256 = ""; # Tarball sha256
+    url = "https://api.github.com/repos/fluidattacks/makes/tarball/24.01";
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
