@@ -78,12 +78,11 @@ MAKES_DIR: str = join(environ["HOME_IMPURE"], ".cache/makes")
 makedirs(MAKES_DIR, exist_ok=True)
 SOURCES_CACHE: str = join(MAKES_DIR, "sources")
 ON_EXIT: List[Callable[[], None]] = []
-VERSION: str = "23.07"
+VERSION: str = "24.01"
 
 # Environment
 __MAKES_SRC__: str = environ["__MAKES_SRC__"]
-__NIX_STABLE__: str = environ["__NIX_STABLE__"]
-__NIX_UNSTABLE__: str = environ["__NIX_UNSTABLE__"]
+__NIX__: str = environ["__NIX__"]
 
 
 # Feature flags
@@ -101,10 +100,6 @@ K8S_COMPAT: bool = bool(environ.get("MAKES_K8S_COMPAT"))
 if K8S_COMPAT:
     CON.out("Using feature flag: MAKES_K8S_COMPAT")
 
-NIX_STABLE: bool = not bool(environ.get("MAKES_NIX_UNSTABLE"))
-if not NIX_STABLE:
-    CON.out("Using feature flag: MAKES_NIX_UNSTABLE")
-
 
 def _if(condition: Any, *value: Any) -> List[Any]:
     return list(value) if condition else []
@@ -118,11 +113,7 @@ def _clone_src(src: str) -> str:
     ON_EXIT.append(partial(shutil.rmtree, head, ignore_errors=True))
 
     if abspath(src) == CWD:  # `m .` ?
-        if NIX_STABLE:
-            _clone_src_git_worktree_add(src, head)
-        else:
-            # Nix with Flakes already ensures a pristine git repo
-            head = src
+        _clone_src_git_worktree_add(src, head)
     else:
         if (
             (match := _clone_src_github(src))
@@ -286,16 +277,12 @@ def _nix_build(
             ]
         )
     return [
-        *_if(NIX_STABLE, f"{__NIX_STABLE__}/bin/nix-build"),
-        *_if(not NIX_STABLE, f"{__NIX_UNSTABLE__}/bin/nix"),
-        *_if(not NIX_STABLE, "--experimental-features", "flakes nix-command"),
-        *_if(not NIX_STABLE, "build"),
-        *_if(NIX_STABLE, "--argstr", "makesSrc", __MAKES_SRC__),
-        *_if(NIX_STABLE, "--argstr", "projectSrc", head),
+        *[f"{__NIX__}/bin/nix-build"],
+        *["--argstr", "makesSrc", __MAKES_SRC__],
+        *["--argstr", "projectSrc", head],
         *["--argstr", "attrPaths", attr_paths],
-        *_if(NIX_STABLE, "--attr", attr),
+        *["--attr", attr],
         *["--option", "cores", "0"],
-        *_if(not NIX_STABLE, "--impure"),
         *["--option", "narinfo-cache-negative-ttl", "1"],
         *["--option", "narinfo-cache-positive-ttl", "1"],
         *["--option", "max-jobs", "auto"],
@@ -305,15 +292,14 @@ def _nix_build(
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
         *["--show-trace"],
-        *_if(NIX_STABLE, f"{__MAKES_SRC__}/src/evaluator/default.nix"),
-        *_if(not NIX_STABLE, attr),
+        *[f"{__MAKES_SRC__}/src/evaluator/default.nix"],
     ]
 
 
 def _nix_hashes(paths: bytes) -> List[str]:
     cmd = [
         "xargs",
-        f"{__NIX_STABLE__}/bin/nix-store",
+        f"{__NIX__}/bin/nix-store",
         "--query",
         "--hash",
     ]
@@ -326,13 +312,13 @@ def _nix_hashes(paths: bytes) -> List[str]:
 
 def _nix_build_requisites(path: str) -> List[Tuple[str, str]]:
     """Answer the question: what do I need to build `out`."""
-    cmd = [f"{__NIX_STABLE__}/bin/nix-store", "--query", "--deriver", path]
+    cmd = [f"{__NIX__}/bin/nix-store", "--query", "--deriver", path]
     out, stdout, _ = _run_outputs(cmd, stderr=None)
     if out != 0:
         raise SystemExit(out)
 
     cmd = [
-        f"{__NIX_STABLE__}/bin/nix-store",
+        f"{__NIX__}/bin/nix-store",
         "--query",
         "--requisites",
         "--include-outputs",
@@ -358,8 +344,8 @@ def _get_head(src: str) -> str:
     CON.out()
     head: str = _clone_src(src)
 
-    # Applies only to local repositories on non-flakes Nix
-    if abspath(src) == CWD and NIX_STABLE:  # `m .` ?
+    # Applies only to local repositories
+    if abspath(src) == CWD:  # `m .` ?
         paths: Set[str] = set()
 
         # Propagated `git add`ed files
@@ -410,15 +396,13 @@ def _get_config(head: str, attr_paths: str) -> Config:
     out: str = _get_named_temporary_file_name()
     code = _run(
         args=_nix_build(
-            attr="config.configAsJson"
-            if NIX_STABLE
-            else f'{head}#__makes__."config:configAsJson"',
+            attr="config.configAsJson",
             attr_paths=attr_paths,
             cache=None,
             head=head,
             out=out,
         ),
-        env=None if NIX_STABLE else dict(HOME=environ["HOME_IMPURE"]),
+        env=None,
         stderr=None,
         stdout=sys.stderr.fileno(),
     )
@@ -626,15 +610,13 @@ def _cli_build(  # pylint: disable=too-many-arguments
 
     code = _run(
         args=_nix_build(
-            attr=f'config.outputs."{attr}"'
-            if NIX_STABLE
-            else f'{head}#__makes__."config:outputs:{attr}"',
+            attr=f'config.outputs."{attr}"',
             attr_paths=attr_paths,
             cache=config.cache,
             head=head,
             out=out,
         ),
-        env=None if NIX_STABLE else dict(HOME=environ["HOME_IMPURE"]),
+        env=None,
         stderr=None,
         stdout=None,
     )
