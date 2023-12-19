@@ -35,13 +35,19 @@ for instance:
 ```nix
 # /path/to/my/project/makes.lock.nix
 {
-  makesSrc = builtins.fetchGit {
-    url = "https://github.com/fluidattacks/makes";
-    ref = "refs/tags/24.01";
-    rev = ""; # Add a commit here
+  makesSrc = builtins.fetchTarball {
+    sha256 = ""; # Tarball sha256
+    url = "https://api.github.com/repos/fluidattacks/makes/tarball/24.01";
   };
 }
 ```
+
+???+ tip
+
+    We recommend using `builtins.fetchTarball`
+    over `builtins.fetchGit`
+    due to reproducibility issues
+    mentioned in [nixpkgs](https://github.com/NixOS/nix/issues/3533).
 
 ## Compatibility information
 

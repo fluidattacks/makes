@@ -3,9 +3,9 @@
   nixpkgs,
 }: let
   nix-filter = let
-    src = builtins.fetchGit {
-      url = "https://github.com/numtide/nix-filter";
-      rev = "fc282c5478e4141842f9644c239a41cfe9586732";
+    src = builtins.fetchTarball {
+      sha256 = "sha256:155cmq1w8s5v2l4d5zlhbph8r4fh0k2cl503z94ma7yizmmx9ll5";
+      url = "https://api.github.com/repos/numtide/nix-filter/tarball/fc282c5478e4141842f9644c239a41cfe9586732";
     };
   in
     import src;
