@@ -33,7 +33,7 @@
         type = lib.types.attrsOf lib.types.anything;
       };
       image = lib.mkOption {
-        default = "ghcr.io/fluidattacks/makes/amd64:23.07";
+        default = "ghcr.io/fluidattacks/makes/amd64:24.01";
         type = lib.types.str;
       };
       output = lib.mkOption {

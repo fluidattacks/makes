@@ -9,7 +9,7 @@ You can generate a `package-lock.json` for
 like this:
 
 ```bash
-m github:fluidattacks/makes@23.07 /utils/makeNodeJsLock \
+m github:fluidattacks/makes@24.01 /utils/makeNodeJsLock \
   "${node_js_version}" \
   "${package_json_dir}"
 ```
@@ -27,7 +27,7 @@ You can generate a `sourcesYaml` for
 like this:
 
 ```bash
-m github:fluidattacks/makes@23.07 /utils/makePythonLock \
+m github:fluidattacks/makes@24.01 /utils/makePythonLock \
   "${python_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}"
@@ -53,7 +53,7 @@ You can generate a `sourcesYaml` for
 like this:
 
 ```bash
-m github:fluidattacks/makes@23.07 /utils/makeRubyLock \
+m github:fluidattacks/makes@24.01 /utils/makeRubyLock \
   "${ruby_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}"
@@ -77,7 +77,7 @@ m github:fluidattacks/makes@23.07 /utils/makeRubyLock \
 You can generate an encrypted [Sops](https://github.com/mozilla/sops) file like this:
 
 ```bash
-m github:fluidattacks/makes@23.07 /utils/makeSopsEncryptedFile \
+m github:fluidattacks/makes@24.01 /utils/makeSopsEncryptedFile \
   "${kms_key_arn}" \
   "${output}"
 ```

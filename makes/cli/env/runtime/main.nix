@@ -11,7 +11,7 @@ makeSearchPaths {
     __nixpkgs__.git
     __nixpkgs__.gnutar
     __nixpkgs__.gzip
-    __nixpkgs__.nixStable
+    __nixpkgs__.nixVersions.nix_2_15
     __nixpkgs__.openssh
   ];
   source = [
