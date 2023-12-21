@@ -5,7 +5,7 @@ Get a specific Node.js version interpreter.
 Types:
 
 - makeNodeJsVersion (`function str -> package`):
-    - (`enum [ "14" "16" "18" ]`):
+    - (`enum [ "18" "20" "21" ]`):
         Node.js version to use.
 
 Example:
@@ -25,7 +25,7 @@ Example:
       '';
       name = "example";
       searchPaths = {
-        bin = [ (makeNodeJsVersion "16") ];
+        bin = [ (makeNodeJsVersion "18") ];
       };
     }
     ```
@@ -41,25 +41,24 @@ Example:
 ## makeNodeJsModules
 
 Cook the `node_modules` directory
-for the given Node.js project.
+for the given Node.js project
+using [node2nix](https://github.com/svanderburg/node2nix).
 
 Types:
 
 - makeNodeJsModules (`function { ... } -> package`):
     - name (`str`):
         Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
+    - nodeJsVersion (`enum [ "18" ]`):
         Node.js version to use.
     - packageJson (`package`):
         Path to the `package.json` of your project.
     - packageLockJson (`package`):
         Path to the `package-lock.json` of your project.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-        Arguments here will be passed as-is to `makeSearchPaths`.
-        Defaults to `makeSearchPaths`'s defaults.
-    - shouldIgnoreScripts (`bool`): Optional.
-        Enable to propagate the `--ignore-scripts true` flag to npm.
-        Defaults to `false`.
+    - packageOverrides (`Attrs`): Optional.
+        Override behaviors when building `node_modules`.
+        See [node2nix arguments](https://github.com/svanderburg/node2nix/blob/315e1b85a6761152f57a41ccea5e2570981ec670/nix/node-env.nix#L568)
+        for more.
 
 Example:
 
@@ -96,6 +95,7 @@ Example:
     ```nix
     # /path/to/my/project/makes/example/main.nix
     {
+      inputs,
       makeNodeJsModules,
       makeScript,
       projectPath,
@@ -109,6 +109,12 @@ Example:
           projectPath "/path/to/my/project/makes/example/package.json";
         packageLockJson =
           projectPath "/path/to/my/project/makes/example/package-lock.json";
+        packageOverrides = {
+          # Ignore post-install scripts
+          npmFlags = "--ignore-scripts true";
+          # Provide patchelf when building node_modules
+          buildInputs = [inputs.nixpkgs.patchelf];
+        };
       };
     in
     makeScript {
@@ -117,6 +123,7 @@ Example:
       };
       entrypoint = ''
         ls __argHello__
+        ls __argHello__/lib
       '';
       name = "example";
     }
@@ -127,7 +134,8 @@ Example:
     ```bash
     $ m . /example
 
-        hello-world-npm
+        /bin /lib
+        /node_modules
     ```
 
 ## makeNodeJsEnvironment
@@ -148,18 +156,16 @@ Types:
 - makeNodeJsEnvironment (`function { ... } -> package`):
     - name (`str`):
         Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "14" "16" "18" ]`):
+    - nodeJsVersion (`enum [ "18" ]`):
         Node.js version to use.
     - packageJson (`package`):
         Path to the `package.json` of your project.
     - packageLockJson (`package`):
         Path to the `package-lock.json` of your project.
-    - searchPaths (`asIn makeSearchPaths`): Optional.
-        Arguments here will be passed as-is to `makeSearchPaths`.
-        Defaults to `makeSearchPaths`'s defaults.
-    - shouldIgnoreScripts (`bool`): Optional.
-        Enable to propagate the `--ignore-scripts true` flag to npm.
-        Defaults to `false`.
+    - packageOverrides (`Attrs`): Optional.
+        Override behaviors when building `node_modules`.
+        See [node2nix arguments](https://github.com/svanderburg/node2nix/blob/315e1b85a6761152f57a41ccea5e2570981ec670/nix/node-env.nix#L568)
+        for more.
 
 Example:
 
@@ -208,6 +214,12 @@ Example:
           projectPath "/path/to/my/project/makes/example/package.json";
         packageLockJson =
           projectPath "/path/to/my/project/makes/example/package-lock.json";
+        packageOverrides = {
+          # Ignore post-install scripts
+          npmFlags = "--ignore-scripts true";
+          # Provide patchelf when building node_modules
+          buildInputs = [inputs.nixpkgs.patchelf];
+        };
       };
     in
     makeScript {
