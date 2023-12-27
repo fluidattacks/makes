@@ -1,4 +1,5 @@
 {
+  "name": "commitlint",
   "dependencies": {
     "@commitlint/cli": "18.2.0"
   }

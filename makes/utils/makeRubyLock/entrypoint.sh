@@ -4,21 +4,20 @@ function main {
   local ruby_version="${1}"
   local deps_path="${2}"
   local lock_path="${3}"
-  local ruby
+  local ruby_path
 
-  : \
-    && case "${ruby_version}" in
-      3.1) ruby=__argRuby31__/bin/ruby ;;
-      3.2) ruby=__argRuby32__/bin/ruby ;;
-      3.3) ruby=__argRuby33__/bin/ruby ;;
-      *) critical Ruby version not supported: "${ruby_version}" ;;
-    esac \
+  : && case "${ruby_version}" in
+    3.1) ruby_path=__argRuby31__ ;;
+    3.2) ruby_path=__argRuby32__ ;;
+    3.3) ruby_path=__argRuby33__ ;;
+    *) critical Ruby version not supported: "${ruby_version}" ;;
+  esac \
     && info "Generating manifest:" \
     && pushd "$(mktemp -d)" \
-    && "${ruby}" \
+    && "${ruby_path}/bin/ruby" \
       "__argParser__" \
       "${ruby_version}" \
-      "${ruby}" \
+      "${ruby_path}" \
       "${deps_path}" \
       > sources.json \
     && yj -yy < sources.json > "${lock_path}" \

@@ -9,18 +9,17 @@
   nodeJsVersion,
   packageJson,
   packageLockJson,
+  packageOverrides ? {},
   searchPaths ? {},
-  shouldIgnoreScripts ? false,
 }: let
   node = makeNodeJsVersion nodeJsVersion;
-  nodeModules = makeNodeJsModules {
+  nodeModules = "${makeNodeJsModules {
     inherit name;
     inherit nodeJsVersion;
     inherit packageJson;
     inherit packageLockJson;
-    inherit searchPaths;
-    inherit shouldIgnoreScripts;
-  };
+    inherit packageOverrides;
+  }}/lib/node_modules";
 in
   makeSearchPaths {
     bin = [node];

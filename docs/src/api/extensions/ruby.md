@@ -5,7 +5,7 @@ Get a specific Ruby interpreter.
 Types:
 
 - makeRubyVersion (`function str -> package`):
-    - (`enum [ "2.7" "3.0" "3.1" ]`):
+    - (`enum [ "3.1" "3.2" "3.3" ]`):
         Version of the Ruby interpreter.
 
 Example:
@@ -25,7 +25,7 @@ Example:
       '';
       name = "example";
       searchPaths = {
-        bin = [ (makeRubyVersion "2.7") ];
+        bin = [ (makeRubyVersion "3.1") ];
       };
     }
     ```
@@ -48,7 +48,7 @@ Types:
 - makeRubyGemsInstall (`function { ... } -> package`):
     - name (`str`):
         Custom name to assign to the build step, be creative, it helps in debugging.
-    - ruby (`enum [ "2.7" "3.0" ]`):
+    - ruby (`enum [ "3.1" "3.2" "3.3" ]`):
         Version of the Ruby interpreter.
     - searchPaths (`asIn makeSearchPaths`): Optional.
         Arguments here will be passed as-is to `makeSearchPaths`.
@@ -69,7 +69,7 @@ Example:
     }:
     makeRubyGemsInstall {
       name = "example";
-      ruby = "3.0";
+      ruby = "3.1";
       sourcesYaml = projectPath "/makes/example/sources.yaml";
     }
     ```
@@ -90,7 +90,7 @@ Types:
 - makeRubyGemsEnvironment (`function { ... } -> package`):
     - name (`str`):
         Custom name to assign to the build step, be creative, it helps in debugging.
-    - ruby (`enum [ "2.7" "3.0" ]`):
+    - ruby (`enum [ "3.1" "3.2" "3.3" ]`):
         Version of the Ruby interpreter.
     - searchPathsBuild (`asIn makeSearchPaths`): Optional.
         Arguments here will be passed as-is to `makeSearchPaths`
@@ -119,7 +119,7 @@ Example:
     let
       env = makeRubyGemsEnvironment {
         name = "example";
-        ruby = "3.0";
+        ruby = "3.1";
         searchPathsBuild.bin = [ inputs.nixpkgs.gcc ];
         searchPathsRuntime.rpath = [ inputs.nixpkgs.gcc.cc.lib ];
         sourcesYaml = projectPath "/makes/example/sources.yaml";
