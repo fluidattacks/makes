@@ -239,7 +239,7 @@
   };
   securePythonWithBandit = {
     cli = {
-      python = "3.11";
+      python = "3.12";
       target = "/src/cli/main";
     };
   };
@@ -257,7 +257,7 @@
   };
   testPython = {
     example = {
-      python = "3.11";
+      python = "3.12";
       src = "/test/test-python";
     };
     cliMain = {

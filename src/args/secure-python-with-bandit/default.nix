@@ -1,20 +1,24 @@
 {
   __nixpkgs__,
   makeDerivation,
+  makePythonPypiEnvironment,
   ...
 }: {
   name,
   python,
   target,
 }: let
-  bandit =
-    {
-      "3.8" = __nixpkgs__.python38Packages.bandit;
-      "3.9" = __nixpkgs__.python39Packages.bandit;
-      "3.10" = __nixpkgs__.python310Packages.bandit;
-      "3.11" = __nixpkgs__.python311Packages.bandit;
-    }
-    .${python};
+  pythonPypiEnvironment = makePythonPypiEnvironment {
+    inherit name;
+    sourcesYaml =
+      {
+        "3.9" = ./pypi-sources-3.9.yaml;
+        "3.10" = ./pypi-sources-3.10.yaml;
+        "3.11" = ./pypi-sources-3.11.yaml;
+        "3.12" = ./pypi-sources-3.12.yaml;
+      }
+      .${python};
+  };
 in
   makeDerivation {
     builder = ./builder.sh;
@@ -23,6 +27,6 @@ in
     };
     name = "secure-python-with-bandit-for-${name}";
     searchPaths = {
-      bin = [bandit];
+      source = [pythonPypiEnvironment];
     };
   }

@@ -257,7 +257,7 @@ Types:
         - prospector (`path`): Optional.
             Path to the Prospector configuration file.
             Defaults to [./settings-prospector.yaml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-python/settings-prospector.yaml).
-    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+    - python (`enum ["3.9" "3.10" "3.11" "3.12"]`):
         Python interpreter version that your package/module is designed for.
     - searchPaths (`asIn makeSearchPaths`): Optional.
         Arguments here will be passed as-is to `makeSearchPaths`.
@@ -280,7 +280,7 @@ Types:
         - prospector (`path`): Optional.
             Path to the Prospector configuration file.
             Defaults to [./settings-prospector.yaml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-python/settings-prospector.yaml).
-    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+    - python (`enum ["3.9" "3.10" "3.11" "3.12"]`):
         Python interpreter version that your package/module is designed for.
     - searchPaths (`asIn makeSearchPaths`): Optional.
         Arguments here will be passed as-is to `makeSearchPaths`.
@@ -298,7 +298,7 @@ Example:
         dirsOfModules = {
           makes = {
             config = {};
-            python = "3.8";
+            python = "3.9";
             src = "/src/cli";
           };
         };
@@ -311,7 +311,7 @@ Example:
         modules = {
           cliMain = {
             config = {};
-            python = "3.8";
+            python = "3.9";
             src = "/src/cli/main";
           };
         };

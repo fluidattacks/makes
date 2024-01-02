@@ -21,11 +21,13 @@
   pythonMypy39 ? [],
   pythonMypy310 ? [],
   pythonMypy311 ? [],
+  pythonMypy312 ? [],
   pythonPackage ? [],
   pythonPackage38 ? [],
   pythonPackage39 ? [],
   pythonPackage310 ? [],
   pythonPackage311 ? [],
+  pythonPackage312 ? [],
   rpath ? [],
   rubyBin ? [],
   rubyGemPath ? [],
@@ -121,10 +123,6 @@ in
           generator = makeExport "MYPYPATH" "";
         }
         {
-          derivations = pythonMypy38;
-          generator = makeExport "MYPYPATH" "/lib/python3.8/site-packages";
-        }
-        {
           derivations = pythonMypy39;
           generator = makeExport "MYPYPATH" "/lib/python3.9/site-packages";
         }
@@ -137,12 +135,12 @@ in
           generator = makeExport "MYPYPATH" "/lib/python3.11/site-packages";
         }
         {
-          derivations = pythonPackage;
-          generator = makeExport "PYTHONPATH" "";
+          derivations = pythonMypy312;
+          generator = makeExport "MYPYPATH" "/lib/python3.12/site-packages";
         }
         {
-          derivations = pythonPackage38;
-          generator = makeExport "PYTHONPATH" "/lib/python3.8/site-packages";
+          derivations = pythonPackage;
+          generator = makeExport "PYTHONPATH" "";
         }
         {
           derivations = pythonPackage39;
@@ -155,6 +153,10 @@ in
         {
           derivations = pythonPackage311;
           generator = makeExport "PYTHONPATH" "/lib/python3.11/site-packages";
+        }
+        {
+          derivations = pythonPackage312;
+          generator = makeExport "PYTHONPATH" "/lib/python3.12/site-packages";
         }
         {
           derivations = rpath;
