@@ -7,4 +7,4 @@ links:
   - name: cvss-2.3.tar.gz
     sha256: 0h21l80ia9zhhrk98b9y86ihigp7jnf2g8dydi3y14vv5vdcj8pw
     url: https://files.pythonhosted.org/packages/9b/f8/e0d929b2a37dd32cdf9f7aba88609a99a4f82b0fd961214466fbda8ee756/cvss-2.3.tar.gz
-python: "3.11"
+python: "3.12"

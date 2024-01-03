@@ -5,7 +5,7 @@ Get a specific Python interpreter.
 Types:
 
 - makePythonVersion: `SupportedVersions -> Derivation`
-    - `SupportedVersions` = `enum ["3.8" "3.9" "3.10" "3.11"]`
+    - `SupportedVersions` = `enum ["3.9" "3.10" "3.11" "3.12"]`
         Supported Python versions.
 
 Example:
@@ -25,7 +25,7 @@ Example:
       '';
       name = "example";
       searchPaths = {
-        bin = [ (makePythonVersion "3.8") ];
+        bin = [ (makePythonVersion "3.9") ];
       };
     }
     ```
@@ -35,7 +35,7 @@ Example:
     ```bash
     $ m . /example
 
-        Python 3.8.9
+        Python 3.9
     ```
 
 ## makePythonPypiEnvironment

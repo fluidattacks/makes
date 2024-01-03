@@ -122,7 +122,7 @@ Types:
     Mapping of names to pytest targets.
     Defaults to `{ }`.
 - targetType (`submodule`):
-    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+    - python (`enum ["3.9" "3.10" "3.11" "3.12"]`):
         Python interpreter version that your package/module is designed for.
     - src (`str`):
         Path to the file or directory that contains the tests code.

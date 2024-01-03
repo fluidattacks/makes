@@ -38,10 +38,10 @@ assert builtins.any (_: _) [
     then fromYamlFile sourcesYaml
     else abort "sourcesJson, sourcesRaw or sourcesYaml must be set";
 
-  is38 = sources.python == "3.8";
   is39 = sources.python == "3.9";
   is310 = sources.python == "3.10";
   is311 = sources.python == "3.11";
+  is312 = sources.python == "3.12";
   python = makePythonVersion sources.python;
 
   bootstraped = builtins.concatLists [
@@ -63,10 +63,10 @@ assert builtins.any (_: _) [
       name = "numpy-1.24.0";
       sourcesYaml =
         {
-          "3.8" = ./sources/numpy-1.24.0/sources-38.yaml;
           "3.9" = ./sources/numpy-1.24.0/sources-39.yaml;
           "3.10" = ./sources/numpy-1.24.0/sources-310.yaml;
           "3.11" = ./sources/numpy-1.24.0/sources-311.yaml;
+          "3.12" = ./sources/numpy-1.24.0/sources-312.yaml;
         }
         .${sources.python};
       withCython_0_29_24 = true;
@@ -148,10 +148,10 @@ assert builtins.any (_: _) [
 in
   makeSearchPaths {
     bin = [pypiEnvironment];
-    pythonPackage38 = listOptional is38 pypiEnvironment;
     pythonPackage39 = listOptional is39 pypiEnvironment;
     pythonPackage310 = listOptional is310 pypiEnvironment;
     pythonPackage311 = listOptional is311 pypiEnvironment;
+    pythonPackage312 = listOptional is312 pypiEnvironment;
     source = builtins.concatLists [
       bootstraped
       [(makeSearchPaths searchPathsRuntime)]

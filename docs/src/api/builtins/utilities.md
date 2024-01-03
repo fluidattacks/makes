@@ -33,7 +33,7 @@ m github:fluidattacks/makes@24.01 /utils/makePythonLock \
   "${sources_yaml}"
 ```
 
-- Supported `python_version`s are: `3.8`, `3.9`, `3.10` and `3.11`.
+- Supported `python_version`s are: `3.9`, `3.10`, `3.11` and `3.12`.
 - `dependencies_yaml` is the **absolute path** to a YAML file
     mapping [PyPI](https://pypi.org/) packages to version constraints.
     Example:

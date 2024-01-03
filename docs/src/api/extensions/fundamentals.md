@@ -174,11 +174,6 @@ Types specific to Python:
         of each element in the list
         to MYPYPATH.
         Defaults to `[ ]`.
-    - `pythonMypy38` (`listOf coercibleToStr`): Optional.
-        Append `/lib/python3.8/site-packages`
-        of each element in the list
-        to MYPYPATH.
-        Defaults to `[ ]`.
     - `pythonMypy39` (`listOf coercibleToStr`): Optional.
         Append `/lib/python3.9/site-packages`
         of each element in the list
@@ -196,11 +191,6 @@ Types specific to Python:
         Defaults to `[ ]`.
     - `pythonPackage` (`listOf coercibleToStr`): Optional.
         Append `/`
-        of each element in the list
-        to PYTHONPATH.
-        Defaults to `[ ]`.
-    - `pythonPackage38` (`listOf coercibleToStr`): Optional.
-        Append `/lib/python3.8/site-packages`
         of each element in the list
         to PYTHONPATH.
         Defaults to `[ ]`.

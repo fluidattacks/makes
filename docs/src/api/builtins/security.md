@@ -76,7 +76,7 @@ Types:
     Definitions of directories of python packages/modules to lint.
     Defaults to `{ }`.
 - projectType (`submodule`):
-    - python (`enum ["3.8" "3.9" "3.10" "3.11"]`):
+    - python (`enum ["3.9" "3.10" "3.11" "3.12"]`):
         Python interpreter version that your package/module is designed for.
     - target (`str`):
         Relative path to the package/module.
@@ -89,7 +89,7 @@ Example:
     {
       securePythonWithBandit = {
         cli = {
-          python = "3.8";
+          python = "3.10";
           target = "/src/cli";
         };
       };

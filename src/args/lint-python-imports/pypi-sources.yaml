@@ -1,16 +1,16 @@
 closure:
-  click: 8.1.3
+  click: 8.1.7
   colorama: 0.4.6
   grimp: "1.3"
   import-linter: 1.2.4
   networkx: 2.8.8
 links:
-  - name: click-8.1.3-py3-none-any.whl
-    sha256: 0j6vn6ayxq1bqs1v64r90sarg05hj6rxj4w29vs0k9hmrcrq2kdv
-    url: https://files.pythonhosted.org/packages/c2/f1/df59e28c642d583f7dacffb1e0965d0e00b218e0186d7858ac5233dce840/click-8.1.3-py3-none-any.whl
-  - name: click-8.1.3.tar.gz
-    sha256: 13kvp8visj5xh9d43brnda6q0kc1s40flxa5cw0p0a9hzf5dr0kn
-    url: https://files.pythonhosted.org/packages/59/87/84326af34517fca8c58418d148f2403df25303e02736832403587318e9e8/click-8.1.3.tar.gz
+  - name: click-8.1.7-py3-none-any.whl
+    sha256: 0a0c77rq458xjfkrkdxqinlza5447kby9w8msshpf0haqabgnx5f
+    url: https://files.pythonhosted.org/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl
+  - name: click-8.1.7.tar.gz
+    sha256: 1pm6khdv88h764scik67jki98xbyj367h591j8hpwy4y8nnm766a
+    url: https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz
   - name: colorama-0.4.6-py2.py3-none-any.whl
     sha256: 1ijz53xpmxds2qf02l9yf0rnp7bznwh3ci4xkw8wmh5cyn8rj7ag
     url: https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl
@@ -29,4 +29,4 @@ links:
   - name: networkx-2.8.8.tar.gz
     sha256: 0pl891b3b9cp85mymri08zlm7xzw04jcb8s7av70z1xg2y0kh393
     url: https://files.pythonhosted.org/packages/cd/16/c44e8550012735b8f21b3df7f39e8ba5a987fb764ac017ad5f3589735889/networkx-2.8.8.tar.gz
-python: "3.11"
+python: "3.12"
