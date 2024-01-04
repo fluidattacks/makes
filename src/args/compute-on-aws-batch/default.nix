@@ -4,12 +4,13 @@
   makeScript,
   toFileJson,
   ...
-}: {
+} @ makes_inputs: {
   allowDuplicates,
   attempts,
   attemptDurationSeconds,
   command,
   definition,
+  dryRun,
   environment,
   includePositionalArgsInName,
   name,
@@ -23,7 +24,7 @@
   vcpus,
 } @ self: let
   batch-client = import ./batch-client/entrypoint.nix {
-    inherit makePythonPyprojectPackage;
+    inherit makes_inputs;
     nixpkgs = __nixpkgs__;
   };
 
@@ -51,6 +52,7 @@
     attemptDurationSeconds,
     command,
     definition,
+    dryRun ? false,
     environment ? [],
     includePositionalArgsInName ? true,
     name,
@@ -62,14 +64,14 @@
     tags ? {},
     vcpus,
   } @ result: {
-    inherit allowDuplicates attempts attemptDurationSeconds command definition environment;
+    inherit allowDuplicates attempts attemptDurationSeconds command definition dryRun environment;
     inherit includePositionalArgsInName name nextJob memory parallel propagateTags queue tags vcpus;
   };
   encode_draft = _draft: let
     draft = apply_defaults (removeAttrs _draft ["setup"]);
   in {
     inherit (draft) allowDuplicates attempts attemptDurationSeconds command;
-    inherit (draft) definition includePositionalArgsInName memory parallel;
+    inherit (draft) definition dryRun includePositionalArgsInName memory parallel;
     inherit (draft) propagateTags queue name tags vcpus;
     environment = encode_envs draft.environment;
     nextJob =

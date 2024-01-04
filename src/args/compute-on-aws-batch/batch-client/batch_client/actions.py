@@ -2,7 +2,6 @@ from .api import (
     ApiClient,
 )
 from batch_client.core import (
-    AllowDuplicates,
     DependentJobDraft,
     JobDependencies,
     JobDraft,
@@ -25,7 +24,7 @@ LOG = logging.getLogger(__name__)
 def send_single_job(
     client: ApiClient,
     draft: JobDraft,
-    allow_duplicates: AllowDuplicates,
+    allow_duplicates: bool,
 ) -> Cmd[None]:
     dup_msg = Cmd.from_cmd(lambda: LOG.info("Detecting duplicates..."))
     skipped_msg = Cmd.from_cmd(

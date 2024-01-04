@@ -20,6 +20,7 @@ from fa_purity import (
     FrozenDict,
     FrozenList,
     Maybe,
+    PureIter,
     Result,
     ResultE,
 )
@@ -240,6 +241,7 @@ class RawJobDraft:
     allow_duplicates: bool
     args_in_name: bool
     propagate_tags: bool
+    dry_run: bool
     next_job: Maybe[RawJobDraft]
 
 
@@ -266,3 +268,10 @@ class DependentJobDraft:
 @dataclass(frozen=True)
 class AllowDuplicates:
     value: bool
+
+
+@dataclass(frozen=True)
+class JobPipelineDraft:
+    drafts: PureIter[JobDraft]
+    allow_duplicates: bool
+    dry_run: bool

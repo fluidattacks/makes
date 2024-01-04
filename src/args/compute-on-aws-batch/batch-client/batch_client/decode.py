@@ -6,13 +6,13 @@ from batch_client import (
     utils,
 )
 from batch_client.core import (
-    AllowDuplicates,
     Attempts,
     Command,
     EnvVarPointer,
     JobDefinition,
     JobDraft,
     JobName,
+    JobPipelineDraft,
     JobSize,
     Manifest,
     QueueName,
@@ -131,6 +131,7 @@ def _decode_raw_draft(raw: JsonObj, unwrapper: ResultUnwrapper) -> RawJobDraft:
     _allow_duplicates = _require(raw, "allowDuplicates", _to_bool)
     _args_in_name = _require(raw, "includePositionalArgsInName", _to_bool)
     _propagate_tags = _require(raw, "propagateTags", _to_bool)
+    _dry_run = _require(raw, "dryRun", _to_bool)
     _next = _require(raw, "nextJob", Unfolder.to_json).bind(decode_raw_draft)
     return RawJobDraft(
         unwrapper.unwrap(_name),
@@ -147,6 +148,7 @@ def _decode_raw_draft(raw: JsonObj, unwrapper: ResultUnwrapper) -> RawJobDraft:
         unwrapper.unwrap(_allow_duplicates),
         unwrapper.unwrap(_args_in_name),
         unwrapper.unwrap(_propagate_tags),
+        unwrapper.unwrap(_dry_run),
         unwrapper.unwrap(_next),
     )
 
@@ -222,7 +224,7 @@ def decode_all_drafts(
     root: RawJobDraft,
     args: FrozenList[FrozenList[str]],
     queue_from_env: ResultE[QueueName],
-) -> Tuple[PureIter[ResultE[JobDraft]], AllowDuplicates]:
+) -> JobPipelineDraft:
     items = (
         _raw_jobs(root)
         .enumerate(0)
@@ -234,4 +236,9 @@ def decode_all_drafts(
             )
         )
     )
-    return (items, AllowDuplicates(root.allow_duplicates))
+    drafts = items.map(
+        lambda r: r.alt(
+            lambda e: Exception(f"Invalid job draft i.e. {e}")
+        ).unwrap()
+    )
+    return JobPipelineDraft(drafts, root.allow_duplicates, root.dry_run)

@@ -8,10 +8,19 @@ When used as a Makes declaration (at makes.nix attrs):
     Job groups to submit.
     Defaults to `{ }`.
 
-Types:
+When used as a makes input:
 
 - computeOnAwsBatch: `JobType -> SourceAble`
     Source able batch file to send jobs to aws batch.
+
+???+ warning
+
+    When used as a makes input, all arguments are required
+    and defaults are not available.
+    However nested jobs (see `nextJob` argument)
+    do have defaults enabled.
+
+Types:
 
 - `JobType` = `attrs`
     - allowDuplicates: `bool` (Optional Attr)
@@ -32,6 +41,8 @@ Types:
         It overrides the one specified
         in the Batch job definition.
         Additional arguments can be propagated when running this module output.
+    - dryRun: `bool`  (Optional Attr) (Not supported on nextJob)
+        Do not send any job. Only check the correctness of the pipeline definition.
     - definition: `str`
         Name of the Batch job definition
         that we will use as base for submitting the job.

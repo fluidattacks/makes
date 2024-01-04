@@ -1,5 +1,5 @@
 {
-  makePythonPyprojectPackage,
+  makes_inputs,
   nixpkgs,
 }: let
   nix-filter = let
@@ -11,7 +11,12 @@
     import src;
   python_version = "python311";
   out = import ./build {
-    inherit makePythonPyprojectPackage nixpkgs python_version;
+    inherit makes_inputs python_version;
+    nixpkgs =
+      nixpkgs
+      // {
+        inherit nix-filter;
+      };
     src = nix-filter {
       root = ./.;
       include = [
