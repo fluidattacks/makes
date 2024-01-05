@@ -8,6 +8,7 @@ from .api import (
 )
 from .core import (
     EnvVarPointer,
+    JobPipelineDraft,
     QueueName,
 )
 import click
@@ -37,9 +38,9 @@ def _decode_json(file_path: str) -> Cmd[JsonObj]:
     return Cmd.from_cmd(_action)
 
 
-@click.command()  # type: ignore[misc]
-@click.option("--pipeline", type=click.Path(exists=True), required=True)  # type: ignore[misc]
-@click.argument("args", nargs=-1)  # type: ignore[misc]
+@click.command()
+@click.option("--pipeline", type=click.Path(exists=True), required=True)
+@click.argument("args", nargs=-1)
 def submit_job(
     pipeline: str,
     args: FrozenList[str],
@@ -74,32 +75,31 @@ def submit_job(
         .map(lambda x: tuple(x))
         .to_list()
     )
-    drafts = _queue_from_env.bind(
+    pipeline_draft = _queue_from_env.bind(
         lambda queue: _root.map(
             lambda root: decode.decode_all_drafts(root, arg_groups, queue)
         )
-    ).map(
-        lambda t: (
-            t[0].map(
-                lambda r: r.alt(
-                    lambda e: Exception(f"Invalid job draft i.e. {e}")
-                ).unwrap()
-            ),
-            t[1],
-        )
     )
-    cmd: Cmd[None] = drafts.bind(
-        lambda d: new_client().bind(
-            lambda c: utils.extract_single(d[0]).map(
-                lambda j: actions.send_single_job(c, j, d[1]),
+
+    def _execute(draft: JobPipelineDraft) -> Cmd[None]:
+        # Handle dry run logic
+        action = new_client().bind(
+            lambda c: utils.extract_single(draft.drafts).map(
+                lambda j: actions.send_single_job(
+                    c, j, draft.allow_duplicates
+                ),
                 lambda p: actions.send_pipeline(c, p),
             )
         )
-    )
+        if draft.dry_run:
+            return Cmd.from_cmd(lambda: None)
+        return action
+
+    cmd: Cmd[None] = pipeline_draft.bind(_execute)
     cmd.compute()
 
 
-@click.group()  # type: ignore[misc]
+@click.group()
 def main() -> None:
     pass
 

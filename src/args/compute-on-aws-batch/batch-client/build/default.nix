@@ -1,11 +1,11 @@
 {
-  makePythonPyprojectPackage,
+  makes_inputs,
   nixpkgs,
   python_version,
   src,
 }: let
   deps = import ./deps {
-    inherit nixpkgs python_version;
+    inherit makes_inputs nixpkgs python_version;
   };
   pkgDeps = {
     runtime_deps = with deps.python_pkgs; [
@@ -24,7 +24,7 @@
       pytest
     ];
   };
-  packages = makePythonPyprojectPackage {
+  packages = makes_inputs.makePythonPyprojectPackage {
     inherit (deps.lib) buildEnv buildPythonPackage;
     inherit pkgDeps src;
   };

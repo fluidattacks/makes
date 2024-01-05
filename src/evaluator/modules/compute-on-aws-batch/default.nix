@@ -15,6 +15,7 @@
       inherit (config) attemptDurationSeconds;
       inherit (config) command;
       inherit (config) definition;
+      inherit (config) dryRun;
       inherit (config) includePositionalArgsInName;
       inherit (config) environment;
       inherit (config) memory;
@@ -47,6 +48,10 @@ in {
           };
           command = lib.mkOption {
             type = lib.types.listOf lib.types.str;
+          };
+          dryRun = lib.mkOption {
+            default = false;
+            type = lib.types.bool;
           };
           definition = lib.mkOption {
             type = lib.types.str;

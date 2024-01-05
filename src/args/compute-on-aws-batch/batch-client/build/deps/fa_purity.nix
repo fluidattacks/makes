@@ -1,13 +1,29 @@
 {
+  lib,
+  makes_inputs,
   nixpkgs,
+  python_pkgs,
   python_version,
 }: let
-  commit = "e0b5cf459a16eb92d86ca6c024edbedd52d72589";
-  src = builtins.fetchTarball {
-    sha256 = "sha256:08h1b94mn74lqz47cj8m5dmm5xddddfd1clrb6zqi898w3q1bylr";
+  commit = "5ff1ddb203afcc0a636b0305398581845f68a153"; # v1.40.0
+  raw_src = builtins.fetchTarball {
+    sha256 = "sha256:1i357nzd15a7c8av0ff7495gbcfd4pc7xxprlrbnz4savwnxd5x1";
     url = "https://gitlab.com/dmurciaatfluid/purity/-/archive/${commit}/purity-${commit}.tar";
   };
+  src = import "${raw_src}/build/filter.nix" nixpkgs.nix-filter raw_src;
+  bundle = import "${raw_src}/build" {
+    makesLib = makes_inputs;
+    inherit nixpkgs python_version src;
+  };
 in
-  import "${src}/build" {
-    inherit src nixpkgs python_version;
-  }
+  bundle.build_bundle (
+    default: required_deps: builder:
+      builder lib (
+        required_deps (
+          python_pkgs
+          // {
+            inherit (default.python_pkgs) types-simplejson;
+          }
+        )
+      )
+  )
