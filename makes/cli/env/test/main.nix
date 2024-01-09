@@ -1,5 +1,5 @@
-{makePythonPypiEnvironment, ...}:
-makePythonPypiEnvironment {
-  name = "cli-env-test";
-  sourcesYaml = ./pypi-sources.yaml;
+{makePythonEnvironment, ...}:
+makePythonEnvironment {
+  pythonProjectDir = ./.;
+  pythonVersion = "3.12";
 }
