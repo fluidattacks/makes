@@ -1,6 +1,6 @@
 {
   makeDerivation,
-  makePythonPypiEnvironment,
+  makePythonEnvironment,
   makeSearchPaths,
   ...
 }: {
@@ -18,12 +18,17 @@ makeDerivation {
   name = "lint-python-imports-for-${name}";
   searchPaths.source = [
     (makeSearchPaths searchPaths)
-    (makePythonPypiEnvironment {
-      name = "lint-python-imports";
-      sourcesYaml = ./pypi-sources.yaml;
-      withSetuptools_67_7_2 = true;
-      withSetuptoolsScm_7_1_0 = true;
-      withWheel_0_40_0 = true;
+    (makePythonEnvironment {
+      pythonProjectDir = ./.;
+      pythonVersion = "3.11";
+      overrides = self: super: {
+        grimp = super.grimp.overridePythonAttrs (
+          old: {buildInputs = [super.setuptools];}
+        );
+        import-linter = super.import-linter.overridePythonAttrs (
+          old: {buildInputs = [super.setuptools];}
+        );
+      };
     })
   ];
 }
