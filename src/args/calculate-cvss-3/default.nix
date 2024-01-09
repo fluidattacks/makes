@@ -1,7 +1,7 @@
 {
   __nixpkgs__,
   makeDerivation,
-  makePythonPypiEnvironment,
+  makePythonEnvironment,
   ...
 }: envTarget:
 makeDerivation {
@@ -12,9 +12,9 @@ makeDerivation {
   name = "calculate-cvss-3";
   searchPaths = {
     source = [
-      (makePythonPypiEnvironment {
-        name = "cvss";
-        sourcesYaml = ./sources.yaml;
+      (makePythonEnvironment {
+        pythonProjectDir = ./.;
+        pythonVersion = "3.11";
       })
     ];
   };

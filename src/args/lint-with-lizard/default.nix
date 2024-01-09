@@ -1,7 +1,7 @@
 {
   makeDerivation,
   makeDerivationParallel,
-  makePythonPypiEnvironment,
+  makePythonEnvironment,
   ...
 }: {
   targets,
@@ -16,9 +16,9 @@
       name = "build-lint-with-lizard-for-${name}-${envTarget}";
       searchPaths = {
         source = [
-          (makePythonPypiEnvironment {
-            name = "lizard";
-            sourcesYaml = ./sources.yaml;
+          (makePythonEnvironment {
+            pythonProjectDir = ./.;
+            pythonVersion = "3.11";
           })
         ];
       };
