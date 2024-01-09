@@ -27,14 +27,12 @@
   makeModule = name: {
     config,
     searchPaths,
-    python,
     src,
   }: {
     name = "/lintPython/module/${name}";
     value = lintPython {
       inherit searchPaths;
       inherit name;
-      inherit python;
       settingsMypy = config.mypy;
       settingsProspector = config.prospector;
       src = projectPath src;
@@ -43,7 +41,6 @@
   makeDirOfModules = name: {
     config,
     searchPaths,
-    python,
     src,
   }: let
     modules =
@@ -54,7 +51,6 @@
           ((makeModule moduleName {
             inherit config;
             inherit searchPaths;
-            inherit python;
             src = "${src}/${moduleName}";
           }))
           value
@@ -88,9 +84,6 @@ in {
                 default = ./settings-prospector.yaml;
                 type = lib.types.path;
               };
-            };
-            python = lib.mkOption {
-              type = lib.types.enum ["3.9" "3.10" "3.11" "3.12"];
             };
             searchPaths = lib.mkOption {
               default = {};
@@ -132,9 +125,6 @@ in {
                 default = ./settings-prospector.yaml;
                 type = lib.types.path;
               };
-            };
-            python = lib.mkOption {
-              type = lib.types.enum ["3.9" "3.10" "3.11" "3.12"];
             };
             searchPaths = lib.mkOption {
               default = {};
