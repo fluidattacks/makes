@@ -236,10 +236,7 @@
     };
   };
   securePythonWithBandit = {
-    cli = {
-      python = "3.12";
-      target = "/src/cli/main";
-    };
+    cli.target = "/src/cli/main";
   };
   taintTerraform = {
     modules = {
