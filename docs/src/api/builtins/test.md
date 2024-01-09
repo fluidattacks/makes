@@ -164,10 +164,7 @@ Example:
     ```nix
     {
       testPython = {
-        example = {
-          python = "3.9";
-          src = "/test/test-python";
-        };
+        example.src = "/test/test-python";
       };
     }
     ```

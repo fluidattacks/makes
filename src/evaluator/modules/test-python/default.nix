@@ -15,7 +15,6 @@
       inherit (args) extraSrcs;
       inherit (args) extraFlags;
       project = projectPath "/";
-      inherit (args) python;
       inherit (args) searchPaths;
       inherit (args) src;
     };
@@ -33,9 +32,6 @@ in {
           extraFlags = lib.mkOption {
             default = [];
             type = lib.types.listOf lib.types.str;
-          };
-          python = lib.mkOption {
-            type = lib.types.enum ["3.9" "3.10" "3.11" "3.12"];
           };
           searchPaths = lib.mkOption {
             default = {};
