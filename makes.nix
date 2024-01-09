@@ -169,7 +169,6 @@
   in {
     dirsOfModules = {
       makes = {
-        python = "3.10";
         inherit searchPaths;
         src = "/src/cli";
       };
@@ -182,7 +181,6 @@
     };
     modules = {
       cliMain = {
-        python = "3.10";
         inherit searchPaths;
         src = "/src/cli/main";
       };
