@@ -38,6 +38,58 @@ Example:
         Python 3.9
     ```
 
+## makePythonEnvironment
+
+Create a Python virtual environment using
+[poetry2nix](https://github.com/nix-community/poetry2nix/tree/74921da7e0cc8918adc2e9989bd3e9c127b25ff6).
+
+Pre-requisites:
+Having both `pyproject.toml` and `poetry.lock`.
+
+Types:
+
+- makePythonEnvironment: (`function { ... } -> package`):
+    - pythonProjectDir (`path`): Required.
+        Python project where both
+        `pyproject.toml` and `poetry.lock`
+        are located.
+    - pythonVersion (`str`): Required.
+        Python version used to build the environment.
+        Supported versions are `3.9`, `3.10`, `3.11` and `3.12`.
+    - preferWheels (`bool`): Optional.
+        Use pre-compiled wheels from PyPI.
+        Defaults to `true`.
+    - overrides (`function {...} -> package`): Optional.
+        Override build attributes for libraries within the environment.
+        For more information see [here](https://github.com/nix-community/poetry2nix/blob/master/docs/edgecases.md).
+        Defaults to `(self: super: {})`.
+
+Example:
+
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makePythonEnvironment,
+      projectPath,
+      ...
+    }:
+    makePythonEnvironment {
+      pythonProjectDir = projectPath "/makes/example";
+      pythonVersion = "3.11";
+      preferWheels = true;
+      # Consider pygments requiring setuptools to build properly
+      overrides = self: super: {
+        pygments = super.pygments.overridePythonAttrs (
+          old: {
+            buildInputs = [super.setuptools];
+          }
+        );
+      };
+    }
+    ```
+
 ## makePythonPypiEnvironment
 
 Create a virtual environment
