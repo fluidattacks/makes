@@ -252,11 +252,9 @@
   };
   testPython = {
     example = {
-      python = "3.12";
       src = "/test/test-python";
     };
     cliMain = {
-      python = "3.10";
       extraFlags = [
         "--cov=main"
         "--cov-branch"

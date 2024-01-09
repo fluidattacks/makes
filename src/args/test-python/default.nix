@@ -1,5 +1,5 @@
 {
-  makePythonPypiEnvironment,
+  makePythonEnvironment,
   makeSearchPaths,
   makeScript,
   toBashArray,
@@ -10,32 +10,25 @@
   extraSrcs,
   name,
   project,
-  python,
   searchPaths,
   src,
-}: let
-  pythonPypiEnvironment = makePythonPypiEnvironment {
-    inherit name;
-    sourcesYaml =
-      {
-        "3.9" = ./pypi-sources-3.9.yaml;
-        "3.10" = ./pypi-sources-3.10.yaml;
-        "3.11" = ./pypi-sources-3.11.yaml;
-        "3.12" = ./pypi-sources-3.12.yaml;
-      }
-      .${python};
+}:
+makeScript {
+  name = "test-python-for-${name}";
+  replace = {
+    __argExtraFlags__ = toBashArray extraFlags;
+    __argExtraSrcs__ = toBashMap extraSrcs;
+    __argProject__ = project;
+    __argSrc__ = src;
   };
-in
-  makeScript {
-    name = "test-python-for-${name}";
-    replace = {
-      __argExtraFlags__ = toBashArray extraFlags;
-      __argExtraSrcs__ = toBashMap extraSrcs;
-      __argProject__ = project;
-      __argSrc__ = src;
-    };
-    entrypoint = ./entrypoint.sh;
-    searchPaths = {
-      source = [pythonPypiEnvironment (makeSearchPaths searchPaths)];
-    };
-  }
+  entrypoint = ./entrypoint.sh;
+  searchPaths = {
+    source = [
+      (makePythonEnvironment {
+        pythonProjectDir = ./.;
+        pythonVersion = "3.11";
+      })
+      (makeSearchPaths searchPaths)
+    ];
+  };
+}
