@@ -22,29 +22,36 @@ m github:fluidattacks/makes@24.01 /utils/makeNodeJsLock \
 
 ## makePythonLock
 
-You can generate a `sourcesYaml` for
-[makePythonPypiEnvironment](/api/extensions/python/#makepythonpypienvironment)
+You can generate a `poetry.lock` for
+[makePythonEnvironment](/api/extensions/python/#makepythonenvironment)
 like this:
 
 ```bash
-m github:fluidattacks/makes@24.01 /utils/makePythonLock \
-  "${python_version}" \
-  "${dependencies_yaml}" \
-  "${sources_yaml}"
+m github:fluidattacks/makes@24.01 /utils/makePythonLock "${project}"
 ```
 
-- Supported `python_version`s are: `3.9`, `3.10`, `3.11` and `3.12`.
-- `dependencies_yaml` is the **absolute path** to a YAML file
-    mapping [PyPI](https://pypi.org/) packages to version constraints.
+- `project` is the **absolute path** to a Python project
+    containing a `pyproject.toml` file.
     Example:
 
-    ```yaml
-    Django: "3.2.*"
-    psycopg2: "2.9.1"
-    ```
+    ```toml
+    [tool.poetry]
+    name = "test"
+    version = "0.1.0"
+    description = ""
+    authors = ["Your Name <you@example.com>"]
+    readme = "README.md"
 
-- `sources_yaml` is the **absolute path**
-    to a file were the script will output results.
+    [tool.poetry.dependencies]
+    python = "^3.11"
+    Django = "3.2.0"
+    psycopg2 = "2.9.1"
+
+
+    [build-system]
+    requires = ["poetry-core"]
+    build-backend = "poetry.core.masonry.api"
+    ```
 
 ## makeRubyLock
 
