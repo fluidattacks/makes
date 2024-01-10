@@ -14,7 +14,7 @@ makeScript {
     __argRuby33__ = makeRubyVersion "3.3";
   };
   searchPaths.bin = [
-    __nixpkgs__.nix
+    __nixpkgs__.nixVersions.nix_2_15
     __nixpkgs__.yj
   ];
 }

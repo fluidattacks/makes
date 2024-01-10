@@ -33,7 +33,7 @@ __nixpkgs__.dockerTools.buildImage {
       __nixpkgs__.gnugrep
       __nixpkgs__.gnutar
       __nixpkgs__.gzip
-      __nixpkgs__.nix
+      __nixpkgs__.nixVersions.nix_2_15
 
       # Add /usr/bin/env pointing to /bin/env
       (__nixpkgs__.runCommand "user-bin-env" {} ''
