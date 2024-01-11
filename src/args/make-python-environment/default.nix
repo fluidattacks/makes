@@ -1,7 +1,6 @@
 {
   __nixpkgs__,
   listOptional,
-  makePythonVersion,
   makeSearchPaths,
   ...
 }: {
@@ -24,7 +23,14 @@
   is310 = pythonVersion == "3.10";
   is311 = pythonVersion == "3.11";
   is312 = pythonVersion == "3.12";
-  python = makePythonVersion pythonVersion;
+  python =
+    {
+      "3.9" = __nixpkgs__.python39;
+      "3.10" = __nixpkgs__.python310;
+      "3.11" = __nixpkgs__.python311;
+      "3.12" = __nixpkgs__.python312;
+    }
+    .${pythonVersion};
 
   env = poetry2nix.mkPoetryEnv {
     overrides = poetry2nix.defaultPoetryOverrides.extend overrides;
