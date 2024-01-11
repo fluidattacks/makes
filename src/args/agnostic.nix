@@ -85,7 +85,6 @@
     makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix self;
     makePythonEnvironment = import ./make-python-environment/default.nix self;
     makePythonPyprojectPackage = import ./make-python-pyproject-package/default.nix;
-    makePythonVersion = import ./make-python-version/default.nix self;
     makePythonVscodeSettings = import ./make-python-vscode-settings/default.nix self;
     makeRubyGemsEnvironment = import ./make-ruby-gems-environment/default.nix self;
     makeRubyGemsInstall = import ./make-ruby-gems-install/default.nix self;
