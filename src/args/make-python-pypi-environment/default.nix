@@ -6,7 +6,6 @@
   listOptional,
   makeDerivation,
   makePythonPypiEnvironment,
-  makePythonVersion,
   makeSearchPaths,
   toFileLst,
   toFileYaml,
@@ -42,7 +41,14 @@ assert builtins.any (_: _) [
   is310 = sources.python == "3.10";
   is311 = sources.python == "3.11";
   is312 = sources.python == "3.12";
-  python = makePythonVersion sources.python;
+  python =
+    {
+      "3.9" = __nixpkgs__.python39;
+      "3.10" = __nixpkgs__.python310;
+      "3.11" = __nixpkgs__.python311;
+      "3.12" = __nixpkgs__.python312;
+    }
+    .${sources.python};
 
   bootstraped = builtins.concatLists [
     (listOptional withCython_0_29_24 (makePythonPypiEnvironment {
