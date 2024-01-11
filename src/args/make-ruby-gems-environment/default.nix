@@ -1,5 +1,4 @@
 {
-  makeRubyVersion,
   makeRubyGemsInstall,
   makeSearchPaths,
   ...
@@ -18,7 +17,16 @@
   };
 in
   makeSearchPaths {
-    bin = [(makeRubyVersion ruby)];
+    bin = [
+      (
+        {
+          "3.1" = __nixpkgs__.ruby_3_1;
+          "3.2" = __nixpkgs__.ruby_3_2;
+          "3.3" = __nixpkgs__.ruby_3_3;
+        }
+        .${ruby}
+      )
+    ];
     rubyBin = [installation];
     rubyGemPath = [installation];
     source = [(makeSearchPaths searchPathsRuntime)];
