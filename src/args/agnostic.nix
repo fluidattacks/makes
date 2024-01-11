@@ -88,7 +88,6 @@
     makePythonVscodeSettings = import ./make-python-vscode-settings/default.nix self;
     makeRubyGemsEnvironment = import ./make-ruby-gems-environment/default.nix self;
     makeRubyGemsInstall = import ./make-ruby-gems-install/default.nix self;
-    makeRubyVersion = import ./make-ruby-version/default.nix self;
     makeScript = import ./make-script/default.nix self;
     makeScriptParallel = import ./make-script-parallel/default.nix self;
     makeSearchPaths = import ./make-search-paths/default.nix self;
