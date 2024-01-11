@@ -1,6 +1,5 @@
 {
   __nixpkgs__,
-  makeNodeJsVersion,
   makeScript,
   ...
 }:
@@ -8,8 +7,8 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   name = "make-node-js-lock";
   replace = {
-    __argNode18__ = makeNodeJsVersion "18";
-    __argNode20__ = makeNodeJsVersion "20";
-    __argNode21__ = makeNodeJsVersion "21";
+    __argNode18__ = __nixpkgs__.nodejs_18;
+    __argNode20__ = __nixpkgs__.nodejs_20;
+    __argNode21__ = __nixpkgs__.nodejs_21;
   };
 }
