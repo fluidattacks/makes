@@ -1,6 +1,5 @@
 {
   __nixpkgs__,
-  makeRubyVersion,
   makeScript,
   ...
 }:
@@ -9,9 +8,9 @@ makeScript {
   name = "make-ruby-lock";
   replace = {
     __argParser__ = ./parser.rb;
-    __argRuby31__ = makeRubyVersion "3.1";
-    __argRuby32__ = makeRubyVersion "3.2";
-    __argRuby33__ = makeRubyVersion "3.3";
+    __argRuby31__ = __nixpkgs__.ruby_3_1;
+    __argRuby32__ = __nixpkgs__.ruby_3_2;
+    __argRuby33__ = __nixpkgs__.ruby_3_3;
   };
   searchPaths.bin = [
     __nixpkgs__.nixVersions.nix_2_15
