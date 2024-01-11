@@ -3,7 +3,6 @@
   fetchRubyGem,
   fromYamlFile,
   makeDerivation,
-  makeRubyVersion,
   makeSearchPaths,
   toBashArray,
   patchShebangs,
@@ -37,7 +36,14 @@ in
       envGemsSpec = toBashArray gemsSpec;
     };
     searchPaths = {
-      bin = [(makeRubyVersion ruby)];
+      bin = [
+        ({
+            "3.1" = __nixpkgs__.ruby_3_1;
+            "3.2" = __nixpkgs__.ruby_3_2;
+            "3.3" = __nixpkgs__.ruby_3_3;
+          }
+          .${ruby})
+      ];
       source = [
         patchShebangs
         (makeSearchPaths searchPaths)
