@@ -37,7 +37,7 @@ for instance:
 {
   makesSrc = builtins.fetchTarball {
     sha256 = ""; # Tarball sha256
-    url = "https://api.github.com/repos/fluidattacks/makes/tarball/24.01";
+    url = "https://api.github.com/repos/fluidattacks/makes/tarball/24.02";
   };
 }
 ```
@@ -54,4 +54,4 @@ for instance:
 For the whole ecosystem to work
 you need to use the **same version**
 of the framework and the CLI.
-For example: `24.01`.
+For example: `24.02`.

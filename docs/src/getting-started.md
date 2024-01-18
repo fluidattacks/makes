@@ -12,7 +12,7 @@
 1. Install Makes:
 
     ```bash
-    nix-env -if https://github.com/fluidattacks/makes/archive/24.01.tar.gz
+    nix-env -if https://github.com/fluidattacks/makes/archive/24.02.tar.gz
     ```
 
 ## Usage
@@ -85,7 +85,7 @@ Example:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-          - uses: docker://ghcr.io/fluidattacks/makes/amd64:24.01
+          - uses: docker://ghcr.io/fluidattacks/makes/amd64:24.02
             name: helloWorld
             with:
               args: m . /helloWorld 1 2 3
@@ -96,7 +96,7 @@ Example:
     ```yaml
     # .gitlab-ci.yml
     /helloWorld:
-      image: ghcr.io/fluidattacks/makes/amd64:24.01
+      image: ghcr.io/fluidattacks/makes/amd64:24.02
       script:
         - m . /helloWorld 1 2 3
     ```
@@ -108,7 +108,7 @@ Example:
     os: linux
     language: nix
     nix: 2.3.12
-    install: nix-env -if https://github.com/fluidattacks/makes/archive/24.01.tar.gz
+    install: nix-env -if https://github.com/fluidattacks/makes/archive/24.02.tar.gz
     jobs:
       include:
         - script: m . /helloWorld 1 2 3
@@ -123,7 +123,7 @@ let
   # Import the framework
   makes = import "${builtins.fetchTarball {
     sha256 = ""; # Tarball sha256
-    url = "https://api.github.com/repos/fluidattacks/makes/tarball/24.01";
+    url = "https://api.github.com/repos/fluidattacks/makes/tarball/24.02";
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
