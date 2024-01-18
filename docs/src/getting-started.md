@@ -127,9 +127,9 @@ let
   }}/src/args/agnostic.nix" { };
 in
 # Use the framework
-makes.makePythonPypiEnvironment {
-  name = "example";
-  sourcesYaml = ./sources.yaml;
+makes.makePythonEnvironment {
+  pythonProjectDir = ./.;
+  pythonVersion = "3.11";
 }
 ```
 

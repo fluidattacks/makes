@@ -1,7 +1,0 @@
-closure:
-  numpy: 1.24.0
-links:
-  - name: numpy-1.24.0.tar.gz
-    sha256: 0lqqa14a380y4iimpd1wkbansah93d6afz28hrg26szy26bpray4
-    url: https://files.pythonhosted.org/packages/5f/c7/5ca7c100dcc85b5ef1b176bdf87be5e4392c2c3018e13cc7cdef828c6a09/numpy-1.24.0.tar.gz
-python: "3.12"

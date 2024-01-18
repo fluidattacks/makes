@@ -50,91 +50,10 @@ Example:
     }
     ```
 
-## makePythonPypiEnvironment
-
-Create a virtual environment
-where a provided set of Python packages
-from [PyPi](https://pypi.org/)
-is installed.
-
-Pre-requisites:
-[Generating a sourcesYaml](/api/builtins/utilities/#makepythonlock)
-
-Types:
-
-- makePythonPypiEnvironment: `Input -> SourceAble`
-- `Input` = `Attrs`
-    - name: `str`
-        Custom name to assign to the build step, be creative, it helps in debugging.
-    - searchPathsBuild: `makeSearchPaths` (Optional Attr)
-        Arguments here will be passed as-is to `makeSearchPaths`
-        and used while installing the Python dependencies.
-        Defaults to `makeSearchPaths`'s defaults.
-    - searchPathsRuntime: `makeSearchPaths` (Optional Attr)
-        Arguments here will be passed as-is to `makeSearchPaths`
-        and propagated to the runtime environment.
-        Defaults to `makeSearchPaths`'s defaults.
-    - sourcesYaml: `NixPath`
-        `sources.yaml` file
-        computed as explained in the pre-requisites section.
-
-  For building a few special packages you may need to boostrap
-  dependencies in the build environment.
-  The following flags are available for convenience:
-
-    - withCython_0_29_24: `bool` (Optional Attr)
-        Bootstrap cython 0.29.24 to the environment
-        Defaults to `false`.
-    - withNumpy_1_24_0: `bool` (Optional Attr)
-        Bootstrap numpy 1.24.0 to the environment
-        Defaults to `false`.
-    - withSetuptools_67_7_2: `bool` (Optional Attr)
-        Bootstrap setuptools 67.7.2 to the environment
-        Defaults to `false`.
-    - withSetuptoolsScm_7_1_0: `bool` (Optional Attr)
-        Bootstrap setuptools-scm 7.1.0 to the environment
-        Defaults to `false`.
-    - withWheel_0_40_0: `bool` (Optional Attr)
-        Bootstrap wheel 0.40.0 to the environment
-        Defaults to `false`.
-
-Example:
-
-=== "main.nix"
-
-    ```nix
-    # /path/to/my/project/makes/example/main.nix
-    {
-      inputs,
-      makePythonPypiEnvironment,
-      projectPath,
-      ...
-    }:
-    makePythonPypiEnvironment {
-      name = "example";
-      # If some packages require compilers to be built,
-      # you can provide them like this:
-      searchPathsBuild = {
-        bin = [ inputs.nixpkgs.gcc ];
-      };
-      # You can propagate packages to the runtime environment if needed, too
-      searchPathsRuntime = {
-        bin = [ inputs.nixpkgs.htop ];
-      };
-      sourcesYaml = projectPath "/makes/example/sources.yaml";
-      # Other packages require a few bootstrapped dependencies,
-      # enable them like this:
-      withCython_0_29_24 = true;
-      withSetuptools_67_7_2 = true;
-      withSetuptoolsScm_7_1_0 = true;
-      withWheel_0_40_0 = true;
-    }
-    ```
-
 ???+ tip
 
     Refer to [makePythonLock](/api/builtins/utilities/#makepythonlock)
-    to learn how to generate a `sourcesYaml`.
+    to learn how to generate a `poetry.lock`.
 
 ## makePythonPyprojectPackage
 

@@ -82,7 +82,6 @@
     makeNodeJsEnvironment = import ./make-node-js-environment/default.nix self;
     makeNodeJsModules = import ./make-node-js-modules/default.nix self;
     makeNomadEnvironment = import ./make-nomad-environment/default.nix self;
-    makePythonPypiEnvironment = import ./make-python-pypi-environment/default.nix self;
     makePythonEnvironment = import ./make-python-environment/default.nix self;
     makePythonPyprojectPackage = import ./make-python-pyproject-package/default.nix;
     makePythonVscodeSettings = import ./make-python-vscode-settings/default.nix self;
