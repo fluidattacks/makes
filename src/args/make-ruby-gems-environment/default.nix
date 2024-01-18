@@ -1,4 +1,5 @@
 {
+  __nixpkgs__,
   makeRubyGemsInstall,
   makeSearchPaths,
   ...
