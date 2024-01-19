@@ -9,7 +9,7 @@ Types:
 - makeNodeJsModules (`function { ... } -> package`):
     - name (`str`):
         Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "18" ]`):
+    - nodeJsVersion (`enum [ "18" "20" "21" ]`):
         Node.js version to use.
     - packageJson (`package`):
         Path to the `package.json` of your project.
@@ -64,7 +64,7 @@ Example:
     let
       hello = makeNodeJsModules {
         name = "hello-world-npm";
-        nodeJsVersion = "16";
+        nodeJsVersion = "21";
         packageJson =
           projectPath "/path/to/my/project/makes/example/package.json";
         packageLockJson =
@@ -116,7 +116,7 @@ Types:
 - makeNodeJsEnvironment (`function { ... } -> package`):
     - name (`str`):
         Custom name to assign to the build step, be creative, it helps in debugging.
-    - nodeJsVersion (`enum [ "18" ]`):
+    - nodeJsVersion (`enum [ "18" "20" "21" ]`):
         Node.js version to use.
     - packageJson (`package`):
         Path to the `package.json` of your project.
@@ -169,7 +169,7 @@ Example:
     let
       hello = makeNodeJsEnvironment {
         name = "hello-world-npm";
-        nodeJsVersion = "16";
+        nodeJsVersion = "21";
         packageJson =
           projectPath "/path/to/my/project/makes/example/package.json";
         packageLockJson =
