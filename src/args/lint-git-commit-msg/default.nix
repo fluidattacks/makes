@@ -12,7 +12,7 @@
 }: let
   commitlint = makeNodeJsEnvironment {
     name = "commitlint";
-    nodeJsVersion = "18";
+    nodeJsVersion = "21";
     packageJson = ./commitlint/package.json;
     packageLockJson = ./commitlint/package-lock.json;
   };

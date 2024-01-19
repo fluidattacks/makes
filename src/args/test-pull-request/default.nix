@@ -12,7 +12,7 @@
 }: let
   env = makeNodeJsEnvironment {
     name = "danger";
-    nodeJsVersion = "18";
+    nodeJsVersion = "21";
     packageJson = ./package.json;
     packageLockJson = ./package-lock.json;
   };

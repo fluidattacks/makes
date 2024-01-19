@@ -10,7 +10,7 @@ function main {
       --input package.json \
       --lock package-lock.json \
       --pkg-name "nodejs_${envNodeJsVersion}" \
-      "--nodejs-${envNodeJsVersion}" \
+      --include-peer-dependencies \
     && sed -i -e 's/dontNpmInstall ? false/dontNpmInstall ? true/g' node-env.nix # https://github.com/svanderburg/node2nix/issues/134#issuecomment-475809875
 }
 
