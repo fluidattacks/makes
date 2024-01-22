@@ -27,9 +27,12 @@ You can generate a `poetry.lock` for
 like this:
 
 ```bash
-m github:fluidattacks/makes@24.02 /utils/makePythonLock "${project}"
+m github:fluidattacks/makes@24.02 /utils/makePythonLock \
+  "{python_version}" \
+  "${project}"
 ```
 
+- Supported `python_version`s are `3.9`, `3.10`, `3.11` and `3.12`
 - `project` is the **absolute path** to a Python project
     containing a `pyproject.toml` file.
     Example:
