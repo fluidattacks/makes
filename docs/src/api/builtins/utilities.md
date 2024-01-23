@@ -28,7 +28,7 @@ like this:
 
 ```bash
 m github:fluidattacks/makes@24.02 /utils/makePythonLock \
-  "{python_version}" \
+  "${python_version}" \
   "${project}"
 ```
 
