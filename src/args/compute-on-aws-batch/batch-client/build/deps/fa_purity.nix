@@ -15,12 +15,21 @@
     makesLib = makes_inputs;
     inherit nixpkgs python_version src;
   };
+  more-itertools = python_pkgs.more-itertools.overrideAttrs (oldAttrs: rec {
+    version = "9.1.0";
+    src = lib.fetchPypi {
+      pname = "more-itertools";
+      inherit version;
+      sha256 = "sha256-yrqjQa0DieqDwXqUVmpTrkydBzSYYeyxTcbQNFz5rF0=";
+    };
+  });
 in
   bundle.build_bundle (
     default: required_deps: builder:
       builder lib (
         required_deps (
           python_pkgs
+          // {inherit more-itertools;}
           // {
             inherit (default.python_pkgs) types-simplejson;
           }
