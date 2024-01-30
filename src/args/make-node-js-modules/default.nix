@@ -18,6 +18,7 @@
     };
     name = "make-node2nix-lock-for-${name}";
     searchPaths.bin = [
+      __nixpkgs__.git
       __nixpkgs__.gnused
       __nixpkgs__.node2nix
     ];
