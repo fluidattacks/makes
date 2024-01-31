@@ -18,6 +18,29 @@
     };
   in
     import src {pkgs = __nixpkgs__;};
+  getPoetryPackages = let
+    tomlPath = "${pythonProjectDir}/poetry.lock";
+    tomlData = builtins.fromTOML (builtins.readFile tomlPath);
+    tomlPackages = tomlData.package;
+    packagesNames = builtins.map (pkg: pkg.name) tomlPackages;
+    extraPackagesLst = builtins.concatLists (builtins.map (
+        pkg:
+          if builtins.hasAttr "extras" pkg
+          then
+            builtins.concatLists (
+              builtins.attrValues pkg.extras
+            )
+          else []
+      )
+      tomlPackages);
+    extraPackagesNames =
+      builtins.map (
+        extra:
+          builtins.toString (builtins.head (builtins.split " " (__nixpkgs__.lib.toLower extra)))
+      )
+      extraPackagesLst;
+  in
+    packagesNames ++ extraPackagesNames;
 
   is39 = pythonVersion == "3.9";
   is310 = pythonVersion == "3.10";
@@ -32,8 +55,35 @@
     }
     .${pythonVersion};
 
+  overrideWithHome = pkg: super:
+    super.${pkg}.overridePythonAttrs (
+      old: {
+        preUnpack =
+          ''
+            export HOME=$(mktemp -d)
+            rm -rf /homeless-shelter
+          ''
+          + (old.preUnpack or "");
+      }
+    );
+  tomlOverrides = self: super:
+    builtins.listToAttrs (
+      builtins.map (
+        pkg: {
+          name = pkg;
+          value = overrideWithHome pkg super;
+        }
+      )
+      getPoetryPackages
+    );
+  combinedOverrides = self: super: let
+    toml = tomlOverrides self super;
+    orig = overrides self super;
+  in
+    toml // orig;
+
   env = poetry2nix.mkPoetryEnv {
-    overrides = poetry2nix.defaultPoetryOverrides.extend overrides;
+    overrides = poetry2nix.defaultPoetryOverrides.extend combinedOverrides;
     inherit preferWheels;
     projectDir = pythonProjectDir;
     inherit python;
