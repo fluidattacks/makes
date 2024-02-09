@@ -435,9 +435,14 @@ def _run_outputs(  # pylint: disable=too-many-arguments
         stdout=stdout,
         stderr=stderr,
     ) as process:
-        out, err = process.communicate(stdin)
-
-    return process.returncode, out, err
+        try:
+            out, err = process.communicate(stdin)
+            process.wait()
+            return process.returncode, out, err
+        except KeyboardInterrupt:
+            process.terminate()
+            process.wait()
+            return 130, bytes(), bytes()
 
 
 def _run(  # pylint: disable=too-many-arguments
@@ -459,7 +464,12 @@ def _run(  # pylint: disable=too-many-arguments
         stdout=stdout,
         stderr=stderr,
     ) as process:
-        return process.wait()
+        try:
+            return process.wait()
+        except KeyboardInterrupt:
+            process.terminate()
+            process.wait()
+            return 130
 
 
 def _help_and_exit_base() -> None:
