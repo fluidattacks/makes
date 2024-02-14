@@ -11,7 +11,8 @@ like this:
 ```bash
 m github:fluidattacks/makes@24.02 /utils/makeNodeJsLock \
   "${node_js_version}" \
-  "${package_json_dir}"
+  "${package_json_dir}" \
+  "${lockfile_version}"
 ```
 
 - Supported `node_js_version`s are: `18`, `20` and `21`.
@@ -19,6 +20,8 @@ m github:fluidattacks/makes@24.02 /utils/makeNodeJsLock \
     the `package.json` file in your project.
 - The `package-lock.json` file will be generated in the same directory that
     contains the `package.json` file.
+- The `lockfile_version` is an optional argument, defaults to `2` and can be
+    `1` or `2`.
 
 ## makePythonLock
 
