@@ -3,6 +3,7 @@
 function main {
   local node_js_version="${1}"
   local package_json_dir="${2}"
+  local lockfile_version="${3:2}"
   local npm_install_args=(
     --audit false
     --ignore-scripts true
@@ -15,7 +16,7 @@ function main {
     *) critical NodeJs version not supported: "${node_js_version}" ;;
   esac \
     && pushd "${package_json_dir}" \
-    && "${npm}" install "${npm_install_args[@]}" \
+    && "${npm}" install "${npm_install_args[@]}" --lockfile-version "${lockfile_version}" \
     && popd || return 1
 }
 
