@@ -24,6 +24,12 @@ Types:
         For more information see [here](https://github.com/nix-community/poetry2nix/blob/master/docs/edgecases.md).
         Defaults to `(self: super: {})`.
 
+        ???+ note
+
+            By default we override every python package deleting the
+            `homeless-shelter` directory and changing the `HOME` variable,
+            we make this to assure purity of builds without sandboxing.
+
 Example:
 
 === "main.nix"
@@ -43,6 +49,12 @@ Example:
       overrides = self: super: {
         pygments = super.pygments.overridePythonAttrs (
           old: {
+            preUnpack =
+              ''
+                export HOME=$(mktemp -d)
+                rm -rf /homeless-shelter
+              ''
+              + (old.preUnpack or "");
             buildInputs = [super.setuptools];
           }
         );
