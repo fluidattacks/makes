@@ -527,14 +527,14 @@ Types:
         to `projectStateDir` otherwise.
         Defaults to `false`, if `projectStateDir` is specified or derived.
 
-        Note:
+        ???+ note
 
-        - It is implicitly `true`, if `projectStateDir == globalStateDir`.
-        - `projectStateDir == globalStateDir` is the default if
-          `projectIdentifier` is not configured.
-        - Hence, generally enable project local state by
-            - either setting `projectIdentifier`
-            - or `projectStateDir` different from `globalStateDir`.
+            - It is implicitly `true`, if `projectStateDir == globalStateDir`.
+            - `projectStateDir == globalStateDir` is the default if
+            `projectIdentifier` is not configured.
+            - Hence, generally enable project local state by
+                - either setting `projectIdentifier`
+                - or `projectStateDir` different from `globalStateDir`.
 
 Example:
 
