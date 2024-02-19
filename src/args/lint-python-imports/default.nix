@@ -23,7 +23,15 @@ makeDerivation {
       pythonVersion = "3.11";
       overrides = self: super: {
         grimp = super.grimp.overridePythonAttrs (
-          old: {buildInputs = [super.setuptools];}
+          old: {
+            preUnpack =
+              ''
+                export HOME=$(mktemp -d)
+                rm -rf /homeless-shelter
+              ''
+              + (old.preUnpack or "");
+            buildInputs = [super.setuptools];
+          }
         );
         import-linter = super.import-linter.overridePythonAttrs (
           old: {buildInputs = [super.setuptools];}
