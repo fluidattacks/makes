@@ -34,7 +34,15 @@ makeDerivation {
           }
         );
         import-linter = super.import-linter.overridePythonAttrs (
-          old: {buildInputs = [super.setuptools];}
+          old: {
+            preUnpack =
+              ''
+                export HOME=$(mktemp -d)
+                rm -rf /homeless-shelter
+              ''
+              + (old.preUnpack or "");
+            buildInputs = [super.setuptools];
+          }
         );
       };
     })
