@@ -20,7 +20,8 @@ function main {
     && tmpdir="$(mktemp -d)" \
     && copy "${package_path}" "${tmpdir}/${package_name}" \
     && pushd "${tmpdir}" \
-    && dmypy run -- --config-file "${envSettingsMypy}" "${package_name}" \
+    && dmypy start -- --follow-imports=skip --config-file "${envSettingsMypy}" \
+    && dmypy check "${package_name}" \
     && python_dirs=() \
     && current_python_dir="" \
     && find . -name '*.py' > tmp \
@@ -32,9 +33,10 @@ function main {
         && current_python_dir="${python_dir}" \
         || return 1
     done < tmp \
+    && dmypy start -- --config-file "${envSettingsMypy}" \
     && for dir in "${python_dirs[@]}"; do
       info Running mypy over: "${package_path}", folder "${dir}" \
-        && dmypy run -- --config-file "${envSettingsMypy}" "${dir}" \
+        && dmypy check "${dir}" \
         || return 1
     done \
     && popd \
