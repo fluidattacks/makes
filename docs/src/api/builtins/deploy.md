@@ -171,7 +171,7 @@ Types:
         Sign container image
         with [Cosign](https://docs.sigstore.dev/cosign/overview/)
         by using a
-        [OIDC keyless approach](https://docs.sigstore.dev/cosign/keyless/).
+        [OIDC keyless approach](https://docs.sigstore.dev/signing/quickstart/#keyless-signing-of-a-container).
         Defaults to `false`.
     - src (`package`):
         Derivation that contains the container image in OCI Format.
