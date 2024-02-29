@@ -31,7 +31,7 @@ Types:
         Defaults to `65`.
     - config (`attrsOf anything`): Optional.
         Configuration manifest as described in
-        [OCI Runtime Configuration Manifest](https://github.com/moby/moby/blob/master/image/spec/v1.2.)
+        [OCI Runtime Configuration Manifest](https://github.com/moby/docker-image-spec)
         Defaults to `{ }`.
 
 Example:
