@@ -130,6 +130,10 @@ Types:
 - lintGitMailmap:
     - enable (`boolean`): Optional.
         Defaults to `false`.
+    - exclude (`str`): Optional.
+        If the excludes aren't too many then use `exclude` instead
+        of the exclude file (`.mailmap-exclude`).
+        Defaults to `^$`.
 
 Example:
 
@@ -139,6 +143,7 @@ Example:
     {
       lintGitMailMap = {
         enable = true;
+        exclude = "^.* <.*noreply@github.com>$";
       };
     }
     ```
