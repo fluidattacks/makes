@@ -20,6 +20,7 @@ function main {
     && tmpdir="$(mktemp -d)" \
     && copy "${package_path}" "${tmpdir}/${package_name}" \
     && pushd "${tmpdir}" \
+    && mypy --config-file "${envSettingsMypy}" "${package_name}" \
     && python_dirs=() \
     && current_python_dir="" \
     && find . -name '*.py' > tmp \
@@ -31,14 +32,11 @@ function main {
         && current_python_dir="${python_dir}" \
         || return 1
     done < tmp \
-    && dmypy start -- --config-file "${envSettingsMypy}" \
-    && dmypy check "${package_name}" \
     && for dir in "${python_dirs[@]}"; do
       info Running mypy over: "${package_path}", folder "${dir}" \
-        && dmypy check "${dir}" \
+        && mypy --config-file "${envSettingsMypy}" "${dir}" \
         || return 1
     done \
-    && dmypy stop \
     && popd \
     && info Running prospector over: "${package_path}", package "${package_name}" \
     && if ! test -e "${package_path}/__init__.py"; then
