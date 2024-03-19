@@ -9,6 +9,10 @@
         default = false;
         type = lib.types.bool;
       };
+      exclude = lib.mkOption {
+        default = "^$";
+        type = lib.types.str;
+      };
     };
   };
   config = {
@@ -19,6 +23,7 @@
         (lintGitMailMap {
           name = "lint-git-mailmap";
           src = ".";
+          inherit (config.lintGitMailMap) exclude;
         });
     };
   };

@@ -2,7 +2,7 @@
 
 function main {
   cd '__argSrc__' \
-    && mailmap-linter
+    && mailmap-linter --exclude '__argExclude__'
 }
 
 main "${@}"
