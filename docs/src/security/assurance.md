@@ -34,33 +34,12 @@ the notation is that of a _Structured Assurance Case Model_[^1].
     - The dependencies of the Makes CLI application
         are free of known security vulnerabilities.
 
-        - [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)
-            are enabled for the repository.
+        - [Fluid Attacks Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+            tool is enabled for the repository.
 
-            Proof:
+        Proof:
 
-            - As a project maintainer,
-                you can see if Dependabot is enabled
-                [here](https://github.com/fluidattacks/makes/security/dependabot).
-            - As an external user,
-                there is no way to verify
-                if Dependabot is enabled
-                because the configuration page for this
-                is only available to repository maintainers.
-                However,
-                it is possible to see the pull requests created by the bot,
-                for example:
-                [PR 927](https://github.com/fluidattacks/makes/pull/927).
-                Additionally,
-                an external user could check
-                if there has been Dependabot pull requests recently
-                by checking the
-                [pull requests history](https://github.com/fluidattacks/makes/pulls).
-                It is important to note
-                that if no recent pull requests exist
-                it may mean
-                that no known security vulnerabilities have been found,
-                and not necessarily that this claim is false.
+        - You can check the Fluid Attacks [Certificate](https://res.cloudinary.com/fluid-attacks/image/upload/v1711043976/makes/security-cert.pdf)
 
 ## References
 
