@@ -88,8 +88,16 @@ Example:
           - uses: docker://ghcr.io/fluidattacks/makes/amd64:24.02
             name: helloWorld
             with:
-              args: m . /helloWorld 1 2 3
+              args: sh -c "chown -R root:root /github/workspace && m . /helloWorld 1 2 3"
     ```
+
+    ???+ note
+
+        We use `chown -R root:root /github/workspace` to solve the error:
+        `fatal: detected dubious ownership in repository at ...`, this message
+        typically indicates an issue with the ownership or permissions of the repository.
+        See the [community discussion](https://github.com/orgs/community/discussions/48355)
+        for more information.
 
 === "GitLab CI"
 
