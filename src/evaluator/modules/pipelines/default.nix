@@ -1,27 +1,13 @@
-{
-  __nixpkgs__,
-  __toModuleOutputs__,
-  attrsMerge,
-  attrsOptional,
-  escapeShellArgs,
-  toBashArray,
-  toBashMap,
-  toFileYaml,
-  makeScript,
-  outputs,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
-  toJobName = output: args:
-    builtins.concatStringsSep "__" ([output] ++ args);
+{ __nixpkgs__, __toModuleOutputs__, attrsMerge, attrsOptional, escapeShellArgs
+, toBashArray, toBashMap, toFileYaml, makeScript, outputs, ... }:
+{ config, lib, ... }:
+let
+  toJobName = output: args: builtins.concatStringsSep "__" ([ output ] ++ args);
 
   jobType = lib.types.submodule (_: {
     options = {
       args = lib.mkOption {
-        default = [];
+        default = [ ];
         type = lib.types.listOf lib.types.str;
       };
       gitDepth = lib.mkOption {
@@ -29,16 +15,14 @@
         type = lib.types.int;
       };
       gitlabExtra = lib.mkOption {
-        default = {};
+        default = { };
         type = lib.types.attrsOf lib.types.anything;
       };
       image = lib.mkOption {
         default = "ghcr.io/fluidattacks/makes/amd64:24.02";
         type = lib.types.str;
       };
-      output = lib.mkOption {
-        type = lib.types.str;
-      };
+      output = lib.mkOption { type = lib.types.str; };
     };
   });
 
@@ -49,61 +33,50 @@
         type = lib.types.nullOr lib.types.str;
       };
       jobs = lib.mkOption {
-        default = {};
+        default = { };
         type = lib.types.listOf jobType;
       };
     };
   });
 
-  makeJob = {
-    output,
-    args,
-    ...
-  }: let
-    name = toJobName output args;
-  in {
-    inherit name;
-    value = makeScript {
-      replace = {
-        __argArgs__ = toBashArray args;
-        __argOutput__ = outputs.${output};
+  makeJob = { output, args, ... }:
+    let name = toJobName output args;
+    in {
+      inherit name;
+      value = makeScript {
+        replace = {
+          __argArgs__ = toBashArray args;
+          __argOutput__ = outputs.${output};
+        };
+        name = "job-for-${name}";
+        entrypoint = ./entrypoint-for-job.sh;
       };
-      name = "job-for-${name}";
-      entrypoint = ./entrypoint-for-job.sh;
     };
-  };
 
-  makePipeline = name: {jobs, ...}: {
-    name = "/pipeline/${name}";
-    value = makeScript {
-      entrypoint = ./entrypoint-for-pipeline.sh;
-      replace = {
-        __argJobs__ =
-          toBashMap
-          (builtins.listToAttrs (builtins.map makeJob jobs));
+  makePipeline = name:
+    { jobs, ... }: {
+      name = "/pipeline/${name}";
+      value = makeScript {
+        entrypoint = ./entrypoint-for-pipeline.sh;
+        replace = {
+          __argJobs__ =
+            toBashMap (builtins.listToAttrs (builtins.map makeJob jobs));
+        };
+        name = "pipeline-for-${name}";
       };
-      name = "pipeline-for-${name}";
     };
-  };
 
-  makeGitlabJob = {
-    args,
-    gitDepth,
-    gitlabExtra,
-    image,
-    output,
-    ...
-  }: {
+  makeGitlabJob = { args, gitDepth, gitlabExtra, image, output, ... }: {
     name = toJobName output args;
     value = attrsMerge [
       {
         inherit image;
         interruptible = true;
-        needs = [];
-        script =
-          if args == []
-          then ["m . ${output}"]
-          else ["m . ${output} ${escapeShellArgs args}"];
+        needs = [ ];
+        script = if args == [ ] then
+          [ "m . ${output}" ]
+        else
+          [ "m . ${output} ${escapeShellArgs args}" ];
         variables = {
           GIT_DEPTH = gitDepth;
           MAKES_GIT_DEPTH = gitDepth;
@@ -112,31 +85,25 @@
       gitlabExtra
     ];
   };
-  makeGitlab = name: {
-    gitlabPath,
-    jobs,
-    ...
-  }: (attrsOptional
-    (gitlabPath != null)
-    {
+  makeGitlab = name:
+    { gitlabPath, jobs, ... }:
+    (attrsOptional (gitlabPath != null) {
       name = "/pipelineOnGitlab/${name}";
       value = makeScript {
         name = "pipeline-on-gitlab-for-${name}";
         replace = {
-          __argGitlabCiYaml__ =
-            toFileYaml "gitlab-ci.yaml"
-            (builtins.listToAttrs
-              (builtins.map makeGitlabJob jobs));
+          __argGitlabCiYaml__ = toFileYaml "gitlab-ci.yaml"
+            (builtins.listToAttrs (builtins.map makeGitlabJob jobs));
           __argGitlabPath__ = "." + gitlabPath;
         };
-        searchPaths.bin = [__nixpkgs__.git];
+        searchPaths.bin = [ __nixpkgs__.git ];
         entrypoint = ./entrypoint-for-pipeline-on-gitlab.sh;
       };
     });
 in {
   options = {
     pipelines = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf pipelineType;
     };
   };

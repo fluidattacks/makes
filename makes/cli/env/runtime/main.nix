@@ -1,9 +1,4 @@
-{
-  __nixpkgs__,
-  makeSearchPaths,
-  outputs,
-  ...
-}:
+{ __nixpkgs__, makeSearchPaths, outputs, ... }:
 makeSearchPaths {
   bin = [
     __nixpkgs__.cachix
@@ -14,7 +9,5 @@ makeSearchPaths {
     __nixpkgs__.nixVersions.nix_2_15
     __nixpkgs__.openssh
   ];
-  source = [
-    outputs."/cli/env/runtime/pypi"
-  ];
+  source = [ outputs."/cli/env/runtime/pypi" ];
 }

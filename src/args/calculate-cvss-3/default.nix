@@ -1,9 +1,5 @@
-{
-  __nixpkgs__,
-  makeDerivation,
-  makePythonEnvironment,
-  ...
-}: envTarget:
+{ __nixpkgs__, makeDerivation, makePythonEnvironment, ... }:
+envTarget:
 makeDerivation {
   env = {
     inherit envTarget;

@@ -1,12 +1,6 @@
-{
-  __toModuleOutputs__,
-  computeOnAwsBatch,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, computeOnAwsBatch, ... }:
+{ config, lib, ... }:
+let
   makeOutput = name: config: {
     name = "/computeOnAwsBatch/${name}";
     value = computeOnAwsBatch {
@@ -32,7 +26,7 @@
 in {
   options = {
     computeOnAwsBatch = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           allowDuplicates = lib.mkOption {
@@ -43,21 +37,16 @@ in {
             default = 1;
             type = lib.types.ints.positive;
           };
-          attemptDurationSeconds = lib.mkOption {
-            type = lib.types.ints.positive;
-          };
-          command = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-          };
+          attemptDurationSeconds =
+            lib.mkOption { type = lib.types.ints.positive; };
+          command = lib.mkOption { type = lib.types.listOf lib.types.str; };
           dryRun = lib.mkOption {
             default = false;
             type = lib.types.bool;
           };
-          definition = lib.mkOption {
-            type = lib.types.str;
-          };
+          definition = lib.mkOption { type = lib.types.str; };
           environment = lib.mkOption {
-            default = [];
+            default = [ ];
             type = lib.types.listOf lib.types.str;
           };
           includePositionalArgsInName = lib.mkOption {
@@ -65,12 +54,10 @@ in {
             type = lib.types.bool;
           };
           nextJob = lib.mkOption {
-            default = {};
+            default = { };
             type = lib.types.attrs;
           };
-          memory = lib.mkOption {
-            type = lib.types.ints.positive;
-          };
+          memory = lib.mkOption { type = lib.types.ints.positive; };
           parallel = lib.mkOption {
             default = 1;
             type = lib.types.ints.positive;
@@ -79,20 +66,16 @@ in {
             default = true;
             type = lib.types.bool;
           };
-          queue = lib.mkOption {
-            type = lib.types.nullOr lib.types.str;
-          };
+          queue = lib.mkOption { type = lib.types.nullOr lib.types.str; };
           setup = lib.mkOption {
-            default = [];
+            default = [ ];
             type = lib.types.listOf lib.types.package;
           };
           tags = lib.mkOption {
-            default = {};
+            default = { };
             type = lib.types.attrsOf lib.types.str;
           };
-          vcpus = lib.mkOption {
-            type = lib.types.ints.positive;
-          };
+          vcpus = lib.mkOption { type = lib.types.ints.positive; };
         };
       }));
     };

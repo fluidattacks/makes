@@ -1,16 +1,5 @@
-{
-  __nixpkgs__,
-  makeScript,
-  makeTerraformEnvironment,
-  ...
-}: {
-  setup,
-  config,
-  name,
-  version,
-  src,
-  ...
-}:
+{ __nixpkgs__, makeScript, makeTerraformEnvironment, ... }:
+{ setup, config, name, version, src, ... }:
 makeScript {
   entrypoint = ./entrypoint.sh;
   replace = {
@@ -19,15 +8,7 @@ makeScript {
   };
   name = "lint-terraform-for-${name}";
   searchPaths = {
-    bin = [
-      __nixpkgs__.tflint
-    ];
-    source =
-      [
-        (makeTerraformEnvironment {
-          inherit version;
-        })
-      ]
-      ++ setup;
+    bin = [ __nixpkgs__.tflint ];
+    source = [ (makeTerraformEnvironment { inherit version; }) ] ++ setup;
   };
 }

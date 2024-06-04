@@ -1,12 +1,5 @@
-{
-  __nixpkgs__,
-  makeDerivation,
-  makePythonEnvironment,
-  ...
-}: {
-  name,
-  target,
-}:
+{ __nixpkgs__, makeDerivation, makePythonEnvironment, ... }:
+{ name, target, }:
 makeDerivation {
   builder = ./builder.sh;
   env.envTarget = target;

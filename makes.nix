@@ -1,18 +1,12 @@
-{
-  fetchNixpkgs,
-  fetchUrl,
-  outputs,
-  projectPath,
-  __nixpkgs__,
-  ...
-}: {
+{ fetchNixpkgs, fetchUrl, outputs, projectPath, __nixpkgs__, ... }: {
   projectIdentifier = "makes-repo";
   cache = {
     readNixos = true;
     extra = {
       makes = {
         enable = true;
-        pubKey = "makes.cachix.org-1:zO7UjWLTRR8Vfzkgsu1PESjmb6ymy1e4OE9YfMmCQR4=";
+        pubKey =
+          "makes.cachix.org-1:zO7UjWLTRR8Vfzkgsu1PESjmb6ymy1e4OE9YfMmCQR4=";
         token = "CACHIX_AUTH_TOKEN";
         type = "cachix";
         url = "https://makes.cachix.org";
@@ -81,15 +75,10 @@
     };
   };
   dev = {
-    example = {
-      bin = [__nixpkgs__.hello];
-    };
+    example = { bin = [ __nixpkgs__.hello ]; };
     makes = {
-      bin = [
-        __nixpkgs__.just
-        __nixpkgs__.reuse
-      ];
-      source = [outputs."/cli/env/runtime"];
+      bin = [ __nixpkgs__.just __nixpkgs__.reuse ];
+      source = [ outputs."/cli/env/runtime" ];
     };
   };
   envVars = {
@@ -100,36 +89,28 @@
       VAR_NAME = "test";
     };
   };
-  envVarsForTerraform = {
-    example = {
-      VAR_NAME = "test";
-    };
-  };
-  extendingMakesDirs = ["/makes"];
+  envVarsForTerraform = { example = { VAR_NAME = "test"; }; };
+  extendingMakesDirs = [ "/makes" ];
   formatBash = {
     enable = true;
-    targets = ["/"];
+    targets = [ "/" ];
   };
   formatJavaScript = {
     enable = true;
-    targets = ["/"];
+    targets = [ "/" ];
   };
   formatNix = {
     enable = true;
-    targets = ["/"];
+    targets = [ "/" ];
   };
-  formatPython = {
-    default = {
-      targets = ["/"];
-    };
-  };
+  formatPython = { default = { targets = [ "/" ]; }; };
   formatTerraform = {
     enable = true;
-    targets = ["/"];
+    targets = [ "/" ];
   };
   formatYaml = {
     enable = true;
-    targets = ["/"];
+    targets = [ "/" ];
   };
   helloWorld = {
     enable = true;
@@ -143,7 +124,7 @@
   };
   lintBash = {
     enable = true;
-    targets = ["/"];
+    targets = [ "/" ];
   };
   lintGitCommitMsg = {
     enable = true;
@@ -151,21 +132,18 @@
     parser = "/test/lint-commit-msg/lint-git-commit-msg-parser.js";
     config = "/test/lint-commit-msg/lint-git-commit-msg-config.js";
   };
-  lintGitMailMap = {
-    enable = true;
-  };
+  lintGitMailMap = { enable = true; };
   lintMarkdown = {
     all = {
       config = "/test/lint-markdown/config.rb";
-      targets = ["/"];
+      targets = [ "/" ];
     };
   };
   lintNix = {
     enable = true;
-    targets = ["/"];
+    targets = [ "/" ];
   };
-  lintPython = let
-    searchPaths.source = [outputs."/cli/env/runtime"];
+  lintPython = let searchPaths.source = [ outputs."/cli/env/runtime" ];
   in {
     dirsOfModules = {
       makes = {
@@ -194,16 +172,12 @@
       };
     };
   };
-  lintWithLizard = {
-    all = ["/"];
-  };
+  lintWithLizard = { all = [ "/" ]; };
   lintWithAjv = {
     "test" = {
       schema = "/test/lint-with-ajv/schema.json";
-      targets = [
-        "/test/lint-with-ajv/data.json"
-        "/test/lint-with-ajv/data.yaml"
-      ];
+      targets =
+        [ "/test/lint-with-ajv/data.json" "/test/lint-with-ajv/data.yaml" ];
     };
   };
   pipelines = {
@@ -212,48 +186,36 @@
       jobs = [
         {
           output = "/lintNix";
-          args = [];
+          args = [ ];
         }
         {
           output = "/helloWorld";
-          args = ["1" "2" "3"];
+          args = [ "1" "2" "3" ];
         }
       ];
     };
   };
-  secretsForGpgFromEnv = {
-    example = ["PGP_PUBLIC" "PGP_PRIVATE"];
-  };
+  secretsForGpgFromEnv = { example = [ "PGP_PUBLIC" "PGP_PRIVATE" ]; };
   secretsForEnvFromSops = {
     example = {
       manifest = "/makes/tests/secretsForGpgFromEnv/secrets.yaml";
-      vars = ["secret"];
+      vars = [ "secret" ];
     };
   };
-  secretsForTerraformFromEnv = {
-    example = {
-      test = "VAR_NAME";
-    };
-  };
-  securePythonWithBandit = {
-    cli.target = "/src/cli/main";
-  };
+  secretsForTerraformFromEnv = { example = { test = "VAR_NAME"; }; };
+  securePythonWithBandit = { cli.target = "/src/cli/main"; };
   taintTerraform = {
     modules = {
       module = {
-        resources = ["null_resource.example"];
+        resources = [ "null_resource.example" ];
         src = "/test/terraform/module";
         version = "1.0";
       };
     };
   };
-  testLicense = {
-    enable = true;
-  };
+  testLicense = { enable = true; };
   testPython = {
-    example = {
-      src = "/test/test-python";
-    };
+    example = { src = "/test/test-python"; };
     cliMain = {
       extraFlags = [
         "--cov=main"
@@ -262,16 +224,9 @@
         "--capture=no"
       ];
       searchPaths = {
-        bin = [
-          __nixpkgs__.git
-        ];
-        pythonPackage = [
-          (projectPath "/src/cli/main")
-        ];
-        source = [
-          outputs."/cli/env/test"
-          outputs."/cli/env/runtime"
-        ];
+        bin = [ __nixpkgs__.git ];
+        pythonPackage = [ (projectPath "/src/cli/main") ];
+        source = [ outputs."/cli/env/test" outputs."/cli/env/runtime" ];
       };
       src = "/src/cli";
     };
@@ -280,13 +235,12 @@
     modules = {
       default = {
         dangerfile = fetchUrl {
-          url = "https://gitlab.com/fluidattacks/universe/-/raw/7012ee63b6ba5ffebfc82425deb4390cb1d4a1ca/common/test/mr/src/dangerfile.ts";
+          url =
+            "https://gitlab.com/fluidattacks/universe/-/raw/7012ee63b6ba5ffebfc82425deb4390cb1d4a1ca/common/test/mr/src/dangerfile.ts";
           sha256 = "sha256-OegMHRXwgkRItyxW5SZfcQr21VRIINKhC5mlYa/Rphw=";
         };
-        extraArgs = [
-          "--config"
-          (builtins.toJSON {tests = ["onlyOneCommit"];})
-        ];
+        extraArgs =
+          [ "--config" (builtins.toJSON { tests = [ "onlyOneCommit" ]; }) ];
       };
     };
   };
@@ -302,7 +256,5 @@
       };
     };
   };
-  lintClojure = {
-    test = ["/test"];
-  };
+  lintClojure = { test = [ "/test" ]; };
 }

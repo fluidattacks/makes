@@ -1,12 +1,6 @@
-{
-  __toModuleOutputs__,
-  formatPython,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, formatPython, ... }:
+{ config, lib, ... }:
+let
   makeOutput = name: args: {
     name = "/formatPython/${name}";
     value = formatPython {
@@ -18,7 +12,7 @@
 in {
   options = {
     formatPython = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf (lib.types.submodule (_: {
         options = {
           config = {
@@ -32,14 +26,12 @@ in {
             };
           };
           targets = lib.mkOption {
-            default = ["/"];
+            default = [ "/" ];
             type = lib.types.listOf lib.types.str;
           };
         };
       }));
     };
   };
-  config = {
-    outputs = __toModuleOutputs__ makeOutput config.formatPython;
-  };
+  config = { outputs = __toModuleOutputs__ makeOutput config.formatPython; };
 }

@@ -1,8 +1,5 @@
-{formatBash, ...}: {
-  config,
-  lib,
-  ...
-}: {
+{ formatBash, ... }:
+{ config, lib, ... }: {
   options = {
     formatBash = {
       enable = lib.mkOption {
@@ -10,7 +7,7 @@
         type = lib.types.bool;
       };
       targets = lib.mkOption {
-        default = ["/"];
+        default = [ "/" ];
         type = lib.types.listOf lib.types.str;
       };
     };

@@ -1,13 +1,5 @@
-{
-  makeDerivation,
-  makeNodeJsEnvironment,
-  toBashArray,
-  ...
-}: {
-  name,
-  schema,
-  targets,
-}:
+{ makeDerivation, makeNodeJsEnvironment, toBashArray, ... }:
+{ name, schema, targets, }:
 makeDerivation {
   env = {
     envSchema = schema;

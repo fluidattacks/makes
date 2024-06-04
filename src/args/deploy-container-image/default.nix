@@ -1,16 +1,5 @@
-{
-  __nixpkgs__,
-  makeScript,
-  ...
-}: {
-  attempts ? 1,
-  containerImage,
-  credentials,
-  name,
-  registry,
-  setup,
-  sign,
-  tag,
+{ __nixpkgs__, makeScript, ... }:
+{ attempts ? 1, containerImage, credentials, name, registry, setup, sign, tag,
 }:
 makeScript {
   replace = {
@@ -25,10 +14,7 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   inherit name;
   searchPaths = {
-    bin = [
-      __nixpkgs__.cosign
-      __nixpkgs__.skopeo
-    ];
+    bin = [ __nixpkgs__.cosign __nixpkgs__.skopeo ];
     source = setup;
   };
 }

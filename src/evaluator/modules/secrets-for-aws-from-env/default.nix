@@ -1,12 +1,6 @@
-{
-  __toModuleOutputs__,
-  makeSecretForAwsFromEnv,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, makeSecretForAwsFromEnv, ... }:
+{ config, lib, ... }:
+let
   secretForAwsFromEnvType = lib.types.submodule (_: {
     options = {
       accessKeyId = lib.mkOption {
@@ -27,42 +21,34 @@
       };
     };
   });
-  makeSecretForAwsFromEnvOutput = name: {
-    accessKeyId,
-    defaultRegion,
-    secretAccessKey,
-    sessionToken,
-  }: {
-    name = "/secretsForAwsFromEnv/${name}";
-    value = makeSecretForAwsFromEnv {
-      inherit accessKeyId;
-      inherit defaultRegion;
-      inherit name;
-      inherit secretAccessKey;
-      inherit sessionToken;
+  makeSecretForAwsFromEnvOutput = name:
+    { accessKeyId, defaultRegion, secretAccessKey, sessionToken, }: {
+      name = "/secretsForAwsFromEnv/${name}";
+      value = makeSecretForAwsFromEnv {
+        inherit accessKeyId;
+        inherit defaultRegion;
+        inherit name;
+        inherit secretAccessKey;
+        inherit sessionToken;
+      };
     };
-  };
 in {
   options = {
     secretsForAwsFromEnv = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf secretForAwsFromEnvType;
     };
   };
   config = {
-    outputs =
-      (__toModuleOutputs__
-        makeSecretForAwsFromEnvOutput
-        config.secretsForAwsFromEnv)
-      // (__toModuleOutputs__
-        makeSecretForAwsFromEnvOutput
-        {
-          __default__ = {
-            accessKeyId = "AWS_ACCESS_KEY_ID";
-            defaultRegion = "AWS_DEFAULT_REGION";
-            secretAccessKey = "AWS_SECRET_ACCESS_KEY";
-            sessionToken = "AWS_SESSION_TOKEN";
-          };
-        });
+    outputs = (__toModuleOutputs__ makeSecretForAwsFromEnvOutput
+      config.secretsForAwsFromEnv)
+      // (__toModuleOutputs__ makeSecretForAwsFromEnvOutput {
+        __default__ = {
+          accessKeyId = "AWS_ACCESS_KEY_ID";
+          defaultRegion = "AWS_DEFAULT_REGION";
+          secretAccessKey = "AWS_SECRET_ACCESS_KEY";
+          sessionToken = "AWS_SESSION_TOKEN";
+        };
+      });
   };
 }

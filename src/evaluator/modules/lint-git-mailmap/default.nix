@@ -1,8 +1,5 @@
-{lintGitMailMap, ...}: {
-  config,
-  lib,
-  ...
-}: {
+{ lintGitMailMap, ... }:
+{ config, lib, ... }: {
   options = {
     lintGitMailMap = {
       enable = lib.mkOption {
@@ -17,9 +14,7 @@
   };
   config = {
     outputs = {
-      "/lintGitMailMap" =
-        lib.mkIf
-        config.lintGitMailMap.enable
+      "/lintGitMailMap" = lib.mkIf config.lintGitMailMap.enable
         (lintGitMailMap {
           name = "lint-git-mailmap";
           src = ".";

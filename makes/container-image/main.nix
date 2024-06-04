@@ -1,8 +1,4 @@
-{
-  outputs,
-  __nixpkgs__,
-  ...
-}:
+{ outputs, __nixpkgs__, ... }:
 __nixpkgs__.dockerTools.buildImage {
   config = {
     Env = [
@@ -36,23 +32,23 @@ __nixpkgs__.dockerTools.buildImage {
       __nixpkgs__.nixVersions.nix_2_15
 
       # Add /usr/bin/env pointing to /bin/env
-      (__nixpkgs__.runCommand "user-bin-env" {} ''
+      (__nixpkgs__.runCommand "user-bin-env" { } ''
         mkdir -p $out/usr/bin
         ln -s $(command -v env) $out/usr/bin/env
       '')
 
       # Create home directories
-      (__nixpkgs__.runCommand "home" {} ''
+      (__nixpkgs__.runCommand "home" { } ''
         mkdir -p $out/home/makes
         mkdir -p $out/home/root
       '')
       # Create empty temporary directories
-      (__nixpkgs__.runCommand "tmp" {} ''
+      (__nixpkgs__.runCommand "tmp" { } ''
         mkdir -p $out/tmp
         mkdir -p $out/var/tmp
       '')
       # Create the working directory
-      (__nixpkgs__.runCommand "working-directory" {} ''
+      (__nixpkgs__.runCommand "working-directory" { } ''
         mkdir -p $out/working-dir
       '')
 

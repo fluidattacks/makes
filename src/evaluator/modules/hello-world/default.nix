@@ -1,17 +1,12 @@
-{makeScript, ...}: {
-  config,
-  lib,
-  ...
-}: {
+{ makeScript, ... }:
+{ config, lib, ... }: {
   options = {
     helloWorld = {
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
       };
-      name = lib.mkOption {
-        type = lib.types.str;
-      };
+      name = lib.mkOption { type = lib.types.str; };
     };
   };
   config = {

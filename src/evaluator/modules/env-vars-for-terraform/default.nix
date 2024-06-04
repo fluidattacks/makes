@@ -1,12 +1,6 @@
-{
-  __toModuleOutputs__,
-  makeEnvVarsForTerraform,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, makeEnvVarsForTerraform, ... }:
+{ config, lib, ... }:
+let
   makeEnvVarsForTerraformOutput = name: mapping: {
     name = "/envVarsForTerraform/${name}";
     value = makeEnvVarsForTerraform {
@@ -17,14 +11,12 @@
 in {
   options = {
     envVarsForTerraform = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
     };
   };
   config = {
-    outputs =
-      __toModuleOutputs__
-      makeEnvVarsForTerraformOutput
+    outputs = __toModuleOutputs__ makeEnvVarsForTerraformOutput
       config.envVarsForTerraform;
   };
 }

@@ -1,15 +1,5 @@
-{
-  __nixpkgs__,
-  attrsOptional,
-  isLinux,
-  lintGitCommitMsg,
-  projectPath,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: {
+{ __nixpkgs__, attrsOptional, isLinux, lintGitCommitMsg, projectPath, ... }:
+{ config, lib, ... }: {
   options = {
     lintGitCommitMsg = {
       enable = lib.mkOption {
@@ -32,20 +22,18 @@
   };
   config = {
     outputs = {
-      "/lintGitCommitMsg" =
-        lib.mkIf
-        config.lintGitCommitMsg.enable
+      "/lintGitCommitMsg" = lib.mkIf config.lintGitCommitMsg.enable
         (lintGitCommitMsg {
           inherit (config.lintGitCommitMsg) branch;
-          config =
-            if config.lintGitCommitMsg.config == null
-            then ./config.js
-            else projectPath config.lintGitCommitMsg.config;
+          config = if config.lintGitCommitMsg.config == null then
+            ./config.js
+          else
+            projectPath config.lintGitCommitMsg.config;
           name = "lint-git-commit-msg";
-          parser =
-            if config.lintGitCommitMsg.parser == null
-            then ./parser.js
-            else projectPath config.lintGitCommitMsg.parser;
+          parser = if config.lintGitCommitMsg.parser == null then
+            ./parser.js
+          else
+            projectPath config.lintGitCommitMsg.parser;
           src = ".";
         });
     };

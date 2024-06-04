@@ -1,16 +1,10 @@
-{
-  __toModuleOutputs__,
-  secureKubernetesWithRbacPolice,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, secureKubernetesWithRbacPolice, ... }:
+{ config, lib, ... }:
+let
   type = lib.types.submodule (_: {
     options = {
       setup = lib.mkOption {
-        default = [];
+        default = [ ];
         type = lib.types.listOf lib.types.package;
       };
       severity = lib.mkOption {
@@ -19,21 +13,19 @@
       };
     };
   });
-  output = name: {
-    setup,
-    severity,
-  }: {
-    name = "/secureKubernetesWithRbacPolice/${name}";
-    value = secureKubernetesWithRbacPolice {
-      inherit name;
-      inherit setup;
-      inherit severity;
+  output = name:
+    { setup, severity, }: {
+      name = "/secureKubernetesWithRbacPolice/${name}";
+      value = secureKubernetesWithRbacPolice {
+        inherit name;
+        inherit setup;
+        inherit severity;
+      };
     };
-  };
 in {
   options = {
     secureKubernetesWithRbacPolice = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf type;
     };
   };

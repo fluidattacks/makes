@@ -1,12 +1,6 @@
-{
-  __toModuleOutputs__,
-  makeSecretForGpgFromEnv,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, makeSecretForGpgFromEnv, ... }:
+{ config, lib, ... }:
+let
   makeSecretForGpgFromEnvOutput = name: asciiArmorBlocks: {
     name = "/secretsForGpgFromEnv/${name}";
     value = makeSecretForGpgFromEnv {
@@ -17,14 +11,12 @@
 in {
   options = {
     secretsForGpgFromEnv = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
     };
   };
   config = {
-    outputs =
-      __toModuleOutputs__
-      makeSecretForGpgFromEnvOutput
+    outputs = __toModuleOutputs__ makeSecretForGpgFromEnvOutput
       config.secretsForGpgFromEnv;
   };
 }

@@ -1,13 +1,5 @@
-{
-  __nixpkgs__,
-  toBashArray,
-  makeScript,
-  ...
-}: {
-  config,
-  targets,
-  name,
-}:
+{ __nixpkgs__, toBashArray, makeScript, ... }:
+{ config, targets, name, }:
 makeScript {
   name = "format-python-for-${name}";
   replace = {
@@ -17,13 +9,8 @@ makeScript {
   };
   entrypoint = ./entrypoint.sh;
   searchPaths = {
-    bin = [
-      __nixpkgs__.black
-      __nixpkgs__.git
-      __nixpkgs__.python311Packages.isort
-    ];
-    pythonPackage311 = [
-      __nixpkgs__.python311Packages.colorama
-    ];
+    bin =
+      [ __nixpkgs__.black __nixpkgs__.git __nixpkgs__.python311Packages.isort ];
+    pythonPackage311 = [ __nixpkgs__.python311Packages.colorama ];
   };
 }

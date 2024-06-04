@@ -1,8 +1,4 @@
-{
-  __nixpkgs__,
-  makeScript,
-  ...
-}:
+{ __nixpkgs__, makeScript, ... }:
 makeScript {
   entrypoint = ./entrypoint.sh;
   name = "make-python-lock";

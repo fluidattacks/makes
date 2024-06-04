@@ -1,12 +1,6 @@
-{
-  __toModuleOutputs__,
-  makeSecretForAwsFromGitlab,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, makeSecretForAwsFromGitlab, ... }:
+{ config, lib, ... }:
+let
   type = lib.types.submodule (_: {
     options = {
       duration = lib.mkOption {
@@ -17,28 +11,23 @@
         default = 15;
         type = lib.types.ints.positive;
       };
-      roleArn = lib.mkOption {
-        type = lib.types.str;
-      };
+      roleArn = lib.mkOption { type = lib.types.str; };
     };
   });
-  output = name: {
-    duration,
-    retries,
-    roleArn,
-  }: {
-    name = "/secretsForAwsFromGitlab/${name}";
-    value = makeSecretForAwsFromGitlab {
-      inherit duration;
-      inherit name;
-      inherit retries;
-      inherit roleArn;
+  output = name:
+    { duration, retries, roleArn, }: {
+      name = "/secretsForAwsFromGitlab/${name}";
+      value = makeSecretForAwsFromGitlab {
+        inherit duration;
+        inherit name;
+        inherit retries;
+        inherit roleArn;
+      };
     };
-  };
 in {
   options = {
     secretsForAwsFromGitlab = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf type;
     };
   };

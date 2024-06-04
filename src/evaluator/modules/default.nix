@@ -1,14 +1,5 @@
-{
-  attrsOptional,
-  attrPaths,
-  config,
-  fromJson,
-  lib,
-  projectPath,
-  projectSrc,
-  toFileJson,
-  ...
-} @ args: {
+{ attrsOptional, attrPaths, config, fromJson, lib, projectPath, projectSrc
+, toFileJson, ... }@args: {
   imports = [
     (import ./cache/default.nix args)
     (import ./calculate-scorecard/default.nix args)
@@ -72,63 +63,39 @@
       default = "";
     };
     extendingMakesDirs = lib.mkOption {
-      default = ["/makes"];
+      default = [ "/makes" ];
       type = lib.types.listOf lib.types.str;
     };
 
-    config = lib.mkOption {
-      type = lib.types.attrsOf lib.types.anything;
-    };
-    configAsJson = lib.mkOption {
-      type = lib.types.package;
-    };
-    outputs = lib.mkOption {
-      type = lib.types.attrsOf lib.types.package;
-    };
+    config = lib.mkOption { type = lib.types.attrsOf lib.types.anything; };
+    configAsJson = lib.mkOption { type = lib.types.package; };
+    outputs = lib.mkOption { type = lib.types.attrsOf lib.types.package; };
   };
   config = {
-    config = {
-      outputs = builtins.attrNames config.outputs;
-    };
+    config = { outputs = builtins.attrNames config.outputs; };
     configAsJson = toFileJson "config.json" config.config;
     outputs = let
       # Trivial
       makesDirsNoRoot = lib.remove "/" config.extendingMakesDirs;
-      makesDirsToReplace = makesDirsNoRoot ++ ["/main.nix"];
+      makesDirsToReplace = makesDirsNoRoot ++ [ "/main.nix" ];
       emptyList = builtins.map (_: "") makesDirsToReplace;
 
       # Load an attr set distributed across many files and directories
       attrs = let
         pathInConfig = dir:
-          builtins.any
-          (makesDir: lib.hasInfix makesDir dir)
+          builtins.any (makesDir: lib.hasInfix makesDir dir)
           config.extendingMakesDirs;
-        attrName = dir: let
-          replaced = builtins.replaceStrings makesDirsToReplace emptyList dir;
-        in
-          if replaced != ""
-          then replaced
-          else "/";
-      in
-        builtins.foldl'
-        lib.mergeAttrs
-        {}
-        (
-          builtins.map
-          (
-            dir:
-              attrsOptional
-              (pathInConfig dir)
-              {"${attrName dir}" = import (projectSrc + dir) args;}
-          )
-          (fromJson attrPaths).attrs
-        );
-    in
-      attrs
-      // {
-        __all__ =
-          toFileJson "all"
-          (builtins.removeAttrs config.outputs ["__all__"]);
-      };
+        attrName = dir:
+          let
+            replaced = builtins.replaceStrings makesDirsToReplace emptyList dir;
+          in if replaced != "" then replaced else "/";
+      in builtins.foldl' lib.mergeAttrs { } (builtins.map (dir:
+        attrsOptional (pathInConfig dir) {
+          "${attrName dir}" = import (projectSrc + dir) args;
+        }) (fromJson attrPaths).attrs);
+    in attrs // {
+      __all__ =
+        toFileJson "all" (builtins.removeAttrs config.outputs [ "__all__" ]);
+    };
   };
 }

@@ -1,30 +1,20 @@
-{
-  __toModuleOutputs__,
-  projectPath,
-  securePythonWithBandit,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
-  makeModule = name: {target}: {
-    name = "/securePythonWithBandit/${name}";
-    value = securePythonWithBandit {
-      inherit name;
-      target = projectPath target;
+{ __toModuleOutputs__, projectPath, securePythonWithBandit, ... }:
+{ config, lib, ... }:
+let
+  makeModule = name:
+    { target }: {
+      name = "/securePythonWithBandit/${name}";
+      value = securePythonWithBandit {
+        inherit name;
+        target = projectPath target;
+      };
     };
-  };
 in {
   options = {
     securePythonWithBandit = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf (lib.types.submodule (_: {
-        options = {
-          target = lib.mkOption {
-            type = lib.types.str;
-          };
-        };
+        options = { target = lib.mkOption { type = lib.types.str; }; };
       }));
     };
   };

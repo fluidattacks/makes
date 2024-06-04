@@ -1,14 +1,5 @@
-{
-  __nixpkgs__,
-  toBashArray,
-  makeDerivation,
-  projectPath,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: {
+{ __nixpkgs__, toBashArray, makeDerivation, projectPath, ... }:
+{ config, lib, ... }: {
   options = {
     lintBash = {
       enable = lib.mkOption {
@@ -16,7 +7,7 @@
         type = lib.types.bool;
       };
       targets = lib.mkOption {
-        default = ["/"];
+        default = [ "/" ];
         type = lib.types.listOf lib.types.str;
       };
     };
@@ -26,15 +17,11 @@
       "/lintBash" = lib.mkIf config.lintBash.enable (makeDerivation {
         env = {
           envTargets =
-            toBashArray
-            (builtins.map projectPath config.lintBash.targets);
+            toBashArray (builtins.map projectPath config.lintBash.targets);
         };
         name = "lint-bash";
         searchPaths = {
-          bin = [
-            __nixpkgs__.findutils
-            __nixpkgs__.shellcheck
-          ];
+          bin = [ __nixpkgs__.findutils __nixpkgs__.shellcheck ];
         };
         builder = ./builder.sh;
       });
