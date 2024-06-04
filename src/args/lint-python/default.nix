@@ -1,16 +1,5 @@
-{
-  __nixpkgs__,
-  makeDerivation,
-  makePythonEnvironment,
-  makeSearchPaths,
-  ...
-}: {
-  name,
-  searchPaths,
-  settingsMypy,
-  settingsProspector,
-  src,
-}:
+{ __nixpkgs__, makeDerivation, makePythonEnvironment, makeSearchPaths, ... }:
+{ name, searchPaths, settingsMypy, settingsProspector, src, }:
 makeDerivation {
   env = {
     envSettingsMypy = settingsMypy;
@@ -19,7 +8,7 @@ makeDerivation {
   };
   name = "lint-python-module-for-${name}";
   searchPaths = {
-    bin = [__nixpkgs__.findutils];
+    bin = [ __nixpkgs__.findutils ];
     source = [
       (makeSearchPaths searchPaths)
       (makePythonEnvironment {

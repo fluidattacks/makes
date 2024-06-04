@@ -1,18 +1,9 @@
-{
-  makeDerivation,
-  makeDerivationParallel,
-  makePythonEnvironment,
-  ...
-}: {
-  targets,
-  name,
-  ...
-}: let
+{ makeDerivation, makeDerivationParallel, makePythonEnvironment, ... }:
+{ targets, name, ... }:
+let
   makeTarget = envTarget:
     makeDerivation {
-      env = {
-        inherit envTarget;
-      };
+      env = { inherit envTarget; };
       name = "build-lint-with-lizard-for-${name}-${envTarget}";
       searchPaths = {
         source = [
@@ -24,8 +15,7 @@
       };
       builder = ./builder.sh;
     };
-in
-  makeDerivationParallel {
-    dependencies = builtins.map makeTarget targets;
-    name = "lint-with-lizard-for-${name}";
-  }
+in makeDerivationParallel {
+  dependencies = builtins.map makeTarget targets;
+  name = "lint-with-lizard-for-${name}";
+}

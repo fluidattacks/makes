@@ -1,21 +1,8 @@
-{
-  __nixpkgs__,
-  makeTemplate,
-  ...
-}: {
-  name,
-  env,
-  bins,
-}:
+{ __nixpkgs__, makeTemplate, ... }:
+{ name, env, bins, }:
 makeTemplate {
   inherit name;
-  searchPaths = {
-    bin =
-      bins
-      ++ [
-        env
-      ];
-  };
+  searchPaths = { bin = bins ++ [ env ]; };
   replace = {
     __argPython__ = __nixpkgs__.python310;
     __argPythonEnv__ = env;

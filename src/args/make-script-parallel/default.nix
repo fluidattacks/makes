@@ -1,14 +1,5 @@
-{
-  __nixpkgs__,
-  toBashArray,
-  makeScript,
-  ...
-}: {
-  commands,
-  extraArgs ? [],
-  name,
-  help ? null,
-}:
+{ __nixpkgs__, toBashArray, makeScript, ... }:
+{ commands, extraArgs ? [ ], name, help ? null, }:
 makeScript {
   replace = {
     __argCommands__ = toBashArray commands;
@@ -17,9 +8,5 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   inherit help;
   name = "make-script-parallel-for-${name}";
-  searchPaths = {
-    bin = [
-      __nixpkgs__.parallel
-    ];
-  };
+  searchPaths = { bin = [ __nixpkgs__.parallel ]; };
 }

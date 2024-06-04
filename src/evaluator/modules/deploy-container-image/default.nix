@@ -1,12 +1,6 @@
-{
-  __toModuleOutputs__,
-  deployContainerImage,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, deployContainerImage, ... }:
+{ config, lib, ... }:
+let
   makeOutput = name: args: {
     name = "/deployContainerImage/${name}";
     value = deployContainerImage {
@@ -24,7 +18,7 @@ in {
   options = {
     deployContainerImage = {
       images = lib.mkOption {
-        default = {};
+        default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             attempts = lib.mkOption {
@@ -32,30 +26,20 @@ in {
               type = lib.types.ints.positive;
             };
             credentials = {
-              token = lib.mkOption {
-                type = lib.types.str;
-              };
-              user = lib.mkOption {
-                type = lib.types.str;
-              };
+              token = lib.mkOption { type = lib.types.str; };
+              user = lib.mkOption { type = lib.types.str; };
             };
-            registry = lib.mkOption {
-              type = lib.types.str;
-            };
+            registry = lib.mkOption { type = lib.types.str; };
             setup = lib.mkOption {
-              default = [];
+              default = [ ];
               type = lib.types.listOf lib.types.package;
             };
             sign = lib.mkOption {
               default = false;
               type = lib.types.bool;
             };
-            src = lib.mkOption {
-              type = lib.types.package;
-            };
-            tag = lib.mkOption {
-              type = lib.types.str;
-            };
+            src = lib.mkOption { type = lib.types.package; };
+            tag = lib.mkOption { type = lib.types.str; };
           };
         }));
       };

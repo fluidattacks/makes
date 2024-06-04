@@ -1,8 +1,4 @@
-{
-  makeScript,
-  outputs,
-  ...
-}:
+{ makeScript, outputs, ... }:
 makeScript {
   entrypoint = "echo $secret";
   name = "tests-secrets-for-gpg-from-env";

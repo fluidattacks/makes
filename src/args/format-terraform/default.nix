@@ -1,22 +1,8 @@
-{
-  __nixpkgs__,
-  toBashArray,
-  makeScript,
-  ...
-}: {
-  name,
-  targets,
-  ...
-}:
+{ __nixpkgs__, toBashArray, makeScript, ... }:
+{ name, targets, ... }:
 makeScript {
-  replace = {
-    __argTargets__ = toBashArray targets;
-  };
+  replace = { __argTargets__ = toBashArray targets; };
   name = "format-terraform-for-${name}";
-  searchPaths = {
-    bin = [
-      __nixpkgs__.terraform
-    ];
-  };
+  searchPaths = { bin = [ __nixpkgs__.terraform ]; };
   entrypoint = ./entrypoint.sh;
 }

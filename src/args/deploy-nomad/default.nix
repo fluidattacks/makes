@@ -1,14 +1,5 @@
-{
-  makeScript,
-  makeNomadEnvironment,
-  ...
-}: {
-  setup,
-  name,
-  version,
-  src,
-  namespace,
-}:
+{ makeScript, makeNomadEnvironment, ... }:
+{ setup, name, version, src, namespace, }:
 makeScript {
   entrypoint = ./entrypoint.sh;
   replace = {
@@ -17,12 +8,6 @@ makeScript {
   };
   name = "deploy-nomad-for-${name}";
   searchPaths = {
-    source =
-      [
-        (makeNomadEnvironment {
-          inherit version;
-        })
-      ]
-      ++ setup;
+    source = [ (makeNomadEnvironment { inherit version; }) ] ++ setup;
   };
 }

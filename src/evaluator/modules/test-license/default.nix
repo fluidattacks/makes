@@ -1,8 +1,5 @@
-{testLicense, ...}: {
-  config,
-  lib,
-  ...
-}: {
+{ testLicense, ... }:
+{ config, lib, ... }: {
   options = {
     testLicense = {
       enable = lib.mkOption {

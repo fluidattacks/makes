@@ -6,7 +6,7 @@ function main {
   info Formatting Nix code \
     && for target in "${targets[@]}"; do
       info Formatting "${target}" \
-        && if ! alejandra --check "${target}"; then
+        && if ! nixfmt "${target}"; then
           info Source code was formated, the job will fail \
             && error Failing as promised...
         fi \

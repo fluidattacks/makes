@@ -1,20 +1,20 @@
-{computeOnAwsBatch, ...}:
+{ computeOnAwsBatch, ... }:
 computeOnAwsBatch {
   dryRun = true;
   allowDuplicates = true;
   attempts = 1;
   attemptDurationSeconds = 60;
-  command = ["foo"];
+  command = [ "foo" ];
   definition = "foo";
-  environment = [];
+  environment = [ ];
   includePositionalArgsInName = true;
   name = "foo";
-  nextJob = {};
+  nextJob = { };
   memory = 1;
   parallel = 1;
   propagateTags = true;
   queue = "foo";
-  setup = [];
-  tags = {};
+  setup = [ ];
+  tags = { };
   vcpus = 1;
 }

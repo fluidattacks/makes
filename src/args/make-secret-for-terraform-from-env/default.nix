@@ -1,13 +1,5 @@
-{
-  __nixpkgs__,
-  toBashMap,
-  makeTemplate,
-  toDerivationName,
-  ...
-}: {
-  mapping,
-  name,
-}:
+{ __nixpkgs__, toBashMap, makeTemplate, toDerivationName, ... }:
+{ mapping, name, }:
 makeTemplate {
   replace = {
     __argName__ = toDerivationName name;

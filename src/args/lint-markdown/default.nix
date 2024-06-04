@@ -1,14 +1,5 @@
-{
-  __nixpkgs__,
-  toBashArray,
-  makeDerivation,
-  ...
-}: {
-  name,
-  config,
-  targets,
-  rulesets,
-}:
+{ __nixpkgs__, toBashArray, makeDerivation, ... }:
+{ name, config, targets, rulesets, }:
 makeDerivation {
   env = {
     envConfig = config;
@@ -16,10 +7,6 @@ makeDerivation {
     envRulesets = rulesets;
   };
   name = "lint-markdown-for-${name}";
-  searchPaths = {
-    bin = [
-      __nixpkgs__.mdl
-    ];
-  };
+  searchPaths = { bin = [ __nixpkgs__.mdl ]; };
   builder = ./builder.sh;
 }

@@ -1,10 +1,6 @@
-{
-  __nixpkgs__,
-  makeTemplate,
-  ...
-}:
+{ __nixpkgs__, makeTemplate, ... }:
 makeTemplate {
   name = "patch-shebangs";
-  searchPaths.bin = [__nixpkgs__.findutils __nixpkgs__.gnused];
+  searchPaths.bin = [ __nixpkgs__.findutils __nixpkgs__.gnused ];
   template = ./template.sh;
 }

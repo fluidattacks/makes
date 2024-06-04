@@ -1,16 +1,9 @@
-{
-  __nixpkgs__,
-  calculateScorecard,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: {
+{ __nixpkgs__, calculateScorecard, ... }:
+{ config, lib, ... }: {
   options = {
     calculateScorecard = {
       checks = lib.mkOption {
-        default = [];
+        default = [ ];
         type = lib.types.listOf lib.types.str;
       };
       enable = lib.mkOption {
@@ -29,16 +22,15 @@
   };
   config = {
     outputs = {
-      "/calculateScorecard" = lib.mkIf config.calculateScorecard.enable (
-        calculateScorecard {
-          checks =
-            if config.calculateScorecard.checks == []
-            then config.calculateScorecard.checks
-            else builtins.concatStringsSep "," config.calculateScorecard.checks;
+      "/calculateScorecard" = lib.mkIf config.calculateScorecard.enable
+        (calculateScorecard {
+          checks = if config.calculateScorecard.checks == [ ] then
+            config.calculateScorecard.checks
+          else
+            builtins.concatStringsSep "," config.calculateScorecard.checks;
           inherit (config.calculateScorecard) format;
           inherit (config.calculateScorecard) target;
-        }
-      );
+        });
     };
   };
 }

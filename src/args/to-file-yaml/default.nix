@@ -1,9 +1,5 @@
-{
-  __nixpkgs__,
-  makeDerivation,
-  toFileJson,
-  ...
-}: name: expr:
+{ __nixpkgs__, makeDerivation, toFileJson, ... }:
+name: expr:
 makeDerivation {
   builder = ''
     yq -y < $envData > $out
@@ -11,5 +7,5 @@ makeDerivation {
   inherit name;
   env.envData = toFileJson name expr;
   local = true;
-  searchPaths.bin = [__nixpkgs__.yq];
+  searchPaths.bin = [ __nixpkgs__.yq ];
 }

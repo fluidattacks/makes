@@ -1,13 +1,6 @@
-{
-  __toModuleOutputs__,
-  lintClojure,
-  projectPath,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
+{ __toModuleOutputs__, lintClojure, projectPath, ... }:
+{ config, lib, ... }:
+let
   makeOutput = name: targets: {
     name = "/lintClojure/${name}";
     value = lintClojure {
@@ -18,11 +11,9 @@
 in {
   options = {
     lintClojure = lib.mkOption {
-      default = {};
+      default = { };
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
     };
   };
-  config = {
-    outputs = __toModuleOutputs__ makeOutput config.lintClojure;
-  };
+  config = { outputs = __toModuleOutputs__ makeOutput config.lintClojure; };
 }

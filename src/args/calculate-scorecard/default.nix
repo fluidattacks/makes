@@ -1,13 +1,5 @@
-{
-  __nixpkgs__,
-  makeScript,
-  ...
-}: {
-  checks,
-  format,
-  target,
-  ...
-}:
+{ __nixpkgs__, makeScript, ... }:
+{ checks, format, target, ... }:
 makeScript {
   entrypoint = ./entrypoint.sh;
   name = "calculate-scorecard";

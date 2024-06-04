@@ -1,18 +1,6 @@
-{
-  makePythonEnvironment,
-  makeSearchPaths,
-  makeScript,
-  toBashArray,
-  toBashMap,
-  ...
-}: {
-  extraFlags,
-  extraSrcs,
-  name,
-  project,
-  searchPaths,
-  src,
-}:
+{ makePythonEnvironment, makeSearchPaths, makeScript, toBashArray, toBashMap
+, ... }:
+{ extraFlags, extraSrcs, name, project, searchPaths, src, }:
 makeScript {
   name = "test-python-for-${name}";
   replace = {

@@ -1,3 +1,1 @@
-{
-  makesSrc = ./.;
-}
+{ makesSrc = ./.; }

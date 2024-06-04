@@ -1,81 +1,45 @@
-{
-  __nixpkgs__,
-  __shellCommands__,
-  makeTemplate,
-  ...
-}: {
-  append ? true,
-  bin ? [],
-  crystalLib ? [],
-  export ? [],
-  javaClass ? [],
-  kubeConfig ? [],
-  nodeBin ? [],
-  nodeModule ? [],
-  ocamlBin ? [],
-  ocamlLib ? [],
-  ocamlStublib ? [],
-  pkgConfig ? [],
-  pythonMypy ? [],
-  pythonMypy38 ? [],
-  pythonMypy39 ? [],
-  pythonMypy310 ? [],
-  pythonMypy311 ? [],
-  pythonMypy312 ? [],
-  pythonPackage ? [],
-  pythonPackage38 ? [],
-  pythonPackage39 ? [],
-  pythonPackage310 ? [],
-  pythonPackage311 ? [],
-  pythonPackage312 ? [],
-  rpath ? [],
-  rubyBin ? [],
-  rubyGemPath ? [],
-  source ? [],
-  withAction ? true,
-}: let
+{ __nixpkgs__, __shellCommands__, makeTemplate, ... }:
+{ append ? true, bin ? [ ], crystalLib ? [ ], export ? [ ], javaClass ? [ ]
+, kubeConfig ? [ ], nodeBin ? [ ], nodeModule ? [ ], ocamlBin ? [ ]
+, ocamlLib ? [ ], ocamlStublib ? [ ], pkgConfig ? [ ], pythonMypy ? [ ]
+, pythonMypy38 ? [ ], pythonMypy39 ? [ ], pythonMypy310 ? [ ]
+, pythonMypy311 ? [ ], pythonMypy312 ? [ ], pythonPackage ? [ ]
+, pythonPackage38 ? [ ], pythonPackage39 ? [ ], pythonPackage310 ? [ ]
+, pythonPackage311 ? [ ], pythonPackage312 ? [ ], rpath ? [ ], rubyBin ? [ ]
+, rubyGemPath ? [ ], source ? [ ], withAction ? true, }:
+let
   makeExport = envVar: envPath: envDrv:
-    if append
-    then "export ${envVar}=\"${envDrv}${envPath}\${${envVar}:+:}\${${envVar}:-}\""
-    else "export ${envVar}=\"${envDrv}${envPath}\"";
-  makeSource = envDrv: let
-    type = builtins.typeOf envDrv;
-    file =
-      if type == "list"
-      then builtins.head envDrv
-      else envDrv;
-    args =
-      if type == "list"
-      then __nixpkgs__.lib.strings.escapeShellArgs (builtins.tail envDrv)
-      else "";
-  in ''
-    if test -e "${file}/template"
-    then source "${file}/template" ${args}
-    else source "${file}" ${args}
-    fi
-  '';
-in
-  makeTemplate {
-    name = "make-search-paths";
-    template = builtins.concatStringsSep "\n" (
-      builtins.foldl'
-      (
-        sources: {
-          generator,
-          derivations,
-        }:
-          if (derivations == [])
-          then sources
-          else sources ++ (builtins.map generator derivations)
-      )
-      []
-      [
+    if append then
+      ''
+        export ${envVar}="${envDrv}${envPath}''${${envVar}:+:}''${${envVar}:-}"''
+    else
+      ''export ${envVar}="${envDrv}${envPath}"'';
+  makeSource = envDrv:
+    let
+      type = builtins.typeOf envDrv;
+      file = if type == "list" then builtins.head envDrv else envDrv;
+      args = if type == "list" then
+        __nixpkgs__.lib.strings.escapeShellArgs (builtins.tail envDrv)
+      else
+        "";
+    in ''
+      if test -e "${file}/template"
+      then source "${file}/template" ${args}
+      else source "${file}" ${args}
+      fi
+    '';
+in makeTemplate {
+  name = "make-search-paths";
+  template = builtins.concatStringsSep "\n" (builtins.foldl' (sources:
+    { generator, derivations, }:
+    if (derivations == [ ]) then
+      sources
+    else
+      sources ++ (builtins.map generator derivations)) [ ] [
         {
           derivations = export;
           generator = export:
-            makeExport
-            (builtins.elemAt export 0)
-            (builtins.elemAt export 2)
+            makeExport (builtins.elemAt export 0) (builtins.elemAt export 2)
             (builtins.elemAt export 1);
         }
         {
@@ -175,14 +139,13 @@ in
           generator = makeExport "GEM_PATH" "/";
         }
         {
-          derivations = [__shellCommands__];
+          derivations = [ __shellCommands__ ];
           generator = makeSource;
         }
         {
           derivations = source;
           generator = makeSource;
         }
-      ]
-    );
-    inherit withAction;
-  }
+      ]);
+  inherit withAction;
+}

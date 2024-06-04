@@ -1,78 +1,52 @@
-{
-  __toModuleOutputs__,
-  lintPython,
-  lintPythonImports,
-  makeDerivationParallel,
-  projectPath,
-  projectPathLsDirs,
-  ...
-}: {
-  config,
-  lib,
-  ...
-}: let
-  makeImports = name: {
-    config,
-    searchPaths,
-    src,
-  }: {
-    name = "/lintPython/imports/${name}";
-    value = lintPythonImports {
-      inherit searchPaths;
-      config = projectPath config;
-      inherit name;
-      src = projectPath src;
+{ __toModuleOutputs__, lintPython, lintPythonImports, makeDerivationParallel
+, projectPath, projectPathLsDirs, ... }:
+{ config, lib, ... }:
+let
+  makeImports = name:
+    { config, searchPaths, src, }: {
+      name = "/lintPython/imports/${name}";
+      value = lintPythonImports {
+        inherit searchPaths;
+        config = projectPath config;
+        inherit name;
+        src = projectPath src;
+      };
     };
-  };
-  makeModule = name: {
-    config,
-    searchPaths,
-    src,
-  }: {
-    name = "/lintPython/module/${name}";
-    value = lintPython {
-      inherit searchPaths;
-      inherit name;
-      settingsMypy = config.mypy;
-      settingsProspector = config.prospector;
-      src = projectPath src;
+  makeModule = name:
+    { config, searchPaths, src, }: {
+      name = "/lintPython/module/${name}";
+      value = lintPython {
+        inherit searchPaths;
+        inherit name;
+        settingsMypy = config.mypy;
+        settingsProspector = config.prospector;
+        src = projectPath src;
+      };
     };
-  };
-  makeDirOfModules = name: {
-    config,
-    searchPaths,
-    src,
-  }: let
-    modules =
-      builtins.map
-      (moduleName: {
+  makeDirOfModules = name:
+    { config, searchPaths, src, }:
+    let
+      modules = builtins.map (moduleName: {
         name = "/lintPython/dirOfModules/${name}/${moduleName}";
-        inherit
-          ((makeModule moduleName {
-            inherit config;
-            inherit searchPaths;
-            src = "${src}/${moduleName}";
-          }))
-          value
-          ;
-      })
-      (projectPathLsDirs src);
-  in
-    modules
-    ++ [
-      {
-        name = "/lintPython/dirOfModules/${name}";
-        value = makeDerivationParallel {
-          dependencies = lib.attrsets.catAttrs "value" modules;
-          name = "lint-python-dir-of-modules-for-${name}";
-        };
-      }
-    ];
+        inherit ((makeModule moduleName {
+          inherit config;
+          inherit searchPaths;
+          src = "${src}/${moduleName}";
+        }))
+          value;
+      }) (projectPathLsDirs src);
+    in modules ++ [{
+      name = "/lintPython/dirOfModules/${name}";
+      value = makeDerivationParallel {
+        dependencies = lib.attrsets.catAttrs "value" modules;
+        name = "lint-python-dir-of-modules-for-${name}";
+      };
+    }];
 in {
   options = {
     lintPython = {
       dirsOfModules = lib.mkOption {
-        default = {};
+        default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             config = {
@@ -86,34 +60,28 @@ in {
               };
             };
             searchPaths = lib.mkOption {
-              default = {};
+              default = { };
               type = lib.types.attrs;
             };
-            src = lib.mkOption {
-              type = lib.types.str;
-            };
+            src = lib.mkOption { type = lib.types.str; };
           };
         }));
       };
       imports = lib.mkOption {
-        default = {};
+        default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
-            config = lib.mkOption {
-              type = lib.types.str;
-            };
+            config = lib.mkOption { type = lib.types.str; };
             searchPaths = lib.mkOption {
-              default = {};
+              default = { };
               type = lib.types.attrs;
             };
-            src = lib.mkOption {
-              type = lib.types.str;
-            };
+            src = lib.mkOption { type = lib.types.str; };
           };
         }));
       };
       modules = lib.mkOption {
-        default = {};
+        default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
             config = {
@@ -127,12 +95,10 @@ in {
               };
             };
             searchPaths = lib.mkOption {
-              default = {};
+              default = { };
               type = lib.types.attrs;
             };
-            src = lib.mkOption {
-              type = lib.types.str;
-            };
+            src = lib.mkOption { type = lib.types.str; };
           };
         }));
       };
