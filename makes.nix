@@ -231,19 +231,6 @@
       src = "/src/cli";
     };
   };
-  testPullRequest = {
-    modules = {
-      default = {
-        dangerfile = fetchUrl {
-          url =
-            "https://gitlab.com/fluidattacks/universe/-/raw/7012ee63b6ba5ffebfc82425deb4390cb1d4a1ca/common/test/mr/src/dangerfile.ts";
-          sha256 = "sha256-OegMHRXwgkRItyxW5SZfcQr21VRIINKhC5mlYa/Rphw=";
-        };
-        extraArgs =
-          [ "--config" (builtins.toJSON { tests = [ "onlyOneCommit" ]; }) ];
-      };
-    };
-  };
   testTerraform = {
     modules = {
       module = {
