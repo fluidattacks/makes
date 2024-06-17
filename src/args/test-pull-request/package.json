@@ -1,7 +1,0 @@
-{
-  "name": "test-pull-request",
-  "dependencies": {
-    "danger": "11.2.6",
-    "typescript": "5.0.4"
-  }
-}
