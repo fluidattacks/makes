@@ -80,7 +80,7 @@ Example:
 ## formatNix
 
 Ensure that Nix code is formatted
-according to [Alejandra](https://github.com/kamadorueda/alejandra).
+according to [nixfmt](https://github.com/NixOS/nixfmt).
 
 Types:
 
