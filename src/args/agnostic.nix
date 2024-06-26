@@ -37,8 +37,6 @@ let
       inherit (__nixpkgs__.lib.strings) escapeShellArgs;
       inherit (__nixpkgs__.lib) fakeSha256;
       fetchArchive = import ./fetch-archive/default.nix self;
-      fetchGithub = import ./fetch-github/default.nix self;
-      fetchGitlab = import ./fetch-gitlab/default.nix self;
       fetchNixpkgs = import ./fetch-nixpkgs/default.nix self;
       fetchRubyGem = import ./fetch-rubygem/default.nix self;
       fetchUrl = import ./fetch-url/default.nix self;

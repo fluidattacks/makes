@@ -1,4 +1,4 @@
-{ __nixpkgs__, fetchGithub, fetchUrl, makeDerivation, makeScript, ... }:
+{ __nixpkgs__, fetchUrl, makeDerivation, makeScript, ... }:
 { name, setup, severity, ... }:
 let
   bin = makeDerivation {
@@ -18,10 +18,9 @@ let
       patchelf --set-interpreter "$envGlibc/lib/ld-linux-x86-64.so.2" "$out"
     '';
   };
-  repo = fetchGithub {
-    owner = "PaloAltoNetworks";
-    repo = "rbac-police";
-    rev = "ffe47f709a747fc92cbeeb2eec688b4ea544b958";
+  repo = builtins.fetchTarball {
+    url =
+      "https://github.com/PaloAltoNetworks/rbac-police/archive/ffe47f709a747fc92cbeeb2eec688b4ea544b958.tar.gz";
     sha256 = "0hna14rwkfadqq2higzz033hkdpxpnzi5vg340xsk50ipr41g689";
   };
 in makeScript {
