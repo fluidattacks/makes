@@ -1,11 +1,11 @@
-{ __nixpkgs__, fetchGithub, makeScript, ... }:
+{ __nixpkgs__, makeScript, ... }:
 { name, src, exclude, }:
 let
-  mailmapLinter = fetchGithub {
-    owner = "kamadorueda";
-    repo = "mailmap-linter";
-    rev = "ffed6a68e507228d7e462642a8ec129f816b6a5d";
-    sha256 = "XHmqLTT7TZ/dXBtQSH1xkEGSWI4mpImt+KRqBHbfGLk=";
+  rev = "ffed6a68e507228d7e462642a8ec129f816b6a5d";
+  sha256 = "XHmqLTT7TZ/dXBtQSH1xkEGSWI4mpImt+KRqBHbfGLk=";
+  mailmapLinter = builtins.fetchTarball {
+    url = "https://github.com/kamadorueda/mailmap-linter/archive/${rev}.tar.gz";
+    inherit sha256;
   };
 in makeScript {
   entrypoint = ./entrypoint.sh;
