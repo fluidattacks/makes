@@ -1,7 +1,7 @@
 ## makePythonEnvironment
 
-Create a Python virtual environment using
-[poetry2nix](https://github.com/nix-community/poetry2nix/tree/74921da7e0cc8918adc2e9989bd3e9c127b25ff6).
+Create a source-able Python virtual environment using
+[makePythonPoetryEnvironment](#makepythonpoetryenvironment).
 
 Pre-requisites:
 Having both `pyproject.toml` and `poetry.lock`.
@@ -42,6 +42,75 @@ Example:
       ...
     }:
     makePythonEnvironment {
+      pythonProjectDir = projectPath "/makes/example";
+      pythonVersion = "3.11";
+      preferWheels = true;
+      # Consider pygments requiring setuptools to build properly
+      overrides = self: super: {
+        pygments = super.pygments.overridePythonAttrs (
+          old: {
+            preUnpack =
+              ''
+                export HOME=$(mktemp -d)
+                rm -rf /homeless-shelter
+              ''
+              + (old.preUnpack or "");
+            buildInputs = [super.setuptools];
+          }
+        );
+      };
+    }
+    ```
+
+???+ tip
+
+    Refer to [makePythonLock](/api/builtins/utilities/#makepythonlock)
+    to learn how to generate a `poetry.lock`.
+
+## makePythonPoetryEnvironment
+
+Create a Python virtual environment using
+[poetry2nix](https://github.com/nix-community/poetry2nix/tree/74921da7e0cc8918adc2e9989bd3e9c127b25ff6).
+
+Pre-requisites:
+Having both `pyproject.toml` and `poetry.lock`.
+
+Types:
+
+- makePythonPoetryEnvironment: (`function { ... } -> poetry2nixBundle`):
+    - pythonProjectDir (`path`): Required.
+        Python project where both
+        `pyproject.toml` and `poetry.lock`
+        are located.
+    - pythonVersion (`str`): Required.
+        Python version used to build the environment.
+        Supported versions are `3.9`, `3.10`, `3.11` and `3.12`.
+    - preferWheels (`bool`): Optional.
+        Use pre-compiled wheels from PyPI.
+        Defaults to `true`.
+    - overrides (`function {...} -> package`): Optional.
+        Override build attributes for libraries within the environment.
+        For more information see [here](https://github.com/nix-community/poetry2nix/blob/master/docs/edgecases.md).
+        Defaults to `(self: super: {})`.
+
+        ???+ note
+
+            By default we override every python package deleting the
+            `homeless-shelter` directory and changing the `HOME` variable,
+            we make this to assure purity of builds without sandboxing.
+
+Example:
+
+=== "main.nix"
+
+    ```nix
+    # /path/to/my/project/makes/example/main.nix
+    {
+      makePythonPoetryEnvironment,
+      projectPath,
+      ...
+    }:
+    makePythonPoetryEnvironment {
       pythonProjectDir = projectPath "/makes/example";
       pythonVersion = "3.11";
       preferWheels = true;

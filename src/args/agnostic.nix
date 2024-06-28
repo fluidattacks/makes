@@ -58,7 +58,6 @@ let
       inherit (__nixpkgs__.stdenv) isDarwin;
       inherit (__nixpkgs__.stdenv) isLinux;
       libGit = import ./lib-git/default.nix self;
-      listOptional = __nixpkgs__.lib.lists.optional;
       lintClojure = import ./lint-clojure/default.nix self;
       lintGitCommitMsg = import ./lint-git-commit-msg/default.nix self;
       lintGitMailMap = import ./lint-git-mailmap/default.nix self;
@@ -83,6 +82,8 @@ let
       makeNodeJsModules = import ./make-node-js-modules/default.nix self;
       makeNomadEnvironment = import ./make-nomad-environment/default.nix self;
       makePythonEnvironment = import ./make-python-environment/default.nix self;
+      makePythonPoetryEnvironment =
+        import ./make-python-poetry-environment/default.nix self;
       makePythonPyprojectPackage =
         import ./make-python-pyproject-package/default.nix;
       makePythonVscodeSettings =
