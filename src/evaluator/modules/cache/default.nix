@@ -1,4 +1,4 @@
-{ listOptional, ... }:
+{ __nixpkgs__, ... }:
 { config, lib, ... }: {
   options = {
     cache = {
@@ -36,7 +36,7 @@
   config = {
     config = {
       cache = builtins.concatLists [
-        (listOptional config.cache.readNixos {
+        (__nixpkgs__.lib.lists.optional config.cache.readNixos {
           url = "https://cache.nixos.org";
           pubKey =
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
