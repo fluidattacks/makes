@@ -145,7 +145,7 @@
   };
   lintPython = let searchPaths.source = [ outputs."/cli/env/runtime" ];
   in {
-    dirsOfModules = {
+    dirOfModules = {
       makes = {
         inherit searchPaths;
         src = "/src/cli";

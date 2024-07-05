@@ -45,7 +45,7 @@ let
 in {
   options = {
     lintPython = {
-      dirsOfModules = lib.mkOption {
+      dirOfModules = lib.mkOption {
         default = { };
         type = lib.types.attrsOf (lib.types.submodule (_: {
           options = {
@@ -106,7 +106,7 @@ in {
   };
   config = {
     outputs =
-      (__toModuleOutputs__ makeDirOfModules config.lintPython.dirsOfModules)
+      (__toModuleOutputs__ makeDirOfModules config.lintPython.dirOfModules)
       // (__toModuleOutputs__ makeImports config.lintPython.imports)
       // (__toModuleOutputs__ makeModule config.lintPython.modules);
   };
