@@ -245,7 +245,7 @@ and (if configured) [import-linter](https://import-linter.readthedocs.io/en/stab
 Types:
 
 - lintPython:
-    - dirsOfModules (`attrsOf dirOfModulesType`): Optional.
+    - dirOfModules (`attrsOf dirOfModulesType`): Optional.
         Definitions of directories of python packages/modules to lint.
         Defaults to `{ }`.
     - imports (`attrsOf importsType`): Optional.
@@ -296,7 +296,7 @@ Example:
     ```nix
     {
       lintPython = {
-        dirsOfModules = {
+        dirOfModules = {
           makes = {
             config = {};
             src = "/src/cli";
