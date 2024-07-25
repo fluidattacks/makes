@@ -5,8 +5,8 @@
   script:
     - m . /helloWorld '1' '2' '3'
   variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
+    GIT_DEPTH: 3
+    MAKES_GIT_DEPTH: 3
 /lintNix:
   image: ghcr.io/fluidattacks/makes/amd64:24.02
   interruptible: true
@@ -14,5 +14,5 @@
   script:
     - m . /lintNix
   variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
+    GIT_DEPTH: 3
+    MAKES_GIT_DEPTH: 3

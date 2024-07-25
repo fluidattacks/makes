@@ -10,10 +10,6 @@ let
         default = [ ];
         type = lib.types.listOf lib.types.str;
       };
-      gitDepth = lib.mkOption {
-        default = 1;
-        type = lib.types.int;
-      };
       gitlabExtra = lib.mkOption {
         default = { };
         type = lib.types.attrsOf lib.types.anything;
@@ -66,7 +62,7 @@ let
       };
     };
 
-  makeGitlabJob = { args, gitDepth, gitlabExtra, image, output, ... }: {
+  makeGitlabJob = { args, gitlabExtra, image, output, ... }: {
     name = toJobName output args;
     value = attrsMerge [
       {
@@ -78,8 +74,8 @@ let
         else
           [ "m . ${output} ${escapeShellArgs args}" ];
         variables = {
-          GIT_DEPTH = gitDepth;
-          MAKES_GIT_DEPTH = gitDepth;
+          GIT_DEPTH = 3;
+          MAKES_GIT_DEPTH = 3;
         };
       }
       gitlabExtra
