@@ -91,7 +91,7 @@ if AWS_BATCH_COMPAT:
     CON.out("Using feature flag: MAKES_AWS_BATCH_COMPAT")
     CON.out()
 
-GIT_DEPTH: int = int(environ.get("MAKES_GIT_DEPTH", "1"))
+GIT_DEPTH: int = int(environ.get("MAKES_GIT_DEPTH", "3"))
 if GIT_DEPTH != 1:
     CON.out(f"Using feature flag: MAKES_GIT_DEPTH={GIT_DEPTH}")
 
