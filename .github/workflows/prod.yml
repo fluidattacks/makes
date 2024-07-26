@@ -2,7 +2,7 @@ concurrency:
   cancel-in-progress: true
   group: ${{ github.actor }}
 jobs:
-  deployContainerImage_makesLatestAmd64:
+  deployContainer_makesLatestAmd64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     permissions:
@@ -15,8 +15,8 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainerImage/makesLatestAmd64"
-  deployContainerImage_makesLatestArm64:
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesLatestAmd64"
+  deployContainer_makesLatestArm64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: buildjet-2vcpu-ubuntu-2204-arm
     permissions:
@@ -29,8 +29,8 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainerImage/makesLatestArm64"
-  deployContainerImage_makesPinnedAmd64:
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesLatestArm64"
+  deployContainer_makesPinnedAmd64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     permissions:
@@ -43,8 +43,8 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainerImage/makesPinnedAmd64"
-  deployContainerImage_makesPinnedArm64:
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesPinnedAmd64"
+  deployContainer_makesPinnedArm64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: buildjet-2vcpu-ubuntu-2204-arm
     permissions:
@@ -57,7 +57,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainerImage/makesPinnedArm64"
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesPinnedArm64"
   releaseGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
