@@ -250,6 +250,135 @@ Example:
     CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainer/makesGitLab
     ```
 
+## deployContainerManifest
+
+Deploy a container manifest to a container registry
+using [manifest-tool](https://github.com/estesp/manifest-tool).
+
+Combine it with [deployContainer](#deploycontainer)
+for supporting multi-tag or multi-arch images.
+
+Types:
+
+- deployContainerManifest (`attrsOf targetType`):
+- targetType (`submodule`):
+    - config:
+        - image (`str`):
+            Path for the manifest that will be deployed.
+        - tags (`listOf str`):
+            List of secondary tags (aliases) for the image.
+        - manifests (`listOf manifestType`):
+            Already-existing images to be used by the new manifest.
+            Typically used for supporting multiple architectures.
+    - credentials:
+        - token (`str`):
+            Name of the environment variable
+            that stores the value of the registry token.
+        - user (`str`):
+            Name of the environment variable
+            that stores the value of the registry user.
+    - setup (`listOf package`): Optional.
+        [Makes Environment][makes_environment]
+        or [Makes Secrets][makes_secrets]
+        to `source` (as in Bash's `source`)
+        before anything else.
+        Defaults to `[ ]`.
+    - sign (`bool`): Optional.
+        Sign container image
+        with [Cosign](https://docs.sigstore.dev/cosign/overview/)
+        by using a
+        [OIDC keyless approach](https://docs.sigstore.dev/signing/quickstart/#keyless-signing-of-a-container).
+        Defaults to `false`.
+- manifestType (`submodule`):
+    - image: Path to the already-deployed image.
+    - platform:
+        - architecture (`str`):
+            Architecture of the image.
+        - os (`str`):
+            Operating system of the image.
+
+Example:
+
+=== "makes.nix"
+
+    ```nix
+    {
+      deployContainer = {
+        images = {
+          makesAmd64 = {
+            attempts = 3;
+            credentials = {
+              token = "GITHUB_TOKEN";
+              user = "GITHUB_ACTOR";
+            };
+            registry = "ghcr.io";
+            src = outputs."/container-image";
+            sign = true;
+            tag = "fluidattacks/makes/amd64:latest";
+          };
+          makesArm64 = {
+            attempts = 3;
+            credentials = {
+              token = "GITHUB_TOKEN";
+              user = "GITHUB_ACTOR";
+            };
+            registry = "ghcr.io";
+            src = outputs."/container-image";
+            sign = true;
+            tag = "fluidattacks/makes/arm64:latest";
+          };
+        };
+      };
+      deployContainerManifest = {
+        makes = {
+          config = {
+            image = "ghcr.io/dsalaza4/makes:latest";
+            tags = [ "24.02" ];
+            manifests = [
+              {
+                image = "ghcr.io/fluidattacks/makes/arm64:latest";
+                platform = {
+                  architecture = "arm64";
+                  os = "linux";
+                };
+              }
+              {
+                image = "ghcr.io/fluidattacks/makes/amd64:latest";
+                platform = {
+                  architecture = "amd64";
+                  os = "linux";
+                };
+              }
+            ];
+          };
+          credentials = {
+            token = "GITHUB_TOKEN";
+            user = "GITHUB_ACTOR";
+          };
+          sign = true;
+        };
+      };
+    }
+    ```
+
+=== "Invocation DockerHub"
+
+    ```bash
+    DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainerManifest/makes
+    ```
+
+=== "Invocation GitHub"
+
+    ```bash
+    GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerManifest/makes
+    ```
+
+=== "Invocation GitLab"
+
+    ```bash
+    CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainerManifest/makes
+    ```
+
 ## deployTerraform
 
 Deploy Terraform code

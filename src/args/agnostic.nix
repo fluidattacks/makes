@@ -31,6 +31,8 @@ let
       chunks = import ./chunks/default.nix self;
       computeOnAwsBatch = import ./compute-on-aws-batch/default.nix self;
       deployContainer = import ./deploy-container/default.nix self;
+      deployContainerManifest =
+        import ./deploy-container-manifest/default.nix self;
       deployNomad = import ./deploy-nomad/default.nix self;
       deployTerraform = import ./deploy-terraform/default.nix self;
       inherit (__nixpkgs__.lib.strings) escapeShellArg;
