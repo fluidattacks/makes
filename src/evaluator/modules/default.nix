@@ -5,7 +5,7 @@
     (import ./calculate-scorecard/default.nix args)
     (import ./compute-on-aws-batch/default.nix args)
     (import ./dev/default.nix args)
-    (import ./deploy-container-image/default.nix args)
+    (import ./deploy-container/default.nix args)
     (import ./deploy-nomad/default.nix args)
     (import ./deploy-terraform/default.nix args)
     (import ./dynamodb/default.nix args)
