@@ -18,7 +18,7 @@
     enable = true;
     target = "github.com/fluidattacks/makes";
   };
-  deployContainerImage = {
+  deployContainer = {
     images = {
       makesLatestAmd64 = {
         attempts = 3;

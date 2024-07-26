@@ -30,7 +30,7 @@ let
       calculateScorecard = import ./calculate-scorecard/default.nix self;
       chunks = import ./chunks/default.nix self;
       computeOnAwsBatch = import ./compute-on-aws-batch/default.nix self;
-      deployContainerImage = import ./deploy-container-image/default.nix self;
+      deployContainer = import ./deploy-container-image/default.nix self;
       deployNomad = import ./deploy-nomad/default.nix self;
       deployTerraform = import ./deploy-terraform/default.nix self;
       inherit (__nixpkgs__.lib.strings) escapeShellArg;

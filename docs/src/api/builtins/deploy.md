@@ -132,7 +132,7 @@ Note that positional arguments (`[ "1" "2" "3" ]` in this case)
 will be appended to the end of `command`
 before sending the job to Batch.
 
-## deployContainerImage
+## deployContainer
 
 Deploy a set of container images
 in [OCI Format](https://github.com/opencontainers/image-spec)
@@ -143,7 +143,7 @@ please read the `makeContainerImage` reference.
 
 Types:
 
-- deployContainerImage:
+- deployContainer:
     - images (`attrsOf imageType`): Optional.
         Definitions of container images to deploy.
         Defaults to `{ }`.
@@ -195,7 +195,7 @@ Example:
         };
       };
 
-      deployContainerImage = {
+      deployContainer = {
         images = {
           nginxDockerHub = {
             credentials = {
@@ -235,19 +235,19 @@ Example:
 === "Invocation DockerHub"
 
     ```bash
-    DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainerImage/nginxDockerHub
+    DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainer/nginxDockerHub
     ```
 
 === "Invocation GitHub"
 
     ```bash
-    GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainerImage/makesLatest
+    GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainer/makesLatest
     ```
 
 === "Invocation GitLab"
 
     ```bash
-    CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainerImage/makesGitLab
+    CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainer/makesGitLab
     ```
 
 ## deployTerraform
