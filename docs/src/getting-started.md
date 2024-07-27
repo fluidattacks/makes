@@ -85,7 +85,7 @@ Example:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-          - uses: docker://ghcr.io/fluidattacks/makes/amd64:24.02
+          - uses: docker://ghcr.io/fluidattacks/makes:24.02
             name: helloWorld
             with:
               args: sh -c "chown -R root:root /github/workspace && m . /helloWorld 1 2 3"
@@ -104,7 +104,7 @@ Example:
     ```yaml
     # .gitlab-ci.yml
     /helloWorld:
-      image: ghcr.io/fluidattacks/makes/amd64:24.02
+      image: ghcr.io/fluidattacks/makes:24.02
       script:
         - m . /helloWorld 1 2 3
     ```

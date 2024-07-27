@@ -314,7 +314,7 @@ Example:
             registry = "ghcr.io";
             src = outputs."/container-image";
             sign = true;
-            tag = "fluidattacks/makes/amd64:latest";
+            tag = "fluidattacks/makes:amd64";
           };
           makesArm64 = {
             attempts = 3;
@@ -325,27 +325,27 @@ Example:
             registry = "ghcr.io";
             src = outputs."/container-image";
             sign = true;
-            tag = "fluidattacks/makes/arm64:latest";
+            tag = "fluidattacks/makes:arm64";
           };
         };
       };
       deployContainerManifest = {
         makes = {
           config = {
-            image = "ghcr.io/dsalaza4/makes:latest";
+            image = "ghcr.io/fluidattacks/makes:latest";
             tags = [ "24.02" ];
             manifests = [
               {
-                image = "ghcr.io/fluidattacks/makes/arm64:latest";
+                image = "ghcr.io/fluidattacks/makes:amd64";
                 platform = {
-                  architecture = "arm64";
+                  architecture = "amd64";
                   os = "linux";
                 };
               }
               {
-                image = "ghcr.io/fluidattacks/makes/amd64:latest";
+                image = "ghcr.io/fluidattacks/makes:arm64";
                 platform = {
-                  architecture = "amd64";
+                  architecture = "arm64";
                   os = "linux";
                 };
               }

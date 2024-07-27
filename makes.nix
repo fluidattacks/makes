@@ -20,7 +20,7 @@
   };
   deployContainer = {
     images = {
-      makesLatestAmd64 = {
+      makesAmd64 = {
         attempts = 3;
         credentials = {
           token = "GITHUB_TOKEN";
@@ -29,9 +29,9 @@
         registry = "ghcr.io";
         src = outputs."/container-image";
         sign = true;
-        tag = "fluidattacks/makes/amd64:latest";
+        tag = "fluidattacks/makes:amd64";
       };
-      makesLatestArm64 = {
+      makesArm64 = {
         attempts = 3;
         credentials = {
           token = "GITHUB_TOKEN";
@@ -40,30 +40,37 @@
         registry = "ghcr.io";
         src = outputs."/container-image";
         sign = true;
-        tag = "fluidattacks/makes/arm64:latest";
+        tag = "fluidattacks/makes:arm64";
       };
-      makesPinnedAmd64 = {
-        attempts = 3;
-        credentials = {
-          token = "GITHUB_TOKEN";
-          user = "GITHUB_ACTOR";
-        };
-        registry = "ghcr.io";
-        src = outputs."/container-image";
-        sign = true;
-        tag = "fluidattacks/makes/amd64:24.02";
+    };
+  };
+  deployContainerManifest = {
+    makes = {
+      config = {
+        image = "ghcr.io/fluidattacks/makes:latest";
+        tags = [ "24.02" ];
+        manifests = [
+          {
+            image = "ghcr.io/fluidattacks/makes:amd64";
+            platform = {
+              architecture = "amd64";
+              os = "linux";
+            };
+          }
+          {
+            image = "ghcr.io/fluidattacks/makes:arm64";
+            platform = {
+              architecture = "arm64";
+              os = "linux";
+            };
+          }
+        ];
       };
-      makesPinnedArm64 = {
-        attempts = 3;
-        credentials = {
-          token = "GITHUB_TOKEN";
-          user = "GITHUB_ACTOR";
-        };
-        registry = "ghcr.io";
-        src = outputs."/container-image";
-        sign = true;
-        tag = "fluidattacks/makes/arm64:24.02";
+      credentials = {
+        token = "GITHUB_TOKEN";
+        user = "GITHUB_ACTOR";
       };
+      sign = true;
     };
   };
   deployTerraform = {
