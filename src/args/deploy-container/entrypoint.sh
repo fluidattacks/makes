@@ -59,11 +59,11 @@ function main {
   local tag="__argTag__"
 
   : && deploy \
-      "${attempts}" \
-      "${container_image}" \
-      "${credentials_token}" \
-      "${credentials_user}" \
-      "${tag}" \
+    "${attempts}" \
+    "${container_image}" \
+    "${credentials_token}" \
+    "${credentials_user}" \
+    "${tag}" \
     && sign \
       "${credentials_token}" \
       "${credentials_user}" \

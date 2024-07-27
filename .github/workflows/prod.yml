@@ -2,7 +2,7 @@ concurrency:
   cancel-in-progress: true
   group: ${{ github.actor }}
 jobs:
-  deployContainer_makesLatestAmd64:
+  deployContainer_makesAmd64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     permissions:
@@ -15,8 +15,8 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesLatestAmd64"
-  deployContainer_makesLatestArm64:
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesAmd64"
+  deployContainer_makesArm64:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: buildjet-2vcpu-ubuntu-2204-arm
     permissions:
@@ -29,27 +29,14 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesLatestArm64"
-  deployContainer_makesPinnedAmd64:
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesArm64"
+  deployContainerManifest_makes:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
       id-token: write
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesPinnedAmd64"
-  deployContainer_makesPinnedArm64:
-    if: ${{ github.repository == 'fluidattacks/makes' }}
-    runs-on: buildjet-2vcpu-ubuntu-2204-arm
-    permissions:
-      packages: write
-      id-token: write
+    needs: [deployContainer_makesAmd64, deployContainer_makesArm64]
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
       - uses: docker://docker.io/nixos/nix@sha256:63b972c4641286c5f742d1f5b695e558cb0657502de093eb3b273460c6415ee9
@@ -57,7 +44,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainer/makesPinnedArm64"
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /deployContainerManifest/makes"
   releaseGitHub:
     if: ${{ github.repository == 'fluidattacks/makes' }}
     runs-on: ubuntu-latest
