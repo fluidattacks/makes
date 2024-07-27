@@ -7,8 +7,7 @@ function deploy {
   local credentials_user="${4}"
   local tag="${5}"
 
-  : \
-    && info Syncing container image: "${tag}" \
+  : && info Syncing container image: "${tag}" \
     && command=(
       skopeo
       --insecure-policy
@@ -39,13 +38,14 @@ function sign {
   local tag="${5}"
 
   if [ "${sign}" = "1" ]; then
-    : \
-      && info "Signing container image: ${tag}" \
-      && cosign login "${registry}" -u "${credentials_user}" -p "${credentials_token}" \
-      && cosign sign -y "${tag}"
+    : && info "Signing container image: ${tag}" \
+      && cosign sign \
+        --yes=true \
+        --registry-username="${credentials_user}" \
+        --registry-password="${credentials_token}" \
+        "${tag}"
   else
-    : \
-      && info "Skipping signing container ${tag}"
+    : && info "Skipping signing container ${tag}"
   fi
 }
 
@@ -58,10 +58,7 @@ function main {
   local sign="__argSign__"
   local tag="__argTag__"
 
-  export COSIGN_EXPERIMENTAL="1"
-
-  : \
-    && deploy \
+  : && deploy \
       "${attempts}" \
       "${container_image}" \
       "${credentials_token}" \
