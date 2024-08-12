@@ -1,15 +1,12 @@
 { __nixpkgs__, makeScript, ... }:
-{ attempts ? 1, containerImage, credentials, name, registry, setup, sign, tag,
-}:
+{ credentials, image, name, setup, sign, src }:
 makeScript {
   replace = {
-    __argAttempts__ = attempts;
-    __argContainerImage__ = containerImage;
     __argCredentialsToken__ = credentials.token;
     __argCredentialsUser__ = credentials.user;
-    __argRegistry__ = registry;
+    __argImage__ = image;
     __argSign__ = sign;
-    __argTag__ = "${registry}/${tag}";
+    __argSrc__ = src;
   };
   entrypoint = ./entrypoint.sh;
   inherit name;

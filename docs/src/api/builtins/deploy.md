@@ -134,24 +134,16 @@ before sending the job to Batch.
 
 ## deployContainer
 
-Deploy a set of container images
-in [OCI Format](https://github.com/opencontainers/image-spec)
-to the specified container registries.
+Deploy a container image
+in [OCI Format](https://github.com/opencontainers/image-spec).
 
-For details on how to build container images in OCI Format
-please read the `makeContainerImage` reference.
+For details on how to build container images in OCI format,
+please see [makeContainerImage](/api/extensions/containers#makecontainerimage).
 
 Types:
 
-- deployContainer:
-    - images (`attrsOf imageType`): Optional.
-        Definitions of container images to deploy.
-        Defaults to `{ }`.
-- imageType (`submodule`):
-    - attempts (`ints.positive`): Optional.
-        If the value of attempts is greater than one,
-        the job is retried on failure the same number of attempts as the value.
-        Defaults to `1`.
+- deployContainer (`attrsOf targetType`):
+- targetType (`submodule`):
     - credentials:
         - token (`str`):
             Name of the environment variable
@@ -159,8 +151,8 @@ Types:
         - user (`str`):
             Name of the environment variable
             that stores the value of the registry user.
-    - registry (`str`):
-        Registry in which the image will be copied to.
+    - image (`str`):
+        Container registry path to which the image will be copied to.
     - setup (`listOf package`): Optional.
         [Makes Environment][makes_environment]
         or [Makes Secrets][makes_secrets]
@@ -175,58 +167,31 @@ Types:
         Defaults to `false`.
     - src (`package`):
         Derivation that contains the container image in OCI Format.
-    - tag (`str`):
-        The tag under which the image will be stored in the registry.
 
 Example:
 
 === "makes.nix"
 
     ```nix
-    {
-      inputs,
-      outputs,
-      ...
-    }: {
-      inputs = {
-        nixpkgs = fetchNixpkgs {
-          rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
-          sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
-        };
-      };
-
+    { outputs, ... }: {
       deployContainer = {
-        images = {
-          nginxDockerHub = {
-            credentials = {
-              token = "DOCKER_HUB_PASS";
-              user = "DOCKER_HUB_USER";
-            };
-            src = inputs.nixpkgs.dockerTools.examples.nginx;
-            sign = false;
-            registry = "docker.io";
-            tag = "fluidattacks/nginx:latest";
+        makesAmd64 = {
+          credentials = {
+            token = "GITHUB_TOKEN";
+            user = "GITHUB_ACTOR";
           };
-          redisGitHub = {
-            credentials = {
-              token = "GITHUB_TOKEN";
-              user = "GITHUB_ACTOR";
-            };
-            src = inputs.nixpkgs.dockerTools.examples.redis;
-            sign = true;
-            registry = "ghcr.io";
-            tag = "fluidattacks/redis:$(date +%Y.%m)"; # Tag from command
+          image = "ghcr.io/fluidattacks/makes:amd64";
+          src = outputs."/container-image";
+          sign = true;
+        };
+        makesArm64 = {
+          credentials = {
+            token = "GITHUB_TOKEN";
+            user = "GITHUB_ACTOR";
           };
-          makesGitLab = {
-            credentials = {
-              token = "CI_REGISTRY_PASSWORD";
-              user = "CI_REGISTRY_USER";
-            };
-            src = outputs."/containerImage";
-            sign = false;
-            registry = "registry.gitlab.com";
-            tag = "fluidattacks/product/makes:$MY_VAR"; # Tag from env var
-          };
+          image = "ghcr.io/fluidattacks/makes:arm64";
+          src = outputs."/container-image";
+          sign = true;
         };
       };
     }
@@ -235,19 +200,19 @@ Example:
 === "Invocation DockerHub"
 
     ```bash
-    DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainer/nginxDockerHub
+    DOCKER_HUB_USER=user DOCKER_HUB_PASS=123 m . /deployContainer/makesAmd64
     ```
 
 === "Invocation GitHub"
 
     ```bash
-    GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainer/makesLatest
+    GITHUB_ACTOR=user GITHUB_TOKEN=123 m . /deployContainer/makesAmd64
     ```
 
 === "Invocation GitLab"
 
     ```bash
-    CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainer/makesGitLab
+    CI_REGISTRY_USER=user CI_REGISTRY_PASSWORD=123 m . /deployContainer/makesAmd64
     ```
 
 ## deployContainerManifest
@@ -302,33 +267,7 @@ Example:
 === "makes.nix"
 
     ```nix
-    {
-      deployContainer = {
-        images = {
-          makesAmd64 = {
-            attempts = 3;
-            credentials = {
-              token = "GITHUB_TOKEN";
-              user = "GITHUB_ACTOR";
-            };
-            registry = "ghcr.io";
-            src = outputs."/container-image";
-            sign = true;
-            tag = "fluidattacks/makes:amd64";
-          };
-          makesArm64 = {
-            attempts = 3;
-            credentials = {
-              token = "GITHUB_TOKEN";
-              user = "GITHUB_ACTOR";
-            };
-            registry = "ghcr.io";
-            src = outputs."/container-image";
-            sign = true;
-            tag = "fluidattacks/makes:arm64";
-          };
-        };
-      };
+    { outputs, ... }: {
       deployContainerManifest = {
         makes = {
           credentials = {

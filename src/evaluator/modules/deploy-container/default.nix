@@ -4,48 +4,37 @@ let
   makeOutput = name: args: {
     name = "/deployContainer/${name}";
     value = deployContainer {
-      inherit (args) attempts;
       inherit (args) credentials;
-      containerImage = args.src;
+      inherit (args) image;
       inherit name;
-      inherit (args) registry;
       inherit (args) setup;
       inherit (args) sign;
-      inherit (args) tag;
+      inherit (args) src;
     };
   };
 in {
   options = {
-    deployContainer = {
-      images = lib.mkOption {
-        default = { };
-        type = lib.types.attrsOf (lib.types.submodule (_: {
-          options = {
-            attempts = lib.mkOption {
-              default = 1;
-              type = lib.types.ints.positive;
-            };
-            credentials = {
-              token = lib.mkOption { type = lib.types.str; };
-              user = lib.mkOption { type = lib.types.str; };
-            };
-            registry = lib.mkOption { type = lib.types.str; };
-            setup = lib.mkOption {
-              default = [ ];
-              type = lib.types.listOf lib.types.package;
-            };
-            sign = lib.mkOption {
-              default = false;
-              type = lib.types.bool;
-            };
-            src = lib.mkOption { type = lib.types.package; };
-            tag = lib.mkOption { type = lib.types.str; };
+    deployContainer = lib.mkOption {
+      default = { };
+      type = lib.types.attrsOf (lib.types.submodule (_: {
+        options = {
+          credentials = {
+            token = lib.mkOption { type = lib.types.str; };
+            user = lib.mkOption { type = lib.types.str; };
           };
-        }));
-      };
+          image = lib.mkOption { type = lib.types.str; };
+          setup = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.package;
+          };
+          sign = lib.mkOption {
+            default = false;
+            type = lib.types.bool;
+          };
+          src = lib.mkOption { type = lib.types.package; };
+        };
+      }));
     };
   };
-  config = {
-    outputs = __toModuleOutputs__ makeOutput config.deployContainer.images;
-  };
+  config = { outputs = __toModuleOutputs__ makeOutput config.deployContainer; };
 }
