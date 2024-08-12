@@ -19,29 +19,23 @@
     target = "github.com/fluidattacks/makes";
   };
   deployContainer = {
-    images = {
-      makesAmd64 = {
-        attempts = 3;
-        credentials = {
-          token = "GITHUB_TOKEN";
-          user = "GITHUB_ACTOR";
-        };
-        registry = "ghcr.io";
-        src = outputs."/container-image";
-        sign = true;
-        tag = "fluidattacks/makes:amd64";
+    makesAmd64 = {
+      credentials = {
+        token = "GITHUB_TOKEN";
+        user = "GITHUB_ACTOR";
       };
-      makesArm64 = {
-        attempts = 3;
-        credentials = {
-          token = "GITHUB_TOKEN";
-          user = "GITHUB_ACTOR";
-        };
-        registry = "ghcr.io";
-        src = outputs."/container-image";
-        sign = true;
-        tag = "fluidattacks/makes:arm64";
+      image = "ghcr.io/fluidattacks/makes:amd64";
+      src = outputs."/container-image";
+      sign = true;
+    };
+    makesArm64 = {
+      credentials = {
+        token = "GITHUB_TOKEN";
+        user = "GITHUB_ACTOR";
       };
+      image = "ghcr.io/fluidattacks/makes:arm64";
+      src = outputs."/container-image";
+      sign = true;
     };
   };
   deployContainerManifest = {
