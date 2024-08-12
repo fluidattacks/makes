@@ -262,14 +262,6 @@ Types:
 
 - deployContainerManifest (`attrsOf targetType`):
 - targetType (`submodule`):
-    - config:
-        - image (`str`):
-            Path for the manifest that will be deployed.
-        - tags (`listOf str`):
-            List of secondary tags (aliases) for the image.
-        - manifests (`listOf manifestType`):
-            Already-existing images to be used by the new manifest.
-            Typically used for supporting multiple architectures.
     - credentials:
         - token (`str`):
             Name of the environment variable
@@ -277,6 +269,11 @@ Types:
         - user (`str`):
             Name of the environment variable
             that stores the value of the registry user.
+    - image (`str`):
+        Path for the manifest that will be deployed.
+    - manifests (`listOf manifestType`):
+        Already-existing images to be used by the new manifest.
+        Typically used for supporting multiple architectures.
     - setup (`listOf package`): Optional.
         [Makes Environment][makes_environment]
         or [Makes Secrets][makes_secrets]
@@ -289,6 +286,9 @@ Types:
         by using a
         [OIDC keyless approach](https://docs.sigstore.dev/signing/quickstart/#keyless-signing-of-a-container).
         Defaults to `false`.
+    - tags (`listOf str`): Optional.
+        List of secondary tags (aliases) for the image.
+        Defaults to `[ ]`.
 - manifestType (`submodule`):
     - image: Path to the already-deployed image.
     - platform:
@@ -331,31 +331,29 @@ Example:
       };
       deployContainerManifest = {
         makes = {
-          config = {
-            image = "ghcr.io/fluidattacks/makes:latest";
-            tags = [ "24.02" ];
-            manifests = [
-              {
-                image = "ghcr.io/fluidattacks/makes:amd64";
-                platform = {
-                  architecture = "amd64";
-                  os = "linux";
-                };
-              }
-              {
-                image = "ghcr.io/fluidattacks/makes:arm64";
-                platform = {
-                  architecture = "arm64";
-                  os = "linux";
-                };
-              }
-            ];
-          };
           credentials = {
             token = "GITHUB_TOKEN";
             user = "GITHUB_ACTOR";
           };
+          image = "ghcr.io/fluidattacks/makes:latest";
+          manifests = [
+            {
+              image = "ghcr.io/fluidattacks/makes:amd64";
+              platform = {
+                architecture = "amd64";
+                os = "linux";
+              };
+            }
+            {
+              image = "ghcr.io/fluidattacks/makes:arm64";
+              platform = {
+                architecture = "arm64";
+                os = "linux";
+              };
+            }
+          ];
           sign = true;
+          tags = [ "24.02" ];
         };
       };
     }

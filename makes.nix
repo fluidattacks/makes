@@ -46,31 +46,29 @@
   };
   deployContainerManifest = {
     makes = {
-      config = {
-        image = "ghcr.io/fluidattacks/makes:latest";
-        tags = [ "24.02" ];
-        manifests = [
-          {
-            image = "ghcr.io/fluidattacks/makes:amd64";
-            platform = {
-              architecture = "amd64";
-              os = "linux";
-            };
-          }
-          {
-            image = "ghcr.io/fluidattacks/makes:arm64";
-            platform = {
-              architecture = "arm64";
-              os = "linux";
-            };
-          }
-        ];
-      };
       credentials = {
         token = "GITHUB_TOKEN";
         user = "GITHUB_ACTOR";
       };
+      image = "ghcr.io/fluidattacks/makes:latest";
+      manifests = [
+        {
+          image = "ghcr.io/fluidattacks/makes:amd64";
+          platform = {
+            architecture = "amd64";
+            os = "linux";
+          };
+        }
+        {
+          image = "ghcr.io/fluidattacks/makes:arm64";
+          platform = {
+            architecture = "arm64";
+            os = "linux";
+          };
+        }
+      ];
       sign = true;
+      tags = [ "24.02" ];
     };
   };
   deployTerraform = {

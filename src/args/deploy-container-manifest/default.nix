@@ -1,8 +1,9 @@
 { __nixpkgs__, makeScript, toFileYaml, ... }:
-{ config, credentials, name, setup, sign }:
+{ credentials, image, manifests, name, setup, sign, tags }:
 makeScript {
   replace = {
-    __argConfig__ = toFileYaml "manifest.yaml " config;
+    __argConfig__ =
+      toFileYaml "manifest.yaml " { inherit image manifests tags; };
     __argCredentialsToken__ = credentials.token;
     __argCredentialsUser__ = credentials.user;
     __argSign__ = sign;
