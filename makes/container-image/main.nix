@@ -87,11 +87,6 @@ __nixpkgs__.dockerTools.buildImage {
         '';
       })
 
-      # Configure doas
-      (__nixpkgs__.writeTextDir "etc/doas.conf" ''
-        permit nopass keepenv root as makes
-      '')
-
       # Add 3 groups
       (__nixpkgs__.writeTextDir "etc/group" ''
         root:x:0:
@@ -128,29 +123,8 @@ __nixpkgs__.dockerTools.buildImage {
         session required pam_unix.so
       '')
 
-      # Add Makes:
-      # - By default, it runs as root (uid 0).
-      # - If `MAKES_NON_ROOT` is in the environment and non-empty,
-      #   makes will run as the makes user (uid > 0).
-      (__nixpkgs__.writeShellScriptBin "m" ''
-        if test -z "''${MAKES_NON_ROOT:-}"; then
-          ${outputs."/"}/bin/m "$@"
-        else
-          echo Using feature flag: MAKES_NON_ROOT
-
-          set -x
-          mkdir -p /nix/var/nix
-          chmod u+w /nix/store
-          chown makes:makes --recursive /nix
-          chown root:root $(realpath /etc/doas.conf)
-
-          chmod u+w /home/makes /tmp /working-dir
-          chown makes:makes /home/makes /tmp /working-dir
-          chown makes:makes --recursive "$PWD"
-
-          ${__nixpkgs__.doas}/bin/doas -u makes ${outputs."/"}/bin/m "$@"
-        fi
-      '')
+      # Add Makes
+      outputs."/"
     ];
   };
 }
