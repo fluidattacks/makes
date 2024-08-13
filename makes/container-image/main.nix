@@ -30,6 +30,7 @@ __nixpkgs__.dockerTools.buildImage {
       __nixpkgs__.gnutar
       __nixpkgs__.gzip
       __nixpkgs__.nixVersions.nix_2_15
+      __nixpkgs__.util-linux
 
       # Add /usr/bin/env pointing to /bin/env
       (__nixpkgs__.runCommand "user-bin-env" { } ''
@@ -37,6 +38,20 @@ __nixpkgs__.dockerTools.buildImage {
         ln -s $(command -v env) $out/usr/bin/env
       '')
 
+      # Create swap directory
+      (__nixpkgs__.runCommand "swap-directory" { } ''
+        mkdir -p /mnt
+      '')
+      # Creat swapfile for the system
+      (__nixpkgs__.runCommand "swap-file" { } ''
+        dd if=/dev/zero of=/mnt/swapfile bs=1M count=2048
+        chmod 0600 /mnt/swapfile
+        mkswap /mnt/swapfile
+      '')
+      # Enable swap
+      (__nixpkgs__.runCommand "swap-enable" { } ''
+        swapon /mnt/swapfile
+      '')
       # Create home directories
       (__nixpkgs__.runCommand "home" { } ''
         mkdir -p $out/home/makes
