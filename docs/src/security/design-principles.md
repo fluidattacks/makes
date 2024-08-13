@@ -31,14 +31,6 @@
 
 ## Fail-Safe Defaults
 
-- By default, builds are run in a sandbox
-  that uses kernel namespaces
-  to prevent the build from accessing the network
-  and the external file system.
-
-  The user is given the option to opt-out from this behavior,
-  but this is enabled by default.
-
 - Generated files are created inside user-owned folders by default,
   which inherit the security
   that the user has previously defined for the directory.

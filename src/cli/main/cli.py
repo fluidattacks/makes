@@ -92,13 +92,8 @@ if AWS_BATCH_COMPAT:
     CON.out()
 
 GIT_DEPTH: int = int(environ.get("MAKES_GIT_DEPTH", "3"))
-if GIT_DEPTH != 1:
+if GIT_DEPTH != 3:
     CON.out(f"Using feature flag: MAKES_GIT_DEPTH={GIT_DEPTH}")
-
-
-K8S_COMPAT: bool = bool(environ.get("MAKES_K8S_COMPAT"))
-if K8S_COMPAT:
-    CON.out("Using feature flag: MAKES_K8S_COMPAT")
 
 
 def _if(condition: Any, *value: Any) -> List[Any]:
@@ -288,7 +283,6 @@ def _nix_build(
         *["--option", "max-jobs", "auto"],
         *["--option", "substituters", substituters],
         *["--option", "trusted-public-keys", trusted_pub_keys],
-        *["--option", "sandbox", "false" if K8S_COMPAT else "true"],
         *_if(out, "--out-link", out),
         *_if(not out, "--no-out-link"),
         *["--show-trace"],
