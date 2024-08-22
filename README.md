@@ -52,11 +52,11 @@ It is
 
 ## Installation
 
-[Installation](https://makes.fluidattacks.com/getting-started/#installation)
+[Installation](https://makes.fluidattacks.tech/getting-started/#installation)
 
 ## Documentation
 
-See https://makes.fluidattacks.com
+See https://makes.fluidattacks.tech
 
 ## Issues
 
