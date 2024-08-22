@@ -2,7 +2,7 @@
 
 function main {
   local env="${1-}"
-  local domain="makes.fluidattacks.com"
+  local domain="makes.fluidattacks.tech"
   local cname_path="src/CNAME"
 
   : \

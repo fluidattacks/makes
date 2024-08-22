@@ -29,13 +29,13 @@ If you're adding new files, make sure to `git add` them first.
 #### Adding documentation
 
 - All changes must be documented in the same PR.
-- You can run `m . /docs/dev` to serve the [docs site](https://makes.fluidattacks.com)
+- You can run `m . /docs/dev` to serve the [docs site](https://makes.fluidattacks.tech)
   on localhost.
 - Make sure you lint the documentation with `m . /lintMarkdown/all`.
 
 #### Adding tests
 
-- All new [builtins](https://makes.fluidattacks.com/api/builtins/) must be
+- All new [builtins](https://makes.fluidattacks.tech/api/builtins/) must be
   tested.
 - You can add tests to either `/makes.nix` or `/makes/your-builtin/main.nix`
   depending on the nature of the builtin.
