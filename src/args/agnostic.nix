@@ -78,9 +78,6 @@ let
       makeEnvVars = import ./make-env-vars/default.nix self;
       makeEnvVarsForTerraform =
         import ./make-env-vars-for-terraform/default.nix self;
-      makeNodeJsEnvironment =
-        import ./make-node-js-environment/default.nix self;
-      makeNodeJsModules = import ./make-node-js-modules/default.nix self;
       makeNomadEnvironment = import ./make-nomad-environment/default.nix self;
       makePythonEnvironment = import ./make-python-environment/default.nix self;
       makePythonPoetryEnvironment =

@@ -2,27 +2,6 @@ Utilities provide an easy mechanism
 for calling functions from makes
 without having to specify them on any file.
 
-## makeNodeJsLock
-
-You can generate a `package-lock.json` for
-[makeNodeJsEnvironment](/api/extensions/node.js/#makenodejsenvironment)
-like this:
-
-```bash
-m github:fluidattacks/makes@24.09 /utils/makeNodeJsLock \
-  "${node_js_version}" \
-  "${package_json_dir}" \
-  "${lockfile_version}"
-```
-
-- Supported `node_js_version`s are: `18`, `20` and `21`.
-- `package_json_dir` is the **absolute path** to the directory that contains
-    the `package.json` file in your project.
-- The `package-lock.json` file will be generated in the same directory that
-    contains the `package.json` file.
-- The `lockfile_version` is an optional argument, defaults to `2` and can be
-    `1` or `2`.
-
 ## makePythonLock
 
 You can generate a `poetry.lock` for

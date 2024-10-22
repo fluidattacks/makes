@@ -5,7 +5,14 @@ function main {
   source __argDoctocArgs__/template local doctoc_args
   local tmp
 
-  info Formatting Markdown code \
+  local doctoc_path="src/evaluator/modules/format-markdown/doctoc"
+
+  pushd "${doctoc_path}" \
+    && info Installing doctoc \
+    && npm ci \
+    && export PATH="${doctoc_path}/node_modules/.bin:${PATH}" \
+    && popd \
+    && info Formatting Markdown code \
     && tmp=$(mktemp) \
     && for path in "${targets[@]}"; do
       info Formatting "${path}" \

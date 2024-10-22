@@ -8,8 +8,13 @@ function main {
     --parser-preset __argParser__
     --config __argConfig__
   )
+  local commitlint_path="src/args/lint-git-commit-msg/commitlint"
 
-  cd __argSrc__ \
+  pushd "${commitlint_path}" \
+    && npm ci \
+    && export PATH="${PWD}/node_modules/.bin:${PATH}" \
+    && popd \
+    && pushd __argSrc__ \
     && commit_diff="origin/${main_branch}..HEAD" \
     && commit_hashes="$(git --no-pager log --pretty=%h "${commit_diff}")" \
     && for commit_hash in ${commit_hashes}; do

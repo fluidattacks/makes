@@ -1,13 +1,6 @@
-{ __nixpkgs__, makeNodeJsEnvironment, makeScript, ... }:
+{ __nixpkgs__, makeScript, ... }:
 { branch, config, name, parser, src, }:
-let
-  commitlint = makeNodeJsEnvironment {
-    name = "commitlint";
-    nodeJsVersion = "21";
-    packageJson = ./commitlint/package.json;
-    packageLockJson = ./commitlint/package-lock.json;
-  };
-in makeScript {
+makeScript {
   name = "lint-git-commit-msg-for-${name}";
   replace = {
     __argBranch__ = branch;
@@ -15,9 +8,6 @@ in makeScript {
     __argParser__ = parser;
     __argSrc__ = src;
   };
-  searchPaths = {
-    bin = [ __nixpkgs__.git ];
-    source = [ commitlint ];
-  };
+  searchPaths = { bin = [ __nixpkgs__.git __nixpkgs__.nodejs_21 ]; };
   entrypoint = ./entrypoint.sh;
 }
