@@ -26,7 +26,6 @@
     (import ./lint-clojure/default.nix args)
     (import ./lint-git-commit-msg/default.nix args)
     (import ./lint-git-mailmap/default.nix args)
-    (import ./lint-markdown/default.nix args)
     (import ./lint-nix/default.nix args)
     (import ./lint-python/default.nix args)
     (import ./lint-terraform/default.nix args)

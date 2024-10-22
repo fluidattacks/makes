@@ -154,52 +154,6 @@ Example:
     m . /lintGitMailMap
     ```
 
-## lintMarkdown
-
-Lints Markdown code with [Markdown lint tool](https://github.com/markdownlint/markdownlint).
-
-Types:
-
-- lintMarkdown (`attrsOf moduleType`): Optional.
-    Definitions of config and associated paths to lint.
-    Defaults to `{ }`.
-- moduleType (`submodule`):
-    - config (`str`): Optional.
-        Path to the config file.
-        Defaults to [config.rb](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-markdown/config.rb).
-    - targets (`listOf str`): Required.
-        paths to lint with `config`.
-    - rulesets (`str`): Optional.
-        Path to the custom rulesets file.
-        Defaults to [rulesets.rb](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/lint-markdown/rulesets.rb).
-
-Example:
-
-=== "makes.nix"
-
-    ```nix
-    {
-      lintMarkdown = {
-        all = {
-          # You can pass custom configs like this:
-          # config = "/src/config/markdown.rb";
-          # You can pass custom rules like this:
-          # rulesets = "/src/config/rulesets.rb";
-          targets = [ "/" ];
-        };
-        others = {
-          targets = [ "/others" ];
-        };
-      };
-    }
-    ```
-
-=== "Invocation"
-
-    ```bash
-      m . /lintMarkdown/all
-    ```
-
 ## lintNix
 
 Lints Nix code with [statix](https://github.com/nerdypepper/statix).

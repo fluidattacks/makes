@@ -31,7 +31,6 @@ If you're adding new files, make sure to `git add` them first.
 - All changes must be documented in the same PR.
 - You can run `m . /docs/dev` to serve the [docs site](https://makes.fluidattacks.tech)
   on localhost.
-- Make sure you lint the documentation with `m . /lintMarkdown/all`.
 
 #### Adding tests
 
