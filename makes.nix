@@ -132,12 +132,6 @@
     config = "/test/lint-commit-msg/lint-git-commit-msg-config.js";
   };
   lintGitMailMap = { enable = true; };
-  lintMarkdown = {
-    all = {
-      config = "/test/lint-markdown/config.rb";
-      targets = [ "/" ];
-    };
-  };
   lintNix = {
     enable = true;
     targets = [ "/" ];
