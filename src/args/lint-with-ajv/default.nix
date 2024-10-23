@@ -1,20 +1,12 @@
-{ makeDerivation, makeNodeJsEnvironment, toBashArray, ... }:
+{ __nixpkgs__, makeScript, toBashArray, ... }:
 { name, schema, targets, }:
-makeDerivation {
-  env = {
-    envSchema = schema;
-    envTargets = toBashArray targets;
+makeScript {
+  replace = {
+    __argSchema__ = schema;
+    __argTargets__ = toBashArray targets;
+    __argAjvPath__ = ./ajv-cli;
   };
   name = "lint-with-ajv-for-${name}";
-  searchPaths = {
-    source = [
-      (makeNodeJsEnvironment {
-        name = "ajv-cli";
-        nodeJsVersion = "21";
-        packageJson = ./ajv-cli/package.json;
-        packageLockJson = ./ajv-cli/package-lock.json;
-      })
-    ];
-  };
-  builder = ./builder.sh;
+  searchPaths.bin = [ __nixpkgs__.nodejs_21 ];
+  entrypoint = ./entrypoint.sh;
 }

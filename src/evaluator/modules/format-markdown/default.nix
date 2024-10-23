@@ -1,5 +1,4 @@
-{ __nixpkgs__, attrsOptional, isLinux, makeNodeJsEnvironment, makeScript
-, toBashArray, ... }:
+{ __nixpkgs__, attrsOptional, isLinux, makeScript, toBashArray, ... }:
 { config, lib, ... }: {
   options = {
     formatMarkdown = {
@@ -24,14 +23,11 @@
         };
         name = "format-markdown";
         searchPaths = {
-          bin = [ __nixpkgs__.git __nixpkgs__.gnugrep __nixpkgs__.gnused ];
-          source = [
-            (makeNodeJsEnvironment {
-              name = "doctoc";
-              nodeJsVersion = "21";
-              packageJson = ./doctoc/package.json;
-              packageLockJson = ./doctoc/package-lock.json;
-            })
+          bin = [
+            __nixpkgs__.git
+            __nixpkgs__.gnugrep
+            __nixpkgs__.gnused
+            __nixpkgs__.nodejs_21
           ];
         };
         entrypoint = ./entrypoint.sh;
