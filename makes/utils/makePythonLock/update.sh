@@ -48,19 +48,6 @@ function main {
     && "${cmd[@]}" 3.12 \
       "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/dependencies.yaml" \
       "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/sources-312.yaml"
-
-  : && "${cmd[@]}" 3.9 \
-    "${PWD}/src/args/test-python/pypi-deps.yaml" \
-    "${PWD}/src/args/test-python/pypi-sources-3.9.yaml" \
-    && "${cmd[@]}" 3.10 \
-      "${PWD}/src/args/test-python/pypi-deps.yaml" \
-      "${PWD}/src/args/test-python/pypi-sources-3.10.yaml" \
-    && "${cmd[@]}" 3.11 \
-      "${PWD}/src/args/test-python/pypi-deps.yaml" \
-      "${PWD}/src/args/test-python/pypi-sources-3.11.yaml" \
-    && "${cmd[@]}" 3.12 \
-      "${PWD}/src/args/test-python/pypi-deps.yaml" \
-      "${PWD}/src/args/test-python/pypi-sources-3.12.yaml"
 }
 
 main "${@}"
