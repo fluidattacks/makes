@@ -32,10 +32,6 @@ function main {
     "${PWD}/src/args/lint-python-imports/pypi-deps.yaml" \
     "${PWD}/src/args/lint-python-imports/pypi-sources.yaml"
 
-  "${cmd[@]}" 3.12 \
-    "${PWD}/src/args/lint-with-lizard/dependencies.yaml" \
-    "${PWD}/src/args/lint-with-lizard/sources.yaml"
-
   : && "${cmd[@]}" 3.9 \
     "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/dependencies.yaml" \
     "${PWD}/src/args/make-python-pypi-environment/sources/numpy-1.24.0/sources-39.yaml" \

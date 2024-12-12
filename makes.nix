@@ -157,7 +157,6 @@
       };
     };
   };
-  lintWithLizard = { all = [ "/" ]; };
   lintWithAjv = {
     "test" = {
       schema = "/test/lint-with-ajv/schema.json";
