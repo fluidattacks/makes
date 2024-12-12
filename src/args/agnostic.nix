@@ -119,7 +119,6 @@ let
         (a: b: __nixpkgs__.lib.toLower a < __nixpkgs__.lib.toLower b);
       stringCapitalize = import ./string-capitalize/default.nix self;
       sublist = import ./sublist/default.nix self;
-      taintTerraform = import ./taint-terraform/default.nix self;
       testLicense = import ./test-license/default.nix self;
       testTerraform = import ./test-terraform/default.nix self;
       toDerivationName = __nixpkgs__.lib.strings.sanitizeDerivationName;
