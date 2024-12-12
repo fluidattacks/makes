@@ -107,8 +107,6 @@ let
         import ./make-terraform-environment/default.nix self;
       makeSslCertificate = import ./make-ssl-certificate/default.nix self;
       makeTemplate = import ./make-template/default.nix self;
-      makeWorkspaceForTerraformFromEnv =
-        import ./make-workspace-for-terraform-from-env/default.nix self;
       managePorts = import ./manage-ports/default.nix self;
       patchShebangs = import ./patch-shebangs/default.nix self;
       pythonOverrideUtils = import ./python-override-utils/default.nix;
