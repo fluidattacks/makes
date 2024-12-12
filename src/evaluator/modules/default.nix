@@ -35,7 +35,6 @@
     (import ./secrets-for-terraform-from-env/default.nix args)
     (import ./test-license/default.nix args)
     (import ./test-terraform/default.nix args)
-    (import ./workspace-for-terraform-from-env args)
   ];
   options = {
     globalStateDir = lib.mkOption {
