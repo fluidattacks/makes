@@ -90,10 +90,6 @@
     enable = true;
     targets = [ "/" ];
   };
-  formatJavaScript = {
-    enable = true;
-    targets = [ "/" ];
-  };
   formatNix = {
     enable = true;
     targets = [ "/" ];
