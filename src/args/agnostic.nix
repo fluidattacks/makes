@@ -117,8 +117,6 @@ let
       inherit (__nixpkgs__.lib) removePrefix;
       secureKubernetesWithRbacPolice =
         import ./secure-kubernetes-with-rbac-police/default.nix self;
-      securePythonWithBandit =
-        import ./secure-python-with-bandit/default.nix self;
       sortAscii = builtins.sort (a: b: a < b);
       sortAsciiCaseless = builtins.sort
         (a: b: __nixpkgs__.lib.toLower a < __nixpkgs__.lib.toLower b);

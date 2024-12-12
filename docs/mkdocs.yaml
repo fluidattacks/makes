@@ -130,7 +130,6 @@ nav:
           - api/extensions/containers.md
           - api/extensions/fetchers.md
           - api/extensions/format-conversion.md
-          - api/extensions/node.js.md
           - api/extensions/others.md
           - api/extensions/python.md
           - api/extensions/ruby.md
