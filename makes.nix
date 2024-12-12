@@ -192,7 +192,6 @@
     };
   };
   secretsForTerraformFromEnv = { example = { test = "VAR_NAME"; }; };
-  securePythonWithBandit = { cli.target = "/src/cli/main"; };
   taintTerraform = {
     modules = {
       module = {

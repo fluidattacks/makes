@@ -64,35 +64,3 @@ Example:
     ```bash
     m . /secureKubernetesWithRbacPolice/makes
     ```
-
-## securePythonWithBandit
-
-Secure Python code
-with [Bandit](https://github.com/PyCQA/bandit).
-
-Types:
-
-- securePythonWithBandit (`attrsOf projectType`): Optional.
-    Definitions of directories of python packages/modules to lint.
-    Defaults to `{ }`.
-- projectType (`submodule`):
-    - target (`str`):
-        Relative path to the package/module.
-
-Example:
-
-=== "makes.nix"
-
-    ```nix
-    {
-      securePythonWithBandit = {
-        cli.target = "/src/cli";
-      };
-    }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /securePythonWithBandit/cli
-    ```
