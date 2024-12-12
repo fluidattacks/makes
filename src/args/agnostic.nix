@@ -58,7 +58,6 @@ let
       inherit (__nixpkgs__.stdenv) isDarwin;
       inherit (__nixpkgs__.stdenv) isLinux;
       libGit = import ./lib-git/default.nix self;
-      lintClojure = import ./lint-clojure/default.nix self;
       lintGitCommitMsg = import ./lint-git-commit-msg/default.nix self;
       lintGitMailMap = import ./lint-git-mailmap/default.nix self;
       lintNix = import ./lint-nix/default.nix self;

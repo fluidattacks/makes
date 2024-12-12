@@ -37,41 +37,6 @@ Example:
     m . /lintBash
     ```
 
-## lintClojure
-
-Lints clojure code with [clj-kondo](https://github.com/clj-kondo/clj-kondo).
-
-Types:
-
-- lintClojure (`attrsOf (listOf str)`): Optional.
-    Mapping of custom names to lists of paths (relative to the project) to lint.
-
-    Defaults to `{ }`.
-
-Example:
-
-=== "makes.nix"
-
-    ```nix
-    {
-      lintClojure = {
-        example1 = [
-          "/" # Entire project
-          "/file.clj" # A file
-        ];
-        example2 = [
-          "/directory" # A directory within the project
-        ];
-      };
-    }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /lintClojure/example1`
-    ```
-
 ## lintGitCommitMsg
 
 It creates a commit diff

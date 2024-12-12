@@ -205,5 +205,4 @@
       };
     };
   };
-  lintClojure = { test = [ "/test" ]; };
 }
