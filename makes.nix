@@ -207,23 +207,6 @@
     };
   };
   testLicense = { enable = true; };
-  testPython = {
-    example = { src = "/test/test-python"; };
-    cliMain = {
-      extraFlags = [
-        "--cov=main"
-        "--cov-branch"
-        "--cov-report=term-missing"
-        "--capture=no"
-      ];
-      searchPaths = {
-        bin = [ __nixpkgs__.git ];
-        pythonPackage = [ (projectPath "/src/cli/main") ];
-        source = [ outputs."/cli/env/test" outputs."/cli/env/runtime" ];
-      };
-      src = "/src/cli";
-    };
-  };
   testTerraform = {
     modules = {
       module = {
