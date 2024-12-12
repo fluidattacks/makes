@@ -27,7 +27,6 @@ let
       attrsMerge = builtins.foldl' __nixpkgs__.lib.recursiveUpdate { };
       attrsOptional = __nixpkgs__.lib.optionalAttrs;
       calculateCvss3 = import ./calculate-cvss-3/default.nix self;
-      calculateScorecard = import ./calculate-scorecard/default.nix self;
       chunks = import ./chunks/default.nix self;
       computeOnAwsBatch = import ./compute-on-aws-batch/default.nix self;
       deployContainer = import ./deploy-container/default.nix self;

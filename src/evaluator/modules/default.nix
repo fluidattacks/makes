@@ -2,7 +2,6 @@
 , toFileJson, ... }@args: {
   imports = [
     (import ./cache/default.nix args)
-    (import ./calculate-scorecard/default.nix args)
     (import ./compute-on-aws-batch/default.nix args)
     (import ./dev/default.nix args)
     (import ./deploy-container/default.nix args)

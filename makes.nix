@@ -14,10 +14,6 @@
       };
     };
   };
-  calculateScorecard = {
-    enable = true;
-    target = "github.com/fluidattacks/makes";
-  };
   deployContainer = {
     makesAmd64 = {
       credentials = {

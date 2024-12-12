@@ -119,7 +119,6 @@ nav:
           - api/builtins/format.md
           - api/builtins/framework-configuration.md
           - api/builtins/lint.md
-          - api/builtins/monitoring.md
           - api/builtins/performance.md
           - api/builtins/secrets.md
           - api/builtins/security.md
