@@ -367,58 +367,5 @@ Example:
     m . /deployTerraform/module1
     ```
 
-## taintTerraform
-
-Taint Terraform code
-by performing a `terraform taint $resource`
-over the specified Terraform modules.
-
-Types:
-
-- taintTerraform:
-    - modules (`attrsOf moduleType`): Optional.
-        Path to Terraform modules to lint.
-        Defaults to `{ }`.
-- moduleType (`submodule`):
-    - reDeploy (`bool`): Optional.
-        Perform a `terraform apply` after tainting resources.
-        Defaults to `false`.
-    - resources (`listOf str`):
-        Resources to taint.
-    - setup (`listOf package`): Optional.
-        [Makes Environment][makes_environment]
-        or [Makes Secrets][makes_secrets]
-        to `source` (as in Bash's `source`)
-        before anything else.
-        Defaults to `[ ]`.
-    - src (`str`):
-        Path to the Terraform module.
-    - version (`enum [ "0.14" "0.15" "1.0" ]`):
-        Terraform version your module is built with.
-
-Example:
-
-=== "makes.nix"
-
-    ```nix
-    {
-      taintTerraform = {
-        modules = {
-          module = {
-            resources = [ "null_resource.example" ];
-            src = "/test/terraform/module";
-            version = "0.14";
-          };
-        };
-      };
-    }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /taintTerraform/module
-    ```
-
 [makes_environment]: ./environment.md
 [makes_secrets]: ./secrets.md

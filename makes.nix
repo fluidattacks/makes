@@ -192,15 +192,6 @@
     };
   };
   secretsForTerraformFromEnv = { example = { test = "VAR_NAME"; }; };
-  taintTerraform = {
-    modules = {
-      module = {
-        resources = [ "null_resource.example" ];
-        src = "/test/terraform/module";
-        version = "1.0";
-      };
-    };
-  };
   testLicense = { enable = true; };
   testTerraform = {
     modules = {
