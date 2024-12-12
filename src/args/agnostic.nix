@@ -32,7 +32,6 @@ let
       deployContainer = import ./deploy-container/default.nix self;
       deployContainerManifest =
         import ./deploy-container-manifest/default.nix self;
-      deployNomad = import ./deploy-nomad/default.nix self;
       deployTerraform = import ./deploy-terraform/default.nix self;
       inherit (__nixpkgs__.lib.strings) escapeShellArg;
       inherit (__nixpkgs__.lib.strings) escapeShellArgs;

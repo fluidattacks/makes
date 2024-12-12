@@ -6,7 +6,6 @@
     (import ./dev/default.nix args)
     (import ./deploy-container/default.nix args)
     (import ./deploy-container-manifest/default.nix args)
-    (import ./deploy-nomad/default.nix args)
     (import ./deploy-terraform/default.nix args)
     (import ./dynamodb/default.nix args)
     (import ./env-vars/default.nix args)
