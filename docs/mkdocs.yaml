@@ -121,7 +121,6 @@ nav:
           - api/builtins/lint.md
           - api/builtins/performance.md
           - api/builtins/secrets.md
-          - api/builtins/security.md
           - api/builtins/test.md
           - api/builtins/utilities.md
       - extensions:

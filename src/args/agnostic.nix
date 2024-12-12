@@ -115,8 +115,6 @@ let
       patchShebangs = import ./patch-shebangs/default.nix self;
       pythonOverrideUtils = import ./python-override-utils/default.nix;
       inherit (__nixpkgs__.lib) removePrefix;
-      secureKubernetesWithRbacPolice =
-        import ./secure-kubernetes-with-rbac-police/default.nix self;
       sortAscii = builtins.sort (a: b: a < b);
       sortAsciiCaseless = builtins.sort
         (a: b: __nixpkgs__.lib.toLower a < __nixpkgs__.lib.toLower b);
