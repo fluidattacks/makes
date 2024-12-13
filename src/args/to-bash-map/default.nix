@@ -1,6 +1,7 @@
-{ attrsMapToList, makeTemplate, escapeShellArg, ... }:
+{ __nixpkgs__, attrsMapToList, makeTemplate, ... }:
 attrset:
-makeTemplate {
+let inherit (__nixpkgs__.lib.strings) escapeShellArg;
+in makeTemplate {
   replace = {
     __argMap__ = builtins.toString (attrsMapToList
       (name: value: escapeShellArg "[${name}]=${escapeShellArg value}")
