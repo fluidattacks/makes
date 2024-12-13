@@ -11,12 +11,22 @@ __nixpkgs__.dockerTools.buildImage {
       "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
       "SYSTEM_CERTIFICATE_PATH=/etc/ssl/certs/ca-bundle.crt"
+
+      # Support non-nix binaries via nix-ld
+      "NIX_LD_LIBRARY_PATH=${
+        __nixpkgs__.lib.makeLibraryPath [ __nixpkgs__.stdenv.cc ]
+      }"
+      "NIX_LD=${
+        __nixpkgs__.lib.fileContents
+        "${__nixpkgs__.stdenv.cc}/nix-support/dynamic-linker"
+      }"
     ];
     User = "root:root";
     WorkingDir = "/working-dir";
   };
   name = "container-image";
   tag = "latest";
+
   copyToRoot = __nixpkgs__.buildEnv {
     name = "root-file-system";
     ignoreCollisions = false;
@@ -30,6 +40,14 @@ __nixpkgs__.dockerTools.buildImage {
       __nixpkgs__.gnutar
       __nixpkgs__.gzip
       __nixpkgs__.nixVersions.nix_2_15
+
+      # Support non-nix binaries via nix-ld
+      (__nixpkgs__.runCommand "dynamic-linker" { } ''
+        mkdir -p $out/lib
+        mkdir -p $out/lib64
+        ln -s ${__nixpkgs__.nix-ld}/libexec/nix-ld $out/lib/$(basename $(< ${__nixpkgs__.stdenv.cc}/nix-support/dynamic-linker))
+        ln -s ${__nixpkgs__.nix-ld}/libexec/nix-ld $out/lib64/$(basename $(< ${__nixpkgs__.stdenv.cc}/nix-support/dynamic-linker))
+      '')
 
       # Add /usr/bin/env pointing to /bin/env
       (__nixpkgs__.runCommand "user-bin-env" { } ''
