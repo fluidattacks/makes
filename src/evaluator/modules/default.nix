@@ -25,7 +25,6 @@
     (import ./lint-python/default.nix args)
     (import ./lint-terraform/default.nix args)
     (import ./lint-with-ajv/default.nix args)
-    (import ./lint-with-lizard/default.nix args)
     (import ./pipelines/default.nix args)
     (import ./secrets-for-aws-from-env/default.nix args)
     (import ./secrets-for-aws-from-gitlab/default.nix args)

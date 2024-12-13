@@ -65,7 +65,6 @@ let
       lintPythonImports = import ./lint-python-imports/default.nix self;
       lintTerraform = import ./lint-terraform/default.nix self;
       lintWithAjv = import ./lint-with-ajv/default.nix self;
-      lintWithLizard = import ./lint-with-lizard/default.nix self;
       inherit (__nixpkgs__.lib.filesystem) listFilesRecursive;
       makeContainerImage = import ./make-container-image/default.nix self;
       makeDerivation = import ./make-derivation/default.nix self;

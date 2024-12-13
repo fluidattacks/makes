@@ -491,26 +491,6 @@ jobs:
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-  linux_lintWithLizard_all:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /lintWithLizard/all
-        with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /lintWithLizard/all"
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-  macos_lintWithLizard_all:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
-      - name: /lintWithLizard/all
-        run: nix-env -if . && m . /lintWithLizard/all
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
   linux_secretsForEnvFromSops_example:
     runs-on: ubuntu-latest
     steps:
