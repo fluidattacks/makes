@@ -128,27 +128,6 @@
     enable = true;
     targets = [ "/" ];
   };
-  lintPython = let searchPaths.source = [ outputs."/cli/env/runtime" ];
-  in {
-    dirOfModules = {
-      makes = {
-        inherit searchPaths;
-        src = "/src/cli";
-      };
-    };
-    imports = {
-      makes = {
-        config = "/src/cli/imports.cfg";
-        src = "/src/cli";
-      };
-    };
-    modules = {
-      cliMain = {
-        inherit searchPaths;
-        src = "/src/cli/main";
-      };
-    };
-  };
   lintTerraform = {
     modules = {
       module = {
