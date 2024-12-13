@@ -54,7 +54,7 @@ Make sure to test it with `m . /lintGitMailMap`.
 - You must sign your commits by adding a `Signed-off-by` line at the end of your
   commit message.
 - You can take a look at other commits [here](https://github.com/fluidattacks/makes/commits/main).
-- Make sure to test it with `m . /lintGitCommitMsg`.
+- Make sure to test it with `m . /tests/commitlint`.
 
 #### Other PR rules
 

@@ -37,53 +37,6 @@ Example:
     m . /lintBash
     ```
 
-## lintGitCommitMsg
-
-It creates a commit diff
-between you current branch
-and the main branch of the repository.
-All commits included in the diff
-are linted using [Commitlint](https://commitlint.js.org/#/).
-
-Types:
-
-- lintGitCommitMsg:
-    - enable (`boolean`): Optional.
-        Defaults to `false`.
-    - branch (`str`): Optional.
-        Name of the main branch.
-        Defaults to `main`.
-    - config (`str`): Optional.
-        Path to a configuration file for Commitlint.
-        Defaults to
-        [config.js](/src/evaluator/modules/lint-git-commit-msg/config.js).
-    - parser (`str`): Optional.
-        Commitlint parser definitions.
-        Defaults to
-        [parser.js](/src/evaluator/modules/lint-git-commit-msg/parser.js).
-
-Example:
-
-=== "makes.nix"
-
-    ```nix
-    {
-      lintGitCommitMsg = {
-        enable = true;
-        branch = "my-branch-name";
-        # If you want to use custom configs or parsers you can do it like this:
-        # config = "/src/config/config.js";
-        # parser = "/src/config/parser.js";
-      };
-    }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /lintGitCommitMsg
-    ```
-
 ## lintGitMailMap
 
 Lint the [Git mailmap](https://git-scm.com/docs/gitmailmap)
