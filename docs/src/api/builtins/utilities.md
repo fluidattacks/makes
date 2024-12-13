@@ -63,16 +63,3 @@ m github:fluidattacks/makes@24.09 /utils/makeRubyLock \
 
 - `sources_yaml` is the **absolute path**
     to a file were the script will output results.
-
-## makeSopsEncryptedFile
-
-You can generate an encrypted [Sops](https://github.com/mozilla/sops) file like this:
-
-```bash
-m github:fluidattacks/makes@24.09 /utils/makeSopsEncryptedFile \
-  "${kms_key_arn}" \
-  "${output}"
-```
-
-- `kms_key_arn` is the arn of the key you will use for encrypting the file.
-- `output` is the path for your resulting encrypted file.
