@@ -276,53 +276,6 @@ Example:
       Decrypted password: 123
     ```
 
-## secretsForKubernetesConfigFromAws
-
-Create a Kubernetes
-config file out of an AWS EKS cluster
-and set it up in the
-[KUBECONFIG Environment Variable](https://kubernetes.io/docs/concepts/configuration/).
-
-Types:
-
-- secretsForKubernetesConfigFromAws
-    (`attrsOf secretForKubernetesConfigFromAwsType`): Optional.
-    Defaults to `{ }`.
-- secretForKubernetesConfigFromAwsType (`submodule`):
-    - cluster (`str`):
-        AWS EKS Cluster name.
-    - region (`str`):
-        AWS Region the EKS cluster is located in.
-
-Example:
-
-=== "makes.nix"
-
-    ```nix
-    {
-      outputs,
-      ...
-    }: {
-      secretsForKubernetesConfigFromAws = {
-        myCluster = {
-          cluster = "makes-k8s";
-          region = "us-east-1";
-        };
-      };
-      deployTerraform = {
-        modules = {
-          moduleProd = {
-            setup = [
-              outputs."/secretsForKubernetesConfigFromAws/myCluster"
-            ];
-            src = "/my/module1";
-            version = "0.14";
-          };
-        };
-      };
-    }
-    ```
-
 ## secretsForTerraformFromEnv
 
 Export secrets in a format suitable for Terraform

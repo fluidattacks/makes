@@ -119,8 +119,7 @@
         `secretsForAwsFromEnv`,
         `secretsForAwsFromGitlab`,
         `secretsForEnvFromSops`,
-        `secretsForGpgFromEnv`,
-        `secretsForKubernetesConfigFromAws`, and
+        `secretsForGpgFromEnv`, and
         `secretsForTerraformFromEnv`.
 
         However, we don't currently have a way to protect the user
