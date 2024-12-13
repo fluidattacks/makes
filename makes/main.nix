@@ -1,5 +1,5 @@
 { __nixpkgs__, makeScript, outputs, projectPath, ... }:
-let makesVersion = "24.09";
+let makesVersion = "24.12";
 in makeScript {
   aliases = [ "m-v${makesVersion}" "makes" "makes-v${makesVersion}" ];
   replace = {

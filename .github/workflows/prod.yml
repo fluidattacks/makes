@@ -64,15 +64,15 @@ jobs:
           token: ${{ github.token }}
       - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
         with:
-          tag_name: "24.09"
+          tag_name: "24.12"
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - uses: johnwbyrd/update-release@1d5ec4791e40507e5eca3b4dbf90f0b27e7e4979
         with:
           files: README.md
-          release: "24.09"
+          release: "24.12"
           prerelease: true
-          tag: "24.09"
+          tag: "24.12"
           token: ${{ github.token }}
   linux_all:
     runs-on: ubuntu-latest

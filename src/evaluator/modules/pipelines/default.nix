@@ -15,7 +15,7 @@ let
         type = lib.types.attrsOf lib.types.anything;
       };
       image = lib.mkOption {
-        default = "ghcr.io/fluidattacks/makes:24.09";
+        default = "ghcr.io/fluidattacks/makes:24.12";
         type = lib.types.str;
       };
       output = lib.mkOption { type = lib.types.str; };
