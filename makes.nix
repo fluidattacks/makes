@@ -94,7 +94,6 @@
     enable = true;
     targets = [ "/" ];
   };
-  formatPython = { default = { targets = [ "/" ]; }; };
   formatTerraform = {
     enable = true;
     targets = [ "/" ];
