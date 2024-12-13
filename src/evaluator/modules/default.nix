@@ -22,7 +22,6 @@
     (import ./lint-git-commit-msg/default.nix args)
     (import ./lint-git-mailmap/default.nix args)
     (import ./lint-nix/default.nix args)
-    (import ./lint-python/default.nix args)
     (import ./lint-terraform/default.nix args)
     (import ./lint-with-ajv/default.nix args)
     (import ./pipelines/default.nix args)
