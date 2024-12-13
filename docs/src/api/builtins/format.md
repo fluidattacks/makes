@@ -114,50 +114,6 @@ Example:
     m . /formatNix
     ```
 
-## formatPython
-
-Ensure that Python code is formatted
-according to [Black](https://github.com/psf/black)
-and [isort](https://github.com/PyCQA/isort).
-
-Types:
-
-- formatPython (`attrsOf targetType`): Optional.
-    Mapping of names to format targets.
-    Defaults to `{ }`.
-- targetType (`submodule`):
-    - config (`atrrs`): Optional.
-        - black (`path`): Optional.
-            Path to the Black configuration file.
-            Defaults to [./settings-black.toml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/format-python/settings-black.toml).
-        - isort (`path`): Optional.
-            Path to the isort configuration file.
-            Defaults to [./settings-isort.toml](https://github.com/fluidattacks/makes/blob/main/src/evaluator/modules/format-python/settings-isort.toml).
-    - targets (`listOf str`): Optional.
-        Files or directories (relative to the project) to format.
-        Defaults to the entire project.
-
-Example:
-
-=== "makes.nix"
-
-    ```nix
-    {
-      formatPython = {
-        my-config = {
-          targets = ["/"];
-          config = {};
-        };
-      };
-    }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /formatPython/my-config
-    ```
-
 ## formatTerraform
 
 Ensure that Terraform code is formatted

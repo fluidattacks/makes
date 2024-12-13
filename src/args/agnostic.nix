@@ -44,7 +44,6 @@ let
       inherit (__nixpkgs__.lib.lists) flatten;
       formatBash = import ./format-bash/default.nix self;
       formatNix = import ./format-nix/default.nix self;
-      formatPython = import ./format-python/default.nix self;
       formatTerraform = import ./format-terraform/default.nix self;
       formatYaml = import ./format-yaml/default.nix self;
       fromJson = builtins.fromJSON;
