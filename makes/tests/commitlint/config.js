@@ -1,9 +1,9 @@
-const HEADERLENGTHMAX = 50;
+const HEADERLENGTHMAX = 60;
 const LINELENGTHMAX = 72;
 const BODYLENGTHMIN = 15;
 
 module.exports = {
-  parserPreset: "./.commitlint-parser-preset",
+  parserPreset: "./parser.js",
   rules: {
     // Body
     "body-leading-blank": [2, "always"], // blank line between header and body

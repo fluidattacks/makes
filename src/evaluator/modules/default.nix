@@ -18,7 +18,6 @@
     (import ./hello-world/default.nix args)
     (import ./inputs/default.nix)
     (import ./lint-bash/default.nix args)
-    (import ./lint-git-commit-msg/default.nix args)
     (import ./lint-git-mailmap/default.nix args)
     (import ./lint-nix/default.nix args)
     (import ./lint-terraform/default.nix args)

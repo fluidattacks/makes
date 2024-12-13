@@ -116,12 +116,6 @@
     enable = true;
     targets = [ "/" ];
   };
-  lintGitCommitMsg = {
-    enable = true;
-    branch = "main";
-    parser = "/test/lint-commit-msg/lint-git-commit-msg-parser.js";
-    config = "/test/lint-commit-msg/lint-git-commit-msg-config.js";
-  };
   lintGitMailMap = { enable = true; };
   lintNix = {
     enable = true;
