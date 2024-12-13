@@ -54,61 +54,6 @@ Example:
         [INFO] Tickets is: 3
     ```
 
-## fromToml
-
-Convert a TOML formatted string
-to a Nix expression.
-
-Types:
-
-- fromToml (`function str -> anything`):
-    - (`str`):
-        TOML formatted string to convert.
-
-Example:
-
-=== "main.nix"
-
-    ```nix
-    # /path/to/my/project/makes/example/main.nix
-    {
-      fromToml,
-      makeDerivation,
-      ...
-    }:
-    let
-      data = fromToml ''
-        [example]
-        name = "John"
-        lastName = "Doe"
-        tickets = 3
-      '';
-    in
-    makeDerivation {
-      env = {
-        envName = data.example.name;
-        envLastName = data.example.lastName;
-        envTickets = data.example.tickets;
-      };
-      builder = ''
-        info "Name is: $envName"
-        info "Last name is: $envLastName"
-        info "Tickets is: $envTickets"
-      '';
-      name = "example";
-    }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    $ m . /example
-
-        [INFO] Name is: John
-        [INFO] Last name is: Doe
-        [INFO] Tickets is: 3
-    ```
-
 ## fromYaml
 
 Convert a YAML formatted string

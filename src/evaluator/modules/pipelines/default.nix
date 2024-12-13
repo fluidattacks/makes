@@ -1,5 +1,5 @@
-{ __nixpkgs__, __toModuleOutputs__, attrsMerge, attrsOptional, escapeShellArgs
-, toBashArray, toBashMap, toFileYaml, makeScript, outputs, ... }:
+{ __nixpkgs__, __toModuleOutputs__, attrsMerge, attrsOptional, toBashArray
+, toBashMap, toFileYaml, makeScript, outputs, ... }:
 { config, lib, ... }:
 let
   toJobName = output: args: builtins.concatStringsSep "__" ([ output ] ++ args);
@@ -72,7 +72,7 @@ let
         script = if args == [ ] then
           [ "m . ${output}" ]
         else
-          [ "m . ${output} ${escapeShellArgs args}" ];
+          [ "m . ${output} ${__nixpkgs__.lib.strings.escapeShellArgs args}" ];
         variables = {
           GIT_DEPTH = 3;
           MAKES_GIT_DEPTH = 3;

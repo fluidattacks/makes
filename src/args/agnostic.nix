@@ -26,29 +26,22 @@ let
       attrsMapToList = __nixpkgs__.lib.mapAttrsToList;
       attrsMerge = builtins.foldl' __nixpkgs__.lib.recursiveUpdate { };
       attrsOptional = __nixpkgs__.lib.optionalAttrs;
-      calculateCvss3 = import ./calculate-cvss-3/default.nix self;
-      chunks = import ./chunks/default.nix self;
       computeOnAwsBatch = import ./compute-on-aws-batch/default.nix self;
       deployContainer = import ./deploy-container/default.nix self;
       deployContainerManifest =
         import ./deploy-container-manifest/default.nix self;
       deployTerraform = import ./deploy-terraform/default.nix self;
-      inherit (__nixpkgs__.lib.strings) escapeShellArg;
-      inherit (__nixpkgs__.lib.strings) escapeShellArgs;
       inherit (__nixpkgs__.lib) fakeSha256;
       fetchArchive = import ./fetch-archive/default.nix self;
       fetchNixpkgs = import ./fetch-nixpkgs/default.nix self;
       fetchRubyGem = import ./fetch-rubygem/default.nix self;
       fetchUrl = import ./fetch-url/default.nix self;
-      inherit (__nixpkgs__.lib) filterAttrs;
-      inherit (__nixpkgs__.lib.lists) flatten;
       formatBash = import ./format-bash/default.nix self;
       formatNix = import ./format-nix/default.nix self;
       formatTerraform = import ./format-terraform/default.nix self;
       formatYaml = import ./format-yaml/default.nix self;
       fromJson = builtins.fromJSON;
       fromJsonFile = path: builtins.fromJSON (builtins.readFile path);
-      fromToml = builtins.fromTOML;
       fromYaml = import ./from-yaml/default.nix self;
       fromYamlFile = path: self.fromYaml (builtins.readFile path);
       gitlabCi = import ./gitlab-ci/default.nix;
@@ -64,13 +57,10 @@ let
       inherit (__nixpkgs__.lib.filesystem) listFilesRecursive;
       makeContainerImage = import ./make-container-image/default.nix self;
       makeDerivation = import ./make-derivation/default.nix self;
-      makeDerivationParallel =
-        import ./make-derivation-parallel/default.nix self;
       makeDynamoDb = import ./make-dynamodb/default.nix self;
       makeEnvVars = import ./make-env-vars/default.nix self;
       makeEnvVarsForTerraform =
         import ./make-env-vars-for-terraform/default.nix self;
-      makeNomadEnvironment = import ./make-nomad-environment/default.nix self;
       makePythonEnvironment = import ./make-python-environment/default.nix self;
       makePythonPoetryEnvironment =
         import ./make-python-poetry-environment/default.nix self;
@@ -106,9 +96,6 @@ let
       patchShebangs = import ./patch-shebangs/default.nix self;
       pythonOverrideUtils = import ./python-override-utils/default.nix;
       inherit (__nixpkgs__.lib) removePrefix;
-      sortAscii = builtins.sort (a: b: a < b);
-      sortAsciiCaseless = builtins.sort
-        (a: b: __nixpkgs__.lib.toLower a < __nixpkgs__.lib.toLower b);
       stringCapitalize = import ./string-capitalize/default.nix self;
       sublist = import ./sublist/default.nix self;
       testLicense = import ./test-license/default.nix self;
