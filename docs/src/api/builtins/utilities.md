@@ -9,7 +9,7 @@ You can generate a `poetry.lock` for
 like this:
 
 ```bash
-m github:fluidattacks/makes@24.09 /utils/makePythonLock \
+m github:fluidattacks/makes@24.12 /utils/makePythonLock \
   "${python_version}" \
   "${project}"
 ```
@@ -45,7 +45,7 @@ You can generate a `sourcesYaml` for
 like this:
 
 ```bash
-m github:fluidattacks/makes@24.09 /utils/makeRubyLock \
+m github:fluidattacks/makes@24.12 /utils/makeRubyLock \
   "${ruby_version}" \
   "${dependencies_yaml}" \
   "${sources_yaml}"

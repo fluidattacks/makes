@@ -58,7 +58,7 @@
         }
       ];
       sign = true;
-      tags = [ "24.09" ];
+      tags = [ "24.12" ];
     };
   };
   deployTerraform = {
