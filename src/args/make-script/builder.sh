@@ -10,7 +10,7 @@ function main {
       cat "${envEntrypointSetup}/template" > "${location}" \
         && echo >> "${location}" \
         && cat "${envEntrypoint}/template" >> "${location}" \
-        && chmod +x "${location}"
+        && chmod +x "${location}" # NOFLUID Intended Behavior
     done
 }
 
