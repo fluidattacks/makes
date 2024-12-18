@@ -17,6 +17,7 @@
     (import ./format-yaml/default.nix args)
     (import ./hello-world/default.nix args)
     (import ./inputs/default.nix)
+    (import ./jobs/default.nix args)
     (import ./lint-bash/default.nix args)
     (import ./lint-git-mailmap/default.nix args)
     (import ./lint-nix/default.nix args)
