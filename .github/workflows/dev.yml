@@ -35,22 +35,6 @@ jobs:
       - name: /deployTerraform/module
         run: nix-env -if . && m . /deployTerraform/module
 
-  linux_dev_example:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /dev/example
-        with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /dev/example"
-  macos_dev_example:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
-      - name: /dev/example
-        run: nix-env -if . && m . /dev/example
-
   linux_dev_makes:
     runs-on: ubuntu-latest
     steps:
@@ -388,7 +372,7 @@ jobs:
       - name: /testTerraform/module
         run: nix-env -if . && m . /testTerraform/module
 
-  linux_computeOnAwsBatch_module:
+  linux_tests_computeOnAwsBatch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
@@ -396,7 +380,7 @@ jobs:
         name: /tests/computeOnAwsBatch
         with:
           args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /tests/computeOnAwsBatch
-  macos_computeOnAwsBatch_module:
+  macos_tests_computeOnAwsBatch:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222

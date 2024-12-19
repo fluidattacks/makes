@@ -1,5 +1,52 @@
 { outputs, __nixpkgs__, ... }: {
-  jobs."/container-image" = __nixpkgs__.dockerTools.buildImage {
+  deployContainer = {
+    makesAmd64 = {
+      credentials = {
+        token = "GITHUB_TOKEN";
+        user = "GITHUB_ACTOR";
+      };
+      image = "ghcr.io/fluidattacks/makes:amd64";
+      src = outputs."/container";
+      sign = true;
+    };
+    makesArm64 = {
+      credentials = {
+        token = "GITHUB_TOKEN";
+        user = "GITHUB_ACTOR";
+      };
+      image = "ghcr.io/fluidattacks/makes:arm64";
+      src = outputs."/container";
+      sign = true;
+    };
+  };
+  deployContainerManifest = {
+    makes = {
+      credentials = {
+        token = "GITHUB_TOKEN";
+        user = "GITHUB_ACTOR";
+      };
+      image = "ghcr.io/fluidattacks/makes:latest";
+      manifests = [
+        {
+          image = "ghcr.io/fluidattacks/makes:amd64";
+          platform = {
+            architecture = "amd64";
+            os = "linux";
+          };
+        }
+        {
+          image = "ghcr.io/fluidattacks/makes:arm64";
+          platform = {
+            architecture = "arm64";
+            os = "linux";
+          };
+        }
+      ];
+      sign = true;
+      tags = [ "24.12" ];
+    };
+  };
+  jobs."/container" = __nixpkgs__.dockerTools.buildImage {
     config = {
       Env = [
         "HOME=/home/root"
@@ -24,7 +71,7 @@
       User = "root:root";
       WorkingDir = "/working-dir";
     };
-    name = "container-image";
+    name = "container";
     tag = "latest";
 
     copyToRoot = __nixpkgs__.buildEnv {

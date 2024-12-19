@@ -2,7 +2,7 @@
   jobs."/tests/commitlint" = makeScript {
     name = "commitlint";
     entrypoint = ''
-      pushd makes/tests/commitlint
+      pushd tests/commitlint
 
       commit_hash="$(git --no-pager log --pretty=%h origin/main..HEAD)"
 
