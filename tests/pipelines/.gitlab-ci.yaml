@@ -1,9 +1,9 @@
-/helloWorld__1__2__3:
+/formatNix:
   image: ghcr.io/fluidattacks/makes:24.12
   interruptible: true
   needs: []
   script:
-    - m . /helloWorld '1' '2' '3'
+    - m . /formatNix
   variables:
     GIT_DEPTH: 3
     MAKES_GIT_DEPTH: 3

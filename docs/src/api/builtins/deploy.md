@@ -101,10 +101,10 @@ Example:
       ...
     }: {
       computeOnAwsBatch = {
-        helloWorld = {
+        myJob = {
           attempts = 1;
           attemptDurationSeconds = 43200;
-          command = [ "m" "github:fluidattacks/makes@main" "/helloWorld" ];
+          command = [ "m" "github:fluidattacks/makes@main" "/myJob" ];
           definition = "makes";
           environment = [ "ENV_VAR_FOR_WHATEVER" ];
           memory = 1800;
@@ -125,7 +125,7 @@ Example:
 === "Invocation"
 
     ```bash
-    m . /computeOnAwsBatch/helloWorld 1 2 3
+    m . /computeOnAwsBatch/myJob 1 2 3
     ```
 
 Note that positional arguments (`[ "1" "2" "3" ]` in this case)

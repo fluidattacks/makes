@@ -2,7 +2,6 @@
   imports = [
     ./commitlint/makes.nix
     ./computeOnAwsBatch/makes.nix
-    ./helloWorld/makes.nix
     ./lintWithAjv/makes.nix
     ./makeScript/makes.nix
     ./makeSearchPaths/makes.nix

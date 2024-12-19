@@ -81,14 +81,14 @@ Example:
     name: Makes CI
     on: [push, pull_request]
     jobs:
-      helloWorld:
+      lintNix:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
           - uses: docker://ghcr.io/fluidattacks/makes:24.12
-            name: helloWorld
+            name: lintNix
             with:
-              args: sh -c "chown -R root:root /github/workspace && m . /helloWorld 1 2 3"
+              args: sh -c "chown -R root:root /github/workspace && m . /lintNix"
     ```
 
     ???+ note
@@ -103,10 +103,10 @@ Example:
 
     ```yaml
     # .gitlab-ci.yml
-    /helloWorld:
+    /lintNix:
       image: ghcr.io/fluidattacks/makes:24.12
       script:
-        - m . /helloWorld 1 2 3
+        - m . /lintNix
     ```
 
 === "Travis CI"
@@ -119,7 +119,7 @@ Example:
     install: nix-env -if https://github.com/fluidattacks/makes/archive/24.12.tar.gz
     jobs:
       include:
-        - script: m . /helloWorld 1 2 3
+        - script: m . /lintNix
     ```
 
 ### Importing via Nix

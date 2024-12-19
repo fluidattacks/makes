@@ -15,7 +15,6 @@
     (import ./format-nix/default.nix args)
     (import ./format-terraform/default.nix args)
     (import ./format-yaml/default.nix args)
-    (import ./hello-world/default.nix args)
     (import ./inputs/default.nix)
     (import ./jobs/default.nix args)
     (import ./lint-bash/default.nix args)

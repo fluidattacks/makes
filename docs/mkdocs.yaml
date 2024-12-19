@@ -115,7 +115,6 @@ nav:
           - api/builtins/deploy.md
           - api/builtins/development.md
           - api/builtins/environment.md
-          - api/builtins/examples.md
           - api/builtins/format.md
           - api/builtins/framework-configuration.md
           - api/builtins/lint.md
