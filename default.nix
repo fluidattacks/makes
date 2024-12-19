@@ -3,12 +3,9 @@ let
   agnostic = import ./src/args/agnostic.nix { inherit system; };
 
   args = agnostic // {
-    outputs."/cli/env/runtime" =
-      (import ./makes/cli/env/runtime/makes.nix args).jobs."/cli/env/runtime";
-    outputs."/cli/env/runtime/pypi" =
-      (import ./makes/cli/env/runtime/pypi/makes.nix
-        args).jobs."/cli/env/runtime/pypi";
+    outputs."/src/cli/runtime" =
+      (import ./src/cli/makes.nix args).jobs."/src/cli/runtime";
     projectPath = import ./src/args/project-path args;
     projectSrc = ./.;
   };
-in (import ./makes/makes.nix args).jobs."/"
+in (import ./src/makes.nix args).jobs."/"
