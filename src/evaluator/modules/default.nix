@@ -8,8 +8,6 @@
     (import ./deploy-container-manifest/default.nix args)
     (import ./deploy-terraform/default.nix args)
     (import ./dynamodb/default.nix args)
-    (import ./env-vars/default.nix args)
-    (import ./env-vars-for-terraform/default.nix args)
     (import ./format-bash/default.nix args)
     (import ./format-markdown/default.nix args)
     (import ./format-nix/default.nix args)
@@ -24,8 +22,6 @@
     (import ./lint-with-ajv/default.nix args)
     (import ./pipelines/default.nix args)
     (import ./secrets-for-aws-from-env/default.nix args)
-    (import ./secrets-for-env-from-sops/default.nix args)
-    (import ./secrets-for-terraform-from-env/default.nix args)
     (import ./test-license/default.nix args)
     (import ./test-terraform/default.nix args)
   ];

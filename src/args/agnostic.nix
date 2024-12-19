@@ -58,9 +58,6 @@ let
       makeContainerImage = import ./make-container-image/default.nix self;
       makeDerivation = import ./make-derivation/default.nix self;
       makeDynamoDb = import ./make-dynamodb/default.nix self;
-      makeEnvVars = import ./make-env-vars/default.nix self;
-      makeEnvVarsForTerraform =
-        import ./make-env-vars-for-terraform/default.nix self;
       makePythonEnvironment = import ./make-python-environment/default.nix self;
       makePythonPoetryEnvironment =
         import ./make-python-poetry-environment/default.nix self;
@@ -75,10 +72,6 @@ let
       makeSearchPaths = import ./make-search-paths/default.nix self;
       makeSecretForAwsFromEnv =
         import ./make-secret-for-aws-from-env/default.nix self;
-      makeSecretForEnvFromSops =
-        import ./make-secret-for-env-from-sops/default.nix self;
-      makeSecretForTerraformFromEnv =
-        import ./make-secret-for-terraform-from-env/default.nix self;
       makeTerraformEnvironment =
         import ./make-terraform-environment/default.nix self;
       makeSslCertificate = import ./make-ssl-certificate/default.nix self;
