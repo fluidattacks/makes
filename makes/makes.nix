@@ -5,10 +5,6 @@ in {
     ./cli/env/runtime/makes.nix
     ./cli/env/runtime/pypi/makes.nix
     ./container-image/makes.nix
-    ./docs/deploy/makes.nix
-    ./docs/dev/makes.nix
-    ./docs/runtime/makes.nix
-    ./docs/runtime/pypi/makes.nix
     ./tests/commitlint/makes.nix
     ./tests/computeOnAwsBatch/makes.nix
     ./tests/makeScript/makes.nix
