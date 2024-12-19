@@ -75,6 +75,8 @@ let
       makeSearchPaths = import ./make-search-paths/default.nix self;
       makeSecretForAwsFromEnv =
         import ./make-secret-for-aws-from-env/default.nix self;
+      makeSecretForAwsFromGitlab =
+        import ./make-secret-for-aws-from-gitlab/default.nix self;
       makeSecretForEnvFromSops =
         import ./make-secret-for-env-from-sops/default.nix self;
       makeSecretForTerraformFromEnv =
