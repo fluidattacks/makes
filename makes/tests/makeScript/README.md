@@ -1,7 +1,7 @@
 # A Script With a Help
 
-- This is `makes/tests/scriptWithHelp/README.md`
+- This is `makes/tests/makeScript/README.md`
 - You might be looking at it beautifully rendered on GitHub / GitLab / etc.
 - You also might be looking at it beautifully rendedred on the CLI\*.
 
-\* `m . /tests/scriptWithHelp -h` (or `--help`)
+\* `m . /tests/makeScript -h` (or `--help`)

@@ -1,11 +1,6 @@
 { fetchNixpkgs, fetchUrl, makeScript, outputs, projectPath, __nixpkgs__, ...
 }: {
-  jobs = {
-    "/test" = makeScript {
-      name = "test/job";
-      entrypoint = "echo Hello test";
-    };
-  };
+  imports = [ ./makes/makes.nix ];
   projectIdentifier = "makes-repo";
   cache = {
     readNixos = true;

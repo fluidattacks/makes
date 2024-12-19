@@ -9,4 +9,4 @@ let
     projectPath = import ./src/args/project-path args;
     projectSrc = ./.;
   };
-in import ./makes/main.nix args
+in (import ./makes/makes.nix args).jobs."/"
