@@ -24,7 +24,6 @@
     (import ./lint-with-ajv/default.nix args)
     (import ./pipelines/default.nix args)
     (import ./secrets-for-aws-from-env/default.nix args)
-    (import ./secrets-for-aws-from-gitlab/default.nix args)
     (import ./secrets-for-env-from-sops/default.nix args)
     (import ./secrets-for-terraform-from-env/default.nix args)
     (import ./test-license/default.nix args)

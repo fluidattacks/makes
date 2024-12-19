@@ -72,18 +72,11 @@ let
         import ./make-ruby-gems-environment/default.nix self;
       makeRubyGemsInstall = import ./make-ruby-gems-install/default.nix self;
       makeScript = import ./make-script/default.nix self;
-      makeScriptParallel = import ./make-script-parallel/default.nix self;
       makeSearchPaths = import ./make-search-paths/default.nix self;
       makeSecretForAwsFromEnv =
         import ./make-secret-for-aws-from-env/default.nix self;
-      makeSecretForAwsFromGitlab =
-        import ./make-secret-for-aws-from-gitlab/default.nix self;
       makeSecretForEnvFromSops =
         import ./make-secret-for-env-from-sops/default.nix self;
-      makeSecretForKubernetesConfigFromAws =
-        import ./make-secret-for-kubernetes-config-from-aws/default.nix self;
-      makeSecretForNomadFromEnv =
-        import ./make-secret-for-nomad-from-env/default.nix self;
       makeSecretForTerraformFromEnv =
         import ./make-secret-for-terraform-from-env/default.nix self;
       makeTerraformEnvironment =
