@@ -1,6 +1,6 @@
 { fetchNixpkgs, fetchUrl, makeScript, outputs, projectPath, __nixpkgs__, ...
 }: {
-  imports = [ ./makes/makes.nix ];
+  imports = [ ./docs/makes.nix ./makes/makes.nix ];
   projectIdentifier = "makes-repo";
   cache = {
     readNixos = true;

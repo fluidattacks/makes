@@ -52,18 +52,6 @@ jobs:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
       - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
         with:
-          tag_name: "latest"
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      - uses: johnwbyrd/update-release@1d5ec4791e40507e5eca3b4dbf90f0b27e7e4979
-        with:
-          files: README.md
-          release: "latest"
-          prerelease: true
-          tag: "latest"
-          token: ${{ github.token }}
-      - uses: richardsimko/update-tag@5bd0e05b035e02d5da3768dbdcfc4e5e0908623e
-        with:
           tag_name: "24.12"
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -159,9 +147,9 @@ jobs:
     steps:
       - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
       - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /docs/deploy
+        name: /docs deploy prod
         with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /docs/deploy prod"
+          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /docs deploy prod"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
