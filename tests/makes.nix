@@ -8,8 +8,6 @@
     ./makeSearchPaths/makes.nix
     ./makeTemplate/makes.nix
     ./pipelines/makes.nix
-    ./secretsForEnvFromSops/makes.nix
-    ./secretsForGpgFromEnv/makes.nix
     ./terraform/makes.nix
   ];
 }

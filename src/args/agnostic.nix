@@ -80,8 +80,6 @@ let
         import ./make-secret-for-aws-from-gitlab/default.nix self;
       makeSecretForEnvFromSops =
         import ./make-secret-for-env-from-sops/default.nix self;
-      makeSecretForGpgFromEnv =
-        import ./make-secret-for-gpg-from-env/default.nix self;
       makeSecretForKubernetesConfigFromAws =
         import ./make-secret-for-kubernetes-config-from-aws/default.nix self;
       makeSecretForNomadFromEnv =

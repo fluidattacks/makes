@@ -118,8 +118,7 @@
         For example:
         `secretsForAwsFromEnv`,
         `secretsForAwsFromGitlab`,
-        `secretsForEnvFromSops`,
-        `secretsForGpgFromEnv`, and
+        `secretsForEnvFromSops`, and
         `secretsForTerraformFromEnv`.
 
         However, we don't currently have a way to protect the user
