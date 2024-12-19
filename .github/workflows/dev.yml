@@ -55,22 +55,6 @@ jobs:
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-  linux_envVars_example:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /envVars/example
-        with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /envVars/example"
-  macos_envVars_example:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
-      - name: /envVars/example
-        run: nix-env -if . && m . /envVars/example
-
   linux_formatBash:
     runs-on: ubuntu-latest
     steps:
@@ -244,38 +228,6 @@ jobs:
         with:
           args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /lintWithAjv/test"
 
-  linux_secretsForEnvFromSops_example:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /secretsForEnvFromSops/example
-        with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /secretsForEnvFromSops/example"
-  macos_secretsForEnvFromSops_example:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
-      - name: /secretsForEnvFromSops/example
-        run: nix-env -if . && m . /secretsForEnvFromSops/example
-
-  linux_secretsForGpgFromEnv_example:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /secretsForGpgFromEnv/example
-        with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /secretsForGpgFromEnv/example"
-  macos_secretsForGpgFromEnv_example:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
-      - name: /secretsForGpgFromEnv/example
-        run: nix-env -if . && m . /secretsForGpgFromEnv/example
-
   linux_testLicense:
     runs-on: ubuntu-latest
     steps:
@@ -339,22 +291,6 @@ jobs:
       - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
       - name: /tests/makeScript
         run: nix-env -if . && m . /tests/makeScript
-
-  linux_tests_secretsForGpgFromEnv:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: docker://docker.io/nixos/nix@sha256:c3db4c484f6b1ee6c9bb8ca90307cfbeca8ef88156840911356a677eeaff4845
-        name: /tests/secretsForGpgFromEnv
-        with:
-          args: sh -c "chown -R root:root /github/workspace && nix-env -if . && m . /tests/secretsForGpgFromEnv"
-  macos_tests_secretsForGpgFromEnv:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
-      - uses: cachix/install-nix-action@6ed004b9ccb68dbc28e7c85bee15fa93dbd214ac
-      - name: /tests/secretsForGpgFromEnv
-        run: nix-env -if . && m . /tests/secretsForGpgFromEnv
 
   linux_testTerraform_module:
     runs-on: ubuntu-latest
