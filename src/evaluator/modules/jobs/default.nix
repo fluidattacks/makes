@@ -2,7 +2,11 @@
 { config, lib, ... }:
 let
   makeOutput = name: value: {
-    inherit name;
+    name = if lib.strings.hasPrefix "/" name then
+      name
+    else
+      abort
+      ''The job "${name}" must begin with a slash. Rename it to "/${name}"'';
     inherit value;
   };
 in {
