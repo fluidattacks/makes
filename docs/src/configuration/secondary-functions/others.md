@@ -44,34 +44,21 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { libGit, makeScript, ... }:
     {
-      libGit,
-      makeScript,
-      ...
-    }:
-    makeScript {
-      entrypoint = ''
-        require_git_repository /some-path-that-do-not-exists
+      jobs."myLibGit" = makeScript {
+        entrypoint = ''
+          require_git_repository /some-path-that-do-not-exists
 
-        echo other business logic goes here ...
-      '';
-      name = "example";
-      searchPaths = {
-        source = [ libGit ];
+          echo other business logic goes here ...
+        '';
+        name = "myLibGit";
+        searchPaths.source = [ libGit ];
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    $ m . /example
-
-        [CRITICAL] We require a git repository, but this one is not: /some-path-that-do-not-exists
     ```
 
 ## makeSslCertificate
@@ -101,15 +88,10 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
-    {
-      makeScript,
-      makeSslCertificate,
-      ...
-    }:
+    { makeScript, makeSslCertificate, ... }:
     let
       sslCertificate = makeSslCertificate {
         name = "name-example";
@@ -118,25 +100,15 @@ Example:
         ];
       };
     in
-    makeScript {
-      replace = {
-        __argSslCertificate__ = sslCertificate;
+    {
+      jobs."mySslCertificate" = makeScript {
+        replace.__argSslCertificate__ = sslCertificate;
+        entrypoint = ''
+          cat "__argSslCertificate__"
+        '';
+        name = "mySslCertificate";
       };
-      entrypoint = ''
-        cat "__argSslCertificate__"
-      '';
-      name = "example";
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    $ m . /example
-
-        -----BEGIN PRIVATE KEY-----
-        ...
-        -----END PRIVATE KEY-----
     ```
 
 ## pathShebangs
@@ -163,48 +135,34 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { __nixpkgs__, makeDerivation, patchShebangs, ... }:
     {
-      __nixpkgs__,
-      makeDerivation,
-      patchShebangs,
-      ...
-    }:
-    makeDerivation {
-      env = {
-        envFile = builtins.toFile "my_file.sh" ''
-          #! /usr/bin/env bash
+      jobs."myPatchShebangs" = makeDerivation {
+        env = {
+          envFile = builtins.toFile "my_file.sh" ''
+            #! /usr/bin/env bash
 
-          echo Hello!
+            echo Hello!
+          '';
+        };
+        builder = ''
+          copy $envFile $out
+
+          chmod +x $out
+          patch_shebangs $out
+
+          cat $out
         '';
-      };
-      builder = ''
-        copy $envFile $out
-
-        chmod +x $out
-        patch_shebangs $out
-
-        cat $out
-      '';
-      name = "example";
-      searchPaths = {
-        bin = [ __nixpkgs__.bash ]; # Propagate bash so `patch_shebangs` "sees" it
-        source = [ patchShebangs ];
+        name = "myPatchShebangs";
+        searchPaths = {
+          bin = [ __nixpkgs__.bash ]; # Propagate bash so `patch_shebangs` "sees" it
+          source = [ patchShebangs ];
+        };
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    $ m . /example
-
-        #! /nix/store/dpjnjrqbgbm8a5wvi1hya01vd8wyvsq4-bash-4.4-p23/bin/bash
-
-        echo Hello!
     ```
 
 ## sublist
@@ -223,16 +181,13 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    {
-      sublist,
-      ...
-    }: let
+    { sublist, ... }: let
       list = [0 1 2 3 4 5 6 7 8 9];
       sublist = sublist list 3 5; # [3 4]
     in {
-      inherit sublist;
+      jobs."mySublist" = sublist;
     }
     ```

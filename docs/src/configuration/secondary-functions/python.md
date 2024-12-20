@@ -32,32 +32,29 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { makePythonEnvironment, projectPath, ... }:
     {
-      makePythonEnvironment,
-      projectPath,
-      ...
-    }:
-    makePythonEnvironment {
-      pythonProjectDir = projectPath "/makes/example";
-      pythonVersion = "3.11";
-      preferWheels = true;
-      # Consider pygments requiring setuptools to build properly
-      overrides = self: super: {
-        pygments = super.pygments.overridePythonAttrs (
-          old: {
-            preUnpack =
-              ''
-                export HOME=$(mktemp -d)
-                rm -rf /homeless-shelter
-              ''
-              + (old.preUnpack or "");
-            buildInputs = [super.setuptools];
-          }
-        );
+      jobs."myPythonEnvironment" = makePythonEnvironment {
+        pythonProjectDir = projectPath "/makes/example";
+        pythonVersion = "3.11";
+        preferWheels = true;
+        # Consider pygments requiring setuptools to build properly
+        overrides = self: super: {
+          pygments = super.pygments.overridePythonAttrs (
+            old: {
+              preUnpack =
+                ''
+                  export HOME=$(mktemp -d)
+                  rm -rf /homeless-shelter
+                ''
+                + (old.preUnpack or "");
+              buildInputs = [super.setuptools];
+            }
+          );
+        };
       };
     }
     ```
@@ -101,32 +98,29 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { makePythonPoetryEnvironment, projectPath, ... }:
     {
-      makePythonPoetryEnvironment,
-      projectPath,
-      ...
-    }:
-    makePythonPoetryEnvironment {
-      pythonProjectDir = projectPath "/makes/example";
-      pythonVersion = "3.11";
-      preferWheels = true;
-      # Consider pygments requiring setuptools to build properly
-      overrides = self: super: {
-        pygments = super.pygments.overridePythonAttrs (
-          old: {
-            preUnpack =
-              ''
-                export HOME=$(mktemp -d)
-                rm -rf /homeless-shelter
-              ''
-              + (old.preUnpack or "");
-            buildInputs = [super.setuptools];
-          }
-        );
+      jobs."myPythonPoetryEnvironment" = makePythonPoetryEnvironment {
+        pythonProjectDir = projectPath "/makes/example";
+        pythonVersion = "3.11";
+        preferWheels = true;
+        # Consider pygments requiring setuptools to build properly
+        overrides = self: super: {
+          pygments = super.pygments.overridePythonAttrs (
+            old: {
+              preUnpack =
+                ''
+                  export HOME=$(mktemp -d)
+                  rm -rf /homeless-shelter
+                ''
+                + (old.preUnpack or "");
+              buildInputs = [super.setuptools];
+            }
+          );
+        };
       };
     }
     ```
@@ -191,16 +185,10 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
-    {
-      inputs,
-      makeScript,
-      makePythonPyprojectPackage,
-      ...
-    }: let
+    { inputs, makeScript, makePythonPyprojectPackage, ... }: let
       nixpkgs = inputs.nixpkgs;
       python_version = "python311";
       python_pkgs = nixpkgs."${python_version}Packages";
@@ -219,16 +207,14 @@ Example:
       };
       env = bundle.env.runtime;
     in
-      makeScript {
-        name = "my-cli";
-        searchPaths = {
-          bin = [
-            env
-          ];
+      {
+        jobs."myPythonPyprojectPackage" = makeScript {
+          name = "myPythonPyprojectPackage";
+          searchPaths.bin = [ env ];
+          entrypoint = ''my-cli "$@"'';
+          # Assuming that the pyproject conf has
+          # a definition of `my-cli` as a cli entrypoint
         };
-        entrypoint = "my-cli \"\${@}\"";
-        # Assuming that the pyproject conf has
-        # a definition of `my-cli` as a cli entrypoint
       }
     ```
 
@@ -265,16 +251,10 @@ Types:
 
 Example:
 
-=== "my-env/makes.nix"
+=== "makes.nix"
 
     ```nix
-    {
-      inputs,
-      makePythonPyprojectPackage,
-      makePythonVscodeSettings,
-      projectPath,
-      ...
-    }: let
+    { inputs, makePythonPyprojectPackage, makePythonVscodeSettings, outputs, projectPath, ... }: let
       root = projectPath "/my_package";
       bundle = makePythonPyprojectPackage {
         inherit (inputs) buildEnv buildPythonPackage;
@@ -289,23 +269,14 @@ Example:
         src = root;
       };
     in
-      makePythonVscodeSettings {
-        env = bundle.env.dev;
-        bins = [];
-        name = "my-package-env-dev";
-      }
-    ```
-
-=== "makes.nix"
-
-    ```nix
-    {outputs, ...}: {
-      dev = {
-        myPackage = {
-          source = [outputs."/my-env"];
+      {
+        jobs."myPythonVscodeSettings" = makePythonVscodeSettings {
+          env = bundle.env.dev;
+          bins = [];
+          name = "my-package-env-dev";
         };
-      };
-    }
+        dev.myPackage.source = [outputs."/my-env"];
+      }
     ```
 
 === ".envrc"

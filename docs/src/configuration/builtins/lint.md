@@ -31,12 +31,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /lintBash
-    ```
-
 ## lintGitMailMap
 
 Lint the [Git mailmap](https://git-scm.com/docs/gitmailmap)
@@ -64,12 +58,6 @@ Example:
         exclude = "^.* <.*noreply@github.com>$";
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /lintGitMailMap
     ```
 
 ## lintNix
@@ -100,12 +88,6 @@ Example:
         ];
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /lintNix
     ```
 
 ## lintTerraform
@@ -157,12 +139,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /lintTerraform/module1
-    ```
-
 ## lintWithAjv
 
 ???+ warning
@@ -208,10 +184,4 @@ Example:
         };
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /lintWithAjv/users
     ```

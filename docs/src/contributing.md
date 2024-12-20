@@ -34,11 +34,8 @@ If you're adding new files, make sure to `git add` them first.
 
 #### Adding tests
 
-- All new [builtins](https://makes.fluidattacks.tech/api/builtins/) must be
-  tested.
-- You can add tests to either `/makes.nix` or `/makes/your-builtin/main.nix`
-  depending on the nature of the builtin.
-- Make sure to add such tests
+- Tests are located under `tests`.
+- Make sure to add new tests
   to the [GitHub Actions pipelines](https://github.com/fluidattacks/makes/tree/main/.github/workflows)
   as well.
 

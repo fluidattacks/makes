@@ -45,12 +45,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ``` bash
-    DAEMON=false m . /dyanmoDb/usersdb
-    ```
-
 The following variables are available:
 
 - HOST

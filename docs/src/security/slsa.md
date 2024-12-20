@@ -152,7 +152,7 @@ each time new changes are pushed to the repository.
 For example:
 
 - [.github/workflows/prod.yml](https://github.com/fluidattacks/makes/blob/27b4938a95990e3239626bf7f5c67e1f60ed8e21/.github/workflows/prod.yml)
-- [makes/cli/pypi/main.nix](https://github.com/fluidattacks/makes/blob/27b4938a95990e3239626bf7f5c67e1f60ed8e21/makes/cli/pypi/main.nix)
+- [src/cli/makes.nix](https://github.com/fluidattacks/makes/blob/19a2a579557204859dfa647967bbc4db32616f35/src/cli/makes.nix)
 
 ### Build Service
 

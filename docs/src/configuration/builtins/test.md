@@ -20,12 +20,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /testLicense
-    ```
-
 ## testTerraform
 
 Test Terraform code
@@ -73,10 +67,4 @@ Example:
         };
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    $ m . /testTerraform/module1
     ```

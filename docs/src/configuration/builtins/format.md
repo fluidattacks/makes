@@ -31,12 +31,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /formatBash
-    ```
-
 ## formatMarkdown
 
 ???+ warning
@@ -71,12 +65,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /formatMarkdown
-    ```
-
 ## formatNix
 
 Ensure that Nix code is formatted
@@ -106,12 +94,6 @@ Example:
         ];
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /formatNix
     ```
 
 ## formatTerraform
@@ -145,12 +127,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /formatTerraform
-    ```
-
 ## formatYaml
 
 Ensure that YAML code
@@ -180,10 +156,4 @@ Example:
         ];
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /formatYaml
     ```

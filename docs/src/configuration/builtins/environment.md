@@ -44,12 +44,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /envVars/example
-    ```
-
 ## envVarsForTerraform
 
 ???+ warning
@@ -100,12 +94,6 @@ Example:
 
     ```tf
     variable "awsDefaultRegion" {}
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /envVarsForTerraform/example
     ```
 
 [makes_secrets]: ./secrets.md

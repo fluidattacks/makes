@@ -15,17 +15,15 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { fetchUrl, ... }:
     {
-      fetchUrl,
-      ...
-    }:
-    fetchUrl {
-      url = "https://github.com/fluidattacks/makes/blob/16aafa1e3ed4cc99eb354842341fbf6f478a211c/README.md";
-      sha256 = "18scrymrar0bv7s92hfqfb01bv5pibyjw6dxp3i8nylmnh6gjv15";
+      jobs."myUrl" = fetchUrl {
+        url = "https://github.com/fluidattacks/makes/blob/16aafa1e3ed4cc99eb354842341fbf6f478a211c/README.md";
+        sha256 = "18scrymrar0bv7s92hfqfb01bv5pibyjw6dxp3i8nylmnh6gjv15";
+      };
     }
     ```
 
@@ -52,17 +50,15 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { fetchArchive, ... }:
     {
-      fetchArchive,
-      ...
-    }:
-    fetchArchive {
-      url = "https://github.com/fluidattacks/makes/archive/16aafa1e3ed4cc99eb354842341fbf6f478a211c.zip";
-      sha256 = "16zx89lzv5n048h5l9f8dgpvdj0l38hx7aapc7h1d1mjc1ca2i6a";
+      jobs."myArchive" = fetchArchive {
+        url = "https://github.com/fluidattacks/makes/archive/16aafa1e3ed4cc99eb354842341fbf6f478a211c.zip";
+        sha256 = "16zx89lzv5n048h5l9f8dgpvdj0l38hx7aapc7h1d1mjc1ca2i6a";
+      };
     }
     ```
 
@@ -98,20 +94,16 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
-    {
-      fetchNixpkgs,
-      ...
-    }:
+    { fetchNixpkgs, ... }:
     let nixpkgs = fetchNixpkgs {
       rev = "f88fc7a04249cf230377dd11e04bf125d45e9abe";
       sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
     };
     in
-    nixpkgs.awscli
+    { jobs."myNixpkgsAws" = nixpkgs.awscli; }
     ```
 
 ## fetchRubyGem
@@ -132,16 +124,14 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { fetchRubyGem, ... }:
     {
-      fetchRubyGem,
-      ...
-    }:
-    fetchRubyGem {
-      sha256 = "04nc8x27hlzlrr5c2gn7mar4vdr0apw5xg22wp6m8dx3wqr04a0y";
-      url = "https://rubygems.org/downloads/ast-2.4.2.gem";
+      jobs."/myRubyGeb" = fetchRubyGem {
+        sha256 = "04nc8x27hlzlrr5c2gn7mar4vdr0apw5xg22wp6m8dx3wqr04a0y";
+        url = "https://rubygems.org/downloads/ast-2.4.2.gem";
+      };
     }
     ```

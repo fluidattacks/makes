@@ -1,6 +1,6 @@
 # 🦄 Makes
 
-A software supply chain framework
+A CI/CD framework
 powered by [Nix](https://nixos.org/).
 
 ![Makes demo](/docs/src/assets/demo.svg "Makes demo")
@@ -63,7 +63,3 @@ See https://makes.fluidattacks.tech
 Found a bug?
 create a new item
 in the project's [issues](https://github.com/fluidattacks/makes/issues)
-
-## Examples
-
-See the [hands-on example](https://github.com/fluidattacks/makes-example)!

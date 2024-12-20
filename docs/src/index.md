@@ -1,6 +1,6 @@
 # Overview
 
-A software supply chain framework
+A CI/CD framework
 powered by [Nix](https://nixos.org/).
 
 ![Makes demo](assets/demo.svg "Makes demo")
