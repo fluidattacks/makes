@@ -19,18 +19,16 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
+    { makeRubyGemsInstall, ... }:
     {
-      makeRubyGemsInstall,
-      ...
-    }:
-    makeRubyGemsInstall {
-      name = "example";
-      ruby = "3.1";
-      sourcesYaml = projectPath "/makes/example/sources.yaml";
+      jobs."myRubyGemsInstall" = makeRubyGemsInstall {
+        name = "example";
+        ruby = "3.1";
+        sourcesYaml = projectPath "/makes/example/sources.yaml";
+      };
     }
     ```
 
@@ -66,16 +64,10 @@ Types:
 
 Example:
 
-=== "main.nix"
+=== "makes.nix"
 
     ```nix
-    # /path/to/my/project/makes/example/main.nix
-    {
-      inputs,
-      makeRubyGemsEnvironment,
-      makeScript,
-      ...
-    }:
+    { inputs, makeRubyGemsEnvironment, makeScript, ... }:
     let
       env = makeRubyGemsEnvironment {
         name = "example";
@@ -85,21 +77,13 @@ Example:
         sourcesYaml = projectPath "/makes/example/sources.yaml";
       };
     in
-    makeScript {
-      entrypoint = ''
-        slimrb --version
-      '';
-      name = "example";
-      searchPaths.source = [ env ];
+    {
+      jobs."myRubyGemsEnvironment" = makeScript {
+        entrypoint = "slimrb --version";
+        name = "example";
+        searchPaths.source = [ env ];
+      };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    $ m . /example
-
-        Slim 4.1.0
     ```
 
 ???+ tip

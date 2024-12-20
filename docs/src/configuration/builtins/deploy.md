@@ -122,12 +122,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /computeOnAwsBatch/myJob 1 2 3
-    ```
-
 Note that positional arguments (`[ "1" "2" "3" ]` in this case)
 will be appended to the end of `command`
 before sending the job to Batch.
@@ -359,12 +353,6 @@ Example:
         };
       };
     }
-    ```
-
-=== "Invocation"
-
-    ```bash
-    m . /deployTerraform/module1
     ```
 
 [makes_environment]: ./environment.md

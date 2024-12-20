@@ -108,29 +108,32 @@ plugins:
 nav:
   - index.md
   - getting-started.md
-  - API:
-      - builtins:
-          - api/builtins/index.md
-          - api/builtins/database.md
-          - api/builtins/deploy.md
-          - api/builtins/development.md
-          - api/builtins/environment.md
-          - api/builtins/format.md
-          - api/builtins/framework-configuration.md
-          - api/builtins/lint.md
-          - api/builtins/performance.md
-          - api/builtins/secrets.md
-          - api/builtins/test.md
-          - api/builtins/utilities.md
-      - extensions:
-          - api/extensions/index.md
-          - api/extensions/fundamentals.md
-          - api/extensions/containers.md
-          - api/extensions/fetchers.md
-          - api/extensions/format-conversion.md
-          - api/extensions/others.md
-          - api/extensions/python.md
-          - api/extensions/ruby.md
+  - Configuration:
+      - configuration/index.md
+      - configuration/essentials.md
+      - configuration/core-functions.md
+      - Secondary functions:
+          - configuration/secondary-functions/index.md
+          - configuration/secondary-functions/containers.md
+          - configuration/secondary-functions/fetchers.md
+          - configuration/secondary-functions/format-conversion.md
+          - configuration/secondary-functions/others.md
+          - configuration/secondary-functions/python.md
+          - configuration/secondary-functions/ruby.md
+      - Builtins:
+          - configuration/builtins/index.md
+          - configuration/builtins/database.md
+          - configuration/builtins/deploy.md
+          - configuration/builtins/development.md
+          - configuration/builtins/environment.md
+          - configuration/builtins/format.md
+          - configuration/builtins/lint.md
+          - configuration/builtins/secrets.md
+          - configuration/builtins/test.md
+          - configuration/builtins/utilities.md
+  - Running Makes:
+      - running-makes/cli.md
+      - running-makes/container.md
   - versioning.md
   - architecture.md
   - contributing.md

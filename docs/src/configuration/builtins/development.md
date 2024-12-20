@@ -39,12 +39,6 @@ Example:
     }
     ```
 
-=== "Invocation"
-
-    ```bash
-    m . /dev/example
-    ```
-
 ---
 
 Example usage with direnv:
