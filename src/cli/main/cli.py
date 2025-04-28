@@ -277,6 +277,7 @@ def _nix_build(
         *["--argstr", "projectSrc", head],
         *["--argstr", "attrPaths", attr_paths],
         *["--attr", attr],
+        *["--option", "experimental-features", "flakes nix-command"],
         *["--option", "cores", "0"],
         *["--option", "narinfo-cache-negative-ttl", "1"],
         *["--option", "narinfo-cache-positive-ttl", "1"],
@@ -294,6 +295,7 @@ def _nix_hashes(paths: bytes) -> List[str]:
     cmd = [
         "xargs",
         f"{__NIX__}/bin/nix-store",
+        "--option", "experimental-features", "flakes nix-command",
         "--query",
         "--hash",
     ]
@@ -306,13 +308,18 @@ def _nix_hashes(paths: bytes) -> List[str]:
 
 def _nix_build_requisites(path: str) -> List[Tuple[str, str]]:
     """Answer the question: what do I need to build `out`."""
-    cmd = [f"{__NIX__}/bin/nix-store", "--query", "--deriver", path]
+    cmd = [f"{__NIX__}/bin/nix-store",
+           "--option", "experimental-features", "flakes nix-command",
+           "--query",
+           "--deriver",
+           path]
     out, stdout, _ = _run_outputs(cmd, stderr=None)
     if out != 0:
         raise SystemExit(out)
 
     cmd = [
         f"{__NIX__}/bin/nix-store",
+        "--option", "experimental-features", "flakes nix-command",
         "--query",
         "--requisites",
         "--include-outputs",
