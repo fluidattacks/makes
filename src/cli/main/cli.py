@@ -349,15 +349,9 @@ def _get_head(src: str) -> str:
     if abspath(src) == CWD:  # `m .` ?
         paths: Set[str] = set()
 
-        # Propagated `git add`ed files
-        cmd = ["git", "-C", src, "diff", "--cached", "--name-only"]
-        out, stdout, _ = _run_outputs(cmd, stderr=None)
-        if out != 0:
-            raise SystemExit(out)
-        paths.update(stdout.decode().splitlines())
-
-        # Propagated modified files
-        cmd = ["git", "-C", src, "ls-files", "--modified"]
+        # Propagated all tracked files
+        cmd = ["git", "-C", src, "ls-files", "--recurse-submodules",
+               "--full-name", "--no-empty-directory"]
         out, stdout, _ = _run_outputs(cmd, stderr=None)
         if out != 0:
             raise SystemExit(out)
@@ -369,7 +363,9 @@ def _get_head(src: str) -> str:
             path = join(src, path)
             if not exists(dirname(dest)):
                 makedirs(dirname(dest))
-            if exists(path):
+            # check if path is a file because git ls-files
+            # can return empty dirs for uninitialized submodule dirs
+            if exists(path) and os.path.isfile(path):
                 shutil.copy(path, dest)
             else:
                 remove(dest)
