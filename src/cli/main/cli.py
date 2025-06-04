@@ -277,6 +277,7 @@ def _nix_build(
         *["--argstr", "projectSrc", head],
         *["--argstr", "attrPaths", attr_paths],
         *["--attr", attr],
+        *["--fallback"],
         *["--option", "experimental-features", "flakes nix-command"],
         *["--option", "cores", "0"],
         *["--option", "narinfo-cache-negative-ttl", "1"],
