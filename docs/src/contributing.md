@@ -29,7 +29,7 @@ If you're adding new files, make sure to `git add` them first.
 #### Adding documentation
 
 - All changes must be documented in the same PR.
-- You can run `m . /docs/dev` to serve the [docs site](https://makes.fluidattacks.tech)
+- You can run `m . /docs/dev` to serve the docs site
   on localhost.
 
 #### Adding tests
