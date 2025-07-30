@@ -1,3 +1,13 @@
+# ⚠️ Deprecation notice ⚠️
+
+After a [thorough review](https://gitlab.com/fluidattacks/universe/-/issues/14974#note_2427180773) of Makes and other build system alternatives, Fluid Attacks has decided to transition fully to [Nix Flakes](https://nixos.wiki/wiki/Flakes) for all our builds.
+
+This decision brings significant benefits, including the opportunity to rely on and contribute to the incredible Nix community instead of maintaining our own build system.
+
+It also means that Makes is no longer maintained and will be archived.
+
+More information can be found at https://github.com/fluidattacks/makes/issues/1439.
+
 # 🦄 Makes
 
 A CI/CD framework
@@ -52,11 +62,11 @@ It is
 
 ## Installation
 
-[Installation](https://makes.fluidattacks.tech/getting-started/#installation)
+[Installation](https://github.com/fluidattacks/makes/blob/main/docs/src/getting-started.md)
 
 ## Documentation
 
-See https://makes.fluidattacks.tech
+You can run `m . /docs/dev` to serve the docs site on localhost or directly see the `docs/src` directory.
 
 ## Issues
 
